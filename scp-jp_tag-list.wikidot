@@ -1,0 +1,127 @@
+[[include :scp-jp:credit:start |mode=no-rate]]
+
+**タイトル:** タグリスト
+**著者:** SCP財団
+**作成年:** 2021
+----
+本ページはSCPコミュニティのために作成され、SCP財団に帰属します。本ページの管理は[[[meet-the-staff-jp|サイトスタッフ]]]に委任されています。
+
+[[include :scp-jp:credit:end]]
+
+[[div class="toc-box"]]
+[[div class="pseudo-title"]]
+**目次**
+[[/div]]
+[[collapsible show="開く" hide="閉じる"]]
+----
+[#basic 基本的なタグ]
+[#series シリーズタグ]
+　[#canon カノン]
+　[#tale-series Taleシリーズ / 連作]
+[#universe 世界観用語タグ]
+　[#goi 要注意団体]
+　[#sub-org 財団下部組織]
+　[#character キャラクター]
+　[#location ロケーション]
+[#event イベントタグ]
+[#uncategorized 未分類タグ]
+[#unused 非使用タグ]
+[#faq FAQ]
+[[/collapsible]]
+[[/div]]
+
+[[module CSS]]
+.toc-box {position: fixed;right: 5px;bottom: 3.2em;padding-left: 0;padding-right: 0; z-index: 10;}.toc-box .pseudo-title {margin: 0.2em 0;padding: 0 2em;text-align: center;}.toc-box hr {margin: 0;padding: 0;background-color: transparent;border: none;border-bottom: 1px dashed gray;}.toc-box #toc {font-size: 95%;min-width: 80px;max-width: 200px;word-break: break-all;border: none!important;}.toc-box #toc .title,.toc-box #toc #toc-action-bar,.toc-box #toc #toc-action-bar a {display: none!important;}.toc-box {margin: 1em auto 1em 0;padding: 0em 1em;border: 1px dashed gray;background-color: #F7F7F7;display: table;}.toc-box #toc-list div {margin-left: 0!important;}.toc-box .collapsible-block-unfolded-link,.toc-box .collapsible-block-folded {text-align: center;}@media (max-width: 767px) {.toc-box {animation-name: clear; animation-duration: 1s; animation-delay: 1s; animation-fill-mode: forwards;}.toc-box:hover {animation: none;}}@keyframes clear {to {opacity: 0.45;}}
+[[/module]]
+[!-- 基本的なタグ --]
+[[include :scp-jp:fragment:tag-list-basic]]
+[!-- シリーズタグ --]
+[[include :scp-jp:fragment:tag-list-series]]
+[!-- 世界観タグ --]
+[[include :scp-jp:fragment:tag-list-universe]]
+[!-- イベントタグ --]
+[[include :scp-jp:fragment:tag-list-event]]
+
++ その他のタグ[[# uncategorized]]
+上のいずれの分類にも属さないタグです。
+[[div class="tab-basic"]]
+[[tabview]]
+[[tab 最小化]]
+[[/tab]]
+[[tab アンソロジータグ]]
+固定のメンバーによる、(特定の世界観に限らない)テーマの下に投稿された記事群に付与されるタグです。
+* **[[[/system:page-tags/tag/始のいろは|始のいろは]]]** - アンソロジー「[/iroha-the-begining-hub 始のいろは]」。
+* **[[[/system:page-tags/tag/scp漢字ドリル|scp漢字ドリル]]]** - アンソロジー「[/scp-kanji-drill-hub SCP漢字ドリル]」。
+* **[[[/system:page-tags/tag/t-arot|t-arot]]]** - アンソロジー「[/tarot-in-a-caramel-box Tale - Artwork Resonance On Tarot]」。
+[[/tab]]
+[[tab 未分類タグ]]
+属す分類が検討中であるものの、タグ登録の価値が認められ、暫定で登録されているタグです。これらのタグは、早急に適切な分類をされる必要があります。
+* 現在、未分類タグは存在しません。
+[[/tab]]
+[[/tabview]]
+[[/div]]
+[[>]]
+[#event 項目上部へ戻る]
+[[/>]]
+----
+
+[!-- 非使用タグ --]
+[[include :scp-jp:fragment:tag-list-unused]]
+[!-- FAQ --]
+[[include :scp-jp:fragment:tag-list-faq]]
+
+[!-- 
+当ページはフラグメントページを使用しています。
+以下はその一覧です。
+http://scp-jp.wikidot.com/fragment:tag-list-basic
+http://scp-jp.wikidot.com/fragment:tag-list-series
+http://scp-jp.wikidot.com/fragment:tag-list-universe
+http://scp-jp.wikidot.com/fragment:tag-list-event
+http://scp-jp.wikidot.com/fragment:tag-list-unused
+http://scp-jp.wikidot.com/fragment:tag-list-faq
+--]
+
+
+[[module CSS]]
+
+.untouchable a {
+color: #990011;
+pointer-events: none;
+}
+
+[[/module]]
+
+
+[[module CSS]]
+.tab-basic .yui-nav>li:nth-child(1).selected {
+    display: none;
+}
+
+.tab-basic .yui-nav>li:nth-child(1) {
+    width: 100%;
+}
+
+.yui-content li {
+    margin: .7em .5em .7em 0;
+}
+
+.yui-content ul {
+    padding-inline-start: 25px;
+}
+
+.attribute ul ul {
+    list-style-type: circle;
+    margin-top: -.5em;
+    margin-bottom: 1.5em;
+}
+
+.attribute ul ul li{
+    margin-bottom: -.7em;
+}
+
+#page-content .unusedList > ul > li > strong > a {
+    pointer-events: none;
+    color: #d61;
+}
+
+[[/module]]

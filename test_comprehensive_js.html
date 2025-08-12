@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comprehensive JS Test</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Comprehensive JavaScript Segmentation Test</h1>
+    <pre id="results"></pre>
+    
+    <script>
+        // Load the actual dictionary
+        fetch('./dictionaries/en_to_jp.json')
+            .then(response => response.json())
+            .then(dictionary => runTests(dictionary))
+            .catch(error => {
+                document.getElementById("results").textContent = "Error loading dictionary: " + error;
+            });
+        
+        function splitConcatenatedTags(token, dictionary) {
+            // EXACT copy from index.html
+            const dictKeySet = new Set(Object.keys(dictionary));
+            
+            const n = token.length;
+            
+            const dp = Array(n + 1).fill(null);
+            dp[0] = [];
+            
+            for (let i = 1; i <= n; i++) {
+                for (let j = 0; j < i; j++) {
+                    const segment = token.substring(j, i);
+                    
+                    if (dictKeySet.has(segment) && dp[j] !== null) {
+                        const newSplitCount = dp[j].length + 1;
+                        // This check is weird - it will never be true because length is always >= 0
+                        if (newSplitCount < 0) {
+                            return; 
+                        }
+                        if (dp[i] === null || newSplitCount < dp[i].length) {
+                            dp[i] = [...dp[j], segment];
+                        }
+                    }
+                }
+            }
+            
+            if (dp[n] === null) {
+                return [token];
+            }
+            
+            return dp[n];
+        }
+        
+        function runTests(dictionary) {
+            const testCases = [
+                "autonomoushumanoid",
+                "humanoidsentient", 
+                "safeketer",
+                "euclidketer",
+                "autonomoussentient",
+                "biohazardcognitohazard",
+                "nonexistentautonomous",
+                // Edge cases
+                "safe",  // Single tag
+                "",      // Empty
+                "a",     // Single character
+                "aaaa"   // Repeated character
+            ];
+            
+            let results = "=== JavaScript Segmentation Results ===\n\n";
+            results += `Dictionary loaded: ${Object.keys(dictionary).length} tags\n\n`;
+            
+            testCases.forEach(test => {
+                const segmented = splitConcatenatedTags(test, dictionary);
+                const translations = segmented ? segmented.map(s => dictionary[s] || s) : ["ERROR"];
+                results += `"${test}":\n`;
+                results += `  Segments: [${segmented ? segmented.join(", ") : "ERROR"}]\n`;
+                results += `  Translations: [${translations.join(", ")}]\n`;
+                results += `  Final output: ${translations.join(" ")}\n\n`;
+            });
+            
+            // Test the actual index.html flow
+            results += "\n=== Full Translation Flow Test ===\n\n";
+            
+            const simulateFullTranslation = (inputStr, srcLang) => {
+                const tokens = inputStr.split(/\s+/);
+                let allTags = [];
+                
+                tokens.forEach((token) => {
+                    if (dictionary.hasOwnProperty(token)) {
+                        allTags.push(token);
+                    } else {
+                        const splitted = splitConcatenatedTags(token, dictionary);
+                        allTags = allTags.concat(splitted);
+                    }
+                });
+                
+                const translatedList = [];
+                const skippedList = [];
+                
+                allTags.forEach((tag) => {
+                    if (!dictionary.hasOwnProperty(tag)) {
+                        skippedList.push(`${tag} (未定義)`);
+                    } else {
+                        if (dictionary[tag] === null) {
+                            skippedList.push(`${tag} (非使用タグ)`);
+                        } else {
+                            translatedList.push(dictionary[tag]);
+                        }
+                    }
+                });
+                
+                // Add source language tag
+                const recognizedLangs = ["cn", "cs", "de", "en", "es", "fr", "it", "jp", "ko", "pl", "pt", "ru", "th", "ua", "vn", "zh"];
+                if (recognizedLangs.includes(srcLang)) {
+                    if (!translatedList.includes(srcLang)) {
+                        translatedList.unshift(srcLang);
+                    }
+                }
+                
+                return {
+                    output: translatedList.join(" "),
+                    skipped: skippedList
+                };
+            };
+            
+            const fullTestCases = [
+                "autonomoushumanoid safe",
+                "safeketer euclidketer",
+                "humanoidsentient biohazard"
+            ];
+            
+            fullTestCases.forEach(test => {
+                const result = simulateFullTranslation(test, "en");
+                results += `Input: "${test}"\n`;
+                results += `Output: "${result.output}"\n`;
+                if (result.skipped.length > 0) {
+                    results += `Skipped: ${result.skipped.join(", ")}\n`;
+                }
+                results += "\n";
+            });
+            
+            document.getElementById("results").textContent = results;
+        }
+    </script>
+</body>
+</html>

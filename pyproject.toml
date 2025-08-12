@@ -1,0 +1,71 @@
+[project]
+name = "scpwiki-tag-translator"
+version = "0.1.0"
+description = "SCP Foundation tag translation tool (EN→JP)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+    {name = "SCP-JP Community"}
+]
+dependencies = [
+    "wikidot>=0.3.0",
+]
+
+[project.scripts]
+scp-tag-translator = "scpwiki_tag_translator.cli_improved:main"
+
+[project.urls]
+Homepage = "https://github.com/scp-jp/scp-tag-translation"
+Repository = "https://github.com/scp-jp/scp-tag-translation"
+"Bug Tracker" = "https://github.com/scp-jp/scp-tag-translation/issues"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.11.0",
+    "mypy>=1.8.0",
+    "pytest>=8.4.0",
+    "pre-commit>=4.2.0",
+    "pytest-cov>=6.2.1",
+]
+test = [
+    "pytest>=8.4.0",
+    "pytest-cov>=4.1.0",
+]
+lint = [
+    "ruff>=0.11.0",
+    "mypy>=1.8.0",
+]
+
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.uv]
+managed = true
+package = true  # パッケージとして設定
+compile-bytecode = true
+prerelease = "disallow"
+resolution = "highest"
+index-strategy = "first-index"
+
+[tool.ruff]
+line-length = 120
+# Python version is auto-detected from requires-python
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+ignore = ["E501"]  # Line too long - 既存コードとの互換性のため
+
+[tool.mypy]
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+python_version = "3.10"
+# wikidotライブラリは型ヒントがないため除外
+[[tool.mypy.overrides]]
+module = "wikidot.*"
+ignore_missing_imports = true

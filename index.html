@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SCPタグ翻訳ツール</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      /* ベーススタイル */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        line-height: 1.4;
+        background-color: #f8f8f8;
+        color: #333;
+      }
+
+      header {
+        padding: 1rem;
+        background-color: #f0f0f0;
+        border-bottom: 1px solid #ccc;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 1.25rem;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 900px; /* ログ領域のはみ出しを防止 */
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        padding: 1rem;
+        box-sizing: border-box;
+      }
+
+      .column {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        min-width: 0; /* フレックス縮小時に要素がはみ出さないように */
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      select {
+        padding: 0.25rem;
+        font-size: 0.9rem;
+      }
+
+      textarea {
+        width: 100%;
+        height: 8rem;
+        box-sizing: border-box;
+        resize: vertical;
+        font-family: monospace;
+        font-size: 0.95rem;
+        padding: 0.5rem;
+      }
+
+      .buttons {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        margin: 0.5rem 0;
+      }
+
+      .button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f0f0f0;
+      }
+
+      /* ログ表示欄 */
+      #logArea {
+        width: 100%;
+        height: 6rem;
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        white-space: pre-wrap;
+        overflow-y: auto;
+        background-color: #f7f7f7;
+        color: #444;
+        box-sizing: border-box;
+      }
+
+      /* ローディング表示（テキスト＋アニメーション） */
+      #loadingIndicator {
+        display: none; /* 初期は非表示 */
+        font-size: 0.95rem;
+        color: #333;
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .spinner {
+        width: 20px;
+        height: 20px;
+        border: 3px solid #ccc;
+        border-top: 3px solid #66a;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-right: 8px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ダークモード */
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #222;
+          color: #eee;
+        }
+        header,
+        .container {
+          background-color: #333;
+        }
+        select,
+        textarea {
+          background-color: #555;
+          color: #eee;
+          border: 1px solid #aaa;
+        }
+        .button {
+          background-color: #444;
+          color: #eee;
+          border: 1px solid #aaa;
+        }
+        #logArea {
+          background-color: #444;
+          color: #ccc;
+        }
+        #loadingIndicator {
+          color: #ccc;
+        }
+        .spinner {
+          border: 3px solid #aaa;
+          border-top: 3px solid #fff;
+        }
+      }
+
+      /* 画面幅が狭い場合: 縦配置に切り替え */
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>SCPタグ翻訳ツール</h1>
+    </header>
+
+    <!-- メインの2カラム: 翻訳元 / 翻訳先 -->
+    <div class="container">
+      <div class="column">
+        <label for="sourceLang">翻訳元言語</label>
+        <select id="sourceLang" disabled>
+          <option value="en" selected>English (en) - 現在対応済み</option>
+        </select>
+
+        <textarea id="sourceText" placeholder="翻訳したいタグを入力"></textarea>
+      </div>
+
+      <div class="column">
+        <label for="targetLang">翻訳先言語</label>
+        <select id="targetLang" disabled>
+          <option value="jp" selected>日本語 (jp) - 現在対応済み</option>
+        </select>
+
+        <textarea
+          id="targetText"
+          readonly
+          placeholder="翻訳結果が表示されます"
+        ></textarea>
+
+        <div class="buttons">
+          <!-- コピー ボタン -->
+          <button class="button" id="btnCopy">コピー</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ログ表示欄 -->
+    <div class="container" style="flex-direction: column">
+      <div class="column">
+        <label>ログ</label>
+        <div id="logArea" aria-readonly="true"></div>
+
+        <!-- ローディング表示エリア -->
+        <div id="loadingIndicator">
+          <div class="spinner"></div>
+          <span>辞書を読み込んでいます...</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      "use strict";
+
+      // 対応可能な言語支部タグ一覧
+      const recognizedLangs = [
+        "cn",
+        "cs",
+        "de",
+        "en",
+        "es",
+        "fr",
+        "it",
+        "jp",
+        "ko",
+        "pl",
+        "pt",
+        "ru",
+        "th",
+        "ua",
+        "vn",
+        "zh",
+      ];
+
+      const dictionaryCache = {}; // ペアごとの辞書キャッシュ
+      const loadingIndicator = document.getElementById("loadingIndicator");
+
+      window.addEventListener("DOMContentLoaded", () => {
+        setupUI();
+        doTranslate(); // ページ読み込み時に1度実行
+      });
+
+      function setupUI() {
+        document
+          .getElementById("sourceLang")
+          .addEventListener("change", doTranslate);
+        document
+          .getElementById("targetLang")
+          .addEventListener("change", doTranslate);
+        document
+          .getElementById("sourceText")
+          .addEventListener("input", doTranslate);
+        document
+          .getElementById("btnCopy")
+          .addEventListener("click", copyResult);
+      }
+
+      /**
+       * メインの翻訳処理
+       */
+      function doTranslate() {
+        clearLog();
+        showLoading(true);
+
+        const srcLang = document.getElementById("sourceLang").value;
+        const tgtLang = document.getElementById("targetLang").value;
+        const mapKey = `${srcLang}_to_${tgtLang}`;
+        const inputStr = document.getElementById("sourceText").value.trim();
+
+        // Basic input validation
+        if (!inputStr) {
+          // 入力が空のときは翻訳結果をクリアし、ローディング非表示
+          document.getElementById("targetText").value = "";
+          showLoading(false);
+          return;
+        }
+
+        // Length validation (based on actual SCP tag analysis: 3-29 chars per tag)
+        if (inputStr.length > 500) {  // Allow for multiple concatenated tags
+          setLog("【エラー】入力が長すぎます（500文字以内にしてください）");
+          document.getElementById("targetText").value = "";
+          showLoading(false);
+          return;
+        }
+
+        // Character validation (allow common separators used by translators)
+        if (!/^[a-zA-Z0-9\-_\s,;\n\r]+$/.test(inputStr)) {
+          setLog("【エラー】無効な文字が含まれています（英数字、ハイフン、アンダースコア、スペース、コンマ、改行のみ）");
+          document.getElementById("targetText").value = "";
+          showLoading(false);
+          return;
+        }
+
+        // すでに読み込み済みかどうか
+        if (dictionaryCache[mapKey]) {
+          doTranslationWithDictionary(
+            dictionaryCache[mapKey],
+            inputStr,
+            srcLang
+          );
+          showLoading(false);
+        } else {
+          // 辞書ファイルをfetch
+          const url = `./dictionaries/${mapKey}.json`;
+          fetch(url)
+            .then((res) => {
+              if (!res.ok) {
+                throw new Error(`辞書ファイルがありません (${mapKey}.json)`);
+              }
+              return res.json();
+            })
+            .then((data) => {
+              dictionaryCache[mapKey] = data;
+              doTranslationWithDictionary(data, inputStr, srcLang);
+            })
+            .catch((err) => {
+              setLog(
+                `【エラー】辞書ファイル読み込みに失敗。ページを再読み込みしてください。`
+              );
+              console.error(err);
+              document.getElementById("targetText").value = "";
+            })
+            .finally(() => {
+              showLoading(false);
+            });
+        }
+      }
+
+      /**
+       * 辞書データで実際の翻訳を行う
+       * @param {object} dictionary - 翻訳用辞書
+       * @param {string} inputStr - ユーザー入力（タグ文字列）
+       * @param {string} srcLang - 翻訳元言語
+       */
+      function doTranslationWithDictionary(dictionary, inputStr, srcLang) {
+        // Parse input allowing various separators (spaces, commas, semicolons, newlines)
+        const tokens = inputStr.split(/[\s,;\n\r]+/).filter(token => token.length > 0);
+        let allTags = [];
+
+        // 各タグを処理
+        tokens.forEach((token) => {
+          // 単一のタグとして辞書に存在するかチェック
+          if (dictionary.hasOwnProperty(token)) {
+            // 単一のタグとして存在する場合はそのまま追加
+            allTags.push(token);
+          } else {
+            // 存在しない場合は複合タグとして分割処理
+            const splitted = splitConcatenatedTags(token, dictionary);
+            allTags = allTags.concat(splitted);
+          }
+        });
+
+        const translatedList = [];
+        const skippedList = [];
+
+        allTags.forEach((tag) => {
+          if (!dictionary.hasOwnProperty(tag)) {
+            skippedList.push(`${tag} (未定義)`);
+          } else {
+            if (dictionary[tag] === null) {
+              // 非使用タグ
+              skippedList.push(`${tag} (非使用タグ)`);
+            } else {
+              translatedList.push(dictionary[tag]);
+            }
+          }
+        });
+
+        // Remove duplicates while preserving order
+        const uniqueTranslatedList = [...new Set(translatedList)];
+        
+        // ---- 支部タグの追加（翻訳元言語をタグに含める）----
+        // 例: srcLang="en" なら "en" を出力に追加
+        if (recognizedLangs.includes(srcLang)) {
+          // 二重に入るのを避けたいなら、以下のように重複チェックをする
+          if (!uniqueTranslatedList.includes(srcLang)) {
+            // 先頭に追加
+            uniqueTranslatedList.unshift(srcLang);
+          }
+        }
+
+        // 結果をテキストエリアに表示
+        document.getElementById("targetText").value = uniqueTranslatedList.join(" ");
+
+        // スキップのログ
+        if (skippedList.length > 0) {
+          setLog(
+            "【注意】以下のタグはスキップされました：\n" +
+              skippedList.join("\n")
+          );
+        }
+      }
+
+      /**
+       * 連結タグの最長一致分割
+       */
+      function splitConcatenatedTags(token, dictionary) {
+        // 辞書キーをチェックしやすいようにセットに変換
+        const dictKeySet = new Set(Object.keys(dictionary));
+        
+        // 動的計画法で最適な分割を見つける
+        const n = token.length;
+        
+        // dp[i] = 位置iまでの最適な分割
+        const dp = Array(n + 1).fill(null);
+        dp[0] = [];
+        
+        for (let i = 1; i <= n; i++) {
+          for (let j = 0; j < i; j++) {
+            // 部分文字列 j から i までをチェック
+            const segment = token.substring(j, i);
+            
+            // この部分が辞書にあり、j地点までの分割が存在する場合
+            if (dictKeySet.has(segment) && dp[j] !== null) {
+              const newSplitCount = dp[j].length + 1;
+              // Skip this segment if overflow occurs (though mathematically impossible)
+              if (newSplitCount < 0) {
+                continue; 
+              }
+              if (dp[i] === null || newSplitCount < dp[i].length) {
+              dp[i] = [...dp[j], segment];
+              }
+            }
+          }
+        }
+        
+        // 分割できない場合は元のトークンをそのまま返す
+        if (dp[n] === null) {
+          return [token];
+        }
+        
+        return dp[n];
+      }
+
+      /**
+       * コピー機能（フォールバック付き）
+       */
+      function copyResult() {
+        const textArea = document.getElementById("targetText");
+        const text = textArea.value;
+        if (!text) return;
+
+        // 新しいClipboard APIが使えるかチェック
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard
+            .writeText(text)
+            .then(() => setLog("翻訳結果をコピーしました。"))
+            .catch((err) => setLog("コピーに失敗しました: " + err));
+        } else {
+          // 使えない場合はdocument.execCommand('copy')にフォールバック
+          fallbackCopyText(textArea);
+        }
+      }
+
+      /**
+       * execCommand('copy') フォールバック処理
+       */
+      function fallbackCopyText(textAreaElement) {
+        try {
+          // 現在の選択範囲を保存
+          const selection = document.getSelection();
+          const range =
+            selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+
+          // 一時的に編集可能にする（textarea が readonly なら外す）
+          const wasReadOnly = textAreaElement.hasAttribute("readonly");
+          if (wasReadOnly) {
+            textAreaElement.removeAttribute("readonly");
+          }
+
+          // テキストエリア内を全選択
+          textAreaElement.select();
+
+          // コピー実行
+          const result = document.execCommand("copy");
+          if (result) {
+            setLog("翻訳結果をコピーしました。(fallback)");
+          } else {
+            setLog("コピーに失敗しました。(fallback)");
+          }
+
+          // 選択範囲の復元
+          selection.removeAllRanges();
+          if (range) {
+            selection.addRange(range);
+          }
+
+          // 再度 readonly を付与
+          if (wasReadOnly) {
+            textAreaElement.setAttribute("readonly", true);
+          }
+        } catch (err) {
+          setLog("コピーに失敗しました: " + err);
+        }
+      }
+
+      /**
+       * ローディング表示の制御
+       */
+      function showLoading(isLoading) {
+        loadingIndicator.style.display = isLoading ? "flex" : "none";
+      }
+
+      /**
+       * ログをクリア
+       */
+      function clearLog() {
+        document.getElementById("logArea").textContent = "";
+      }
+
+      /**
+       * ログにメッセージを追記
+       */
+      function setLog(message) {
+        const logArea = document.getElementById("logArea");
+        if (logArea.textContent) {
+          logArea.textContent += "\n" + message;
+        } else {
+          logArea.textContent = message;
+        }
+      }
+    </script>
+  </body>
+</html>

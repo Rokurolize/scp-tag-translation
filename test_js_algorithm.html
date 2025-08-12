@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Algorithm Test</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>JavaScript Algorithm Test with Full Dictionary</h1>
+    <pre id="results">Loading dictionary...</pre>
+    
+    <script>
+        // Load the actual dictionary
+        fetch('./dictionaries/en_to_jp.json')
+            .then(res => res.json())
+            .then(dictionary => runTests(dictionary))
+            .catch(err => {
+                document.getElementById('results').textContent = 'Error loading dictionary: ' + err;
+            });
+        
+        function splitConcatenatedTags(token, dictionary) {
+            // Exact copy from index.html
+            const dictKeySet = new Set(Object.keys(dictionary));
+            const n = token.length;
+            const dp = Array(n + 1).fill(null);
+            dp[0] = [];
+            
+            for (let i = 1; i <= n; i++) {
+                for (let j = 0; j < i; j++) {
+                    const segment = token.substring(j, i);
+                    
+                    if (dictKeySet.has(segment) && dp[j] !== null) {
+                        const newSplitCount = dp[j].length + 1;
+                        if (newSplitCount < 0) {
+                            return; 
+                        }
+                        if (dp[i] === null || newSplitCount < dp[i].length) {
+                            dp[i] = [...dp[j], segment];
+                        }
+                    }
+                }
+            }
+            
+            if (dp[n] === null) {
+                return [token];
+            }
+            
+            return dp[n];
+        }
+        
+        function runTests(dictionary) {
+            const testCases = [
+                "autonomoushumanoid",
+                "humanoidsentient",
+                "safeketer",
+                "biohazardcognitohazard",
+                "fireinscription",
+                "autonomous",
+                "humanoid"
+            ];
+            
+            let results = "=== JavaScript Segmentation with Full Dictionary ===\n\n";
+            
+            testCases.forEach(test => {
+                const segmented = splitConcatenatedTags(test, dictionary);
+                const translations = segmented.map(tag => 
+                    dictionary[tag] !== null ? dictionary[tag] : tag
+                );
+                results += `${test.padEnd(25)} → [${segmented.join(", ")}] → ${translations.join(" ")}\n`;
+            });
+            
+            // Test specific behaviors
+            results += "\n=== Specific Edge Cases ===\n";
+            
+            // Test with null translations
+            const tagWithNull = Object.keys(dictionary).find(k => dictionary[k] === null);
+            if (tagWithNull) {
+                results += `Tag with null translation: ${tagWithNull} → ${dictionary[tagWithNull]}\n`;
+            }
+            
+            // Test unknown tag
+            const unknownTag = "thistagdoesnotexist";
+            const unknownResult = splitConcatenatedTags(unknownTag, dictionary);
+            results += `Unknown tag: ${unknownTag} → [${unknownResult.join(", ")}]\n`;
+            
+            document.getElementById('results').textContent = results;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+--- sigma.css.original	2025-01-12 17:30:00.000000000 +0000
++++ sigma.css.fixed	2025-01-12 17:30:01.000000000 +0000
+@@ -863,9 +863,11 @@
+ }
+ 
+ #main-content .page-tags a {
+ 	display: inline-block;
+ 	white-space: nowrap;
++	margin-right: 0.25em;
+ }
++
+ 
+ /* Standard Image Block */
+ .scp-image-block {

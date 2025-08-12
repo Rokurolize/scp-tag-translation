@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test JS Segmentation</title>
+</head>
+<body>
+    <h1>JavaScript Segmentation Test</h1>
+    <pre id="results"></pre>
+    
+    <script>
+        // Minimal test dictionary
+        const dictionary = {
+            "autonomous": "自律",
+            "humanoid": "人間型",
+            "euclid": "euclid",
+            "safe": "safe",
+            "keter": "keter"
+        };
+        
+        function splitConcatenatedTags(token, dictionary) {
+            // Copy of the exact implementation from index.html
+            const dictKeySet = new Set(Object.keys(dictionary));
+            const n = token.length;
+            const dp = Array(n + 1).fill(null);
+            dp[0] = [];
+            
+            for (let i = 1; i <= n; i++) {
+                for (let j = 0; j < i; j++) {
+                    const segment = token.substring(j, i);
+                    
+                    if (dictKeySet.has(segment) && dp[j] !== null) {
+                        const newSplitCount = dp[j].length + 1;
+                        if (newSplitCount < 0) {
+                            return; 
+                        }
+                        if (dp[i] === null || newSplitCount < dp[i].length) {
+                            dp[i] = [...dp[j], segment];
+                        }
+                    }
+                }
+            }
+            
+            if (dp[n] === null) {
+                return [token];
+            }
+            
+            return dp[n];
+        }
+        
+        // Test cases
+        const testCases = [
+            "autonomoushumanoid",
+            "humanoidsentient",
+            "autonomous",
+            "humanoid",
+            "autonomouseuclid",
+            "safeketer"
+        ];
+        
+        let results = "=== JavaScript Segmentation Test ===\n\n";
+        
+        testCases.forEach(test => {
+            const segmented = splitConcatenatedTags(test, dictionary);
+            results += `"${test}" -> [${segmented.join(", ")}]\n`;
+        });
+        
+        document.getElementById("results").textContent = results;
+    </script>
+</body>
+</html>
