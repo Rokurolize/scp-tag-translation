@@ -173,6 +173,9 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+# Generated intermediate data
+data/
+
 # Repomix output
 .repomixignore
 repomix.config.json
