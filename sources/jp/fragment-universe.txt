@@ -674,7 +674,7 @@ SCPユニバースを彩るキャラクターたちのタグです。
 * **[[[/system:page-tags/tag/リリハンメル博士|リリハンメル博士]]]** //(doctor-lillihammer)// - リリアン・S・リリハンメル博士。
 * **[[[/system:page-tags/tag/マン博士|マン博士]]]** //(doctor-mann)// - エヴァレット・マン博士。
 * **[[[/system:page-tags/tag/マクドクトラート博士|マクドクトラート博士]]]**//(doctor-mcdoctorate)// - プレースホルダー・マクドクトラート博士。かつての名前はネイサン・ヴァリス管理官。
-* **[[[/system:page-tags/tag/オコリー博士|オコリー博士]]]** - ウド・オコリー博士、イギリスからの移住者で、魔法ゴミの無毒化に関する長く名高い家系の末裔。
+* **[[[/system:page-tags/tag/オコリー博士|オコリー博士]]]** //(doctor-okorie)// - ウド・オコリー博士、イギリスからの移住者で、魔法ゴミの無毒化に関する長く名高い家系の末裔。
 * **[[[/system:page-tags/tag/レインデルス博士|レインデルス博士]]]** //(doctor-reynders)// - イルゼ・レインデルス博士、元[[[SCP-5616]]]。
 * **[[[/system:page-tags/tag/ライツ博士|ライツ博士]]]** //(doctor-rights)// - ライツ博士。
 * **[[[/system:page-tags/tag/リベラ博士|リベラ博士]]]** //(doctor-rivera)// - ジェシー・リベラ博士。
