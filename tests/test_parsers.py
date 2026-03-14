@@ -1,4 +1,11 @@
 """ENパーサー・JPパーサーの単体テスト"""
+from pathlib import Path
+
+from parsers.en_parser import tag_pattern as _EN_TAG_PATTERN
+from parsers.jp_parser import _PAIR_RE as _JP_PAIR_RE
+
+_EN_SOURCE = Path(__file__).parent.parent / "sources" / "en" / "tag-list.txt"
+_JP_SOURCE_DIR = Path(__file__).parent.parent / "sources" / "jp"
 
 
 class TestEnParser:
@@ -20,6 +27,18 @@ class TestEnParser:
 
     def test_en_count_lower_bound(self, en_tags_data):
         assert len(en_tags_data) >= 800, f"ENタグ件数が少なすぎます: {len(en_tags_data)}"
+
+    def test_en_exhaustive_coverage(self, en_tags_data):
+        """ソース中で tag_pattern にマッチする全行がパース結果に含まれること"""
+        source_count = sum(
+            1
+            for line in _EN_SOURCE.read_text(encoding="utf-8").splitlines()
+            if _EN_TAG_PATTERN.match(line)
+        )
+        parsed_count = len(en_tags_data)
+        assert parsed_count == source_count, (
+            f"ENパーサーの取りこぼし: ソース={source_count}件, パース結果={parsed_count}件"
+        )
 
 
 class TestJpParser:
@@ -49,3 +68,21 @@ class TestJpParser:
 
     def test_jp_count_lower_bound(self, jp_tags_data):
         assert len(jp_tags_data) >= 1500, f"JPタグ件数が少なすぎます: {len(jp_tags_data)}"
+
+    def test_jp_exhaustive_coverage(self, jp_tags_data):
+        """ソース中でスラッグ非空のタグ行（重複除去後）が全てパース結果に含まれること"""
+        source_slugs: set[str] = set()
+        for fp in sorted(_JP_SOURCE_DIR.glob("fragment-*.txt")):
+            for line in fp.read_text(encoding="utf-8").splitlines():
+                if "**[[[/system:page-tags/tag/" not in line:
+                    continue
+                for m in _JP_PAIR_RE.finditer(line):
+                    slug = m.group(1)
+                    if slug:
+                        source_slugs.add(slug)
+
+        parsed_slugs = {e["name"] for e in jp_tags_data}
+        missing = source_slugs - parsed_slugs
+        assert not missing, (
+            f"JPパーサーの取りこぼし ({len(missing)}件): {sorted(missing)[:10]}"
+        )
