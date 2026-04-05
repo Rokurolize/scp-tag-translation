@@ -272,6 +272,7 @@
       ];
 
       const dictionaryCache = {}; // ペアごとの辞書キャッシュ
+      const deprecatedCache = {}; // 非使用タグ置換辞書のキャッシュ
       const loadingIndicator = document.getElementById("loadingIndicator");
 
       window.addEventListener("DOMContentLoaded", () => {
@@ -313,27 +314,49 @@
           return;
         }
 
+        // 非使用タグ置換辞書のfetch（キャッシュ済みでなければ）
+        const deprecatedKey = `${mapKey}_deprecated`;
+        const deprecatedUrl = `./dictionaries/deprecated_${mapKey}.json`;
+        const deprecatedPromise = deprecatedCache[deprecatedKey]
+          ? Promise.resolve(deprecatedCache[deprecatedKey])
+          : fetch(deprecatedUrl)
+              .then((res) => (res.ok ? res.json() : {}))
+              .then((data) => {
+                deprecatedCache[deprecatedKey] = data;
+                return data;
+              })
+              .catch(() => {
+                deprecatedCache[deprecatedKey] = {};
+                return {};
+              });
+
         // すでに読み込み済みかどうか
         if (dictionaryCache[mapKey]) {
-          doTranslationWithDictionary(
-            dictionaryCache[mapKey],
-            inputStr,
-            srcLang
-          );
-          showLoading(false);
+          deprecatedPromise.then((deprecated) => {
+            doTranslationWithDictionary(
+              dictionaryCache[mapKey],
+              inputStr,
+              srcLang,
+              deprecated
+            );
+            showLoading(false);
+          });
         } else {
           // 辞書ファイルをfetch
           const url = `./dictionaries/${mapKey}.json`;
-          fetch(url)
-            .then((res) => {
-              if (!res.ok) {
-                throw new Error(`辞書ファイルがありません (${mapKey}.json)`);
-              }
-              return res.json();
-            })
-            .then((data) => {
+          Promise.all([
+            fetch(url)
+              .then((res) => {
+                if (!res.ok) {
+                  throw new Error(`辞書ファイルがありません (${mapKey}.json)`);
+                }
+                return res.json();
+              }),
+            deprecatedPromise,
+          ])
+            .then(([data, deprecated]) => {
               dictionaryCache[mapKey] = data;
-              doTranslationWithDictionary(data, inputStr, srcLang);
+              doTranslationWithDictionary(data, inputStr, srcLang, deprecated);
             })
             .catch((err) => {
               setLog(
@@ -353,8 +376,9 @@
        * @param {object} dictionary - 翻訳用辞書
        * @param {string} inputStr - ユーザー入力（タグ文字列）
        * @param {string} srcLang - 翻訳元言語
+       * @param {object} deprecatedDict - 非使用タグ置換辞書（省略可）
        */
-      function doTranslationWithDictionary(dictionary, inputStr, srcLang) {
+      function doTranslationWithDictionary(dictionary, inputStr, srcLang, deprecatedDict) {
         // 入力を空白で分割して個別のタグに
         const tokens = inputStr.split(/\s+/);
         let allTags = [];
@@ -373,18 +397,24 @@
         });
 
         const translatedList = [];
+        const replacedList = [];
         const skippedList = [];
 
         allTags.forEach((tag) => {
           if (!dictionary.hasOwnProperty(tag)) {
             skippedList.push(`${tag} (未定義)`);
-          } else {
-            if (dictionary[tag] === null) {
-              // 非使用タグ
-              skippedList.push(`${tag} (非使用タグ)`);
+          } else if (dictionary[tag] === null) {
+            const replacement = deprecatedDict && deprecatedDict[tag];
+            if (replacement) {
+              // 置換先があれば翻訳結果に追加してログに記録
+              translatedList.push(replacement);
+              replacedList.push(`${tag} → ${replacement}`);
             } else {
-              translatedList.push(dictionary[tag]);
+              // 置換先なし：非使用タグとしてスキップ
+              skippedList.push(`${tag} (非使用タグ)`);
             }
+          } else {
+            translatedList.push(dictionary[tag]);
           }
         });
 
@@ -401,12 +431,20 @@
         // 結果をテキストエリアに表示
         document.getElementById("targetText").value = translatedList.join(" ");
 
-        // スキップのログ
-        if (skippedList.length > 0) {
-          setLog(
-            "【注意】以下のタグはスキップされました：\n" +
-              skippedList.join("\n")
+        // ログ表示
+        const logParts = [];
+        if (replacedList.length > 0) {
+          logParts.push(
+            "【注意】以下のタグは置換されました：\n" + replacedList.join("\n")
           );
+        }
+        if (skippedList.length > 0) {
+          logParts.push(
+            "【注意】以下のタグはスキップされました：\n" + skippedList.join("\n")
+          );
+        }
+        if (logParts.length > 0) {
+          setLog(logParts.join("\n\n"));
         }
       }
 

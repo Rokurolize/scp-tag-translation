@@ -70,9 +70,12 @@ class TestJpParser:
         assert len(jp_tags_data) >= 1500, f"JPタグ件数が少なすぎます: {len(jp_tags_data)}"
 
     def test_jp_exhaustive_coverage(self, jp_tags_data):
-        """ソース中でスラッグ非空のタグ行（重複除去後）が全てパース結果に含まれること"""
+        """ソース中でスラッグ非空のタグ行（重複除去後）が全てパース結果に含まれること。
+        fragment-unused.txt は parse_unused() で別途処理するため除外する。"""
         source_slugs: set[str] = set()
         for fp in sorted(_JP_SOURCE_DIR.glob("fragment-*.txt")):
+            if fp.name == "fragment-unused.txt":
+                continue
             for line in fp.read_text(encoding="utf-8").splitlines():
                 if "**[[[/system:page-tags/tag/" not in line:
                     continue

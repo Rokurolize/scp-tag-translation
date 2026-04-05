@@ -21,8 +21,10 @@ from scripts.parsers import en_parser, jp_parser
 
 _SOURCES_EN = _ROOT / "sources" / "en" / "tag-list.txt"
 _SOURCES_JP = _ROOT / "sources" / "jp"
+_SOURCES_JP_UNUSED = _SOURCES_JP / "fragment-unused.txt"
 _DATA_EN = _ROOT / "data" / "en_tags.json"
 _DATA_JP = _ROOT / "data" / "jp_tags.json"
+_DATA_DEPRECATED = _ROOT / "data" / "deprecated_tags.json"
 
 
 def run_en() -> None:
@@ -37,6 +39,8 @@ def run_jp() -> None:
         print(f"エラー: JPソースディレクトリが見つかりません: {_SOURCES_JP}")
         sys.exit(1)
     jp_parser.parse(str(_SOURCES_JP), str(_DATA_JP))
+    if _SOURCES_JP_UNUSED.exists():
+        jp_parser.parse_unused(str(_SOURCES_JP_UNUSED), str(_DATA_DEPRECATED))
 
 
 def main() -> None:
