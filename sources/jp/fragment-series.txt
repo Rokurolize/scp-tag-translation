@@ -58,6 +58,7 @@
 * **[[[/system:page-tags/tag/sotm|sotm]]]** //(sotm)// - [[[sotmhub|朝までまっすぐに]]]。
 * **[[[/system:page-tags/tag/極寒の戦争|極寒の戦争]]]** //(the-coldest-war)// - [[[the-coldest-war-hub|極寒の戦争]]]。
 * **[[[/system:page-tags/tag/メキシコ湾|メキシコ湾]]]** //(the-gulf)// - [[[the-gulf|メキシコ湾]]]。
+* **[[[/system:page-tags/tag/サメきった世界|サメきった世界]]]** //(the-sharkest-timeline)// - [[[the-sharkest-timeline|サメきった世界]]]。
 * **[[[/system:page-tags/tag/トラッシュファイア|トラッシュファイア]]]** //(the-trashfire)// - [[[the-trashfire|トラッシュファイア]]]。
 * **[[[/system:page-tags/tag/第三法則|第三法則]]]** //(third-law)// - [[[third-law-hub|第三法則]]]。
 * **[[[/system:page-tags/tag/あのヨレハマツの林|あのヨレハマツの林]]]** //(twisted-pines)// - [[[those-twisted-pines-hub|あのヨレハマツの林]]]。
@@ -326,6 +327,7 @@
 * **[[[/system:page-tags/tag/晴れの休みは上野巡りへ|晴れの休みは上野巡りへ]]]** - [[[ueno-tour-hub|晴れの休みは上野巡りへ]]]。
 * **[[[/system:page-tags/tag/京都呪縛戦争|京都呪縛戦争]]]** - [[[kyoto-cursing-warfare|京都呪縛戦争/毒蛇、病毒]]]。
 * **[[[/system:page-tags/tag/d-is-not-for|d-is-not-for]]]** - [[[d-is-not-for-hub|D is NOT for...]]]。
+* **[[[/system:page-tags/tag/生典|生典]]]** - [[[seiten-hub|生典]]]。
 
 +++ 合作連作-JP
 

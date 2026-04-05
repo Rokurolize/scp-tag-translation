@@ -306,6 +306,8 @@
 
 * **[[[/system:page-tags/tag/災禍転福キャンペーン|災禍転福キャンペーン]]]** - [[[saikatenpuku-campaign-hub|災禍転福キャンペーン]]]。
 
+* **[[[/system:page-tags/tag/af2026|af2026]]]** - AF-2026-JP。
+
 [[/tab]][!--JP--]
 [[tab RU]]
 
@@ -457,6 +459,8 @@
 
 * **[[[/system:page-tags/tag/2025夏季コンテスト|2025夏季コンテスト]]]** //(2025夏季征文)// - [[[summer-contest-2025|2025夏季"復刻"コンテスト]]]。
 
+* **[[[/system:page-tags/tag/2025新鋭コンテスト|2025新鋭コンテスト]]]** //(2025新秀竞赛)// - [[[newbee2025|2025“群雄逐鹿”新鋭コンテスト]]]。
+
 [!--
 ★未申請。
 * **[[[/system:page-tags/tag/2015春節コンテスト|2015春節コンテスト]]]** //(2015春节竞赛)// - [[[chinese-new-year-contest-2015|2015年春節“吃”コンテスト]]]。
@@ -524,6 +528,8 @@
 * **[[[/system:page-tags/tag/c8fr2020|c8fr2020]]]** //(c8fr2020)// - [[[le-concours-des-huit-ans|8周年のコンテスト]]]。
 
 * **[[[/system:page-tags/tag/c404fr|c404fr]]]** //(c404fr)// - [[[le-concours-des-404-ans|ERREUR(フランス支部404周年コンテスト)]]]。
+
+* **[[[/system:page-tags/tag/chalete2024|chalete2024]]]** //(chalete2024)// - [[[chalete2024|]]]。
 
 [!--★タグリスト-FRに合わせて分類別にするか迷うが、ひとまずはJP版の開催年次順で行く。--]
 
