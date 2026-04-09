@@ -69,6 +69,17 @@ class TestJpParser:
     def test_jp_count_lower_bound(self, jp_tags_data):
         assert len(jp_tags_data) >= 1500, f"JPタグ件数が少なすぎます: {len(jp_tags_data)}"
 
+    def test_jp_names_and_en_tags_are_trimmed(self, jp_tags_data):
+        for entry in jp_tags_data:
+            assert entry["name"] == entry["name"].strip(), (
+                f"nameに前後空白が含まれています: {entry}"
+            )
+            en_tag = entry.get("en_tag")
+            if en_tag is not None:
+                assert en_tag == en_tag.strip(), (
+                    f"en_tagに前後空白が含まれています: {entry}"
+                )
+
     def test_jp_exhaustive_coverage(self, jp_tags_data):
         """ソース中でスラッグ非空のタグ行（重複除去後）が全てパース結果に含まれること。
         fragment-unused.txt は parse_unused() で別途処理するため除外する。"""
@@ -80,7 +91,7 @@ class TestJpParser:
                 if "**[[[/system:page-tags/tag/" not in line:
                     continue
                 for m in _JP_PAIR_RE.finditer(line):
-                    slug = m.group(1)
+                    slug = m.group(1).strip()
                     if slug:
                         source_slugs.add(slug)
 

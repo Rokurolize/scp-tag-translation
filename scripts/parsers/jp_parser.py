@@ -16,6 +16,15 @@ _PAIR_RE = re.compile(
 _REPLACE_RE = re.compile(r"JPでは?//([^/]+)//タグに置換してください")
 
 
+def _normalize_capture(value: str | None) -> str | None:
+    """Wikidotソース由来の捕捉値から前後空白を除去する。"""
+    if value is None:
+        return None
+
+    stripped = value.strip()
+    return stripped or None
+
+
 def parse_unused(filepath: str, output_filepath: str) -> None:
     """
     fragment-unused.txt から非使用タグと置換先（単一タグのみ）を抽出してJSONに出力する。
@@ -45,7 +54,7 @@ def parse_unused(filepath: str, output_filepath: str) -> None:
             replacement = replacements[0] if len(replacements) == 1 else None
 
             for m in matches:
-                en_tag = m.group(3)
+                en_tag = _normalize_capture(m.group(3))
                 if not en_tag:
                     continue
                 if en_tag in seen_en_tags:
@@ -104,8 +113,11 @@ def parse(sources_jp_dir: str, output_filepath: str) -> None:
                 description = desc_match.group(1).strip() if desc_match else ""
 
                 for m in matches:
-                    slug = m.group(1)   # URLスラッグ = JPタグ名
-                    en_tag = m.group(3) # ENタグ名（省略時は None）
+                    slug = _normalize_capture(m.group(1))   # URLスラッグ = JPタグ名
+                    en_tag = _normalize_capture(m.group(3)) # ENタグ名（省略時は None）
+
+                    if not slug:
+                        continue
 
                     if slug in seen_names:
                         continue

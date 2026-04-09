@@ -332,15 +332,23 @@
 
         // すでに読み込み済みかどうか
         if (dictionaryCache[mapKey]) {
-          deprecatedPromise.then((deprecated) => {
-            doTranslationWithDictionary(
-              dictionaryCache[mapKey],
-              inputStr,
-              srcLang,
-              deprecated
-            );
-            showLoading(false);
-          });
+          deprecatedPromise
+            .then((deprecated) => {
+              doTranslationWithDictionary(
+                dictionaryCache[mapKey],
+                inputStr,
+                srcLang,
+                deprecated
+              );
+            })
+            .catch((err) => {
+              setLog("【エラー】翻訳処理に失敗しました。");
+              console.error(err);
+              document.getElementById("targetText").value = "";
+            })
+            .finally(() => {
+              showLoading(false);
+            });
         } else {
           // 辞書ファイルをfetch
           const url = `./dictionaries/${mapKey}.json`;
