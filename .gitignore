@@ -176,6 +176,10 @@ cython_debug/
 # Generated intermediate data
 data/
 
+# Local Codex artifacts
+.codex
+.codex/
+
 # Repomix output
 .repomixignore
 repomix.config.json
