@@ -41,6 +41,10 @@ def run_jp() -> None:
     jp_parser.parse(str(_SOURCES_JP), str(_DATA_JP))
     if _SOURCES_JP_UNUSED.exists():
         jp_parser.parse_unused(str(_SOURCES_JP_UNUSED), str(_DATA_DEPRECATED))
+    else:
+        _DATA_DEPRECATED.parent.mkdir(parents=True, exist_ok=True)
+        _DATA_DEPRECATED.write_text("[]\n", encoding="utf-8")
+        print(f"JP(未使用): 0 タグを解析 → {_DATA_DEPRECATED}")
 
 
 def main() -> None:

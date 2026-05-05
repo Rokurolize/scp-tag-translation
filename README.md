@@ -20,18 +20,27 @@ SCP財団のタグを多言語翻訳するための静的ツールです。
 
 1. リポジトリをクローン or ダウンロード
 2. `index.html` と `dictionaries/` ディレクトリを同階層に配置
-3. ブラウザで `index.html` を開く
+3. GitHub Pages などの静的ホスティング、またはローカルHTTPサーバー経由で `index.html` を開く
 4. 翻訳元・翻訳先言語を選択（現在は en→jp のみ）
 5. 翻訳したいタグを入力すると、自動で翻訳結果が表示されます
 6. 「コピー」ボタンで出力をクリップボードにコピー可能
+
+ローカルで確認する場合は、ブラウザの `file://` 制限により辞書JSONを読み込めないことがあります。次のように静的HTTPサーバーを起動してアクセスしてください。
+
+```bash
+python -m http.server 8000
+```
+
+その後、`http://localhost:8000/index.html` を開きます。
 
 ## ディレクトリ構造
 
 ```
 scp-tag-translation/
-├── index.html              # ブラウザで開く翻訳ツール
+├── index.html              # 静的翻訳ツール
 ├── dictionaries/
-│   └── en_to_jp.json       # EN→JP 翻訳辞書（スクリプトで自動生成）
+│   ├── en_to_jp.json              # EN→JP 翻訳辞書（スクリプトで自動生成）
+│   └── deprecated_en_to_jp.json   # EN非使用タグの置換辞書
 ├── sources/                # Wikidot から取得した原典ページソース
 │   ├── en/
 │   │   └── tag-list.txt    # 05commandのENタグリスト

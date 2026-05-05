@@ -39,7 +39,7 @@ sources/jp/fragment-unused.txt       →  parse_unused() →  data/deprecated_ta
 
 ### フロントエンド（index.html）
 
-サーバー不要の単一ページ静的アプリ。`dictionaries/` フォルダの JSON を `fetch()` で遅延ロードしてメモリにキャッシュする。連結タグ（例: `fireinscription`）は前方最長一致で分割して翻訳する。
+単一ページの静的アプリ。`dictionaries/` フォルダの JSON を `fetch()` で遅延ロードしてメモリにキャッシュするため、GitHub Pages などの静的ホスティング、またはローカルHTTPサーバー経由で開く必要がある。連結タグ（例: `fireinscription`）は前方最長一致で分割して翻訳する。
 
 ### 辞書フォーマット
 
@@ -75,7 +75,7 @@ sources/jp/fragment-unused.txt       →  parse_unused() →  data/deprecated_ta
 
 **JP パーサー** (`scripts/parsers/jp_parser.py`): `sources/jp/fragment-*.txt` のうち `fragment-unused.txt` を除くファイルを処理。`**[[[/system:page-tags/tag/{slug}|{display}]]]** //(en-tag)//` 形式を解析。ENタグ対応がある場合は `en_tag` フィールドに格納、JP固有タグは `en_tag: null`。
 
-`parse_unused()` 関数が `fragment-unused.txt` を別途解析し、EN タグと単一置換先（「JPでは//○○//タグに置換してください」パターン）を抽出して `data/deprecated_tags.json` に出力する。
+`parse_unused()` 関数が `fragment-unused.txt` を別途解析し、支部見出し（`+++ EN` など）・元タグ・単一置換先（「JPでは//○○//タグに置換してください」パターン）を `data/deprecated_tags.json` に出力する。`build_dict.py` は en→jp 辞書生成時に `source_lang: "EN"` の非使用タグだけを適用する。
 
 ### テスト
 

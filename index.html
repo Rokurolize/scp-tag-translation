@@ -100,7 +100,6 @@
         font-size: 0.95rem;
         color: #333;
         margin-top: 0.5rem;
-        display: flex;
         align-items: center;
       }
 
@@ -273,7 +272,10 @@
 
       const dictionaryCache = {}; // ペアごとの辞書キャッシュ
       const deprecatedCache = {}; // 非使用タグ置換辞書のキャッシュ
+      let translationRequestId = 0; // 非同期fetchの古い結果を無視するための連番
       const loadingIndicator = document.getElementById("loadingIndicator");
+      const hasOwn = (object, key) =>
+        Object.prototype.hasOwnProperty.call(object, key);
 
       window.addEventListener("DOMContentLoaded", () => {
         setupUI();
@@ -299,6 +301,7 @@
        * メインの翻訳処理
        */
       function doTranslate() {
+        const requestId = ++translationRequestId;
         clearLog();
         showLoading(true);
 
@@ -333,6 +336,9 @@
         // すでに読み込み済みかどうか
         if (dictionaryCache[mapKey]) {
           deprecatedPromise.then((deprecated) => {
+            if (requestId !== translationRequestId) {
+              return;
+            }
             doTranslationWithDictionary(
               dictionaryCache[mapKey],
               inputStr,
@@ -355,18 +361,30 @@
             deprecatedPromise,
           ])
             .then(([data, deprecated]) => {
+              if (requestId !== translationRequestId) {
+                return;
+              }
               dictionaryCache[mapKey] = data;
               doTranslationWithDictionary(data, inputStr, srcLang, deprecated);
             })
             .catch((err) => {
+              if (requestId !== translationRequestId) {
+                return;
+              }
+              const localFileNote =
+                window.location.protocol === "file:"
+                  ? "\nローカルファイルからはブラウザ制限により辞書JSONを読み込めません。GitHub PagesまたはローカルHTTPサーバーで開いてください。"
+                  : "";
               setLog(
-                `【エラー】未対応ペア (${mapKey}) です。辞書ファイル読み込みに失敗。`
+                `【エラー】未対応ペア (${mapKey}) です。辞書ファイル読み込みに失敗。${localFileNote}`
               );
               console.error(err);
               document.getElementById("targetText").value = "";
             })
             .finally(() => {
-              showLoading(false);
+              if (requestId === translationRequestId) {
+                showLoading(false);
+              }
             });
         }
       }
@@ -386,7 +404,7 @@
         // 各タグを処理
         tokens.forEach((token) => {
           // 単一のタグとして辞書に存在するかチェック
-          if (dictionary.hasOwnProperty(token)) {
+          if (hasOwn(dictionary, token)) {
             // 単一のタグとして存在する場合はそのまま追加
             allTags.push(token);
           } else {
@@ -399,28 +417,33 @@
         const translatedList = [];
         const replacedList = [];
         const skippedList = [];
+        const appendTranslatedTag = (tag) => {
+          if (!translatedList.includes(tag)) {
+            translatedList.push(tag);
+          }
+        };
 
         allTags.forEach((tag) => {
-          if (!dictionary.hasOwnProperty(tag)) {
+          if (!hasOwn(dictionary, tag)) {
             skippedList.push(`${tag} (未定義)`);
           } else if (dictionary[tag] === null) {
             const replacement = deprecatedDict && deprecatedDict[tag];
             if (replacement) {
               // 置換先があれば翻訳結果に追加してログに記録
-              translatedList.push(replacement);
+              appendTranslatedTag(replacement);
               replacedList.push(`${tag} → ${replacement}`);
             } else {
               // 置換先なし：非使用タグとしてスキップ
               skippedList.push(`${tag} (非使用タグ)`);
             }
           } else {
-            translatedList.push(dictionary[tag]);
+            appendTranslatedTag(dictionary[tag]);
           }
         });
 
         // ---- 支部タグの追加（翻訳元言語をタグに含める）----
         // 例: srcLang="en" なら "en" を出力に追加
-        if (recognizedLangs.includes(srcLang)) {
+        if (translatedList.length > 0 && recognizedLangs.includes(srcLang)) {
           // 二重に入るのを避けたいなら、以下のように重複チェックをする
           if (!translatedList.includes(srcLang)) {
             // 先頭に追加
@@ -453,40 +476,47 @@
        */
       function splitConcatenatedTags(token, dictionary) {
         // 辞書キーをチェックしやすいようにセットに変換
-        const dictKeySet = new Set(Object.keys(dictionary));
-        
-        // 動的計画法で最適な分割を見つける
-        const n = token.length;
-        
-        // dp[i] = 位置iまでの最適な分割
-        const dp = Array(n + 1).fill(null);
-        dp[0] = [];
-        
-        for (let i = 1; i <= n; i++) {
-          for (let j = 0; j < i; j++) {
-            // 部分文字列 j から i までをチェック
-            const segment = token.substring(j, i);
-            
-            // この部分が辞書にあり、j地点までの分割が存在する場合
-            if (dictKeySet.has(segment) && dp[j] !== null) {
-              const newSplitCount = dp[j].length + 1;
-              // Prevent potential overflow or negative values
-              if (newSplitCount < 0) {
-              return; 
-              }
-              if (dp[i] === null || newSplitCount < dp[i].length) {
-              dp[i] = [...dp[j], segment];
-              }
+        const dictKeys = Object.keys(dictionary);
+        const dictKeySet = new Set(dictKeys);
+        const maxKeyLength = dictKeys.reduce(
+          (max, key) => Math.max(max, key.length),
+          0
+        );
+
+        // 各位置で最長の辞書タグを優先しつつ、末尾まで分割できる候補を選ぶ
+        const canSplit = Array(token.length + 1).fill(false);
+        const nextEndByIndex = Array(token.length + 1).fill(-1);
+        canSplit[token.length] = true;
+
+        for (let index = token.length - 1; index >= 0; index--) {
+          const maxEnd = Math.min(token.length, index + maxKeyLength);
+          for (let end = maxEnd; end > index; end--) {
+            const segment = token.substring(index, end);
+            if (!dictKeySet.has(segment)) {
+              continue;
+            }
+
+            if (canSplit[end]) {
+              canSplit[index] = true;
+              nextEndByIndex[index] = end;
+              break;
             }
           }
         }
-        
+
         // 分割できない場合は元のトークンをそのまま返す
-        if (dp[n] === null) {
+        if (!canSplit[0]) {
           return [token];
         }
-        
-        return dp[n];
+
+        const result = [];
+        for (let index = 0; index < token.length; ) {
+          const nextEnd = nextEndByIndex[index];
+          result.push(token.substring(index, nextEnd));
+          index = nextEnd;
+        }
+
+        return result;
       }
 
       /**
@@ -502,7 +532,10 @@
           navigator.clipboard
             .writeText(text)
             .then(() => setLog("翻訳結果をコピーしました。"))
-            .catch((err) => setLog("コピーに失敗しました: " + err));
+            .catch((err) => {
+              console.error(err);
+              fallbackCopyText(textArea);
+            });
         } else {
           // 使えない場合はdocument.execCommand('copy')にフォールバック
           fallbackCopyText(textArea);
@@ -513,14 +546,19 @@
        * execCommand('copy') フォールバック処理
        */
       function fallbackCopyText(textAreaElement) {
+        let selection = null;
+        let range = null;
+        let wasReadOnly = false;
         try {
           // 現在の選択範囲を保存
-          const selection = document.getSelection();
-          const range =
-            selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+          selection = document.getSelection();
+          range =
+            selection && selection.rangeCount > 0
+              ? selection.getRangeAt(0)
+              : null;
 
           // 一時的に編集可能にする（textarea が readonly なら外す）
-          const wasReadOnly = textAreaElement.hasAttribute("readonly");
+          wasReadOnly = textAreaElement.hasAttribute("readonly");
           if (wasReadOnly) {
             textAreaElement.removeAttribute("readonly");
           }
@@ -535,19 +573,25 @@
           } else {
             setLog("コピーに失敗しました。(fallback)");
           }
-
+        } catch (err) {
+          setLog("コピーに失敗しました: " + err);
+        } finally {
           // 選択範囲の復元
-          selection.removeAllRanges();
-          if (range) {
-            selection.addRange(range);
+          if (selection) {
+            try {
+              selection.removeAllRanges();
+              if (range) {
+                selection.addRange(range);
+              }
+            } catch (err) {
+              console.error(err);
+            }
           }
 
           // 再度 readonly を付与
           if (wasReadOnly) {
             textAreaElement.setAttribute("readonly", true);
           }
-        } catch (err) {
-          setLog("コピーに失敗しました: " + err);
         }
       }
 

@@ -6,9 +6,47 @@ from typing import TypeAlias
 TagMeta: TypeAlias = dict[str, list[str]]
 TagData: TypeAlias = dict[str, str | TagMeta]
 
-tag_pattern = re.compile(r"^\s*\*\s*\*\*\[https?://[^ ]+\s+([^\]]+)\]\*\*")
+tag_pattern = re.compile(
+    r"^\s*\*\s*\*\*\[https?://[^ ]*/system:page-tags/tag/([^ \]]+)"
+    r"(?:\s+[^\]]+)?\]\*\*"
+)
 desc_pattern = re.compile(r"--\s*(.*)")
-meta_pattern = re.compile(r"^\s*\*\s*//\s*([^:]+):\s*(.*)\s*//")
+meta_pattern = re.compile(r"^\s*\*\s*//\s*(.*?)\s*//")
+quoted_value_pattern = re.compile(r"'([^']+)'")
+
+
+def _normalize_meta_key(value: str) -> str:
+    return value.strip().lower().replace(" ", "-")
+
+
+def _parse_meta_line(line: str) -> tuple[str, list[str]] | None:
+    meta_match = meta_pattern.match(line)
+    if not meta_match:
+        return None
+
+    meta_text = meta_match.group(1).strip()
+    if not meta_text:
+        return None
+
+    if ":" in meta_text:
+        meta_key_text, meta_value_text = meta_text.split(":", 1)
+        meta_values = quoted_value_pattern.findall(meta_value_text)
+        if not meta_values:
+            meta_values = [
+                v.strip().replace("'", "")
+                for v in meta_value_text.split(",")
+                if v.strip()
+            ]
+    else:
+        meta_values = quoted_value_pattern.findall(meta_text)
+        if not meta_values:
+            return None
+        meta_key_text = meta_text[: meta_text.find("'")]
+
+    meta_key = _normalize_meta_key(meta_key_text)
+    if not meta_key:
+        return None
+    return meta_key, meta_values
 
 
 def parse(input_filepath: str, output_filepath: str) -> None:
@@ -43,15 +81,9 @@ def parse(input_filepath: str, output_filepath: str) -> None:
                 continue
 
             if current_tag:
-                meta_match = meta_pattern.match(line)
-                if meta_match:
-                    meta_key = meta_match.group(1).strip().lower().replace(" ", "-")
-                    meta_value_str = meta_match.group(2).strip()
-                    meta_values = [
-                        v.strip().replace("'", "")
-                        for v in meta_value_str.split(",")
-                        if v.strip()
-                    ]
+                meta_data = _parse_meta_line(line)
+                if meta_data:
+                    meta_key, meta_values = meta_data
                     if isinstance(current_tag["meta"], dict):
                         if meta_key not in current_tag["meta"]:
                             current_tag["meta"][meta_key] = []

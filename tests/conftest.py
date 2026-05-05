@@ -12,6 +12,7 @@ from parsers import en_parser, jp_parser
 EN_SOURCE = ROOT / "sources" / "en" / "tag-list.txt"
 JP_SOURCE_DIR = ROOT / "sources" / "jp"
 DICT_FILE = ROOT / "dictionaries" / "en_to_jp.json"
+DEPRECATED_DICT_FILE = ROOT / "dictionaries" / "deprecated_en_to_jp.json"
 
 
 @pytest.fixture(scope="session")
@@ -29,8 +30,20 @@ def jp_tags_data(tmp_path_factory):
 
 
 @pytest.fixture(scope="session")
+def deprecated_tags_data(tmp_path_factory):
+    out = tmp_path_factory.mktemp("data") / "deprecated_tags.json"
+    jp_parser.parse_unused(str(JP_SOURCE_DIR / "fragment-unused.txt"), str(out))
+    return json.loads(out.read_text())
+
+
+@pytest.fixture(scope="session")
 def committed_dict():
     return json.loads(DICT_FILE.read_text())
+
+
+@pytest.fixture(scope="session")
+def committed_deprecated_dict():
+    return json.loads(DEPRECATED_DICT_FILE.read_text())
 
 
 @pytest.fixture(scope="session")
