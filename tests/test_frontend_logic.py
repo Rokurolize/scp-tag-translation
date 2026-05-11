@@ -4,11 +4,13 @@ import re
 import shutil
 import subprocess
 from pathlib import Path
+import csv
 
 import pytest
 
 ROOT = Path(__file__).parent.parent
 INDEX_HTML = ROOT / "index.html"
+ACCEPTANCE = ROOT / "tests" / "fixtures" / "branch_acceptance_examples.tsv"
 
 
 def _node() -> str:
@@ -23,6 +25,72 @@ def _frontend_script() -> str:
     match = re.search(r"<script>(.*?)</script>", html, re.DOTALL)
     assert match is not None, "script ブロックが見つかりません"
     return match.group(1)
+
+
+def _translate_with_frontend(
+    dictionary: dict[str, str | None],
+    input_text: str,
+    source_lang: str,
+    deprecated: dict[str, str] | None = None,
+) -> dict[str, str]:
+    node = _node()
+    script = r"""
+const fs = require("node:fs");
+const vm = require("node:vm");
+const html = fs.readFileSync("index.html", "utf8");
+const frontendScript = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const elements = {
+  targetText: { value: "" },
+  logArea: { textContent: "" },
+  loadingIndicator: { style: {} },
+};
+const context = {
+  console,
+  document: {
+    getElementById(id) {
+      if (!elements[id]) {
+        elements[id] = {
+          value: "",
+          textContent: "",
+          style: {},
+          addEventListener() {},
+        };
+      }
+      return elements[id];
+    },
+  },
+  window: { addEventListener() {} },
+  navigator: {},
+};
+vm.createContext(context);
+vm.runInContext(frontendScript, context);
+context.doTranslationWithDictionary(
+  JSON.parse(process.argv[1]),
+  process.argv[2],
+  process.argv[3],
+  JSON.parse(process.argv[4])
+);
+console.log(JSON.stringify({
+  targetText: elements.targetText.value,
+  logArea: elements.logArea.textContent,
+}));
+"""
+    completed = subprocess.run(
+        [
+            node,
+            "-e",
+            script,
+            json.dumps(dictionary, ensure_ascii=False),
+            input_text,
+            source_lang,
+            json.dumps(deprecated or {}, ensure_ascii=False),
+        ],
+        check=True,
+        text=True,
+        capture_output=True,
+        cwd=ROOT,
+    )
+    return json.loads(completed.stdout)
 
 
 def _split_with_frontend(token: str, dictionary: dict[str, str | None]) -> list[str]:
@@ -328,7 +396,92 @@ console.log(JSON.stringify({
     state = json.loads(completed.stdout)
     assert state["targetText"] == ""
     assert "missing (未定義)" in state["logArea"]
-    assert "unused (非使用タグ)" in state["logArea"]
+    assert "unused (未対応または非使用タグ)" in state["logArea"]
+
+
+def test_translation_uses_normalized_source_branch_tag():
+    state = _translate_with_frontend(
+        {"conto": "tale"},
+        "conto",
+        "pt-br",
+    )
+
+    assert state["targetText"] == "pt tale"
+
+
+def test_translation_does_not_add_source_branch_when_branch_tag_is_translated():
+    state = _translate_with_frontend(
+        {"原創": "zh", "故事": "tale"},
+        "原創 故事",
+        "zh-tr",
+    )
+
+    assert state["targetText"] == "zh tale"
+
+
+def test_required_source_options_are_visible():
+    html = INDEX_HTML.read_text(encoding="utf-8")
+    source_select = re.search(
+        r'<select id="sourceLang">(.*?)</select>',
+        html,
+        re.DOTALL,
+    )
+    assert source_select is not None
+
+    options = set(re.findall(r'<option value="([^"]+)"', source_select.group(1)))
+    required = {
+        "cn",
+        "cs",
+        "de",
+        "el",
+        "en",
+        "es",
+        "fr",
+        "hu",
+        "id",
+        "it",
+        "ko",
+        "kz",
+        "pl",
+        "pt-br",
+        "th",
+        "tr",
+        "ua",
+        "vn",
+        "zh-tr",
+    }
+    assert required <= options
+
+
+def test_branch_acceptance_examples_translate_with_committed_dictionaries():
+    with ACCEPTANCE.open(encoding="utf-8", newline="") as f:
+        rows = list(csv.DictReader(f, delimiter="\t"))
+
+    for row in rows:
+        branch = row["branch"]
+        dictionary = json.loads(
+            (ROOT / "dictionaries" / f"{branch}_to_jp.json").read_text(
+                encoding="utf-8",
+            )
+        )
+        deprecated_path = ROOT / "dictionaries" / f"deprecated_{branch}_to_jp.json"
+        deprecated = json.loads(deprecated_path.read_text(encoding="utf-8"))
+        state = _translate_with_frontend(
+            dictionary,
+            row["input_tags"],
+            branch,
+            deprecated,
+        )
+        output_tags = state["targetText"].split()
+        assert len(output_tags) == len(set(output_tags)), branch
+        for expected in row["expected_jp_tags"].split():
+            assert expected in output_tags, (branch, state)
+        if branch == "pt-br":
+            assert "pt" in output_tags
+            assert "pt-br" not in output_tags
+        if branch == "zh-tr":
+            assert "zh" in output_tags
+            assert "zh-tr" not in output_tags
 
 
 def test_stale_dictionary_fetch_does_not_overwrite_newer_empty_input():

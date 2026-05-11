@@ -174,25 +174,26 @@
       <div class="column">
         <label for="sourceLang">翻訳元言語</label>
         <select id="sourceLang">
-          <!-- 今は英語(en)のみ対応 -->
           <option value="en" selected>English (en)</option>
-          <!-- 将来的には以下を追加（コメントアウト中）
-        <option value="cn">中文 (cn)</option>
-        <option value="cs">Česky (cs)</option>
-        <option value="de">Deutsch (de)</option>
-        <option value="es">Español (es)</option>
-        <option value="fr">Français (fr)</option>
-        <option value="it">Italiano (it)</option>
-        <option value="jp">日本語 (jp)</option>
-        <option value="ko">한국어 (ko)</option>
-        <option value="pl">Polski (pl)</option>
-        <option value="pt">Português (pt)</option>
-        <option value="ru">Русский (ru)</option>
-        <option value="th">ภาษาไทย (th)</option>
-        <option value="ua">Українська (ua)</option>
-        <option value="vn">Tiếng Việt (vn)</option>
-        <option value="zh">繁體中文 (zh)</option>
-        --></select>
+          <option value="cn">中文 (cn)</option>
+          <option value="cs">Česky (cs)</option>
+          <option value="de">Deutsch (de)</option>
+          <option value="el">Ελληνικά (el)</option>
+          <option value="es">Español (es)</option>
+          <option value="fr">Français (fr)</option>
+          <option value="hu">Magyar (hu)</option>
+          <option value="id">Bahasa Indonesia (id)</option>
+          <option value="it">Italiano (it)</option>
+          <option value="ko">한국어 (ko)</option>
+          <option value="kz">Қазақша (kz)</option>
+          <option value="pl">Polski (pl)</option>
+          <option value="pt-br">Português (pt-br)</option>
+          <option value="th">ภาษาไทย (th)</option>
+          <option value="tr">Türkçe (tr)</option>
+          <option value="ua">Українська (ua)</option>
+          <option value="vn">Tiếng Việt (vn)</option>
+          <option value="zh-tr">繁體中文 (zh-tr)</option>
+        </select>
 
         <textarea id="sourceText" placeholder="翻訳したいタグを入力"></textarea>
       </div>
@@ -250,25 +251,56 @@
     <script>
       "use strict";
 
-      // 対応可能な言語支部タグ一覧
-      const recognizedLangs = [
+      // 翻訳元支部コードからJP側の支部タグへの対応。
+      const sourceBranchTagByLang = {
+        cn: "cn",
+        cs: "cs",
+        de: "de",
+        el: "el",
+        en: "en",
+        es: "es",
+        fr: "fr",
+        hu: "hu",
+        id: "id",
+        it: "it",
+        ko: "ko",
+        kz: "kz",
+        pl: "pl",
+        "pt-br": "pt",
+        th: "th",
+        tr: "tr",
+        ua: "ua",
+        vn: "vn",
+        "zh-tr": "zh",
+      };
+      const jpBranchTags = new Set([
         "cn",
         "cs",
         "de",
+        "el",
         "en",
         "es",
         "fr",
+        "hu",
+        "id",
+        "int",
         "it",
         "jp",
         "ko",
+        "kz",
+        "nd",
         "pl",
         "pt",
         "ru",
+        "sk",
         "th",
+        "tr",
         "ua",
         "vn",
         "zh",
-      ];
+        "外部ウィキアーカイブ",
+        "未認可支部",
+      ]);
 
       const dictionaryCache = {}; // ペアごとの辞書キャッシュ
       const deprecatedCache = {}; // 非使用タグ置換辞書のキャッシュ
@@ -433,22 +465,20 @@
               appendTranslatedTag(replacement);
               replacedList.push(`${tag} → ${replacement}`);
             } else {
-              // 置換先なし：非使用タグとしてスキップ
-              skippedList.push(`${tag} (非使用タグ)`);
+              // 置換先なし：未対応または非使用タグとしてスキップ
+              skippedList.push(`${tag} (未対応または非使用タグ)`);
             }
           } else {
             appendTranslatedTag(dictionary[tag]);
           }
         });
 
-        // ---- 支部タグの追加（翻訳元言語をタグに含める）----
-        // 例: srcLang="en" なら "en" を出力に追加
-        if (translatedList.length > 0 && recognizedLangs.includes(srcLang)) {
-          // 二重に入るのを避けたいなら、以下のように重複チェックをする
-          if (!translatedList.includes(srcLang)) {
-            // 先頭に追加
-            translatedList.unshift(srcLang);
-          }
+        // ---- 支部タグの追加（翻訳元言語をJP側タグとして含める）----
+        // 入力タグから既に支部タグが得られた場合は、翻訳元支部タグを足さない。
+        const sourceBranchTag = sourceBranchTagByLang[srcLang];
+        const hasBranchTag = translatedList.some((tag) => jpBranchTags.has(tag));
+        if (translatedList.length > 0 && sourceBranchTag && !hasBranchTag) {
+          translatedList.unshift(sourceBranchTag);
         }
 
         // 結果をテキストエリアに表示

@@ -1,0 +1,108 @@
+{
+  "cn": {
+    "原创": {"jp_tag": "cn", "note": "CN origin tag"},
+    "故事": {"jp_tag": "tale", "note": "CN tale major tag"},
+    "人形生物": {"jp_tag": "人間型", "note": "CN humanoid tag"},
+    "智能": {"jp_tag": "知性", "note": "CN sapient tag"},
+    "活物": {"jp_tag": "生命", "note": "CN alive tag"},
+    "精神影响": {"jp_tag": "精神影響", "note": "CN mind-affecting tag"}
+  },
+  "cs": {
+    "české": {"jp_tag": "cs", "note": "CS origin tag"}
+  },
+  "de": {
+    "deutsch": {"jp_tag": "de", "note": "DE origin tag"},
+    "geschichte": {"jp_tag": "tale", "note": "DE tale major tag"},
+    "sicher": {"jp_tag": "safe", "note": "DE safe class tag"}
+  },
+  "es": {
+    "relato": {"jp_tag": "tale", "note": "ES tale major tag"},
+    "seguro": {"jp_tag": "safe", "note": "ES safe class tag"},
+    "humanoide": {"jp_tag": "人間型", "note": "ES humanoid tag"},
+    "consciente": {"jp_tag": "知性", "note": "ES sapient tag"},
+    "inteligente": {"jp_tag": "知性", "note": "ES intelligent tag"},
+    "vivo": {"jp_tag": "生命", "note": "ES alive tag"}
+  },
+  "fr": {
+    "conte": {"jp_tag": "tale", "note": "FR tale major tag"},
+    "sûr": {"jp_tag": "safe", "note": "FR safe class tag"},
+    "euclide": {"jp_tag": "euclid", "note": "FR euclid class tag"},
+    "humanoïde": {"jp_tag": "人間型", "note": "FR humanoid tag"},
+    "conscient": {"jp_tag": "知性", "note": "FR sapient tag"}
+  },
+  "hu": {
+    "_hu": {"jp_tag": "hu", "note": "HU origin tag"},
+    "történet": {"jp_tag": "tale", "note": "HU tale major tag"},
+    "biztonságos": {"jp_tag": "safe", "note": "HU safe class tag"},
+    "euklid": {"jp_tag": "euclid", "note": "HU euclid class tag"},
+    "élő": {"jp_tag": "生命", "note": "HU alive tag"}
+  },
+  "id": {
+    "scp-id": {"jp_tag": "scp", "note": "ID SCP major tag"},
+    "kisah-id": {"jp_tag": "tale", "note": "ID tale major tag"},
+    "aman": {"jp_tag": "safe", "note": "ID safe class tag"},
+    "hidup": {"jp_tag": "生命", "note": "ID alive tag"},
+    "berakal": {"jp_tag": "知性", "note": "ID sapient tag"}
+  },
+  "it": {
+    "racconto": {"jp_tag": "tale", "note": "IT tale major tag"},
+    "senziente": {"jp_tag": "知性", "note": "IT sentient tag"},
+    "umanoide": {"jp_tag": "人間型", "note": "IT humanoid tag"},
+    "sapiente": {"jp_tag": "知性", "note": "IT sapient tag"}
+  },
+  "ko": {
+    "이야기": {"jp_tag": "tale", "note": "KO tale major tag"},
+    "유클리드": {"jp_tag": "euclid", "note": "KO euclid class tag"},
+    "안전": {"jp_tag": "safe", "note": "KO safe class tag"},
+    "인간형": {"jp_tag": "人間型", "note": "KO humanoid tag"},
+    "케테르": {"jp_tag": "keter", "note": "KO keter class tag"},
+    "지성": {"jp_tag": "知性", "note": "KO sapient tag"}
+  },
+  "kz": {
+    "қауіпсіз": {"jp_tag": "safe", "note": "KZ safe class tag"},
+    "евклид": {"jp_tag": "euclid", "note": "KZ euclid class tag"},
+    "гуманоид": {"jp_tag": "人間型", "note": "KZ humanoid tag"},
+    "тірі": {"jp_tag": "生命", "note": "KZ alive tag"}
+  },
+  "pl": {
+    "oryginał": {"jp_tag": "pl", "note": "PL origin tag"},
+    "opowieść": {"jp_tag": "tale", "note": "PL tale major tag"},
+    "bezpieczne": {"jp_tag": "safe", "note": "PL safe class tag"},
+    "rozumne": {"jp_tag": "知性", "note": "PL sapient tag"},
+    "żywe": {"jp_tag": "生命", "note": "PL alive tag"}
+  },
+  "pt-br": {
+    "conto": {"jp_tag": "tale", "note": "PT/BR tale major tag"},
+    "seguro": {"jp_tag": "safe", "note": "PT/BR safe class tag"},
+    "euclídeo": {"jp_tag": "euclid", "note": "PT/BR euclid class tag"},
+    "humanoide": {"jp_tag": "人間型", "note": "PT/BR humanoid tag"},
+    "sapiente": {"jp_tag": "知性", "note": "PT/BR sapient tag"}
+  },
+  "th": {
+    "scp-th": {"jp_tag": "scp", "note": "TH SCP major tag"},
+    "tale-th": {"jp_tag": "tale", "note": "TH tale major tag"},
+    "สิ่งมีชีวิต": {"jp_tag": "生命", "note": "TH alive tag"},
+    "คล้ายมนุษย์": {"jp_tag": "人間型", "note": "TH humanoid tag"}
+  },
+  "tr": {
+    "güvenli": {"jp_tag": "safe", "note": "TR safe class tag"},
+    "öklid": {"jp_tag": "euclid", "note": "TR euclid class tag"}
+  },
+  "ua": {
+    "об'єкт": {"jp_tag": "scp", "note": "UA SCP major tag"},
+    "безпечний": {"jp_tag": "safe", "note": "UA safe class tag"},
+    "евклід": {"jp_tag": "euclid", "note": "UA euclid class tag"},
+    "гуманоїд": {"jp_tag": "人間型", "note": "UA humanoid tag"},
+    "психічний_вплив": {"jp_tag": "精神影響", "note": "UA mind-affecting tag"}
+  },
+  "vn": {
+    "scp-vn": {"jp_tag": "scp", "note": "VN SCP major tag"},
+    "truyện-vn": {"jp_tag": "tale", "note": "VN tale major tag"},
+    "dạng-người": {"jp_tag": "人間型", "note": "VN humanoid tag"},
+    "trí-khôn": {"jp_tag": "知性", "note": "VN sapient tag"}
+  },
+  "zh-tr": {
+    "原創": {"jp_tag": "zh", "note": "ZH/TR origin tag"},
+    "故事": {"jp_tag": "tale", "note": "ZH/TR tale major tag"}
+  }
+}

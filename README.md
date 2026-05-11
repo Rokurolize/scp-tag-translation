@@ -5,12 +5,14 @@ SCP財団のタグを多言語翻訳するための静的ツールです。
 
 ## 特長
 
-- 英語(en)・日本語(jp)など複数の SCP 支部タグに対応（現在は en → jp のみ実装中）
+- JP以外のローカルコーパス支部タグから日本語(jp)タグへの翻訳に対応
 - 連結タグ（例: `fireinscription`）を最長一致で分割して翻訳
-- 未定義タグや非使用タグはログ表示
+- 未定義タグ、未対応タグ、非使用タグはログ表示
 - ダークモード対応
 - レスポンシブデザインにより、PC/モバイルどちらでも快適
-- SCP Wiki 独自の「支部タグ」を翻訳結果に付加（例: 翻訳元が en なら訳結果に `en` タグを自動追加）
+- SCP Wiki 独自の「支部タグ」を翻訳結果に付加（例: 翻訳元が `pt-br` なら訳結果に `pt` タグを自動追加）
+
+対応している翻訳元支部は、`cn`、`cs`、`de`、`el`、`en`、`es`、`fr`、`hu`、`id`、`it`、`ko`、`kz`、`pl`、`pt-br`、`th`、`tr`、`ua`、`vn`、`zh-tr`です。翻訳先はJPタグです。
 
 ## デモ
 
@@ -21,7 +23,7 @@ SCP財団のタグを多言語翻訳するための静的ツールです。
 1. リポジトリをクローン or ダウンロード
 2. `index.html` と `dictionaries/` ディレクトリを同階層に配置
 3. GitHub Pages などの静的ホスティング、またはローカルHTTPサーバー経由で `index.html` を開く
-4. 翻訳元・翻訳先言語を選択（現在は en→jp のみ）
+4. 翻訳元・翻訳先言語を選択（翻訳先はJP）
 5. 翻訳したいタグを入力すると、自動で翻訳結果が表示されます
 6. 「コピー」ボタンで出力をクリップボードにコピー可能
 
@@ -53,6 +55,7 @@ scp-tag-translation/
 ├── scripts/                # 辞書生成パイプライン
 │   ├── parse_sources.py    # sources/ を解析して data/ に出力
 │   ├── build_dict.py       # data/ から辞書を生成
+│   ├── build_branch_dicts_from_corpus.py # corpusメタデータから支部別JP辞書を生成
 │   └── parsers/
 │       ├── en_parser.py
 │       └── jp_parser.py
@@ -70,9 +73,26 @@ python scripts/parse_sources.py
 # 2. data/ から辞書を生成（既存の手動追記を保護）
 python scripts/build_dict.py
 
+# 3. ローカルコーパスのメタデータから、JP以外の支部→JP辞書を生成
+python scripts/build_branch_dicts_from_corpus.py --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus
+
+# 4. 可視化用の支部タグカバレッジデータを生成
+python scripts/build_branch_tag_coverage_data.py --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus
+
+# 5. 単一HTMLのカバレッジ可視化を生成
+python scripts/build_branch_tag_coverage_html.py
+
 # 強制上書きする場合
 python scripts/build_dict.py --overwrite
 ```
+
+支部別辞書は `dictionaries/<source>_to_jp.json`、置換辞書は `dictionaries/deprecated_<source>_to_jp.json` に出力されます。`pt-br_to_jp.json` と `zh-tr_to_jp.json` のように、コーパス側の支部ディレクトリ名をそのままファイル名に使います。ただしJP側の支部タグはそれぞれ `pt`、`zh` に正規化されます。
+
+`null` は、非使用タグ、単一の置換先がないタグ、またはまだJPタグへ対応付けていないコーパス由来タグを表します。置換辞書に単一置換先がある場合はUIが置換先を出力し、ない場合はログに「未対応または非使用タグ」と表示します。
+
+可視化用データは `visualization/branch_tag_coverage.json` と `visualization/branch_tag_coverage.tsv` に出力されます。各支部の全タグについて、JPタグリスト側で登録タグ・別名・非使用タグとして扱われているか、ローカル上書きのみか、未収録かを分類します。
+
+`visualization/branch_tag_coverage.html` は、上記JSONを埋め込んだ自己完結HTMLです。外部JSONの `fetch()` に依存しないため、ローカルでそのまま開けます。
 
 ## テスト
 

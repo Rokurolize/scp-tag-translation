@@ -13,9 +13,23 @@ _PAIR_RE = re.compile(
 )
 
 # 説明文中の単一置換先を抽出するパターン
-# 例: "JPでは//世界観//タグに置換してください"
-_REPLACE_RE = re.compile(r"JPでは?//([^/]+)//タグに置換してください")
+# 例: "JPでは//世界観//タグに置換してください", "//scp//タグに置換してください"
+_TAG_REF_RE = re.compile(r"//([^/]+)//")
+_REPLACE_RE = re.compile(
+    r"//([^/]+)//(?:タグ)?(?:へ|に)置(?:き)?換(?:え|し)てください"
+)
 _SECTION_RE = re.compile(r"^\+{3,}\s*([A-Z]{2,3})\b")
+
+
+def _extract_single_replacement(description: str) -> str | None:
+    replacements = [value.strip() for value in _REPLACE_RE.findall(description)]
+    tag_refs = [value.strip() for value in _TAG_REF_RE.findall(description)]
+    if len(replacements) != 1:
+        return None
+    if len(tag_refs) != 1:
+        return None
+    replacement = replacements[0]
+    return replacement or None
 
 
 def _iter_uncommented_lines(filepath: str):
@@ -82,9 +96,8 @@ def parse_unused(filepath: str, output_filepath: str) -> None:
         desc_m = re.search(r"\s*-\s*(.+)", line[last_end:])
         description = desc_m.group(1).strip() if desc_m else ""
 
-        # 単一置換先のみ抽出（複数タグへの置換はスキップ）
-        replacements = _REPLACE_RE.findall(description)
-        replacement = replacements[0].strip() if len(replacements) == 1 else None
+        # 単一置換先のみ抽出（複数候補や文脈依存の置換はスキップ）
+        replacement = _extract_single_replacement(description)
 
         for m in matches:
             en_tag = m.group(3).strip() if m.group(3) else None

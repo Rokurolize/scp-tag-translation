@@ -229,9 +229,23 @@ class TestJpParser:
             {
                 "source_lang": "PL",
                 "en_tag": "film",
-                "replacement": None,
+                "replacement": "映像添付",
             },
         ]
+
+    def test_parse_unused_does_not_pick_context_dependent_replacement(self, tmp_path):
+        source = tmp_path / "fragment-unused.txt"
+        output = tmp_path / "deprecated_tags.json"
+        source.write_text(
+            "+++ EN\n"
+            "* **[[[/system:page-tags/tag/エッセイ・ガイド|エッセイ・ガイド]]]** //(guide)// - //エッセイ//あるいは//他支部公式//に置換してください。",
+            encoding="utf-8",
+        )
+
+        jp_parser.parse_unused(str(source), str(output))
+
+        parsed = json.loads(output.read_text(encoding="utf-8"))
+        assert parsed[0]["replacement"] is None
 
     def test_parse_unused_trims_replacement(self, tmp_path):
         source = tmp_path / "fragment-unused.txt"
