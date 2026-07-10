@@ -132,14 +132,6 @@ def classify_tag(
             "jp_tag": tag,
             "replacement": None,
         }
-    elif tag in jp_source_map:
-        result = {
-            "status": "jp_tag_alias",
-            "jp_list_handled": True,
-            "translator_handled": True,
-            "jp_tag": jp_source_map[tag],
-            "replacement": None,
-        }
     elif tag in branch_overrides:
         result = {
             "status": "curated_override_only",
@@ -162,6 +154,14 @@ def classify_tag(
             "jp_list_handled": False,
             "translator_handled": True,
             "jp_tag": branch_crosswalk[tag],
+            "replacement": None,
+        }
+    elif tag in jp_source_map:
+        result = {
+            "status": "jp_tag_alias",
+            "jp_list_handled": True,
+            "translator_handled": True,
+            "jp_tag": jp_source_map[tag],
             "replacement": None,
         }
     else:

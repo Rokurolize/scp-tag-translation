@@ -66,20 +66,30 @@ def test_override_targets_are_valid_jp_tags(jp_tags_data):
 
 def test_branch_builder_applies_expected_precedence(jp_tags_data):
     jp_names, jp_source_map = branch_builder.jp_maps(jp_tags_data)
+    jp_source_map["international"] = "インターナショナル"
     dictionary, deprecated = branch_builder.build_branch_dict(
         "cn",
-        {"原创", "故事", "euclid", "wanderers", "unknown"},
+        {
+            "原创",
+            "故事",
+            "euclid",
+            "wanderers",
+            "international",
+            "unknown",
+        },
         jp_names,
         jp_source_map,
         {"CN": {"wanderers"}},
         {"CN": {"wanderers": "外部ウィキアーカイブ"}},
         {"cn": {"原创": "cn", "故事": "tale"}},
+        {"cn": {"international": "int"}},
     )
 
     assert dictionary["原创"] == "cn"
     assert dictionary["故事"] == "tale"
     assert dictionary["euclid"] == "euclid"
     assert dictionary["wanderers"] is None
+    assert dictionary["international"] == "int"
     assert dictionary["unknown"] is None
     assert deprecated == {"wanderers": "外部ウィキアーカイブ"}
 

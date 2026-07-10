@@ -2,7 +2,7 @@ branch	input_tags	expected_jp_tags
 en	scp euclid humanoid sapient alive	scp euclid 人間型 知性 生命
 cn	原创 故事 euclid 人形生物 智能 活物 精神影响 认知危害 段落	cn tale euclid 人間型 知性 生命 精神影響 認識災害 フラグメント
 cs	české tale safe humanoid	cs tale safe 人間型
-de	deutsch geschichte sicher euclid humanoid lebendig	de tale safe euclid 人間型 生命
+de	deutsch geschichte sicher euclid humanoid lebendig international	de tale safe euclid 人間型 生命 int
 es	es relato seguro humanoide consciente inteligente vivo	es tale safe 人間型 知性 生命
 fr	fr conte sûr euclide humanoïde conscient	fr tale safe euclid 人間型 知性
 int	scp _vn _cc resource translator _adult _genreless	vn scp 世界観 著者ページ アダルト

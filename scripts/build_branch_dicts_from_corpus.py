@@ -303,12 +303,12 @@ def build_branch_dict(
             dictionary[source_tag] = None
         elif source_tag in jp_names:
             dictionary[source_tag] = source_tag
-        elif source_tag in jp_source_map:
-            dictionary[source_tag] = jp_source_map[source_tag]
         elif source_tag in branch_overrides:
             dictionary[source_tag] = branch_overrides[source_tag]
         elif source_tag in branch_crosswalk:
             dictionary[source_tag] = branch_crosswalk[source_tag]
+        elif source_tag in jp_source_map:
+            dictionary[source_tag] = jp_source_map[source_tag]
         else:
             dictionary[source_tag] = None
 
@@ -371,12 +371,12 @@ def build_en_dicts(
             dictionary[source_tag] = None
         elif source_tag in jp_names:
             dictionary[source_tag] = source_tag
-        elif source_tag in jp_source_map:
-            dictionary[source_tag] = jp_source_map[source_tag]
         elif source_tag in en_overrides:
             dictionary[source_tag] = en_overrides[source_tag]
         elif source_tag in en_crosswalk:
             dictionary[source_tag] = en_crosswalk[source_tag]
+        elif source_tag in jp_source_map:
+            dictionary[source_tag] = jp_source_map[source_tag]
         else:
             dictionary[source_tag] = None
     deprecated_dict: dict[str, str] = {

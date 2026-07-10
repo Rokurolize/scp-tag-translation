@@ -41,7 +41,7 @@ def _load_embedded_html_coverage():
 
 def test_classify_tag_distinguishes_jp_list_and_override_states():
     jp_names = {"scp", "cn", "euclid", "tale", "外部ウィキアーカイブ"}
-    jp_source_map = {"euclidean": "euclid"}
+    jp_source_map = {"euclidean": "euclid", "international": "euclid"}
     deprecated_tags = {"CN": {"wanderers"}}
     replacements = {"CN": {"wanderers": "外部ウィキアーカイブ"}}
     overrides = {"cn": {"原创": "cn"}}
@@ -67,7 +67,7 @@ def test_classify_tag_distinguishes_jp_list_and_override_states():
             overrides,
             policy,
             set(),
-            {"cn": {"official": "tale"}},
+            {"cn": {"official": "tale", "international": "tale"}},
         )["status"]
 
     assert classify("scp") == "jp_tag_name"
@@ -75,6 +75,7 @@ def test_classify_tag_distinguishes_jp_list_and_override_states():
     assert classify("wanderers") == "jp_unused_replacement"
     assert classify("原创") == "curated_override_only"
     assert classify("official") == "official_crosswalk"
+    assert classify("international") == "official_crosswalk"
     assert classify("unknown") == "unhandled"
 
 
