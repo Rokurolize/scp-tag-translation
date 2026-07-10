@@ -15,6 +15,7 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from scripts import build_branch_dicts_from_corpus as branch_builder
+from scripts.atomic_output import publish_files_atomically
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUTPUT_DIR = ROOT / "visualization"
@@ -484,13 +485,17 @@ def main() -> None:
 
     json_path = args.output_dir / "branch_tag_coverage.json"
     tsv_path = args.output_dir / "branch_tag_coverage.tsv"
-    write_json(json_path, coverage)
-    write_tsv(tsv_path, coverage)
     inventory = build_application_inventory(coverage)
     inventory_json_path = args.output_dir / "tag_application_inventory.json"
     inventory_tsv_path = args.output_dir / "tag_application_inventory.tsv"
-    write_json(inventory_json_path, inventory)
-    write_application_tsv(inventory_tsv_path, inventory)
+    publish_files_atomically({
+        json_path: lambda temporary: write_json(temporary, coverage),
+        tsv_path: lambda temporary: write_tsv(temporary, coverage),
+        inventory_json_path: lambda temporary: write_json(temporary, inventory),
+        inventory_tsv_path: (
+            lambda temporary: write_application_tsv(temporary, inventory)
+        ),
+    })
     total_tags = sum(branch["tag_count"] for branch in coverage["branches"])
     print(
         f"可視化データ生成完了: {len(coverage['branches'])}支部, "

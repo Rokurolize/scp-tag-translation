@@ -621,9 +621,8 @@ def test_branch_acceptance_examples_translate_with_committed_dictionaries():
             policy,
         )
         output_tags = state["targetText"].split()
-        assert len(output_tags) == len(set(output_tags)), branch
-        for expected in row["expected_jp_tags"].split():
-            assert expected in output_tags, (branch, state)
+        expected_tags = row["expected_jp_tags"].split()
+        assert output_tags == expected_tags, (branch, state)
         if branch == "pt-br":
             assert "pt" in output_tags
             assert "pt-br" not in output_tags

@@ -2,6 +2,8 @@
 import json
 from pathlib import Path
 
+import pytest
+
 from parsers import branch_guide_parser, en_parser, int_parser, ko_parser
 from parsers.crosswalk_resolver import CrosswalkResolver, normalize_tag
 from build_dict import (
@@ -75,6 +77,21 @@ class TestEnParser:
 
         parsed = json.loads(output.read_text(encoding="utf-8"))
         assert parsed[0]["name"] == "amoni-ram"
+
+    def test_en_description_starts_after_link_even_with_double_hyphen(self, tmp_path):
+        source = tmp_path / "tag-list.txt"
+        output = tmp_path / "en_tags.json"
+        source.write_text(
+            "* **[https://example.test/system:page-tags/tag/foo--bar "
+            "foo--bar]** -- Real description\n",
+            encoding="utf-8",
+        )
+
+        en_parser.parse(str(source), str(output))
+
+        parsed = json.loads(output.read_text(encoding="utf-8"))
+        assert parsed[0]["name"] == "foo--bar"
+        assert parsed[0]["description"] == "Real description"
 
     def test_en_colon_metadata_handles_quoted_values_with_and(self):
         assert _EN_PARSE_META_LINE("* //Requires: 'scp', and 'tale'//") == (
@@ -451,6 +468,48 @@ def test_crosswalk_resolver_rejects_conflicting_current_targets(jp_tags_data):
 
     assert resolver.resolve(["empathic"], ["念力"]) is None
     assert normalize_tag("yakushi\u202c") == "yakushi"
+
+
+def test_crosswalk_resolver_normalizes_index_keys_and_detects_collisions():
+    resolver = CrosswalkResolver(
+        [
+            {"name": "対象A", "source_tags": [" foo\u200b "]},
+            {"name": "対象B", "source_tags": ["bar"]},
+        ],
+        [{"source_lang": "EN", "en_tag": " old\u200b ", "replacement": "対象A"}],
+    )
+
+    assert resolver.resolve(["foo"], []) == "対象A"
+    assert resolver.resolve(["old"], ["対象B"]) == "対象A"
+    assert resolver.resolve(["old", "bar"], []) is None
+
+    with pytest.raises(ValueError, match="source tag maps to multiple"):
+        CrosswalkResolver([
+            {"name": "対象A", "source_tags": ["foo\u200b"]},
+            {"name": "対象B", "source_tags": ["foo"]},
+        ])
+
+
+def test_int_and_ko_crosswalks_ignore_placeholder_cells(tmp_path):
+    int_source = tmp_path / "int.txt"
+    int_source.write_text(
+        "|| **EN** || **JP** || **CN** ||\n"
+        "|| foo || 日本語 || - ||\n"
+        "|| bar || 日本語 || N/A ||\n",
+        encoding="utf-8",
+    )
+    ko_source = tmp_path / "ko.txt"
+    ko_source.write_text(
+        "|| foo || - || [https://ko.example/system:page-tags/tag/한국어 한국어] ||\n",
+        encoding="utf-8",
+    )
+
+    int_mappings = int_parser.parse_crosswalk(str(int_source))
+    ko_mappings = ko_parser.parse_crosswalk(str(ko_source))
+
+    assert "-" not in int_mappings.get("cn", {})
+    assert "N/A" not in int_mappings.get("cn", {})
+    assert ko_mappings == {"ko": {}}
 
 
 def test_crosswalk_semantic_replacement_overrides_stale_raw_jp_label(
