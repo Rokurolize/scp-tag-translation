@@ -28,7 +28,7 @@ STATUS_DESCRIPTIONS = {
     "jp_tag_alias": "The source tag is recorded in the JP tag list as a source-language tag annotation.",
     "curated_override_only": "Not recorded in the JP tag list, but mapped by local reviewed override data.",
     "official_crosswalk": "Mapped by an official SCP-INT or branch-local tag crosswalk to a current registered JP tag.",
-    "unhandled": "Not recorded in the JP tag list or local reviewed overrides.",
+    "unhandled": "No current JP tag-list mapping, reviewed override, or official crosswalk.",
 }
 
 
