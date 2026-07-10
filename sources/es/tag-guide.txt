@@ -1,0 +1,1433 @@
+[[module CSS]]
+/* AE */
+
+.yui-navset .yui-nav,
+.yui-navset .yui-navset-top .yui-nav {
+     display: flex;
+     flex-wrap: wrap;
+     width: 100%;
+     margin: 0 auto;
+     box-shadow: none;
+}
+
+ .yui-navset .yui-nav a,
+ .yui-navset .yui-navset-top .yui-nav a {
+     border: unset;
+     box-shadow: none;
+}
+
+.yui-navset .yui-nav a em,
+.yui-navset .yui-navset-top .yui-nav a em {
+     border: 0px;
+     padding: .35em .75em;
+     text-overflow: ellipsis;
+     overflow: hidden;
+     white-space: nowrap;
+}
+
+.yui-navset .yui-nav .selected a,
+.yui-navset .yui-nav .selected a em {
+     display: flex;
+     flex-grow: 2;
+     max-width: 100%;
+     align-items: center;
+     justify-content: center;
+}
+
+.yui-navset .yui-nav .selected, .yui-navset .yui-navset-top .yui-nav .selected {
+    margin: 0;
+}
+
+ .yui-navset .yui-nav li,
+ .yui-navset .yui-navset-top .yui-nav li {
+     position: relative;
+     display: flex;
+     flex-grow: 2;
+     max-width: 100%;
+     margin: 0;
+     padding: 0;
+}
+ .yui-navset .yui-nav li a,
+ .yui-navset-top .yui-nav li a,
+ .yui-navset-bottom .yui-nav li a {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     width: 100%;
+}
+ .yui-navset .yui-nav li em{
+     border: unset;
+}
+
+/* TOC */
+
+.content-toc {
+    float: right;
+    padding: 0px 13px 0px 13px;
+    background-color: #fff;
+    border: solid 1px #ccc;
+    border-radius: 10px;
+    margin: 5px 10px 5px 10px;
+    white-space: nowrap;
+    box-shadow: inset 1px 2px 6px rgba(0,0,0,.15);
+    z-index: 15;
+    position: relative;
+}
+
+[[/module]]
+
+[[# 001]]
+
+[[tabview]]
+[[tab Presentación y Normas]]
+
+[[div class="content-toc"]]
+[[=]]
+**Tabla de Contenidos**
+[[/=]]
+
+[[<]]
+* [#001 Normas y FAQ]
+* [#002 Etiquetas]
+[[/<]]
+[[/div]]
+
++ Listado de Etiquetas
+++ ¿Qué son las etiquetas?
+Las etiquetas son una manera fácil y cómoda de tener los artículos clasificados mediante palabras clave que se añaden a las páginas que conforman la Wiki, y es útil para la gente a la que le interese buscar artículos similares a los que ya hayan leído, o para leer todos los artículos de un mismo tema (por ejemplo, para encontrar todos los artículos de un mismo Grupo de Interés, o todos los artículos que tengan que ver con SCPs de clase [/system:page-tags/tag/euclid euclid]).
+
+**Consejo:** Si estás teniendo dificultades para encontrar una etiqueta, te recomendamos utilizar el comando "Ctrl + F" para buscar palabras clave en el diccionario.
+
+Las etiquetas que se usan en los artículos traducidos son las mismas que se usan en la página original, traducidas al español. La versión en inglés de cada etiqueta se halla entre paréntesis. Las étiquetas en el diccionario están ordenadas por su inicial EN INGLÉS.
+
+> **IMPORTANTE: No inventes etiquetas y no uses otras que no estén en el artículo original. Traduce las originales usando la lista que encontrarás en las otras pestañas. Si no sabes que etiquetas debes usar, es mejor que dejes tu artículo sin etiquetar.**
+> 
+> **IMPORTANTE 2: No traducimos ni utilizamos etiquetas de género, excepto las que puedes ver en Etiquetas Principales, Etiquetas Misceláneas y Marcadores de Contenido; así como las siguientes EXCEPCIONES, adaptadas de la categoría de género a la categoría atributiva: [/system:page-tags/tag/inteligencia-artificial inteligencia-artificial][[footnote]]artificial-intelligence[[/footnote]] e [/system:page-tags/tag/institución-educativa institución educativa][[footnote]]school[[/footnote]].**
+
+Esto es porque Wikidot nos da una lista de qué páginas están sin etiquetar, y así nos es más fácil identificar estas páginas y etiquetarlas correctamente. En cambio, si etiquetas una página mal,  no tendremos forma de saberlo hasta que nos, hasta que nos encontremos con ella.
+------
++++ ¿Cómo le pongo etiquetas a una página?
+Para poner etiquetas en vuestras páginas, sólo tenéis que ir al final de la misma, y entre las opciones "Puntuar" y "Discutir", está la opción "Etiquetas". Las etiquetas se escriben de forma llana, sin códigos especiales y van separadas por espacios, así que en etiquetas formadas por más de una palabra recordad poner guiones entre ellas.
+
++++ ¿Tengo que etiquetar las páginas que cree?
+¡Por supuesto que sí! Si no tienes confianza en tu habilidad para etiquetar la página apropiadamente (o si alguien te dice que lo has hecho mal), pídele ayuda a algún usuario experimentado para que te asista. Si no puedes pedir ayuda a nadie, es mejor que la dejes sin etiquetas, por la razón mencionada arriba.
+
++++ ¿Y qué tal las páginas de los demás?
+Puedes hacerlo, pero por favor que sea sólo si sabes lo que estás haciendo. De preferencia, pídele ayuda al creador de la página o a otro miembro activo primero. Si te piden que dejes de hacerlo, entonces por favor deja de hacerlo.
+
++++ ¿Cómo sé qué etiquetas poner en mi página?
+En las siguientes pestañas se presenta una traducción estandarizada de las etiquetas (//”Tags”//) que podéis ver al pie de los artículos de la wiki anglosajona.
+
+Si quieres tener más información sobre este tema, consulta [http://www.scp-wiki.net/tag-guide  la guía de etiquetas de la wiki inglesa (“The Tag Guide”)].
+[[/tab]]
+[[tab Preguntas Frecuentes]]
+
++ Preguntas Frecuentes
+Aquí se explica la diferencia entre etiquetas confusas o comúnmente mal utilizadas. Si piensas que alguno de estos se aplica a tu SCP, por favor, lee cuidadosamente esto. Si aún no estás seguro, pregunta a un miembro del [[[http://lafundacionscp.wikidot.com/equipos-administrativos-es | Staff]]]. Si se trata de una traducción, preferiblemente a un miembro del Equipo de Traducciones. Si se trata de un escrito original tuyo, preferiblemente a un miembro del Equipo de Crítica.
+
++++ ##9f0019|orgánico vs. biolgógico vs. vivo##
+* Algo que es **//orgánico//** está compuesto de, o se relaciona con compuestos orgánicos, como proteínas, grasas, u otras sustancias relacionadas con formas de vida, pero sin estar vivas.
+* Algo que es **//biológico//** posee elementos de formas de vida, como tejidos vivos, órganos y otros elementos que podamos reconocer como partes de organismos, pero no muestran características de estar vivos (véase abajo). Todo lo que está catalogado como //biológico// es, por defecto, //orgánico//, y no necesita ser etiquetado como este último.
+* Algo que está **//vivo//** conforma las características de organismos vivos. Estos varían de biólogo en biólogo, pero generalmente incluye las siguientes:
+ * **Metabolismo** - Toda forma de vida consume energía, la utiliza para catalizar procesos energéticos, y excreta cierto desperdicio de alguna forma (incluso si es sólo calor).
+ * **Reacción** - Toda forma de vida reacciona a su ambiente: persiguen o buscan cosas que perciben como su alimento y se alejan de cosas percibidas como peligrosas. Incluso las plantas giran sus hojas al sol para maximizar su potencial fotosintético.
+ * **Reproducción** - Toda forma de vida se reproduce, ya sea sexual como asexualmente.
+* Algo //vivo// es por defecto //biológico// y //orgánico//, y no necesita estar etiquetado como los dos últimos.
+
++++ ##9f0019|parásito vs. contagioso vs. auto-replicable vs. reproductivo##
+* Una entidad **//parásita//** es algo que se "alimenta" de otra entidad. Es distinto a una relación de mutualismo porque un //parásito// no ayuda a su huésped en ninguna forma; es una relación unilateralmente dañina. Esto puede referirse a tanto parásitos que simplemente viven y hieren a un huésped, y parasitoides, que matan a su huésped, y no coinciden con las categorías de //biológico// o //vivo// en el contexto de la Fundación.
+* Un **//contagioso//** es algo que infecta a una entidad determinada, y una vez infectada, se esparce a otros individuos no infectados. En el contexto de la Fundación, esto no puede ser un proceso biológico, y es distinto a una entidad //parasitaria// debido a que un contagioso se vuelve indistinguible con el huésped, mientras que un parásito permanece distinguible de su huésped. un virus informático es también considerado un //contagioso//.
+* Un objeto o entidad **//auto-replicable//** es algo que es capaz de crear copias de sí  mismo. Se puede lograr esto, ya sea a través de brotes / división, o convirtiendo otras cosas o materias primas en instancias. Esto por lo general, pero no siempre, un proceso no biológico.
+* Un objeto **//reproductivo//** afecta los procesos biológicos reproductivos de un organismo vivo. Esto casi siempre significa que usa los órganos reproductivos o el sistema reproductivo de otro organismo vivo para hacer copias de sí mismo, y es siempre un proceso biológico por la naturaleza del mismo. Es distinto a //parásito// en que éste "secuestra" los procesos reproductivos; algo que sólo se alimenta de las paredes del útero de un animal afectado sería un //parásito//, pero algo que imita a un feto y obliga al anfitrión a someterse a los procesos normales del embarazo sería //reproductivo//.
+* //parásito// y //contagioso// son por lo general mutuamente excluyentes; sólo puedes ser uno o lo otro. //auto-replicable// y //reproductivo// también son mutuamente excluyentes, excepto en circunstancias extremas.
+
++++ ##9f0019|compulsión vs. cognito-peligroso vs. psique-alterador vs. memético##
+* Una **//compulsión//** es algo que obliga a los sujetos a hacer cosas que no harían en circunstancias normales. Es distinto a un //cognito-peligroso// debido a que no necesita línea de percepción de la fuente; a veces, la mera proximidad es suficiente. También es distinto a un //psique-alterador// ya que no es una fuerza insuperable que te **ordene** que lo hagas, es mejor descrito como una sensación fuerte de intensa curiosidad. Además, suele ser temporal; una vez un sujeto sea quitado de la presencia del objeto generador de //compulsión//, se recuperarán (aunque tome mucho tiempo).
+* Un **//cognito-peligroso//** es algo que supone un peligro a cualquier sujeto que lo perciba con cualquiera de nuestros cinco sentidos: vista (//visual//), oído (//auditivo//), olfato (//olfativo//), gusto (//gustativo//), y tacto (//táctil//). Esto se aplica tanto a cosas que hagan daño físico como psicológico, pero sólo de una forma que sea anómala. Una luz muy brillante que pueda dejarte ciego no puede ser un //cognito-peligroso//, ni un borde afilado con el que puedas cortarte. Un sonido que provoque que sangres desde cada poro de la piel o un aroma que te lleve a la locura son ejemplos básicos de //cognito-peligroso//s.
+* Un efecto **//psique-alterador//** es aquél que (por lo general permanentemente) afecta la forma en que un sujeto piensa (más comúnmente por alterar la personalidad o el comportamiento, o induciendo condiciones psiquiátricas). Es distinto a una //compulsión// porque es permanente y es casi siempre una obsesión intensa e incontrolable, no sólo una curiosidad fuerte.
+* Un agente **//memético//** es mejor descrito como "información infecciosa". Es un trozo de datos en la mente de un sujeto que posee un efecto anómalo en el estado físico o mental y se esparce a todos los que sean conscientes de esa misma información. Todos los agentes //memético//s son //cognito-peligroso//s pues no puedes ser expuesto a la información sin observarla de alguna forma, pero no todos los //cognito-peligroso//s son //memético//s.
+
++++ ##9f0019|memético vs. info-peligroso vs. meta##
+* Un **//info-peligroso//** es un objeto que desencadena su efecto cuando te refieres a él o lo describes. Es distinto a un agente //memético// porque sigue siendo un objeto, no una pieza de información. [[[SCP-426]]] es un ejemplo claro de un //info-peligroso//; siempre que te refieras a él, lo harás hablando en primera persona.
+* Un objeto **//meta//** es aquél que afecta a su documentación, es afectado por su documentación o posee procedimientos de contención que se extienden a su documentación. Esto a veces se solapa con //info-peligroso//, pero es distinto. [[[SCP-048]]] es un ejemplo claro de esto; documentar a un objeto como SCP-048 causará que ocurran los accidentes, pero conocer la existencia de SCP-048, describirlo o explicarlo es inofensivo.
+
++++ ##9f0019|acústico vs. auditivo vs. audio##
+* Un efecto **//acústico//** es aquél que toma la forma de una onda sonora u otro tipo de onda de compresión. Esto significa que debe poseer un medio de propagación (como el aire o el agua) y significa que existe sin importar si es escuchado. Algo que puede ser oído por sujetos pero también grabado es probablemente un //acústico//.
+* Un efecto **//auditivo//** es algo que refiere específicamente al sentido del oído. Algo que puede ser oído por sujetos pero no puede ser grabado o capturado por medios sintéticos es una //alucinación// //auditiva//. //auditivo// también puede referirse a ciertos //cognito-peligroso//s si el acto de escucharlo desencadena un efecto.
+* **//audio//** es una etiqueta superior (véase arriba), usada en páginas que posean un archivo de audio adjunto a ellas. No es un atributo, y no debería ser utilizada en SCPs que son meramente descritos como componentes y/o archivos de audio.
+
++++ ##9f0019|extraterrestre vs extradimensional vs futuro vs ectoentrópico##
+* Un objeto **//extraterrestre//** es aquel que "no es de la Tierra", esto significa que puede provenir del espacio o desde el espacio. Esto se aplica a todo tipo de objetos, sean orgánicos (formas de vida alienígena), artificiales (artefactos alienígenas), o no-artificiales (asteroides y otros cuerpos celestes).
+* Un objeto **//extradimensional//** se origina o permite el viaje a otro plano de existencia, universo paralelo o línea temporal distinta a las nuestras. Cualquier objeto descrito como producido por una civilización "no conocida por la historia" podría ser catalogado como //extradimensional// si hay una duda más allá de lo razonable, que no sea una civilización perdida o algo que provenga del //futuro//.
+* Un objeto del **//futuro//** es un objeto que ha sido desplazado desde un marco temporal posterior a uno anterior. Esto también se aplica a objetos que ya no formen parte de "nuestro" futuro, pero que hayan sido considerados "desde el futuro" en algún punto del tiempo.
+* Un objeto **//ectoentrópico//** produce energía o materia desde una fuente desconocida que podría ser considerada como "de la nada". Cualquier objeto que produzca materia o energía de una fuente //extradimensional// o del //futuro// no califican con este atributo, incluso si no se conoce el origen exacto de dichos objetos.
+[[/tab]]
+[[/tabview]]
+------
+
+[[# 002]]
+
+[[tabview]]
+[[tab Etiquetas Principales]]
+++ Etiquetas Principales
+Esta es una lista de etiquetas "principales". Todas las páginas en la Wiki deben tener a lo menos una etiqueta principal, y describen el "tipo" de página al que corresponden. Más que al contenido mismo de las páginas, se refieren a la tipificación "desde fuera" de las mismas, como las secciones dentro de un libro.
+------
++++ Primarias
+* **[/system:page-tags/tag/es es]** - Obligatoria en cualquier tipo de artículo que sea original de la Rama Hispanohablante
+
+* **[/system:page-tags/tag/scp scp]** - Todos los artículos de los bloques principales (Series I, II, III, etc.), propuestas para 001, humorísticos (-J), archivados (-ARC), desmantelados (-D), explicados (-EX) y los artículos de la Rama hispanoparlante (SCP-ES) tienen que ser etiquetados con //scp//.
+
+* **[/system:page-tags/tag/formato-gdi formato-gdi]** - Anomalía o SCP que ha sido redactada desde la perspectiva de un Grupo de Interés específico y se ajusta a los formatos establecidos en la página 'hub' de dicho GdI. Mutuamente excluyente con 'relato' y 'scp'.
+
+* **[/system:page-tags/tag/seguro seguro] / [/system:page-tags/tag/euclid euclid] / [/system:page-tags/tag/keter keter] / [/system:page-tags/tag/taumiel taumiel] / [/system:page-tags/tag/apollyon apollyon] / [/system:page-tags/tag/archon archon] / [/system:page-tags/tag/ticonderoga ticonderoga] / [/system:page-tags/tag/pendiente pendiente] / [/system:page-tags/tag/desmantelado desmantelado] / [/system:page-tags/tag/clase-esotérica clase-esotérica]** - Todos los artículos con la etiqueta //scp// deben incluir una etiqueta acorde con la clasificación de objeto que les corresponda. De haber artículos antiguos con más de una categoría, como Seguro/Euclid, deben anotarse ambas aunque ya no se utiliza actualmente este procedimiento y se mantiene hasta que dichos artículos sean actualizados o borrados.
+
+* **[/system:page-tags/tag/archivado archivado] / [/system:page-tags/tag/neutralizado neutralizado] / [/system:page-tags/tag/humorístico humorístico]** - Éstas son sub-etiquetas para los artículos con la etiqueta //scp// que deben incluirse según corresponda. Deberá incluirse siempre con la etiqueta //scp// y la etiqueta de clasificación, o bien con //sin clasificar// en caso de que no se incluya o no se pueda deducir una clasificación.
+
+* **[/system:page-tags/tag/relato relato]** - Las páginas de //relato// son historias, narraciones y/o transcripciones que generalmente se escriben en un formato diferente al estándar. Puede estar relacionado a un objeto SCP existente, relacionado a uno no existente (por ejemplo mediante registros de incidentes, entrevistas y reportes aislados) o desvinculado de cualquier objeto. Sin importar qué se elija, debe estar relacionado a la Fundación o al universo de la Fundación SCP en general. Las únicas etiquetas //**principales**// que pueden acompañar a esta son //es// y //formato-gdi//. Compárese con creepypasta más abajo.
+
+* **[/system:page-tags/tag/poema poema]** - Etiqueta utilizada para trabajos en forma de poema. No debe ser utilizada de forma simultánea con las etiquetas //formato-gdi// ni //scp//. Puede ser utilizada junto a //relato// si se trata de un relato mayormente conformado por un (o varios) poema(s).
+------
++++ Secundarias
+* **[/system:page-tags/tag/admin admin]** (admin) - Las páginas //admin//, como su nombre sugiere, tienen algún tipo de significado o uso oficial o histórico. Solo el Staff puede crearlas y editarlas.
+
+* **[/system:page-tags/tag/audio audio]** (audio) - Las páginas etiquetadas con //audio// son aquellas que poseen uno o más archivos de audio adjuntos.
+
+* **[/system:page-tags/tag/ficha ficha]** (author) - Se utiliza para marcar las páginas de las fichas pertenecientes a los miembros de nuestra rama. Equivalente a la tag //author// de la rama angloparlante, esta última no se utiliza y se la deja como //ficha//. Se desaconseja traducir fichas de autores de otras ramas, pero no está prohibido.
+
+* **[/system:page-tags/tag/co-autores co-autores]** (co-authored) - Las páginas con //co-autores// son el resultado de dos o más autores trabajando juntos, pero **no están abiertos a incorporaciones de otros miembros**. Esto difiere de la etiqueta de //colaboración//. //co-autores// es una subetiqueta y puede aplicarse en paralelo a //relato//, //creepypasta//, //formato-gdi// o //scp//.
+
+* **[/system:page-tags/tag/colaboración colaboración]** (collaboration) - Las páginas de //colaboración// están escritas o trabajadas por varios autores, y no pueden ser atribuidas directamente a un autor específico. colaboración es una subetiqueta, y puede ser usada en paralelo ya sea con //relato//, //creepypasta//, o //proyecto//, pero no //scp//.
+
+* **[/system:page-tags/tag/concurso concurso]** (contest) - Para páginas especiales levantadas durante la realización de concursos comunitarios.
+
+* **[/system:page-tags/tag/creepypasta creepypasta]** (creepypasta) - Las creepypastas son páginas de //relatos// que no están relacionadas con la Fundación SCP y suelen adoptar la forma de mitos o cuentos de fogata. Una página de creepypasta debe estar etiquetada como //relato// y sólo es apropiada para el sitio web de la SCP si es una creepypasta original del autor de la publicación; no somos un repositorio para creepypastas de autor anónimo.
+
+* **[/system:page-tags/tag/desmantelado desmantelado]** (decomissioned) - Etiqueta complementaria para los artículos de SCP desmantelados. Actualmente en desuso de forma administrativa, ya que la categoría fue eliminada de la Wiki angloparlante, se mantendrá en activo mientras se decide el destino de los SCPs desmantelados existentes. Reañadida con el propósito de SCPs destruidos por la Fundación in-universe.
+
+* **[/system:page-tags/tag/ensayo ensayo]** (essay) - Las páginas de ensayo contienen información útil sobre temas específicos que pueden ser útiles a los autores que escriben artículos relacionados, pero son diferentes de una //guía// en que los ensayos son subjetivos y reflejan la opinión personal del autor.
+
+* **[/system:page-tags/tag/experimento experimento]** (experiment) - Esta etiqueta sólo debería ser utilizada en páginas suplementarias que sean principalmente informes de experimentación (ejemplo: SCP-914 » [[[experiment-log-914]]]). Esta etiqueta **no** debe ser utilizada en páginas SCP, incluso si poseen informes de experimentación extensos.
+
+* **[/system:page-tags/tag/explicado explicado]** (explained) - Etiqueta complementaria para los artículos SCP con la clasificación de "Explicado".
+
+* **[/system:page-tags/tag/exploración exploración]** (exploration) - Esta etiqueta sólo debería ser utilizada en páginas suplementarias que sean principalmente registros de exploración. Esta etiqueta no debería ser utilizada en páginas SCP, incluso si poseen registros de exploración extensos.
+
+* **[/system:page-tags/tag/featured featured]** – Excepción, esta etiqueta no se pone, ya que se refiere a los artículos destacado de la wiki inglesa. Simplemente haced como si no estuviera, así como la etiqueta //event-featured//, que se refiere a los eventos destacados en días especiales, como el Día Internacional de Hablar Como Pirata.
+
+* **[/system:page-tags/tag/guía guía]** (guide) - Estas páginas son guías de escritura, consejos u otras páginas provistas para ayudar a los autores que contribuyen al sitio. Las guías sólo son etiquetadas por el Staff o con el permiso del Staff. Véase también //ensayo//.
+
+* **[/system:page-tags/tag/hub hub]** (hub) - Las páginas //hub// son páginas con un gran número de enlaces a páginas relacionadas. Todas las páginas de las Series SCP son páginas //hub//, al igual que el índice de relatos y varias otras páginas en el sitio. Las páginas de índice para la series de relatos también son catalogados como un //hub//, así como los listados de entrada de concursos.
+
+* **[/system:page-tags/tag/incidente incidente]** (incident) - Esta etiqueta sólo debería ser utilizada en páginas suplementarias que sean principalmente transcripciones o informes de incidentes (ejemplo: SCP-555 » [[[Incident Log 555-1|Informe de Incidente 555-1]]]). Esta etiqueta no debería ser utilizada en páginas SCP, incluso si poseen transcripciones o informes de incidentes extensos.
+
+* **[/system:page-tags/tag/entrevista entrevista]** (interview) - Esta etiqueta sólo debería ser utilizada en páginas suplementarias que sean principalmente transcripciones de entrevistas (ejemplo: SCP-277 » [[[277interview]]]). Esta etiqueta no debería ser utilizada en páginas SCP, incluso si poseen transcripciones de entrevistas extensas.
+
+* **[/system:page-tags/tag/presentación presentación]** (orientation) - Para páginas escritas a modo de presentación u orientación, como [[[http://lafundacionscp.wikidot.com/orientation | este]]] relato.
+
+* **[/system:page-tags/tag/patrimonio patrimonio]** - Reservado a los usuarios senior para designar los artículos [[[heritage-collection-arc|Colección Patrimonial de la Fundación SCP]]].
+
+* **[/system:page-tags/tag/sitio sitio]** (site) – las páginas de //sitio// son páginas hub que documentan las instalaciones específicas de la Fundación y brindan información así como los objetos almacenados en el sitio, el historial del sitio, el personal asignado, etc.
+
+* **[/system:page-tags/tag/splash splash]** (splash) - Las páginas Splash se utilizan como 'portadas' para ciertos artículos, como por ejemplo [[[SCP-001]]].
+
+* **[/system:page-tags/tag/suplemento suplemento]** (supplement) - Las páginas de //suplemento// se definen como experimentos, bitácoras, registros de incidentes, entrevistas u otros documentos vinculados a una página de //scp// que no tienen sentido sin el contexto de su página principal. Estas páginas también deben tener su página principal establecida en su artículo origina con el fin de mantener la relevancia y crear navegación automática o de "//Breadcrumbs//". Una página sólo debe ser etiquetada como suplemento si fueron creados por el autor original del SCP al que se le adjudica o con permiso del autor original. Los documentos que sean homenajes o parodias deben ser etiquetados como //relato// en su lugar, incluso si están en el formato de un registro o una transcripción.
+
+* **[/system:page-tags/tag/formato formato]** (template) - Páginas de formato son para uso interno de la wiki. Esta etiqueta no se debe aplicar nunca a los artículos.
+[[/tab]]
+[[tab Etiquetas Atributivas]]
+
+++ Etiquetas Atributivas
+
+Las siguientes etiquetas son para atributos de artículos SCP y deben usarse únicamente en las páginas de SCP, no en los relatos.
+
+Si necesita alguna etiqueta atributiva que no esté aquí, consulte en la sección de Legado más abajo.
+
+Están ordenadas por orden alfabético de la etiqueta inglesa.
+
++++ A
+* **[/system:page-tags/tag/acústico acústico]** (acoustic) - SCP que se compone, afecta, genera o se propaga por ondas sonoras. Compárese con auditivo y vibración.
+
+* **[/system:page-tags/tag/adaptativo adaptativo]** (adaptive) - SCP que se adapta a estímulos de manera anómala.
+
+* **[/system:page-tags/tag/adictivo adictivo]** (addictive) - SCP que causa deseos o comportamientos relacionados con adicción en sujetos afectados.
+
+* **[/system:page-tags/tag/ultratumba ultratumba]** (afterlife) - SCP que describe o se relaciona con lo que ocurre con la conciencia después de la muerte.
+
+
+* **[/system:page-tags/tag/aéreo aéreo]** (airborne) - SCP que vive, se moviliza o esparce a través del aire.
+
+* **[/system:page-tags/tag/alcohol alcohol]** (alcohol) - SCP que es, afecta o se relaciona con bebidas alcohólicas, la producción y/o distribución de bebidas alcohólicas o la intoxicación por alcohol. Solo incluye al Etanol, otros tipos de alcohol no califican.
+
+* **[/system:page-tags/tag/vivo vivo]** (alive) - SCP que está vivo, es decir, que exhibe las características biológicas de metabolismo, reacción y reproducción. Véase la FAQ de Etiquetas para más información.
+
+* **[/system:page-tags/tag/amorfo amorfo]** (amorphous) - SCP que carece de forma, o que cambia constantemente de ésta. Mutuamente excluyente con metamórfico, y se aplica comúnmente a SCPs definidos como "burbuja", "nube", o "masa informe/indiferenciada".
+
+* **[/system:page-tags/tag/ranino ranino]** (amphibian) - SCP que es o exhibe características raninas, o animales similares a ranas y sapos. Usar junto a //animal//, si es apropiado.
+
+
+* **[/system:page-tags/tag/animal animal]** (animal) - SCP que es o exhibe características de vida animal.
+
+* **[/system:page-tags/tag/antimemético antimemético]** (antimemetic) - SCP que es o involucra el uso de un antimeme para suprimir el conocimiento y/o entendimiento de una idea o concepto, incluyéndose a sí mismo. Contrasta con //memético//.
+
+* **[/system:page-tags/tag/electrodoméstico electrodoméstico]** (appliance) - SCP que es o se asemeja a un electrodoméstico. Usar junto a //eléctrico// o //electrónico//, si es apropiado.
+
+* **[/system:page-tags/tag/acuático acuático]** (aquatic) - SCP que vive, se moviliza o se esparce a través del agua.
+
+* **[/system:page-tags/tag/arácnido arácnido]** (arachnid) - SCP que es o exhibe características de arácnidos, o animales similares a arañas. Usar junto a //animal//, si es apropiado.
+
+* **[/system:page-tags/tag/arqueológico arqueológico]** (archaeological) - SCP que es un objeto descubierto en un sitio arqueológico, o que de otro modo se relaciona a la cultura material de una civilización antigua.
+
+* **[/system:page-tags/tag/artefacto artefacto]** (artifact) - SCP que es o fue originalmente creado por humanos. Sustituible y mutuamente excluyente de //electrodoméstico//, //herramienta//, //arma//, //vehículo//, etc.
+
+* **[/system:page-tags/tag/inteligencia-artificial inteligencia-artificial]** (artificial-intelligence) - SCP que es, presenta características de, o afecta o se relaciona a una Inteligencia Artificial (IA).
+
+* **[/system:page-tags/tag/artístico artístico]** (artistic) - SCP que es una obra de arte, exhibe propiedades artísticas o posee significado artístico. Sustituible por //musical//, //escultura//, o //estatua//.
+
+* **[/system:page-tags/tag/auditivo auditivo]** (auditory) - SCP que desencadena/activa a través de, o afecta el sentido del oído. Diferente de //acústico//.
+
+* **[/system:page-tags/tag/autómata autómata]** (automaton) - SCP que es un dispositivo o construcción diseñados para operar por sí mismos. Debería ser utilizado en cualquier cosa que pueda ser descrito como un "robot".
+
+* **[/system:page-tags/tag/autónomo autónomo]** (autonomous) - SCP que se activa u opera por su propia cuenta de forma anómala. Sólo aplicable a objetos que, normalmente, no se activarían solos. Mutuamente excluyente con //vivo//.
+
++++ B-C
+* **[/system:page-tags/tag/bacteriano bacteriano]** (bacteria) - SCP que es, se asemeja o exhibe características de formas de vida bacteriana. Sustituible por //contagioso// si es apropiado.
+
+* **[/system:page-tags/tag/úrsido úrsido]** (bear) - SCP que es o exhibe características de úrsidos, o animales similares a osos. Usar junto a //animal//, si es apropiado.
+
+* **[/system:page-tags/tag/antófilo antófilo]** (bee) - SCP que exhibe caracterísiticas de animales antófilos o similares a abejas. Usar junto a //animal// o //insecto//, si es apropiado.
+
+* **[/system:page-tags/tag/bio-peligroso bio-peligroso]** (biohazard) - SCP que supone un riesgo a seres humanos o al ambiente como resultado de procesos biológicos, o si es una amenaza biológica.
+
+* **[/system:page-tags/tag/biológico biológico]** (biological) - SCP que exhibe características biológicas. Ver la pestaña FAQ de Etiquetas para más información.
+
+* **[/system:page-tags/tag/ave ave]** (bird) - SCP que exhibe características aviares, o de animales como los pájaros. Usar junto a //animal//, si es apropiado.
+
+* **[/system:page-tags/tag/sangre sangre]** (blood) - SCP que está relacionado/afecta de manera anómala a la sangre.
+
+* **[/system:page-tags/tag/bovino bovino]** (bovine) - SCP que es o exhibe características de bovinos, o animales similares a las vacas. Usar junto a //animal//, si es apropiado.
+
+* **[/system:page-tags/tag/edificio edificio]** (building) SCP que es, forma parte de, o está relacionado/afecta a una edificación, definida como una estructura destinada para ocupamiento humano. Sustituye a //estructura//.
+
+* **[/system:page-tags/tag/lepidóptero lepidóptero]** (butterfly) - SCP que es o exhibe rasgos de lepidópteros, o animales tipo mariposa o polilla. Usar junto con insectos y animales, si corresponde.
+
+
+* **[/system:page-tags/tag/cadáver cadáver]** (cadaver) SCP que es, afecta, o está relacionado con cadáveres, cadáveres o cualquier materia orgánica muerta. Usar con //esqueleto// o //reanimación// si es apropiado.
+
+
+* **[/system:page-tags/tag/canino canino]** (canine) - SCP que es o exhibe características de caninos, o animales como perros, lobos, chacales y coyotes. Usar junto a //animal//, si es apropiado.
+
+* **[/system:page-tags/tag/cefalópodo cefalópodo]** (cephalopod) - SCP que es o exhibe características de cefalópodos, o animales que incluyen calamares, pulpos, sepias y nautilos. Usar junto a //animal//, si es apropiado.
+
+* **[/system:page-tags/tag/cetáceo cetáceo]** (cetacean) - SCP que es o exhibe características de cetáceos, o animales similares a ballenas. Usar junto a //animal//, si es apropiado.
+
+
+* **[/system:page-tags/tag/químico químico]** (chemical) - SCP que es un compuesto químico anómalo o produce compuestos químicos de forma anómala.
+
+* **[/system:page-tags/tag/niño niño]** (child) - SCP que es un niño, o se relaciona o afecta a niños.
+
+* **[/system:page-tags/tag/cinematográfico cinematográfico]** (cinema) - SCP que es parte de, se desenvuelve en, o se relaciona fuertemente al ambiente cinematográfico, a filmes de esta índole o a películas.
+
+* **[/system:page-tags/tag/ciudad ciudad]** (city) - SCP que es una ciudad, un pueblo u otro asentamiento destinado para ocupamiento humano. Sólo debería ser utilizado si una porción significativa de la ciudad es considerada anómala.
+
+* **[/system:page-tags/tag/engranajes engranajes]** (clockwork) - SCP que opera principalmente vía engranajes, dispositivos mecánicos como ruedas dentadas y/o accionados por un muelle. Sustituye //mecánico//.
+
+* **[/system:page-tags/tag/ropa ropa]** (clothing) - SCP que es un artefacto destinado a usarse principalmente para ser vestido como protección o confort, incluyendo armaduras y cascos protectores. Sustituye a //artefacto//, mutuamente excluyente con //joya//.
+
+* **[/system:page-tags/tag/payaso payaso]** (clown) - SCP que es uno, o en su defecto afecta a uno o más individuos/seres que son o se asemejan a payasos.
+
+* **[/system:page-tags/tag/cognito-peligroso cognito-peligroso]** (cognitohazard) - SCP que supone un riesgo a los sujetos cuando se percibe por cualquiera de los 5 sentidos tradicionales. Debería ser usado junto a //auditivo//, //gustativo//, //olfativo//, o //visual//.
+
+* **[/system:page-tags/tag/compulsión compulsión]** (compulsion) - SCP que causa comportamientos compulsivos en sujetos, o de otro modo, causa que éstos hagan cosa que no harían normalmente. Véase la FAQ de Etiquetas para aclaraciones extendidas.
+
+* **[/system:page-tags/tag/ordenador ordenador]** (computer) - SCP que es un dispositivo computacional o afecta a éstos. Debería ser usado junto a //electrónico// o //mecánico//, si es apropiado. Sustituye a //artefacto// y //electrodoméstico//.
+
+* **[/system:page-tags/tag/concepto concepto]** (concept) - SCP que es o afecta un concepto puramente intangible. No debe ser usado en conjunción con etiquetas que describan cualidades físicas.
+
+* **[/system:page-tags/tag/contagioso contagioso]** (contagion) - SCP que es un agente contagioso, o exhibe una distribución contagiosa. Sustituye a //bacteria//, //memético// o //virus//.
+
+* **[/system:page-tags/tag/corporativo corporativo]** (corporate) - SCP que afecta a las operaciones de  un negocio o corporación
+
+* **[/system:page-tags/tag/corrosivo corrosivo]** (corrosive) - SCP que exhibe propiedades corrosivas.
+
+* **[/system:page-tags/tag/artrópodo artrópodo]** (crustacean) - SCP que es o exhibe características de artrópodos, o animales con exoesqueletos, cuerpos segmentados y apéndices articulados.
+
+
+* **[/system:page-tags/tag/moneda moneda]** (currency) - SCP que es, está relacionado con, afecta o es activado por dinero u otros objetos utilizados principalmente como método de intercambio comercial.
+
+
+* **[/system:page-tags/tag/cubo cubo]** (cube) - SCP que es cúbico. Debería ser usado sólo cuando la totalidad del SCP es cúbico o está compuesto de cubos, en lugar de SCPs donde sólo una parte de sus componentes es cúbica.
+
++++ D-F
+
+* **[/system:page-tags/tag/cérvido cérvido]** (deer) - SCP que es o exhibe características de cérvidos, o animales como ciervos, alces, impalas, etc. Usar junto a //animal//, si es apropiado.
+
+* **[/system:page-tags/tag/deidad deidad]** (deity) - SCP que es o exhibe características de una deidad, representa una deidad, se relaciona a una deidad o adora a una deidad, de cualquier religión.
+
+* **[/system:page-tags/tag/dental dental]** (dental) - SCP que es o está relacionado con dientes, o la práctica de la odontología.
+
+* **[/system:page-tags/tag/dinosaurio dinosaurio]** (dinosaur) - SCP que es está relacionado con dinosaurios no aviares.
+
+* **[/system:page-tags/tag/documento documento]** (document) - SCP que es un documento textual de cualquier clase. Incluye a los libros.
+
+* **[/system:page-tags/tag/dragón dragón]** (dragon) - SCP que es o se parece a un dragón, o en su defecto afecta a un dragón. Incluye a todas las variedades de dragones provenientes de cualquier tradición o cultura.
+
+* **[/system:page-tags/tag/ensoñación ensoñación]** (dream) - SCP que es o afecta a los sueños o existe dentro del plano onírico.
+
+
+* **[/system:page-tags/tag/ectoentrópico ectoentrópico]** (ectoentropic) - SCP que viola la primera y/o la segunda ley de la termodinámica generando materia y/o energía de una forma que viola directamente la entropía. Se aplica a todo lo que produzca materia o energía de forma inexplicable. Generalmente se excluye mutuamente con //extradimensional//.
+
+* **[/system:page-tags/tag/eléctrico eléctrico]** (electrical) - SCP que genera, almacena o utiliza energía eléctrica.
+
+* **[/system:page-tags/tag/electromagnético electromagnético]** (electromagnetic) - SCP que genera, almacena o utiliza energía o campos electromagnéticos.
+
+* **[/system:page-tags/tag/electrónico electrónico]** (electronic) - SCP que es, o se asemeja a un dispositivo electrónico.
+
+* **[/system:page-tags/tag/empático empático]** (empathic) - SCP que es capaz de leer o comunicar emociones o sensaciones. Compárese con //telepático//.
+
+* **[/system:page-tags/tag/grabado grabado]** (engraved) - SCP que es, o posee grabados o tallados.
+
+* **[/system:page-tags/tag/entrópico entrópico]** (entropic) - SCP que es, exhibe características de, o se relaciona con el decaimiento entrópico.
+
+* **[/system:page-tags/tag/equino equino]** (equine) - SCP que es o exhibe características de equinos, o animales similares a los caballos. Usar junto a //animal//, si es apropiado.
+
+* **[/system:page-tags/tag/intercambio intercambio]** (exchange) - SCP que involucra o es activado por alguna forma de intercambio de bienes tangibles o intangibles, incluido pero no limitado al trueque o al intercambio monetario.
+
+* **[/system:page-tags/tag/extradimensional extradimensional]** (extradimensional) - SCP que es de origen extradimensional, se mueve o propaga extradimensionalmente, y/o permite el viaje extradimensional. En general, mutuamente excluyente de //ectoentrópico//.
+
+* **[/system:page-tags/tag/extraterrestre extraterrestre]** (extraterrestrial) - SCP que se origina o fue encontrado en el espacio exterior, y/o permite el viaje extraterrestre.
+
+* **[/system:page-tags/tag/extremidad extremidad]** (extremity) - SCP que es o afecta a extremidades específicas. Usar independientemente de especie.
+
+* **[/system:page-tags/tag/felino felino]** (feline) - SCP que es o exhibe características de felinos, o animales similares a gatos, leones, tigres, panteras, leopardos y pumas. Usar junto a //animal//, si es apropiado.
+
+* **[/system:page-tags/tag/fuego fuego]** (fire) - SCP que está compuesto de fuego, está relacionado con el fuego, o permite el proceso de combustión.
+
+* **[/system:page-tags/tag/pisciforme pisciforme]** (fish) - SCP que es o exhibe características de pisciformes, o animales similares a peces. Usar junto a //animal//, si es apropiado.
+
+
+* **[/system:page-tags/tag/comida comida]** (food) - SCP que está pensado principalmente para ser un objeto o sustancia comestible.
+
+* **[/system:page-tags/tag/bosque bosque]** (forest) - SCP que afecta o involucra la totalidad o  una parte mayoritaria de un bosque. No se utiliza si el artículo únicamente se desarrolla en el contexto de un bosque.
+
+* **[/system:page-tags/tag/hecho-por-la-fundación hecho-por-la-fundación]** (foundation-made) - SCP que fue creado intencionalmente o de modo similar por la Fundación SCP misma. Nótese que sólo aplica para los objetos cuya creación resultó directamente de acciones específicas de la Fundación. Esto excluye a los fenómenos que se formaron espontáneamente en un sitio de la Fundación debido a la exposición de rutina del área a un gran número de anomalías contenidas.
+
+* **[/system:page-tags/tag/personal-de-la-fundación personal-de-la-fundación]** (foundation-personnel) - SCP que es un miembro del personal de la Fundación o afecta a un miembro del personal.
+
+* **[/system:page-tags/tag/hongo hongo]** (fungus) - SCP que es o exhibe características de formas de vida fúngicas.
+
+* **[/system:page-tags/tag/futuro futuro]** (future) - SCP que es parte del futuro o fue, de otro modo, temporalmente desplazado desde un momento futuro a un marco temporal anterior. Usualmente junto a //temporal//.
+
++++ G-K
+* **[/system:page-tags/tag/juego juego]** (game) - SCP que es, es usado como, es activado por, o está de otra manera relacionado con uno o más juegos, definidos como métodos de entretenimiento o deportivos — especialmente competitivos — que pueden ser ganados o perdidos por habilidad, fuerza o suerte. Usar junto a //deporte//, si es apropiado.
+
+* **[/system:page-tags/tag/gaseoso gaseoso]** (gaseous) - SCP que es o genera gas.
+
+* **[/system:page-tags/tag/genético genético]** (genetic) - SCP que está relacionado con, o funciona principalmente vía codificación/decodificación, transcripción y/o traducción del código genético.
+
+* **[/system:page-tags/tag/geológico geológico]** (geological) - SCP que es o afecta a las formaciones geológicas naturales (como cavernas, acantilados, montañas, valles o volcanes) o evenots geológicos significativos (como terremotos, aluviones o sumideros). Sustituible por //planeta//.
+
+* **[/system:page-tags/tag/fantasma fantasma]** (ghost) - SCP que es o afecta a fantasmas (entidades espectrales).
+
+* **[/system:page-tags/tag/gravedad gravedad]** (gravity) - SCP que afecta o está significativamente afectado por la fuerza gravitacional.
+
+* **[/system:page-tags/tag/gustativo gustativo]** (gustatory) - SCP que desencadena/activa a través de, o afecta el sentido del gusto.
+
+* **[/system:page-tags/tag/alucinación alucinación]** (hallucination) - SCP que induce alucinaciones en sujetos. A veces usado junto a //auditivo// o //visual//.
+
+* **[/system:page-tags/tag/histórico histórico]** (historical) - SCP que afecta o es prominente en eventos históricos, o posee significado histórico.
+
+* **[/system:page-tags/tag/mente-colmena mente-colmena]** (hive-mind) - SCP que exhibe características de una mente colmena externa.
+
+* **[/system:page-tags/tag/hostil hostil]** (hostile) - SCP que exhibe hostilidad directamente hacia miembros de personal o sujetos, por sobre o más allá de comportamiento instintivo o depredador.
+
+* **[/system:page-tags/tag/humanoide humanoide]** (humanoid) - SCP que es humanoide, o exhibe características humanoides.
+
+* **[/system:page-tags/tag/inmóvil inmóvil]** (immobile) - SCP que no puede ser movido por ningún medio conocido por la Fundación.
+
+* **[/system:page-tags/tag/indestructible indestructible]** (indestructible) - SCP que no puede ser destruido por ningún medio conocido por la Fundación.
+
+* **[/system:page-tags/tag/info-peligroso info-peligroso]** (infohazard) - SCP que posee un efecto que es activado cuando es descrito o referido a sí mismo. Véase la FAQ de Etiquetas para aclaraciones más extensas.
+
+* **[/system:page-tags/tag/insecto insecto]** (insect) - SCP que es o está relacionado con insectos. (Esto no incluye arañas, las cuales son etiquetadas como //arácnidos//.) Usar junto a //animal//, si es apropiado.
+
+* **[/system:page-tags/tag/inscrito inscrito]** (inscribed) - SCP que tiene inscripciones sobre él, usualmente bajo la forma de palabras o números. Es reemplazado por //grabado// y //documento//, si se diera el caso.
+
+* **[/system:page-tags/tag/inscripción inscripción]** (inscription) - SCP que es una inscripción, es decir, que es una forma de escritura tallada, sean números, letras o símbolos.
+
+* **[/system:page-tags/tag/intangible intangible]** (intangible) - SCP que es inmaterial de una manera que no coincide con la definición de gas.
+
+* **[/system:page-tags/tag/invertebrado invertebrado]** (invertebrate) - SCP que exhibe características de invertebrados, o animales que carecen de columna vertebral. Sustituible por etiquetas específicas de invertebrados, como //insecto// o //artrópodo//.
+
+* **[/system:page-tags/tag/isla isla]** (island) - SCP que es o afecta a una isla o un grupo de islas, como archipiélagos y formaciones similares.
+
+* **[/system:page-tags/tag/joya joya]** (jewelry) - SCP que es un objeto principalmente destinado a ser utilizado como adorno. Sustituye a //artefacto// y mutuamente excluyente con //ropa//.
+
+* **[/system:page-tags/tag/escenario-clase-k escenario-clase-k]** (k-class-scenario) - SCP que está involucrado o es capaz de provocar uno o más Escenarios de Clase-K. Sólo debería ser utilizado en artículos que nombran específicamente a Eventos de Clase-K.
+
+* **[/system:page-tags/tag/conocimiento conocimiento]** (knowledge) - SCP que absorbe, almacena, genera, otorga o posee conocimiento que es anómalo, o a través de un proceso anómalo. Esto incluye a SCPs capaces de realizar predicciones precisas. Comparable con //telepático//.
+
++++ L-Me
+* **[/system:page-tags/tag/lenguaje lenguaje]** (language) - SCP que enseña o exhibe un lenguaje anómalo.
+
+* **[/system:page-tags/tag/legalidad legalidad]** (legality) - SCP es, tiene efectos o está relacionado con el Derecho, los procedimientos judiciales o las escrituras jurídicas.
+
+
+* **[/system:page-tags/tag/bibliotético bibliotético]** (library) - SCP es, o está relacionado o afecta a las bibliotecas, definidas como una sala o edificio que contiene libros para que la gente los lea o los tome prestados.
+
+* **[/system:page-tags/tag/luz luz]** (light) - SCP que es desencadenado, activado o propagado por, o de otro modo relacionado con la presencia o ausencia de luz visible.
+
+* **[/system:page-tags/tag/líquido líquido]** (liquid) - SCP que es o genera líquido.
+
+* **[/system:page-tags/tag/localización localización]** (location) - SCP que es una ubicación geográfica única. Sustituible por //ciudad//.
+
+* **[/system:page-tags/tag/bucle bucle]** (loop) - SCP exhibe o está involucrado en una actividad repetitiva infinita.
+
+* **[/system:page-tags/tag/magnético magnético]** (magnetic) - SCP que es magnético o exhibe características de atracción/repulsión o carga magnética.
+
+* **[/system:page-tags/tag/matemático matemático]** (mathematical) - SCP que es, o afecta, un número, un sistema numérico, una ecuación matemática o posee significado matemático.
+
+* **[/system:page-tags/tag/mecánico mecánico]** (mechanical) - SCP que opera principalmente de forma mecánica, o es un dispositivo mecánico. Sustituible por //engranajes//.
+
+* **[/system:page-tags/tag/audiovisual audiovisual]** (media) - SCP que es, o contiene uno o más ítems de medios análogos o digitales fijos o extirpables, como cintas, grabaciones, discos o dispositivos de almacenamiento. Sustituye a //artefacto//.
+
+* **[/system:page-tags/tag/médico médico]** (medical) - SCP que es usado o está dirigido a ser usado como dispositivo médico, de otro modo, tiene importancia médica fuera de las patologías.
+
+* **[/system:page-tags/tag/memético memético]** (memetic) - SCP que es un agente memético, o exhibe características de propagación memética. Sustituye a //contagioso// y es usado junto a //cognito-peligroso//. Véase la FAQ de Etiquetas para mayores aclaraciones.
+
+* **[/system:page-tags/tag/mnemónico mnemónico]** (memory-affecting) - SCP que imparten recuerdos, los cambian o los borran en seres conscientes, como en sujetos humanos. Comparable con //psique-alterador//.
+
+* **[/system:page-tags/tag/meta meta]** (meta) - SCP que afecta o es afectado por su documentación, o requiere procedimientos de contención relacionados con la forma en que está documentado. Véase FAQ de Etiquetas para aclaraciones mayores.
+
+
+* **[/system:page-tags/tag/metamórfico metamórfico]** (metamorphic) - SCP que cambia de forma o aspecto, así como imitar la forma o aspecto de otros objetos o entidades. Mutuamente excluyente con //amorfo//, también utilizado para describir "cambiaformas" o "imitadores".
+
+* **[/system:page-tags/tag/meteorológico meteorológico]** (meteorological) - SCP que es, afecta o es afectado por elementos climáticos significativos.
+
++++ Mi-O
+* **[/system:page-tags/tag/microscópico microscópico]** (microscopic) - SCP que es demasiado pequeño para ser visto o de otro modo significativamente pequeño para ser observado por el ojo humano.
+
+* **[/system:page-tags/tag/militar militar]** (military) - SCP que es equipamiento militar, parte o miembro de una unidad militar, o de otro modo, posee significado militar. Usar junto a //arma//, si es apropiado.
+
+* **[/system:page-tags/tag/mimético mimético]** (mimetic) - SCP que exhibe mimetismo anómalo. Usar junto a //acústico//, //metamórfico//, //visual// u otro atributo sensorial apropiado.
+
+* **[/system:page-tags/tag/psique-alterador psique-alterador]** (mind-affecting) - SCP que afecta el pensamiento de los sujetos, lo cual puede incluir comportamiento e inteligencia. Véase la FAQ de Etiquetas para aclaraciones extendidas, y comparaciones con mnemónico.
+
+* **[/system:page-tags/tag/miniatura miniatura]** (miniature) - SCP que es mucho más pequeño que el objeto al que se asemeja.
+
+* **[/system:page-tags/tag/móvil móvil]** (mobile) - SCP que es capaz de moverse por medios anómalos. Generalmente sólo se aplica a objetos o entidades que normalmente son incapaces de moverse. Comparable con //teletransporte//.
+
+* **[/system:page-tags/tag/luna luna]** (moon) - SCP que es, o está relacionado con, o afecta a un satélite o luna natural, que puede ser o no nuestra luna. Usar junto a //satélite//si corresponde.
+
+* **[/system:page-tags/tag/musical musical]** (musical) - SCP que es, genera, o es generado por composiciones musicales. Sustituye a //artístico//.
+
+* **[/system:page-tags/tag/narrativo narrativo]** (narrative) - SCP que es, está relacionado con, o se propaga a través de información narrativa o documentos narrativos.
+
+* **[/system:page-tags/tag/neurológico neurológico]** (neurological) - SCP que, directa o indirectamente, afecta el sistema neurológico de los sujetos. Sólo aplicable en situaciones donde los cambios neurológicos objetivos sean confirmados, al contrario de simples cambios en el comportamiento de un individuo. Comparable a //psique-alterador//.
+
+* **[/system:page-tags/tag/nocturno nocturno]** (nocturnal) - SCP que es desencadenado, activado, o de otro modo, es sólo significativamente activo durante la noche.
+
+* **[/system:page-tags/tag/observable observable]** (observational) - SCP que posee propiedades que son desencadenadas o suprimidas cuando son directa o indirectamente observados. Estas propiedades pueden o no ser //cognitopeligrosas//.
+
+* **[/system:page-tags/tag/ocular ocular]** (ocular) - SCP que se asemeja, se relaciona o afecta a los ojos.
+
+* **[/system:page-tags/tag/olfativo olfativo]** (olfactory) - SCP que exhibe aromas anómalos, se propaga a través del olfato, o afecta el sentido del olfato.
+
+* **[/system:page-tags/tag/en-línea en-línea]** (online) - SCP que está disponible en, utiliza o depende de una conexión a internet. Usar junto a //ordenador// o //electrónico//, si es apropiado
+
+* **[/system:page-tags/tag/orgánico orgánico]** (organic) - SCP que exhibe características o composición orgánica. Véase la FAQ de Etiquetas para mayores aclaraciones.
+
+
++++ P-R
+
+* **[/system:page-tags/tag/paradoja paradoja]** (paradox) - SCP que genera, exhibe o está involucrado en eventos o situaciones paradójicas.
+
+* **[/system:page-tags/tag/parásito parásito]** (parasitic) - SCP que exhibe características de organismos parasitarios.
+
+* **[/system:page-tags/tag/fotográfico fotográfico]** (photographic) - SCP que es o trata con fotografías, o una fotografía como parte de la anomalía principal.
+
+* **[/system:page-tags/tag/planta planta]** (plant) - SCP que exhibe características de plantas.
+
+* **[/system:page-tags/tag/planeta planeta]** (planet) - SCP que es, se asemeja o afecta a un planeta, que puede ser o no el nuestro.
+
+* **[/system:page-tags/tag/poliedro poliedro]** (polyhedral) - SCP que es un poliedro, o una forma tridimensional con caras planas y vértices. Sustituible por //cubo//.
+
+* **[/system:page-tags/tag/portal portal]** (portal) - SCP que es una abertura o puerta que exhibe conectividad inconsistente. También usado junto a //extradimensional// y/o //espacio-tiempo//.
+
+* **[/system:page-tags/tag/depredador depredador]** (predatory) - SCP que exhibe comportamiento depredador.
+
+* **[/system:page-tags/tag/predictivo predictivo]** (predictive) - SCP que es capaz de impartir información o actuar de forma predecible. Generalmente sustituye a //conocimiento//.
+
+* **[/system:page-tags/tag/simio simio]** (primate) - SCP que exhibe características de simios, o animales como el orangután, el chimpancé o el gorila. Usar junto a //animal//, si es apropiado.
+
+* **[/system:page-tags/tag/probabilidad probabilidad]** (probability) - SCP que altera o manipula la probabilidad de ciertos eventos o resultados.
+
+* **[/system:page-tags/tag/leporino leporino]** (rabbit) - SCP que es o exhibe características de leporinos, o animales semejantes a conejos y liebres. Usar junto a //animal//, si es apropiado.
+
+* **[/system:page-tags/tag/radioactivo radioactivo]** (radioactive) - SCP que emite radiación o afecta a la radiactividad.
+
+* **[/system:page-tags/tag/ontoquinético ontoquinético]** (reality-bending) - SCP que es capaz de manipular la realidad (también llamado "alterador de la realidad") mediante medios anómalos. Sustituido por //ectoentrópico//.
+
+* **[/system:page-tags/tag/reanimación reanimación]** (reanimation) - SCP que ha sido restaurado o restaura a otros, ya sea una parte o todo, a la vida desde un estado de muerte clínica.
+
+* **[/system:page-tags/tag/religioso religioso]** (religious) - SCP que está asociado con, o de otra forma, tiene significado para una o más religiones organizadas.
+
+* **[/system:page-tags/tag/representación representación]** (performance) - SCP que es o es usado en arte representativo, como danzas u obras.
+
+* **[/system:page-tags/tag/reproductivo reproductivo]** (reproductive) - SCP que afecta o interfiere con los procesos reproductivos biológicos normales de un organismo (lo cual incluye a seres humanos), o posee métodos biológicos de reproducción anómalos, diferentes a auto-replicación o parasitismo.
+
+* **[/system:page-tags/tag/reptil reptil]** (reptile) - SCP que es o exhibe características de reptiles, o animales como cocodrilos, caimanes, camaleones o iguanas. Usar junto a //animal//, si es apropiado.
+
+* **[/system:page-tags/tag/ritual ritual]** (ritual) - SCP que es o es desencadenado/activado a través de comportamiento ritualista.
+
+* **[/system:page-tags/tag/roedor roedor]** (rodent) - SCP que es o exhibe características de roedores, o animales semejantes a ratones. Usar junto a //animal//, si es apropiado. En su lugar, use //esciúrido// en la sección de Legado para SCPs semejantes a ardillas u otros esciúridos.
+
++++ S
+
+* **[/system:page-tags/tag/inteligente inteligente]** (sapient) - SCP que exhibe características de sapiencia, como la habilidad de comprender conceptos filosóficos. Usualmente pero no siempre usado junto a //consciente//.
+
+* **[/system:page-tags/tag/satélite satélite]** (satellite) - SCP que es un satélite natural o artificial orbitando un cuerpo celeste.
+
+* **[/system:page-tags/tag/institución-educativa institución-educativa]** (school) - SCP que es, involucra o afecta una estructura que cumple la función de escuela, universidad, instituto, o cualquier institución del ambiente educativo.
+
+* **[/system:page-tags/tag/escultura escultura]** (sculpture) - SCP que es o fue una pieza artística tridimensional. Para ser considerado una escultura, el objeto en cuestión debe haber sido formado, tallado o moldeado. Sustituye a //artístico// y es sustituido por //estatua//.
+
+* **[/system:page-tags/tag/auto-reparable auto-reparable]** (self-repairing) - SCP que exhibe una habilidad anómala de restaurarse o repararse a sí mismo a condiciones funcionales.
+
+* **[/system:page-tags/tag/auto-replicable auto-replicable]** (self-replicating) - SCP que exhibe una habilidad anómala para replicarse a sí mismo o a otros de una forma distinta a la reproducción biológica.
+
+* **[/system:page-tags/tag/sensorial sensorial]** (sensory) - SCP que afecta la percepción sensorial. Generalmente usado junto a //auditivo//, //gustativo//, //olfativo//, //táctil// y/o //visual//.
+
+* **[/system:page-tags/tag/sexual sexual]** (sexual) - SCP que incluye o afecta los órganos sexuales, las actividades sexuales o los conceptos relacionados con el sexo.
+* **[/system:page-tags/tag/consciente consciente]** (sentient) - SCP que exhibe rasgos sensibles, tales como auto-conciencia y deducción cognitiva.
+
+* **[/system:page-tags/tag/sombra sombra]** (shadow) - SCP que es desencadenado, activado o de otro modo, significativamente afectado por sombras proyectadas por sujetos.
+
+* **[/system:page-tags/tag/selacimorfo selacimorfo]** (shark) - SCP que exhibe características de selacimorfos, o animales similares a tiburones. También incluye a las rayas y peces sierra. Puede ser usado junto a //pisciforme//, o también con //animal//, si son apropiados.
+
+* **[/system:page-tags/tag/esqueleto esqueleto]** (skeletal) - SCP que es, es un componente de, o afecta el tejido esquelético de un organismo. "esqueleto" se define como el soporte estructural de un organismo multicelular, e incluye huesos y cartílagos.
+
+* **[/system:page-tags/tag/sueño sueño]** (sleep) - SCP que está relacionado de alguna forma al ciclo del sueño de los sujetos.
+
+* **[/system:page-tags/tag/ofidio ofidio]** (snake) - SCP que es o exhibe características de ofidios, o animales similares a serpientes. Usar junto a //animal//, si es apropiado.
+
+* **[/system:page-tags/tag/espacio-tiempo espacio-tiempo]** (spacetime) - SCP que deforma el espacio-tiempo, o afecta/viola las leyes del espacio-tiempo.
+
+* **[/system:page-tags/tag/especie especie]** (species) - SCP que describe a una especie completa, en lugar de uno o más individuos. En el contexto de la Fundación, esto debería especificar a SCPs vivos que puedan reproducirse biológicamente y mantener sus propiedades anómalas.
+
+* **[/system:page-tags/tag/esfera esfera]** (sphere) - SCP que es esférico. Sólo debería ser usado si el SCP es completamente esférico o está compuesto de esferas, en lugar de SCPs donde sólo uno o más de sus componentes sean esféricos.
+
+* **[/system:page-tags/tag/deporte deporte]** (sport) - SCP que es, es usado en, es activado por, o de otra forma está relacionado con uno o más deportes, definido como una actividad que involucra ejercicio físico y habilidades en las cuales uno o más individuos compiten unos contra otros individualmente o en equipos. También debería estar etiquetado como //juego//. El equipo usado especificamente en eventos deportivos también debería estar etiquetado como //ropa// o //herramienta//, si es apropiado.
+
+* **[/system:page-tags/tag/estructura estructura]** (structure) - SCP que es una estructura natural o artificial no destinada a ocupamiento humano.
+
+* **[/system:page-tags/tag/subterráneo subterráneo]** (subterranean) - SCP que está localizado u opera bajo tierra, definido como bajo la superficie de la Tierra. No se aplica a objetos que sólo están contenidos bajo tierra por seguridad o conveniencia.
+
+* **[/system:page-tags/tag/sol sol]** (sun) - SCP que es, está relacionado con, o afecta a un sol, el cual podría ser o no nuestro sol.
+
+* **[/system:page-tags/tag/enjambre enjambre]** (swarm) - SCP que exhibe comportamiento de enjambre.
+
++++ T-X
+* **[/system:page-tags/tag/táctil táctil]** (tactile) - SCP que es activado por, desencadenado por, o afecta el sentido del tacto. Nótese que esto se refiere específicamente al sentido del tacto, no simplemente algo que se activa con tocar algo.
+
+* **[/system:page-tags/tag/telequinético telequinético]** (telekinetic) - SCP que puede manipular objetos o iniciar/afectar reacciones a través de medios anómalos.
+
+* **[/system:page-tags/tag/telepático telepático]** (telephatic) - SCP que puede transferir información a través de medios anómalos.
+
+* **[/system:page-tags/tag/teletransporte teletransporte]** (teleportation) - SCP que puede desplazarse sin ocupar espacio intermedio o, de otro modo, mover cosas a través de medios anómalos distintos al movimiento normal.
+
+* **[/system:page-tags/tag/temporal temporal]** (temporal) - SCP que afecta, o está de otro modo relacionado con el tejido temporal o el paso del tiempo.
+
+* **[/system:page-tags/tag/térmico térmico]** (thermal) - SCP que es activado por, desencadenado por, o se propaga a través de los cambios de temperatura. Esto incluye incremento o disminución en la temperatura.
+
+* **[/system:page-tags/tag/termodinámico termodinámico]** (thermodynamic) - SCP que afecta, o está de otro modo relacionado con las leyes de la termodinámica. Sustituye a //física//.
+
+* **[/system:page-tags/tag/herramienta herramienta]** (tool) - SCP que es, o está orientado principalmente a ser utilizado como herramienta. Sustituye a //artefacto//.
+
+* **[/system:page-tags/tag/tóxico tóxico]** (toxic) - SCP que induce toxicidad química en sujetos.
+
+* **[/system:page-tags/tag/juguete juguete]** (toy) - SCP que es, o está orientado prncipalmente a ser utilizado como juguete. Sustituye a //artefacto//.
+
+* **[/system:page-tags/tag/transfiguración transfiguración]** (transfiguration) - SCP que altera el aspecto de sujetos de formas anómalas.
+
+* **[/system:page-tags/tag/transmisión transmisión]** (transmission) - SCP que transmite información, típicamente vía ondas de radio u otras vías electromagnéticas.
+
+* **[/system:page-tags/tag/arbóreo arbóreo]** (tree) - SCP que es o exhibe características de arbóreos, o plantas similares a árboles. Usar junto a //planta//, si es apropiado.
+
+* **[/system:page-tags/tag/sin-contener sin-contener]** (uncontained) - SCP que no está contenido ni total ni parcialmente. Esto no se aplica a SCPs donde ninguna instancia está contenida y no se aplica si la Fundación logró contener una o más instancias.
+
+* **[/system:page-tags/tag/vehículo vehículo]** (vehicle) - SCP que es o está orientado a ser utilizado como vehículo. Sustituye a //artefacto//.
+
+* **[/system:page-tags/tag/vibración vibración]** (vibration) - SCP que genera vibraciones anómalas u otro movimiento repetitivo. Comparable a //acústico//.
+
+* **[/system:page-tags/tag/virus virus]** (virus) - SCP que exhibe características de agentes virales. Usar junto a //biológico// o //ordenador//. Sustituye a //contagio//.
+
+* **[/system:page-tags/tag/visual visual]** (visual) - SCP que es desencadenado por, es activado por, o afecta el sentido de la vista. Usualmente usado junto a //cognito-peligroso// o //sensorial//.
+
+* **[/system:page-tags/tag/arma arma]** (weapon) - SCP es o está orientado a ser utilizado como arma. Sustituye a //artefacto//.
+
+* **[/system:page-tags/tag/vermiano vermiano]** (worm) - SCP que es o exhibe características de vermianos, o animales similares a gusanos. Usar junto a //animal// según corresponda.
+------
+++ Etiquetas Atributivas de Legado
+Estas etiquetas ya no existen en la Rama Inglesa debido a reestructuraciones. Su uso seguirá vigente en la Rama Hispana. y se tratarán como una etiqueta atributiva más.
+
+* **[/system:page-tags/tag/carnívoro carnívoro]** (carnivorous) - SCP que es o exhibe características de animales carnívoros.
+
+* **[/system:page-tags/tag/arcilla arcilla]** (clay) - SCP que es principalmente o está compuesto significativamente de arcilla.
+
+* **[/system:page-tags/tag/contenedor contenedor]** (container) - SCP pensado para mantener o, de otro modo, contener materiales u otros objetos, incluyendo jarras decorativas y otros objetos similares. Sustituye a //artefacto//.
+
+* **[/system:page-tags/tag/cristalino cristalino]** (crystalline) - SCP que es o exhibe características de cristales.
+
+* **[/system:page-tags/tag/mueble mueble]** (furniture) - SCP que es o se asemeja a un mueble.
+
+* **[/system:page-tags/tag/vidrio vidrio]** (glass) – SCP que está principal o significativamente compuesto de vidrio.
+
+* **[/system:page-tags/tag/instrumento instrumento]** (instrument) - SCP que es un instrumento, o una herramienta para trabajos delicados, científicos o de medición.
+
+* **[/system:page-tags/tag/llave llave]** (key) - SCP que es una llave estándar, o de otra forma con el propósito de desbloquear uno o más dispositivos o contenedores.
+
+* **[/system:page-tags/tag/mapa mapa]** (map) - SCP que es un mapa, posee un mapa, o de otra forma exhibe representaciones visuales como un mapa.
+
+* **[/system:page-tags/tag/metálico metálico]** (metallic) - SCP que es un metal, o está completa/significativamente compuesto de metal o sustancias metálicas.
+
+* **[/system:page-tags/tag/omnívoro omnívoro]** (omnivorous) - SCP que exhibe características omnívoras.
+
+* **[/system:page-tags/tag/física física]** (physics) - SCP que es afectado o viola leyes particulares de la física. Generalmente sustituido por //ectoentrópico//, //eléctrico//, //magnético//, etc. cuando sea apropiado.
+
+* **[/system:page-tags/tag/quelonio quelonio]** (turtle) - SCP que es uno o varios ejemplares de miembros del orden //Testudines//, o Quelonios (tortugas).
+
+* **[/system:page-tags/tag/grabación grabación]** (recording) - SCP que es o contiene una grabación de audio o visual. Compárese con //reproducible//.
+
+* **[/system:page-tags/tag/esciúrido esciúrido]** (sciurine) - SCP que es o exhibe características de esciúridos, o animales similares a ardillas. Usar junto a //animal//, si es apropiado.
+
+* **[/system:page-tags/tag/consciente consciente]** (sentient) - SCP que exhibe rasgos sensibles, tales como auto-conciencia y deducción cognitiva.
+
+* **[/system:page-tags/tag/estatua estatua]** (statue) - SCP que es o fue una estatua. Una estatua está definida como una escultura independiente de cuerpo completo de una persona o animal. Estatua sustituye a //escultura//; las dos no deben ser utilizadas juntas.
+
+
+* **[/system:page-tags/tag/piedra piedra]** (stone) - SCP que está compuesto principalmente de piedra (es decir, materia mineral o terrestre) o roca.
+
+* **[/system:page-tags/tag/pieza-de-relojería pieza-de-relojería]** (timepiece) - SCP que es, o un componente principal de, un instrumento o mecanismo diseñado para medir el tiempo. Sustituye a //artefacto//. Debería usarse junto con //engranajes// o //mecánico// si corresponde.
+
+* **[/system:page-tags/tag/madera madera]** (wooden) - SCP que está compuesto principal o significativamente de madera o material similar. No debería ser utilizado para describir plantas vivas no modificadas compuestas de madera.
+
+
+
+[[/tab]]
+[[tab Etiquetas de Revisión]]
+
+++ Etiquetas de Revisión
+
+Las siguientes etiquetas son designadas a artículos que tienen pendiente una revisión, y de acuerdo a la cantidad de 'o' se establece su prioridad, siendo 'ooo' la más alta y 'o' la más baja. Todas las traducciones realizadas deben llevar la etiqueta 'ooo', y esta solo podrá ver su prioridad reducida, o la etiqueta eliminada, por miembros del Equipo de Traducciones o personal autorizado por el mismo o la administración.
+
+Una traducción solo puede ser publicada sin estas etiquetas si ha sido revisada antes por un miembro del Equipo de Traducciones o personal autorizado por el mismo, pero revisar borradores no es una obligación para el Equipo ni solicitar revisión previa lo es para los usuarios.
+
+El Equipo de Traducciones se encargará de revisar artículos para remover estas etiquetas a lo largo del tiempo.
+
+----
+
+A continuación se enlistan los artículos que necesitan revisión según su nivel de prioridad:
+
+++++ **ooo**
+
+[[module ListPages tags="ooo" order="rating desc" perPage="50" separate="no" prependLine="||~ Título||~ Puntuación||~ Autor||"]]
+||%%title_linked%%||%%rating%%||%%created_by_linked%% ||
+[[/module]]
+
+++++ **o**
+
+[[module ListPages tags="o" order="rating desc" perPage="50" separate="no" prependLine="||~ Título||~ Puntuación||~ Autor||"]]
+||%%title_linked%%||%%rating%%||%%created_by_linked%% ||
+[[/module]]
+
+[[/tab]]
+[[tab Etiquetas de GdI]]
+++ Etiquetas de GdI
+Etiquetas para todos los Grupos de Interés del universo de la Fundación. Pueden ser usadas tanto para objetos SCP como para relatos.
+@@ @@
++++ Etiquetas de GdIs Anglosajones
+Etiquetas para GdIs de la Rama Anglosajona.
+* **[/system:page-tags/tag/alexylva alexylva]** (alexylva) - //[[[groups-of-interest#UNAL| Universidad de Alexylva]]]//
+* **[/system:page-tags/tag/restaurantes-ambrose restaurantes-ambrose]** (ambrose-restaurant) - //[[[groups-of-interest#REAM| Restaurantes Ambrose]]]//
+* **[/system:page-tags/tag/anderson anderson]** (anderson) - //[[[groups-of-interest#ANRO| Anderson Robotics]]]//
+* **[/system:page-tags/tag/arcadia arcadia]** (arcadia) - //[[[groups-of-interest#ARCA|Arcadia]]]//
+* **[/system:page-tags/tag/are-we-cool-yet are-we-cool-yet]** (are-we-cool-yet) - //[[[groups-of-interest#AWCY|Are We Cool Yet?]]]//
+* **[/system:page-tags/tag/iacs iacs]** (asci) - //Iniciativa Americana de Contención Segura//
+* **[/system:page-tags/tag/reina-negra reina-negra]** (black-queen) - //[[[groups-of-interest#RENE|Reina Negra]]]//
+* **[/system:page-tags/tag/dios-roto dios-roto]** (broken-god) - //[[[groups-of-interest#IDR| La Iglesia del Dios Roto – IdDR]]]//
+ *  **[/system:page-tags/tag/maxwellismo maxwellismo]** (maxwellism) - //Iglesia del Maxwellismo, facción de la Iglesia del Dios Roto//
+ *  **[/system:page-tags/tag/obra-dentada obra-dentada]** (cogwork-orthodoxy) - //Iglesia Ortodoxa de la Obra Dentada, facción de la Iglesia del Dios Roto//
+* **[/system:page-tags/tag/insurgencia-del-caos insurgencia-del-caos]** (chaos-insurgency) - //[[[groups-of-interest#IDC| Insurgencia del Caos – IdC]]]//
+* **[/system:page-tags/tag/espíritu-de-chicago espíritu-de-chicago]** (chicago-spirit) - //[[[groups-of-interest#ESCH| Espíritu de Chicago]]]//
+* **[/system:page-tags/tag/daevita daevita]** (daevite) - //[[[groups-of-interest#DAE|Daevitas]]]//
+* **[/system:page-tags/tag/colegio-deer colegio-deer]** (deer-college) - //[[[groups-of-interest#CODE| Colegio Deer]]]//
+* **[/system:page-tags/tag/dr-wondertainment dr-wondertainment]** (dr-wondertainment) - //[[[groups-of-interest#WOND|Dr. Wondertainment]]]//
+* **[/system:page-tags/tag/fábrica fábrica]** (factory) - //[[[groups-of-interest#FABR| La Fábrica]]]//
+* **[/system:page-tags/tag/quinta-iglesia quinta-iglesia]** (fifthist) - //[[[groups-of-interest#QUIN|La Quinta Iglesia]]]//
+* **[/system:page-tags/tag/gamers-against-weed gamers-against-weed]** (gamers-against-weed) - //[[[groups-of-interest#GAW|Gamers Against Weed - GAW]]]//
+* **[/system:page-tags/tag/coalición-oculta-global coalición-oculta-global]** (global-occult-coalition) - //[[[groups-of-interest#COG|Coalición Oculta Global - COG]]]//
+ * **[/system:page-tags/tag/organización-mundial-de-la-parasalud organización-mundial-de-la-parasalud]** (world-parahealth-organization) - //Organización Mundial de la Parasalud - OMP//
+* **[/system:page-tags/tag/goldbaker-reinz goldbaker-reinz]** (goldbaker-reinz) - //[[[groups-of-interest#GOLD|Goldbaker-Reinz Ltd.]]]//
+* **[/system:page-tags/tag/greazeburger greazeburger]** (greazeburger) - //[[[groups-of-interest#GREZ|Greazeburger Incorporated]]]//
+* **[/system:page-tags/tag/división-gru-p división-gru-p]** (gru-division-p) - //[[[groups-of-interest#GRUP|División "P" de la GRU]]]//
+* **[/system:page-tags/tag/herman-fuller herman-fuller]** (herman-fuller) - //[[[groups-of-interest#CIHF|Circo de lo Inquietante de Herman Fuller]]]//
+* **[/system:page-tags/tag/iniciativa-horizonte iniciativa-horizonte]** (horizon-initiative) - //[[[groups-of-interest#IH|Iniciativa Horizonte]]]//
+* **[/system:page-tags/tag/aijeca aijeca]** (ijamea) - //[[[groups-of-interest#AIJE|Agencia del Imperio Japonés para la Examinación de Cuestiones Anormales - AIJECA]]]//
+* **[/system:page-tags/tag/just-girly-things just-girly-things]** (just-girly-things) - //[[[groups-of-interest#GIRL|Just Girly Things]]]//
+* **[/system:page-tags/tag/academia-de-magos academia-de-magos]** (mages-academy) - //[[[interessengruppen|Academia de Magos]]]//
+* **[/system:page-tags/tag/fundación-de-caridad-manna fundación-de-caridad-manna]** (manna-charitable-foundation) - //[[[groups-of-interest#MANA|Fundación de Caridad Manna]]]//
+* **[/system:page-tags/tag/marshall-carter-and-dark marshall-carter-and-dark]** (marshall-carter-and-dark) - //[[[groups-of-interest#MCD|Marshall, Carter and Dark Ltd. - MC&D]]]//
+* **[/system:page-tags/tag/amao amao]** (madao) - //[[[groups-of-interest#AMAO|Academia Medici de las Artes Ocultas]]]//
+* **[/system:page-tags/tag/nadie nadie]** (nobody) - //[[[groups-of-interest#NADIE|Nadie]]]//
+* **[/system:page-tags/tag/oneiroi oneiroi]** (oneiroi) - //[[[groups-of-interest#CONE|Colectivo Oneiroi]]]//
+* **[/system:page-tags/tag/parawatch parawatch]** (parawatch) - //[[[groups-of-interest#PARA|Parawatch ]]]//
+* **[/system:page-tags/tag/pseudogenesis pseudogénesis]** (pseudogenesis) - //[[[groups-of-interest#PP|Producciones Pseudogénesis]]]//
+* **[/system:page-tags/tag/prometheus prometheus]** (prometheus) - //[[[groups-of-interest#LPSA|Laboratorios Prometheus S.A.]]]//
+* **[/system:page-tags/tag/orai orai]** (oria) - //[[[groups-of-interest#ORAI|Oficina para la Reclamación de Artefactos Islámicos - ORAI]]]//
+* **[/system:page-tags/tag/safiro safiro]** (sapphire) - //[[[groupes-d-interet-fr#toc2|SAFIRO]]]//
+* **[/system:page-tags/tag/sárkico sárkico]** (sarkic) - //[[[groups-of-interest#CUSA|Sarkicismo/Cultos Sárkicos]]]//
+ * **[/system:page-tags/tag/logia-negra-del-cazador logia-negra-del-cazador]** (hunters-black-lodge) - //Logia Negra del Cazador, un sindicato criminal neo-sárkico//
+* **[/system:page-tags/tag/rey-escarlata rey-escarlata]** (scarlet-king) - //[[[groups-of-interest#LHRE|Rey Escarlata]]]//
+* **[/system:page-tags/tag/segundo-hytoth segundo-hytoth]** (second-hytoth) - //[[[groups-of-interest#ISHY|Iglesia del Segundo Hytoth]]]//
+* **[/system:page-tags/tag/cargas-inusuales cargas-inusuales]** (unusual-cargo) - //[[[groups-of-interest#CCI|Comisión de Cargas Inusuales]]]//
+* **[/system:page-tags/tag/mano-de-la-serpiente mano-de-la-serpiente]** (serpents-hand) - //[[[groups-of-interest#MASE|La Mano de la Serpiente]]]//
+* **[/system:page-tags/tag/shark-punching-center shark-punching-center]** (shark-punching-center) - //[[[groups-of-interest#SPC|SPC]]]//
+* **[/system:page-tags/tag/valravn valravn]** (valravn) - //[[[groups-of-interest#RAVN|Corporación Valravn]]]//
+* **[/system:page-tags/tag/vikander-kneed vikander-kneed]** (vikander-kneed) - //[[[groups-of-interest#MTVK|Medios técnicos Vikander-Kneed]]]//
+* **[/system:page-tags/tag/los-heraldos los-heraldos]** (wandsmen) - //[[[groups-of-interest#HERA|Los Heraldos]]]//
+* **[/system:page-tags/tag/iniciativa-tres-lunas iniciativa-tres-lunas]** (three-moons-initiative) - //[[[groups-of-interest#3LUN|Iniciativa de las Tres Lunas]]]//
+* **[/system:page-tags/tag/totleighsoft totleighsoft]** (totleighsoft) - //[[[groups-of-interest#SOFT|Totleighsoft]]]//
+* **[/system:page-tags/tag/unidad-de-incidentes-inusuales unidad-de-incidentes-inusuales]** (unusual-incidents-unit) - //[[[groups-of-interest#UDII|Unidad de Incidentes Inusuales - UdII]]]//
+* **[/system:page-tags/tag/soluciones-de-wilson soluciones-de-wilson]** (wilsons-wildlife) - //[[[groups-of-interest#WWS|Soluciones de Wilson para la Fauna Silvestre]]]//
+
+++++ Etiquetas de GdIs Menores Anglosajones
+Grupos de Interés que no han sido oficializados (Es decir, no poseen hub y/o un espacio designado en el hub de GdIs).
+* **[/system:page-tags/tag/anormalidades anormalidades]** (abnormalities) - //relacionado al Grupo de Interés Departamento de Anormalidades o DoA//
+* **[/system:page-tags/tag/acelerar-el-futuro acelerar-el-futuro]** (accelerate-the-future) - //relacionado al Grupo de Interés Acelerar el Futuro//
+* **[/system:page-tags/tag/avelar avelar]** (avelar) - //relacionado al Grupo de Interés Productos Industriales Avelar//
+* **[/system:page-tags/tag/servicio-oculto-británico servicio-oculto-británico]** (british-occult-service) - //Servicio Oculto Británico o MI666//
+* **[/system:page-tags/tag/hermanos-de-la-muerte hermanos-de-la-muerte]** (brothers-of-death) - //Hermanos de la Muerte o sus personajes//
+* **[/system:page-tags/tag/hijos-de-la-noche hijos-de-la-noche]** (children-of-the-night) - //relacionado a los Hijos de la Noche, explicado en [/scp-1000 SCP-1000].//
+* **[/system:page-tags/tag/hijos-de-la-antorcha hijos-de-la-antorcha]** (children-of-the-torch) - //Hijos de la Antorcha//
+* **[/system:page-tags/tag/curso-del-76 curso-del-76]** (class-of-76) - //Curso del 76//
+* **[/system:page-tags/tag/gente-del-mar gente-del-mar]** (finnfolk) - //La Gente del Mar//
+* **[/system:page-tags/tag/giftschreiber giftschreiber]** (giftschreiber) - //Giftschreiber o "Escritores Venenosos"//
+* **[/system:page-tags/tag/horda-dorada horda-dorada]** (golden-horde) - //Horda Dorada//
+* **[/system:page-tags/tag/fsmscp fsmscp]** (hmfscp) - //La Fundación de Su Majestad para la Segura Contención de lo Paranormal//
+* **[/system:page-tags/tag/homo-sapiens-sidhe homo-sapiens-sidhe]** (homo-sapiens-sidhe) - //Homo Sapiens Sidhe según los [[[from-120-s-archives-hub|Archivos del Sitio-120]]]//
+* **[/system:page-tags/tag/cietu cietu]** (icsut) - //Centro Internacional para el Estudio de la Taumatología Unificada//
+* **[/system:page-tags/tag/ljmco ljmco]** (joicl) - //Laboratorio Japonés de Mejora y Creación de Organismos//
+* **[/system:page-tags/tag/frente-de-liberación-milagroso frente-de-liberación-milagroso]** (miracle-liberation-front) - Frente de Liberación Milagroso
+* **[/system:page-tags/tag/sin-nombre#pages sin-nombre]** (nameless) - //relacionado a las Hadas o [[[SCP-4000 | SCP-4000]]]//
+* **[/system:page-tags/tag/obskura obskura]** (obskura) - //Ahnerbe Obskurakorps y/o su organización heredera, OBSKURA//
+* **[/system:page-tags/tag/comando-ursinisor comando-ursinisor]** (obearwatch) - //Comando Ursinisor//
+* **[/system:page-tags/tag/patrón-screamer patrón-screamer]** (pattern-screamer) - //Patrón de Screamer//
+* **[/system:page-tags/tag/pentagrama pentagrama]** (pentagram) - //Pentagrama//
+* **[/system:page-tags/tag/nornas-de-silicio nornas-de-silicio]** (silicon-nornir) - //Sirvientes de las Nornas de Silicio//
+* **[/system:page-tags/tag/cartel-sin-nombre cartel-sin-nombre]** (sin-nombre-cartel) - //Cartel "Sin Nombre"//
+* **[/system:page-tags/tag/confitería-sugarcomb confitería-sugarcomb]** (sugarcomb-confectionery) - //Confitería Sugarcomb//
+* **[/system:page-tags/tag/westhead-media westhead-media]** (westhead-media) - //Westhead Media//
+* **[/system:page-tags/tag/dinastía-xia dinastía-xia]** (xia-dinasty) - //Dinastía Xia//
+
+------
+
++++ Etiquetas de GdIs Hispanos
+Los Grupos de Interés pertenecientes a nuestra hermosa Rama. Requieren de poseer un Hub para aparecer listados aquí.
+* **[/system:page-tags/tag/comisaría comisaría]** (comisaría) //[[[grupos-de-interés-hispanoparlantes#CES|(Comisaría Especial de Seguridad)]]]//
+* **[/system:page-tags/tag/gran-dios-verde gran-dios-verde]** (gran-dios-verde) //[[[grupos-de-interés-hispanoparlantes#CGDV|(Culto al Gran Dios Verde)]]]//
+* **[/system:page-tags/tag/mac mac]** (mac) //[[[grupos-de-interés-hispanoparlantes#MAC|(Ministerio de Anomalías de Cuba)]]]//
+* **[/system:page-tags/tag/sociedad-antares sociedad-antares]** (sociedad-antares) //[[[grupos-de-interés-hispanoparlantes#SA|(Sociedad Antares para la Renovación del Espíritu Humano)]]]//
+
++++ Etiquetas de GdIs Menores Hispanos
+* **[/system:page-tags/tag/vidnepa vidnepa]** (vidnepa) //(Vidnepas)//
+
+
+[[/tab]]
+[[tab Etiquetas de Depto./DM]]
+++ Etiquetas de Depto.
+Etiquetas para todos los Departamentos del universo de la Fundación. Pueden ser usadas tanto para objetos SCP como para relatos.
+@@ @@
++++ Etiquetas de Depto. Anglosajones
+Etiquetas para Depto. de la Rama Anglosajona.
+* **[/system:page-tags/tag/división-de-antimemética división-de-antimemética]** (antimemetics-division) - //División de Antimemética//
+* **[/system:page-tags/tag/departamento-de-continuidad departamento-de-continuidad]** (continuity-dept) - //Departamento de Continuidad//
+* **[/system:page-tags/tag/dpto-desmantelaciones dpto-desmantelaciones]** (decommissioning-dept) - //Departamento de Desmantelamiento//
+* **[/system:page-tags/tag/depto-eliminaciones depto-eliminaciones]** (deletions-dept) -//Departamento de Eliminaciones//
+* **[/system:page-tags/tag/delta-t delta-t]** (delta-t) - //Agencia Transtemporal Delta-T//
+* **[/system:page-tags/tag/departamento-misceláneo departamento-misceláneo]** (department-of-other) - //Departamento Misceláneo//
+* **[/system:page-tags/tag/división-de-combate división-de-combate]** (engagement-division) - //División de Combate Contra Entidades Anómalas - DCCEA//
+* **[/system:page-tags/tag/comité-de-ética comité-de-ética]** (ethics-committee) - //Comité de Ética//
+* **[/system:page-tags/tag/artae artae]** (ettra) - //Autoridad de Respuesta Táctica contra Amenazas Emergentes - ARTAE//
+* **[/system:page-tags/tag/dpto-extinción-incendios dpto-extinción-incendios]** (fire-suppression-dept) - //Departamento de Extinción de Incendios//
+* **[/system:page-tags/tag/dpto-de-folclore dpto-de-folclore]** (folklore-dept)  - //Departamento de Mitología y Folclore//
+* **[/system:page-tags/tag/malentendidos malentendidos]** (miscommunications) - //Departamento de Malentendidos//
+* **[/system:page-tags/tag/dpto-patafísica dpto-patafísica]** (pataphysics-dept) - //Departamento de Patafísica//
+* **[/system:page-tags/tag/dpto-adquisición-liquidación dpto-adquisición-liquidación]** (procurement-liquidation-dept) - //Departamento de Adquisición y Liquidación//
+* **[/system:page-tags/tag/asri asri]** (raisa) - //Administración para la Seguridad de Registros e Información//
+* **[/system:page-tags/tag/spicy-crust-pizzeria spicy-crust-pizzeria]** (spicy-crust-pizzaria) - //Spicy Crust Pïzzería (SCP), un restaurante de pizza utilizado como compañía fachada por la Fundación//
+* **[/system:page-tags/tag/departamento-de-surrealismo departamento-de-surrealismo]** (surrealistics-dept) - //Departamento de Surrealismo//
+* **[/system:page-tags/tag/oficina-de-telecomunicaciones oficina-de-telecomunicaciones]** (telecom-office) - //Oficina de Monitoreo de Telecomunicaciones//
+* **[/system:page-tags/tag/teología-táctica teología-táctica]** (tactical-theology) - //Departamento de Teología Táctica//
+* **[/system:page-tags/tag/dpto-irrealidad dpto-irrealidad]** (unreality-dept) - //Departamento de Irrealidad//
+------
+++ Etiquetas de DM
+Etiquetas para todos los Destacamentos Móviles del universo de la Fundación. Pueden ser usadas tanto para objetos SCP como para relatos.
+@@ @@
++++ Etiquetas de DM Anglosajones
+Etiquetas para DM de la Rama Anglosajona.
+* **[/system:page-tags/tag/amoladoras-angulares amoladoras-angulares]** (angle-grinders) - //relacionado al Destacamento Móvil Theta-90 "Amoladoras Angulares"//
+* **[/system:page-tags/tag/alfa-9-última-esperanza alfa-9-última-esperanza]** (last-hope) - //Destacamento Móvil Alfa-9 ("Última Esperanza")//
+* **[/system:page-tags/tag/tau-5-samsara tau-5-samsara]** (samsara) - //Destacamento Móvil Tau-5 ("Samsara")//
+[[/tab]]
+[[tab Etiquetas de Cánones]]
+++ Cánones
+Etiquetas utilizadas en los Cánones creados por la comunidad.
+@@ @@
++++ Cánones Anglosajones
+Etiquetas para los cánones del [[[http://lafundacionscp.wikidot.com/canon-hub | Hub de Cánones]]].
+* **[/system:page-tags/tag/ases-y-ochos ases-y-ochos]** (aces-and-eights) - //[[[canon-hub#AYO|Ases y Ochos]]]//
+* **[/system:page-tags/tag/ad-astra ad-astra]** (ad-astra) - //[[[canon-hub#ADPA|Ad Astra Per Aspera]]]//
+* **[/system:page-tags/tag/daia daia]** (aiad) - //[[[canon-hub#AIAD|DAIA]]]//
+* **[/system:page-tags/tag/departamento-de-alquimia departamento-de-alquimia]** (alchemy-department) - //[[[canon-hub#DALF|El Departamento de Alquimia de La Fundación]]]//
+* **[/system:page-tags/tag/intercambio-antártico intercambio-antártico]** (antarctic-exchange) - //[[[canon-hub#INAN|Intercambio Antártico]]]//
+* **[/system:page-tags/tag/apoteosis apoteosis]** (apotheosis) - //[[[canon-hub#APOT|Apoteosis]]]//
+* **[/system:page-tags/tag/bellerverse bellerverse]** (bellerverse) - //[[[canon-hub#BELLE|Bellerverse]]]//
+* **[/system:page-tags/tag/billones-de-diamantes-negros billones-de-diamantes-negros]** (black-diamond-billions) - //[[[canon-hub#BDDN|Billones de Diamantes Negros]]]//
+* **[/system:page-tags/tag/mascarada-rota mascarada-rota]** (broken-masquerade) - //[[[canon-hub#MARO|Mascarada Rota]]]//
+* **[/system:page-tags/tag/solo-un-sueño solo-un-sueño]** (but-a-dream) - //[[[canon-hub#SUS|Sólo Un Sueño]]]//
+* **[/system:page-tags/tag/escatología-competitiva escatología-competitiva]** (competitive-eschatology) - //[[[canon-hub#ESCO|Escatología Competitiva]]]//
+* **[/system:page-tags/tag/guerra-cool-2 guerra-cool-2]** (cool-war-2) - //[[[canon-hub#GC2R|La Guerra Cool 2: Ruiz De Tu Tumba]]]//
+* **[/system:page-tags/tag/amanecer amanecer]** (daybreak) - //[[[canon-hub#AMAN|Amanecer]]]//
+* **[/system:page-tags/tag/catálogo-deepwell catálogo-deepwell]** (deepwell-catalog) - //[[[canon-hub#CD17|Catálogo Deepwell del Sitio-17]]]//
+* **[/system:page-tags/tag/doctores-de-la-iglesia doctores-de-la-iglesia]** (doctors-of-the-church) - //[[[canon-hub#DDLI|Doctores de la Iglesia]]]//
+* **[/system:page-tags/tag/espantos&circos espantos&circos]** (dread&circuses) - //[[[canon-hub#ESCI|Espantos & Circos]]]//
+* **[/system:page-tags/tag/fin-de-la-muerte fin-de-la-muerte]** (end-of-death) - //[[[canon-hub#FDLM|Fin de la Muerte]]]//
+* **[/system:page-tags/tag/eventyr eventyr]** (eventyr) - //[[[canon-hub#EVEN|Eventyr]]]//
+* **[/system:page-tags/tag/estrellas-descendientes estrellas-descendientes]** (fading-stars) - //[[[canon-hub#ESDE|Estrellas Desvanecientes]]]//
+* **[/system:page-tags/tag/recuerdos-olvidados recuerdos-olvidados]** (forgotten-memories) - //[[[canon-hub#REOL|Recuerdos Olvidados]]]//
+* **[/system:page-tags/tag/archivos-del-120 archivos-del-120]** (from-120s-archives) - //[[[canon-hub#A120|De los Archivos del Sitio-120]]]//
+* **[/system:page-tags/tag/rey-verde rey-verde]** (green-king) - //[[[canon-hub#CRV|Código: Rey Verde]]]//
+* **[/system:page-tags/tag/heimdall heimdall]** (heimdall) - //[[[canon-hub#PROH|Proyecto Heimdall]]]//
+* **[/system:page-tags/tag/infierno-insectos infierno-insectos]** (insect-hell) - //[[[canon-hub#INDI|Infierno de Insectos]]]//
+* **[/system:page-tags/tag/lampeter lampeter]** (lampeter) - //[[[canon-hub#LAMP|Lampeter]]]//
+* **[/system:page-tags/tag/lolfundación lolfundación]** (lolfoundation) - //[[[canon-hub#LOL|lolFundación]]]//
+* **[/system:page-tags/tag/el-hombre-que-no-estaba-allí el-hombre-que-no-estaba-allí]** (man-who-wasnt-there) - //[[[canon-hub#HQNE|El Hombre Que No Estaba Allí]]]//
+* **[/system:page-tags/tag/memoria-adytum memoria-adytum]** (memoria-adytum) - //[[[canon-hub#EMADY|En Memoria, Adytum]]]//
+* **[/system:page-tags/tag/anochecer anochecer]** (nightfall) - //[[[canon-hub#ANOC|ANOCHECER]]]//
+* **[/system:page-tags/tag/noveno-mundo noveno-mundo]** (ninth-world) - //[[[canon-hub#NOVE|El Noveno Mundo]]]//
+* **[/system:page-tags/tag/sin-retorno sin-retorno]** (no-return) - //[[[canon-hub#SRET|Sin Retorno]]]//
+* **[/system:page-tags/tag/viejo-en-el-mar viejo-en-el-mar]** (old-man-in-the-sea) - //[[[canon-hub#VENM|El Viejo en el Mar]]]//
+* **[/system:page-tags/tag/en-guardia-43 en-guardia-43]** (on-guard-43) - //[[[canon-hub#EG43|En Guardia 43]]]//
+* **[/system:page-tags/tag/en-el-monte-gólgota en-el-monte-gólgota]** (on-mount-golgotha) - //[[[canon-hub#EEMG|En el Monte Gólgota]]]//
+* **[/system:page-tags/tag/única-alternativa única-alternativa]** (only-game-in-town) - //[[[canon-hub#UALT|La Única Alternativa]]]//
+* **[/system:page-tags/tag/orcadas orcadas]** (orcadia) - //[[[canon-hub#MAOR|Mares de las Orcadas]]]//
+* **[/system:page-tags/tag/nuestras-venas-abiertas nuestras-venas-abiertas]** (our-open-vains) - //[[[canon-hub#NVA|Nuestras Venas Abiertas]]]//
+* **[/system:page-tags/tag/pitch-haven pitch-haven]** (pitch-haven) - //[[[canon-hub#PIHA|ㄗitch 卄aven]]]//
+* **[/system:page-tags/tag/nido-de-la-rata nido-de-la-rata]** (rats-nest) - //[[[canon-hub#NIRA|Nido de la Rata]]]//
+* **[/system:page-tags/tag/resurrección resurrección]** (resurrection) - //[[[canon-hub#RESU|Resurrección]]]//
+* **[/system:page-tags/tag/s&c-plásticos s&c-plásticos]** (s&c-plastics) - //[[[canon-hub#SYCP|S & C Plásticos]]]//
+* **[/system:page-tags/tag/semiótica semiótica]** (semiotics) - //[[[canon-hub#SEMI|Semiótica]]]//
+* **[/system:page-tags/tag/barco-en-una-botella barco-en-una-botella]** (ship-in-a-bottle) - //[[[canon-hub#BEUB|Barco En Una Botella]]]//
+* **[/system:page-tags/tag/simulacro simulacro]** (simulacrum) - //[[[canon-hub#SIMU|SIMULACRO]]]//
+* **[/system:page-tags/tag/dhea dhea]** (sotm (Directo Hasta El Amanecer)) - //[[[canon-hub#DHEA|Directo Hasta el Amanecer]]]//
+* **[/system:page-tags/tag/la-guerra-más-fría la-guerra-más-fría]** (the-coldest-war) - //[[[canon-hub#LGMF|La Guerra Mas Fría]]]//
+* **[/system:page-tags/tag/el-golfo el-golfo]** (the-gulf) - //[[[canon-hub#GOLF|El Golfo]]]//
+* **[/system:page-tags/tag/línea-de-tiempo-más-tiburona línea-de-tiempo-más-tiburona]** (the-sharkest-timeline) - //[[[canon-hub#JAWS|La Línea de Tiempo Más Tiburona]]]//
+* **[/system:page-tags/tag/el-vertedero el-vertedero]** (the-trashfire) - //[[[canon-hub#VERT|El Vertedero]]]//
+* **[/system:page-tags/tag/tercera-ley tercera-ley]** (third-law) - //[[[canon-hub#3LEY|Tercera Ley]]]//
+* **[/system:page-tags/tag/pinos-retorcidos pinos-retorcidos]** (twisted-pines) - //[[[canon-hub#PIRE|Esos Pinos Retorcidos]]]//
+* **[/system:page-tags/tag/infundados infundados]** (unfounded) - //[[[canon-hub#INFU|Infundados]]]//
+* **[/system:page-tags/tag/inhumanos inhumanos]** (unhuman) - //[[[canon-hub#INHU|InHumanos]]]//
+* **[/system:page-tags/tag/guerra-todos-los-frentes guerra-todos-los-frentes]** (war-on-all-fronts) - //[[[canon-hub#GETF|Guerra en Todos los Frentes]]]//
+* **[/system:page-tags/tag/wonderful-world  wonderful-world]** (wonderful-world) - //[[[canon-hub#QMM|Qué Maravilloso Mundo]]]//
+* **[/system:page-tags/tag/el-mundo-siguió-girando el-mundo-siguió-girando]** (world-kept-turning) - //[[[canon-hub#MSG|El Mundo Siguió Girando]]]//
+-----
++++ Cánones Hispanos
+Etiquetas para los cánones del [[[http://lafundacionscp.wikidot.com/canon-hub-es | Hub de Cánones Hispanos]]].
+* **[/system:page-tags/tag/i-57 i-57]** - [[[/canon-hub-es#I-57|Instalación-57]]]
+* **[/system:page-tags/tag/estrellas-muertas estrellas-muertas]** - [[[/canon-hub-es#OEM|Observando Estrellas Muertas]]]
+* **[/system:page-tags/tag/sueño-nuclear sueño-nuclear]** - [[[/canon-hub-es#SN|Sueño Nuclear]]]
+[[/tab]]
+[[tab Etiquetas de Concursos/Eventos]]
+++ Concursos
+Etiquetas para todos los concursos.
++++ Concursos Anglosajones
+* **[/system:page-tags/tag/1000 1000]** - 1000
+* **[/system:page-tags/tag/2000 2000]** - 2000
+* **[/system:page-tags/tag/3000 3000]** - 3000
+* **[/system:page-tags/tag/4000 4000]** - 4000
+* **[/system:page-tags/tag/5000 5000]** - 5000
+* **[/system:page-tags/tag/6000 6000]** - 6000
+* **[/system:page-tags/tag/7000 7000]** - 7000
+* **[/system:page-tags/tag/8000 8000]** - 8000
+* **[/system:page-tags/tag/af2016  af2016]** - af2016
+* **[/system:page-tags/tag/art2017  art2017]** - art2017
+* **[/system:page-tags/tag/canon2020 canon2020]** - canon2020
+* **[/system:page-tags/tag/cliché2019 cliché2019]** - cliche2019
+* **[/system:page-tags/tag/classiccon2025 classiccon2025]** - classiccon2025
+* **[/system:page-tags/tag/collab-con2019  collab-con2019]** - collab-con2019
+* **[/system:page-tags/tag/coldpostcon coldpostcon]** - coldpostcon
+* **[/system:page-tags/tag/cupido2021  cupido2021]** - cupid2021
+* **[/system:page-tags/tag/d-con2016 d-con2016]** - d-con2016
+* **[/system:page-tags/tag/dc2014 dc2014]** - dc2014
+* **[/system:page-tags/tag/departamentocon2022 departamentocon2022]** - departmentcon2022
+* **[/system:page-tags/tag/doomsday2018 doomsday2018]** - doomsday2018
+* **[/system:page-tags/tag/dumbcon2026-unofficial dumbcon2026-unofficial]** - dumbcon2026-unofficial
+* **[/system:page-tags/tag/cadáver-exquisito2020 cadáver-exquisito2020]** - exquisite-corpse2020
+* **[/system:page-tags/tag/cinco-preguntas cinco-preguntas]** - five-questions
+* **[/system:page-tags/tag/gbc09 gbc09]** - gbc09
+* **[/system:page-tags/tag/goblincon2023 goblincon2023]** - goblincon2023
+ * **[/system:page-tags/tag/_goblin-76 _goblin-76]** - _goblin-76
+ * **[/system:page-tags/tag/_goblin-eliminaciones _goblin-eliminaciones]** - _goblin-deletions
+ * **[/system:page-tags/tag/ _goblin-glitch _goblin-glitch]** - _goblin-glitch
+ * **[/system:page-tags/tag/_goblin-goblin _goblin-goblin]** - _goblin-goblin
+ * **[/system:page-tags/tag/_goblin-royale _goblin-royale]** - _goblin-royale
+* **[/system:page-tags/tag/gdi2014 gdi2014]** - goi2014
+* **[/system:page-tags/tag/gdi2019 gdi2019]** - goi2019
+* **[/system:page-tags/tag/halloween2018 halloween2018]** - halloween2018
+* **[/system:page-tags/tag/halloweencon2022 halloweencon2022]** - halloweencon2022
+* **[/system:page-tags/tag/hc2012 hc2012]** – hc2012
+* **[/system:page-tags/tag/hiscon2017 hiscon2017]** - hiscon2017
+* **[/system:page-tags/tag/canonintcon2025 canonintcon2025]** - intcanoncon2025
+* **[/system:page-tags/tag/jam-con2018 jam-con2018]** - jam-con2018
+ * **[/system:page-tags/tag/_oscura-tormentosa _oscura-tormentosa]** - _dark-and-stormy
+ * **[/system:page-tags/tag/_misterio-asesinato _misterio-asesinato]** - _murder-mystery
+ * **[/system:page-tags/tag/_tropical _tropical]** - _tropical
+* **[/system:page-tags/tag/jam-con2019 jam-con2019]** - jam-con2019
+ * **[/system:page-tags/tag/_shaggy-dog _shaggy-dog]** - _shaggy-dog
+ * **[/system:page-tags/tag/_pulp-fiction _pulp-fiction]** - _pulp-fiction
+ * **[/system:page-tags/tag/_todo-era-un-sueño _todo-era-un-sueño]** - _all-a-dream
+* **[/system:page-tags/tag/jam-con2020 jam-con2020]** - jam-con2020
+ * **[/system:page-tags/tag/_explosiones _explosiones]** - _explosions
+ * **[/system:page-tags/tag/_delicioso _delicioso]** - _delicious
+ * **[/system:page-tags/tag/_más-de-lo-que-ves _más-de-lo-que-ves]** - _meets-the-eye
+* **[/system:page-tags/tag/jam-con2021 jam-con2021]** - jam-con2021
+ * **[/system:page-tags/tag/_marino _marino]** - _marine
+ * **[/system:page-tags/tag/_corrupción _corrupción]** - _corruption
+ * **[/system:page-tags/tag/_últimaspalabrasfamosas _últimaspalabrasfamosas]** - _famouslastwords
+* **[/system:page-tags/tag/lorecon-2023 lorecon-2023]** - lorecon2023
+* **[/system:page-tags/tag/memecon2021-no-oficial memecon2021-no-oficial]** - memecon2021-unofficial
+* **[/system:page-tags/tag/dm2016 dm2016]** - mtf2016
+* **[/system:page-tags/tag/nyc2013 nyc2013]** - nyc2013
+* **[/system:page-tags/tag/festivalpride2025 festivalpride2025]** - pridefest2025
+* **[/system:page-tags/tag/dominiopúblicocon2025 dominiopúblicocon2025]** - publicdomaincon2025
+* **[/system:page-tags/tag/rei2015 rei2015]** - rei2015
+* **[/system:page-tags/tag/remixcon2023 remixcon2023]** - remixcon2023
+* **[/system:page-tags/tag/romcon2023-no-oficial romcon2023-no-oficial]** - romcon2023-unofficial
+* **[/system:page-tags/tag/sc2015 sc2015]** - sc2015
+* **[/system:page-tags/tag/asusten-a-nico-2024-no-ofical asusten-a-nico-2024-no-oficial]** - spook-nico-2024-unofficial
+* **[/system:page-tags/tag/relatocon10 relatocon10]** - talecon10
+* **[/system:page-tags/tag/tc2013 tc2013]** – tc2013
+* **[/system:page-tags/tag/uac2014 uac2014]** - uac2014
+* **[/system:page-tags/tag/archivos-visuales2024 archivos-visuales2024]** - visual-archives2024
+* **[/system:page-tags/tag/torpecon2026-no-oficial torpecon2026-no-oficial]** - dumbcon2026-unofficial
+* **[/system:page-tags/tag/eemjc2026-no-oficial eemjc2026-no-oficial]** - timjc2026-unofficial
+* **[/system:page-tags/tag/sportscon2026 sportscon2026]** - sportscon2026
+------
++++ Concursos Hispanos
+* **[/system:page-tags/tag/concurso-relatos-cortos concurso-relatos-cortos]** -  Concurso de relatos cortos de Navidad.
+* **[/system:page-tags/tag/concurso-historia-2014 concurso-historia-2014]** - Concurso de Abril del 2014
+* **[/system:page-tags/tag/concurso-relatos-2015 concurso-relatos-2015]** -  Concurso Oficial de Relatos Cortos 2015
+* **[/system:page-tags/tag/concurso-scp-2016 concurso-scp-2016]** -  Concurso 3º Aniversario de la Rama Hispana
+* **[/system:page-tags/tag/concurso-gdi-es-2017 concurso-gdi-es-2017]** -   Concurso GdI-ES 2017
+* **[/system:page-tags/tag/crc2018 crc2018]** -  Concurso De Relatos Cortos 2018
+* **[/system:page-tags/tag/#concurso100 #concurso100]** -   Concurso SCP-ES-100
+* **[/system:page-tags/tag/colaborativo2018 colaborativo2018]** -   Concurso Exploración 2019
+* **[/system:page-tags/tag/imagen2019 imagen2019]** -    Imagen-Con 2019
+* **[/system:page-tags/tag/exploracion2019 exploracion2019]** -  Concurso Exploración 2019
+* **[/system:page-tags/tag/gdicon2020 gdicon2020]** -   Concurso GdI 2020
+* **[/system:page-tags/tag/200con 200con]** -   Concurso SCP-ES-200
+* **[/system:page-tags/tag/halloween-con-2020 halloween-con-2020]** -   Concurso Halloween 2020
+* **[/system:page-tags/tag/crimen-con-2021 crimen-con-2021]** -   Concurso Crimen 2021
+* **[/system:page-tags/tag/subterraneo-con-2021 subterraneo-con-2021]** -   Concurso Subterráneo 2021
+* **[/system:page-tags/tag/ubicon-2022 ubicon-2022]** -   Concurso de Ubicaciones 2022
+* **[/system:page-tags/tag/festividad-2022 festividad-2022]** -   Concurso de Festividades 2022
+* **[/system:page-tags/tag/acuaticon-2023 acuaticon-2023]** - AcuatiCon 2023 No Oficial
+* **[/system:page-tags/tag/%23es_300 #es_300]** - Concurso SCP-ES-300
+* **[/system:page-tags/tag/necronomicon-2024 necronomicon-2024]** - Concurso Necronomicon 2024
+* **[/system:page-tags/tag/gdicon-2024 gdicon-2024]** - Concurso GDI-ES 2024
+* * **[/system:page-tags/tag/cronocon-2025 cronocon-2025]** - CronoCon2025
+------
+------
++++ Eventos Anglosajones
+* **[/system:page-tags/tag/173fest 173fest]** - 173fest
+* **[/system:page-tags/tag/af2014 af2014]** - af2014
+* **[/system:page-tags/tag/intercambio-de-arte intercambio-de-arte]** - art-exchange
+* **[/system:page-tags/tag/game-day  game-day]** - Game Day
+* **[/system:page-tags/tag/aviso-de-noticias aviso-de-noticias]** - news-prompt
+* **[/system:page-tags/tag/nightmarefest nightmarefest]** - nightmarefest
+ * **[/system:page-tags/tag/_casa-urbana _casa-urbana]** - _townhouse
+ * **[/system:page-tags/tag/_el-burócrata _el-burócrata]** - _the-bureaucrat
+ * **[/system:page-tags/tag/_turno-muerto _turno-muerto]** - _graveyard-shift
+ * **[/system:page-tags/tag/limpieza-de-primavera24 limpieza-de-primavera24]** - spring-cleaning24
+[[/tab]]
+[[tab Etiquetas de Series]]
+++ Series de Relatos
+Etiquetas para series largas de relatos que pueden o no tener un hub.
++++ Series Anglosajonas
+* **[/system:page-tags/tag/8000-ratas-muertas 8000-ratas-muertas]** - 8000-dead-rats
+* **[/system:page-tags/tag/abc-de-la-muerte abc-de-la-muerte]** - abcs-of-death
+* **[/system:page-tags/tag/admonición admonición]** - admonition
+* **[/system:page-tags/tag/anábasis anábasis]** - anabasis
+* **[/system:page-tags/tag/hospital-de-animales hospital-de-animales]** - animal-hospital
+* **[/system:page-tags/tag/relato-oa relato-oa]** - ao-tale
+* **[/system:page-tags/tag/guerra-de-los-aparatos guerra-de-los-aparatos]** - appliance-war
+* **[/system:page-tags/tag/compañia-black-rabbit compañía-black-rabbit]** – black-rabbit-company
+* **[/system:page-tags/tag/enterrar-a-los-supervivientes enterrar-a-los-supervivientes]** - bury-the-survivors
+* **[/system:page-tags/tag/cack-hard cack-hard]** – cack-hard
+* **[/system:page-tags/tag/renacimiento-clásico renacimiento-clásico]** – classical-revival
+* **[/system:page-tags/tag/higiene-garantizada higiene-garantizada]** - cleanliness-guaranteed
+* **[/system:page-tags/tag/relato-coleccionista relato-coleccionista]** – collector-tale
+* **[/system:page-tags/tag/ciclo-de-las-estaciones ciclo-de-las-estaciones]** - cycle-of-seasons
+* **[/system:page-tags/tag/plazo-muerto plazo-muerto]** - deadlined
+* **[/system:page-tags/tag/etdp etdp]** - etdp (Et Tam Deum Petivi)
+* **[/system:page-tags/tag/mxtape-eterna mxtape-eterna]** - eternal-mxtape
+* **[/system:page-tags/tag/expedientes-cog expedientes-cog]** - goc-casefiles
+* **[/system:page-tags/tag/heraldo heraldo]** – harbinger
+* **[/system:page-tags/tag/ciclo-hecatónquiro ciclo-hecatónquiro]** - hecatoncheires-cycle
+* **[/system:page-tags/tag/no-olvidé no-olvidé]** - i-didnt-forget
+* **[/system:page-tags/tag/arenas-de-azafrán arenas-de-azafrán]** - in-saffron-sands
+* **[/system:page-tags/tag/programa-de-integración programa-de-integración]** - integration-program
+* **[/system:page-tags/tag/laboratorios-kiryu laboratorios-kiryu]** - kiryu-labs
+* **[/system:page-tags/tag/crisis-en-manhattan crisis-en-manhattan]** - manhattan-crisis
+* **[/system:page-tags/tag/señor señor]** – mister
+* **[/system:page-tags/tag/mundus-liberari mundus-liberari]** - mundus-liberari
+* **[/system:page-tags/tag/nuevos-rostros nuevos-rostros]** - new-faces
+* **[/system:page-tags/tag/viejos-enemigos viejos-enemigos]** - old-foes
+* **[/system:page-tags/tag/olimpia olimpia]** – olympia
+* **[/system:page-tags/tag/magno-confidente magno-confidente]** – opus-confidant
+* **[/system:page-tags/tag/barrera barrera]** – palisade
+* **[/system:page-tags/tag/crímenes-reales-parawatch crímenes-reales-parawatch]** - parawatch-true-crime
+* **[/system:page-tags/tag/fénix-ruiseñor-urracas fénix-ruiseñor-urracas]** - phoenix-nightingale-magpies
+* **[/system:page-tags/tag/antología-de-fobias antología-de-fobias]** - phobia-anthology
+* **[/system:page-tags/tag/empalizada empalizada]** - palisade
+* **[/system:page-tags/tag/proyecto-taumiel proyecto-taumiel]** - project-thaumiel
+* **[/system:page-tags/tag/teñir-rojo-el-río teñir-rojo-el-río]** - run-the-river-red
+* **[/system:page-tags/tag/deja-de-tener-sentido deja-de-tener-sentido]** - stop-making-sense
+* **[/system:page-tags/tag/equipo-pájaro equipo-pájaro]** - team-bird
+* **[/system:page-tags/tag/después-de-la-contraseña-del-tiempo después-de-la-contraseña-del-tiempo]** - time-after-time-password
+* **[/system:page-tags/tag/sitios-gemelos sitios-gemelos]** - the-twin-sites
+* **[/system:page-tags/tag/árbol-de-la-vida árbol-de-la-vida]** - tree-of-life
+* **[/system:page-tags/tag/serie-sin-título serie-sin-título]** - untitled-series
+* **[/system:page-tags/tag/velo-sobre-velo velo-sobre-velo]** - veil-upon-veil
+* **[/system:page-tags/tag/b-r-u-j-a b-r-u-j-a]** - w-i-t-c-h
+* **[/system:page-tags/tag/nos-encontramos-de-nuevo nos-encontramos-de-nuevo]** - we-meet-again
+* **[/system:page-tags/tag/puta-de-sangre puta-de-sangre]** - whore-of-blood
+* **[/system:page-tags/tag/con-los-viejos-dioses con-los-viejos-dioses]** - with-the-old-gods
+* **[/system:page-tags/tag/mañana-equivocado mañana-equivocado]** - wrong-tomorrow
+* **[/system:page-tags/tag/inspector-de-yggdrasil inspector-de-yggdrasil]** - yggdrasil-s-surveyor
+------
++++ Series Hispanas
+* **[/system:page-tags/tag/shrp shrp]** - S.H.R.P
+* **[/system:page-tags/tag/la-reina-de-la-nada la-reina-de-la-nada]** - La Reina de la Nada
+[[/tab]]
+[[tab Etiquetas de Personajes]]
+
+++ Etiquetas de Personaje
+Las etiquetas que indican que un personaje específico aparece dentro de un relato o artículo SCP. Véase [http://www.scp-wiki.net/forum/t-1938874/character-tags esta discusión de la Rama Angloparlante] para mayores detalles.
++++ Personajes Anglosajones
+* **[/system:page-tags/tag/8-ball 8-ball]** (8-ball) - 8-ball, o 8B-A1. Una Inteligencia Artificial.
+* **[/system:page-tags/tag/aaron-siegel aaron-siegel]** (aaron-siegel) - Aaron Siegel, O5-1.
+* **[/system:page-tags/tag/agente-adams agente-adams]** (agent-adams) - Agente Andrea S. Adams, jefa del cuerpo de seguridad del DM Alfa Nueve.
+* **[/system:page-tags/tag/agente-calendar agente-calendar]** (agent-calendar) - Agente Calendar, ayudante del director del Sitio-666 y violenta demonio de la ira.
+* **[/system:page-tags/tag/agente-green agente-green]** (agent-green) - Agente Green, especialista en anarte.
+* **[/system:page-tags/tag/agente-kazmarek agente-kazmarek]** (agent-kazmarek) - Agente Travis Kazmarek, miembro del DM Gamma-1.
+* **[/system:page-tags/tag/agente-laferrier agente-laferrier]** (agent-laferrier) - Agente V.A. LaFerrier
+* **[/system:page-tags/tag/agente-lament agente-lament]** (agent-lament) - Agente Troy Lament
+* **[/system:page-tags/tag/agente-lurk agente-lurk]** (agent-lurk) - Agente Dietrich M. Lurk
+* **[/system:page-tags/tag/agente-merlo agente-merlo]** (agent-merlo) - Agente Sasha Merlo, especialista en cíber-operaciones.
+* **[/system:page-tags/tag/agente-navarro agente-navarro]** (agent-navarro) - Agente Daniel Navarro, especialista en magia.
+* **[/system:page-tags/tag/agente-popescu agente-popescu]** (agent-popescu) - Agente Lucretia Popescu, miembro sárkica del DM Alfa-9.
+* **[/system:page-tags/tag/agente-rodney agente-rodney]** (agent-rodney) - Agente Rodney, un agente experimentado que se ocupa principalmente de casos relacionados al Frente de Liberación Milagroso.
+* **[/system:page-tags/tag/agente-strelnikov agente-strelnikov]** (agent-strelnikov) - Agente Dmitri Strelnikov, un ruso bombástico.
+* **[/system:page-tags/tag/agente-trauss agente-trauss]** (agent-trauss) - Agente C. Trauss o C-51174.
+* **[/system:page-tags/tag/agente-yoric agente-yoric]** (agent-yoric) - Agente Yoric Elroy, alias Jack "Poor Yoric" Dawkins.
+* **[/system:page-tags/tag/aldon aldon]** (aldon) - Aldon, un anartista.
+* **[/system:page-tags/tag/alex-thorley alex-thorley]** (alex-thorley) - Alex Thorley del Departamento de Irrealidad.
+* **[/system:page-tags/tag/alexandra alexandra]** (alexandra) - Alexandra, unidad IA.
+* **[/system:page-tags/tag/amos-marshall amos-marshall]** (amos-marshall) - Amos Marshall, de Marshall, Carter & Dark.
+* **[/system:page-tags/tag/hermanos-bailey hermanos-bailey]** (bailey-brothers) - Tristan, Thomas y Trevor Bailey.
+* **[/system:page-tags/tag/big-cheese-horace big-cheese-horace]** (big-cheese-horace) - Big Cheese Horace de los quintistas.
+* **[/system:page-tags/tag/brainy-brian brainy-brian]** (brainy-brian) - Brainy Brian de Wondertainment/MC&D, también conocido como 'Doctor Neurosis'.
+* **[/system:page-tags/tag/chaz-ambrose chaz-ambrose]** (chaz-ambrose) - Chaz Ambrose, fundador de Restaurantes Ambrose.
+* **[/system:page-tags/tag/jefa-ibanez jefa-ibanez]** (chief-ibanez) - Jefa Delfina Ibanez, líder de los Destacamentos Móviles del Sitio-43.
+* **[/system:page-tags/tag/d-7294 d-7294]** (d-7294) - D-7294
+* **[/system:page-tags/tag/d-11424 d-11424]** (d-11424) - D-11424
+* **[/system:page-tags/tag/dado dado]** (dado) - dado cuidarte a ti en este. tu no preocupar.
+* **[/system:page-tags/tag/damien-nowak damien-nowak]** - Damien Nowak, líder de una secta
+* **[/system:page-tags/tag/dc-al-fine dc-al-fine]** (dc-al-fine) - D.C. al Fine, Subsecretaria General de la Coalición Oculta Global
+* **[/system:page-tags/tag/director-aktus director-aktus]** (director-aktus) - Director Aktus, del Sitio-81.
+* **[/system:page-tags/tag/director-bold director-bold]** (director-bold) - Director Cal Bold del Departamento de Desmantelamiento
+* **[/system:page-tags/tag/director-bohart director-bohart]** (director-bohart) - Director Vincent Bohart, del Sitio-333.
+* **[/system:page-tags/tag/director-diaghilev director-diaghilev]** (director-diaghilev) - Director Ruslav Diaghilev del Departamento de Alquimia
+* **[/system:page-tags/tag/directora-gillespie directora-gillespie]** (director-gillespie) - Directora Gillespie, del Sitio-77.
+* **[/system:page-tags/tag/director-graham director-graham]** (director-graham) - Director Thomas Graham, del Sitio-17.
+* **[/system:page-tags/tag/director-lague director-lague]** (director-lague) - Director Paul Lague, del Programa de Integración y del Sitio-322
+* **[/system:page-tags/tag/director-mcinnis director-mcinnis]** (director-mcinnis) - Dr. Allan J. McInnis, Director del Sitio-43
+* **[/system:page-tags/tag/directora-mctiriss directora-mctiriss]** (director-mctiriss) - Directora Kate McTiriss, comandante de operaciones de la Fundación en [[[canon-hub#GOLF| El Golfo]].
+* **[/system:page-tags/tag/director-metanoia director-metanoia]** (director-metanoia) - Directora Amelie R. Metanoia.
+* **[/system:page-tags/tag/directora-moose directora-moose]** (director-moose) - Directora Moose, del Sitio-19. Anteriormente miembro de la Mano de la Serpiente.
+* **[/system:page-tags/tag/directora-richter directora-richter]** (director-richter) - Directora Leah Richter, del Sitio-78.
+* **[/system:page-tags/tag/director-scout director-scout]** (director-scout) - Director Vivian L. Scout, antiguo co-director del Sitio-43.
+* **[/system:page-tags/tag/django-bridge django-bridge]** (django-bridge) - Django Bridge
+* **[/system:page-tags/tag/doctor-asheworth doctor-asheworth]** (doctor-asheworht) - Dr. Daniel Asheworth, taumaturgo del Sitio-120.
+* **[/system:page-tags/tag/doctor-blank doctor-blank]** (doctor-blank) - Dr. Harold R. Blank, historiador del Sitio-43.
+* **[/system:page-tags/tag/doctor-cimmerian doctor-cimmerian]** (doctor-cimmerian) - Dr. Cimmerian.
+* **[/system:page-tags/tag/doctor-clef doctor-clef]** (doctor-clef) - Dr. Alto Clef
+* **[/system:page-tags/tag/doctor-dan doctor-dan]** (doctor-dan) - Dr. Dan ███████, de SCP-096.
+* **[/system:page-tags/tag/doctor-edison doctor-edison]** (doctor-edison) - Dr. Michael Edison.
+* **[/system:page-tags/tag/doctora-elliott doctora-elliott]** (doctor-elliott) - Dra. Chelsea Elliott.
+* **[/system:page-tags/tag/doctora-elstrom doctora-elstrom]** (doctor-elstrom) - Dra. Karen Elstrom, oficial administrativa en jefe del Sitio-43.
+* **[/system:page-tags/tag/doctora-everwood doctora-everwood]** (doctor-everwood) - Dra. Everwood, especialista en GDIs
+* **[/system:page-tags/tag/doctor-fynegan doctor-fynegan]** (doctor-fynegan) - Dr. Fynegan
+* **[/system:page-tags/tag/doctora-garrison doctora-garrison]** (doctor-garrison) - Dra. Heather Garrison
+* **[/system:page-tags/tag/doctor-gears doctor-gears]** (doctor-gears) - Dr. Gears
+* **[/system:page-tags/tag/doctor-gerald doctor-gerald]** (doctor-gerald) - Dr. Gerald
+* **[/system:page-tags/tag/doctor-glass doctor-glass]** (doctor-glass) - Dr. Simon Glass
+* **[/system:page-tags/tag/doctor-heiden doctor-heiden]** (doctor-heiden) - Dr. Frederick Heiden
+* **[/system:page-tags/tag/doctor-hoygull doctor-hoygull]** (doctor-hoygull) - Doctor Hoygull, División Aviar.
+* **[/system:page-tags/tag/doctor-iceberg doctor-iceberg]** (doctor-iceberg) - Dr. Iceberg
+* **[/system:page-tags/tag/doctor-king doctor-king]** (doctor-king) - Dr. King
+* **[/system:page-tags/tag/doctor-kondraki doctor-kondraki]** (doctor-kondraki) - Dr. Kondraki, anterior director del Sitio-17.
+* **[/system:page-tags/tag/doctora-light doctora-light]** (doctor-light) - Dra. Sophia N. Light, jefa del DM Alfa-9.
+* **[/system:page-tags/tag/doctora-lillihammer doctora-lillihammer]** (doctor-lillihammer) - Dra. Lillian S. Lillihammer, memeticista del Sitio-43
+* **[/system:page-tags/tag/doctor-mann doctor-mann]** (doctor-mann) - Dr. Everett Mann
+* **[/system:page-tags/tag/doctor-mcdoctorate doctor-mcdoctorate]** (doctor-mcdoctorate) - Dr. Placeholder McDoctorate
+* **[/system:page-tags/tag/doctora-ngo doctora-ngo]** (doctora-ngo) - Dr. Nhung T. Ngo
+* **[/system:page-tags/tag/doctora-okorie doctora-okorie]** (doctor-okorie) - Dra. Udo Okorie
+* **[/system:page-tags/tag/doctora-reynders doctora-reynders]** (doctora-reynders) - Dra. Ilse Reynders, anteriormente [[[SCP-5616]]].
+* **[/system:page-tags/tag/doctora-rights doctora-rights]** (doctor-rights) - Dra. Rights
+* **[/system:page-tags/tag/doctora-rivera doctora-rivera]** (doctor-rivera) - Dra. Jessie Rivera, alteradora de la realidad del Sitio-120.
+* **[/system:page-tags/tag/doctor-roget doctor-roget]** (doctor-roget) - Dr. Ralph Roget, del Sitio-77.
+* **[/system:page-tags/tag/doctor-rydderech doctor-rydderech]** (doctor-rydderech) - Dr. Wynn Rhys Rydderech.
+* **[/system:page-tags/tag/doctor-scranton doctor-scranton]** (doctor-scranton) - Dr. Robert Scranton
+* **[/system:page-tags/tag/doctor-shaw doctor-shaw]** (doctor-shaw) - Dr. Elias Blake Shaw
+* **[/system:page-tags/tag/doctora-sinclair doctora-sinclair]** (doctor-sinclair) - Dra. Katherine Sinclair, taumaturga del Sitio-87.
+* **[/system:page-tags/tag/doctor-sokolsky doctor-sokolsky]** (doctor-sokolsky) - Dr. Daniil Sokolsky
+* **[/system:page-tags/tag/doctor-sorts doctor-sorts]** (doctor-sorts) - Dr. Johannes Sorts
+* **[/system:page-tags/tag/doctor-thereven doctor-thereven]** (doctor-thereven) - Dr. Cole Thereven
+* **[/system:page-tags/tag/doctor-vang doctor-vang]** (doctor-vang) - Dr. S. Vang
+* **[/system:page-tags/tag/doctor-wettle doctor-wettle]** (doctor-wettle) - Dr. William Wallace Wettle, desafortunado Jefe en Estudios de Replicación en el Sitio-43.
+* **[/system:page-tags/tag/draven-kondraki draven-kondraki]** (draven-kondraki) - Dr. Director Draven Kondraki
+* **[/system:page-tags/tag/eric eric]** (eric) - Eric, un personaje misterioso
+* **[/system:page-tags/tag/esther-kogan esther-kogan]** (esther-kogan) - Esther Kogan, alias lesbian_gengar de Gamers Against Weed
+* **[/system:page-tags/tag/faeowynn-wilson faeowynn-wilson]** (faeowynn-wilson) - Faeowynn "Fae" Wilson
+* **[/system:page-tags/tag/finnegan finnegan]** (finnegan) -  Finnegan, anartista
+* **[/system:page-tags/tag/florence-thorne florence-thorne]** (florence-thorne) -  Florence Thorne
+* **[/system:page-tags/tag/general-bowe general-bowe]** (general-bowe) - General Bowe
+* **[/system:page-tags/tag/glacon glacon]** (glacon) - Glacon.aic
+* **[/system:page-tags/tag/gran-karcista-ion gran-karcista-ion]** (grand-karcist-ion) - El Gran Karcista Ion, una figura sárkica
+* **[/system:page-tags/tag/greg-chudley greg-chudley]** (greg-chudley) - Investigador Greg Chudley, del Sitio-78.
+* **[/system:page-tags/tag/mellizos-hadfield mellizos-hadfield]** (hadfield-twins) - John y Abigail Hadfield (o O5-4 y O5-8)
+* **[/system:page-tags/tag/halyna-ieva halyna-ieva]** (halyna-ieva) - Karcista Halyna Ieva, alias La Madre que reclama los dedos de los pies
+* **[/system:page-tags/tag/rey-ahorcado rey-ahorcado]** (hanged-king) - De o relativo al Rey Ahorcado
+* **[/system:page-tags/tag/holly-light holly-light]** (holly-light) - Holly Light
+* **[/system:page-tags/tag/icky icky]** (icky) - Verónica, la Payasa Mágica
+* **[/system:page-tags/tag/iris-dark iris-dark]** (iris-dark) - Iris Dark, de Marshall, Carter & Dark.
+* **[/system:page-tags/tag/isabel-v isabel-v]** (isabel-v) - Isabel Helga Anastasia Parvati Wondertainment V
+* **[/system:page-tags/tag/james-harkness james-harkness]** (james-harkness) - James Harkness
+* **[/system:page-tags/tag/jockjamsvol6 jockjamsvol6]** (jockjamsvol6) - JJ, alias jockjamsvol6 de Gamers Against Weed
+* **[/system:page-tags/tag/jude-kriyot jude-kriyot]** (jude-kriyot) - Jude Kriyot de Gamers Against Weed
+* **[/system:page-tags/tag/judith-low judith-low]** (judith-low) - Dra. Judith Low, Departamento de Historia
+* **[/system:page-tags/tag/judy-papill judy-papill]** (judy-papill) - Judy Papill, Alias Judy Lenguas
+* **[/system:page-tags/tag/kain-pathos-crow kain-pathos-crow]** (kain-pathos-crow) - Profesor Kain Pathos Crow
+* **[/system:page-tags/tag/kenneth-spencer kenneth-spencer]** (kenneth-spencer) - Kenneth Spencer, de la Unidad de Investigaciones Inusuales del FBI
+* **[/system:page-tags/tag/amabilidad amabilidad]** (kindness) - Un hombre amable
+* **[/system:page-tags/tag/legado-trunnion legado-trunnion]** (legate-trunnion) - Legado Trunnion, profeta de la Iglesia de la Obra Dentada
+* **[/system:page-tags/tag/familia-lewitt-zairi familia-lewitt-zairi]** (lewitt-zairi-family) - La familia Lewitt Zairi
+* **[/system:page-tags/tag/lombardi lombardi]** (lombardi) - [[[the-lombardi-tales|Agente Lombardi]]]
+* **[/system:page-tags/tag/lovataar lovataar]** (lovataar) - Lovataar, uno de los cuatro Klavigar del sarkicismo
+* **[/system:page-tags/tag/lucas-monaco lucas-monaco]** (lucas-monaco) - Lucas Monaco, empleado de Marshall, Carter & Dark
+* **[/system:page-tags/tag/manny manny]** (manny) - Manny, alias el Hombre con la Cara Invertida de Herman Fuller
+* **[/system:page-tags/tag/mari-macphaerson mari-macphaerson]** (mari-macphaerson) - Mari Macphaerson, de Estudios Técnicos Vikander-Kneed
+* **[/system:page-tags/tag/maria-johnston maria-johnston]** (maria-johnston) - Investigadora Maria Johnston, del Sitio-78.
+* **[/system:page-tags/tag/maria-jones maria-jones]** (maria-jones) - Maria Jones de ASRI
+* **[/system:page-tags/tag/marie-surratt marie-surratt]** (marie-suratt) - Marie Surratt
+* **[/system:page-tags/tag/marion-wheeler marion-wheeler]** (marion-wheeler) - Marion Wheeler, jefe de la [[[antimemetics-division-hub | División de Antimemética]]].
+* **[/system:page-tags/tag/mark-kiryu mark-kiryu]** (mark-kiryu) - Mark Kiryu de Laboratorios Kiryu
+* **[/system:page-tags/tag/midnight-la-gata midnight-la-gata]** (midnight-the-cat) - Midnight, una gata con sapiencia miembro de la Mano de la Serpiente
+* **[/system:page-tags/tag/nadox nadox]** (nadox) - Nadox, uno de los cuatro Klavigar del sarkicismo
+* **[/system:page-tags/tag/odongo-tejani odongo-tejani]** (odongo-tejani) - Odongo Tejani, presidenta del Comité de Ética
+* **[/system:page-tags/tag/olivie-gwyneth olivie-gwyneth]** (olivie-gwyneth) - Olivie Gwyneth
+* **[/system:page-tags/tag/orok orok]** (orok) - Orok, uno de los cuatro Klavigar del sarkicismo
+* **[/system:page-tags/tag/pangloss pangloss]** (pangloss) - Pangloss, figura mítica que deja notas
+* **[/system:page-tags/tag/percival-darke percival-darke]** (percival-darke) - Percival Darke, fundador de Marshall, Carter & Dark
+* **[/system:page-tags/tag/philip-deering philip-deering]** (philip-deering) - Philip E. Deering, anteriormente [[[scp-5056 | SCP-5056-B]]].
+* **[/system:page-tags/tag/polaricecraps polaricecraps]** (polaricecraps) - Polaricecraps
+* **[/system:page-tags/tag/profesor-aw profesor-aw]** (professor-aw) - Profesor A.W., inventor y creador de curiosidades
+* **[/system:page-tags/tag/profesor-bjornsen profesor-bjornsen]** (professor-bjornsen) - Profesor Anders Bjornsen
+* **[/system:page-tags/tag/reina-mab reina-mab]** (queen-mab) - Reina Mab, una diosa y tirana féerica
+* **[/system:page-tags/tag/investigador-conwell investigador-conwell]** (researcher-conwell) - Investigador Jacob Conwell, Analista de Materiales Anómalos del Sitio-64.
+* **[/system:page-tags/tag/investigador-james investigador-james]** (researcher-james) - Investigador Junior James, ¡el mejor investigador de la fundación! (5 años)
+* **[/system:page-tags/tag/investigadora-labelle investigadora-labelle]** (researcher-labelle) - Investigadora Rose Labelle
+* **[/system:page-tags/tag/investigador-lloyd investigador-lloyd]** (researcher-lloyd) - Investigador Lloyd, Destructor de Mundos
+* **[/system:page-tags/tag/investigador-rosen investigador-rosen]** (researcher-rosen) - Investigador David Rosen
+* **[/system:page-tags/tag/investigador-rex investigador-rex]** (researcher-rex) - Investigador Junior Rex Alces
+* **[/system:page-tags/tag/investigador-smalls investigador-smalls]** (researcher-smalls) - Investigador Adamo Smalls
+* **[/system:page-tags/tag/investigador-talloran investigador-talloran]** (researcher-talloran) - Investigador Talloran
+* **[/system:page-tags/tag/richard-chappell  richard-chappell]** (richard-chappell) - Richard Davis Chappell, fundador del Espíritu de Chicago
+* **[/system:page-tags/tag/riven-mercer riven-mercer]** (riven-mercer) - Riven Mercer de Laboratorios Kiryu
+* **[/system:page-tags/tag/robert-bumaro  robert-bumaro]** (robert-bumaro) - Robert Bumaro, un profeta de Mekhane
+* **[/system:page-tags/tag/robert-carter robert-carter]** (robert-carter) - Robert Carter, de Marshall, Carter & Dark
+* **[/system:page-tags/tag/robin-thorne  robin-thorne]** (robin-thorne) - Robin Thorne, de la Unidad de Investigaciones Inusuales del FBI
+* **[/system:page-tags/tag/ruiz-duchamp  ruiz-duchamp]** (ruiz-duchamp) - Ruiz Duchamp, un anartista
+* **[/system:page-tags/tag/ruprecht-carter ruprecht-carter]** (ruprecht-carter) - Ruprecht Carter, de Marshall, Carter & Dark
+* **[/system:page-tags/tag/saarn saarn]** (saarn) - Saarn, uno de los cuatro Klavigar del sarkicismo
+* **[/system:page-tags/tag/samara-maclear samara-maclear]** (samara-maclear) - Samara Maclear, Especialista de Psiónica de la Fundación
+* **[/system:page-tags/tag/santa-hedwig santa-hedwig]** (saint-hedwig) - Santa Hewdig, profeta del Maxwellismo
+* **[/system:page-tags/tag/ciervo-saturnino  ciervo-saturnino]** (saturn-deer) - Ciervo Saturnino
+* **[/system:page-tags/tag/sheldon-katz sheldon-katz]** (sheldon-katz) - Sheldon Katz
+* **[/system:page-tags/tag/simon-pietrykau simon-pietrykau]** (simon-piertrykau) - Simon Pietrykau
+* **[/system:page-tags/tag/skitter-marshall skitter-marshall]** (skitter-marshall) - Skitter Marshall, de Marshall, Carter & Dark
+* **[/system:page-tags/tag/thad-xyank thad-xyank]** (thad-xyank) -  Dr. Thaddeus "Thad" Xyank
+* **[/system:page-tags/tag/el-administrador el-administrador]** (the-administrator) - El Administrador, entidad separada del Consejo O5
+* **[/system:page-tags/tag/el-archivista el-archivista]** (the-archivist) - El Archivista, también conocido como O5-10
+* **[/system:page-tags/tag/el-crítico el-crítico]** (the-critic) - El Crítico de Are We Cool Yet?
+* **[/system:page-tags/tag/el-ingeniero el-ingeniero]** (the-engineer) - El Ingeniero, de la Insurgencia del Caos
+* **[/system:page-tags/tag/la-serpiente la-serpiente]** (the-serpent) - La Serpiente, Mítica Soberana de la Biblioteca de los Errantes y homónima de la Mano de la Serpiente
+* **[/system:page-tags/tag/thilo-zwist thilo-zwist]** (thilo-zwist) -  Thilo Zwist
+* **[/system:page-tags/tag/tim-wilson tim-wilson]** (tim-wilson) -  Tim Wilson
+* **[/system:page-tags/tag/veronica-fitzroy veronica-fitzroy]** (veronica-fitzroy) - Veronica Katherine Fitzroy, anartista/clase-D
+* **[/system:page-tags/tag/vincent-anderson vincent-anderson]** (vincent-anderson) - Vincent Anderson, de Anderson Robotics
+* **[/system:page-tags/tag/yaldabaoth yaldabaoth]** (yaldabaoth) - Yaldabaoth el demiurgo. También conocido como Važjuma
+* **[/system:page-tags/tag/yossarian-leiner yossarian-leiner]** (yossarian-leiner) - Yossarian Leiner, Director del Departamento de Teología Táctica
+* **[/system:page-tags/tag/zyn-kiryu zyn-kiryu]** (zyn-kiryu) - Investigadora Zyn Kiryu
+------
++++ Personajes Hispanos
+* **[/system:page-tags/tag/alicia-kalafpe alicia-kalafpe]** - Alicia Kalafpe
+* **[/system:page-tags/tag/amalia-mondragón amalia-mondragón]** - Doctora Amalia Mondragón
+* **[/system:page-tags/tag/amaro-mondragón amaro-mondragón]** - Doctora Amaro Mondragón
+* **[/system:page-tags/tag/andrés-mondragón andrés-mondragón]** - Investigador Andrés Mondragón
+* **[/system:page-tags/tag/borja-dowell borja-dowell]** - Borja Dowell
+* **[/system:page-tags/tag/cangrejo-azulado cangrejo-azulado]** - [[[SCP-ES-264]]]
+* **[/system:page-tags/tag/dante dante]** - Dante
+* **[/system:page-tags/tag/d.i.m.v. d.i.m.v.]** - D.I.M.V.
+* **[/system:page-tags/tag/dr-merlín dr-merlín]** - Dr. Jacobo Merlín
+* **[/system:page-tags/tag/dr-von-braun dr-von-braun]** - Dr. Von Braun
+* **[/system:page-tags/tag/luisa-vander  luisa-vander]** - Luisa Vander
+* **[/system:page-tags/tag/marw marw]** - Detective Marw
+* **[/system:page-tags/tag/maximus maximus]** - Maximus
+* **[/system:page-tags/tag/mike-patterson mike-patterson]** - Agente Mike Patterson
+* **[/system:page-tags/tag/norvelio-medatia norvelio-medatia]** -  Norvelio Medatia
+* **[/system:page-tags/tag/óscar-ibarra óscar-ibarra]** - Óscar Ibarra
+* **[/system:page-tags/tag/richard-barnard richard-barnard]** - Dr. Richard Barnard, alias "Reach"
+* **[/system:page-tags/tag/richard-dunwich richard-dunwich]** - Investigador Asistente Prelator Richard Dunwich
+* **[/system:page-tags/tag/rex-turner rex-turner]** - Agente Rex Turner
+* **[/system:page-tags/tag/robert-castillo robert-castillo]** - Dr. Robert Castillo
+* **[/system:page-tags/tag/robert-castillo sechud]** - Sechud
+* **[/system:page-tags/tag/steffano-gonzález steffano-gonzález]** - Dr. Steffano “Shogun” González
+* **[/system:page-tags/tag/teresa-bárbara teresa-bárbara]** - Reina Téresa Bárbara
+* **[/system:page-tags/tag/víctor-penz víctor-penz]** - Agente Víctor Penz
+------
++++ SCPs con Etiqueta
+* **[/system:page-tags/tag/abel abel]** - (able) o //[[[SCP-076 | SCP-076-2]]]//
+* **[/system:page-tags/tag/alexei-belitrov alexei-belitrov]** - (alexei-belitrov) o //[[[SCP-2273]]]//
+* **[/system:page-tags/tag/presunto-dios presunto-dios]** - (alleged-god) o //[[[SCP-343]]]//
+* **[/system:page-tags/tag/anafábula anafábula]** - (anafabula) o //[[[SCP-2747]]]//
+* **[/system:page-tags/tag/blackwood blackwood]** - (blackwood) o //[[[SCP-1867]]]//
+* **[/system:page-tags/tag/alien-de-sangre-azul alien-de-sangre-azul]** - (blue-blooded-alien) o //[[[SCP-6118]]]//
+* **[/system:page-tags/tag/bobble-el-payaso bobble-el-payaso]** - (bobble-the-clown) o //[[[SCP-993]]]//
+* **[/system:page-tags/tag/bones bones]** - (bones) o //[[[SCP-2721 | SCP-2721-LORD]]]//
+* **[/system:page-tags/tag/cain cain]** - (cain) o //[[[SCP-073]]]//
+* **[/system:page-tags/tag/capitán-adrian capitán-adrian]** - (captain-adrian) o //[[[scp-6159 SCP-6159-2]]]//
+* **[/system:page-tags/tag/primo-johnny primo-johnny]** - (cousin-johnny) o //[[[SCP-2852]]]//
+* **[/system:page-tags/tag/doctor-bright doctor-bright]** - (doctor-bright) o //[[[SCP-963]]]//
+* **[/system:page-tags/tag/doctor-spanko doctor-spanko]** - (doctor-spanko) o //[[[SCP-2337]]]//
+* **[/system:page-tags/tag/donkman donkman]** - (donkman) o //[[[SCP-4768]]]//
+* **[/system:page-tags/tag/fred fred]** -  (fred) o //[[[SCP-423]]]//
+* **[/system:page-tags/tag/geoffrey-quincy-harrison geoffrey-quincy-harrison]** - (geoffrey-quincy-harrison) o //[[[SCP-5595]]]//
+* **[/system:page-tags/tag/grabnok grabnok]** - (grabnok) o //[[[SCP-507]]]//
+* **[/system:page-tags/tag/josie-la-media-gata josie-la-media-gata]** - (half-cat-josie) o //[[[SCP-529]]]//
+* **[/system:page-tags/tag/hana-thompson hana-thompson]** - (hana-thompson) o //[[[SCP-6317]]]//
+* **[/system:page-tags/tag/reptil-difícil-de-matar reptil-difícil-de-matar]** - (hard-to-destroy-reptile) o //[[[SCP-682]]]//
+* **[/system:page-tags/tag/heather-mason heather-mason]** - (heather-mason) o //[[[SCP-3090]]]//
+* **[/system:page-tags/tag/hogslice hogslice]** - (hogslice) o //[[[SCP-6599]]]//
+* **[/system:page-tags/tag/iris-thompson iris-thompson]** - (iris-thompson) o //[[[SCP-105]]]//
+* **[/system:page-tags/tag/leslie leslie]** - (leslie) o //[[[SCP-3774]]]//
+* **[/system:page-tags/tag/campeón-lunar campeón-lunar]** - (moon-champion) o //[[[SCP-1233]]]//
+* **[/system:page-tags/tag/sr-pez sr-pez]** - (mr-fish) o //[[[SCP-527]]]//
+* **[/system:page-tags/tag/murphy-law murphy-law]** - (murphy-law) o //[[[SCP-3143]]]//
+* **[/system:page-tags/tag/ia-antigua ia-antigua]** - (old-ai) o //[[[SCP-079]]]//
+* **[/system:page-tags/tag/doctor-plaga doctor-plaga]** - (plague-doctor) o //[[[SCP-049]]]//
+* **[/system:page-tags/tag/máscara-posesiva máscara-posesiva]** - (possessive-mask) o //[[[SCP-035]]]//
+* **[/system:page-tags/tag/primrose-esquire primrose-esquire]** - (primrose-esquire) o //[[[scp-6159 | SCP-6159-1]]]//
+* **[/system:page-tags/tag/rainer-miller rainer-miller]** - (rainer-miller) o //[[[SCP-4051]]]//
+* **[/system:page-tags/tag/sauelsuesor sauelsuesor]** - (sauelsuesor) o //[[[SCP-179]]]//
+* **[/system:page-tags/tag/chico-tímido chico-tímido]** - (shy-guy) o //[[[SCP-096]]]//
+* **[/system:page-tags/tag/sigurrós sigurrós]** - (sigurros) o //[[[SCP-239]]]//
+* **[/system:page-tags/tag/gaia-adolescente gaia-adolescente]** - (teenage-gaia) o //[[[SCP-166]]]//
+* **[/system:page-tags/tag/diez-puntos diez-puntos]** - (ten-dots) o //[[[SCP-2521]]]//
+* **[/system:page-tags/tag/la-kumiho la-kumiho]** - (the-kumiho) o //[[[SCP-953]]]//
+* **[/system:page-tags/tag/el-anciano el-anciano]** - (the-old-man) o //[[[SCP-106]]]//
+* **[/system:page-tags/tag/la-escultura la-escultura]** - (the-sculpture) o //[[[SCP-173]]]//
+* **[/system:page-tags/tag/el-espectro el-espectro]** - (the-specter) o //[[[SCP-4944]]]//
+* **[/system:page-tags/tag/monstruo-de-las-cosquillas monstruo-de-las-cosquillas]** - (tickle-monster) o //[[[SCP-999]]]//
+* **[/system:page-tags/tag/demasiado-espeluznante demasiado-espeluznante]** - (too-spooky) o //[[[SCP-2006]]]//
+[[/tab]]
+[[tab Etiquetas de UdI]]
+++ Etiquetas de Localización (Ubicación de Interés)
+Etiquetas que indican que un relato o artículos SCP tiene lugar en una ubicación específica que no es un Sitio de la Fundación o instalación, pero tienen una particularidad in-universe, sea en general o para la Fundación.
++++ Localizaciones Anglosajonas
+* **[/system:page-tags/tag/7ma-guerra-oculta 7ma-guerra-oculta]** (7th-occult-war) - //La Séptima Guerra Oculta//
+* **[/system:page-tags/tag/adytum adytum]** (adytum) - //La Ciudad de Adytum//
+* **[/system:page-tags/tag/alagadda#pages alagadda]** (alagadda) - //El Reino de Alagadda//
+* **[/system:page-tags/tag/amoni-ram amoni-ram]** (amoni-ram) - //La Ciudad-Estado de Amoni-Ram//
+* **[/system:page-tags/tag/backdoor-soho#pages backdoor-soho]** (backdoor-soho) - //La Ciudad de Backdoor Soho//
+* **[/system:page-tags/tag/deus-ex-machina deus-ex-machina]** (deus-ex-machina) - //La Máquina **Especial** de la Fundación, [[[SCP-2000]]]//
+* **[/system:page-tags/tag/esterberg#pages esterberg]** (esterberg) - //El Puerto Libre conocido como Esterberg//
+* **[/system:page-tags/tag/eurtec#pages eurtec]** (eurtec) - //La Metrópolis de Eurtec//
+* **[/system:page-tags/tag/hong-shing hong-shing]** (hong-shing) - //La Ciudad Extradimensional de Hong Shing//
+* **[/system:page-tags/tag/hy-brasil#pages hy-brasil]** (hy-brasil) - //La isla de Hy-Brasil.//
+* **[/system:page-tags/tag/la-rue-macabre#pages la-rue-macabre]** (la-rue-macabre) - //El puerto libre de La Rue Macabre//
+* **[/system:page-tags/tag/noósfera noósfera]** (noosphere) - //La Noósfera, el espacio conceptual del conocimiento//
+* **[/system:page-tags/tag/tres-portlands#pages tres-portlands]** (three-portlands) - //La Ciudad de Tres Portlands//
+* **[/system:page-tags/tag/tres-portlands#pages undervegas]** (undervegas) - //La ciudad demoníaca de Undervegas//
+* **[/system:page-tags/tag/biblioteca-de-los-errantes#pages biblioteca-de-los-errantes]** (wanderers-library) - //La Biblioteca de los Errantes//
+------
++++ Localizaciones Hispanas
+* **[/system:page-tags/tag/butai butai]** - La Ciudad de Butai
+* **[/system:page-tags/tag/hoiohiña hoiohiña]** - Hoiohiña
+* **[/system:page-tags/tag/tlaneyanco tlaneyanco]** - El Reino de Tlaneyanco
+* **[/system:page-tags/tag/peque%C3%B1a-habana pequeña-habana]** - La Pequeña Habana
+[[/tab]]
+[[tab Marcadores de Contenido]]
+++ Marcadores de Contenido
+Etiquetas para notar el contenido específico.
+
+* **[/system:page-tags/tag/adulto adulto]** (adult) - Etiqueta incluida a criterio del autor o el staff en artículos SCP, Relatos, Formatos GdI y cualquier tipo de creación que presente un contenido especialmente fuerte para algunos usuarios, como escenas sexuales o violencia extrema.
+[[/tab]]
+[[tab Etiquetas Misceláneas]]
+++ Proyecto
+Etiquetas para proyectos colaborativos.
+
+* **[/system:page-tags/tag/proyecto-crossover proyecto-crossover]** (Project Crossover)
+[[/tab]]
+[[/tabview]]
+[[module css]]
+table.wiki-content-table
+{
+    margin: 0;
+    width: 100%;
+}
+
+table.wiki-content-table td
+{
+    vertical-align: top;
+    width: 200px;
+}
+
+table.wiki-content-table td:first-child
+{
+    width: 40%;
+}
+
+table.wiki-content-table td:last-child
+{
+    width: 30%;
+}
+
+#toc-action-bar
+{
+    display: none;
+}
+[[/module]]

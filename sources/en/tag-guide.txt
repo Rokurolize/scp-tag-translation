@@ -1,0 +1,422 @@
+Tagging Guide 
+[[toc title="Table of Contents"]]
+++ Top Level Tags
+All pages should be tagged with one of the following (and no more than one unless otherwise specified). However, top level tags should not be applied until all other applicable tags are applied, as the absence of a top level tag is used by staff to identify untagged pages.
+* All SCP articles should be tagged with //[https://scp-wiki.net/system:page-tags/tag/scp scp]//, at least one object class tag (using //[https://scp-wiki.net/system:page-tags/tag/esoteric-class esoteric-class]// if no object class is listed), and all applicable SCP Attribute Tags (generally at least two).
+ * Joke SCPs should be tagged as //[https://scp-wiki.net/system:page-tags/tag/joke joke]// in addition to its normal object class (or //esoteric-class// if non-standard or omitted). An author can choose to tag other types of article as jokes to mark a tale or GoI format as a parody, but it's only necessary for Joke SCPs.
+ * Explained, Neutralized and Decommissioned articles should be tagged as //[https://scp-wiki.net/system:page-tags/tag/explained explained]//, //[https://scp-wiki.net/system:page-tags/tag/neutralized neutralized]// or //[https://scp-wiki.net/system:page-tags/tag/decommissioned decommissioned]//, in addition to its previous object class.
+ * If the article is a proposal for SCP-001 (usually an SCP, although some 001 Proposals are tales), it should be tagged as a //[https://scp-wiki.net/system:page-tags/tag/001-proposal 001-proposal]//.
+* **Article Supplements** should be tagged with //[https://scp-wiki.net/system:page-tags/tag/supplement supplement]// and their parent page set to the page they are attached to - usually an SCP, although other types of page can also have supplements. The latter automatically creates breadcrumb links, so explicitly created breadcrumb navigation should be removed.
+ * If the supplement represents some kind of experiment log or report, it should be tagged as an //[https://scp-wiki.net/system:page-tags/tag/experiment experiment]//.
+ * If the supplement represents some kind of exploratory log or report, it should be tagged as an //[https://scp-wiki.net/system:page-tags/tag/exploration exploration]//.
+ * If the supplement represents some kind of incident log or report, it should be tagged as an //[https://scp-wiki.net/system:page-tags/tag/incident incident]//.
+ * If the supplement represents some kind of interview log or transcript, it should be tagged as an //[https://scp-wiki.net/system:page-tags/tag/interview interview]//.  
+* Documentation of a specific SCP Site should be tagged as a //[https://scp-wiki.net/system:page-tags/tag/site site]// page.
+* Fictional works written in the format of a specific Group of Interest should be tagged as a //[https://scp-wiki.net/system:page-tags/tag/goi-format goi-format]//.
+ * Each GoI Format should be tagged with a hidden GoI Format tag specifying which GoI it is for. If the GoI has a tag but no previously defined format, a new goi Format tag may be created by appending an underscore.
+ * This is in addition to any Group tags for GoIs appearing in the GoI format, including but not limited to the regular Group tag for the GoI producing the format.
+* All works of fiction that do not fit into another category should be tagged as a //[https://scp-wiki.net/system:page-tags/tag/tale tale]//.
+* A page that is a hub, consisting primarily of links to multiple other pages in a particular group or categorization should be tagged as a //[https://scp-wiki.net/system:page-tags/tag/hub hub]//. //[https://scp-wiki.net/system:page-tags/tag/scp scp]// articles, tales, goi-formats and artwork pages should not be tagged as a //hub//.
+ * Hubs for a series of connected articles, which may include tales, SCPs and GoI Formats, should be tagged as a //series-hub//, and with the **Series** tag if one has been approved. 
+  * This should be replaced with the //canon-hub// tag if the series has its own **Canon** tag, and linked from the [https://scp-wiki.wikidot.com/canon-hub Canon Hub].
+  * Note that while a //series-hub// can have [https://scp-wiki.wikidot.com/genre-tagging-guide Genre Tags], a //canon-hub// cannot. 
+ * Hubs for a specific [https://scp-wiki.wikidot.com/groups-of-interest Group of Interest], [https://scp-wiki.wikidot.com/departments Department] or [https://scp-wiki.wikidot.com/task-forces Mobile Task Force] should be tagged //group-hub//, even if that group does not have its own **Group** tag.
+  * A group hub may also be a //series-hub// or //canon-hub//.
+* Out-of-universe advice for authors should be tagged as an //[https://scp-wiki.net/system:page-tags/tag/essay essay]//. Only staff may tag articles as a //[https://scp-wiki.net/system:page-tags/tag/guide guide]//. 
+ * A page that lists information about various versions of the SCP canon, generally in a collaborative format, may be tagged as a //[https://scp-wiki.net/system:page-tags/tag/resource resource]// page.
+* Each site author may create a single //[https://scp-wiki.net/system:page-tags/tag/author author]// page for listing all their works.
+* If a page is posted in the {{art:}} category it should either be tagged as an  //[https://scp-wiki.net/system:page-tags/tag/artwork artwork]// page (for individual artworks or small collections of works) or as an //[https://scp-wiki.net/system:page-tags/tag/artist artist]// page. 
+ * Both types of art page are eligible for art tags, see the [https://scp-wiki.wikidot.com/art-tagging-guide Art Tagging Guide] for more information.
+* Fragment pages can be created for inclusion on any other type of page, generally for the purpose of [https://scp-wiki.wikidot.com/listpages-magic-and-you ListPages Presented Text], but occasionally for other purposes, such as organization of long pages, or getting around character limits. These pages should always be in the {{fragment:}} category, tagged as //[https://scp-wiki.net/system:page-tags/tag/fragment fragment]//, and parented to the page they are included on.
+**Other types of page should only be created and tagged as such by staff, or with staff permission:**
+* While anyone may create //[https://scp-wiki.net/system:page-tags/tag/component component]//, //[https://scp-wiki.net/system:page-tags/tag/component-backend component-backend]// and //[https://scp-wiki.net/system:page-tags/tag/theme theme]// pages, they **must be approved** by a member of the Tech Team before posting.
+* **Only members** of Community Outreach may post //[https://scp-wiki.net/system:page-tags/tag/news news]// pages.
+* **Only staff** should create and edit //[https://scp-wiki.net/system:page-tags/tag/admin admin]// and //[https://scp-wiki.net/system:page-tags/tag/forum forum]// pages.
+ * This is very different from simply posting in the forum or discussion threads - //forum// pages are necessary for this to work.
+* //[https://scp-wiki.net/system:page-tags/tag/redirect redirect]// pages **may only be created** by staff or with explicit staff permission.
+* //[https://scp-wiki.net/system:page-tags/tag/workbench workbench]// pages **may only be created** by staff with permission from a team captain or admin.
+* //[https://scp-wiki.net/system:page-tags/tag/sandbox sandbox]// pages **should no longer be posted** on the main site.
+
+++ Major Page Tags 
+The following may be applied to any type of page, and should be applied when relevant.
+* A page that is written by more than one author should be tagged as //[https://scp-wiki.net/system:page-tags/tag/coauthored coauthored]//
+* Any page that is or previously was open to contributions from any site member should be tagged as //[https://scp-wiki.net/system:page-tags/tag/collaboration collaboration]// instead. //[https://scp-wiki.net/system:page-tags/tag/scp scp]// articles are generally not a //collaboration// by this definition, though their //supplements// can be.
+* Pages featuring original artwork created for that article (including photo manipulation that goes beyond simple edits) should be tagged //[https://scp-wiki.net/system:page-tags/tag/illustrated illustrated]//.
+ * If the entire article or a significant portion of it is told through sequential art, the page should instead be tagged as a //[https://scp-wiki.net/system:page-tags/tag/comic comic]//.
+  * Comics (but not //illustrated// articles) are eligible for art tags, as explained in the [https://scp-wiki.wikidot.com/art-tagging-guide Art Tagging Guide].
+* If the page mostly or entirely consists of poetic verse, generally identifiable by having meter and rhyme, it should be tagged as //[https://scp-wiki.net/system:page-tags/tag/poetry poetry]//.
+
+++ Content Markers
+The following may be applied to any type of page, and should be applied when relevant.
+* A page with or more audio files attached should be tagged //[https://scp-wiki.net/system:page-tags/tag/audio audio]//.
+* A page with or more video files attached should be tagged //[https://scp-wiki.net/system:page-tags/tag/video video]//.
+* A page that features some sort of user input or interaction to make a choice should be tagged as //[https://scp-wiki.net/system:page-tags/tag/interactive interactive]//. A simple form of this is having the reader progress to a different offset based on the link they click on, but more complex forms of interaction include text-based adventure games and visual novels.
+* Pages containing adult content should be tagged as //_adult// (a hidden tag), and an [https://scp-wiki.wikidot.com/component:adult-content-warning Adult Content Warning] should be applied, although non-staff may only apply this tag to their own work. Refer to the [https://scp-wiki.wikidot.com/adult-content-warning-guide Adult Content Warning Guide] or contact a member of the [http://05command.wikidot.com/maintenance-and-ancillary-staff-team-main Adult Content Curation team] for more information. 
+* Pages that use listpages to present a series of offsets as part of the same article should be tagged //_listpages//. For more information about  ListPages Presented Text (LPT), see [https://scp-wiki.wikidot.com/listpages-magic-and-you this guide].
+
+++ Translation
+Translations from other languages should be tagged as //[https://scp-wiki.net/system:page-tags/tag/international international]// and be tagged with the appropriate language tag, a hidden two-letter language code, for example _cn for Chinese and _de for German (Deutsch). See the **Translations** tab of the [https://05command.wikidot.com/tech-hub-tag-list Tag List] for a full list.
+
+------
+++ Object Classes and SCP Attributes
+------
+
+All SCP articles, including main series articles (SCP-XXXX), Proposals for SCP-001 (tagged //001-proposal//), translated SCP articles from other branches (tagged //international//), Explained SCPs (tagged //explained//) and Joke SCPs (tagged //joke//) should be tagged with at least one Object Class and all applicable SCP Attributes (generally at least two). The //scp// tag should not be applied until after these other tags are applied. 
+
+To make tagging easier, the SCP Attribute tag list has been divided into 8 categories. Tag names are written in //italics//, while section names are written in **bold**. Each tab asks a **series of questions**, intended to group together similar attribute tags, but if the answer is obviously "no" you should be able to object move on to the next question. From reading through an SCP you should at least have some idea of which tabs will be relevant to the article. Very few anomalies will be fully described by only a single section.
+* **Entity** applies to beings that are //alive//, including people, animals, plants and microorganisms, as well as to //autonomous// entities that are active in some way without technically being alive. 
+* **Animal** applies to any //animal// (including an //insect//, //fish// or //bird// as well as any land animals), to entities or objects that resemble animals, and to effects on animals or on a specific type of animal.
+* **Biological** is for entities and objects that are not alive but are made of //biological// material or that resemble specific body parts, and to effects that only work on //alive// or //biological// entities.
+* **Mental** is for effects that act on or are spread through perception, thought, behaviour or memory.
+* **Physical** is for descriptions of physical form and physical effects, as well as various physics-related properties and effects. While entities may have physical properties and effects, this section is also applicable to inanimate objects and phenomena affecting them.
+* **Environment** is for descriptions of an entity or object's current location, origin, or natural habitat, as well as describing the kind of environment that phenomena may affect or take place in. Locations include both natural and constructed environments, as well as //extradimensional// and //extraterrestrial// locations and objects.
+* **Artificial** is for any //artifact// created by humans, or more rarely by other intelligent beings, as well as specific ways that people can interact with or use anomalous objects, for example using them as part of //artistic// works. These mostly apply to inanimate objects, but are likely to also apply to //autonomous// or //mechanical// entities.
+* **Other** is for miscellaneous tags that don't fit neatly into any other section. It's worth reading through at the end to make sure you haven't missed anything, or at the start if none of the preceding sections seem like they'd fit the SCP object you are tagging.
+
+[[tabview]]
+[[tab Object Classes]]
+* All SCP articles should be tagged with at least one object class tag. 
+ * The standard object class tags are //safe//, //euclid//, //keter//, //thaumiel//, //apollyon//, //archon//, //ticonderoga//, //neutralized//, //decommissioned// and //pending//.
+ * //explained// is technically a major page tag and not an object class, but can be used as an object class tag on both Explained and Main Series SCPs.
+ * If an SCP does not have one of these object classes, if its object class cannot be determined from the article's contents, or if it has a non-standard object class, it should be tagged //esoteric-class//.
+ * If an SCP has multiple object classes at the same time, most frequently Safe, Euclid or Keter and a secondary object class, it should be tagged with all applicable object class tags, which may include //esoteric-class//.
+ * If an article's object class changes over time, either by striking through an outdated object class or by updating the SCP article with a new iteration, only the object class or classes on the final version of the article should be applied as tags. 
+  * The exception is articles tagged as //neutralized//, //decommissioned// or //explained//, which should be tagged with whatever object class they were before, if that object class is included in the article.
+[[/tab]]
+
+[[tab Entity]]
+* **Is the entity human or human-like?**
+ * Any entity that resembles a human or has similar morphology to a human should be tagged as //humanoid//. Humanoids are usually also //alive// and //sapient//, but they do not have to be.
+ * If an entity is in fact a human being, then it should have the following tags by default, unless they are overridden by some aspect of its anomalous properties: //alive//, //humanoid// and //sapient//.
+ * Non-human humanoids may or may not also be //alive// or //sapient//, but many of them are both.
+ * A //cadaver// or //sculpture// can be //humanoid// without being //alive// or //sapient//.
+* **Is the entity alive, or active in some way without being alive?**
+ * Unless it is described as dead or its status as a living being is overridden by its anomalous properties, any identifiable species of //animal//, //bacteria//, //fungus// or //plant// should be tagged as //alive//.
+ * For unidentified species or in ambiguous cases, the definition of //alive// involves an organism responding to external stimuli, consuming energy and producing waste. Living organisms are also capable of growth and reproduction. While not all of these may be verifiable from the description in an SCP article, if it is described as being //biological// and requires some form of food to stay active, it is probably //alive//.
+  * While reproduction is an expected property of living beings, creatures that can produce copies of themselves through anomalous means (not through sexual or asexual reproduction) should be tagged as //self-replicating//.
+ * If it an entity is dead but continues to move, it should be tagged as //cadaver// and //reanimation//. If it was previously dead but has now been restored to life, tag it //alive// and //reanimation//. 
+ * If the entity doesn't have these traits but is still capable of movement and activity (such as a "living" statue), it should be tagged as //autonomous//, unless it is //mechanical//, //clockwork// or //robotic//. See the **Artificial** section for additional tags that may apply to non-living entities.
+  * If an entity is described as a virus, it is //biological// but not //alive//, and should get the //virus// tag. This replaces the //contagion// tag.
+ * If an entity is capable of rapid healing whenever it is damaged, it should be tagged as //self-repairing//.
+ * If an entity cannot be destroyed or killed by any means the Foundation has devised so far, it is considered //indestructible//. This may be because it is impossible to damage, or because it regenerates regardless of how much damage is done.
+* **If it is alive or resembles a living thing, what type of organism is it?**
+ * If the entity is described as a member of a specific species, it should be relatively simple to look up how to categorize it. However, many entities do not belong to any identifiable species.
+ * If it is described as a bacterium, or has similar traits to microscopic bacterial life, it is //bacteria//.
+ * If the entity shares traits with plants, particularly if it is capable of photosynthesis, it is a //plant//.
+ * If the entity resembles a tree, it should also be tagged as //tree//, even if it does not qualify as a //plant//.
+ * Mushrooms, moulds and yeasts, which do not photosynthesize but feed on decaying matter, should instead be tagged //fungus//.
+ * If the entity shares traits with an organism from the kingdom Animalia (locomotion for at least some of its life cycle, non-photosynthetic metabolism relying on ingesting food, and a fixed bodily structure with restricted growth upon reaching maturity), it should be tagged //animal//. See the **Animal** section for tags that apply to entities that are, resemble or affect specific types of animal.
+ * If there are a group of entities that can pass on their anomalous properties to their offspring, they should be tagged //species//.
+* **Can the entity alter its own form?**
+ * If the entity alters its own shape or properties in response to stimuli (voluntarily or otherwise), it is //adaptive//.
+ * If the entity can (voluntarily or otherwise) change its shape or appearance to other fixed forms (including mimicking other entities or objects or an infinite number of variations), it is //metamorphic//.
+ * If the entity can mimic or copy the shape or form of other things, it should be tagged as //mimetic//.
+ * If the entity does not have any shape, or could be described as a "blob", "undifferentiated mass", or "shapeless mass", then it should be tagged as //amorphous// instead.
+* **How does the entity interact with other organisms, particularly humans?**
+ * If the entity hunts other creatures, including humans, for food, it is //predatory//.
+ * If the entity is actively hostile towards humans or the Foundation for reasons other than predation or defence, it is //hostile//.
+* **Miscellaneous properties of //alive// and //autonomous// entities:**
+ * If an entity is capable of reasoning and abstract thought (generally conveyed through the ability to  communicate) and emotion beyond basic instinctual response (such as affection, hatred, or resentment), it is //sapient//. Note that while many animals are //sentient//, in real life the only organism we know of that is //sapient// are humans. (Hence our name, //Homo sapiens//.) The sapient tag indicates a roughly human (or greater than human) level of intelligence, and can be applied even if the anomaly doesn't seem particularly clever. 
+  * If an entity is capable of coherent speech (and isn't just mimicking human voices) it should be considered //sapient//, although unspeaking entities that display other signs of intelligence can still be considered //sapient//.
+ * If multiple entities share a collective consciousness, they should be tagged //hive-mind//.
+ * If an entity is only active at night, tag it as //nocturnal//.
+[[/tab]]
+
+[[tab Animal]]
+* **Is it an invertebrate?** These organisms lack a backbone, and may possess a shell or exoskeleton instead of an internal skeleton. 
+ * Multiple types of invertebrate have their own tag:
+  * //arachid// applies to eight legged arthropods (spiders, scorpions, mites, ticks).
+  * //insect// applies to six-legged, three-segment arthropods such as ants, beetles and flies.
+   * Bees should also be tagged //bee//.
+   * Butterflies, moths and skippers should also be tagged //butterfly//.
+  * //crustacean// applies to a another group of arthropods (crabs, lobsters, shrimp, isopods, barnacles).
+  * //arthropod// applies to all other animals with exoskeletons, segmented bodies, and jointed appendages, including centipedes and millipedes.
+  * //cephalopod// applies to marine mollusks with tentacles (cuttlefish, octopus, and squid).
+  * //worm// applies to limbless invertebrates with long flexible bodies. This is a loose grouping rather than a taxonomic category, but conveniently most things that are categorised as worms have it in their name (earthworms, flatworms, tapeworms).
+  * //invertebrate// applies to all other invertebrates, including slugs, snails, starfish, jellyfish, coral and urchins.
+  * Keep in mind that both the //invertebrate// and //arthropod// tags are superseded by more specific tags most of the time.
+* **Is it a vertebrate?** These organisms have a backbone and an internal skeleton.
+ * //amphibian// applies to cold-blooded semi-aquatic unscaled animals, including frogs, toads and salamanders.
+ * //bird// applies to warm-blooded animals with feathered wings, including both flying and flightless birds.
+ * //fish// applies to cold-blooded aquatic animals with gills and fins.
+  * Sharks, defined by their cartilaginous skeleton, streamlined body, and tough skin with tooth-like scales, should also be tagged //shark//.
+ * //reptile// applies to cold-blooded scaled animals with lungs, such as lizards, crocodiles, and turtles.
+  * Snakes can also be tagged //snake//.
+  * Extinct prehistoric reptiles can also be tagged //dinosaur//. This includes all non-avian dinosaurs but not modern birds, as well as pterosaurs and extinct marine reptiles from the same era (plesiosaurs, ichthyosaurs, mosasaurs).
+  * Draconic creatures inspired by various traditions can be tagged //dragon//, and will usually also count as a type of //reptile// and //animal//.
+ * **Is it a mammal?** Types of mammal with their own tags, and example species:
+  * //bear// - brown, black, polar, panda.
+  * //bovine// - cattle, buffalo, bison.
+  * //canine// - dogs, wolves, coyote, jackals.
+  * //cetacean// - whales, dolphins, porpoises.
+  * //deer// - deer, elk, moose.
+  * //equine// - horses, zebra, donkeys.
+  * //feline// - cats, including big cats like lions and tigers.
+  * non-human //primate// - apes, monkeys, lemurs.
+  * //rabbit// - rabbits, hares.
+  * //rodent// - mice, rats, squirrels, beavers.
+[[/tab]]
+
+[[tab Biological]]
+* **Is it made of biological material?**
+ * If the entity isn't technically //alive// but consists of organs or biological tissue, or is otherwise composed of organic compounds such as protein, fat or carbohydrate, it is //biological// instead.
+ * If it used to be alive but is now dead, tag the corpse as a //cadaver//. 
+* **Does it affect or consist of specific parts of the body?**
+ * If it is of affects blood, tag it //blood//.
+ * If it is or affects teeth, tag it //dental//.
+ * If it is resembles or affects eyes, tag it //ocular//.
+ * If it is a severed limb or affects limbs in a particular way, tag it //extremity//.
+ * If it affects the reproductive system or sexual organs, it may be tagged //reproductive// if it primarily affects conception or pregnancy, or //sexual// if it primarily affects sexual intercourse.
+ * If it consists of bones or cartilage, or affects skeletal tissue, tag it //skeletal//. An entire skeleton should also be tagged //cadaver//.
+* **How does the entity affect other organisms?**
+ * If it affects dead bodies, tag it //cadaver//. If it restores them to life, tag it //reanimation//.
+ * If the entity infects other entities (such as animals or humans) and spreads among them, it is probably a //contagion//. A contagion is not necessarily a biological process caused by an identifiable organism, but it may be one.
+  * //contagion// may be used together with //bacteria//, but should be replaced by //virus//. 
+  * //microscopic// //fungi//, protists and //biological// prions may also cause a //contagion//.
+  * If a multicellular entity (usually not //microscopic//) subsists by infesting a host organism and feeding off its host, it is a //parasite//, and should not also be tagged as a //contagion//. Parasitoids, which kill their host rather than just feeding off it, are included in this definition. A //parasite// may also be a specific type of //animal//.
+ * If the entity hijacks the reproductive system of another entity, such as a creature that grows and matures in the womb of a different type of creature's womb), then it should be tagged as //reproductive// (and probably also as a //parasite//).
+ * If an entity produces a //biological// molecule that is hazardous to humans, it should be tagged as a //biohazard//. 
+ * If a non-biological //chemical// is hazardous to health, it should be tagged //toxic//.
+ * If it is specifically causing drunkenness through ethanol intoxication, or if being drunk affects an entity's anomalous properties, tag it //alcohol//.
+* **Miscellaneous biological properties:**
+ * If an anomaly can affect the genome or is encoded by a specific gene or set of genes, tag it //genetic//.
+ * If an anomaly is used or is intended for use as a medical device, or has any medical significance other than simply causing disease, tag it //medical//.
+ * If an anomaly affects sexual organs, sexual activities or concepts related to sex, in a way that is distinct from simply having anomalous //reproductive// methods, tag it as //sexual//. While this is distinct from the //_adult// content marker, //sexual// articles do often warrant an Adult Content Warning due to the subject matter.
+[[/tab]]
+
+[[tab Mental]]
+* **Does perceiving it have an effect on the mind? Does it alter the senses?**
+ * If observing an object, entity or effect triggers an anomalous response or another effect, it is a //cognitohazard//. 
+ * If the perceived effect cannot be detected by other individuals or by recording devices, it is causing a //hallucination//. 
+ * If the effect causes objects or entities to be perceived differently from other people (such as being able to sense things normally too faint or indistinct to be sensed, having a disconnect in our sensory perception, or even losing the ability to use a sense entirely), it should be tagged as //sensory sensory// 
+ * The //cognitohazard//, //hallucination// and //sensory// tags should be used in conjunction with one or more of the five sensory tags:
+  * If it affects sight or an effect is triggered by seeing it, other than by being exposed to bright //light// or harmful //radioactive// activity, it is a //visual// effect.
+  * If it affects hearing or an effect is triggered by hearing it, other than by being too loud or through harmonic disruption (which would be //acoustic//), it is an //auditory// effect.
+  * If it affects the sense of smell or an effect is triggered by smelling it, other than through the ingestion of toxic or otherwise harmful chemicals, it is an //olfactory// effect.
+  * If it affects the sense taste or an effect is triggered by tasting it, other than through exposure to a harmful substance, it is a //gustatory// effect.
+  * If it affects the feeling of touch or an effect is triggered by experiencing the texture or consistency of a substance, rather than merely through contact with it, it is a //tactile// effect.
+* **Is the effect related to information or knowledge about it?**
+ * If directly or indirectly observing an entity or object alters its properties, it is //observational//.
+ * If merely knowing of the existence of the object, entity, or location can trigger an anomalous effect, even without directly perceiving it, it is an //infohazard//.
+ * If the anomaly or information related to it is capable of memetic propagation; that is, individuals exposed to it can reproduce and spread the effect to others, it is a //memetic// effect. This replaces the //contagion// tag. 
+  * A //memetic// effect can be distinguished from a //cognitohazard// or //infohazard// (although it may still be applied in conjuction with either tag) because the information itself is anomalous and infectious, and does not require any exposure to the original object or entity to spread.
+ * Conversely, if the effect suppresses knowledge and understanding of itself or of another idea or concept, it is //antimemetic//.
+ * If the object, entity, or location affects documentation or descriptions of itself (often through a Mental effect on the people compiling the documentation), it has a //meta// effect.
+* **Does it affect the thoughts and behavior of individuals exposed to it?**
+ * A //compulsion// refers to a temporary urge compelling people to do something they would not normally do following exposure to an anomaly. 
+ * A //mind-affecting// anomaly can permanently alter thinking, including behaviour and overall intelligence, and so is also capable of making people do things they would otherwise never do.
+  * A //compulsion// is usually a mild and temporary urge, while a //mind-affecting// effect can cause an intense and lasting obsession. 
+ * A //memory-affecting// anomaly can remove, alter or impart memories into people that interact with it, which may or may not be permanent.
+ * If exposure to a substance or effect results in a desire to experience it again, in a manner similar to chemical addiction, it is //addictive//.
+ * Any of these effects may be caused by a //cognitohazard//, //infohazard//, or //memetic// effect, but they could instead be propagated by mere proximity to an entity or object, without any awareness of it.
+* **Can it be used to convey information?**
+ * If an entity can convey or read emotion, feelings or sensations through anomalous means, it is //empathic//.
+ * If an entity can convey information through anomalous means rather than though conventional forms of communication like speech and writing, it is //telepathic//.
+ * If the information itself is anomalous, or if the knowledge is absorbed, generated, stored or granted through an anomalous process, tag it //knowledge//.
+  * If this knowledge relates to future events, tag it //predictive// instead.
+ * If the anomaly is an anomalous language, or if it imparts understanding of or communicates through an anomalous language, give it the //language// tag.
+* **Miscellaneous mental effects:**
+ * If the article explicitly confirms that an anomaly has detectable effects on the brain, tag it //neurological//.
+ * If an anomaly is related to sleep, for example inducing unconsciousness or only affecting people who are dreaming, tag it //sleep//.
+[[/tab]]
+
+[[tab Physical]]
+* **Does it take the form of a three-dimensional geometric shape?**
+ * If it is spherical, tag it //sphere//.
+ * If it has any number of flat faces and straight edges, it is //polyhedral//. Cubes are the most commonly seen polyhedron, but there are many other polyhedra with different numbers of faces.
+* **What is its physical composition and properties?**
+ * If it is specifically described as an anomalous chemical, or as producing chemical compounds in an anomalous way, it is //chemical//, unless it would be categorised as a //biological// molecule (polypeptides, lipids, carbohydrates).
+  * If it degrades other materials through a chemical process, it is //corrosive//. 
+ * If it is or generates a gas, a substance that will freely disperse to fill any container it is placed in, tag it //gas//.
+ * If it is or generates a liquid, a substance that flows but maintains a fixed volume, tag it //liquid//.
+ * If it does not have physical mass or otherwise cannot be touched but is not a gas or liquid, it is //intangible//.
+ * If it produces copies of itself through anomalous means, it should be tagged as //self-replicating//.
+ * If it produces matter from nothing (including copies of itself), without any evidence of transporting it from somewhere else (including //extradimensional//, //extraterrestrial//, or //temporal// locations), then it should be tagged //ectoentropic//, as the generation of mass or energy is a reversal of entropy.
+ * Conversely, if it has anomalous properties that affect or are affected by entropy, particularly accelerating the entropic decay of other objects, it is //entropic//.
+ * If it is otherwise described as anomalously interacting with the laws of thermodynamics, tag it //thermodynamic//.
+* **Has the Foundation attempted to move or destroy it?** 
+ * An object that cannot be moved by any means known to the Foundation is considered //immobile//. 
+  * This excludes objects that are so large that they are not expected to be portable, unless the Foundation specifically tries and fails due to an anomalous effect.
+ * If it is capable of being damaged or harmed but can quickly restore itself to its normal condition through anomalous means, it should be tagged as //self-repairing//.
+ * If it cannot be destroyed by any means the Foundation has devised so far, it is considered //indestructible//.
+* **Does it physically affect itself or other objects through anomalous means?**
+ * If it would not normally be capable of movement but moves through anomalous means, it is tagged as //mobile//.
+ * If it moves between locations without occupying the space in between, it is instead tagged //teleportation//.
+ * If it manipulates other objects through anomalous means, it is //telekinetic//.
+ * If it alters the shape or substance of other entities or objects, tag it //transfiguration//.
+* **Does it produce or respond to a particular kind of energy?**
+ * If energy is generated without any apparent source, it should be tagged //ectoentropic//.
+  *  The creation of energy violates the First Law of Thermodynamics and reduces the entropy of the universe, hence the name.
+ * If it produces or is spread through an audible sound passing through air or liquid, it is //acoustic//.
+  * This is distinguished from an //audible// effect by having effects that are not **Mental**, and rely on the physical generation and propagation of sound waves.
+ * If the effects are caused or spread by vibrations passing through solid objects, tag it //vibration//.
+ * If it generates, stores or uses electricity, it is //electrical//. 
+ * If it is magnetic or exhibits traits of magnetic charge or attraction, it is //magnetic//.
+ * If it generates, stores or uses electromagnetic fields, tag it //electromagnetic//.
+ * If it transmits information through radio waves or other electromagnetic means, tag it //transmission//.
+ * If it is composed of fire, affects fires, or enables combustion to occur, tag it //fire//.
+ * If it is activated by, triggered by, or spreads through changes in temperature (increases or decreases), it is //thermal//.
+ * If it has anomalous properties that affect or are significantly affected by gravitational force, tag it //gravity//.
+ * If it is triggered, activated or propagated by the presence of absence of visible light, or if it produces visible light, tag it //light//.
+ * Conversely, if it is triggered, activated or significantly affected by the shadows cast by objects, tag it //shadow//. 
+ * If it emits harmful radiation or affects radioactivity, tag it //radioactive//.
+* **Is it described using terms like ontokinesis, reality-bending or thaumaturgy/thaumatology?**
+ * If it has effects described as ontokinetic, reality-bending or reality-warping, tag it //reality-bending//. This replaces the //ectoentropic// tag, and identifies an object or entity as being able to directly alter reality through anomalous means.
+ * If it has effects described as "thaumaturgic" or as (applied) "thaumatology", which are pseudo-scientific terms for magic and the study of it, tag it //thaumaturgy//.
+ * Avoid using these two tags together, unless they are two distinct classes of phenomena involved in the same anomaly.
+* **Does it have effects on space and time?**
+ * If it warps space it should be tagged as //spatial//.
+  * Common examples include containers being being bigger on the inside than on the outside, paths connecting two locations being shorter than they should be, and areas with "non-Euclidean" geometries that should be impossible in 3-dimensional space.
+ * If it displaces energy or matter into the past or the future, enables itself or others to travel to another time period, or affects the passage of time experienced by an object or entity, it is //temporal//.
+ * If it was specifically sent back from a later period of time to an earlier one (even if the origin and destination time frame are both in the past), it should be tagged //future//.
+ * If a //temporal// effect results in a time loop, it should also be tagged //loop//.
+ * If time travel results in a time paradox, it should also be tagged //paradox//.
+ * If the object or entity allows objects or individuals is some sort of gateway or aperture into another location, another time period, or an //extradimensional// or //extraterrestrial// location, it should be tagged as a //portal//. 
+  * See the **Location** section for more information about the use of these terms.
+* **Is is notably small?**
+ * If it is a miniature version of an object it resembles, tag it //miniature//.
+ * If it is too small to be seen or to meaningfully observe details with the naked eye, tag it //microscopic//.
+* **Miscellaneous physical descriptors:**
+ * The //loop// tag can refer to anything engaged in a repeating loop of activity, even if no //temporal// effect is responsible.
+ * The //paradox// tag can refer to anything involved in a paradoxical situation, even if no //temporal// effect is responsible.
+ * The //transmission// tag can apply to any transmission of information, even if no electromagnetic radiation is detectable.
+[[/tab]]
+
+[[tab Environment]]
+* **Where is it located? Where was it found? What is its natural environment?** 
+ * If it floats or is capable of flight, it is //airborne//.
+ * If it is located underwater or is adapted for swimming, it is //aquatic//.
+ * If it is located underground or is adapted for burrowing, it is //subterranean//.
+ * If it is from, located in or provides access to an alternate timeline, an alternate reality, or a plane of existence separate from our own, it should be tagged as //extradimensional//.
+  * If the anomalous effect manifests as an opening into said timeline, reality, or plane (no matter how small or temporary) through which objects or entities can be moved through, it is also a //portal//.
+ * If it confirmed that it is from outer space or enables travel through outer space, it should be tagged as //extraterrestrial//.
+* **Is it a specific geographic location? Does it affect the natural world?**
+ * An anomalous location that is not a town or city should be tagged //location//.
+ * An anomalous location that is an island in a body of water, or any anomaly that affect islands or archipelagos, should be tagged //island//.
+ * An anomalous location with a large number of trees (forest, woodland, grove, orchard), or any anomaly that affects this kind of area, should be tagged //forest//.
+ * An anomalous weather event, or an anomaly that affects or is affected by significant weather events, should be tagged //meteorological//.
+ * An anomalous geological formation (cave, cliff, mountain, valley, volcano) should be tagged //geological//, as should any anomaly that affects these kind of structure, or that causes significant geological events (earthquakes, landslides, sinkholes).
+ * An anomaly that affects the entire planet should be tagged //planet// instead of //geological//. 
+  * This tag can apply to both planet Earth and to other planets.
+* **Was it built by humans? Does it affect human structures?**
+ * If an anomalous location encompasses an entire artificial //structure// or a specific portion of it, it should be tagged as //structure//.
+  * If that //structure// was intended for human occupation (such as a home, office, or factory), then it should be tagged as a //building// instead.
+ * If an anomalous location encompasses an entire settlement (such as a town or city) or a significant portion of a settlement, then it should be tagged //city// instead of //location// or //building//.
+ * If it affects one or more libraries (buildings containing books for people to read or borrow), tag it //library//.
+* **Is it located outside of Earth's atmosphere?**
+ * If it is located in outer space, tag it //extraterrestrial//.
+ * If it is a small natural or artificial satellite in orbit around Earth or another celestial body, tag it //satellite//. 
+  * Artificial satellites may need additional **Artificial** tags.
+ * If it is, affects or is related to a large natural satellite or moon in orbit around a planet, including Earth's moon, tag it //moon// instead of //satellite//.
+ * If it is or if it affects a planet other than Earth, tag it with both //planet// and //extraterrestrial//.
+ * If it is, affects or is related to a sun, including Earth's sun but also the stars of other planets, tag it //sun//.
+[[/tab]]
+
+[[tab Artificial]]
+* **Was it made by an intelligent creator?**
+ * If it was created, intentionally or otherwise, by the SCP Foundation itself, it is //foundation-made//.
+  * This only includes objects whose creation was a direct result of specific actions by the Foundation and its employees, and excludes the spontaneous occurrence of anomalous phenomena at Foundation sites containing to a large number of anomalies.
+ * **Was it created for artistic expression?**
+  * If the object is a three-dimensional representation, it is a //sculpture//. If it is a full-body representation of a person, apply the //humanoid// tag. If it is a representation of an animal, apply the appropriate **Animal** tags, if any.
+  * If the object is a film or movie, or is otherwise related to filmmaking, it is //cinema//.
+  * If the object is musical in nature, whether it is a musical composition or is an instrument that enables the creation, composition or performance of music, it is //musical//.
+  * If it is used for in an artistic performance, such as a dance or play, it should be tagged //performance//.
+  * If it is a photograph, a collection of photographs, or a camera for taking still images, tag it //photographic//.
+  * If the object has artistic significance but doesn't fall into any of the aforementioned categories, it should be tagged as //artistic//.
+  * Anomalies that can create or affect art may also be tagged //artistic//, or with a more appropriate subtag such as //cinema//, //musical//, //performance//, //photographic// or //sculpture//.
+ * **Was it created to manipulate other things?**
+  * If the object was primarily intended to be used to kill, harm, or otherwise disable or impair another living thing (such as a gun or combat knife, but not a wood axe or swiss army knife), it is probably a //weapon//.
+  * If the object is hand-held and used for a specific purpose doesn't fall under //weapon//, it is a //tool//.
+ * **Was it created to perform some kind of household, commercial, or industrial function?**
+  * If the object is used to perform calculation or data manipulation, it is a //computer//.
+   * A //computer// should be further tagged as //mechanical// or //electronic//, as appropriate (see below).
+    * Computers may be affected by //contagion//. If it is specifically described as a computer virus, tag it as //virus// instead of //contagion//.
+  * If the object is a household appliance (defined as something that performs work that enables or improves quality of life in a home such as a television, microwave, or lamp), it is an //appliance//.
+  * If the object was intended to be played with, it is a //toy//.
+  * If the object is primarily intended to transport passengers or cargo, it is a //vehicle//.
+   * If the //vehicle// primarily flies or moves through water, then it should also be tagged as //airborne// or //aquatic//, as appropriate.
+  * If the object is primarily intended to be worn:
+   * If its purpose is primarily for comfort or protection (such as in the case of body armor, a coat, or a hat), it is //clothing//.
+   * If its purpose is primarily decorative or for purposes other than survival (such as a wristwatch or a necklace), it is //jewelry//.
+ * If the object is primarily intended to hold or carry information:
+  * If the object has decorative or functional designs written on, carved or cut into its surface, it is //inscribed//.
+   * If it primarily holds textual information in a human-readable format (such as a book or written contract), it is a //document//.
+   * If it holds information using a method other than text (such as a video clip or audio recording), it is //media//. Electronic media also falls into this category, as any data on computer storage device is not directly human-readable. However, if the contained data is also primarily textual, it may be both //document// and //media//. If it is collection of digital images, it may be both //media// and //photographic//.
+  * If it consists of food or drink, it should be tagged //food//.
+  * If an object does not fall into any of the categories above, then it should merely be tagged as an //artifact//.
+ * **Does the object use power?**
+  * If the object operates using semiconductors (such as those in computer chips), it is //electronic//.
+  * If the object is powered by electricity but is not //electronic//, then it should be tagged as //electrical//.
+  * If the object has moving parts, it is probably //mechanical//.
+   * If those moving parts are mostly gears and springs, it should instead be tagged as //clockwork//.
+   * If those moving parts are electronic, it should instead be tagged as //robotic//.
+* **How do people make use of the object?**
+ * If the object contains alcohol (ethanol) or is used in the preparation or distribution of alcoholic drinks, tag it //alcohol//.
+ * If the object is intended to be used as a medium of exchange, or if it affects or is activated by money, tag it //currency//.
+  * If the act of trading triggers anomalous effects, it should also be tagged //exchange//.
+ * If it is used as part of a game, or activated by one, tag it as //game//. Games are defined as methods of play, especially competitive ones, that can be won or lost by skill, strength or luck.
+  * A video game would also be tagged as //media//, while most other types of game would either be tagged //sport// or //toy//.
+  * Sport is defined as a //game// involving physical exertion and skill, in which one or more individuals compete against other individuals or teams. Sports equipment should be tagged as //clothing// or //tool// as appropriate.
+ * If it is a medical device, tag it //medical//.
+ * If it is military equipment, tag it //military//.
+ * If it has religious significance, tag it //religious//.
+[[/tab]]
+
+[[tab Other]]
+* **Is it an event?**
+ * A singular event that significantly changed reality in some way is an //anomalous-event//.
+ * Recurring and widespread anomalous activity that cannot be directly linked to a physical source should instead be tagged as a //phenomenon//. 
+ * If an anomaly is causing the end of the world as we know it, and a specific type of K-Class scenario is named, it should be tagged //k-class-scenario.//
+* **Are humans interacting with the anomaly in a specific way?**
+ * If it affects the preparation or distribution of alcoholic drinks, tag it //alcohol//.
+ * If it resembles, affects or involves one of more clowns, which may either be human or a type of anomalous entity, tag it //clown//. 
+ * If an anomaly involves or is triggered by some form of exchange, including use of both barter and //currency// and the trade of both physical and intangible goods, tag it as //exchange//.
+  *  If it specifically affects or is activated by money, tag it //currency//.
+ * If the anomaly is part of a military unit or has other military significance, tag it as //military//.
+ * If the anomaly is worshipped by a religious group or has other religious significance, tag it as //religious//.
+ * If it is triggered by or activated through ritualistic behaviour, tag it as a //ritual//.
+ * If the anomaly is identified as a fictional narrative, or if it is related to or propagates through narrative information or documents, tag it as //narrative//.
+ * If the anomaly affects or is affected by its documentation, or if its containment procedures require it to be documented in a specific way, it is //meta//.
+  * Meta anomalies are often either //infohazards// or //narrative// anomalies, but do not have to be, as long as they interact with their own documentation in some way. Non-standard SCP documentation due to descriptions of //meta// effects is often referred to as a [https://scp-wiki.wikidot.com/format-screw-hub format screw]
+* **Miscellaneous attributes:**
+* If it is or affects a purely non-physical concept, tag it //concept//.
+ * While this should not be used in conjunction with tags describing any **Physical** properties, alterations to some concepts might have physical effects.
+ * If it affects a number, number system or mathematical equation, or otherwise has mathematical significance, tag it //mathematical//.
+ * If it alters the probability of certain events or outcomes occurring, tag it //probability//.
+ * If no instances of an SCP object are contained, or if a singular SCP entity is only partially contained, it should be tagged //uncontained//. Uncontained SCPs may have never been contained, or may have previously been contained before breaching containment. When used as an object class, this is an //esoteric-class//.
+[[/tab]]
+[[/tabview]]
+------
+++ FAQ
+This explains the difference between commonly misused or misunderstood tags. If you think any of these might apply to your SCP, please read this thoroughly. If you're still not sure, ask a staff member.
+
++++ biological vs. alive 
+* Something that is **//biological//** has elements of living things, such as living tissue, organs, or organic compounds such as proteins, fats, or other substances that are related to or used by living things like proteins and fats, but does not show traits of actually being alive (see below).
+* Something that is **//alive//** conforms to the traits of living things. These vary from biologist to biologist, but for the purposes of tagging ir generally has all of the following traits:
+ * **metabolism** - All living things consume energy, use it to catalyze live processes, and excrete waste in some form (even if it's just heat).
+ * **reaction** - All living things react to their environment: they chase or seek out things that they perceive as food and stay away from things that are perceived as dangerous. Even plants will turn their leaves towards the sun in order to maximize their photosynthetic potential.
+ * **reproduction** - All living things reproduce, either sexually or asexually.
+* Something that is //alive// is by default //biological// and does not need to be tagged as both.
++++ parasitic vs. contagion vs. self-replicating vs. reproductive
+* A **//parasitic//** entity is something that "feeds off" another entity. This is distinct from a //mutualistic// relationship because a //parasitic// entity does not help the host in any way; it's purely harmful. This can refer to both parasites, which simply live off and harm the host, and parasitoids, which kill the host, and neither have to necessary be biological or living in the context of the Foundation.
+* A **//contagion//** is something that infects something else, and once infected, spreads to other uninfected individuals. In the context of the Foundation, this may not be a biological process, and this is distinct from a //parasitic// entity because a contagion becomes indistinguishable from the host, whereas a parasite remains a distinct entity from its host. A computer virus is also considered a //contagion//.
+* A **//self-replicating//** object is something that makes copies of itself. It may accomplish this either through budding/splitting, or by turning other things or raw materials into instances. This usually, but is not always, a non-biological process.
+* A **//reproductive//** object affects the biological reproductive process of a living organism. This usually means that it uses the reproductive system or organs of another living organism to make copies of itself, and is always a biological process by nature of what it is. This is distinct from a //parasite// in that it actually hijacks the reproductive process; something that merely feeds off the uterine lining of an affected animal would be a //parasite//, but something that imitates a fetus and forces the host to undergo the normal processes of pregnancy would be //reproductive//.
+* //parasitic// and //contagion// are generally mutually exclusive; you can only be one or the other. //self-replicating// and //reproductive// are also generally mutually exclusive, except in extreme circumstances.
++++ compulsion vs. cognitohazard vs. mind-affecting vs. memetic
+* A **//compulsion//** is something that compels subjects to do something that they normally might not do. This is distinct from a //cognitohazard// because it does not require line of sight or any perception of the source; sometimes mere proximity is enough. This is distinct from //mind-affecting// because it's not an overriding force that **makes** you do it, it's best described as a strong urge or feeling of intense curiosity. This is also distinct from from //mind-affecting// because it's usually temporary; once a subject is removed from the presence of the //compulsion//-generating object, they will usually recover (even if it takes a long time).
+* A **//cognitohazard//** is something that poses a danger to any subject that perceives it with any of our five physical senses: sight (//visual//), hearing (//auditory//), smell (//olfactory//), taste (//gustatory//), and touch (//tactile//). This applies to both things that cause physical harm as well as things that cause psychological damage, but only in a way that would be anomalous. A bright light that causes blindness would not be a //cognitohazard//, nor would a sharp edge that cuts you when you touch it. A sound that causes you to bleed from every pore or a smell that causes you to go insane would be a //cognitohazard//.
+* A **//mind-affecting//** effect is one that (usually permanently) affects the way a subject thinks (most commonly by altering personality or behavior, or inducing psychiatric conditions). This is distinct from a //compulsion// because of its permanence and in that this is usually an intense obsession, not just a mild urge.
+* A **//memetic//** agent is best described as "infectious information". It is a piece of data in a subject's mind that has an anomalous effect on that subject's physical or mental state that is spread when anyone else becomes aware of the same information. All //memetic// agents are //cognitohazards// as you can't be exposed to information without observing it somehow, but not all //cognitohazards// are //memetic//.
++++ memetic vs. infohazard vs. meta
+* An **//infohazard//** is an object that has an effect that triggers whenever you refer to it or describe it. This is separate from a //memetic// agent because it is still an object, not a piece of information. [https://scp-wiki.wikidot.com/SCP-426 SCP-426] is a prime example of an infohazard; whenever you refer to it, you always speak about it in the first person.
+* A **//meta//** object is an object that affects its documentation, is affected by its documentation, or has containment procedures that extend to its documentation. This sometimes overlaps with //infohazard//, but is distinct. [https://scp-wiki.wikidot.com/SCP-048 SCP-048] is a prime example of this; documenting an object as SCP-048 causes accidents to happen, but speaking about SCP-048 or explaining it is harmless.
++++ acoustic vs. auditory vs. audio
+* An **//acoustic//** effect is something that is a sound wave or other type of compression wave. This means that it has to have something to act as a medium (such as air or water), and means that it exists independent of an audience. Something that can be heard by subjects but can be recorded as well is probably //acoustic//.
+* An **//auditory//** effect is something that specifically refers to the sense of hearing. Something that can be heard by one or more subjects but cannot be recorded or picked up by others is an //auditory// //hallucination//. //auditory// can also be referred to //cognitohazard//s if the act of hearing triggers an effect.
+* **//audio//** is a major tag (see below), used on pages to designate that there is an audio file attached to it. It is not an attribute, and should not be included on pages that merely describe an SCP with an audio component.
++++ extraterrestrial vs extradimensional vs future vs ectoentropic
+* An **//extraterrestrial//** object is one that is "not of the Earth", meaning it is either in space or came from space. This applies to all such objects, be they organic (alien life), artificial (alien artifacts), or non-artificial (asteroids and other celestial bodies).
+* An **//extradimensional//** object either originates from or enables travel to or from a plane of existence, parallel universe, or timeline other than our own. Any object described as having been produced by a culture or civilization "not known to history" may generally be considered //extradimensional// if it is beyond a reasonable doubt that it could not have simply been a civilization that was lost to history or otherwise from the //future//.
+* A **//future//** object is an object that was displaced from a later temporal time frame into an earlier one. This still applies to objects that are no longer from "our" future so long as it was considered "from the future" at some point in time.
+* An **//ectoentropic//** object produces energy or matter from an unknown source in such a way as to be generally considered "from nothing". Any object that produces objects from an //extradimensional// or //future// source does not qualify for this attribute, even if we do not know an exact origin for said objects.

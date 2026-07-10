@@ -1,0 +1,1935 @@
+[[module css]]
+.cadre {
+    background: white;
+    padding: 1em;
+    margin: 0.5em;
+    border: solid 1px black;
+    border-radius: 0.5em;
+}
+.cadre a { font-weight: bold }
+a.collapsible-block-link {
+    display: block;
+    text-align: center;
+    font-size: 140%;
+}
+h1, h2, h3 { text-align: center }
+.intro h2, .intro h3 { text-align: left }
+
+a.collapsible-block-link { font-size: 120% }
+.collapsible-block-folded a.collapsible-block-link:before { content: "► " }
+.collapsible-block-folded a.collapsible-block-link:after { content: " ◄" }
+
+.collapsible-block-unfolded a.collapsible-block-link:before { content: "▼ " }
+.collapsible-block-unfolded a.collapsible-block-link:after { content: " ▼" }
+
+.collapsible-block-content ~ .collapsible-block-unfolded-link a.collapsible-block-link:before { content: "▲ " }
+.collapsible-block-content ~ .collapsible-block-unfolded-link a.collapsible-block-link:after { content: " ▲" }
+[[/module]]
+[[module CSS]]
+.fancyborder {
+    box-sizing: border-box;
+    padding: 2vw;
+    border: 2vw solid rgba(0, 0, 0, 0.5);
+    border-image: url("https://wanderers-library.wikidot.com/local--files/component:dustjacket-theme/wl_border.png") 600 round;
+    border-image-width: 6;
+}
+[[/module]]
+[[tabview]]
+[[tab Introduction aux tags]]
+[[div class="intro"]]
+
+++ Introduction aux tags
++++ Qu'est-ce qu'un tag, et pour quoi sont-ils utilisés ?
+Pour citer [https://fr.wikipedia.org/wiki/Tag_(m%C3%A9tadonn%C3%A9e) Wikipédia] :
+> Un tag (ou étiquette, marqueur, libellé) est un mot-clé ou terme associé ou assigné à de l'information (par exemple une image, un article, ou un clip vidéo), qui décrit une caractéristique de l'objet et permet un regroupement facile des informations contenant les mêmes mots-clés.
+
+Par exemple, si vous voulez voir tous les SCP mémétiques, il suffit de regarder [/system:page-tags-list cette liste] et de chercher le tag "[/system:page-tags/tag/m%C3%A9m%C3%A9tique mémétique]". Ainsi, les tags permettent de rechercher et classer facilement les pages du site.
+
++++ Où se trouvent ces tags ?
+Au bas de n'importe quelle page du site, où ils se présentent sous la forme d'une série de mots-clés juste au-dessus des options de bas de page. La section "Ressources diverses" de la barre de navigation à gauche du site contient également le lien de la [[[system:page-tags-list | liste des tags]]].
+
++++ Dois-je "tagger" les pages que je crée ?
+Oui ! Si vous n'êtes pas sûr de quels tags utiliser, demandez à un membre du staff comment faire. __**Ne taggez pas les pages au hasard**__, s'il vous plaît.
+
++++ Comment puis-je savoir quels tags ajouter à ma page ?
+Consultez le deuxième onglet de ce guide et allez d'une section à l'autre en vous aidant des indications pour trouver tous les tags qui s'appliquent à votre page. __Ne créez pas de nouveaux tags__ qui ne figurent pas ici.
+
++++ Comment ajouter un tag ?
+# Cliquez sur "Étiquettes" dans les options en bas de page.
+# Ajoutez tous les tags qui s'appliquent à la page dans l'espace de texte qui est apparu.
+# Cliquez sur "Enregistrer".
+
++++ Et pour les pages des autres ?
+Ne taguez une page créée par quelqu'un d'autre que si vous êtes sûr de ce que vous faites. De préférence, demandez d'abord à la personne concernée ou à un membre du staff.
+
++++ Quels tags dois-je mettre pour une traduction ?
+Une traduction doit avoir les mêmes tags que l'article original, mais en français. Pour trouver leur traduction officielle, copiez le tag anglais et cherchez son équivalent dans le deuxième onglet de ce guide avec ctrl+F ou aidez-vous de l'outil dans le dernier onglet du [[[guide-de-traduction|Guide de traduction]]].
+
++++ J'ai besoin d'infos plus spécifiques concernant certains tags...
+
+Si vous souhaitez avoir un peu plus de détails sur les pages cherchées par tag (auteur, date de publication, note…) ou chercher des pages possédant plusieurs tags à la fois, la page de la [[[tag-search|Recherche par tag]]] est faite pour vous.
+
++++ J'hésite entre plusieurs tags qui me semblent très proches...
+Regardez la FAQ pratique dans l'onglet dédié !
+
+[[/div]]
+[[/tab]]
+[[tab Liste des tags]]
+
+[[div class="cadre" style="text-align: center; font-size: 120%;"]]
+Vous vous apprêtez à créer une page sur le site ?
+Suivez les différentes étapes dans l'ordre pour trouver tous les tags qui correspondent à votre article, ou ouvrez toutes les sections et utilisez ctrl+F pour trouver l'équivalent français des tags originaux si vous faites une traduction.
+[[/div]]
+
+++ 1. Tags principaux
+
+Toutes les pages du site possèdent un ou plusieurs tags principaux qui indiquent le "type" de la page (rapport SCP, conte, etc).
+
+[[collapsible show="Montrer" hide="Cacher" hideLocation="both"]]
+
+[[div class="cadre"]]
+= Votre page **doit** comporter l'un des tags suivants, qui indiquera sa nature :
+------
+* [/system:page-tags/tag/scp scp] - Tous les rapports SCP faisant partie des listes principales ([[[scp-series|Série I]]], [[[scp-series-2|Série II]]], [[[scp-series-3|Série III]]], [[[scp-series-4|Série IV]]], [[[scp-series-5|Série V]]], [[[scp-001|Propositions 001]]] et [[[scp-001-fr|Propositions 001-FR]]] ainsi que de la [[[liste-francaise|Série française]]]), les [[[joke-scps|rapports humoristiques]]] (-J), les [[[archived-scps|rapports archivés]]] (-ARC) et les [[[scp-ex|rapports expliqués]]] (-EX) doivent être étiquetés avec le tag //scp//.
+
+* [/system:page-tags/tag/conte conte] (**ang :** "tale") - Les pages étiquetées avec le mot //conte// relatent tous types d'histoires, de récits ou de transcriptions écrites d'une manière non scientifique, ainsi que tous les entretiens, incidents et rapports qui ne sont pas directement liés à un SCP des listes principales mais plutôt à une anomalie inventée pour l'occasion. Cette balise ne doit __pas__ être utilisée sur les pages //scp//, même si elles contiennent des passages narratifs. Voir aussi //creepypasta// ci-dessous.
+
+* [/system:page-tags/tag/format-gdi format-gdi] (**ang :** "goi-format") - Anomalie décrite selon le point de vue d'un Groupe d'Intérêt. Incompatible avec //conte//, //scp// et //protocole-dcd//.
+
+* [/system:page-tags/tag/protocole-dcd protocole-dcd] - Pages liées au [[[centre-du-dcd|Département de Censure et Désinformation]]]. Ces pages doivent respecter le format particulier des Protocoles du DCD. Ne doivent pas être étiquetés en tant que //conte//.
+
+* [/system:page-tags/tag/soleil-couche-scp soleil-couche-scp] - Formats SCP non-standards du canon [[[centre-quand-le-soleil-se-couche|Quand le Soleil se Couche]]]. Ces pages doivent s'inscrire dans ce canon et respecter le format spécifique. Ne doivent pas être étiquettées en tant que //conte//.
+
+* [/system:page-tags/tag/annexe annexe] (**ang :** "supplement") - Les pages taggées avec //annexe// sont les enregistrements, rapports d'expériences, incidents, entretiens et interrogatoires ou autres documents liés à un rapport SCP. Le rapport auquel elles sont liées doit également être défini comme page "parent" dans les options au bas afin de créer automatiquement un fil d'Ariane de navigation. Les documents clins d'œil ou parodiques doivent être étiquetés comme des //contes// même s'ils sont écrits sous forme de retranscription ou de rapport d'expérience.
+
+* [/system:page-tags/tag/transition transition] (**ang :** "splash") - Les pages de transition sont des pages très rares qui servent de "pages de couverture" à certains articles. Ces pages doivent être utilisées avec __parcimonie__.
+
+* [/system:page-tags/tag/creepypasta creepypasta] (**ang :** "creepypasta") - Un texte horrifique ou à suspense tenant de la légende urbaine. Leur rapport avec la Fondation SCP peut être ténu mais doit évidemment être présent pour qu'elles aient leur place sur le site.
+
+* [/system:page-tags/tag/fanart fanart] (**ang :** "artwork") - Regroupement de fanarts liés à la Fondation et réalisés par les membres de la communauté.
+
+* [/system:page-tags/tag/centre centre] (**ang :** "hub") - Pages centrales dédiées à un ensemble d'écrits : canon, Groupe d'Intérêt, série de contes...
+
+* [/system:page-tags/tag/auteur auteur] (**ang :** "author") - Pages personnelles des auteurs. Il ne peut y avoir qu'une seule page marquée avec le tag //auteur// pour chaque membre du personnel.
+
+* [/system:page-tags/tag/fragment fragment] (**ang :** "fragment") - Les pages taguées fragment sont des pages spéciales placées dans la catégorie "fragment:" et qui servent à être incluses dans d'autres pages (si un texte est trop long pour tenir une seule page, ou pour que plusieurs pages partagent le même module de notation. Avant d'utiliser ce genre de pages, merci de contacter le staff et de consulter le guide relatif aux pages fragment accessible [[[listpages-magic-and-you|ici]]].
+
+[[/div]]
+
+[[div class="cadre"]]
+= Votre page **peut** comporter un ou plusieurs des tags suivants, qui précisera sa nature :
+------
+* [/system:page-tags/tag/sûr sûr] (**ang :** "safe") / [/system:page-tags/tag/euclide euclide] (**ang :** "euclid") / [/system:page-tags/tag/keter keter] (**ang :** "keter") / [/system:page-tags/tag/thaumiel thaumiel] (**ang :** "thaumiel") / [/system:page-tags/tag/classe-ésotérique classe-ésotérique] (**ang :** "esoteric-class") / [/system:page-tags/tag/en-attente en-attente]  (**ang :** "pending") - Tous les rapports SCP taggés avec //scp// doivent également être étiquetés avec la balise appropriée de leur [[[object-classes|Classe]]]. Les rapports SCP avec deux classes (tels que Sûr et Euclide) doivent être étiquetés avec les deux, bien qu'il soit préférable de garder une seule classe par objet. Les classes humoristiques utilisées dans les rapports -J ne doivent __pas__ être ajoutées aux tags.
+
+* [/system:page-tags/tag/blanc blanc] / [/system:page-tags/tag/bleu bleu] / [/system:page-tags/tag/vert vert]  / [/system:page-tags/tag/jaune jaune] / [/system:page-tags/tag/orange orange] / [/system:page-tags/tag/rouge rouge] / [/system:page-tags/tag/noir noir] / [/system:page-tags/tag/indéterminé indéterminé] - Tous les rapports SCP taggés avec //scp// doivent également porter le tag correspondant à leur [[[niveaux-de-menace-des-objets-scp|Niveau de Menace]]]. Les rapports SCP avec deux niveaux de menace (tels que Bleu et Jaune) doivent être étiquetés avec les deux, bien qu'il soit préférable de garder un seul niveau de menace par objet. Les niveaux de menace humoristiques utilisés dans les rapports -J ne doivent __pas__ être ajoutés aux tags.
+
+* [/system:page-tags/tag/expliqué expliqué] (**ang :** "explained") - L'article est un [[[scp-ex|SCP-EX]]], anciennement classé comme anomalie mais qui s'est ensuite avéré ne pas réellement en présenter pour la Fondation.
+
+* [/system:page-tags/tag/humour humour] (**ang :** "joke") - L'article est un [[[joke-scps|SCP-J]]] ou une page à vocation humoristique.
+
+* [/system:page-tags/tag/proposition-001 proposition-001] (**ang :** "001-proposal") - Tag utilisé sur les articles proposant un objet SCP-001, SCP-001-FR ou SCP-001-? de n'importe quelle branche de la Fondation.
+
+* [/system:page-tags/tag/audio audio] (**ang :** "audio") - Tag utilisé sur les pages de rapports ou de contes avec un contenu audio significatif.
+
+* [/system:page-tags/tag/entretien entretien] (**ang :** "interview") - Cette étiquette ne doit être utilisée que pour les pages annexes centrées sur des retranscriptions d'interrogatoires (p.ex. [[[SCP-277]]] » Entretien 277-A). Cette balise ne doit __pas__ être utilisée sur les pages //scp//, même si elles comportent des transcriptions d'interrogatoires approfondies.
+
+* [/system:page-tags/tag/expérience expérience] (**ang :** "experiment") - Tag utilisé uniquement pour les pages annexes qui comportent principalement des rapports d'expériences (p.ex. [[[SCP-914]]] » Expérience 914). Cette balise ne doit __pas__ être utilisée sur les pages //scp//, même si elles comportent des rapports d'expériences.
+
+* [/system:page-tags/tag/exploration exploration] (**ang :** "exploration") - Tag utilisé uniquement pour les pages annexes qui sont principalement des rapports d'explorations. Cette balise ne doit __pas__ être utilisée sur les pages //scp//, même si elles comportent des transcriptions d'explorations approfondies.
+
+* [/system:page-tags/tag/incident incident] (**ang :** "incident") - Tag utilisé uniquement pour les pages annexes, principalement les journaux d'incidents ou les transcriptions (p.ex. [[[SCP-555]]] » Incident 555-1). Cette balise ne doit __pas__ être utilisée sur les pages //scp//, même si elles comportent des rapports d'incidents.
+
+* [/system:page-tags/tag/poésie poésie] (**ang :** "poetry") - Le conte est ou s'approche de la poésie, avec des éléments tels que des rimes ou une organisation en vers.
+
+* [/system:page-tags/tag/collaboration-fr collaboration-fr] - Pages ouvertes à tous les membres, qui peuvent y ajouter du contenu pertinent selon les directives indiquées. Ce tag ne peut pas être appliqué à un //scp// et nécessite la création d'une page annexe.
+
+* [/system:page-tags/tag/collaboration collaboration] (**ang :** "collaboration") - Pages collaboratives anglaises. __Ces pages ne sont pas ouvertes aux participations de membres francophones.__
+
+* [/system:page-tags/tag/co-écrit co-écrit] (**ang :** "co-authored") - Pages écrites par plusieurs auteurs. Contrairement aux pages taggées //collaboration-fr//, elles ne sont pas ouvertes à l'ajout de contenu par d'autres membres.
+
+* [/system:page-tags/tag/concours concours] (**ang :** "contest") - Pages centrales des concours du site (à utiliser avec "centre"). Les participations à ceux-ci portent quant à elles le tag de leurs concours respectifs.
+
+* [/system:page-tags/tag/guide guide] (**ang :** "guide") - Guides, conseils utiles et autres pages officielles destinées à aider les membres qui échangent et contribuent sur le site. Les guides sont écrits et taggés en tant que tels par le Staff.
+
+* [/system:page-tags/tag/essai essai] (**ang :** "essay") - Conseils et informations sur un ou plusieurs sujets précis. À l'inverse des guides, ils ne sont pas officiels et ne donnent que l'avis personnel des membres du site qui les ont rédigés, bien que ceux-ci soient souvent considérés comme faisant autorité sur le sujet concerné.
+
+* [/system:page-tags/tag/modèle modèle] (**ang :** "theme") - Les pages modèle contiennent des templates utilisés pour modifier l'aspect général d'une page selon un thème donné.
+
+* [/system:page-tags/tag/patrimoine patrimoine] (**ang :** "heritage") - Rapports faisant partie du [[[heritage-collection-arc|Patrimoine de la Fondation]]].
+
+* [/system:page-tags/tag/site site] (**ang :** "site") - Pages d'information sur les installations et locaux de la Fondation.
+[[/div]]
+[[/collapsible]]
+
+------
+
+++ 2. Tags de langue
+
+Ces tags indiquent la langue d'origine de l'article. Ils sont à placer sur tous types de pages.
+
+[[collapsible show="Montrer" hide="Cacher" hideLocation="both"]]
+
+[[div class="cadre"]]
+= Votre page **doit** comporter l'un des tags suivants, qui indiquera sa langue d'origine :
+------
+* [/system:page-tags/tag/fr fr] - Œuvres françaises.
+* [/system:page-tags/tag/en en] - Œuvres anglaises.
+
+* [/system:page-tags/tag/cn cn] - Œuvres en chinois simplifié.
+* [/system:page-tags/tag/zh zh] - Œuvres en chinois traditionnel.
+* [/system:page-tags/tag/cs cs] - Œuvres tchèques.
+* [/system:page-tags/tag/de de] - Œuvres allemandes.
+* [/system:page-tags/tag/es es] - Œuvres espagnoles.
+* [/system:page-tags/tag/it it] - Œuvres italiennes.
+* [/system:page-tags/tag/jp jp] - Œuvres japonaises
+* [/system:page-tags/tag/ko ko] - Œuvres coréennes.
+* [/system:page-tags/tag/pl pl] (**pl :** "oryginał") - Œuvres polonaises.
+* [/system:page-tags/tag/pt pt] - Œuvres portugaises.
+* [/system:page-tags/tag/ru ru] - Œuvres russes.
+* [/system:page-tags/tag/th th] - Œuvres thaïlandaises.
+* [/system:page-tags/tag/ua ua] - Œuvres ukrainiennes.
+* [/system:page-tags/tag/vn vn] - Œuvres vietnamiennes.
+
+* [/system:page-tags/tag/int int] - Collaborations internationales.
+[[/div]]
+[[/collapsible]]
+
+------
+
+++ 3. Tags d'attributs SCP
+
+Ces tags servent à préciser les caractéristiques d'un objet SCP. Si votre article n'est pas un rapport SCP, sautez cette section.
+
+[[collapsible show="Montrer" hide="Cacher" hideLocation="both"]]
+
+[[div class="cadre"]]
++++ A
+
+[/system:page-tags/tag/acoustique acoustique] (**ang :** "acoustic") - L'objet se compose de, influe, ou est propagé par le son et/ou des ondes de compression de l'air.
+[/system:page-tags/tag/adaptatif adaptatif] (**ang :** "adaptative") - L'objet s'adapte à des stimuli d'une manière anormale.
+[/system:page-tags/tag/aérien aérien] (**ang :** "airborne") - L'objet vit, se déplace ou se propage dans l'air.
+[/system:page-tags/tag/alimentaire alimentaire] (**ang :** "food") - L'objet est principalement destiné à être comestible.
+[/system:page-tags/tag/amorphe amorphe] (**ang :** "amorphous") - L'objet n'a pas de forme définie ou change de forme constamment.
+[/system:page-tags/tag/animal animal] (**ang :** "animal") - L'objet est ou présente des traits propres à la vie animale.
+[/system:page-tags/tag/antimémétique antimémétique] (**ang :** "antimemetic") - L'objet consiste en ou implique l'utilisation d'un ou de plusieurs antimèmes qui affectent ou suppriment des informations et/ou la compréhension d'un concept, d'une idée ou de l'objet lui-même. Contraire de mémétique.
+[/system:page-tags/tag/apoïde apoïde] (**ang :** "apian") - L'objet s'apparente ou est relatif à des abeilles, des guêpes ou des bourdons. Utilisé avec //animal// et //insecte// si pertinent.
+[/system:page-tags/tag/appareil appareil] (**ang :** "appliance") - L'objet est ou ressemble à un appareil électronique.
+[/system:page-tags/tag/aquatique aquatique] (**ang :** "aquatic") - L'objet vit, se déplace ou se propage à travers l'eau.
+[/system:page-tags/tag/arachnide arachnide] (**ang :** "arachnid") - L'objet a la forme d'une arachnide. Utilisé avec //animal// si pertinent.
+[/system:page-tags/tag/arborescent arborescent] (**ang :** "arboreal") - L'objet est ou présente la forme d'une plante arborescente.
+[/system:page-tags/tag/argile argile] (**ang :** "clay") - L'objet se compose principalement d'argile.
+[/system:page-tags/tag/arme arme] (**ang :** "weapon") - L'objet est une arme ou  est destiné à être utilisé en tant que tel.
+[/system:page-tags/tag/artefact artefact] (**ang :** "artifact") - L'objet a été créé par des êtres humains. Peut être utilisé avec les tags //appareil//, //outil//, //arme// et //véhicule// si pertinent.
+[/system:page-tags/tag/arthropode arthropode] (**ang :** "arthropod") - L'objet est ou présente les traits d'un arthropode -- c'est-à-dire un animal doté d'un exosquelette ou un organismes sectoriel, muni d'appendices articulés.
+[/system:page-tags/tag/artistique artistique] (**ang :** "artistic") - L'objet est une œuvre d'art, présente des propriétés artistiques ou a une signification artistique.
+[/system:page-tags/tag/auditif auditif] (**ang :** "auditory") - L'objet est déclenché par ou affecte l'ouïe.
+[/system:page-tags/tag/automate automate] (**ang :** "automaton") - L'objet est un dispositif mécanique construit et conçu pour fonctionner seul.
+[/system:page-tags/tag/auto-réparant auto-réparant] (**ang :** "self-repairing") - L'objet présente une capacité anormale à se réparer, à se régénérer ou à régénérer autrui.
+[/system:page-tags/tag/auto-répliquant auto-répliquant] (**ang :** "self-replicating") - L'objet présente une capacité anormale à se répliquer autrement que par la reproduction biologique.
+[/system:page-tags/tag/autonome autonome] (**ang :** "autonomous") - L'objet fonctionne de son propre gré et de façon anormale.
+[/system:page-tags/tag/avenir avenir] (**ang :** "future") - L'objet provient de l'avenir. Souvent utilisé en conjonction avec //temporel//.
+[/system:page-tags/tag/aviaire aviaire] (**ang :** "avian") - L'objet est ou présente les traits d'un oiseau. Peut être utilisé avec //animal// si pertinent.
+[[/div]]
+
+[[div class="cadre"]]
++++ B-C
+
+[/system:page-tags/tag/bactérie bactérie] (**ang :** "bacteria") - L'objet est, ressemble, ou possède les caractéristiques d'une forme de vie bactérienne.
+[/system:page-tags/tag/bâtiment bâtiment] (**ang :** "building") - L'objet est un bâtiment ou une structure destiné à accueillir des êtres humains.
+[/system:page-tags/tag/batracien batracien] (**ang :** "ranine") - L'objet est ou possède les caractéristiques d'un batracien, comme les grenouilles. Utilisé avec //animal// si pertinent.
+[/system:page-tags/tag/bibliothécaire bibliothécaire] (**ang :** "library") - L'objet est, a un lien avec ou affecte les bibliothèques, c'est à dire une pièce ou un bâtiment contenant des livres destinés à être lus ou empruntés par des gens.
+[/system:page-tags/tag/bijoux bijoux] (**ang :** "jewelry") - L'objet est principalement destiné à être porté de manière décorative. Incompatible avec le tag //vêtement//.
+[/system:page-tags/tag/biologique biologique] (**ang :** "biological") - L'objet présente les caractéristiques biologiques.
+[/system:page-tags/tag/bois bois] (**ang :** "wooden") - L'objet est composé principalement ou significativement de bois ou d'un matériau s'y apparentant. Ne doit pas être utilisé pour décrire des êtres vivants ou des plantes d'apparence classique qui se trouvent être composées de bois.
+[/system:page-tags/tag/boucle boucle] (**ang :** "loop") - L'objet est engagé dans une boucle de répétition (cycle quelconque).
+[/system:page-tags/tag/bovin bovin] (**ang :** "bovine") - L'objet présente les traits d'un animal d'une espèce bovine, ou de bovins comparables. Utilisé avec //animal// si pertinent.
+[/system:page-tags/tag/cactaceae cactaceae] (**ang :** "cactaceous") - L'objet est ou présente des traits similaires aux cactus, ou à une plante de la famille des //Cactaceae//. Utilisé avec //plante// si pertinent.
+[/system:page-tags/tag/cadavre cadavre] (**ang :** "cadaver") - L'objet est affecté par ou lié à des cadavres, carcasses, ou toute autre matière organique morte. Peut être utilisé avec //squelettique// ou //réanimation// si pertinent.
+[/system:page-tags/tag/camélidé camélidé] (**ang :** "camelid") - L'objet est ou présente des caractéristiques communes avec les camélidés (chameaux, alpagas, lamas...). Utilisé avec //animal// si pertinent.
+[/system:page-tags/tag/canin canin] (**ang :** "canine") - L'objet est ou présente des traits d'origine canine, comme ceux d'un chien. Utilisé avec //animal// si pertinent.
+[/system:page-tags/tag/carnivore carnivore] (**ang :** "carnivorous") - L'objet se nourrit de viande.
+[/system:page-tags/tag/carte carte] (**ang :** "map") - L'objet est une carte ou présente des représentations visuelles similaires aux cartes.
+[/system:page-tags/tag/céphalopode céphalopode] (**ang :** "cephalopodic") - L'objet est ou présente des traits communs avec les céphalopodes, (seiches, poulpes, calmars...). Utilisé avec //animal// si pertinent.
+[/system:page-tags/tag/cervidé cervidé] (**ang :** "cervine") - L'objet est ou présente des traits communs aux cervidés (cerfs, wapitis, élans...). Utilisé avec //animal// si pertinent.
+[/system:page-tags/tag/cétacé cétacé] (**ang :** "cetacean") - L'objet est un cétacé (baleine, dauphin, orque...). Utilisé avec //animal// si pertinent.
+[/system:page-tags/tag/chélonien chélonien] (**ang :** "chelonian") - L'objet est ou présente des traits similaires aux tortues. Utilisé avec //animal// si pertinent.
+[/system:page-tags/tag/chimique chimique] (**ang :** "chemical") - L'objet est ou est produit grâce à des composés chimiques.
+[/system:page-tags/tag/chronographe chronographe] (**ang :** "timepiece") - L'objet est ou est majoritairement composé d'instruments et/ou mécanismes servant à mesurer une durée. Ce tag supplante "artéfact" et peut être utilisé avec "horlogerie" et/ou "mécanique" si pertinent.
+[/system:page-tags/tag/classe-k classe-k] (**ang :** "k-class-scenario") - L'objet est impliqué dans ou capable de causer un ou plusieurs scénarios de fin du monde de Classe-K. Utilisé uniquement dans les articles impliquant un type de scénario de Classe-K.
+[/system:page-tags/tag/clé clé] - L'objet est une clé ou est destiné à déverrouiller un ou plusieurs dispositifs (porte, conteneur, coffre...).
+[/system:page-tags/tag/compulsion compulsion] (**ang :** "compulsion") - L'objet provoque un comportement compulsif chez les sujets.
+[/system:page-tags/tag/concept concept] (**ang :** "concept") - L'objet est ou affecte un concept purement non-physique. Ne doit pas être utilisé en conjonction avec des tags décrivant des qualités physiques.
+[/system:page-tags/tag/connaissance connaissance] (**ang :** "knowledge") - L'objet absorbe, stocke, génère, ou possède des connaissances de façon anormale. Cela inclut les SCP capables de prédictions.
+[/system:page-tags/tag/conscience-collective conscience-collective] (**ang :** "hive-mind")  - L'objet présente les traits d'une conscience collective.
+[/system:page-tags/tag/conscient conscient] (**ang :** "sentient") - L'objet présente des traits de conscience tels que la conscience de soi et de la déduction cognitive.
+[/system:page-tags/tag/contagion contagion] (**ang :** "contagion") - L'objet est un agent contagieux ou se propage de manière contagieuse.
+[/system:page-tags/tag/conteneur conteneur] (**ang :** "container") - L'objet vise à contenir ou détenir d'autres éléments ou objets.
+[/system:page-tags/tag/corrosif corrosif] (**ang :** "corrosive") - L'objet possède des propriétés corrosives.
+[/system:page-tags/tag/cristallin cristallin] (**ang :** "crystalline") - L'objet est ou présente des traits de ressemblance avec des cristaux.
+[/system:page-tags/tag/cube cube] (**ang :** "cube") - L'objet est cubique.
+[/system:page-tags/tag/curatif curatif] - L'objet dispose de capacités curatives.
+[[/div]]
+
+[[div class="cadre"]]
++++ D-F
+
+[/system:page-tags/tag/danger-bio danger-bio] (**ang :** "biohazard") - L'objet représente un danger de nature biologique pour les humains et l'environnement.
+[/system:page-tags/tag/danger-info danger-info] (**ang :** "infohazard") - L'objet a un effet qui se déclenche quand il est décrit ou évoqué.
+[/system:page-tags/tag/danger-cognitif danger-cognitif] (**ang :** "cognitohazard") - L'objet est dangereux pour les sujets quand on l'observe via la vue, l'ouïe et la cognition en général.
+[/system:page-tags/tag/dentaire dentaire] (**ang :** "dental") - L'objet effecte, est fait de ou est lié aux dents et soins qui les concernent.
+[/system:page-tags/tag/dépendance dépendance] (**ang :** "addictive") - L'objet provoque un désir ou une addiction chez les sujets atteints.
+[/system:page-tags/tag/devise devise] (**ang :** "currency") - L'objet est, affecte ou est activé par une devise monétaire ou par tout objet dont le but premier est de servir à un échange commercial.
+[/system:page-tags/tag/digestion digestion] (**ang :** "digestion") - L'objet est déclenché par ou affecte la digestion.
+[/system:page-tags/tag/dinosaurien dinosaurien] (**ang :** "dinosaur") - L’objet est ou concerne un dinosaure non-aviaire.
+[/system:page-tags/tag/document document] (**ang :** "document") - L'objet est un document textuel. Cela comprend les livres.
+[/system:page-tags/tag/échange échange] (**ang :** "exchange") - L'objet implique ou est déclenché par une certaine forme d'échange de biens physiques ou immatériels, incluant sans s'y limiter le troc et le commerce monétaire.
+[/system:page-tags/tag/entropique ectoentropique] (**ang :** "ectoentropic") - L'objet viole le premier et/ou le deuxième principe de la thermodynamique en générant la matière et/ou de l'énergie d'une manière non-conforme à l'entropie.
+[/system:page-tags/tag/elasmobranchii elasmobranchii] (**ang :** "selachian") - L'objet est ou présente des caractéristiques propres aux requins ou aux raies. Utilisé avec //animal// si pertinent.
+[/system:page-tags/tag/électrique électrique] (**ang :** "electrical") - L'objet génère ou utilise l'énergie électrique.
+[/system:page-tags/tag/électromagnétique électromagnétique] (**ang :** "electromagnetic") - L'objet génère ou utilise l'énergie électromagnétique ou les champs électromagnétiques.
+[/system:page-tags/tag/électronique électronique] (**ang :** "electronic") - L'objet est ou ressemble à un dispositif électronique.
+[/system:page-tags/tag/empathique empathique] (**ang :** "empathic") - L'objet est capable de lire ou transmettre des émotions ou des sentiments. Compatible avec le tag //télépathique//.
+[/system:page-tags/tag/entropique entropique] (**ang :** "entropic") - L'objet est, présente les traits de, ou est lié à un processus entropique.
+[/system:page-tags/tag/enregistrement enregistrement] (**ang :** "recording") - L'objet est ou contient un enregistrement audio ou visuel.
+[/system:page-tags/tag/équin équin] (**ang :** "equine") - L'objet est ou présente des traits de ressemblance à un équidé (cheval, âne, zèbre). Utilisé avec //animal// si pertinent.
+[/system:page-tags/tag/espace-temps espace-temps] (**ang :** "space-time") - L'objet se trouve, modifie ou viole les lois de l'espace-temps.
+[/system:page-tags/tag/espèce espèce] (**ang :** "species") - L'objet représente une espèce à part entière plutôt qu'un individu isolé : un groupe de SCP vivants n'appartenant à aucune espèce connue et capables de reproduction.
+[/system:page-tags/tag/esprit esprit] (**ang :** "mind-affecting") - L'objet affecte la pensée des sujets, ce qui peut inclure leur comportement et leur intelligence.
+[/system:page-tags/tag/essaim essaim] (**ang :** "swarm")  - L'objet présente un comportement d'essaim. Un essaim est un groupe constitué d'un grand nombre d'individus de la même espèce, généralement de petite taille, fonctionnant dans un même but.
+[/system:page-tags/tag/essocinétique essocinétique] (**ang :** "reality-bending") - L'objet est capable de manipuler la réalité via des moyens anormaux.
+[/system:page-tags/tag/extra-dimensionnel extra-dimensionnel] (**ang :** "extradimensional") - L'objet est d'origine extra-dimensionnelle, se déplace ou se propage hors du monde connu, et/ou permet de voyager entre plusieurs dimensions.
+[/system:page-tags/tag/extraterrestre extraterrestre] (**ang :** "extraterrestrial") - L'objet est d'origine extraterrestre ou se trouve dans l'espace.
+[/system:page-tags/tag/extrémité extrémité] (**ang :** "extremity") - L'objet est ou affecte des extrémités spécifiques.
+[/system:page-tags/tag/fécal fécal] (**ang :** "excrement") - L'objet est constitué de, déclenché par, ou affecte les matières fécales.
+[/system:page-tags/tag/félin félin] (**ang :** "feline") - L'objet est un chat ou est de race féline. Peut être utilisé avec //animal//.
+[/system:page-tags/tag/feu feu] (**ang :** "fire") - L'objet est composé de feu, ou réalise un processus de combustion.
+[/system:page-tags/tag/fongique fongique] (**ang :** "fungus") - L'objet est ou présente les caractéristiques d'un champignon.
+[/system:page-tags/tag/formicidae formicidae] (**ang :** "formic") - L'objet est ou présente des traits communs avec les fourmis. Utilisé avec //animal// et/ou //insecte// si pertinent.
+[[/div]]
+
+[[div class="cadre"]]
++++ G-K
+
+[/system:page-tags/tag/gazeux gazeux] (**ang :** "gaseous") - L'objet est ou génère un gaz.
+[/system:page-tags/tag/génétique génétique] (**ang :** "genetic") - L'objet est lié à la génétique.
+[/system:page-tags/tag/géologique géologique] (**ang :** "geological") - L'objet est ou affecte les formations géologiques naturelles (telles que les grottes, falaises, montagnes, vallées ou volcans) ou des événements géologiques importants (tels que les séismes, glissements de terrain ou dolines). À ne pas confondre avec //planète//.
+[/system:page-tags/tag/gravité gravité] (**ang :** "gravity") - L'objet affecte ou est significativement affecté par la force gravitationnelle.
+[/system:page-tags/tag/gustatif gustatif] (**ang :** "gustatory") - L'objet est déclenché par ou affecte le sens du goût.
+[/system:page-tags/tag/hallucination hallucination] (**ang :** "hallucination") - L'objet provoque des hallucinations chez les sujets.
+[/system:page-tags/tag/historique historique] (**ang :** "historical") - L'objet affecte ou occupe une place importante dans les événements historiques.
+[/system:page-tags/tag/horlogerie horlogerie] (**ang :** "clockwork") - L'objet exerce ses effets principalement par l'intermédiaire de mécanismes d'horlogerie (mécanisme complexe) ou en utilisant principalement des roues dentées (mécanisme simple).
+[/system:page-tags/tag/hostile hostile] (**ang :** "hostile") - L'objet présente une hostilité à l'égard des êtres humains au-delà d'un simple comportement instinctif.
+[/system:page-tags/tag/humanoïde humanoïde] (**ang :** "humanoid") - L'objet est humanoïde.
+[/system:page-tags/tag/inamovible inamovible] (**ang :** "immobile")  - L'objet ne peut pas être déplacé par des moyens connus par la Fondation.
+[/system:page-tags/tag/indestructible indestructible] (**ang :** "indestructible")  - L'objet ne peut pas être détruit par des moyens connus par la Fondation.
+[/system:page-tags/tag/informatique informatique] - L'objet est un programme ou dispositif informatique.
+[/system:page-tags/tag/inscription inscription] (**ang :** "inscribed") - L'objet porte ou est une inscription, généralement sous forme de nombres ou de mots. À ne pas confondre avec //gravure// ou //document//.
+[/system:page-tags/tag/insecte insecte] (**ang :** "insect") - L'objet est un insecte. (Cela n'inclut __pas__ les araignées, pour lesquelles le tag //arachnide// est utilisé.)
+[/system:page-tags/tag/instrument instrument] (**ang :** "instrument") - L'objet est un instrument de musique ou un outil destiné à des travaux scientifiques ou des mesures.
+[/system:page-tags/tag/intangible intangible] (**ang :** "intangible") - L'objet n'est pas constitué de matière tangible.
+[/system:page-tags/tag/internet internet] (**ang :** "online") - L'objet est disponible grâce à, utilise ou dépend d'une connexion internet. Utilisé avec //ordinateur// ou //électronique// si pertinent.
+[/system:page-tags/tag/invertébré invertébré] (**ang :** "invertebrate") - L'objet présente les traits d'invertébrés ou est dépourvu de colonne vertébrale. À remplacer par des tags plus spécifiques tels que //arthropode// ou //insecte// si pertinent.
+[/system:page-tags/tag/jeu jeu] (**ang :** "game") - L'objet est un jeu ou est utilisé dans un jeu.
+[/system:page-tags/tag/jouet jouet] (**ang :** "toy")  - L'objet est un jouet ou a été principalement destiné être utilisé comme tel.
+[[/div]]
+
+[[div class="cadre"]]
++++ L-Me
+
+[/system:page-tags/tag/langage langage] (**ang :** "language") - L'objet est une langue ou s'exprime dans une langue inconnue.
+[/system:page-tags/tag/lépidoptère lépidoptère] (**ang :** "lepidopteran") - L'objet est ou ressemble à un lépidoptère (papillon, mite). Utilisé avec //animal// ou //insecte// si pertinent.
+[/system:page-tags/tag/lepus lepus] (**ang :** "leporine") - L'objet est ou présente des traits communs avec les lapins ou lièvres. Utilisé avec //animal// si pertinent.
+[/system:page-tags/tag/lieu lieu] (**ang :** "location") - L'objet est un emplacement géographique unique. Utilisé avec //ville// si pertinent.
+[/system:page-tags/tag/liquide liquide] (**ang :** "liquid") - L'objet est ou génère un liquide.
+[/system:page-tags/tag/lumière lumière] (**ang :** "light") - L'objet génère ou est déclenché par la présence ou l'absence de lumière visible.
+[/system:page-tags/tag/lune lune] (**ang :** "moon") - L'objet est, à un lien avec ou affecte un satellite ou une lune qui peut être ou ne pas être notre lune. Souvent utilisé avec l'étiquette //satellite//.
+[/system:page-tags/tag/made-in-foundation made-in-foundation] (**ang :** "foundation-made") - L'objet a été créé, intentionnellement ou non, par la Fondation SCP elle-même. À noter que seuls les objets dont la création a directement résulté d'actions intentionnelles de la Fondation sont concernés -- cela exclut donc les phénomènes qui se sont formés spontanément dans un site de la Fondation, par exemple.
+[/system:page-tags/tag/magnétique magnétique] (**ang :** "magnetic") - L'objet est magnétique ou possède une charge et/ou attraction magnétique.
+[/system:page-tags/tag/mathématique mathématique] (**ang :** "mathematical") - L'objet est un nombre, un système de nombres, une équation mathématique, et/ou a une signification mathématique.
+[/system:page-tags/tag/mécanique mécanique] (**ang :** "mechanical") - L'objet opère principalement grâce à un mécanisme, ou est un dispositif mécanique.
+[/system:page-tags/tag/média média] (**ang :** "media") - L'objet est ou est contenu dans un ou plusieurs médias analogiques ou numériques comme une bande, des disques, un disque dur, ou un lecteur.
+[/system:page-tags/tag/médical médical] (**ang :** "medical") - L'objet est utilisé ou est destiné à être utilisé comme un dispositif médical, ou a une signification médicale en dehors d'une pathologie.
+[/system:page-tags/tag/mémétique mémétique] (**ang :** "memetic") - L'objet est un agent mémétique, ou présente des traits de propagation mémétique. Voir [[[understanding-memetics|cette page]]] pour plus de détails.
+[/system:page-tags/tag/mémoire mémoire] (**ang :** "memory-affecting") - L'objet ajoute, supprime ou modifie les souvenirs.
+[/system:page-tags/tag/méta méta] (**ang :** "meta") - L'objet affecte ou est affecté par sa documentation et certains/tous les documents qui en parlent. Également utilisé pour les documents qui brisent la quatrième mur d'une façon ou d'une autre. Voir l'onglet "FAQ" pour plus de détails.
+[/system:page-tags/tag/métallique métallique] (**ang :** "metallic") - L'objet est un métal ou est totalement ou sensiblement composé de métal.
+[/system:page-tags/tag/métamorphe métamorphe] (**ang :** "metamorphic") - L'objet peut changer de forme, souvent pour imiter celle d'autres objets ou entités. Incompatible avec //amorphe//.
+[/system:page-tags/tag/météorologique météorologique] (**ang :** "meteorological") - L'objet est, affecte, ou est affecté par des éléments météorologiques.
+[[/div]]
+
+[[div class="cadre"]]
++++ Mi-O
+
+[/system:page-tags/tag/microscopique microscopique] (**ang :** "microscopic") - L'objet est trop petit pour être vu à l'œil nu.
+[/system:page-tags/tag/militaire militaire] (**ang :** "military") - L'objet est un équipement militaire, partie ou membre d'une unité militaire ou de nature militaire en général. Peut être utilisé avec les tags //arme// et/ou //véhicule// si pertinent.
+[/system:page-tags/tag/mimétique mimétique] (**ang :** "mimetic") - L'objet possède des capacités de mimétisme anormales. Peut être utilisé avec les tags //acoustique//, //métamorphe//, //visuel// ou d'autres attributs sensoriels si pertinent.
+[/system:page-tags/tag/miniature miniature] (**ang :** "miniature") - L'objet a l'apparence d'une chose ou d'un être existant mais avec une taille bien plus petite.
+[/system:page-tags/tag/mobilier mobilier] (**ang :** "furniture") - L'objet est ou était destiné à être un meuble.
+[/system:page-tags/tag/mobile mobile] (**ang :** "mobile") - L'objet est capable de se mouvoir par des moyens anormaux. S'applique généralement à des objets ou entités qui sont normalement incapables de se mouvoir. À ne pas confondre avec //téléportation//.
+[/system:page-tags/tag/muridé muridé] (**ang :** "murine") - L'objet est ou présente les traits d'une souris ou d'un rat. Utilisé avec //animal// si pertinent.
+[/system:page-tags/tag/musical musical] (**ang :** "musical") - L'objet génère ou est une composition musicale.
+[/system:page-tags/tag/narratif narratif] (**ang :** "narrative") - L'objet est, est lié à, ou se propage à travers des informations narratives ou via des documents.
+[/system:page-tags/tag/neurologique neurologique] (**ang :** "neurological") - L'objet affecte directement ou indirectement le système nerveux des sujets. Ne peut être appliqué que dans les situations où un changement est scientifiquement observable, et pas en cas de simple changement de comportement du sujet.
+[/system:page-tags/tag/neutralisé neutralisé] (**ang :** "neutralized") - L'objet a été détruit, perdu ou n'est plus en activité pour une raison ou une autre.
+[/system:page-tags/tag/nocturne nocturne] (**ang :** "nocturnal") - L'objet peut être déclenché ou est actif de façon significative pendant la nuit.
+[/system:page-tags/tag/non-confiné non-confiné] (**ang :** "uncontained") - L'objet n'est pas ou n'est que très partiellement confiné.
+[/system:page-tags/tag/observable observable] (**ang :** "observational") - L'objet a des propriétés qui se déclenchent ou cessent quand il est observé, de façon directe ou indirecte. Ces propriétés peuvent (ou ne peuvent pas être) un danger-cognitif.
+[/system:page-tags/tag/oculaire oculaire] (**ang :** "ocular") - L'objet a l'apparence d'un œil ou affecte les yeux.
+[/system:page-tags/tag/olfactif olfactif] (**ang :** "olfactory") - L'objet possède un parfum anormal, se propage par l'odorat ou affecte le sens olfactif.
+[/system:page-tags/tag/ombre ombre] (**ang :** "shadow") - L'objet est déclenché, activé, ou en lien avec les ombres d'une quelconque manière.
+[/system:page-tags/tag/omnivore omnivore] (**ang :** "omnivorous") - L'objet suit un régime omnivore.
+[/system:page-tags/tag/ophidien ophidien] (**ang :** "ophidian") - L'objet présente des traits de ressemblance avec les ophidiens, comme les serpents. Utilisé avec //animal// si pertinent. Utilisé à la place de //reptile// si pertinent.
+[/system:page-tags/tag/organique organique] (**ang :** "organic") - L'objet présente des traits ou une composition organiques. Voir l'onglet "FAQ" pour plus de détails.
+[/system:page-tags/tag/ordinateur ordinateur] (**ang :** "computer") - L'objet est un ordinateur, un super-ordinateur ou une machine ressemblant à un ordinateur.
+[/system:page-tags/tag/outil outil]  (**ang :** "tool") - L'objet est un outil ou est principalement destiné à être utilisé comme tel.
+[/system:page-tags/tag/ovine ovin] (**ang :** "ovine") - L'objet présente des traits de ressemblance avec les ovins, comme des moutons. Utilisé avec //animal// si pertinent.
+[[/div]]
+
+[[div class="cadre"]]
++++ P-R
+
+[/system:page-tags/tag/paradoxe paradoxe] (**ang :** "paradox") - L'objet génère ou est impliqué dans des événements ou des situations paradoxales.
+[/system:page-tags/tag/parasitaire parasitaire] (**ang :** "parasitic") - L'objet présente des traits de ressemblance avec des organismes parasites ou des virus.
+[/system:page-tags/tag/performance performance] (**ang :** "performance") - L'objet accomplit ou est impliqué dans une performance comme un numéro de danse, une pièce de théâtre ou un one-man show.
+[/system:page-tags/tag/photographique photographique] (**ang :** "photographic") - L'objet est ou est relatif à une photographie ou à la photographie en général.
+[/system:page-tags/tag/physique physique] (**ang :** "physics") - L'objet affecte ou viole des lois de la physique. À remplacer par //entropique//, //électrique//, //magnétique// ou un tag similaire si l'un de ceux-ci s'applique à l'anomalie.
+[/system:page-tags/tag/pierre pierre] (**ang :** "stone") - L'objet est une pierre ou est fait de pierre.
+[/system:page-tags/tag/piscus piscus] (**ang :** "piscine") - L'objet est un poisson ou présente des caractéristiques similaires à celles d'un poisson. Utilisé avec //animal// si pertinent.
+[/system:page-tags/tag/planète planète] (**ang :** "planet") - L'objet est, affecte ou ressemble à une planète, qui peut ou non être la nôtre.
+[/system:page-tags/tag/plante plante] (**ang :** "plant") - L'objet est ou présente l'aspect d'une plante.
+[/system:page-tags/tag/polyédrique polyédrique] (**ang :** "polyhedral") - L'objet est un polyèdre ou une forme tridimensionnelle avec des faces planes et des bords rectilignes. Remplacé par le tag //cube// si celui-ci s'applique.
+[/system:page-tags/tag/portail portail] (**ang :** "portal") - L'objet est une porte ou une ouverture qui permet un déplacement anormal dans l'espace et/ou le temps. Utilisé avec //espace-temps// et/ou //extra-dimensionnel// si pertinent.
+[/system:page-tags/tag/possession possession] - L'objet est capable de contrôler d'autres objets ou entités.
+[/system:page-tags/tag/prédateur prédateur] (**ang :** "predatory") - L'objet est un prédateur.
+[/system:page-tags/tag/prédictif prédictif] (**ang :** "predictive") - L'objet est capable de communiquer des informations sur l'avenir ou de connaître des éléments de l'avenir. À utiliser à la place de //connaissance// si pertinent.
+[/system:page-tags/tag/probabilité probabilité] (**ang :** "probability") - L'objet affect ou manipule la probabilité de certains événements ou résultats.
+[/system:page-tags/tag/radioactif radioactif] (**ang :** "radioactive") - L'objet émet un rayonnement radioactif ou agit sur la radioactivité.
+[/system:page-tags/tag/réanimation réanimation] (**ang :** "reanimation") - L'objet a été ramené ou peut ramener partiellement ou totalement des entités à la vie après un état de mort clinique. Utilisé avec //cadavre// si pertinent.
+[/system:page-tags/tag/religieux religieux] (**ang :** "religious") - L'objet a une signification religieuse et/ou est lié à une ou plusieurs organisations religieuses.
+[/system:page-tags/tag/reproduction reproduction] (**ang :** "reproductive") - L'objet affecte anormalement ou interfère avec le processus de reproduction biologique normal d'un organisme (dont celui les humains, mais pas uniquement) ou a des méthodes de reproduction anormales autres que la reproduction //parasitaire// ou l'//auto-réplication// .
+[/system:page-tags/tag/reptilien reptilien] (**ang :** "reptilian") - L'objet est ou présente des traits d'un reptile. Peut être utilisé avec //animal//.
+[/system:page-tags/tag/rituel rituel] (**ang :** "ritual") - L'objet est déclenché ou activé par un comportement rituel.
+[[/div]]
+
+[[div class="cadre"]]
++++ S
+
+[/system:page-tags/tag/sapiens sapiens] (**ang :** "sapient") - L'objet est intelligent et possède une forme de sagesse, telle que la capacité de comprendre des concepts philosophiques.
+[/system:page-tags/tag/satellite satellite] (**ang :** "satellite") - L'objet est un satellite naturel ou artificiel en orbite autour de corps célestes.
+[/system:page-tags/tag/sciuridé sciuridé] (**ang :** "sciurine") - L'objet est ou présente des caractéristiques similaires aux sciuridés ou à un animal proche de l'écureuil. Utilisé avec //animal// le cas échéant.
+[/system:page-tags/tag/sculpture sculpture] (**ang :** "sculpture") - L'objet est une œuvre d'art en trois dimensions. Pour être considéré comme une sculpture, l'objet doit avoir été façonné, sculpté ou moulé.
+[/system:page-tags/tag/sensoriel sensoriel] (**ang :** "sensory") - L'objet affecte la perception sensorielle.
+[/system:page-tags/tag/sexuel sexuel] (**ang :** "sexual") - L'objet affecte ou est en lien avec les organes sexuels, les activités sexuelles ou les concepts liés au sexe.
+[/system:page-tags/tag/singe singe] (**ang :** "simian") - L'objet est ou ressemble à un singe. Utilisé avec le tag //animal// si pertinent.
+[/system:page-tags/tag/soleil soleil] (**ang :** "sun") - L'objet est, est lié à, ou affecte un soleil, qui peut ou non être le nôtre. Incompatible avec //planète//.
+[/system:page-tags/tag/sommeil sommeil] (**ang :** "sleep") - L'objet est lié au cycle de sommeil ou se manifeste par le sommeil.
+[/system:page-tags/tag/souterrain souterrain] (**ang :** "subterranean") - L'objet est situé ou fonctionne entièrement dans un souterrain -- défini comme étant sous la surface de la terre. Ne s'applique pas aux objets qui sont simplement contenus dans un sous-sol par sécurité ou commodité.
+[/system:page-tags/tag/sphère sphère] (**ang :** "sphere") - L'objet est sphérique. Ne doit être utilisé que lorsque l'objet en question est sphérique ou composé de sphères et pas s'il est simplement en lien indirect avec cette forme.
+[/system:page-tags/tag/sport sport] (**ang :** "sport") - L'objet est un sport, est utilisé dans un sport ou y est autrement lié, un sport étant défini comme étant une activité nécessitant un effort physique et une certaine habileté, dans laquelle un ou plusieurs individus sont en compétition. Peut être utilisé avec le tag //jeu// si pertinent. Les équipements ou engins spécifiques utilisés lors des événements sportifs peuvent être associés avec les tags //vêtements// ou //outil// si pertinent.
+[/system:page-tags/tag/squelettique squelettique] (**ang :** "skeletal") - L'objet est ou affecte la structure squelettique d'un organisme. Le squelette est défini comme le tissu de soutien structurel d'un organisme multi-cellulaire et comprend au moins deux os ainsi que du cartilage.
+[/system:page-tags/tag/statue statue] (**ang :** "statue") - L'objet est une statue.
+[/system:page-tags/tag/structure structure] (**ang :** "structure") - L'objet est une structure artificielle ou naturelle qui n'est pas destinée à l'occupation humaine.
+[[/div]]
+
+[[div class="cadre"]]
++++ T-X
+
+[/system:page-tags/tag/tactile tactile] (**ang :** "tactile")   - L'objet est activé par, ou affecte le sens du toucher. À noter que cela concerne le sens du toucher en général et simplement les contacts physiques.
+[/system:page-tags/tag/taillé taillé] (**ang :** "engraved") - L'objet est une sculpture et/ou présente des gravures. Ne s'applique pas aux //statues//, qui doivent uniquement porter le tag du même nom.
+[/system:page-tags/tag/télékinétique télékinétique] (**ang :** "telekinetic") - L'objet peut manipuler des objets ou mettre des corps en mouvement sans contact physique par des moyens anormaux.
+[/system:page-tags/tag/télépathique télépathique] (**ang :** "telepathic") - L'objet peut transférer des informations par voie psychique.
+[/system:page-tags/tag/téléportation téléportation]  (**ang :** "teleportation") - L'objet peut se déplacer instantanément d'un point à un autre de l'espace.
+[/system:page-tags/tag/temporel temporel] (**ang :** "temporal") - L'objet influe sur ou est autrement lié aux fluctuations du temps.
+[/system:page-tags/tag/thermique thermique] (**ang :** "thermal") - L'objet est activé par ou se propage à travers les changements de température.
+[/system:page-tags/tag/thermodynamique thermodynamique] (**ang :** "thermodynamic") - L'objet influe ou lié est de manière significative aux lois de la thermodynamique.
+[/system:page-tags/tag/toxique toxique] (**ang :** "toxic") - L'objet est ou peut être toxique.
+[/system:page-tags/tag/transfiguration transfiguration]  (**ang :** "transfiguration") - L'objet peut modifier la forme de sujets d'une manière anormale.
+[/system:page-tags/tag/transmission transmission]  (**ang :** "transmission") - L'objet transmet des informations, généralement via des ondes radio ou d'autres dispositifs électromagnétiques.
+[/system:page-tags/tag/ursidé ursidé] (**ang :** "ursine") - L'objet est ou présente les caractéristiques d'un ursidé tel que l'ours ou le panda. Utilisé avec //animal// si pertinent.
+[/system:page-tags/tag/vedette vedette] - Réservés par les Administrateurs pour désigner les articles et contes en première page.
+[/system:page-tags/tag/véhicule véhicule] (**ang :** "vehicle") - L'objet est un véhicule ou est utilisé en tant que tel.
+[/system:page-tags/tag/vermiforme vermiforme] (**ang :** "vermian") - L'objet a la forme d'un ver ou d'une larve. Utilisé avec //animal// si pertinent.
+[/system:page-tags/tag/verre verre] (**ang :** "glass") - L'objet se compose principalement de verre.
+[/system:page-tags/tag/vêtements vêtements] (**ang :** "clothing") - L'objet est principalement destiné à être porté comme un élément de protection ou de confort (par opposition à la joaillerie qui est destinée à l’embellissement). Cela inclut les chapeaux, casques et casquettes.
+[/system:page-tags/tag/vibration vibration] (**ang :** "vibration") - L'objet génère des vibrations anormales ou d'autres mouvements répétitifs.
+[/system:page-tags/tag/ville ville] (**ang :** "city") - L'objet est une ville ou un lieu similaire, composé de nombreuses structures destinées à l'occupation par des êtres vivants.
+[/system:page-tags/tag/virus virus] (**ang :** "virus") - L'objet est un virus informatique ou une entité biologique.
+[/system:page-tags/tag/visuel visuel] (**ang :** "visual") - L'objet se propage par la vue ou affecte le sens de la vue, notamment par la manipulation de son entourage (par exemple en générant de la lumière ou de l'obscurité).
+[/system:page-tags/tag/vivant vivant] (**ang :** "alive") - L'objet est vivant.
+[/system:page-tags/tag/vulpes vulpes] (**ang :** "vulpine") - L'objet est membre ou présente des caractéristiques communes à la famille des renards. Utilisé avec //animal// si pertinent.
+[[/div]]
+[[/collapsible]]
+
+------
+
+++ 4. Tags Univers
+
+Ces tags marquent l'apparition dans un article de certains lieux, personnages ou autres éléments récurrents de l'univers.
+
+[[collapsible show="Montrer" hide="Cacher" hideLocation="both"]]
+
+++ Installations françaises
+
+Désigne les objets SCP confinés dans l'une des [[[installations-de-la-branche-francophone|Installations de la Branche Française]]] ou les contes se déroulant dans l'installation en question ou s'y rapportant de manière importante -- mais pas les objets qui //ont été conservés dedans// mais ne s'y trouvent plus.
+
+[[div class="cadre"]]
+[/system:page-tags/tag/aleph aleph] - L'objet est confiné entièrement ou en partie au Site-Aleph.
+[/system:page-tags/tag/ayin ayin] - L'objet est confiné entièrement ou en partie au Site-Ayin.
+[/system:page-tags/tag/beth beth] - L'objet est confiné entièrement ou en partie au Site-Beth.
+[/system:page-tags/tag/daleth daleth] - L'objet est confiné entièrement ou en partie au Site-Daleth.
+[/system:page-tags/tag/ghimel ghimel] - L'objet est confiné entièrement ou en partie au Site-Ghimel.
+[/system:page-tags/tag/he he] - L'objet est confiné entièrement ou en partie dans un Site-He.
+[/system:page-tags/tag/kybian kybian] - L'objet est confiné entièrement ou en partie au Site-Kybian.
+[/system:page-tags/tag/lamedh lamedh] - L'objet est confiné entièrement ou en partie sur le Site-Lamedh.
+[/system:page-tags/tag/mayim mayim] - L'objet est confiné entièrement ou en partie au Site-Mayim.
+[/system:page-tags/tag/tav tav] - L'objet est confiné entièrement ou en partie au Site-Tav.
+[/system:page-tags/tag/yod yod] - L'objet est confiné entièrement ou en partie au Site-Yod.
+[/system:page-tags/tag/zayin zayin] - L'objet est confiné entièrement ou en partie au Site-Zayin.
+[/system:page-tags/tag/mem mem] - L'objet est confiné entièrement ou en partie dans la Zone-Mem.
+[/system:page-tags/tag/samech samech] - L'objet est confiné entièrement ou en partie au Site-Samech.
+[/system:page-tags/tag/shell shell] - L'objet est confiné entièrement ou en partie dans la Zone-Shell. Ne concerne pas les objets qui ont été mais ne sont plus dans la zone.
+[[/div]]
+
+++ Installations internationales
+
+[[div class="cadre"]]
+[/system:page-tags/tag/site-31-zh site-31-zh] - L'objet est confiné entièrement ou en partie dans le Site-31-ZH.
+[[/div]]
+
++++ Lieux notables
+
+L'action se déroule dans un lieu récurrent spécifique qui n'est pas une installation de la Fondation.
+
+[[div class="cadre"]]
+[/system:page-tags/tag/alagadda alagadda] (**ang :** "alagadda") - Le royaume d'Alagadda.
+[/system:page-tags/tag/bibliothèque-des-vagabonds bibliothèque-des-vagabonds] (**ang :** "wanderers-library") - La Bibliothèque des Vagabonds.
+[/system:page-tags/tag/esterberg esterberg] (**ang :** "esterberg") - Le port-franc d'Esterberg.
+[/system:page-tags/tag/eurtec eurtec] (**ang :** "eurtec") - La métropole d'Eurtec.
+[/system:page-tags/tag/hy-brasil hy-brasil] (**ang :** "hy-brasil") - Le Royaume d'Hy-Brasil.
+[/system:page-tags/tag/soho-clandestin soho-clandestin] (**ang :** "backdoor-soho") - La ville de SoHo Clandestin.
+[/system:page-tags/tag/trois-portlands trois-portlands] (**ang :** "three-portlands") - La ville de Trois Portlands.
+[[/div]]
+
++++ Groupes et civilisations français
+
+Ces tags sont utilisés pour désigner les articles liés à un ou plusieurs [[[groupes-d-interet-fr|Groupes d'Intérêt]]] ou civilisations passées, présentes et futures dans l'univers et leur culture associée.
+
+[[div class="cadre"]]
+[/system:page-tags/tag/amateurs amateurs] - L'article est lié au groupe d'intérêt de l'Amicale des Amateurs de l'Anormal.
+[/system:page-tags/tag/baao baao] - L'article est lié au groupe d'intérêt du Bureau Africain des Affaires Occultes.
+[/system:page-tags/tag/caldeira caldeira] - L'article est lié au groupe d'intérêt Caldeira.
+[/system:page-tags/tag/diaspora diaspora] - L'article est lié au groupe d'intérêt de la Diaspora.
+[/system:page-tags/tag/gendastrerie gendastrerie] - L'article est lié au groupe d'intérêt de la Gendastrerie.
+[/system:page-tags/tag/gentilshommes gentilshommes] - L'article est lié aux Gentilshommes Humanistes.
+[/system:page-tags/tag/humanité humanité] - L'article est lié au groupe d'intérêt Humanité.
+[/system:page-tags/tag/la-meute la-meute] - L'article est lié à au moins une des familles de la Meute d'Aberdeen.
+[/system:page-tags/tag/marawi marawi] - L'article est lié à la civilisation marawite.
+[/system:page-tags/tag/nahuaislean nahuaislean] - L'article est lié au royaume disparu de Na H-uaislean.
+[/system:page-tags/tag/némo-et-le-nautilus némo-et-le-nautilus] - L'article est lié à Némo et le Nautilus.
+[/system:page-tags/tag/oiseaux-de-paier oiseaux-de-papier] - L'article est lié au groupe d'intérêt Les Oiseaux de Papier.
+[/system:page-tags/tag/ordre-de-la-lumière ordre-de-la-lumière] - L'article est lié à l'Ordre de la Lumière.
+[/system:page-tags/tag/pangea pangea] - L'article est lié au Réseau PANGEA.
+[/system:page-tags/tag/primordial primordial] - L'article est lié à Primordial.
+[/system:page-tags/tag/rave-fm rave-fm] - L'article est lié au groupe d'intérêt RAVE.fm.
+[/system:page-tags/tag/saphir saphir] - L'article est lié à la Société Athée Pour la Halte de l'Idéologie Religieuse (SAPHIR).
+[/system:page-tags/tag/sai sai] - L'article est lié à la Singulière Académie Impériale.
+[/system:page-tags/tag/univers-île univers-île] - L'article est lié au Royaume d'Univers'Île.
+[[/div]]
+
++++ Groupes et civilisations anglais
+
+[[div class="cadre"]]
+[/system:page-tags/tag/accélérer-le-futur accélérer-le-futur] (**ang :** "accelerate-the-future") - L'objet est lié au groupe Accélérer le Futur.
+[/system:page-tags/tag/alexylva alexylva] (**ang :** "alexylva")  - L'objet est lié à l'Université d'Alexylva.
+[/system:page-tags/tag/anderson anderson] (**ang :** "anderson") - L'objet est lié à Anderson Robotics.
+[/system:page-tags/tag/anormalités anormalités] (**ang :** "abnormalities") - L'Objet SCP est lié au Département des Anormalités.
+[/system:page-tags/tag/arcadia arcadia] (**ang :** "arcadia") - L'Objet SCP est lié au groupe d'intérêt Arcadia.
+[/system:page-tags/tag/avelar avelar] (**ang :** "avelar") - L'objet est lié aux Produits Professionels Avelar.
+[/system:page-tags/tag/brai brai] (**ang :** "reclamation") - L'objet est lié au Bureau pour la Réclamation des Artefacts Islamiques (BRAI).
+[/system:page-tags/tag/cinquistes cinquistes] (**ang :** "fifthist") - L'objet est lié à la Cinquième Église.
+[/system:page-tags/tag/cmo cmo] (**ang :** "global-occult-coalition") - L'objet est lié à la Coalition Mondiale Occulte (CMO).
+[/system:page-tags/tag/daevite daevite] (**ang :** "daevite") - L'objet est lié aux Daevites.
+[/system:page-tags/tag/deer-college deer-college] (**ang :** "deer-college") - L'objet est lié à Deer College.
+[/system:page-tags/tag/dieu-brisé dieu-brisé] (**ang :** "broken-god") - L'objet est lié à l'Église du Dieu Brisé.
+[/system:page-tags/tag/dpt-folklore dpt-folklore] (**ang :** "folklore-dept") - L'objet est lié au Département de la Mythologie et du Folklore .
+[/system:page-tags/tag/dr-wondertainment dr-wondertainment] (**ang :** "dr-wondertainment") - L'objet est lié à Dr Wondertainment.
+[/system:page-tags/tag/esprit-de-chicago esprit-de-chicago] (**ang :** "chicago-spirit") - L'objet est lié à l'Esprit de Chicago.
+[/system:page-tags/tag/et-maintenant-on-est-cool et-maintenant-on-est-cool] (**ang :** "are-we-cool-yet") - L'objet est lié à "Et Maintenant On Est Cool ?".
+[/system:page-tags/tag/gru gru] (**ang :** "gru-division-p") - L'objet est lié à la Division "P" du GRU.
+[/system:page-tags/tag/herman-fuller herman-fuller] (**ang :** "herman-fuller") - L'objet est lié au Cirque de l'Inquiétant d'Herman Fuller.
+[/system:page-tags/tag/iacs iacs] (**ang :** "asci") - L'objet est lié à l'Initiative Américaine pour le Confinement Sécurisé.
+[/system:page-tags/tag/ijiepa ijiepa] (**ang :** "ijamea") - L'objet est lié à l'Institut Japonais Impérial d'Étude des Problèmes Anormaux.
+[/system:page-tags/tag/initiative-horizon initiative-horizon] (**ang :** "horizon-initiative") - L'objet est lié à l'Initiative Horizon.
+[/system:page-tags/tag/insurrection-du-chaos insurrection-du-chaos] (**ang :** "chaos-insurgency") - L'objet est lié à l'Insurrection du Chaos.
+[/system:page-tags/tag/joueurs-contre-l-herbe joueurs-contre-l-herbe] (**ang :** "gamers-against-weed") - L'objet est lié aux Joueurs contre l'Herbe.
+[/system:page-tags/tag/la-fabrique la-fabrique] (**ang :** "factory") - L'objet est lié à La Fabrique.
+[/system:page-tags/tag/la-rue-macabre la-rue-macabre] (**ang :** "la-rue-macabre") - L'objet est lié à la Rue Macabre, dimension de poche d'accueil pour entités anormales.
+[/system:page-tags/tag/main-du-serpent main-du-serpent] (**ang :** "serpents-hand") - L'objet est lié à la Main du Serpent.
+[/system:page-tags/tag/maîtrise-des-foyers maîtrise-des-foyers] (**ang :** fire-suppression-dept") - L'objet est lié au Département de Maîtrise des Foyers.
+[/system:page-tags/tag/manne manne] (**ang :** "manna-charitable-foundation") - L'objet est lié à la Fondation Caritative de la Manne.
+[/system:page-tags/tag/fondation-de-sa-majesté fondation-de-sa-majesté] (**ang :** "hmfscp") - L'Objet SCP est lié au groupe d'intérêt de la Fondation Royale de Sa Majesté pour le Suivi des Curiosités et des Phantasmagories.
+[/system:page-tags/tag/mc&d mc&d] (**ang :** "marshall-carter-and-dark") - L'objet est lié à Marshall, Carter & Dark.
+[/system:page-tags/tag/media-westhead media-westhead] (**ang :** "westhead-media") - L'article est lié aux Médias Westhead.
+[/system:page-tags/tag/nuit-tomber nuit-tomber] (**ang :** "nightfall") - L'objet est lié à la L'objet est lié au centre Face à la Nuit Tomber.
+[/system:page-tags/tag/oneiroi oneiroi] (**ang :** "oneiroi") - L'objet est lié au Collectif Oneiroi.
+[/system:page-tags/tag/parawatch parawatch] (**ang :** "parawatch") - L'objet est lié au Wiki Parawatch.
+[/system:page-tags/tag/personne personne] (**ang :** "nobody") - L'objet est lié à "Personne".
+[/system:page-tags/tag/prometheus prometheus] (**ang :** "prometheus") - L'objet est lié aux Laboratoires Prometheus.
+[/system:page-tags/tag/reine-noire reine-noire] (**ang :** "black-queen") - L'objet est lié à la Reine Noire.
+[/system:page-tags/tag/restaurants-ambrose restaurants-ambrose] (**ang :** "ambrose-restaurant") - L'objet est lié aux Restaurants Ambrose.
+[/system:page-tags/tag/sarkique sarkique] (**ang :** "sarkic") - L'objet est lié à la mythologie des cultes sarkiques.
+[/system:page-tags/tag/second-hytoth second-hytoth] (**ang :** "second-hytoth") - L'objet est lié à l'Église du Second Hytoth.
+[/system:page-tags/tag/service-occulte-britannique service-occulte-britannique] (**ang :** "british-occult-service") - L'objet est lié au Service Occulte Britannique.
+[/system:page-tags/tag/shark-punching-center shark-punching-center] (**ang :** "shark-punching-center") - L'objet est lié au Shark Punching Center.
+[/system:page-tags/tag/u2i u2i] (**ang :** "unusual-incidents-unit") - L'objet est lié à l'Unité des Incidents Inhabituels (U2I) du FBI.
+[/system:page-tags/tag/vikander-kneed vikander-kneed] (**ang :** "vikander-kneed") - L'article est lié aux Médias Techniques Vikander-Kneed.
+[/system:page-tags/tag/wilson wilson] (**ang :** "wilsons-wildlife") - L'objet est lié aux Solutions Fauniques Wilson.
+[[/div]]
+
++++ GdI mineurs anglais
+
+[[div class="cadre"]]
+[/system:page-tags/tag/blackwood blackwood] (**ang :** "blackwood") - L'article est lié aux Aventures de Lord Blackwood, explorateur et gentleman.
+[/system:page-tags/tag/bonifay bonifay] (**ang :** "bonifay") - L'article est lié à la famille Bonifay.
+[/system:page-tags/tag/cargaisons-insolites cargaisons-insolites] (**ang :** "unusual-cargo") - L'article est lié à la Commission des Cargaisons Insolites.
+[/system:page-tags/tag/cietu cietu] (**ang :** "icsut") - L'objet est lié au Centre International pour l'Étude de la Thaumatologie Unifiée.
+[/system:page-tags/tag/comité-d-éthique comité-d-éthique] (**ang :** "ethics-committee") - L'article est lié au Comité d'Éthique.
+[/system:page-tags/tag/dynastie-xia dynastie-xia] (**ang :** "xia-dynasty") - L'Objet SCP ou le conte est lié à la Dynastie Xia.
+[/system:page-tags/tag/enfants-de-la-nuit enfants-de-la-nuit] (**ang :** "children-of-the-night") - L'article est lié aux Enfants de la Nuit, groupe décrit notamment dans [[[SCP-1000]]].
+[/system:page-tags/tag/enfants-de-la-torche enfants-de-la-torche] (**ang :** "children-of-the-torch") - L'objet est lié aux Enfants de la Torche.
+[/system:page-tags/tag/frères-de-la-mort frères-de-la-mort] (**ang :** "brothers-of-death") - L'article est lié au canon ou aux personnages des Frères de la Mort.
+[/system:page-tags/tag/greazeburger greazeburger] (**ang :** "greazeburger") - L'objet est lié au groupe d'intérêt Greazeburger.
+[/system:page-tags/tag/horde-d-or horde-d-or] (**ang :** "golden-horde") - L'article est lié à la Horde d’or.
+[/system:page-tags/tag/hurleur-de-motifs hurleur-de-motifs] (**ang :** "pattern-screamer") - L'article est lié aux Hurleurs de Motifs.
+[/system:page-tags/tag/lampeter lampeter] (**ang :** "lampeter") - L'objet est lié au Réseau Lampeter.
+[/system:page-tags/tag/loge-noire-du-chasseur loge-noire-du-chasseur] (**ang :**"hunters-black-lodge") - L'objet est lié à la Loge noire du Chasseur.
+[/system:page-tags/tag/nornir-de-silicone nornir-de-silicone] (**ang :** "silicon-nornir") - L'article est lié aux servants de la religion du Nornir de Silicone.
+[/system:page-tags/tag/obskura obskura] (**ang :** "obskura") - L'article est lié à l’Ahnenerbe Obskurakorps et/ou à l’organisation OBSKURA qui lui a succédé.
+[/system:page-tags/tag/pentagramme pentagramme] (**ang :** "pentagram") - L'Objet SCP est lié au Pentagramme.
+[/system:page-tags/tag/professeur-aw professeur-aw] (**ang :** "professor-aw") - L'objet est lié au projet, aux inventions ou aux curiosités du Professeur A.W.
+[/system:page-tags/tag/promo-de-76 promo-de-76] (**ang :** "class-of-76") - L'article est lié à la [[[remembrance|Promo de 76]]].
+[/system:page-tags/tag/refuge-d-en-haut refuge-d-en-haut] (**ang :** "pitch-haven") - L'article est lié au Refuge d'en Haut.
+[/system:page-tags/tag/sans-nom sans-nom] (**ang :** "nameless") - L'article est lié aux Sans-noms, ou les Fae décrits dans SCP-4000.
+[/system:page-tags/tag/sugarcomb sugarcomb] (**ang :** "sugarcomb-confectionery") - L'article est lié à la Confiserie Sugarcomb.
+[/system:page-tags/tag/totleighsoft totleighsoft] (**ang :** "totleighsoft") - L'article est lié à la société de développement de logiciels anormaux TotleighSoft.
+[[/div]]
+
++++ Groupes et civilisations allemands
+
+[[div class="cadre"]]
+[/system:page-tags/tag/4-r 4-r] (**de :** "4-r") - L'objet est lié au Quatrième Reich (4R).
+[/system:page-tags/tag/académie-des-mages académie-des-mages] (**de :** "magierakademie") - L'objet est lié à l'Académie des Mages.
+[/system:page-tags/tag/caecus-c caecus-c] (**de :** "caecus-c") - L'objet est lié au Collectif Caecus Carneliana.
+[/system:page-tags/tag/département-xxv département-xxv] (**de :** "abteilung-xxv") - L'objet est lié au Département XXV.
+[/system:page-tags/tag/imbw imbw] (**de :** "imbw") - L'objet est lié à L'Institut pour le Développement et l'Éducation de l'Humanité.
+[/system:page-tags/tag/skp skp] (**de :** "sonderkommando") - L'Objet SCP est lié au groupe d'intérêt du Sonderkommando für Paranormales.
+[/system:page-tags/tag/raptor-tech raptor-tech] (**de :** "raptor-tec") - L'objet est lié aux Industries Raptor Tech.
+[/system:page-tags/tag/rps rps] (**de :** "psw") - L'objet SCP est lié au groupe d'intérêt de la Résistance panslave.
+[[/div]]
+
++++ Groupes et civilisations chinois
+
+[[div class="cadre"]]
+[/system:page-tags/tag/05 05] (**cn/en :** "05") - L'objet est lié au "Conseil 05".
+[/system:page-tags/tag/manches-retroussées manches-retroussées] (**cn :** "卷轴俱乐部" **ang :** "sruc") - L'objet SCP est lié au Club des Manches Retroussées.
+[/system:page-tags/tag/eco-presse eco-presse] (**cn :** "eco出版社" **ang :** "eco-press") - L'objet est lié au groupe ECO Presse.
+[/system:page-tags/tag/fédération-galactique fédération-galactique] (**cn :** "银河联邦" **ang :** "galactic-federation") - L'objet est lié à la Fédération Galactique.
+[/system:page-tags/tag/institut-de-l-anormal institut-de-l-anormal] (**cn :** "异学会" **ang** : "abnormality-institute") - L'objet est lié à l'Institut de l'Anormal.
+[/system:page-tags/tag/ips ips] (**cn/en :** "spi") - L'objet SCP est lié à l'Institut de Protection Schistosoma.
+[/system:page-tags/tag/kuiyang kuiyang] (cn : "岿阳派" ang : "kuiyang") - L'objet est lié à la Secte Kuiyang.
+[/system:page-tags/tag/letters-divertissement letters-divertissement] (cn : "letters娱乐" ang : "letters-entertainment") - L'objet est lié au groupe Letters Divertissement.
+[/system:page-tags/tag/obmedia obmedia] (cn : "ob传媒" ang : "obmedia") - L'objet est lié au groupe OB Media.
+[/system:page-tags/tag/plantes-purifiées plantes-purifiées] (cn : "修正花卉" ang : "fixed-flowers") - L'objet est lié au groupe d'intérêt des Plantes Purifiées.
+[/system:page-tags/tag/ste-christina ste-christina] (**cn/en :** "cc") - L'objet est lié à l'Université Ste-Christina.
+[[/div]]
+
++++ Groupes et civilisations espagnols
+
+[[div class="cadre"]]
+[/system:page-tags/tag/commissariat commissariat] (**es :** "comisaría") - L'Objet SCP est lié au groupe d'intérêt du Commissariat Spécial de Sécurité.
+[/system:page-tags/tag/dante dante] (**es :** "dante") - L'objet est lié à la personne d'intérêt Dante.
+[/system:page-tags/tag/grand-dieu-vert grand-dieu-vert] (**es :** "gran-dios-verde") - L'Objet SCP est lié au groupe d'intérêt du Culte du Grand Dieu Vert.
+[/system:page-tags/tag/maximus maximus] (**es :** "maximus") - Maximus.
+[/system:page-tags/tag/société-antarès société-antarès] (**es :** "sociedad-antares") - L'objet est lié à la Société Antarès.
+
+[[/div]]
+
++++ Groupes et civilisations polonais
+
+[[div class="cadre"]]
+[/system:page-tags/tag/apcca apcca] (**pl :** "pzga") - L'objet est lié à l'Association Polonaise de Cueillette de Champignons Anormaux.
+[[/div]]
+
++++ Groupes et civilisations italiens
+
+[[div class="cadre"]]
+[/system:page-tags/tag/alda alda] (**it :** "alda") - L'objet est lié à l'Association pour la Libre Distribution de l’Anormal.
+[/system:page-tags/tag/amao amao] (**it :** "madao") - L'objet est lié à l'Académie Médicéenne des Arts Occultes (Medicea Accademia Dell'Arte Occulta).
+[/system:page-tags/tag/ccsg ccsg] (**it :** "ccsg") - L'objet est lié à la Confrérie des Chevaliers de Saint Georges (CCSG).
+[/system:page-tags/tag/cadmo cadmo] (**it :** "cadmo") - L'objet est lié au Cenacolo Arcano dei Musici Onorati (Arcane Cénacle des Musiciens Honorés).
+[/system:page-tags/tag/cfo cfo] (**it :** "cfo") - L'objet est lié au Conseil Fasciste de l'Occulte/des Fascistes Obscurs (CFO).
+[/system:page-tags/tag/cgom cgom] (**it :** "cgom") - L'objet est lié au Culte du Grand Œil Méditerranéen (CGOM).
+[/system:page-tags/tag/eau-lune eau-lune] (**it :** "acqua-luna") - L'objet est lié aux Conjoints d’Eau-Lune.
+[/system:page-tags/tag/irdai irdai] (**it :** "ridia") - L'objet est lié à l’Institut Royal des Anomalies Italiennes (IRDAI).
+[[/div]]
+
++++ Groupes et civilisations ukrainiens
+
+[[div class="cadre"]]
+[/system:page-tags/tag/brillant-seigneur brillant-seigneur] (**ua :** "яскравий_володар") - L'Objet SCP est lié aux cultes du Brillant Seigneur.
+[/system:page-tags/tag/république-robotique république-robotique] (**ua :** "республіка_роботів") - L'Objet SCP est lié au groupe d'intérêt de la République Robotique.
+[/system:page-tags/tag/annihilisme annihilisme] (**ua :** "анігілізм") - L'Objet SCP est lié au groupe d'intérêt de l'Annihilisme.
+[/system:page-tags/tag/dma-ssu dma-ssu] (**ua :** "ваз_сбу") - L'Objet SCP est lié au groupe d'intérêt le Département des Menaces Anormales du Service de Sécurité d'Ukraine.
+[/system:page-tags/tag/pora pora] (**ua :** "п.о.р.а.") - L'Objet SCP est lié au groupe d'intérêt le Parti Organisé du Rukh "Angriff".
+[[/div]]
+
++++ Groupes et civilisations chinois traditionnels
+
+[[div class="cadre"]]
+[/system:page-tags/tag/agence-paracivile agence-paracivile] (**zh :** "民異署" **en :** "paracivilian-agency") - L'Objet SCP est lié au groupe d'intérêt de l'Agence Paracivile Nationale.
+[/system:page-tags/tag/blanchisserie blanchisserie] (**zh :** "洗衣部門" **en :** "laundry-department") - L'Objet SCP est lié au groupe d'intérêt le Département de Blanchisserie.
+[/system:page-tags/tag/cobweb cobweb] (**zh :** "蛛網國際" **en :** "cobweb-international") - L'Objet SCP est lié au groupe d'intérêt Cobweb International.
+[/system:page-tags/tag/équipe-zéro équipe-zéro] (**zh :** "零號專隊" **en :** "zero-team") - L'Objet SCP est lié à l'Équipe Zéro de la Police Royale de Hong Kong.
+[/system:page-tags/tag/he-chaoyi he-chaoyi] (**zh :** "和朝義") - L'Objet SCP est lié au groupe d'intérêt He Chaoyi.
+[/system:page-tags/tag/BSN-8 BSN-8] (**zh :** "第八處" **en :** "NSB-8") - L'Objet SCP est lié au Huitième Département du Bureau de la Sécurité Nationale.
+[/system:page-tags/tag/mu-yi mu-yi] (**zh :** "木易" **en :** "mu-yi") - L'Objet SCP est lié au Musée et Bibliothèque Privée Mu-Yi.
+[/system:page-tags/tag/sonneurs-de-cloche sonneurs-de-cloche] (**zh :** "拋鈴人" **en :** "bell-thrower") - L'Objet SCP est lié au groupe d'intérêt des Sonneurs de Cloche.
+[/system:page-tags/tag/fanguang fanguang] (**zh :** "繁廣" **en :** "fan-guang") - L'Objet SCP est lié au groupe d'intérêt des Produits Chimiques Fanguang.
+[/system:page-tags/tag/voyants-du-tsar voyants-du-tsar] (**zh :** "沙皇先知協會" **en :** "tsar-seers") - L'Objet SCP est lié au groupe d'intérêt les Voyants du Tsar.
+[/system:page-tags/tag/yuanji yuanji] (**zh :** "遠己" **en :** "YJ-inc") - L'Objet SCP est lié au groupe d'intérêt YuanJi Biomedical Inc.
+[[/div]]
+
++++ Groupes et civilisations japonais
+
+[[div class="cadre"]]
+[/system:page-tags/tag/ambé ambé] (**jp :** "エルマ外教") - L'objet est lié à l'Aide mutuelle du bond d'Éden (AMBÉ).
+[/system:page-tags/tag/aprupa aprupa] (**jp :** "pamwac") - L'objet est lié à l'Agence de Projets de Recherche pour les Unions avec les Personnages d'Anime (APRUPA).
+[/system:page-tags/tag/beauté-iwanaga beauté-iwanaga] (**jp :** "酩酊街") - L'objet est lié à l'Association de Beauté Iwanaga.
+[/system:page-tags/tag/btp-kisaragi btp-kisaragi] (**jp :** "如月工務店") - L'objet est lié aux BTP Kisaragi.
+[/system:page-tags/tag/cicp cicp] (**jp :** "幻島同盟") - L'objet est lié à la Confédération des Îles Communes Perdues.
+[/system:page-tags/tag/clan-isanagi clan-isanagi] (**jp :** "日奉一族") - L'objet est lié au Clan Isanagi.
+[/system:page-tags/tag/clan-kamikase clan-kamikase] (**jp :** "神枷一族") - L'objet est lié au Clan Kamikase.
+[/system:page-tags/tag/club-sekiryu club-sekiryu] (**jp :** "石榴倶楽部") - L'objet est lié au Club Sekiryu.
+[/system:page-tags/tag/dark-sushi dark-sushi] (**jp :** "闇寿司") - L'objet est lié à Dark Sushi.
+[/system:page-tags/tag/division-des-affaires-spéciales division-des-affaires-spéciales] (**jp :** "公安部特事課") - L'objet est lié à la Division des Affaires Spéciales, Bureau de la Sécurité Publique du Département de la Police Métropolitaine.
+[/system:page-tags/tag/docteur docteur] (**jp :** "博士") - L'objet est lié au "Docteur".
+[/system:page-tags/tag/dreaming-tech dreaming-tech] (**jp :** "夢見テクノロジー") - L'objet est lié à Dreaming Technology.
+[/system:page-tags/tag/factions-saiga factions-saiga] (**jp :** "犀賀派") - L'objet est lié aux Factions Saiga.
+[/system:page-tags/tag/gogyō-kessha gogyō-kessha] (**jp :** "五行結社") - L'objet est lié au Gogyō-Kessha (Société des Cinq Éléments).
+[/system:page-tags/tag/héros héros] (**jp :** "超電救助隊hero") - L'objet est lié à l'Hyper Établissement de Rétablissement de l'Ordre et de Sauvetage/HÉROS.
+[/system:page-tags/tag/imaginanimal imaginanimal] (**jp :** "imaginanimal") - L'objet est lié à Imaginanimal.
+[/system:page-tags/tag/koigarezaki-shimbun koigarezaki-shimbun] (**jp :** "恋昏崎新聞社") - L'objet est lié à Koigarezaki Shimbun.
+[/system:page-tags/tag/liferaft liferaft] (**jp :** "ライフラフト") - L'objet est lié à Liferaft.
+[/system:page-tags/tag/ljaco ljaco] (**jp :** "日本生類創研") - L'objet est lié au Laboratoire Japonais d'Amélioration et de Création Organique (LJACO).
+[/system:page-tags/tag/mujin-getsudō-shū mujin-getsudō-shū] (**jp :** "無尽月導衆") - L'objet est lié à Mujin-Getsudō-Shū (Association d'aide mutuelle des ninja de la guidance lunaire).
+[/system:page-tags/tag/nombres-négatifs nombres-négatifs] (**jp :** "負号部隊") - L'objet est lié à la Force Médicale Spéciale de l'Armée Impériale Japonaise (alias "Unité Nombres Négatifs").
+[/system:page-tags/tag/otapgaj otapgaj] (**jp :** "jagpato") - L'objet est lié à l'Organisation du Traité d'Amitié et de Paix des Groupes Anormaux Japonais.
+[/system:page-tags/tag/plats-frère plats-frère] (**jp :** "弟の食料品") - L'objet est lié aux Plats du Frère.
+[/system:page-tags/tag/rue-de-la-soif rue-de-la-soif] (**jp :** "イワナガ美容組合") - L'objet est lié à la Rue de la Soif.
+[/system:page-tags/tag/sanctuaire-yōkai-de-tōno sanctuaire-yōkai-de-tōno] (**jp :** "遠野妖怪保護区") - L'objet est lié au Sanctuaire Yōkai de Tōno.
+[/system:page-tags/tag/shūshū-in shūshū-in] (**jp :** "蒐集院") - L'objet est lié au Shūshū-In (Agence de collecte).
+[/system:page-tags/tag/société-aki société-aki] (**jp :** "aki商事") - L'objet est lié à la Société AKI.
+[/system:page-tags/tag/tou-hei tou-hei] (**jp :** "東弊重工") - L'objet est lié aux Industries Lourdes Tou-Hei.
+[/system:page-tags/tag/ttt-co ttt-co] (**jp :** "ttt社") - L'objet est lié aux Traductions et Transports Trismégiste.
+[[/div]]
+
++++ GdI mineurs japonais
+
+[[div class="cadre"]]
+[/system:page-tags/tag/saint-derringer saint-derringer] (**jp :** "懐中銃教会") - L'Objet SCP est lié à l'Église du Saint Derringer.
+[[/div]]
+
++++ Groupes et civilisations russes
+
+[[div class="cadre"]]
+[/system:page-tags/tag/cirque-sanglant cirque-sanglant] (**ru :** "Мясной_цирк") - L'objet est lié au Cirque Sanglant.
+[/system:page-tags/tag/gdg gdg] (**ru :** "ГГГ") - L'objet est lié au "Grotto du Dieu Gangréné".
+[/system:page-tags/tag/lefty lefty] (**ru :** "Левша") - L'objet est lié à "Lefty".
+[/system:page-tags/tag/logos logos] (**ru :** "Логос") - L'objet est lié à la Corporation "Logos" (Logos Inc.).
+[[/div]]
+
++++ Groupes et civilisations thaïlandais
+
+[[div class="cadre"]]
+[/system:page-tags/tag/aumn aumn] (**th :** "สมาคมผู้ใช้อำนาจแห่งศาสตร์มืด") - L'objet est lié à l'Association d'Utilisateurs de Magie Noire.
+[[/div]]
+
++++ Personnages français
+
+Pour figurer dans la liste ci-dessous, un personnage doit directement intervenir dans au moins trois écrits réalisés par au moins deux auteurs différents. Ces tags ne sont pas appliqués aux rapports SCP pour des raisons de pertinence.
+
+[[div class="cadre"]]
+[/system:page-tags/tag/agent-dears agent-dears] - Lylah Dears.
+[/system:page-tags/tag/agent-koop agent-koop] - Xavier Herriot.
+[/system:page-tags/tag/agent-lucy agent-lucy] - Tara Lucy.
+[/system:page-tags/tag/agent-vandrake agent-vandrake] - Neremsa V. Vandrake.
+[/system:page-tags/tag/d-2108 d-2108] - D-2108.
+[/system:page-tags/tag/directeur-garrett directeur-garrett] - Bruce Garrett.
+[/system:page-tags/tag/dr-aloices dr-aloices] - Ariane Aloices.
+[/system:page-tags/tag/dr-alwaid dr-alwaid] - Aster Alwaid.
+[/system:page-tags/tag/dr-attano dr-attano] - Cornélius Attano.
+[/system:page-tags/tag/dr-benji dr-benji] - Benjamin Damiers.
+[/system:page-tags/tag/dr-cendres dr-cendres] - Cassandra et Aaron Cendres.
+[/system:page-tags/tag/dr-frog dr-frog] - Le Docteur Frog, psychiatre.
+[/system:page-tags/tag/dr-gémini dr-gémini] - Octavio Gémini.
+[/system:page-tags/tag/dr-gray dr-gray] - Dastan Gray.
+[/system:page-tags/tag/dr-haures dr-haures] - Flauros Haures.
+[/system:page-tags/tag/dr-hinault dr-hinault] - C’est un saumon.
+[/system:page-tags/tag/dr-holt dr-holt] - ██████ Holt.
+[/system:page-tags/tag/dr-johannes dr-johannes] - Le Docteur Johannes.
+[/system:page-tags/tag/dr-kaze dr-kaze] - Le Docteur Kaze, hacker invisible.
+[/system:page-tags/tag/dr-lekter dr-lekter] - Hannicus Lekter.
+[/system:page-tags/tag/dr-macro dr-macro] - Alessandro Emilio Macro.
+[/system:page-tags/tag/dr-sonitrok dr-sonitrok] - Vîktör Von Söahnneytrôahk.
+[/system:page-tags/tag/dr-tesla dr-tesla] - La conscience réincarnée de Nikola Tesla.
+[/system:page-tags/tag/dr-grym dr-grym] - Le Docteur Grym.
+[/system:page-tags/tag/pr-nephandi pr-nephandi] - Clarence Nephandi.
+[/system:page-tags/tag/kommissaer-mortarion kommissaer-mortarion] - Dragan Mortarion.
+[/system:page-tags/tag/moi-et-moi-seul moi-et-moi-seul] - Lui et Lui seul.
+[/system:page-tags/tag/spé-giacardi spé-giacardi] - Loïc Giacardi.
+[/system:page-tags/tag/spé-arcaël spé-arcaël] - Le spécialiste A. Arcaël.
+[[/div]]
+
++++ Personnages anglais
+
+Ces tags indiquent les articles dans lesquels un personnage particulier apparaît et joue un rôle.
+
+[[div class="cadre"]]
+[/system:page-tags/tag/aaron-siegel aaron-siegel] (**ang :** "aaron-siegel") - Aaron Siegel.
+[/system:page-tags/tag/abel abel]** (**ang :** "able") - Abel, alias [[[scp-076|SCP-076-2]]].
+[/system:page-tags/tag/adrian-baudin adrian-baudin] (**ang :** "adrian-baudin") - Adrian Baudin.
+[/system:page-tags/tag/agent-green agent-green] (**ang :** "agent-green") - Agent Green.
+[/system:page-tags/tag/agent-laferrier agent-laferrier]*(**ang :** "agent-laferrier") - Agent LaFerrier.
+[/system:page-tags/tag/agent-lament agent-lament] (**ang :** "agent-lament") - Agent Troy Lament.
+[/system:page-tags/tag/agent-merlo agent-merlo] (**ang :** "agent-merlo") - Agent Sasha Merlo.
+[/system:page-tags/tag/agent-navarro agent-navarro]*(**ang :** "agent-navarro") - Agent Daniel Navarro.
+[/system:page-tags/tag/agent-strelnikov agent-strelnikov] (**ang :** "agent-strelnikov") - Agent Strelnikov
+[/system:page-tags/tag/agent-yoric agent-yoric] (**ang :** "agent-yoric") - Agent Yoric
+[/system:page-tags/tag/aldon aldon] (**ang :** "aldon") - Aldon, un anartiste.
+[/system:page-tags/tag/allison-eckhart allison-eckhart] (**ang :** allison-eckhart) - Allison Eckhart.
+[/system:page-tags/tag/annonciateur annonciateur] (**ang :** harbinger) - L'Annonciateur.
+[/system:page-tags/tag/brillant-brian brillant-brian] (**ang :** brainy-brian) - Brillant Brian de Wondertainment/MC&D, aussi connu sous le nom de "Docteur Neurosis".
+[/system:page-tags/tag/caïn caïn] (**ang :** "cain") - Caïn, alias [[[SCP-073]]].
+[/system:page-tags/tag/cerf-saturne cerf-saturne] (**ang :** "saturn-deer") - Cerf Saturne.
+[/system:page-tags/tag/champion-de-la-lune champion-de-la-lune] (**ang :** "moon-champion") - Le Champion de la Lune.
+[/system:page-tags/tag/chercheur-conwell chercheur-conwell] (**ang :** "researcher-conwell") - Chercheur Jacob Conwell.
+[/system:page-tags/tag/chercheur-james chercheur-james] (**ang :** "researcher-james") - Chercheur Junior James, le meilleur chercheur de la Fondation de tous les temps ! (Il a 5 ans)
+[/system:page-tags/tag/chercheuse-labelle chercheuse-labelle] (**ang :** "researcher-labelle") - Chercheuse Rose Labelle.
+[/system:page-tags/tag/chercheur-lloyd chercheur-lloyd] (**ang :** "researcher-lloyd") - Chercheur Lloyd, Destructeur de Mondes.
+[/system:page-tags/tag/chercheur-rosen chercheur-rosen] (**ang :** "researcher-rosen") - Chercheur David Rosen.
+[/system:page-tags/tag/chercheur-smalls chercheur-smalls] (**ang :** "researcher-smalls") - Chercheur Smalls.
+[/system:page-tags/tag/chercheur-talloran chercheur-talloran] (**ang :** "researcher-talloran") - Chercheur Talloran.
+[/system:page-tags/tag/cousin-johnny cousin-johnny] (**ang :** "cousin-johnny") - Cousin Johnny.
+[/system:page-tags/tag/d-11424 d-11424] (**ang :** "d-11424") - D-11424
+[/system:page-tags/tag/d-7294 d-7294] (**ang :** "d-7294") - D-7294, féminicide et ancien professeur de musique.
+[/system:page-tags/tag/dado dado] (**ang :** "dado") - dado s'occupe de toi ds celuici. tn'as pas à tinquiéter.
+[/system:page-tags/tag/dieu-présumé dieu-présumé] (**ang :** "alleged-god") - Dieu, alias [[[SCP-343]]].
+[/system:page-tags/tag/directeur-aktus directeur-aktus] (**ang :** "director-aktus") - Directeur Aktus.
+[/system:page-tags/tag/directeur-gillespie directeur-gillespie] (**ang :** "director-gillespie") - Directeur Gillespie.
+[/system:page-tags/tag/directrice-leylan directrice-leylan] (**ang :** "director-moose") - Directrice Tilda Leylan.
+[/system:page-tags/tag/django-bridge django-bridge] (**ang :** "django-bridge") - Django Bridge.
+[/system:page-tags/tag/docteur-de-la-peste docteur-de-la-peste] (**plague-doctor**) - Le Docteur de la Peste, alias [[[SCP-049]]].
+[/system:page-tags/tag/dr-blank dr-blank]  (**ang :** "doctor-blank") - Dr Harold R. Blank.
+[/system:page-tags/tag/dr-bright dr-bright] (**ang :** "doctor-bright") - Docteur Bright.
+[/system:page-tags/tag/dr-cimmerian dr-cimmerian] (**ang :** "doctor-cimmerian") - Docteur Jeremiah Cimmerian.
+[/system:page-tags/tag/dr-clef dr-clef] (**ang :** "doctor-clef") - Docteur Alto Clef.
+[/system:page-tags/tag/dr-everwood dr-everwood] (**ang :** "doctor-everwood") - Docteur Everwood.
+[/system:page-tags/tag/dr-fynegan dr-fynegan] (**ang :** "doctor-fynegan") - Docteur Fynegan.
+[/system:page-tags/tag/dr-gears dr-gears] (**ang :** "doctor-gears") - Docteur Gears.
+[/system:page-tags/tag/dr-gérald dr-gérald] (**ang :** "doctor-gerald") - Docteur Gérald.
+[/system:page-tags/tag/dr-glass dr-glass] (**ang :** "doctor-glass") - Docteur Simon Glass.
+[/system:page-tags/tag/dr-iceberg dr-iceberg] (**ang :** "doctor-iceberg") - Docteur Iceberg.
+[/system:page-tags/tag/dr-king dr-king]*(**ang :** "doctor-king") - Docteur King.
+[/system:page-tags/tag/dr-kondraki dr-kondraki] (**ang :** "doctor-kondraki") - Docteur Kondraki.
+[/system:page-tags/tag/dr-light dr-light] (**ang :** "doctor-light") - Docteur Sophia N. Light.
+[/system:page-tags/tag/dr-mann dr-mann] (**ang :** "doctor-mann") - Docteur Everett Mann.
+[/system:page-tags/tag/dr-rights dr-rights] (**ang :** "doctor-rights") - Docteur Rights.
+[/system:page-tags/tag/dr-roget dr-roget] (**ang :** "doctor-roget") - Docteur Ralph Roget.
+[/system:page-tags/tag/dr-spanko dr-spanko] (**ang :** "doctor-spanko") - L'insupportable Docteur Spanko.
+[/system:page-tags/tag/draven-kondraki draven-kondraki] (**ang :** "draven-kondraki") - Docteur/Directeur Draven Kondraki.
+[/system:page-tags/tag/eric eric] (**ang :** "eric") - Eric, un personnage mystérieux.
+[/system:page-tags/tag/faeowynn-wilson faeowynn-wilson] (**ang :** "faeowynn-wilson") - Faeowynn Wilson, la fille de Tim Wilson.
+[/system:page-tags/tag/famille-lewitt-zairi famille-lewitt-zairi] (**ang :** "lewitt-zairi-family") - Mary-Ann Lewitt et Salah Zairi, des agents de l'Initiative Horizon.
+[/system:page-tags/tag/finnegan finnegan] (**ang :** "finnegan") - Finnegan, un anartiste.
+[/system:page-tags/tag/général-bowe général-bowe] (**ang :** "general-bowe") - Général Bowe.
+[/system:page-tags/tag/gentillesse gentillesse] (**ang :** "kindness") - Un homme gentil.
+[/system:page-tags/tag/grand-karciste-ion grand-karciste-ion]** (**ang :** "grand-karcist-ion") - Le Grand Karciste Ion, une figure du Sarkicisme.
+[/system:page-tags/tag/holly-light holly-light] (**ang :** "holly-light") - Holly Light, détentrice du titre de Dr Wondertainment.
+[/system:page-tags/tag/homme-timide homme-timide] (**ang :** "shy-guy") - [[[SCP-096]]].
+[/system:page-tags/tag/iris-dark iris-dark] (**ang :** "iris-dark") - Iris Dark de [[[marshall-carter-and-dark-hub|MC&D]]].
+[/system:page-tags/tag/iris-thompson iris-thompson] (**ang :** "iris-thompson") - Iris Thompson.
+[/system:page-tags/tag/isabel-v isabel-v] (**ang :** "isabel-v") - Isabel Helga Anastasia Parvati Wondertainment V, fille du Dr Wondertainement.
+[/system:page-tags/tag/jude-kriyot jude-kriyot] (**ang :** "jude-kriyot") - Jude Kriyot des Joueurs Contre l'Herbe.
+[/system:page-tags/tag/judy-papill judy-papill] (**ang :** "judy-papill") - Judy la langue du Dr Wondertainment. 
+[/system:page-tags/tag/kain-pathos-crow kain-pathos-crow] (**ang :** "kain-pathos-crow") - Le Professeur Kain Pathos Crow.
+[/system:page-tags/tag/kenneth-spencer kenneth-spencer] (**ang :** "kenneth-spencer") - Kenneth Spencer.
+[/system:page-tags/tag/l-administrateur l-administrateur] (**ang :** "the-administrator") - L'Administrateur, une entité distincte du Conseil O5.
+[/system:page-tags/tag/la-sculpture la-sculpture] (**ang :** "the-sculpture") - [[[SCP-173]]].
+[/system:page-tags/tag/le-vieil-homme le-vieil-homme] (**ang :** "the-old-man") - [[[SCP-106]]].
+[/system:page-tags/tag/leslie leslie] (**ang :** "leslie") - Leslie.
+[/system:page-tags/tag/lombardi lombardi] (**ang :** "lombardi") - L'[[[the-lombardi-tales|Agent Lombardi]]].
+[/system:page-tags/tag/manny manny] (**ang :** "manny") - Manny, alias l'Homme avec le Visage à l'Envers.
+[/system:page-tags/tag/maria-jones maria-jones] (**ang :** "maria-jones") - Maria Jones de l’ASIA.
+[/system:page-tags/tag/marion-wheeler marion-wheeler] (**ang :** "marion-wheeler") - Marion Wheeler.
+[/system:page-tags/tag/mark-kiryu mark-kiryu] (**ang :** "mark-kiryu") - Mark Kiryu des Laboratoires Kiryu.
+[/system:page-tags/tag/masque-possesseur masque-possesseur] (**ang :** "possessive-mask") - [[[SCP-035]]].
+[/system:page-tags/tag/pangloss pangloss]  (**ang :** "pangloss") - Pangloss, personne d'intérêt.
+[/system:page-tags/tag/paul-kim paul-kim] (**ang :** "paul-kim") - Paul Kim.
+[/system:page-tags/tag/pompon-le-clown pompon-le-clown] (**ang :** "bobble-the-clown") - Pompon le Clown.
+[/system:page-tags/tag/riven-mercer riven-mercer] (**ang :** "riven-mercer") - Riven Mercer des Laboratoires Kiryu.
+[/system:page-tags/tag/reptile-difficile-à-détruire reptile-difficile-à-détruire] (**ang :** "hard-to-kill-reptile") - [[[SCP-682]]].
+[/system:page-tags/tag/robert-bumaro robert-bumaro] (**ang :** "robert-bumaro") - Robert Bumaro, prophète de Mekhane.
+[/system:page-tags/tag/robin-thorne robin-thorne] (**ang :** "robin-thorne") - Robin Thorne.
+[/system:page-tags/tag/roi-écarlate roi-écarlate] (**ang :** "scarlet-king") - Le Roi Écarlate.
+[/system:page-tags/tag/roi-pendu roi-pendu] (**ang :** "hanged-king") - Le Roi Pendu.
+[/system:page-tags/tag/ruiz-duchamp ruiz-duchamp] (**ang :** "ruiz-duchamp") - Ruiz Duchamp, anartiste de renom.
+[/system:page-tags/tag/sheldon-katz sheldon-katz] (**ang :** "sheldon-katz") - Sheldon Katz.
+[/system:page-tags/tag/sigurros sigurros] (**ang :** "sigurros") - Sigurrós Stefánsdóttir, alias [[[SCP-239]]].
+[/system:page-tags/tag/simon-pietrykau simon-pietrykau] (**ang :** "simon-pietrykau") - Simon Pietrykau.
+[/system:page-tags/tag/thad-xyank thad-xyank] (**ang :** "thad-xyank") - Le Docteur Thaddeus "Thad" Xyank.
+[/system:page-tags/tag/veronica-fitzroy veronica-fitzroy] (**ang :** "veronica-fitzroy") - Veronica Fitzroy.
+[/system:page-tags/tag/vilaine vilaine] (**ang :** "icky") - Vilaine, la Clown Magique.
+[/system:page-tags/tag/zyn-kiryu zyn-kiryu] (**ang :** "zyn-kiryu") - La Chercheuse Zyn Kiryu.
+[[/div]]
+
++++ Personnages italiens
+
+[[div class="cadre"]]
+[/system:page-tags/tag/rebar rebar] (**it :** "rebar") - Barres de fer animées, créées par la CFO.
+[[/div]]
+
+[[/collapsible]]
+
+------
+
+++ 5. Tags des Canons, Séries et Concours
+
+Compléments d'information sur le contexte dans lequel l'article a été écrit ou l'ensemble d'articles auquel il appartient.
+
+[[collapsible show="Montrer" hide="Cacher" hideLocation="both"]]
+
++++ [[[centre-des-canons-francais|Canons français]]]
+
+[[div class="cadre"]]
+[/system:page-tags/tag/après-aleph après-aleph] - L'article appartient au canon [[[apres-aleph|Après Aleph]]].
+[/system:page-tags/tag/bsia bsia] - L'article appartient au canon [[[bsia|Bureau de Surveillance des Individus Anormaux]]].
+[/system:page-tags/tag/campagne-brumeuse campagne-brumeuse] - L'article appartient au canon [[[l-heure-ou-blanchit-la-campagne|L'Heure où blanchit la Campagne]]].
+[/system:page-tags/tag/dans-les-coulisses dans-les-coulisses] - L'article appartient au canon [[[dans-les-coulisses|Dans les Coulisses]]].
+[/system:page-tags/tag/dos-au-mur dos-au-mur] - L'article appartient au canon [[[dos-au-mur|Dos au Mur]]].
+[/system:page-tags/tag/embargo embargo] - L'article appartient au canon [[[centre-embargo|EMBARGO]]].
+[/system:page-tags/tag/ressources-humaines ressources-humaines] - L'article appartient au canon [[[ressources-humaines|Ressources Humaines]]].
+[/system:page-tags/tag/retour-à-l-anormal retour-à-l-anormal] - L'article appartient au canon [[[retour-a-l-anormal|Retour à l'Anormal]]].
+[/system:page-tags/tag/corail corail] - L’article appartient au canon [[[le-reseau-corail|Le Réseau C.O.R.A.I.L.]]].
+[/system:page-tags/tag/soleil-couche soleil-couche] - L’article appartient au canon [[[centre-quand-le-soleil-se-couche|Quand le Soleil se Couche]]].
+[/system:page-tags/tag/demain-comme-hier demain-comme-hier] - L’article appartient au canon [[[centre-de-demain-comme-hier|Demain comme Hier]]].
+[[/div]]
+
++++ Canons internationaux
+
+[[div class="cadre"]]
+[/system:page-tags/tag/étoiles-mortes étoiles-mortes] (**es :** estrellas-muertas) - Le conte appartient au canon [[[oem-hub|Étoiles mortes]]].
+[/system:page-tags/tag/h h] (**ru :** h) - Le conte appartient au canon [[[h|"H"]]].
+[[/div]]
+
++++ [[[canon-hub|Canons anglais]]]
+
+[[div class="cadre"]]
+[/system:page-tags/tag/ad-astra ad-astra] (**ang :** "ad-astra") - L'article appartient au canon [[[ad-astra-per-aspera-hub|Ad Astra Per Aspera]]].
+[/system:page-tags/tag/apothéose apothéose] (**ang :** "apotheosis") - L'article appartient au canon [[[apotheosis-hub|Apothéose]]].
+[/system:page-tags/tag/ballade-du-sonneur ballade-du-sonneur] (**ang :** "bellerverse") - L'article appartient au canon [[[bellerverse|La Ballade du Sonneur]]].
+[/system:page-tags/tag/catalogue-puits-profond catalogue-puits-profond] (**ang :** "deepwell-catalog") - Le conte est lié au canon [[[site-17-hub|Catalogue du Puits Profond du Site-17]]].
+[/system:page-tags/tag/compagnie-du-lapin-noir compagnie-du-lapin-noir] (**ang :** "black-rabbit-company") - L'article appartient au canon [[[stealingsolidarityhub|Le Vol de la Solidarité]]].
+[/system:page-tags/tag/compétition-eschatologique compétition-eschatologique] (**ang :** "competitive-eschatology ") - L'article appartient au canon [[[competitive-eschatology-hub|Compétition Eschatologique]]].
+[/system:page-tags/tag/dead-man-s-hand dead-man-s-hand] (**ang :** "aces-and-eights") - L'article appartient au canon [[[aces-and-eights|Dead Man's Hand]]].
+[/system:page-tags/tag/de-l-effroi-et-des-cirques de-l-effroi-et-des-cirques] (**ang :** "dread&circuses") - L'article appartient au canon [[[dread-circuses-hub|De l'Effroi et des Cirques]]].
+[/system:page-tags/tag/département-d-alchimie département-d-alchimie] (**ang :** "alchemy-department") - L'article appartient au canon [[[the-alchemy-department-hub|Département d’Alchimie]]].
+[/system:page-tags/tag/des-profondeurs-des-archives-du-site-120 des-profondeurs-des-archives-du-site-120] (**en :** "from-120s-archives") - Le conte appartient au canon [[[from-120-s-archives-hub|Des Profondeurs des archives du Site-120]]].
+[/system:page-tags/tag/diaa diaa] (**ang :** "aiad") - L'article appartient au canon [[[aiad-homescreen|DIAA]]].
+[/system:page-tags/tag/échange-antarctique échange-antarctique] (**ang :** "antarctic-exchange") - L'article appartient au canon [[[antarctic-exchange-hub|L'Échange Antarctique]]].
+[/system:page-tags/tag/enfer-pavé enfer-pavé] (**ang :** "the-trashfire") - L'article appartient au canon [[[the-trashfire|L'Enfer est pavé de bonnes intentions]]].
+[/system:page-tags/tag/etdp etdp] (**ang :** "etdp") - L'article appartient au canon [[[etdp-hub-page|Et Tam Deum Petivi]]].
+[/system:page-tags/tag/fin-de-la-mort fin-de-la-mort] (**ang :** "end-of-death") - L'article appartient au canon [[[end-of-death-hub|Fin de la Mort]]].
+[/system:page-tags/tag/guerre-sur-tous-les-fronts guerre-sur-tous-les-fronts] (**ang :** "war-on-all-fronts") - L'article appartient au canon [[[war-on-all-fronts-hub|Guerre Sur Tous Les Fronts]]].
+[/system:page-tags/tag/heimdall heimdall] (**ang :** "heimdall") - L'article appartient au canon [[[project-heimdall|Projet Heimdall]]].
+[/system:page-tags/tag/homme-qui-netait-pas-la homme-qui-netait-pas-la] (**ang :** "man-who-wasnt-there") - Le conte est lié au canon [[[the-man-who-wasnt-there-hub|L'Homme qui n'était pas là]]].
+[/system:page-tags/tag/infondé infondé] (**ang :** "unfounded") - L'article appartient au canon [[[unfounded-hub|Infondé]]].
+[/system:page-tags/tag/inhumain inhumain] (**ang :** "inhuman") - L'article appartient au canon [[[inhuman-hub|InHumain]]].
+[/system:page-tags/tag/la-fin-de-la-mascarade la-fin-de-la-mascarade] (**ang :** "broken-masquerade") - L'article appartient au canon [[[broken-masquerade-hub|La Fin de la Mascarade]]].
+[/system:page-tags/tag/la-guerre-la-plus-froide la-guerre-la-plus-froide] (**ang :** "the-coldest-war") - L'article appartient au canon [[[the-coldest-war-hub|La Guerre la plus froide]]].
+[/system:page-tags/tag/la-seule-possibilité la-seule-possibilité] (**ang :** "only-game-in-town") - Le conte appartient au canon [[[only-game-in-town-hub|La Seule Possibilité]]].
+[/system:page-tags/tag/le-golfe le-golfe] (**ang :** "the-gulf") - L'article appartient au canon [[[the-gulf|Le Golfe]]].
+[/system:page-tags/tag/le-jeu-de-la-bouteille le-jeu-de-la-bouteille] (**ang :** "ship-in-a-bottle") - L'article appartient au canon [[[siabhub|Le Jeu de la bouteille]]].
+[/system:page-tags/tag/les-docteurs-de-l-église les-docteurs-de-l-église] (**ang :** "doctors-of-the-church") - L'article appartient au canon [[[doctors-of-the-church-hub|Les Docteurs de l'Église]]].
+[/system:page-tags/tag/lolfondation lolfondation] (**ang :** "lolfoundation") - L'article appartient au canon [[[lolfoundation-hub-page|lolFondation]]].
+[/system:page-tags/tag/monde-merveilleux monde-merveilleux] (**ang :** "wonderful-world") - L'article appartient au canon [[[wonder-world|Quel Monde Merveilleux]]].
+[/system:page-tags/tag/nid-du-rat nid-du-rat] (**ang :** "rats-nest") - L'article appartient au canon [[[rat-s-nest-hub|Le Nid du Rat]]].
+[/system:page-tags/tag/pins-tortueux pins-tortueux] (**ang :** "twisted-pines") - L'article appartient au canon [[[those-twisted-pines-hub|Ces Pins Tortueux]]].
+[/system:page-tags/tag/renouveau renouveau] (**ang :** "classical-revival") - L'article appartient au canon [[[classicalrevivalindex|Renouveau Classique]]].
+[/system:page-tags/tag/résurrection résurrection] (**ang :** "resurrection") - L'article appartient au Projet [[[resurrection|Résurrection]]].
+[/system:page-tags/tag/roi-vert roi-vert] (**ang :** "green-king") - L'article appartient au canon [[[codename-green-king-hub|Nom de code : Roi Vert]]].
+[/system:page-tags/tag/ruizurrection ruizurrection] (**ang :** "cool-war-2") - L'article appartient au canon [[[cool-war-2-hub|La Guerre Cool 2 : Ruizurrection]]].
+[/system:page-tags/tag/non-retour non-retour] (**ang :** "no-return") - L'article appartient au canon [[[no-return-hub|Non-Retour]]].
+[/system:page-tags/tag/sur-le-golgotha sur-le-golgotha] (**ang :** "on-mount-golgotha") - L'article appartient au canon [[[on-mount-golgotha-hub|Sur le Mont Golgotha]]].
+[/system:page-tags/tag/tdjm tdjm] (**ang :** "sotm") - L'article  appartient au canon [[[sotmhub|Tout Droit Jusqu'au Matin]]].
+[/system:page-tags/tag/troisième-loi troisième-loi] (**ang :** "third-law") - L'article appartient au canon [[[third-law-hub|Troisième Loi]]].
+[/system:page-tags/tag/vieil-homme-à-la-mer vieil-homme-à-la-mer] (**ang :** "old-man-in-the-sea") - L'article appartient au canon [[[old-man-in-the-sea-hub|Le Vieil Homme à la Mer]]].
+[[/div]]
+
++++ [[[series-archive-fr|Séries françaises]]]
+
+[[div class="cadre"]]
+[/system:page-tags/tag/aumn aumn] - Le conte est lié à la série du Livre Noir.
+[/system:page-tags/tag/chroniques-de-saphir chroniques-de-saphir] - Le conte est lié à la série des Chroniques de SAPHIR.
+[/system:page-tags/tag/désert-humain désert-humain] - Le conte est lié à la série Désert Humain.
+[/system:page-tags/tag/dessin-animé dessin-animé] - Le conte est lié à la série Kid's Show.
+[/system:page-tags/tag/dottinghton dottinghton] - Le conte est lié à la série Dottinghton.
+[/system:page-tags/tag/enfer enfer] - Le conte est lié à la série l'Enfer.
+[/system:page-tags/tag/gentleman-dream gentleman-dream] - Le conte est lié à la série Gentleman Dream.
+[/system:page-tags/tag/histoires-dimensionnelles histoires-dimensionnelles] - Le conte est lié à la série Histoires Dimensionnelles.
+[/system:page-tags/tag/jacobusiers jacobusiers] - Le conte est lié à la série Les Jacobusiers.
+[/system:page-tags/tag/les-mots les-mots] - Le conte est lié à la série Les Mots des Narrateurs.
+[/system:page-tags/tag/minuit-moins-cinq minuit-moins-cinq] - Le conte est lié à la série Minuit Moins Cinq.
+[/system:page-tags/tag/nouvelle-génération nouvelle-génération] - Le conte est lié à la série Les Promesses d'une Nouvelle Génération.
+[/system:page-tags/tag/orgueil-et-supprimé orgueil-et-supprimé] - Le conte est lié à la série Orgueil et {SUPPRIMÉ}.
+[/system:page-tags/tag/série-introduction série-introduction] - Le conte est lié à la série Introduction. Ne pas confondre avec //introduction//.
+[[/div]]
+
++++ [[[series-archive|Séries anglaises]]]
+
+[[div class="cadre"]]
+[/system:page-tags/tag/affaires-cmo affaires-cmo] (**ang :** "goc-casefiles") - L'article appartient à la série des Affaires de la CMO (utilisé avec le tag //cmo//).
+[/system:page-tags/tag/conte-du-collectionneur conte-du-collectionneur] (**ang :** "collector-tale") - Le conte est l'un des Contes de M. Collectionneur (voir tag //monsieur//).
+[/system:page-tags/tag/conte-oa conte-oa] (**ang :** "ao-tale") - L'article est une histoire de la série [[[ao-tale-hub|Contes des Objets Anormaux]]].
+[/system:page-tags/tag/hecatoncheires-cycle cycle-des-hécatonchires] (**ang :** "hecatoncheires-cycle") - L'article est une histoire de la série [[[hecatoncheires-cycle-hub|Cycle des Hécatonchires]]].
+[/system:page-tags/tag/enfer-insectoïde enfer-insectoïde] (**ang :** insect-hell") - Le conte est lié au scénario "[[[arbh-class-hub|Enfer Insectoïde]]]".
+[/system:page-tags/tag/harper harper] (**ang :** "harper") - Le conte est lié au Projet COLD HARPER.
+[/system:page-tags/tag/introduction introduction] (**ang :** "orientation") - Le conte appartient à la série Introduction. Ne pas confondre avec //série-introduction//.
+[/system:page-tags/tag/laboratoires-kiryu laboratoires-kiryu] (**ang :** "kiryu-labs") - Le conte appartient à la série des [[[kiryu-labs-hub|Laboratoires Kiryu]]].
+[/system:page-tags/tag/monsieur monsieur] (**ang :** "mister") - L'objet est lié à la série des "Petits Messieurs".
+[/system:page-tags/tag/olympia olympia] (**ang :** "olympia") - Le conte appartient au [[[olympia-project|Projet Olympia]]].
+[/system:page-tags/tag/palissade palissade]  (**ang :** "palisade") - Le conte appartient à la série [[[project-palisade|Projet Palissade]]].
+[/system:page-tags/tag/projet-thaumiel projet-thaumiel] (**ang :** "project-thaumiel") - L'objet est lié au [[[thaumiel|Projet Thaumiel]]].
+[/system:page-tags/tag/team-bird team-bird] (**ang :** "team-bird") - Le conte appartient à la série de la Team Bird.
+[[/div]]
+
++++ [[[archives-des-concours-francais|Concours français]]]
+
+[[div class="cadre"]]
+[/system:page-tags/tag/c2fr2014 c2fr2014] - Relatif aux créations du [[[le-concours-des-2-ans-de-la-fondation|Concours des 2 ans de la branche francophone]]].
+[/system:page-tags/tag/c3fr2015 c3fr2015] - Relatif aux créations du [[[concours-des-trois-ans-de-la-branche-francaise|Concours des 3 ans de la branche francophone]]].
+[/system:page-tags/tag/c4fr2016 c4fr2016] - Relatif aux créations du [[[le-concours-des-quatre-ans|Concours des 4 ans de la branche francophone]]].
+[/system:page-tags/tag/c5fr2017 c5fr2017] - Relatif aux créations du [[[le-concours-des-cinq-ans|Concours des 5 ans de la branche francophone]]].
+[/system:page-tags/tag/c6fr2018 c6fr2018] - Relatif aux créations du [[[le-concours-des-six-ans|Concours des 6 ans de la branche francophone]]].
+[!-- [/system:page-tags/tag/c7fr2019 c7fr2019] - Relatif aux créations du [[[le-concours-des-sept-ans| Concours pour les 7 ans de la branche francophone]]]. --]
+[/system:page-tags/tag/c8fr2020 c8fr2020] - Relatif aux créations du [[[le-concours-des-huit-ans| Concours pour les 8 ans de la branche francophone]]].
+[/system:page-tags/tag/c9fr2021 c9fr2021] - Relatif aux créations du [[[le-concours-des-neuf-ans| Concours pour les 9 ans de la branche francophone]]].
+[/system:page-tags/tag/c10fr2022 c10fr2022] - Relatif aux créations du [[[le-concours-des-dix-ans| Concours pour les 10 ans de la branche francophone]]].
+[/system:page-tags/tag/c11fr2023 c11fr2023] - Relatif aux créations du [[[le-concours-des-onze-ans| Concours pour les 11 ans de la branche francophone]]].
+[/system:page-tags/tag/c12fr2024 c12fr2024] - Relatif aux créations du [[[le-concours-des-douze-ans| Concours pour les 12 ans de la branche francophone]]].
+[/system:page-tags/tag/-500 -500] - Relatif aux créations du [[[concours-du-scp-de-moins-de-500-mots|Concours du SCP de moins de 500 mots]]].
+[/system:page-tags/tag/nme2017 nme2017] - Relatif aux créations du [[[concours-nos-meilleurs-ennemis|Concours : Nos Meilleurs Ennemis 2017]]].
+[/system:page-tags/tag/xks2018 xks2018] - Relatif aux créations du [[[concours-xkeme-siecle|Concours : Une Brève Histoire du XKe siècle]]].
+[/system:page-tags/tag/ch2019 ch2019] - Relatif aux créations du [[[concours-halloween-2019| Concours d'Halloween 2019]]].
+[/system:page-tags/tag/c404fr c404fr] - Relatif aux créations du [[[le-concours-des-404-ans| Concours des 404 ans]]]. (Halloween 2020)
+[/system:page-tags/tag/ch2022 ch2022] - Relatif aux créations du [[[concours-halloween-2022| Concours d'Halloween 2022]]].
+[/system:page-tags/tag/ch2023 ch2023] - Relatif aux créations du [[[concours-halloween-2023| Concours d'Halloween 2023]]].
+[[/div]]
+
++++ Concours internationaux
+
+[[div class="cadre"]]
+[/system:page-tags/tag/gdi2019 gdi2019] - Relatif aux créations du [[[http://fondationscp.wikidot.com/international-goi-contest-2019|Concours des Groupes d'Intérêt Internationaux]]].
+[/system:page-tags/tag/concours-gdi-es-2017 concours-gdi-es-2017] (**es :** "concurso-gdi-es-2017") - Relatif aux créations du [[[concurso-gdi-es-2017|Concours espagnol des GdI 2017]]].
+[/system:page-tags/tag/halloween-19-de halloween-19-de] (**de :** "halloween-19-de") - Relatif aux créations du [[[halloween-wettbewerb-2019|Concours allemand d'Halloween 2019]]].
+[[/div]]
+
++++ [[[contest-archive|Concours anglais]]]
+
+[[div class="cadre"]]
+[/system:page-tags/tag/1000 1000] (**ang :** "1000") - Relatif aux créations du Concours SCP-1000.
+[/system:page-tags/tag/2000 2000] (**ang :** "2000") - Relatif aux créations du [[[scp2000contesthub|Concours SCP-2000]]].
+[/system:page-tags/tag/3000 3000] (**ang :** "3000") - Relatif aux créations du [[[scp3000contesthub|Concours SCP-3000]]].
+[/system:page-tags/tag/4000 4000] (**ang :** "4000") - Relatif aux créations du [[[scp4000contesthub|Concours SCP-4000]]].
+[/system:page-tags/tag/5000 5000] (**ang :** "5000") - Relatif aux créations du [[[scp5000contesthub|Concours SCP-5000]]].
+[/system:page-tags/tag/6000 6000] (**ang :** "6000") - Relatif aux créations du [[[scp6000contesthub|Concours SCP-6000]]].
+[/system:page-tags/tag/7000 7000] (**ang :** "7000") - Relatif aux créations du [[[scp7000contesthub|Concours SCP-7000]]].
+[/system:page-tags/tag/8000 8000] (**ang :** "8000") - Relatif aux créations du [[[scp8000contesthub|Concours SCP-8000]]].
+[/system:page-tags/tag/art2017 art2017] (**ang :** "art2017") - Relatif aux créations du [[[social-media-art-contest|Concours d'Art 2017]]].
+[/system:page-tags/tag/cag09 cag09] (**ang :** "gbc09") - Relatif aux créations du [[[gears-birthday-contest-2009|Concours d'Anniversaire de Gears 2009]]].
+[/system:page-tags/tag/cd2014 cd2014] (**ang :** "dc2014") - Relatif aux créations du [[[dystopia-contest|Concours des Dystopies 2014]]].
+[/system:page-tags/tag/ch2012 ch2012] (**ang :** "hc2012") - Relatif aux créations du [[[halloween-contest|Concours d'Halloween 2012]]].
+[/system:page-tags/tag/cinq-questions cinq-questions] (**ang :** "five-questions") - Relatif aux créations du concours des [[[five-questions|Cinq Questions]]].
+[/system:page-tags/tag/cma2014 cma2014] (**ang :** "uac2014") - Relatif aux créations du [[[under-appreciated-contest|Concours des SCP Sous-cotés 2014]]].
+[/system:page-tags/tag/cna2013 cna2013] (**ang :** "nyc2013") - Relatif aux créations du [[[new-years-contest| Concours du Nouvel An 2013]]].
+[/system:page-tags/tag/conhis2017 conhis2017] (**ang :** "hiscon2017") - Relatif aux créations du [[[history-contest|Concours de l'Histoire 2017]]].
+[/system:page-tags/tag/ct2013 ct2013] (**ang :** "tc2013") - Relatif aux créations du [[[time-contest|Concours des "SCP dans le Temps" 2013]]].
+[/system:page-tags/tag/d-con2016 d-con2016] (**ang :** "d-con2016") - Relatif aux créations du [[[d-class-contest|Concours des Classes-D 2016]]].
+[/system:page-tags/tag/fest173 fest173] (**ang :** "173fest") - Relatif aux créations du [[[173-festival| Festival de 173]]].
+[/system:page-tags/tag/fim2016 fim2016] (**ang :** "mtf2016") - Relatif aux créations du [[[mobile-task-force-contest|Concours de Forces d'Intervention Mobiles 2016]]].
+[/system:page-tags/tag/fin-du-monde2018 fin-du-monde2018] (**ang :** "doomsday2018") - Relatif aux créations du [[[doomsday-contest|Concours Doomsday 2018]]].
+[/system:page-tags/tag/gdi2014 gdi2014] (**ang :** "goi2014") - Relatif aux créations du [[[goi-contest-2014|Concours des Groupes d'Intérêt 2014]]].
+[/system:page-tags/tag/halloween2018 halloween2018] (**ang :** "halloween2018") - Relatif aux créations du [[[halloween-contest|Concours d'Halloween 2018]]].
+[/system:page-tags/tag/con-jam2018 con-jam2018] (**ang :** "jam-con2018") - Relatif aux créations du [[[72-hour-jam-contest| Concours du Jam de 72 heures de 2018]]].
+[/system:page-tags/tag/con-jam2019 con-jam2019] (**ang :** "jam-con2019") - Relatif aux créations du [[[144-hour-jam-contest| Concours du Jam de 144 heures de 2019]]].
+[/system:page-tags/tag/con-jam2020 con-jam2020] (**ang :** "jam-con2020") - Relatif aux créations du [[[144-hour-jam-contest-two| Concours du Jam de 144 heures de 2020]]].
+[/system:page-tags/tag/con-jam2021 con-jam2021] (**ang :** "jam-con2021") - Relatif aux créations du [[[144-hour-jam-contest-two| Concours du Jam de 144 heures de 2021]]].
+[/system:page-tags/tag/rei2015 rei2015] (**ang :** "rei2015") - Relatif aux créations du [[[reimagining-contest|Concours de Réinvention 2015]]].
+[/system:page-tags/tag/sc2015 sc2015] (**ang :** "sc2015") - Relatif aux créations du [[[short-works-contest|Concours des Travaux Courts 2015]]].
+[/system:page-tags/tag/cliche2019 cliche2019] (**ang :** "cliche2019") - Relatif aux créations du [[[cliche-con-2019|Concours des Clichés 2019]]].
+[/system:page-tags/tag/nightmarefest nightmarefest] (**ang :** "nightmarefest") - L'article appartient au concours [[[nightmarefest|Nightmarefest]]].
+[/system:page-tags/tag/halloweencon2022 halloweencon2022] (**ang :** "halloweencon2022") - L'article appartient au concours [[[halloween-con-2022|Halloweencon 2022]]].
+[[/div]]
+
++++ Événements et projets anglais
+
+[[div class="cadre"]]
+[/system:page-tags/tag/af2014 af2014] (**ang :** "af2014") - L'article a été crée à l'occasion du [[[april-fools-2014|Premier avril 2014]]].
+[/system:page-tags/tag/af2016 af2016] (**ang :** "af2016") - L'article a été crée à l'occasion du [[[an-incredibly-important-announcement|Premier avril 2016]]].
+[/system:page-tags/tag/crossover crossover] (**ang :** "project-crossover") - Le conte est lié au [[[crossoverprojectindex|Projet Crossover Anglais]]] ou au [[[projetcrossoverfrindex|Projet Crossover Français]]].
+[/system:page-tags/tag/game-day game-day] (**ang :** "game-day") - Le conte est lié au projet [[[gamedayindex|Game Day]]].
+[/system:page-tags/tag/échange-artistique échange-artistique] (**ang :** art-exchange") - Le conte est lié à l'Échange Artistique, l'événement "Père Noël caché" de la branche anglophone.
+[/system:page-tags/tag/traduction traduction] (**ang :** "translation") - L'article est une traduction provenant de l'une des branches internationales officiellement reconnues. À toujours appliquer cette balise en combinaison avec l'une des balises à deux lettres indiquant le wiki d'origine.
+[[/div]]
+
+[[/collapsible]]
+
+------
+
+++ 6. Marqueurs de contenu
+
+Indique un type de contenu spécifique pour avertir le lecteur ou permettre l'affichage d'informations contextuelles.
+
+[[collapsible show="Montrer" hide="Cacher" hideLocation="both"]]
+
+[[div class="cadre"]]
+[/system:page-tags/tag/adulte adulte] (**ang :** "adult") - Désigne un contenu extradiégétiquement réservé à une audience adulte et mature (connotation sexuelle, gore...).
+
+[/system:page-tags/tag/avertissement_épilepsie avertissement_épilepsie] - Désigne un contenu pouvant provoquer des crises d'épilepsie (clignotements lumineux, couleurs vives et changeantes, etc...).
+[[/div]]
+
+[[/collapsible]]
+
+[[/tab]]
+[[tab Autres langues]]
+
++ Allemand
+
+[[collapsible show="Montrer" hide="Cacher" hideLocation="both"]]
+[[div class="cadre"]]
++++ A
+
+abhandlung - essai
+admin - admin
+aerogen - aérien
+affenartig - singe
+ akustisch - acoustique
+ameisenartig - formicidae
+amorph - amorphe
+anhang - annexe
+anpassungsfähig - adaptatif
+ansteckend - contagion
+antimemetisch - antimémétique
+aquatisch - aquatique
+arachnid - arachnide
+archiviert - archivé
+artefakt - artefact
+artropode - arthropode
+ätzend - corrosif
+audio - audio
+auditorisch - auditif
+aufführung - performance
+aufgeklärt - expliqué
+aufnahme - enregistrement
+außerirdisch - extraterrestre
+austausch - échange
+autor - auteur
+automat - automate
+[[/div]]
+
+[[div class="cadre"]]
++++ B
+
+bakterium - bactérie
+bärenartig - ursidé
+baumartig - arborescent
+befragung - entretien
+behälter - conteneur
+beobachtung - observable
+beschriftet - inscription
+beschriftung - inscription
+bienenartig - abeille
+bildmaterial - fanart
+biologisch - biologique
+biologische-gefahr - danger-bio
+broken-god - dieu-brisé
+[[/div]]
+
+[[div class="cadre"]]
++++ C-D
+
+chemisch - chimique
+computer - ordinateur
+creepypasta - creepypasta
+deckblatt - transition
+dokument - document
+[[/div]]
+
+[[div class="cadre"]]
++++ E
+
+ectoentropisch - entropique
+eichhörnchenartig - sciuridé
+eigenständig - autonome
+elektrisch - électrique
+elektromagnetisch - électromagnétique
+elektronisch - électronique
+empathisch - empathique
+empfindungsfähig - conscient
+entropisch - entropique
+erkundung - exploration
+erzählerisch - narratif
+euclid - euclide
+experiment - expérience
+extradimensional - extra-dimensionnel
+extremität - extrémité
+[[/div]]
+
+[[div class="cadre"]]
++++ F
+
+fahrzeug - véhicule
+feindlich - hostile
+feuer - feu
+fischartig - piscus
+flüssigkeit - liquide
+froschartig - batracien
+fuchsartig - vulpes
+[[/div]]
+
+[[div class="cadre"]]
++++ G
+
+gas - gazeux
+gebäude - bâtiment
+gedächtnis-beeinflussend - mémoire
+geist-beeinflussend - esprit
+gemeinschaftsarbeit - collaboration
+genetisch - génétique
+geologisch - géologique
+geschichte - conte
+geschmacklich - gustatif
+giftig - toxique
+glas - verre
+goi-sichtweise - format-gdi
+graviert - gravure
+gravitation - gravité
+[[/div]]
+
+[[div class="cadre"]]
++++ H
+
+haiartig - elasmobranchii
+halluzination - hallucination
+hasenartig - lepus
+haushaltsgerät - appareil
+heritage - patrimoine
+hilfe - guide
+hirschartig - cervidé
+historisch - historique
+hölzern - bois
+humanoid - humanoïde
+hundeartig - canin
+[[/div]]
+
+[[div class="cadre"]]
++++ I
+
+immateriell - immatériel
+immobil - immobile
+informationelle-gefahr - danger-info
+insekt - insecte
+instrument [et pas "musikinstrument"] - instrument
+intelligent - sapiens
+[[/div]]
+
+[[div class="cadre"]]
++++ K
+
+k-klasse-szenario - classe-k
+kakteenartig - cactaceae
+kamelartig - camélidé
+karnivor - carnivore
+katzenartig - félin
+keter - keter
+kleidung - vêtements
+konzept - concept
+kopffüßerartig - céphalopode
+kristallin - cristallin
+kubus - cube
+kugel - sphère
+künstlerisch - artistique
+[[/div]]
+
+[[div class="cadre"]]
++++ L
+
+landkarte - carte
+lebendig - vivant
+lehm - argile
+leichnam - cadavre
+licht - lumineux
+[[/div]]
+
+[[div class="cadre"]]
++++ M
+
+magnetisch - magnétique
+mäuseartig - muridé
+mathematisch - mathématique
+mechanisch - mécanique
+medien - média
+medizinisch - médical
+mehrere-autoren - co-écrit
+memetisch - mémétique
+meta - méta
+metallisch - métallique
+metamorphose - métamorphe
+meteorologisch - météorologique
+mikroskopisch - microscopique
+militärisch - militaire
+miniatur - miniature
+mobil - mobile
+mobiliar - mobilier
+musikalisch - musical
+[[/div]]
+
+[[div class="cadre"]]
++++ N
+
+nachahmend - mimétique
+nachtaktiv - nocturne
+nahrung - alimentaire
+nebengelenktierartig - xénarthre
+neuigkeiten - [news]
+neurologisch - neurologique
+neutralisiert - neutralisé
+nicht-eingedämmt - non-confiné
+nicht-klassifiziert - non-classé
+[[/div]]
+
+[[div class="cadre"]]
++++ O
+
+okular - oculaire
+olfaktorisch - olfactif
+omnivor - omnivore
+online - internet
+organisch - organique
+ort - lieu
+[[/div]]
+
+[[div class="cadre"]]
++++ P
+
+paradox - paradoxe
+parasitisch - parasitaire
+pferdeartig - équin
+pflanzenartig - plante
+physikalisch - physique
+pilzartig - fongique
+planet - planète
+polyedrisch - polyédrique
+portal - portail
+portalseite - centre
+prädator - prédateur
+[[/div]]
+
+[[div class="cadre"]]
++++ R
+
+radioaktiv - radioactif
+raumzeit - espace-temps
+reanimation - réanimation
+religiös - religieux
+reproduktiv - reproduction
+reptiloid - reptilien
+rindsartig - bovin
+ritual - rituel
+[[/div]]
+
+[[div class="cadre"]]
++++ S
+
+satellit - satellite
+schafsartig - ovin
+schatten - ombre
+schildkrötenartig - chélonien
+schlaf - sommeil
+schleife - boucle
+schlangenartig - ophidien
+schlüssel - clé
+schmetterlingsartig - lépidoptère
+schmuck - bijoux
+schwarm - essaim
+schwarmbewusstsein - conscience-collective
+scp - scp
+selbstreparierend - auto-réparant
+selbstvervielfältigend - auto-répliquant
+sensorisch - sensoriel
+sicher - sûr
+skeletal - squelettique
+skulptur - sculpture
+sonne - soleil
+spezies - espèce
+spiel - jeu
+spielzeug - jouet
+sport - sport
+sprache - langage
+stadt - ville
+statue - statue
+steinern - pierre
+struktur - structure
+süchtig-machend - dépendance
+[[/div]]
+
+[[div class="cadre"]]
++++ T
+
+taktil - tactile
+telekinetisch - télékinésie
+telepathisch - télépathique
+teleportation - téléportation
+template - modèle
+temporal - temporel
+thaumiel - thaumiel
+thermal - thermique
+thermodynamisch - thermodynamique
+tierisch - animal
+[[/div]]
+
+[[div class="cadre"]]
++++ U
+
+übertragung - transmission
+uhrwerk - horlogerie
+unterirdisch - souterrain
+unzerstörbar - indestructible
+[[/div]]
+
+[[div class="cadre"]]
++++ V
+
+verwaist - orpheline
+vibration - vibration
+virus - virus
+visuell - visuel
+vogelartig - aviaire
+voraussehend - prédictif
+[[/div]]
+
+[[div class="cadre"]]
++++ W
+
+waffe - arme
+wahrnehmungsstörend - danger-cognitif
+wahrscheinlichkeit - probabilité
+währung - devise
+walartig - cétacé
+wandlung - transfiguration
+werkbank - [atelier]
+werkzeug - outil
+wirbellos - invertébré
+wissen - connaissance
+witz - humour
+wurmartig - vermiforme
+[[/div]]
+
+[[div class="cadre"]]
++++ X-Y-Z
+
+zukunft - avenir
+zwang - compulsion
+zwischenfall - incident
+[[/div]]
+
+[[/collapsible]]
+
+------
+
++ Espagnol
+
+[[collapsible show="Montrer" hide="Cacher" hideLocation="both"]]
+
+[[div class="cadre"]]
++++ A
+
+acuático - aquatique
+acústico - acoustique
+adaptativo - adaptatif
+aéreo - aérien
+alucinación - hallucination
+amorfo - amorphe
+arbóreo - arboricole
+archivado - archivé
+arma - arme
+artefacto - artefact
+artístico - artistique
+artrópodo - arthropode
+auditivo - auditif
+autómata - automate
+autónomo - autonome
+autor - auteur
+auto-reparable - auto-réparant
+auto-replicable - auto-répliquant
+ave - aviaire
+[[/div]]
+
+[[div class="cadre"]]
++++ B
+
+biológico - biologique
+bio-peligroso - danger-bio
+bucle - boucle
+[[/div]]
+
+[[div class="cadre"]]
++++ C
+
+cadáver - cadavre
+canino - canin
+carnívoro - carnivore
+ciudad - ville
+coalición-oculta-global - cmo
+co-autores - co-écrit
+cognito-peligroso - danger-cognitif
+colaboración - collaboration
+comida - aliment
+compulsión - comulsion
+concurso-relatos-cortos - [concours d'histoires (contes) courtes]
+conocimiento - connaissance
+consciente - conscient
+contagioso - contagion
+contenedor - conteneur
+creación-de-la-fundación - made-in-fondation
+[[/div]]
+
+[[div class="cadre"]]
++++ D
+
+depredador - prédateur
+desmantelado - décommissionnés
+dios-roto - dieu-brisé
+división-gru-p - gru
+doctor-clef - docteur-clef
+documento - document
+dormir - sommeil
+[[/div]]
+
+[[div class="cadre"]]
++++ E
+
+ectoentrópico - entropique
+edificio - bâtiment
+eléctrico - électrique
+electrodoméstico - appareil
+electromagnético - électromagnétique
+electrónico - électronique
+engranajes - horlogerie
+enjambre - essaim
+entrópico - entropique
+ensayo - essai
+entrevista - entretien
+escatología-competitiva - compétition-eschatologique
+escenario-clase-k - classe-k
+escultura - sculpture
+esfera - sphère
+espacio-tiempo - espace-temps
+especie - espèce
+esqueleto - squelettique
+estatua - statue
+estructura - structure
+euclid - euclide
+experimento - expérience
+explicado - expliqué
+exploración - exploration
+extradimensional - extra-dimensionnel
+extraterrestre - extraterrestre
+[[/div]]
+
+[[div class="cadre"]]
++++ F
+
+fábrica - la-fabrique
+felino - félin
+ficha - [fiche] (équivalent "auteur" exclusif aux hispanophones)
+física - physique
+formato - modèle
+fuego - feu
+futuro - avenir
+[[/div]]
+
+[[div class="cadre"]]
++++ G
+
+geológico - géologique
+grabación - enregistrement
+grabado - gravure
+gravedad - gravité
+guía - guide
+[[/div]]
+
+[[div class="cadre"]]
++++ H
+
+herramienta - outil
+histórico - historique
+hongo - fongique
+hostil - hostile
+humanoide - humanoïde
+humorístico - humour
+[[/div]]
+
+[[div class="cadre"]]
++++ I
+
+incidente - incident
+indestructible - indestructible
+info-peligroso - danger-info
+infundados - infondé
+inscripción - inscription
+insecto - insecte
+instrumento - instrument
+insurgencia-del-caos - insurrection-du-chaos
+intangible - immatériel
+inteligente - sapiens
+invertebrado - invertébré
+[[/div]]
+
+[[div class="cadre"]]
++++ J-K
+
+joya - bijoux
+juego - jeu
+juguete - jouet
+keter - keter
+[[/div]]
+
+[[div class="cadre"]]
++++ L
+
+lenguaje - langage
+líquido - liquide
+llave - clé
+localización - lieu
+lombardi - lombardi
+luz - lumineux
+[[/div]]
+
+[[div class="cadre"]]
++++ M
+
+madera - bois
+mano-de-la-serpiente - main-du-serpent
+marshall-carter-and-dark - mc&d
+matemático - mathématique
+mecánico - mécanique
+médico - médical
+memético - mémétique
+mente-colmena - conscience-collective
+meta - méta
+metálico - métallique
+metamórfico - métamorphe
+meteorológico - météorologique
+militar - militaire
+mimético - mimétique
+mnemónico - mémoire
+móvil - mobile
+mueble - mobilier
+musical - musical
+[[/div]]
+
+[[div class="cadre"]]
++++ N
+
+nadie - personne
+narrativo - narratif
+neurológico - neurologique
+neutralizado - neutralisé
+[[/div]]
+
+[[div class="cadre"]]
++++ O
+
+obra-artística - fanart
+observable - observable
+ocular - oculaire
+olympia - olympia
+ordenador - ordinateur
+orgánico - organique
+orientación - orientation
+[[/div]]
+
+[[div class="cadre"]]
++++ P-Q
+
+parásito - parasitaire
+patrimonio - patrimoine
+piedra - pierre
+planta - plante
+poliedro - polyèdrique
+portal - portail
+predictivo - prédictif
+presentación - orientation
+probabilidad - probabilité
+prometheus - prometheus
+propuesta-001 - proposition-001
+proyecto-taumiel - projet-thaumiel
+psique-alterador - esprit
+químico - chimique
+[[/div]]
+
+[[div class="cadre"]]
++++ R
+
+radioactivo - radioactif
+reanimación - réanimation
+relato - conte
+religioso - religieux
+representación - performance
+reproducible - média
+reproductivo - reproduction
+ritual - rituel
+ropa - vêtements
+[[/div]]
+
+[[div class="cadre"]]
++++ S
+
+sárkico - sarkique
+seguro - sûr
+señor - monsieur
+sensorial - sensoriel
+sin-clasificar - non-classé
+sin-contener - non-confiné
+sociedad-antares - société-antarès
+sol - soleil
+splash - transition
+subterráneo - souterrain
+suplemento - annexe
+[[/div]]
+
+[[div class="cadre"]]
++++ T
+
+táctil - tactile
+taumiel - thaumiel
+telepático - télépathique
+telequinético - télékinésie
+teletransporte - téléportation
+temporal - temporel
+termal - thermique
+tóxico - toxique
+transfiguración - transfiguration
+transmisión - transmission
+[[/div]]
+
+[[div class="cadre"]]
++++ U-V
+
+unidad-de-incidentes-inusuales - u2i
+vehículo - véhicule
+vidrio - verre
+visual - visuel
+vivo - vivant
+[[/div]]
+
+[[/collapsible]]
+
+------
+
+[[/tab]]
+[[tab FAQ des tags]]
+
+Vous trouverez ici des explications pour vous aider à différencier certains tags fréquemment confondus ou mal compris. Si vous pensez que l'un d'entre eux pourrait s'appliquer à votre SCP, lisez attentivement la section qui le concerne. Si vous avez toujours des doutes, demandez à un membre du Staff.
+
++++ **Organique** contre **Biologique** contre **Vivant**
+
+[[div class="cadre"]]
+* Une chose **organique** est constituée de composés organiques tels que les protéines, les graisses ou d'autres substances qui composent habituellement les êtres vivants.
+* Une chose **biologique** comporte des éléments d'êtres vivants tels que des tissus vivants, des organes et d'autres parties composant généralement un organisme, mais n'est pas nécessairement vivante. Tout ce qui est biologique est aussi organique par défaut et n'a pas besoin d'être étiqueté comme organique.
+* Une chose **vivante** est conforme aux caractéristiques des êtres vivants et possède généralement l'ensemble des caractéristiques suivantes :
+ * un métabolisme - Tous les êtres vivants consomment de l'énergie et rejettent des déchets (même immatériels, comme de la chaleur).
+ * des réactions - Tous les êtres vivants réagissent à leur environnement : ils chassent, cherchent de la nourriture et restent à l'écart des choses qu'ils perçoivent comme dangereuses. Même les plantes tourneront leurs feuilles vers le soleil afin de maximiser leur potentiel photosynthétique.
+ * mécanisme de reproduction - Tous les êtres vivants se reproduisent, qu'ils soient sexués ou asexués.
+Tout ce qui est vivant est aussi biologique et organique par défaut et n'a pas besoin d'être étiqueté comme tel.
+[[/div]]
+
++++ **Parasitaire** contre **Contagion** contre **Auto-répliquant** contre **Reproduction**
+
+[[div class="cadre"]]
+* Un **parasite** est une entité qui se "nourrit" d'une autre entité. C'est très différent d'une relation mutualiste, car l'entité parasitaire n'aide pas l'hôte et lui est purement nuisible. Cela peut se référer à la fois aux parasites qui vivent à l'extérieur et aux parasitoïdes qui tuent l'hôte. Le parasite n'est pas nécessairement biologique ou vivant dans le cadre de la Fondation.
+* La **contagion** est une infection qui contamine quelque chose et se propage ensuite à d'autres choses non contaminées, comme une maladie. Un virus informatique ou un effet anormal se propageant d'un sujet à un autre sont également considérés comme éléments contagieux.
+* L'**auto-réplication** est la capacité d'une chose à créer des copies d'elle-même. Cela peut être fait par division, bourgeonnement ou de plusieurs autres manières.
+* "**Reproducteur**" désigne notamment un objet qui affecte le système reproducteur d'un organisme vivant. Cela signifie en général qu'il utilise le système reproducteur ou le corps d'un autre organisme vivant pour faire des copies de lui-même, souvent en exploitant l'un des ses processus biologiques naturels. On le distingue d'un //parasite// par le fait qu'en réalité il détourne le processus de reproduction ; quelque chose qui se nourrit seulement hors de la muqueuse utérine d'un animal affecté sera un //parasite//, mais quelque chose qui imite un fœtus et force le porteur à subir le processus normal de grossesse pour en profiter sera taggé //reproduction//.
+[[/div]]
+
++++ **Compulsion** contre **Danger-cognitif** contre **Mémétique** contre **Esprit**
+
+[[div class="cadre"]]
+* Une **compulsion** oblige les sujets à faire quelque chose qu'ils ne voudraient normalement pas faire. Elle est différente d'un //danger-cognitif// parce qu'elle n'est pas nécessairement liée aux cinq sens et peut être induite par de nombreux facteurs.
+* Un **danger-cognitif** représente un danger pour les sujets qui le perçoivent avec l'un de leurs cinq sens : la vue (visuel), l'écoute (auditif), l'odorat (olfactif), le goût (gustatif) et le toucher (tactile). Cela est valable pour les choses qui causent des dommages physiques aussi bien que psychologiques, mais seulement de manière anormale. Une lumière brillante qui provoque la cécité n'est pas un //danger-cognitif//, pas plus que une arête vive qui vous coupe lorsque vous la touchez, car elles agissent de façon parfaitement logique. En revanche, un son qui vous fait avoir des hallucinations diverses ou une odeur qui vous rend fou sont des //dangers-cognitifs//.
+* Un agent **mémétique** est une "information infectieuse". Il s'agit d'un élément de données dans l'esprit d'un sujet qui a un effet anormal sur l'état physique ou mental du sujet et se propage lorsque quelqu'un d'autre reçoit la même information. Tous les agents //mémétiques// sont des //dangers-cognitifs// mais tous les //dangers-cognitif// ne sont pas //mémétiques//. Pour des informations plus avancées sur la mémétique, consulter [[[understanding-memetics|cette page]]].
+* Un effet lié à l'**esprit** modifie (généralement de façon permanente) la manière dont un sujet pense, le plus souvent en altérant sa personnalité ou son comportement ou en causant des troubles psychiatriques. La différence avec une //compulsion// est qu'il s'agit d'un changement profond qui change non seulement les actions d'un sujet mais aussi les réflexions qui l'y mène.
+[[/div]]
+
++++ **Mémétique** contre **Danger-info** contre **Méta**
+
+[[div class="cadre"]]
+* Un **danger-info** est un effet qui se déclenche à chaque fois que vous vous référez à un objet ou le décrivez. La différence avec un agent //mémétique// est qu'il s'agit toujours d'un objet et pas simplement d'une information. [[[SCP-426]]] est un bon exemple de //danger-info// : dès que vous parlez de lui, vous en parlez toujours à la première personne.
+* Un objet **méta** affecte sa documentation, est affecté par sa documentation ou a des procédures de confinement qui s'étendent à sa documentation. Les objets //méta// impliquent très souvent une forme de rupture du quatrième mur. Il y a parfois un chevauchement avec les //dangers-infos//, mais ils restent distincts. [[[SCP-048]]] est un bon exemple : documenter un objet comme SCP-048 provoque des accidents, mais parler de SCP-048 ou l'expliquer est inoffensif.
+[[/div]]
+
++++ **Acoustique** contre **Auditif** contre **Audio**
+
+[[div class="cadre"]]
+* Un effet **acoustique** est une onde sonore. Cela signifie que celle-ci doit avoir un milieu à traverser pour agir (comme l'air ou de l'eau) et qu'il est indépendant d'une audience. Quelque chose qui peut être entendu par des sujets mais peut aussi être enregistré est probablement //acoustique//.
+* Un effet **auditif** est quelque chose qui se réfère directement au sens de l'ouïe. Quelque chose qui peut être entendu par un ou plusieurs sujets mais ne peut être ni enregistré ni entendu par d'autres sujets est à la fois //hallucination// et //auditif//. //Auditif// peut aussi correspondre à un //danger-cognitif// si le fait de lentendre déclenche un effet anormal.
+* **audio** est un des tags principaux, utilisé pour signaler qu'un article contient un fichier audio. Ce n'est pas un attribut décrivant les caractéristiques d'un SCP et il ne doit pas être mis sur les pages qui ne contiennent pas de fichier audio.
+[[/div]]
+[[/tab]]
+[[tab Tags de la Bibliothèque des Vagabonds]]
+
+Les étiquettes suivantes sont spécifiques aux articles de la [[[vagabonds:guide-principal|Bibliothèque des Vagabonds]]] et ne doivent __pas__ être utilisées pour les pages de la Fondation SCP, à l'exception notable de certaines d'entre elles communes aux deux listes (par exemple : //militaire//, //rituel//, //lieu// ou //historique//).
+
+Précision supplémentaire pour les "Groupes d'Intrigue", l'équivalent vagabondesque des "Groupes d'Intérêt", ceux-ci doivent être étiquetés à la fois dans leur version de la Fondation et dans leur version de la Bibliothèque (quand elle existe). Par exemple, les articles impliquant ou mentionnant le Groupe d'Intrigue des Brûleurs de Livres doit être étiquetés à la fois //cmo// et //brûleurs-de-livres//.
+
+[[collapsible show="Montrer" hide="Cacher" hideLocation="both"]]
+[[div class="fancyborder"]]
++++ Tags principaux
+
+Toutes les pages de la catégorie de la Bibliothèque des Vagabonds doivent comporter au moins l'un de ces tags.
+
+**[/system:page-tags/tag/_cc _cc]** (**ang :** "_cc") - Une étiquette cachée utilisée sur les pages avec des images qui ont été confirmées comme correctement licenciée. Seul le staff peut l'appliquer sur une page.
+**[/system:page-tags/tag/admin admin]** (**ang :** "admin") - //admin// est une étiquette officielle. Ces pages ne sont créées que par des administrateurs.
+**[/system:page-tags/tag/aile-un aile-un]** (**ang :** "wing-one") - Utilisé pour les publications de la première série d'article de la Bibliothèque.
+**[/system:page-tags/tag/aile-deux aile-deux]** (**ang :** "wing-two") - Utilisé pour les publications de la deuxième série d'articles de la Bibliothèque.
+**[/system:page-tags/tag/aile-fr aile-fr]** - Utilisé pour les publications de la première série d'articles français de la Bibliothèque.
+**[/system:page-tags/tag/auteur auteur]** (**ang :** "author") - Cette balise doit être utilisée pour les pages de profil des auteurs. Il ne doit y avoir qu’une seule page marquée avec le tag //auteur// pour chaque membre du personnel.
+**[/system:page-tags/tag/centre centre]** (**ang :** "hub") - Utilisé pour les pages renvoyant vers plusieurs autres pages possédant un lien commun.
+**[/system:page-tags/tag/co-écrit co-écrit]** (**ang :** "co-authored") - Utilisé pour les articles auxquels ont contribué plusieurs auteurs et qui ne peuvent être attribués à un auteur individuel.
+**[/system:page-tags/tag/collaboration collaboration]** (**ang :** "collaboration") - Utilisé pour les articles ouverts à la contribution de n'importe quel auteur. ATTENTION : Les pages possédant le tag //collaboration// mais étant également des traductions (ne comportant pas le tag //fr//) ne sont pas ouvertes aux modifications.
+**[/system:page-tags/tag/collection collection]** (**ang :** "collection") - Utilisé pour les pages du centre d'une Collection.
+**[/system:page-tags/tag/thème thème]** (**ang :** "component") - Utilisé pour les pages contenant des outils Wikidot ou CSS utilisé dans d'autres pages ou d'autres articles.
+**[/system:page-tags/tag/concours concours]** (**ang :** "contest") - Utilisé pour les pages de concours. Il s'agit des pages annonçant et décrivant les règles d'un concours et non des articles publiés dans son cadre.
+**[/system:page-tags/tag/entrée entrée]** (**ang :** "entry") - Toutes les histoires contenues dans la Bibliothèque doivent recevoir cette étiquette. La plupart des articles doivent la recevoir.
+**[/system:page-tags/tag/fanart fanart]** (**ang :** "gallery") - Utilisé principalement pour les pages supportant un média plutôt que pour les entrées classiques.
+**[/system:page-tags/tag/guide guide] ou [/system:page-tags/tag/essai essai]** (**ang :** "guide") - Utilisé pour les pages servant de guide d'écriture sur le site. Ne doivent pas être utilisés avec les articles de la liste principale.
+**[/system:page-tags/tag/livre livre]** (**ang :** "book") - Une étiquette assignée aux pages du centre d'un Livre.
+**[/system:page-tags/tag/modèle modèle]** (**ang :** "template") - Pour les pages de modèles.
+**[/system:page-tags/tag/réponse-amorce réponse-amorce]** (**ang :** "prompt-response") - L'article a été soumis en réponse à une amorce.
+**[/system:page-tags/tag/thème thème]** (**ang :** "theme") - Pour les pages de thème CSS.
+[[/div]]
+[[div class="fancyborder"]]
++++ Tags de style
+
+Ces tags permettent de préciser le contenu, le format et/ou le style des entrées de la catégorie de la Bibliothèque des Vagabonds.
+
+**[/system:page-tags/tag/audio audio]** (**ang :** "audio") - Les pages taguées avec audio sont des pages de rapport ou de contes avec un contenu audio significatif.
+**[/system:page-tags/tag/correspondance correspondance]** (**ang :** "epistolary") - Utilisé pour les articles structurés en une collection de documents plus petits provenant de différentes sources. Accompagne le tag //document//.
+**[/system:page-tags/tag/document document]** (**ang :** "document") - Utilisé pour les articles écrits dans le but de servir de document public. Utilisé en combinaison avec //journal//, //lettre// ou //rapport//.
+**[/system:page-tags/tag/fable fable]** (**ang :** "fable") - Utilisé pour les articles adoptant la forme d'un conte de fée, d'un mythe ou d'un autre format d'histoire archaïque traditionnellement utilisé pour faire passer une leçon ou une morale.
+**[/system:page-tags/tag/image image]** (**ang :** "image") - Indique les articles contenant des images implémentées.
+**[/system:page-tags/tag/journal journal]** (**ang :** "journal") - Utilisé pour les articles adoptant la forme d'un journal intime, d'un carnet de bord ou de tout autre forme d'agenda personnel. Ne peut pas être utilisé avec le tag //lettre// ; peut être utilisé pour accompagner le tag //document//.
+**[/system:page-tags/tag/lettre lettre]** (**ang :** "letter") - Utilisé pour les articles adoptant la forme d'une lettre manuscrite destinée à être lue par des tiers. Ne peut pas être utilisé avec le tag //journal// ; peut être utilisé pour accompagner le tag //document//.
+**[/system:page-tags/tag/poésie poésie]** (**ang :** "verse") - Utilisé pour les articles écrits en vers plutôt qu'en prose.
+**[/system:page-tags/tag/prose prose]** (**ang :** "prose") - Utilisé pour les articles écrits en partie en prose à la troisième personne. Notez que "la prose" est définie comme "un style non-métrique similaire au langage écrit ou parlé ordinaire."
+**[/system:page-tags/tag/rapport rapport]** (**ang :** "report") - L'article est structuré sous la forme d'un rapport formel destiné à des fins scientifiques ou intellectuelles. Peut être utilisé pour accompagner le tag //document//.
+**[/system:page-tags/tag/récit récit]** (**ang :** "narrative") - Utilisé pour les articles écrits partiellement ou entièrement depuis la perspective d'un personnage présent dans le déroulement ou le contenu de l'histoire. Par exemple : [[[vagabonds:hunting-the-margrawn|Chasser le Margron]]]. Ne peut être utilisé avec le tag //prose//.
+**[/system:page-tags/tag/vidéo vidéo]** (**ang :** "video") - L'article contient une vidéo implémentée.
+[[/div]]
+[[div class="fancyborder"]]
++++ Tags de livres
+
+Ces tags sont réservés aux entrées faisant partie d'un Livre (une série de la catégorie de la Bibliothèque des Vagabonds).
+
+**[/system:page-tags/tag/cedar-bardot cedar-bardot]** (**ang :** "cedar-bardot") - Utilisé pour les articles du canon intitulé "Cedar Bardot".
+**[/system:page-tags/tag/journal-de-la-marche journal-de-la-marche]** (**ang :** "journal-of-the-walk") - Utilisé pour les articles du livre intitulé "Le Journal de la Marche".
+**[/system:page-tags/tag/livre-d-ur livre-d-ur]** (**ang :** "book-of-ur") - Utilisé pour les articles du canon intitulé "Le Livre d'Ur".
+**[/system:page-tags/tag/longvoyage longvoyage]** (**ang :** "longjourney") - Utilisé pour les articles du canon intitulé "Le Journal d'Aframos Longvoyage".
+**[/system:page-tags/tag/racine-et-terre racine-et-terre]** (**ang :** "root-and-loam") - Utilisé pour les articles du canon intitulé "Au-dessus des racines et sous la terre".
+[[/div]]
+[[div class="fancyborder"]]
++++ Tags d'univers
+
+Ces tags permettent de signaler la présence d'un personnage ou groupe particulier dans l'entrée, ou de préciser que l'entrée se déroule ou est en rapport avec un lieu particulier.
+
+**[/system:page-tags/tag/archives archives]** (**ang :** "archives") - L'article fait référence d'une manière ou d'une autre à l'univers de la Bibliothèque/SCP dans son ensemble. Fréquemment utilisé en conjonction avec les étiquettes //cmo//, //mcd//, //geôliers//, //jamais-été// et //bibliothèque-des-vagabonds//.
+**[/system:page-tags/tag/bibliothécaires bibliothécaires]** (**ang :** "librarians") - Utilisé pour les articles impliquant ou concernant les entités décrites ici comme "les Bibliothécaires".
+**[/system:page-tags/tag/bibliothèque-des-vagabonds bibliothèque-des-vagabonds]** (**ang :** "library") - Utilisé pour les articles impliquant ou se déroulant dans la Bibliothèque elle-même. Veuillez noter que cette étiquette n'est pas utilisée pour les articles listés dans le centre de la Bibliothèque (voir : //entrée//).
+**[/system:page-tags/tag/boismêlés boismêlés]** (**ang :** "ravelwoods") - L'article fait référence ou implique le monde ou le lieu identifié comme "les Bois-Mêlés".
+**[/system:page-tags/tag/brûleurs-de-livres brûleurs-de-livres]** (**ang :** "bookburners") - L'article implique ou fait référence au Groupe d'Intrigue connu sous le nom des Brûleurs de Livres, ou la Coalition Mondiale Occulte. Doit impérativement être accompagné de l'étiquette [/system:page-tags/tag/cmo cmo].
+**[/system:page-tags/tag/cousin-dan cousin-dan]** (**ang :** "cousin-dan") - L'article implique ou fait référence au personnage connu sous le nom de "Cousin Dan".
+**[/system:page-tags/tag/dernière-lumière dernière-lumière]** (**ang :** "last-light") - Utilisé pour les articles se déroulant dans l'espace commun de la Dernière Lumière.
+**[/system:page-tags/tag/elrich elrich]** (**ang :** "elrich") - Utilisé pour les articles se déroulant ou impliquant le pays ou le royaume connu sous le nom "d'Elrich".
+**[/system:page-tags/tag/geôliers geôliers]** (**ang :** "jailors") - L'article implique ou fait référence au Groupe d'Intrigue connu sous le nom des Geôliers ou la Fondation SCP.
+**[/system:page-tags/tag/héritage héritage]** (**ang :** "legacy") - Utilisé pour les articles décrivant ou impliquant l'organisation identifiée sous le nom "d'Héritage".
+**[/system:page-tags/tag/inéveil inéveil]** (**ang :** "unwaking") - L'article fait référence au monde ou au lieu identifié comme "l'Inéveil".
+**[/system:page-tags/tag/fous fous]** (**ang :** "madmen") - L'article fait référence ou implique le Groupe d'Intrigue connu sous le nom des Fous ou l'Insurrection du Chaos. Doit impérativement être accompagné de l'étiquette [/system:page-tags/tag/insurrection-du-chaos insurrection-du-chaos].
+**[/system:page-tags/tag/jamais-été jamais-été]** (**ang :** "neverwere") - L'article fait référence ou implique le Groupe d'Intrigue connu sous le nom de Jamais-été.
+**[/system:page-tags/tag/main-du-serpent main-du-serpent]** (**ang :** "serpents-hand") - Utilisé pour les articles partiellement ou entièrement écrits par un membre de la Main ou y faisant référence (implicitement ou explicitement).
+**[/system:page-tags/tag/marchands marchands]** (**ang :** "merchants") - L'article fait référence ou implique le Groupe d'Intrigue connu sous le nom des Marchands, alias Marshall, Carter and Dark. Doit impérativement être accompagné de l'étiquette [/system:page-tags/tag/mcd mcd].
+**[/system:page-tags/tag/planasthai planasthai]** (**ang :** "planasthai") - Utilisé pour les articles impliquant ou concernant la publication décrite ici comme "le Planasthai".
+**[/system:page-tags/tag/rondapode rondapode]** (**ang :** "rounderpede") - L'article fait référence ou implique le personnage connu sous le nom de "Rondapode".
+**[/system:page-tags/tag/ulak ulak]** (**ang :** "ulak") - L'article fait référence ou implique le personnage connu sous le nom d'"Ulak l'Arpenteur".
+**[/system:page-tags/tag/yoren yoren]** (**ang :** "yoren") - L'article fait référence au monde ou au lieu identifié comme "Yoren".
+[[/div]]
+[[div class="fancyborder"]]
++++ Tags d'attributs
+
+Ces tags permettent de préciser les thèmes des entrées.
+
+**[/system:page-tags/tag/apparition apparition]** (**ang :** "spirit") - Pour les articles impliquant des entités "spirituelles", comme les fantômes, les spectres et les démons.
+**[/system:page-tags/tag/aristocratique aristocratique]** (**ang :** "aristocratic") - Utilisé pour les articles impliquant une personnalité royale, aristocratique, ou autre.
+**[/system:page-tags/tag/autre-monde autre-monde]** (**ang :** "otherworldly") - L'article décrit un ou plusieurs mondes extérieurs à cet univers. Notez que la Bibliothèque elle-même n'est pas considérée comme un monde.
+**[/system:page-tags/tag/cryptobotanique cryptobotanique]** (**ang :** "cryptobotanical") - Utilisé pour les articles mentionnant un type de plante non-documenté ou supernaturel.
+**[/system:page-tags/tag/cryptozoologique cryptozoologique]** (**ang :** "cryptozoological") - Utilisé pour les articles décrivant une créature surnaturelle ou publiquement non-documentée. Ne doit pas être confondu avec le tag //autre-monde//, qui fait référence aux autres mondes accessibles par les Voies.
+**[/system:page-tags/tag/divin divin]** (**ang :** "divine") - Utilisé pour les articles décrivant des entités, des objets ou des concepts associés à des origines ou des capacités divines.
+**[/system:page-tags/tag/entité entité]** (**ang :** "entity") - L'article décrit une entité supernaturelle ne se comportant pas comme un organisme vivant. Remplacé par les tags //cryptobotanique// et //cryptozoologique// si nécessaire.
+**[/system:page-tags/tag/espace espace]** (**ang :** "space") - Pour les histoires se déroulant dans le vide universel mieux connu sous le nom d'"espace".
+**[/system:page-tags/tag/forêt forêt]** (**ang :** "forest") - Pour les histoires décrivant ou se déroulant dans des forêts spécifiques.
+**[/system:page-tags/tag/historique historique]** (**ang :** "historical") - L'article décrit des évènements importants de l'histoire connue.
+**[/system:page-tags/tag/lieu lieu]** (**ang :** "location") - Utilisé pour les articles impliquant une zone géographique spécifique.
+**[/system:page-tags/tag/militaire militaire]** (**ang :** "military") - L'article décrit une force militaire ou le comportement de cette force militaire, comme un effort de guerre.
+**[/system:page-tags/tag/mythologique mythologique]** (**ang :** "mythological") - Utilisé pour les articles empruntant directement un aspect d'un mythe, d'une légende ou d'une histoire existante.
+**[/system:page-tags/tag/objet objet]** (**ang :** "object") - Utilisé pour les articles impliquant un objet spécifique d'origine physique ou supernaturelle.
+**[/system:page-tags/tag/religion religion]** (**ang :** "religion") - Article décrivant une religion établie et ses pratiques ou ses croyances.
+**[/system:page-tags/tag/rituel rituel]** (**ang :** "ritual") - Utilisé pour les articles décrivant un processus fiable et ritualisé pratiqué par une ou plusieurs entités conscientes.
+**[/system:page-tags/tag/tribal tribal]** (**ang :** "tribal") - L'article décrit un groupement social organisé d'humains ou d'autres créatures possédant une structure tribale.
+**[/system:page-tags/tag/voies voies]** (**ang :** "ways") - Utilisé pour les articles liés ou concernant directement les phénomènes connus comme "les Voies".
+[[/div]]
+[[div class="fancyborder"]]
++++ Tags de concours
+
+Ces tags caractérisent les entrées écrites pour des concours ou en réponse à des amorces.
+
+**[/system:page-tags/tag/1000_bdv 1000_bdv]** (**ang :** "1000") - L'article a été publié dans le cadre du concours de la 1000^^ème^^ entrée à l'occasion de l'ouverture de la deuxième aile du site anglais.
+**[/system:page-tags/tag/_étranges-achats _étranges-achats]** (**ang :** "_peculiar-purchases") - L'article a été publié dans le cadre du concours Chasse au Trésor 2021, dans la catégorie Acquisitions Particulières.
+**[/system:page-tags/tag/_invasion-extraterrestre _invasion-extraterrestre]** (**ang :** "_alien-invasion") - L'article a été publié dans le cadre du concours Chasse au Trésor 2021, dans la catégorie Invasion Extra-Terrestre.
+**[/system:page-tags/tag/av08 av08]** (**ang :** "av08") - L'article a été publié dans le cadre de l'amorce de l'Audiovisuel.
+**[/system:page-tags/tag/cbdv2013 cbdv2013]** (**ang :** "wlc2013") - L'article a été publié dans le cadre du concours Bibliothèque des Vagabonds 2013.
+**[/system:page-tags/tag/chasse2021 chasse2021]** (**ang :** "hunt2021") - L'article a été publié dans le cadre du concours Chasse au Trésor 2021.
+**[/system:page-tags/tag/cités04 cités04]** (**ang :** "cities04") - L'article a été publié dans le cadre de l'amorce des Cités.
+**[/system:page-tags/tag/concours-vie concours-vie]** (**ang :** "life-contest") - L'article a été publié dans le cadre de l'amorce des Histoires de Vies Fictionnelles.
+**[/system:page-tags/tag/créatures07 créatures07]** (**ang :** "creatures07") - L'article a été publié dans le cadre de l'amorce des Créatures.
+**[/system:page-tags/tag/envie-de-voyage01 envie-de-voyage01]** (**ang :** "wanderlust01") - L'article a été publié dans le cadre de l'amorce des Envies de Voyage.
+**[/system:page-tags/tag/lieuxalt05 lieuxalt05]** (**ang :** "altplaces05") - L'article a été publié dans le cadre de l'amorce des Lieux Alternatifs.
+**[/system:page-tags/tag/pdv2020 pdv2020]** (**ang :** "wd2020") - L'article a été publié dans le cadre du concours Profondeurs des Vagabonds 2020.
+**[/system:page-tags/tag/pourquoietqui06 pourquoietqui06]** (**ang :** "whyandwho06") - L'article a été publié dans le cadre de l'amorce Pourquoi et Qui.
+**[/system:page-tags/tag/relations03 relations03]** (**ang :** "relationship03") - L'article a été publié dans le cadre de l'amorce des Relations.
+**[/system:page-tags/tag/sdv2019 sdv2019]** (**ang :** "ws2019") - L'article a été publié dans le cadre du concours Station des Vagabonds 2019.
+**[/system:page-tags/tag/sorcière-espace02 sorcière-espace02]** (**ang :** "spacewitch02") - L'article a été publié dans le cadre de l'amorce des Sorcières de l'Espace.
+**[/system:page-tags/tag/vagaconcours2021 vagaconcours2021]** (**ang :** "wandercon2021") - L'article a été publié dans le cadre du concours par équipe des Vagabonds 2021.
+[[/div]]
+[[/collapsible]]
+[[/tab]]
+[[/tabview]]

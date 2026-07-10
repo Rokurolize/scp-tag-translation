@@ -19,6 +19,7 @@
 * **[[[/system:page-tags/tag/南極の交流|南極の交流]]]** //(antarctic-exchange)// - [[[antarctic-exchange-hub|南極の交流]]]。
 * **[[[/system:page-tags/tag/アポセオシス|アポセオシス]]]** //(apotheosis)// - [[[apotheosis-hub|アポセオシス]]]。
 * **[[[/system:page-tags/tag/鐘を鳴らす者の詩|鐘を鳴らす者の詩]]]** //(bellerverse)// - [[[bellerverse|鐘を鳴らす者の詩]]]。
+* **[[[/system:page-tags/tag/ブラックダイヤモンド・ビリオンズ|ブラックダイヤモンド・ビリオンズ]]]** //(black-diamond-billions)// - [[[black-diamond-billions-hub|ブラックダイヤモンド・ビリオンズ]]]。
 * **[[[/system:page-tags/tag/壊された虚構|壊された虚構]]]** //(broken-masquerade)// - [[[broken-masquerade-hub|壊された虚構]]]。
 * **[[[/system:page-tags/tag/ただの夢|ただの夢]]]** //(but-a-dream)// - [[[but-a-dream|ただの夢]]]。
 * **[[[/system:page-tags/tag/競り合う終末論|競り合う終末論]]]** //(competitive-eschatology)// - [[[competitive-eschatology-hub|競り合う終末論 ]]]。
@@ -53,6 +54,7 @@
 * **[[[/system:page-tags/tag/リザレクション|リザレクション]]]** //(resurrection)// - [[[resurrection|甦──リザレクション]]]。
 * **[[[/system:page-tags/tag/s&cプラスチック|s&cプラスチック]]]** //(s&c-plastics)// - [[[the-s-c-plastics-hub|S & Cプラスチック]]]。
 * **[[[/system:page-tags/tag/記号論|記号論]]]** //(semiotics)// - [[[semiotics-hub|記号論]]]。
+* **[[[/system:page-tags/tag/シリーズ0|シリーズ0]]]** //(series-0)// - [[[series-0|シリーズ0]]]。
 * **[[[/system:page-tags/tag/ボトルシップ|ボトルシップ]]]** //(ship-in-a-bottle)// - [[[siabhub|ボトルシップ]]]。
 * **[[[/system:page-tags/tag/simulacrum|simulacrum]]]** //(simulacrum)// - [[[simulacrum-project-hub|SIMULACRUM]]]。
 * **[[[/system:page-tags/tag/sotm|sotm]]]** //(sotm)// - [[[sotmhub|朝までまっすぐに]]]。
@@ -94,6 +96,7 @@
 * **[[[/system:page-tags/tag/氷我記|氷我記]]]** - [[[hyogaki-hub|氷我記]]]。
 * **[[[/system:page-tags/tag/怪奇銘々伝|怪奇銘々伝]]]** - [[[kaiki-meimeiden-hub|怪奇銘々伝]]]。
 * **[[[/system:page-tags/tag/実技試験|実技試験]]]** - [[[practical-examination-hub|実技試験]]]。
+* **[[[/system:page-tags/tag/晴れの休みは上野巡りへ|晴れの休みは上野巡りへ]]]** - [[[ueno-tour-hub|晴れの休みは上野巡りへ]]]。
 
 [[/tab]][!--JP--]
 [[tab RU]]
@@ -229,6 +232,16 @@
 * **[[[/system:page-tags/tag/物理少年|物理少年]]]** //(物理少年)// - 物理少年。
 
 [[/tab]][!--ZH--]
+[[tab VN]]
++++ カノン-VN
+それぞれの概要は[[[canon-hub-vn|]]]を参照してください。
+
+* **[[[/system:page-tags/tag/心霊課|心霊課]]]** //(đơn-vị-tâm-linh)// - [[[don-vi-tam-linh-hub|心霊課]]]。
+[!--* **[[[/system:page-tags/tag/|]]]** //(flower-heaven)// - [[[flower-heaven-hub|]]]。--]
+[!--* **[[[/system:page-tags/tag/|]]]** //(phụ-huynh-giám-sát)// - [[[parental-guidance-hub|]]]。--]
+* **[[[/system:page-tags/tag/密林より興る|密林より興る]]]** //(từ-rừng-đi-lên)// - [[[tu-rung-di-len-hub|密林より興る]]]。
+
+[[/tab]][!--VN--]
 [!--[[tab Others]]
 [[/tab]]Others--]
 [[/tabview]]
@@ -247,6 +260,7 @@
 [[tab EN]]
 +++ Taleシリーズ-EN
 
+* **[[[/system:page-tags/tag/8000匹の死んだネズミ|8000匹の死んだネズミ]]]** //(8000-dead-rats)// - [[[8000-dead-rats-hub|8000匹の死んだネズミ]]]。
 * **[[[/system:page-tags/tag/死のabc|死のabc]]]** //(abcs-of-death)// - [[[scp-anthology-hub|死のABCアンソロジー]]]。
 * **[[[/system:page-tags/tag/訓戒|訓戒]]]** //(admonition)// - [[[admonition|訓戒]]]。
 * **[[[/system:page-tags/tag/アナバシス|アナバシス]]]** //(anabasis)// - [[[anabasis-hub|アナバシス]]]。
@@ -258,7 +272,7 @@
 * **[[[/system:page-tags/tag/classical-revival|classical-revival]]]** //(classical-revival)// - [[[classicalrevivalindex|クラシカル・リバイバル]]]。
 * **[[[/system:page-tags/tag/キレイさっぱりをお約束します|キレイさっぱりをお約束します]]]** //(cleanliness-guaranteed)// - [[[cleanliness-guaranteed-hub|キレイさっぱりをお約束します*]]]。
 * **[[[/system:page-tags/tag/創造性の破壊|創造性の破壊]]]** //(creative-destruction)// - [[[creative-destruction-hub|創造性の破壊]]]。
-* **[[[/system:page-tags/tag/コレクターtale|コレクターtale]]]** //(collector-tale)// - ミスター・コレクター(参照: //mister//タグ)。
+* **[[[/system:page-tags/tag/コレクターtale|コレクターtale]]]** //(collector-tale)// - ミスター・コレクター(参照: //[[[/system:page-tags/tag/mister|mister]]]//タグ)。
 * **[[[/system:page-tags/tag/四季の円環|四季の円環]]]** //(cycle-of-seasons)// - [[[cycle-of-seasons-hub|四季の円環]]]。
 * **[[[/system:page-tags/tag/etdp|etdp]]]** //(etdp)// - [[[etdp-hub-page|そして私は神を求めた]]]。
 * **[[[/system:page-tags/tag/goc事件簿|goc事件簿]]]** //(goc-casefiles)// - [[[goc-hub-page#toc11|世界オカルト連合事件簿]]]。
@@ -266,7 +280,6 @@
 * **[[[/system:page-tags/tag/ヘカトンケイレス・サイクル|ヘカトンケイレス・サイクル]]]** //(hecatoncheires-cycle)// - [[[hecatoncheires-cycle-hub|ヘカトンケイレス・サイクル]]]。
 * **[[[/system:page-tags/tag/統合プログラム|統合プログラム]]]** //(integration-program)// - [[[integration-program-hub|統合プログラム]]]。
 * **[[[/system:page-tags/tag/kiryu-labs|kiryu-labs]]]** //(kiryu-labs)// - [[[kiryu-labs-hub|桐生研究所]]]。
-* **[[[/system:page-tags/tag/mister|mister]]]** //(mister)// - リトル・ミスターズ。
 * **[[[/system:page-tags/tag/世界に自由を|世界に自由を]]]** //(mundus-liberari)// - [[[mundus-liberari|世界に自由を]]]。
 * **[[[/system:page-tags/tag/旧敵たち|旧敵たち]]]** //(old-foes)// - [[[resurrection-old-foes-hub|リザレクション: 旧敵たち]]]。
 * **[[[/system:page-tags/tag/olympia|olympia]]]** //(olympia)// - [[[olympia-project|オリンピア・プロジェクト]]]。
@@ -324,10 +337,10 @@
 * **[[[/system:page-tags/tag/外側の賑わい|外側の賑わい]]]** - [[[out-of-scp-universe-hub|外側の賑わい]]]。
 * **[[[/system:page-tags/tag/神世継|神世継]]]** - [[[kamiyotsugi-hub|神世継]]]。
 * **[[[/system:page-tags/tag/財団アルバイター|財団アルバイター]]]** - [[[foundation-arbeiter-hub|財団アルバイター]]]。
-* **[[[/system:page-tags/tag/晴れの休みは上野巡りへ|晴れの休みは上野巡りへ]]]** - [[[ueno-tour-hub|晴れの休みは上野巡りへ]]]。
 * **[[[/system:page-tags/tag/京都呪縛戦争|京都呪縛戦争]]]** - [[[kyoto-cursing-warfare|京都呪縛戦争/毒蛇、病毒]]]。
 * **[[[/system:page-tags/tag/d-is-not-for|d-is-not-for]]]** - [[[d-is-not-for-hub|D is NOT for...]]]。
 * **[[[/system:page-tags/tag/生典|生典]]]** - [[[seiten-hub|生典]]]。
+* **[[[/system:page-tags/tag/eve-aic-tales|eve-aic-tales]]]** - [[[eve-aic|Eve.aic]]]。
 
 +++ 合作連作-JP
 
@@ -352,7 +365,7 @@
 +++ Taleシリーズ-CN
 
 * **[[[/system:page-tags/tag/becaloid|becaloid]]]** //(彼卡洛特)// - becaloid。
-[!--* **[[[/system:page-tags/tag/|]]]** //(paradise)// - --]
+* **[[[/system:page-tags/tag/paradise|paradise]]]** //(paradise)// - Paradise。
 [!--* **[[[/system:page-tags/tag/|]]]** //(舌尖)// - --]
 * **[[[/system:page-tags/tag/1111事件|1111事件]]]** //(1111事件)// - [[[1111event|1111事件]]]。
 * **[[[/system:page-tags/tag/海鷗銜鑰|海鷗銜鑰]]]** //(海鸥衔钥)// - [[[seagull-hub|海鷗銜鑰]]]。
@@ -408,6 +421,16 @@
 [[/tab]]CS--]
 [!--[[tab ZH]]
 [[/tab]]ZH--]
+[[tab VN]]
++++ Taleシリーズ-VN
+
+* **[[[/system:page-tags/tag/理想と報復|理想と報復]]]** //(lý-tưởng-và-trả-thù)// - [[[ideal-and-revenge-hub|理想と報復]]]。
+[!--* **[[[/system:page-tags/tag/|]]]** //(bảy-đại-tội)// - [[[seven-sins-hub|]]]。--]
+* **[[[/system:page-tags/tag/審判者の随筆|審判者の随筆]]]** //(phán-sự-tùy-bút)// - 審判者の随筆。
+[!--* **[[[/system:page-tags/tag/|]]]** //(tết-tưng-bừng)// - [[[tet-holiday-hub|]]]。--]
+
+
+[[/tab]][!--VN--]
 [!--[[tab Others]]
 [[/tab]]Others--]
 [[/tabview]]

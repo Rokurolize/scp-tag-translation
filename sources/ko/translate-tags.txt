@@ -1,0 +1,2891 @@
+[[tabview]]
+[[tab 개요]]
+++ 번역 태그
++++ 들어가기 전에
+이 글은 번역에 사용되는 각종 태그에 관한 안내입니다. 다른 번역 안내는 [[[translate:rules|번역 규정]]]을 참조해주세요.
+
++++ 태그 번역의 의의
+SCP 재단에서는 태그는 각 문서의 특징을 나타내는 단어이고, 또한 각 태그별로 문서를 분류할 수 있다는 장점이 있습니다. 따라서 문서에는 그에 맞는 올바른 태그가 달려야하고, 이는 [[[tag-guide|태그 안내]]]에 자세히 나와있습니다.
+
+번역된 문서 역시 각종 태그가 달리지만, 실제 태그의 사용자들은 다름아닌 그 언어로 글을 읽는 독자입니다. 따라서 태그를 번역할 때는 그 언어를 사용하는 환경에 맞추어서 적절하게 변형이 되어야합니다.
+
+이 안내는 이렇게 변형된 각 태그를 연결시키고, 보충설명하여 번역할 때 참조할 수 있기 위해 작성되었습니다.
+
++++ 번역 태그의 임시 조치
+태그의 번역에 대해 의견이 대립해 결론이 나지 않는 동안, 운영진 판단에 따라 원문 태그 그대로 사용하도록 임시 조치를 취할 수 있습니다. 임시 조치된 태그의 목록은 "임시 태그" 탭에서 확인할 수 있으며, 관련 토론은 [*http://scpko.wikidot.com/forum/t-15031457/ 이 스레드]에서 확인하십시오.
+[[/tab]]
+[[tab 번역 태그 표 - 가나다순]]
++++ 주요 태그 
+||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||
+|| 001-proposal || 001提言 ||[*/system:page-tags/tag/001-제안 001-제안]||
+||||||[*/system:page-tags/tag/cn cn]||
+||||||[*/system:page-tags/tag/cs cs]||
+||||||[*/system:page-tags/tag/de de]||
+||||||[*/system:page-tags/tag/el el]||
+||||||[*/system:page-tags/tag/en en]||
+||||||[*/system:page-tags/tag/es es]||
+||||||[*/system:page-tags/tag/fr fr]||
+||||||[*/system:page-tags/tag/id id]||
+||||||[*/system:page-tags/tag/int int]||
+||||||[*/system:page-tags/tag/it it]||
+||||||[*/system:page-tags/tag/jp jp]||
+||||||[*/system:page-tags/tag/ko ko]||
+||||||[*/system:page-tags/tag/la la]||
+||||||[*/system:page-tags/tag/pl pl]||
+||||||[*/system:page-tags/tag/pt pt]||
+||||||[*/system:page-tags/tag/ru ru]||
+||||||[*/system:page-tags/tag/scp scp]||
+||||||[*/system:page-tags/tag/th th]||
+||||||[*/system:page-tags/tag/ua ua]||
+||||||[*/system:page-tags/tag/vn vn]||
+||||||[*/system:page-tags/tag/zh zh]||
+|| contest || コンテスト ||[*/system:page-tags/tag/경연 경연]||
+|| collaboration || 合作 ||[*/system:page-tags/tag/공동작업 공동작업]||
+|| || ||[*/system:page-tags/tag/공역 공역]||
+|| co-authored || 共著 ||[*/system:page-tags/tag/공저 공저]||
+|| admin || 管理 ||[*/system:page-tags/tag/관리 관리]||
+|| component || コンポーネント ||[*/system:page-tags/tag/구성요소 구성요소]||
+|| component-backend || コンポーネント・バックエンド ||[*/system:page-tags/tag/구성요소-백엔드 구성요소-백엔드]||
+|| site || サイト ||[*/system:page-tags/tag/기지 기지]||
+|||| esoteric-class ||[*/system:page-tags/tag/난해한-등급 난해한-등급]||
+|| joke || ジョーク ||[*/system:page-tags/tag/농담 농담]||
+|| news || ニュース ||[*/system:page-tags/tag/뉴스 뉴스]||
+|| interview || インタビュー ||[*/system:page-tags/tag/면담 면담]||
+|||| neutralized ||[*/system:page-tags/tag/무효 무효]||
+|||| pending ||[*/system:page-tags/tag/보류 보류]||
+|| archived || アーカイブ済み ||[*/system:page-tags/tag/보존 보존]||
+|| supplement || 補足 ||[*/system:page-tags/tag/보충 보충]||
+|| incident || インシデント ||[*/system:page-tags/tag/사건 사건]||
+|| || 元記事削除 ||[*/system:page-tags/tag/삭제 삭제]||
+|| sandbox || サンドボックス ||[*/system:page-tags/tag/샌드박스 샌드박스]||
+|| adult || アダルト ||[*/system:page-tags/tag/성인향 성인향]||
+|| || 設定集 ||[*/system:page-tags/tag/설정집 설정집]||
+|| || 世界観 ||[*/system:page-tags/tag/세계관 세계관]||
+|| splash || 見出し ||[*/system:page-tags/tag/스플래시 스플래시]||
+|| poetry || 詩的文学 ||[*/system:page-tags/tag/시 시]||
+|| experiment || 実験 ||[*/system:page-tags/tag/실험 실험]||
+|||| archon ||[*/system:page-tags/tag/아르콘 아르콘]||
+|| artwork || アートワーク ||[*/system:page-tags/tag/아트워크 아트워크]||
+|||| apollyon ||[*/system:page-tags/tag/아폴리온 아폴리온]||
+|| guide || ガイド ||[*/system:page-tags/tag/안내 안내]||
+|||| safe ||[*/system:page-tags/tag/안전 안전]||
+|| essay || エッセイ ||[*/system:page-tags/tag/에세이 에세이]||
+|| video || 映像添付 ||[*/system:page-tags/tag/영상첨부 영상첨부]||
+|||| orientation ||[*/system:page-tags/tag/오리엔테이션 오리엔테이션]||
+|| orphaned || 孤立 ||[*/system:page-tags/tag/외톨이 외톨이]||
+|||| goi-format ||[*/system:page-tags/tag/요주의단체-서식 요주의단체-서식]||
+|||| heritage ||[*/system:page-tags/tag/유산 유산]||
+|||| euclid ||[*/system:page-tags/tag/유클리드 유클리드]||
+|| audio || 音声添付 ||[*/system:page-tags/tag/음성첨부 음성첨부]||
+|||| tale ||[*/system:page-tags/tag/이야기 이야기]||
+|| author || 著者ページ ||[*/system:page-tags/tag/작가 작가]||
+|| workbench || ワークベンチ ||[*/system:page-tags/tag/작업용 작업용]||
+|| rewrite || 改稿 ||[*/system:page-tags/tag/재작성 재작성]||
+|| in-rewrite || ||[*/system:page-tags/tag/재작성-중 재작성-중]||
+|| foundation-format || ||[*/system:page-tags/tag/재단-서식 재단-서식]||
+|| fragment || フラグメント ||[*/system:page-tags/tag/조각문서 조각문서]||
+|||| keter ||[*/system:page-tags/tag/케테르 케테르]||
+|| creepypasta || クリーピーパスタ ||[*/system:page-tags/tag/크리피파스타 크리피파스타]||
+|||| thaumiel ||[*/system:page-tags/tag/타우미엘 타우미엘]||
+|| exploration || 探査 ||[*/system:page-tags/tag/탐사 탐사]||
+|| theme ||  テーマ ||[*/system:page-tags/tag/테마 테마]||
+|||| template ||[*/system:page-tags/tag/템플릿 템플릿]||
+|||| decommissioned ||[*/system:page-tags/tag/퇴역 퇴역]||
+|| featured || 注目記事 ||[*/system:page-tags/tag/특집 특집]||
+|| forum || フォーラム ||[*/system:page-tags/tag/포럼 포럼]||
+|| project ||  プロジェクト ||[*/system:page-tags/tag/프로젝트 프로젝트]||
+|| required || 必読 ||[*/system:page-tags/tag/필수 필수]||
+|||| explained ||[*/system:page-tags/tag/해명 해명]||
+|| hub || ハブ ||[*/system:page-tags/tag/허브 허브]||
+
+
++++ 속성 태그
+||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||
+|| k-class-scenario || k-クラスシナリオ ||[*/system:page-tags/tag/k급-시나리오 k급-시나리오]||
+|| furniture || 家具 ||[*/system:page-tags/tag/가구 가구]||
+|| appliance || 家電 ||[*/system:page-tags/tag/가전 가전]||
+|| sensory || 感覚 ||[*/system:page-tags/tag/감각 감각]||
+|| empathic || 感情 ||[*/system:page-tags/tag/감정이입 감정이입]||
+|| crustacean || 甲殻類 ||[*/system:page-tags/tag/갑각류 갑각류]||
+|| compulsion || 強制力 ||[*/system:page-tags/tag/강박 강박]||
+|| canine || イヌ ||[*/system:page-tags/tag/개 개]||
+|| concept || 概念 ||[*/system:page-tags/tag/개념 개념]||
+|| arachnid || クモ ||[*/system:page-tags/tag/거미 거미]||
+|| building || 建造物 ||[*/system:page-tags/tag/건물 건물]||
+|| game || ゲーム ||[*/system:page-tags/tag/게임 게임]||
+|| archaeological || ||[*/system:page-tags/tag/고고학 고고학]||
+|| cetacean || クジラ ||[*/system:page-tags/tag/고래 고래]||
+|| feline || ネコ ||[*/system:page-tags/tag/고양이 고양이]||
+|| immobile || 移動不可能 ||[*/system:page-tags/tag/고정 고정]||
+|| insect || 昆虫 ||[*/system:page-tags/tag/곤충 곤충]||
+|| bear || クマ ||[*/system:page-tags/tag/곰 곰]||
+|| spatial || 空間 ||[*/system:page-tags/tag/공간 공간]||
+|| dinosaur || 恐竜 ||[*/system:page-tags/tag/공룡 공룡]||
+|| performance || 芸能 ||[*/system:page-tags/tag/공연 공연]||
+|| airborne || 空中 ||[*/system:page-tags/tag/공중 공중]||
+|| observational || 観測 ||[*/system:page-tags/tag/관찰 관찰]||
+|| clown || 道化師 ||[*/system:page-tags/tag/광대 광대]||
+|| exchange ||交換 ||[*/system:page-tags/tag/교환 교환]||
+|| structure || 構造 ||[*/system:page-tags/tag/구조 구조]||
+|| sphere || 球体 ||[*/system:page-tags/tag/구체 구체]||
+|| military || 軍事 ||[*/system:page-tags/tag/군사 군사]||
+|| hive-mind || 集団意識 ||[*/system:page-tags/tag/군체의식 군체의식]||
+|| shadow || 影 ||[*/system:page-tags/tag/그림자 그림자]||
+|| metallic || 金属 ||[*/system:page-tags/tag/금속 금속]||
+|| mechanical || 機械 ||[*/system:page-tags/tag/기계 기계]||
+|| meteorological || 天候 ||[*/system:page-tags/tag/기상학 기상학]||
+|| parasitic || 寄生 ||[*/system:page-tags/tag/기생성 기생성]||
+|| memory-affecting || 記憶影響 ||[*/system:page-tags/tag/기억조작 기억조작]||
+|| thaumaturgy || 奇跡術 ||[*/system:page-tags/tag/기적술 기적술]||
+|| gaseous || 気体 ||[*/system:page-tags/tag/기체 기체]||
+|| tree || 樹木 ||[*/system:page-tags/tag/나무 나무]||
+|| butterfly || チョウ ||[*/system:page-tags/tag/나비목 나비목]||
+|| ocular || 眼 ||[*/system:page-tags/tag/눈 눈]||
+|| rodent || 齧歯類 ||[*/system:page-tags/tag/다람쥐 다람쥐]||
+|| polyhedral || 多面体 ||[*/system:page-tags/tag/다면체 다면체]||
+|| moon || 月 ||[*/system:page-tags/tag/달 달]||
+|| tool || 道具 ||[*/system:page-tags/tag/도구 도구]||
+|| city || 都市 ||[*/system:page-tags/tag/도시 도시]||
+|| toxic || 毒性  ||[*/system:page-tags/tag/독성 독성]||
+|| stone || 岩石 ||[*/system:page-tags/tag/돌 돌]||
+|| animal || 動物 ||[*/system:page-tags/tag/동물 동물]||
+|| cephalopod || 頭足類 ||[*/system:page-tags/tag/두족류 두족류]||
+|| robotic || 自動装置 ||[*/system:page-tags/tag/로봇 로봇]||
+|| equine || ウマ ||[*/system:page-tags/tag/말 말]||
+|| media || 記憶媒体 ||[*/system:page-tags/tag/매체 매체]||
+|| meta || メタ ||[*/system:page-tags/tag/메타 메타]||
+|| inscription || 記述 ||[*/system:page-tags/tag/명문 명문]||
+|| mimetic || 擬態 ||[*/system:page-tags/tag/모방 모방]||
+|| weapon || 武器 ||[*/system:page-tags/tag/무기 무기]||
+|| swarm || 群れ ||[*/system:page-tags/tag/무리 무리]||
+|| invertebrate || 無脊椎動物 ||[*/system:page-tags/tag/무척추동물 무척추동물]||
+|| intangible || 非実体 ||[*/system:page-tags/tag/무형 무형]||
+|| document || 文書 ||[*/system:page-tags/tag/문서 문서]||
+|| fish || 魚類 ||[*/system:page-tags/tag/물고기 물고기]||
+|| gustatory || 味覚 ||[*/system:page-tags/tag/미각 미각]||
+|| miniature || ミニチュア ||[*/system:page-tags/tag/미니어처 미니어처]||
+|| future || 未来 ||[*/system:page-tags/tag/미래 미래]||
+|||| mister ||[*/system:page-tags/tag/미스터 미스터]||
+|| microscopic || 微視的 ||[*/system:page-tags/tag/미시적 미시적]||
+|| memetic || ミーム ||[*/system:page-tags/tag/밈적 밈적]||
+|| virus || ウイルス ||[*/system:page-tags/tag/바이러스 바이러스]||
+|| loop || ループ ||[*/system:page-tags/tag/반복성 반복성]||
+|| radioactive || 放射能 ||[*/system:page-tags/tag/방사성 방사성]||
+|| snake || ヘビ ||[*/system:page-tags/tag/뱀 뱀]||
+|| bee || ハチ ||[*/system:page-tags/tag/벌 벌]||
+|| corporate || 企業 ||[*/system:page-tags/tag/법인 법인]||
+|| legal || 法律 ||[*/system:page-tags/tag/법적 법적]||
+|| metamorphic || 変身 ||[*/system:page-tags/tag/변성 변성]||
+|| anomalous-event || ||[*/system:page-tags/tag/변칙-사건 변칙-사건]||
+|| transfiguration || 変容 ||[*/system:page-tags/tag/변형 변형]||
+|| corrosive || 腐食 ||[*/system:page-tags/tag/부식성 부식성]||
+|| fire || 炎 ||[*/system:page-tags/tag/불 불]||
+|| uncontained || 未收容 ||[*/system:page-tags/tag/비격리 비격리]||
+|| amorphous || 不定形 ||[*/system:page-tags/tag/비정형 비정형]||
+|| light || 可視光 ||[*/system:page-tags/tag/빛 빛]||
+|| skeletal || 骨格 ||[*/system:page-tags/tag/뼈 뼈]||
+|| deer || シカ ||[*/system:page-tags/tag/사슴 사슴]||
+|| photographic || 写真  ||[*/system:page-tags/tag/사진술 사진술]||
+|| cadaver || 死体 ||[*/system:page-tags/tag/사체 사체]||
+|| afterlife || 死後 ||[*/system:page-tags/tag/사후 사후]||
+|| shark || 軟骨魚類 ||[*/system:page-tags/tag/상어 상어]||
+|| interactive || インタラクティブ ||[*/system:page-tags/tag/상호작용식 상호작용식]||
+|| bird || 鳥類 ||[*/system:page-tags/tag/새 새]||
+|| alive || 生命 ||[*/system:page-tags/tag/생물 생물]||
+|| biohazard || 生物災害 ||[*/system:page-tags/tag/생물재해 생물재해]||
+|| biological || 生物学 ||[*/system:page-tags/tag/생물학 생물학]||
+|| reproductive || 生殖 ||[*/system:page-tags/tag/생식 생식]||
+|| narrative || 語り ||[*/system:page-tags/tag/서술 서술]||
+|| library || 図書館 ||[*/system:page-tags/tag/서지학 서지학]||
+|| || 船舶 ||[*/system:page-tags/tag/선박 선박]||
+|| island || 島嶼 ||[*/system:page-tags/tag/섬 섬]||
+|| sexual || 性的 ||[*/system:page-tags/tag/성적 성적]||
+|| bacteria || バクテリア ||[*/system:page-tags/tag/세균 세균]||
+|| bovine || ウシ ||[*/system:page-tags/tag/소 소]||
+|| reanimation || 蘇生 ||[*/system:page-tags/tag/소생 소생]||
+|| sleep || 睡眠||[*/system:page-tags/tag/수면 수면]||
+|| aquatic || 水中 ||[*/system:page-tags/tag/수중 수중]||
+|| mathematical || 数学 ||[*/system:page-tags/tag/수학 수학]||
+|| alcohol || ||[*/system:page-tags/tag/술 술]||
+|| teleportation || 瞬間移動 ||[*/system:page-tags/tag/순간이동 순간이동]||
+|| forest || 森林 ||[*/system:page-tags/tag/숲 숲]||
+|| sports || スポーツ ||[*/system:page-tags/tag/스포츠 스포츠]||
+|| visual || 視覚 ||[*/system:page-tags/tag/시각 시각]||
+|| temporal || 時間  ||[*/system:page-tags/tag/시간 시간]||
+|| plant || 植物 ||[*/system:page-tags/tag/식물 식물]||
+|| deity || ||[*/system:page-tags/tag/신격 신격]||
+|| neurological || 神経 ||[*/system:page-tags/tag/신경학 신경학]||
+|| extremity || 体肢 ||[*/system:page-tags/tag/신체말단 신체말단]||
+|| liquid || 液体 ||[*/system:page-tags/tag/액체 액체]||
+|| nocturnal || 夜行性  ||[*/system:page-tags/tag/야행성 야행성]||
+|| amphibian || 両生類 ||[*/system:page-tags/tag/양서류 양서류]||
+|| child || ||[*/system:page-tags/tag/어린이 어린이]||
+|| language || 言語 ||[*/system:page-tags/tag/언어 언어]||
+|| entropic || エントロピー ||[*/system:page-tags/tag/엔트로피 엔트로피]||
+|| historical || 歴史 ||[*/system:page-tags/tag/역사적 역사적]||
+|| paradox || パラドックス ||[*/system:page-tags/tag/역설적 역설적]||
+|| worm || ワーム ||[*/system:page-tags/tag/연충 연충]||
+|| thermal || 温度 ||[*/system:page-tags/tag/열 열]||
+|| thermodynamic || 熱力学 ||[*/system:page-tags/tag/열역학 열역학]||
+|| telekinetic || 念力 ||[*/system:page-tags/tag/염력 염력]||
+|| cinema || 映画 ||[*/system:page-tags/tag/영화 영화]||
+|| artistic || 芸術 ||[*/system:page-tags/tag/예술 예술]||
+|| predictive || 予知 ||[*/system:page-tags/tag/예측성 예측성]||
+|| online || オンライン ||[*/system:page-tags/tag/온라인 온라인]||
+|| extraterrestrial || 地球外 ||[*/system:page-tags/tag/외계 외계]||
+|| ectoentropic || 外部エントロピー ||[*/system:page-tags/tag/외부엔트로피 외부엔트로피]||
+|| extradimensional || 異次元 ||[*/system:page-tags/tag/외부차원 외부차원]||
+|| container || 容器 ||[*/system:page-tags/tag/용기 용기]||
+|| satelite || 衛星  ||[*/system:page-tags/tag/위성 위성]||
+|| location || 場所 ||[*/system:page-tags/tag/위치 위치]||
+|| ghost || 霊体 ||[*/system:page-tags/tag/유령 유령]||
+|| primate || サル ||[*/system:page-tags/tag/유인원 유인원]||
+|| genetic || 遺伝子 ||[*/system:page-tags/tag/유전자 유전자]||
+|| carnivorous || 肉食 ||[*/system:page-tags/tag/육식성 육식성]||
+|| food || 食物 ||[*/system:page-tags/tag/음식 음식]||
+|| musical || 音楽 ||[*/system:page-tags/tag/음악 음악]||
+|| acoustic || 音波 ||[*/system:page-tags/tag/음향 음향]||
+|| clothing || 衣類 ||[*/system:page-tags/tag/의복 의복]||
+|| ritual || 儀式 ||[*/system:page-tags/tag/의식 의식]||
+|| medical || 医療 ||[*/system:page-tags/tag/의약학 의약학]||
+|| mobile || 移動 ||[*/system:page-tags/tag/이동 이동]||
+|| humanoid || 人間型 ||[*/system:page-tags/tag/인간형 인간형]||
+|| artifact || 人工 ||[*/system:page-tags/tag/인공물 인공물]||
+|| artificial-intelligence || ||[*/system:page-tags/tag/인공지능 인공지능]||
+|| cognitohazard || 認識災害 ||[*/system:page-tags/tag/인식재해 인식재해]||
+|| self-replicating || 自己複製 ||[*/system:page-tags/tag/자가복제 자가복제]||
+|| self-repairing || 自己修復 ||[*/system:page-tags/tag/자가수복 자가수복]||
+|| magnetic ||磁力 ||[*/system:page-tags/tag/자기 자기]||
+|| autonomous || 自律 ||[*/system:page-tags/tag/자율 자율]||
+|| toy || 玩具 ||[*/system:page-tags/tag/장난감 장난감]||
+|| jewelry || 装飾品 ||[*/system:page-tags/tag/장신구 장신구]||
+|| foundation-made || 財団製 ||[*/system:page-tags/tag/재단이-만듦 재단이-만듦]||
+|| foundation-personnel || ||[*/system:page-tags/tag/재단-인원 재단-인원]||
+|| hostile || 敵対的 ||[*/system:page-tags/tag/적대적 적대적]||
+|| adaptive || 適応 ||[*/system:page-tags/tag/적응 적응]||
+|| electrical || 電気 ||[*/system:page-tags/tag/전기 전기]||
+|| transmission || 通信 ||[*/system:page-tags/tag/전송 전송]||
+|| contagion || 伝染性 ||[*/system:page-tags/tag/전염성 전염성]||
+|| electronic || 電子デバイス ||[*/system:page-tags/tag/전자 전자]||
+|| electromagnetic || 電磁気 ||[*/system:page-tags/tag/전자기 전자기]||
+|| arthropod || 節足動物 ||[*/system:page-tags/tag/절지동물 절지동물]||
+|| infohazard || 情報災害 ||[*/system:page-tags/tag/정보재해 정보재해]||
+|| mind-affecting || 精神影響 ||[*/system:page-tags/tag/정신조작 정신조작]||
+|| sculpture || 彫像 ||[*/system:page-tags/tag/조각품 조각품]||
+|| species || 種族 ||[*/system:page-tags/tag/종 종]||
+|| religious || 宗教 ||[*/system:page-tags/tag/종교 종교]||
+|| addictive || 中毒 ||[*/system:page-tags/tag/중독 중독]||
+|| gravity || 重力 ||[*/system:page-tags/tag/중력 중력]||
+|| rodent || 齧歯類 ||[*/system:page-tags/tag/쥐 쥐]||
+|| sapient || 知性 ||[*/system:page-tags/tag/지성 지성]||
+|| knowledge || 知識 ||[*/system:page-tags/tag/지식 지식]||
+|| geological || 地質 ||[*/system:page-tags/tag/지질학 지질학]||
+|| subterranean || 地下 ||[*/system:page-tags/tag/지하 지하]||
+|| fungus || 真菌類 ||[*/system:page-tags/tag/진균 진균]||
+|| vibration || 振動 ||[*/system:page-tags/tag/진동 진동]||
+|| || 鉄道 ||[*/system:page-tags/tag/철도 철도]||
+|| auditory || 聴覚 ||[*/system:page-tags/tag/청각 청각]||
+|| tactile || 触覚 ||[*/system:page-tags/tag/촉각 촉각]||
+|| dental || 歯 ||[*/system:page-tags/tag/치의학 치의학]||
+|| computer || コンピュータ ||[*/system:page-tags/tag/컴퓨터 컴퓨터]||
+|| vehicle || 乗り物 ||[*/system:page-tags/tag/탈것 탈것]||
+|| clockwork || ぜんまい仕掛け ||[*/system:page-tags/tag/태엽장치 태엽장치]||
+|| telepathic || テレパシー ||[*/system:page-tags/tag/텔레파시 텔레파시]||
+|| rabbit || ウサギ ||[*/system:page-tags/tag/토끼 토끼]||
+|| portal || ポータル ||[*/system:page-tags/tag/통로 통로]||
+|| indestructible || 破壊不可能 ||[*/system:page-tags/tag/파괴불가능 파괴불가능]||
+|| reptile || 爬虫類 ||[*/system:page-tags/tag/파충류 파충류]||
+|| predatory || 捕食 ||[*/system:page-tags/tag/포식성 포식성]||
+|| school || ||[*/system:page-tags/tag/학교 학교]||
+|| antimemetic || 反ミーム ||[*/system:page-tags/tag/항밈적 항밈적]||
+|| sun || 太陽 ||[*/system:page-tags/tag/항성 항성]||
+|| planet || 惑星 ||[*/system:page-tags/tag/행성 행성]||
+|| phenomenon || ||[*/system:page-tags/tag/현상 현상]||
+|| reality-bending || 現実改変 ||[*/system:page-tags/tag/현실조작 현실조작]||
+|| blood || 血液 ||[*/system:page-tags/tag/혈액 혈액]||
+|| currency || 貨幣 ||[*/system:page-tags/tag/화폐 화폐]||
+|| chemical || 化学 ||[*/system:page-tags/tag/화학 화학]||
+|| probability || 確率 ||[*/system:page-tags/tag/확률 확률]||
+|| hallucination || 幻覚 ||[*/system:page-tags/tag/환각 환각]||
+|| olfactory || 嗅覚 ||[*/system:page-tags/tag/후각 후각]||
+
+
++++ 요주의 단체 태그
+||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||
+||||||[*/system:page-tags/tag/05 05]||
+||||||[*/system:page-tags/tag/4-r 4-r]||
+|||| class-of-76 ||[*/system:page-tags/tag/76년도-졸업반 76년도-졸업반]||
+|| aki-corp || aki商事 ||[*/system:page-tags/tag/aki상사 aki상사]||
+||||||[*/system:page-tags/tag/are-we-cool-yet are-we-cool-yet]||
+||||||[*/system:page-tags/tag/asci asci]||
+||||||[*/system:page-tags/tag/cfo cfo]||
+|||| d-pixsea ||[*/system:page-tags/tag/d-픽시 d-픽시]||
+||||||[*/system:page-tags/tag/e&e e&e]||
+|| eco-press || eco出版社 ||[*/system:page-tags/tag/eco출판사 eco출판사]||
+|| gpexpress || gpエクスプレス ||[*/system:page-tags/tag/gp택배 gp택배]||
+|| gru-division-p || gru-p-部局 ||[*/system:page-tags/tag/gru-p-부서 gru-p-부서]||
+|| || ||[*/system:page-tags/tag/hea hea]||
+||||||[*/system:page-tags/tag/hmfscp hmfscp]||
+||||||[*/system:page-tags/tag/icsut icsut]||
+||||||[*/system:page-tags/tag/imbw imbw]||
+|| just-girly-things || ||[*/system:page-tags/tag/just-girly-things just-girly-things]||
+||||||[*/system:page-tags/tag/mm-wk mm-wk]||
+||||||[*/system:page-tags/tag/psw psw]||
+||||||[*/system:page-tags/tag/pzga pzga]||
+||||||[*/system:page-tags/tag/ting ting]||
+|| ttt-co || ttt社 ||[*/system:page-tags/tag/ttt사 ttt사]||
+||||||[*/system:page-tags/tag/www www]||
+|| || ||[*/system:page-tags/tag/가락겨루기 가락겨루기]||
+|| || 葦の輪 ||[*/system:page-tags/tag/갈대바퀴 갈대바퀴]||
+|| black-queen || 黒の女王 ||[*/system:page-tags/tag/검은-여왕 검은-여왕]||
+|| goldbaker-reinz || ゴールドベイカー・ラインツ ||[*/system:page-tags/tag/골드베이커-라인츠 골드베이커-라인츠]||
+|| the-alleys || 路地道 ||[*/system:page-tags/tag/골목길 골목길]||
+|| special-affairs-division || 公安部特事課 ||[*/system:page-tags/tag/공안부-특사과 공안부-특사과]||
+|| factory || ファクトリー ||[*/system:page-tags/tag/공장 공장]||
+|| || ||[*/system:page-tags/tag/광흥전자 광흥전자]||
+|| || 旧南関東奇譚会界隈 ||[*/system:page-tags/tag/구-남관동기담회-계외 구-남관동기담회-계외]||
+|| npes || 国家超常防災院 ||[*/system:page-tags/tag/국가초상방재원 국가초상방재원]||
+|| wandsmen || 堂守連盟 ||[*/system:page-tags/tag/권사단 권사단]||
+|| kuiyang || クイヤン派 ||[*/system:page-tags/tag/규양파 규양파]||
+|| golden-horde || 金帳汗国 ||[*/system:page-tags/tag/금장칸국 금장칸국]||
+|| technothaumaturges || テクノタウマトルゴス ||[*/system:page-tags/tag/기술기적사 기술기적사]||
+|| || ||[*/system:page-tags/tag/김서방 김서방]||
+|| dreaming-tech || 夢見テクノロジー ||[*/system:page-tags/tag/꿈결-테크놀로지 꿈결-테크놀로지]||
+|| || 夢売り ||[*/system:page-tags/tag/꿈팔이 꿈팔이]||
+|| || ||[*/system:page-tags/tag/나루건설 나루건설]||
+|| nemo-and-the-nautilus || ネモ・アンド・ノーチラス ||[*/system:page-tags/tag/노틸러스호 노틸러스호]||
+|||| caecus-c ||[*/system:page-tags/tag/눈먼-c 눈먼-c]||
+|| dinodons-hand || 赤斑蛇の手 ||[*/system:page-tags/tag/능구렁이-손 능구렁이-손]||
+|||| dado ||[*/system:page-tags/tag/다도 다도]||
+|| fifthist || 第五教会 ||[*/system:page-tags/tag/다섯째 다섯째]||
+|||| daevite ||[*/system:page-tags/tag/다에바인 다에바인]||
+|| great-green-god || 偉大なる緑の神 ||[*/system:page-tags/tag/대록신교 대록신교]||
+|| gamers-against-weed || ゲーマーズアゲインストウィード ||[*/system:page-tags/tag/대마초를-반대하는-게이머들 대마초를-반대하는-게이머들]||
+|| || ||[*/system:page-tags/tag/두레원 두레원]||
+|| || ||[*/system:page-tags/tag/두술사 두술사]||
+|| noonday-oak-troupe || 樫の木 ||[*/system:page-tags/tag/떡갈나무 떡갈나무]||
+|| liferaft || ライフラフト ||[*/system:page-tags/tag/라이프래프트 라이프래프트]||
+|| raptor-tec || ラプターテック ||[*/system:page-tags/tag/랍토르테크 랍토르테크]||
+|| magic-orchestra || 魔法楽団 ||[*/system:page-tags/tag/마법악단 마법악단]||
+|| marshall-carter-and-dark || mc&d ||[*/system:page-tags/tag/마셜-카터&다크 마셜-카터&다크]||
+|| mages-academy || 魔術師学会 ||[*/system:page-tags/tag/마술사한림원 마술사한림원]||
+|| manna-charitable-foundation || マナによる慈善財団 ||[*/system:page-tags/tag/만나-자선재단 만나-자선재단]||
+|| || マクロカオシズム ||[*/system:page-tags/tag/매크로카오시즘 매크로카오시즘]||
+|| maxwellism || マクスウェリズム ||[*/system:page-tags/tag/맥스웰교 맥스웰교]||
+|||| madao ||[*/system:page-tags/tag/메디치-한림원 메디치-한림원]||
+|| drunkness-street || 酩酊街 ||[*/system:page-tags/tag/명정가 명정가]||
+|| mu-yi || 木易 ||[*/system:page-tags/tag/목역 목역]||
+|| mujin-getsudō-shū || 無尽月導衆 ||[*/system:page-tags/tag/무진월도중 무진월도중]||
+|||| accelerate-the-future ||[*/system:page-tags/tag/미래가속 미래가속]||
+|| doctor || 博士 ||[*/system:page-tags/tag/박사 박사]||
+|||| silicon-nornir ||[*/system:page-tags/tag/반도체-노르니르 반도체-노르니르]||
+|| valravn || ヴァルラウン ||[*/system:page-tags/tag/발라븐 발라븐]||
+|| children-of-the-night || 夜闇の子ら ||[*/system:page-tags/tag/밤의-아이들 밤의-아이들]||
+|| serpents-hand || 蛇の手 ||[*/system:page-tags/tag/뱀의-손 뱀의-손]||
+|| broken-god || 壊れた神の教会 ||[*/system:page-tags/tag/부서진-신 부서진-신]||
+|| unit-negative-numbers || 負号部隊 ||[*/system:page-tags/tag/부호부대 부호부대]||
+|| vikander-kneed || ヴィキャンデル・ニード ||[*/system:page-tags/tag/비칸데르니드 비칸데르니드]||
+|| || 回らない寿司協会 ||[*/system:page-tags/tag/비회전초밥협회 비회전초밥협회]||
+|| order-of-light || リュミエール騎士団 ||[*/system:page-tags/tag/빛의-수도회 빛의-수도회]||
+|| hunters-black-lodge || ハンターの黒きロッジ ||[*/system:page-tags/tag/사냥꾼의-검은-산장 사냥꾼의-검은-산장]||
+|| sarkic || サーキック ||[*/system:page-tags/tag/사르킥 사르킥]||
+|| deer-college || ディア大学 ||[*/system:page-tags/tag/사슴대학 사슴대학]||
+|| saiga-factions || 犀賀派 ||[*/system:page-tags/tag/사이가파 사이가파]||
+|| sapphire || saphir ||[*/system:page-tags/tag/사피르 사피르]||
+|| samdaecheon || サムデチョン ||[*/system:page-tags/tag/삼대천 삼대천]||
+|| three-moons-initiative || 三ツ月イニシアチブ ||[*/system:page-tags/tag/삼중달-구상 삼중달-구상]||
+|| obearwatch || 監督真司令部 ||[*/system:page-tags/tag/상급곰시사령부 상급곰시사령부]||
+|| shark-punching-center || サメ殴りセンター ||[*/system:page-tags/tag/상어-죽빵-센터 상어-죽빵-센터]||
+|| || 西天カントリークラブ ||[*/system:page-tags/tag/서천컨트리클럽 서천컨트리클럽]||
+|| sekiryu-club || 石榴倶楽部 ||[*/system:page-tags/tag/석류구락부 석류구락부]||
+|| gendastrerie || 星警隊 ||[*/system:page-tags/tag/성경대 성경대]||
+|| christina-college || cc ||[*/system:page-tags/tag/성-크리스티나-서원 성-크리스티나-서원]||
+|| global-ocult-coalition || 世界オカルト連合 ||[*/system:page-tags/tag/세계-오컬트-연합 세계-오컬트-연합]||
+|| world-parahealth-organization || 世界超保健機関 ||[*/system:page-tags/tag/세계초상보건기구 세계초보건기구]||
+|| || 世乙加 ||[*/system:page-tags/tag/세을가 세을가]||
+|| || 晴明院 ||[*/system:page-tags/tag/세이메이원 세이메이원]||
+|| celeste || セレスト ||[*/system:page-tags/tag/셀레스트 셀레스트]||
+|| annihilism || 絶滅主義 ||[*/system:page-tags/tag/소멸주의 소멸주의]||
+|| chopinian-cult || ショパン・カルト ||[*/system:page-tags/tag/쇼팽교 쇼팽교]||
+|| hunting-club || 動植物狩猟クラブ ||[*/system:page-tags/tag/수렵동호회 수렵동호회]||
+|| || ||[*/system:page-tags/tag/수신도 수신도]||
+|| fixed-flowers || 修正花卉 ||[*/system:page-tags/tag/수정화훼 수정화훼]||
+|| shūshū-in || 蒐集院 ||[*/system:page-tags/tag/수집원 수집원]||
+|| sugarcomb-confectionery || シュガーコム製菓 ||[*/system:page-tags/tag/슈가컴-제과 슈가컴-제과]||
+|| || シュトルヒ運輸 ||[*/system:page-tags/tag/슈토르히운수 슈토르히운수]||
+|| szwagier&szwagier-motorized || ||[*/system:page-tags/tag/스파기에르&스파기에르-원동기 스파기에르&스파기에르-원동기]||
+|| chicago-spirit || シカゴ・スピリット ||[*/system:page-tags/tag/시카고-스피릿 시카고-스피릿]||
+|| gentilshommes || 貴族たち ||[*/system:page-tags/tag/신사회 신사회]||
+|| midnight-club || 深夜クラブ ||[*/system:page-tags/tag/심야클럽 심야클럽]||
+|| arcadia || アルカディア ||[*/system:page-tags/tag/아르카디아 아르카디아]||
+|| || 有村組 ||[*/system:page-tags/tag/아리무라구미 아리무라구미]||
+|| nobody || 何者でもない ||[*/system:page-tags/tag/아무도-아닌-자 아무도-아닌-자]||
+|| avelar || アベラール ||[*/system:page-tags/tag/아벨라르 아벨라르]||
+|| brothers-foodstuffs || 弟の食料品 ||[*/system:page-tags/tag/아우의-식료품 아우의-식료품]||
+|| || andersen ||[*/system:page-tags/tag/안데르센 안데르센]||
+|| antares-society || アンタレス協会 ||[*/system:page-tags/tag/안타레스-결사 안타레스-결사]||
+|| alexylva || alexylva大学 ||[*/system:page-tags/tag/알렉실바 알렉실바]||
+|| anderson || アンダーソン ||[*/system:page-tags/tag/앤더슨 앤더슨]||
+|| ambrose-restaurant || アンブローズ・レストラン ||[*/system:page-tags/tag/앰브로즈-레스토랑스 앰브로즈-레스토랑스]||
+|| || yakushi‬ ||[*/system:page-tags/tag/야쿠시 야쿠시]||
+|| dark-sushi || 闇寿司 ||[*/system:page-tags/tag/어둠의-초밥 어둠의-초밥]||
+|| beyond-entropy || エントロピーを越えて ||[*/system:page-tags/tag/엔트로피를-넘어서 엔트로피를-넘어서]||
+|| elma || エルマ外教 ||[*/system:page-tags/tag/엘마외교 엘마외교]||
+|| || 如来観光 ||[*/system:page-tags/tag/여래관광 여래관광]||
+|| || 夏鳥思想連盟 ||[*/system:page-tags/tag/여름새사상연맹 여름새사상연맹]||
+|||| british-occult-service ||[*/system:page-tags/tag/영국-오컬트국 영국-오컬트국]||
+|| team-zero || 零号専隊 ||[*/system:page-tags/tag/영호전대 영호전대]||
+|| oneiroi || オネイロイ ||[*/system:page-tags/tag/오네이로이 오네이로이]||
+|| gogyō-kessha || 五行結社 ||[*/system:page-tags/tag/오행결사 오행결사]||
+|| obskura || オブスクラ ||[*/system:page-tags/tag/옵스쿠라 옵스쿠라]||
+|| lefty || 左利き ||[*/system:page-tags/tag/왼손잡이 왼손잡이]||
+|| dr-wondertainment || ワンダーテインメント博士 ||[*/system:page-tags/tag/원더테인먼트-박사 원더테인먼트-박사]||
+|| westhead-media || ウェストヘッド・メディア ||[*/system:page-tags/tag/웨스트헤드-미디어 웨스트헤드-미디어]||
+|| univers-isle || ユニヴェルジル ||[*/system:page-tags/tag/위니베르실 위니베르실]||
+|| yj-inc || 遠己 ||[*/system:page-tags/tag/위안지 위안지]||
+|| wilsons-wildlife || ウィルソンズ・ワイルドライフ ||[*/system:page-tags/tag/윌슨-야생 윌슨-야생]||
+|||| oria ||[*/system:page-tags/tag/유물환수 유물환수]||
+|| aesthetic-of-music-sound || 音楽審美学 ||[*/system:page-tags/tag/음률미학 음률미학]||
+|| || 陰陽寮 ||[*/system:page-tags/tag/음양료 음양료]||
+|| || 医院 ||[*/system:page-tags/tag/의원 의원]||
+|| nameless || 名もなきもの ||[*/system:page-tags/tag/이름없음 이름없음]||
+|||| imaginanimal ||[*/system:page-tags/tag/이매지내니멀 이매지내니멀]||
+|| isanagi-clan || 日奉一族 ||[*/system:page-tags/tag/이사나기-일족 이사나기-일족]||
+|| || ||[*/system:page-tags/tag/이상교화국 이상교화국]||
+|| iwanaga-association || イワナガ美容組合 ||[*/system:page-tags/tag/이와나가-미용조합 이와나가-미용조합]||
+|| || 理外研 ||[*/system:page-tags/tag/이외연 이외연]||
+|||| ijamea ||[*/system:page-tags/tag/이자메아 이자메아]||
+|| abnormality-institute || 異学会 ||[*/system:page-tags/tag/이학회 이학회]||
+|| joicl || 日本生類創研 ||[*/system:page-tags/tag/일본생류창연 일본생류창연]||
+|| || ||[*/system:page-tags/tag/자줏빛-궁정 자줏빛-궁정]||
+|||| jagpato ||[*/system:page-tags/tag/작파토 작파토]||
+|| || ||[*/system:page-tags/tag/정찰총국-p국 정찰총국-p국]||
+|| || 浄土真宗本願誇負派 ||[*/system:page-tags/tag/정토진종-본원과부파 정토진종-본원과부파]||
+|| division-xxv || 第25局 ||[*/system:page-tags/tag/제25분견국 제25분견국]||
+|| second-hytoth || 第二ハイトス教会 ||[*/system:page-tags/tag/제2하이토스 제2하이토스]||
+|| || 帝国 ||[*/system:page-tags/tag/제국 제국]||
+|| the-violet || スミレ ||[*/system:page-tags/tag/제비꽃 제비꽃]||
+|| || ||[*/system:page-tags/tag/조요의-인도자 조요의-인도자]||
+|| cobweb-int || コブウェブ・インターナショナル ||[*/system:page-tags/tag/주망국제 주망국제]||
+|| kcia-10th-bu || 中情第十局 ||[*/system:page-tags/tag/중정-제10국 중정-제10국]||
+|| horizon-initiative || 境界線イニシアチブ ||[*/system:page-tags/tag/지평선-구상 지평선-구상]||
+|| aodaishō || 青大将 ||[*/system:page-tags/tag/청대장 청대장]||
+|| Chŏnghæjin || 清海鎮 ||[*/system:page-tags/tag/청해진 청해진]||
+|| || 超工家電 ||[*/system:page-tags/tag/초공가전 초공가전]||
+|| || 超電救助隊hero ||[*/system:page-tags/tag/초전구조대-히어로 초전구조대-히어로]||
+|| || 九十九機関 ||[*/system:page-tags/tag/츠쿠모기관 츠쿠모기관]||
+||  kamikase-clan|| 神枷一族 ||[*/system:page-tags/tag/카미카세-일족 카미카세-일족]||
+|| caldeira || ||[*/system:page-tags/tag/칼데라 칼데라]||
+|| koigarezaki-simbun || 恋昏崎新聞社 ||[*/system:page-tags/tag/코이가레자키신문사 코이가레자키신문사]||
+|| corpse-corpus || コウプスコウパス ||[*/system:page-tags/tag/콥스-코퍼스 콥스-코퍼스]||
+|| || 久斯動物医療センター ||[*/system:page-tags/tag/쿠스노동물의료소 쿠스노동물의료소]||
+|| kisaragi-constr || 如月工務店 ||[*/system:page-tags/tag/키사라기-공무점 키사라기-공무점]||
+|| || 蛸葦廃船 ||[*/system:page-tags/tag/타코아시폐선 타코아시폐선]||
+|| totleighsoft || トトレイソフト ||[*/system:page-tags/tag/토틀리소프트 토틀리소프트]||
+|| tou-hei || 東弊重工 ||[*/system:page-tags/tag/토헤이중공업 토헤이중공업]||
+|| cogwork-orthodoxy || 歯車仕掛正教 ||[*/system:page-tags/tag/톱니장치-정교 톱니장치-정교]||
+|| unusual-incidents-unit || 異常事件課 ||[*/system:page-tags/tag/특이사건반 특이사건반]||
+|| sai || ||[*/system:page-tags/tag/특이한림원 특이한림원]||
+|| unusual-cargo || 異常積荷委員会 ||[*/system:page-tags/tag/특이화물 특이화물]||
+|| parawatch || パラウォッチ ||[*/system:page-tags/tag/파라워치 파라워치]||
+|||| pamwac ||[*/system:page-tags/tag/파무왁 파무왁]||
+|| || ファウンデーション・コレクティブ ||[*/system:page-tags/tag/파운데이션-공동체 파운데이션-공동체]||
+|| pangea || ||[*/system:page-tags/tag/판게아 판게아]||
+|| || 判官会 ||[*/system:page-tags/tag/판관회 판관회]||
+|| pentagram || ペンタグラム ||[*/system:page-tags/tag/펜타그램 펜타그램]||
+|| || みどりのだいち ||[*/system:page-tags/tag/푸르른대지 푸르른대지]||
+|| wind-dew || 風露旅社 ||[*/system:page-tags/tag/풍로여행사 풍로여행사]||
+|| prometheus || プロメテウス ||[*/system:page-tags/tag/프로메테우스 프로메테우스]||
+|| plugsoft || プラグソフト ||[*/system:page-tags/tag/플러그소프트 플러그소프트]||
+|| || 花籠学園 ||[*/system:page-tags/tag/하나카고-학원 하나카고-학원]||
+|| xia-dynasty || 夏王朝 ||[*/system:page-tags/tag/하왕조 하왕조]||
+|| || 艦隊 ||[*/system:page-tags/tag/함대 함대]||
+|| || 艦政本部対超常課 ||[*/system:page-tags/tag/함정본부-대초상과 함정본부-대초상과]||
+|| chaos-insurgency || カオス・インサージェンシー ||[*/system:page-tags/tag/혼돈의-반란 혼돈의-반란]||
+|| || ||[*/system:page-tags/tag/홍익사 홍익사]||
+|| cicp || 幻島同盟 ||[*/system:page-tags/tag/환상섬동맹 환상섬동맹]||
+|| children-of-the-torch || 松明の子供達 ||[*/system:page-tags/tag/횃불의-아이들 횃불의-아이들]||
+|| || 懐中銃教会 ||[*/system:page-tags/tag/회중총교회 회중총교회]||
+
++++ 재단 부서 태그
+||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||
+||||||[*/system:page-tags/tag/ettra ettra]||
+|| || woi研究課 ||[*/system:page-tags/tag/woi연구과 woi연구과]||
+|| || ||[*/system:page-tags/tag/고유무기대응부 고유무기대응부]||
+|| || 対話部門 ||[*/system:page-tags/tag/대화부 대화부]||
+|| delta-t || デルタ-t ||[*/system:page-tags/tag/델타-t 델타-t]||
+|| || 巫俗部門 ||[*/system:page-tags/tag/무속학부 무속학부]||
+|| folklore-dept || 神話・民俗学部門 ||[*/system:page-tags/tag/민속학부 민속학부]||
+|| fire-suppression-dept || 火急鎮静部門 ||[*/system:page-tags/tag/방화부 방화부]||
+|| || ||[*/system:page-tags/tag/변칙예술학부 변칙예술학부]||
+|| || ||[*/system:page-tags/tag/분석심리학부 분석심리학부]||
+|| unreality-dept || 非現実部門 ||[*/system:page-tags/tag/비현실부 비현실부]||
+|| deletions-dept || 削除部門 ||[*/system:page-tags/tag/삭제부 삭제부]||
+|| three-enclosures || 三垣 ||[*/system:page-tags/tag/삼원 삼원]||
+|| spicy-crust-pizzeria || スパイシー・クラスト・ピッツェリア ||[*/system:page-tags/tag/스파이시-크러스트-피제리아 스파이시-크러스트-피제리아]||
+|| || ||[*/system:page-tags/tag/악마학과 악마학과]||
+|| ethics-committee || 倫理委員会 ||[*/system:page-tags/tag/윤리위원회 윤리위원회]||
+|| miscommunications || 誤伝達部門 ||[*/system:page-tags/tag/의사불통학부 의사불통학부]||
+|| abnormalities || 怪奇部門 ||[*/system:page-tags/tag/이상성부 이상성부]||
+|| || 一般部門 ||[*/system:page-tags/tag/일반부 일반부]||
+|| tactical-theology || 戦術神学部門 ||[*/system:page-tags/tag/전술신학부 전술신학부]||
+|| || 存在論部門 ||[*/system:page-tags/tag/존재학부 존재학부]||
+|| || ||[*/system:page-tags/tag/지속가능격리개발과 지속가능격리개발과]||
+|| || ||[*/system:page-tags/tag/차원학부 차원학부]||
+|| || ||[*/system:page-tags/tag/청록학교 청록학교]||
+|| || ||[*/system:page-tags/tag/초월적-고대-독립체-연구부 초월적-고대-독립체-연구부]||
+|| surrealistics-dept || 超現実部門 ||[*/system:page-tags/tag/초현실학부 초현실학부]||
+|| || ||[*/system:page-tags/tag/통계예언학과 통계예언학과]||
+|| telecom-office || 電気通信監視室 ||[*/system:page-tags/tag/통신모니터링실 통신모니터링실]||
+|| decommissioning-dept || 解体部門 ||[*/system:page-tags/tag/퇴역부 퇴역부]||
+|| || プリチャード学院 ||[*/system:page-tags/tag/프리처드-학원 프리처드-학원]||
+|| antimemetics-division || 反ミーム部門 ||[*/system:page-tags/tag/항밈학과 항밈학과]||
+|| || 巷説部門 ||[*/system:page-tags/tag/항설부 항설부]||
+|| || 形式部門 ||[*/system:page-tags/tag/형식부 형식부]||
+|| pataphysics-dept || 空想科学部門 ||[*/system:page-tags/tag/형이초학부 형이초학부]||
+
++++ 장소 태그
+||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||
+|| deus-ex-machina || 機械仕掛けの神 ||[*/system:page-tags/tag/데우스-엑스-마키나 데우스-엑스-마키나]||
+|| backdoor-soho || バックドア・ソーホー ||[*/system:page-tags/tag/뒷문소호 뒷문소호]||
+|| la-rue-macabre || ラ・リュー・マカーブラー ||[*/system:page-tags/tag/라-뤼-마카브르 라-뤼-마카브르]||
+|| mayim || サイト-mayim ||[*/system:page-tags/tag/마임-기지 마임-기지]||
+|| || ||[*/system:page-tags/tag/명천구 명천구]||
+|| mujin || 霧津 ||[*/system:page-tags/tag/무진 무진]||
+|| wanderers-library || 放浪者の図書館 ||[*/system:page-tags/tag/방랑자의-도서관 방랑자의-도서관]||
+|| beth || サイト-beth ||[*/system:page-tags/tag/베트-기지 베트-기지]||
+|| samiomalie || サミオマリエ ||[*/system:page-tags/tag/사미오말리에 사미오말리에]||
+|| three-portlands || スリー・ポートランド ||[*/system:page-tags/tag/스리포틀랜즈 스리포틀랜즈]||
+|| shigastan || シガスタン ||[*/system:page-tags/tag/시가스탄 시가스탄]||
+|| alagadda ||  アラガッダ ||[*/system:page-tags/tag/알라가다 알라가다]||
+|| aleph || サイト-aleph ||[*/system:page-tags/tag/알레프-기지 알레프-기지]||
+|| undervegas || アンダーベガス ||[*/system:page-tags/tag/언더베가스 언더베가스]||
+|| esterberg || エスターバーグ ||[*/system:page-tags/tag/에스테르베르크 에스테르베르크]||
+|| yod || サイト-yod ||[*/system:page-tags/tag/요드-기지 요드-기지]||
+|| eurtec || ユーテック ||[*/system:page-tags/tag/유르텍 유르텍]||
+|| noosphere || ノウアスフィア ||[*/system:page-tags/tag/정신권 정신권]||
+|| area-cn-15 || area-cn-15 ||[*/system:page-tags/tag/제cn-15구역 제cn-15구역]||
+|| || サイト-29a ||[*/system:page-tags/tag/제29a기지 제29a기지]||
+|| site-cn-34 || site-cn-34 ||[*/system:page-tags/tag/제cn-34기지 제cn-34기지]||
+|||| 7th-occult-war ||[*/system:page-tags/tag/제7차-오컬트-대전 제7차-오컬트-대전]||
+|| || サイト-81ka ||[*/system:page-tags/tag/제81ka기지 제81ka기지]||
+|| || サイト-81uo ||[*/system:page-tags/tag/제81uo기지 제81uo기지]||
+|| site-zh-22 || サイト-zh-22 ||[*/system:page-tags/tag/제zh-22기지 제zh-22기지]||
+|| site-zh-44 || サイト-zh-44 ||[*/system:page-tags/tag/제zh-44기지 제zh-44기지]||
+|| || 穴蔵 ||[*/system:page-tags/tag/주고쿠-땅굴 주고쿠-땅굴]||
+|| koigarezaki || 恋昏崎 ||[*/system:page-tags/tag/코이가레자키 코이가레자키]||
+|| kybian || サイト-kybian ||[*/system:page-tags/tag/키비안-기지 키비안-기지]||
+|| tav || サイト-tav ||[*/system:page-tags/tag/타브-기지 타브-기지]||
+|| tōno-yōkai-sanctuary || 遠野妖怪保護区 ||[*/system:page-tags/tag/토오노-요괴보호구 토오노-요괴보호구]||
+|| he || サイト-he ||[*/system:page-tags/tag/헤-기지 헤-기지]||
+|| hong-shing || 香城 ||[*/system:page-tags/tag/홍싱 홍싱]||
+|| hy-brasil || ハイ・ブラジル ||[*/system:page-tags/tag/히브라실 히브라실]||
+
++++ 이야기 & 카논 태그
+||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||
+|| || ||[*/system:page-tags/tag/04k-논스톱 04k-논스톱]||
+|| || ||[*/system:page-tags/tag/12년-작전 12년-작전]||
+|| || ||[*/system:page-tags/tag/145k-협력사 145k-협력사]||
+|||| 1998 ||[*/system:page-tags/tag/1998년 1998년]||
+||||||[*/system:page-tags/tag/aiad aiad]||
+||||||[*/system:page-tags/tag/asp asp]||
+||||||[*/system:page-tags/tag/etdp etdp]||
+||||||[*/system:page-tags/tag/eve-aic-tales eve-aic-tales]||
+|| goc-casefiles || goc事件簿 ||[*/system:page-tags/tag/goc-사건파일 goc-사건파일]||
+|| lolfoundation || たのしいざいだん ||[*/system:page-tags/tag/lol재단 lol재단]||
+|| ||||[*/system:page-tags/tag/poi-1933 poi-1933]||
+|| s&c-plastics || s&cプラスチック ||[*/system:page-tags/tag/s&c-플라스틱스 s&c-플라스틱스]||
+|| || scp漢字ドリル ||[*/system:page-tags/tag/scp-한자-드릴 scp-한자-드릴]||
+||||||[*/system:page-tags/tag/skp skp]||
+||||||[*/system:page-tags/tag/sotm sotm]||
+|| || ||[*/system:page-tags/tag/tf급-시나리오 tf급-시나리오]||
+|| || odss ||[*/system:page-tags/tag/〈odss〉 〈odss〉]||
+|| || まずしいざいだん ||[*/system:page-tags/tag/가난한-재단 가난한-재단]||
+|| man-who-wasnt-there || 存在しなかった者 ||[*/system:page-tags/tag/거기-없었던-남자 거기-없었던-남자]||
+|| black-rabbit-company || ブラックラビット社 ||[*/system:page-tags/tag/검은토끼-중대 검은토끼-중대]||
+|| dread&circuses || ドレッド&サーカス ||[*/system:page-tags/tag/겁과-서커스 겁과-서커스]||
+|| competitive-eschatology || 競り合う終末論 ||[*/system:page-tags/tag/경쟁적-종말론 경쟁적-종말론]||
+|| on-mount-golgotha || ゴルゴタの丘で ||[*/system:page-tags/tag/골고타-산정에서 골고타-산정에서]||
+|| || 共異廻歴 ||[*/system:page-tags/tag/공이회력 공이회력]||
+|| phobia-anthology || 恐怖症アンソロジー ||[*/system:page-tags/tag/공포증-앤솔로지 공포증-앤솔로지]||
+|| || 広域収容事例 ||[*/system:page-tags/tag/광역수용사례 광역수용사례]||
+|| || 筐体造り ||[*/system:page-tags/tag/광체-만들기 광체-만들기]||
+|| || 怪奇銘々伝 ||[*/system:page-tags/tag/괴기명명전 괴기명명전]||
+|| || ゲーデ・フィルム ||[*/system:page-tags/tag/괴데필름 괴데필름]||
+|| doctors-of-the-church || 教会の博士||[*/system:page-tags/tag/교단의-박사들 교단의-박사들]||
+|| only-game-in-town || 最上の事 ||[*/system:page-tags/tag/그나마-쓸만한 그나마-쓸만한]||
+|| || グレートブッシュドッグ王国 ||[*/system:page-tags/tag/그레이트-부시독-왕 그레이트-부시독-왕국]||
+|| || 極夜灯 ||[*/system:page-tags/tag/극야등 극야등]||
+|| || ||[*/system:page-tags/tag/극한 극한]||
+|| semiotics || ||[*/system:page-tags/tag/기호학 기호학]||
+|| deepwell-catalogue || 深淵目録 ||[*/system:page-tags/tag/깊은우물-카탈로그 깊은우물-카탈로그]||
+|| cack-hard || カック・ハード ||[*/system:page-tags/tag/깨액-하드 깨액-하드]||
+|| but-a-dream || ただの夢 ||[*/system:page-tags/tag/꿈일-뿐 꿈일-뿐]||
+|| evilfoundation || わるいざいだん ||[*/system:page-tags/tag/나쁜-재단 나쁜-재단]||
+|| antarctic-exchange || 南極の交流 ||[*/system:page-tags/tag/남극의-교환 남극의-교환]||
+|| || 四辻喜劇 ||[*/system:page-tags/tag/네거리-희극 네거리-희극]||
+|| nexus || ||[*/system:page-tags/tag/넥서스-연작 넥서스-연작]||
+|| green-king || 翠の王 ||[*/system:page-tags/tag/녹색왕 녹색왕]||
+|| || dārum-tracer ||[*/system:page-tags/tag/다룸-트레이서 다룸-트레이서]||
+|| || 大正150年 ||[*/system:page-tags/tag/다이쇼150년 다이쇼150년]||
+|| time-after-time-password || タイム・アフター・タイム・パスワード ||[*/system:page-tags/tag/다회용-비밀번 다회용-비밀번호]||
+|| || 大怪獣決戦テイル ||[*/system:page-tags/tag/대괴수결전 대괴수결전]||
+|| || ||[*/system:page-tags/tag/대화방-릴레이 대화방-릴레이]||
+|| || ドイツscp財団 ||[*/system:page-tags/tag/독일어권-재단 독일어권-재단]||
+|| no-return || ノー・リターン ||[*/system:page-tags/tag/돌이킬-수-없다 돌이킬-수-없다]||
+|||| animal-hospital ||[*/system:page-tags/tag/동물병원 동물병원]||
+|| twisted-pines || あのヨレハマツの林 ||[*/system:page-tags/tag/뒤틀린-솔밭 뒤틀린-솔밭]||
+|| nightfall || ナイトフォール ||[*/system:page-tags/tag/드리운-밤 드리운-밤]||
+|| || ||[*/system:page-tags/tag/땅거미가-지면 땅거미가-지면]||
+|| lampter || ランピーター  ||[*/system:page-tags/tag/램퍼터 램퍼터]||
+|||| linkage ||[*/system:page-tags/tag/링크에이지 링크에이지]||
+|||| machina ||[*/system:page-tags/tag/마키나 마키나]||
+|| || 壁を背に ||[*/system:page-tags/tag/막다른-벽 막다른-벽]||
+|| || ||[*/system:page-tags/tag/만화영화제작부 만화영화제작부]||
+|| || マンハッタン・クライシス ||[*/system:page-tags/tag/맨하탄-위기 맨하탄-위기]||
+|| || 晴れの休みは上野巡りへ ||[*/system:page-tags/tag/맑은-날-휴가에는-우에노-순회를 맑은-날-휴가에는-우에노-순회를]||
+|| memoria-adytum || 追憶のアディトゥム ||[*/system:page-tags/tag/메모리아-아뒤툼 메모리아-아뒤툼]||
+|| the-gulf || メキシコ湾 ||[*/system:page-tags/tag/멕시코만 멕시코만]||
+|| || 楽屋裏  ||[*/system:page-tags/tag/무대-뒤에서 무대-뒤에서]||
+|| untitled-series || ||[*/system:page-tags/tag/무제-연작 무제-연작]||
+|| mujin || 霧津 ||[*/system:page-tags/tag/무진기담 무진기담]||
+|| mundus-liberari || 世界に自由を ||[*/system:page-tags/tag/문두스-리베라리 문두스-리베라리]||
+|| old-man-in-the-sea || 老人との海 ||[*/system:page-tags/tag/바다의-노인 바다의-노인]||
+|| || 蛇と焚書のカルテット ||[*/system:page-tags/tag/뱀과-분서의-사중주 뱀과-분서의-사중주]||
+|||| insect-hell ||[*/system:page-tags/tag/벌레지옥 벌레지옥]||
+|| our-open-veins || ||[*/system:page-tags/tag/벌어진-핏줄 벌어진-핏줄]||
+|| bellerverse || 鐘を鳴らす者の詩 ||[*/system:page-tags/tag/벨러버스 벨러버스]||
+|||| ao-tale ||[*/system:page-tags/tag/변칙-개체-이야기 변칙-개체-이야기]||
+|| ad-astra || アド・アストラ ||[*/system:page-tags/tag/별을-향해서 별을-향해서]||
+|| ship-in-a-bottle || ボトルシップ ||[*/system:page-tags/tag/복리후생부 복리후생부]||
+|| || 剖検 ||[*/system:page-tags/tag/부검 부검]||
+|| fusōki || 扶桑紀 ||[*/system:page-tags/tag/부상기 부상기]||
+|| broken-masquerade || 壊された虚構 ||[*/system:page-tags/tag/부서진-가장무도회 부서진-가장무도회]||
+|| resurrection || リザレクション ||[*/system:page-tags/tag/부활 부활]||
+|| run-the-river-red || 大河は赤に染められる ||[*/system:page-tags/tag/붉게-물든-강 붉게-물든-강]||
+|| black-diamond-billions || ||[*/system:page-tags/tag/블랙-다이아몬드-밀리언스 블랙-다이아몬드-밀리언스]||
+|| unfounded || 財団のない世界 ||[*/system:page-tags/tag/비설립 비설립]||
+|| unhuman || 人ならぬもの ||[*/system:page-tags/tag/비인간 비인간]||
+|| || 氷我記 ||[*/system:page-tags/tag/빙아기 빙아기]||
+|| tales-of-alive || 生 ||[*/system:page-tags/tag/생 생]||
+|| || 聖杯を仰ぐ翳 ||[*/system:page-tags/tag/성배를-받드는-그늘 성배를-받드는-그늘]||
+|| world-kept-turning || 世界は廻り続けた ||[*/system:page-tags/tag/세상은-계속-돌아갔다 세상은-계속-돌아갔다]||
+|| collector-tale || コレクターtale ||[*/system:page-tags/tag/수집가-이야기 수집가-이야기]||
+|| || スシブレード ||[*/system:page-tags/tag/스시블레이드 스시블레이드]||
+|| || 信濃中央新聞 ||[*/system:page-tags/tag/시나노중앙신문 시나노중앙신문]||
+|||| simulacrum ||[*/system:page-tags/tag/시물라크룸 시물라크룸]||
+|| || 始のいろは ||[*/system:page-tags/tag/시작의-이로하 시작의-이로]||
+|| apotheosis || アポセオシス ||[*/system:page-tags/tag/신격화 신격화]||
+|| new-faces || ||[*/system:page-tags/tag/신참 신참]||
+|| || 実技試験 ||[*/system:page-tags/tag/실기시험 실기시험]||
+|| || ||[*/system:page-tags/tag/아래세상 아래세상]||
+|| || 相貌失認 ||[*/system:page-tags/tag/안면실인증 안면실인증]||
+|| || アブサンの夢 ||[*/system:page-tags/tag/압생트의-꿈 압생트의-꿈]||
+|||| eventyr ||[*/system:page-tags/tag/에번튀아 에번튀아]||
+|| aces-and-eights || 死人の手札 ||[*/system:page-tags/tag/에이스8투페어 에이스8투페어]||
+|| daybreak || 破暁 ||[*/system:page-tags/tag/여명 여명]||
+|| alchemy-department || 錬金術部門 ||[*/system:page-tags/tag/연금학부 연금학부]||
+|| old-foes || 旧敵たち ||[*/system:page-tags/tag/오래된-적들 오래된-적들]||
+|| orcadia || オルカディア ||[*/system:page-tags/tag/오르카디아 오르카디아]||
+|| || オーバーフローキャンペーン ||[*/system:page-tags/tag/오버플로우-캠페인 오버플로우-캠페인]||
+|||| olympia ||[*/system:page-tags/tag/올림피아 올림피아]||
+|| || ||[*/system:page-tags/tag/왕하십삼검 왕하십삼검]||
+|| wonderful-world || 素晴らしき世界 ||[*/system:page-tags/tag/원더풀-월드 원더풀-월드]||
+|| yggdrasil-s-surveyor || ユグドラシルの測量技師 ||[*/system:page-tags/tag/위그드라실의-측량사 위그드라실의-측량사]||
+|| || 依談 ||[*/system:page-tags/tag/의담 의담]||
+|| || 医院 ||[*/system:page-tags/tag/의원 의원]||
+|| || 二重の故郷 ||[*/system:page-tags/tag/이중의-고향 이중의-고향]||
+|| || ちいさなざいだん ||[*/system:page-tags/tag/작은-재단 작은-재단]||
+|| || 宴の後 ||[*/system:page-tags/tag/잔치는-끝나고 잔치는-끝나고]||
+|| || 雑草 ||[*/system:page-tags/tag/잡초들 잡초들]||
+|| foundation4k || 財団4k ||[*/system:page-tags/tag/재단4k 재단4k]||
+|| || 財団探偵 ||[*/system:page-tags/tag/재단탐정 재단탐정]||
+|| war-on-all-fronts || 全ての戦線で戦え ||[*/system:page-tags/tag/전면전쟁 전면전쟁]||
+|| from-120s-archives || 120の記録書庫より ||[*/system:page-tags/tag/제120기지-보존기록관 제120기지-보존기록관]||
+|| cool-war-2 || クールな戦争2 ||[*/system:page-tags/tag/제2차-쿨전 제2차-쿨전]||
+|| third-law || 第三法則 ||[*/system:page-tags/tag/제3법칙 제3법칙]||
+|| || i-57 ||[*/system:page-tags/tag/제57시설 제57시설]||
+|| || 朝鮮 ||[*/system:page-tags/tag/조선 조선]||
+|| abcs-of-death || 死のabc ||[*/system:page-tags/tag/죽음의-abc 죽음의-abc]||
+|| end-of-death || 死の終焉 ||[*/system:page-tags/tag/죽음의-끝 죽음의-끝]||
+|| rats-nest || ラッツネスト ||[*/system:page-tags/tag/쥐구멍 쥐구멍]||
+|||| on-guard-43 ||[*/system:page-tags/tag/지키리라-43기지 지키리라-43기지]||
+|| harbinger || ハービンジャー ||[*/system:page-tags/tag/징조 징조]||
+|| || 青鈍色の空 ||[*/system:page-tags/tag/청둔색-하늘 청둔색-하늘]||
+|| || アノマリンピック ||[*/system:page-tags/tag/초상올림픽 초상올림픽]||
+|| the-coldest-war || 極寒の戦争 ||[*/system:page-tags/tag/최악의-냉전 최악의-냉전]||
+|||| pitch-haven ||[*/system:page-tags/tag/칠흑의-안식처 칠흑의-안식처]||
+|| ksg ||  港城江 ||[*/system:page-tags/tag/콩싱공 콩싱공]||
+|||| project-crossover ||[*/system:page-tags/tag/크로스오버 크로스오버]||
+|||| kiryu-labs ||[*/system:page-tags/tag/키류-연구실 키류-연구실]||
+|| || thanatomania ||[*/system:page-tags/tag/타나토마니아 타나토마니아]||
+|| || ||[*/system:page-tags/tag/타로-이야기 타로-이야기]||
+|| || タタールの軛 ||[*/system:page-tags/tag/타타르의-멍에 타타르의-멍에]||
+|| || ||[*/system:page-tags/tag/토마토 토마토]||
+|| integration-program  || 統合プログラム ||[*/system:page-tags/tag/통합-프로그램 통합-프로그램]||
+|| the-trashfire || トラッシュファイア ||[*/system:page-tags/tag/트래쉬파이어 트래쉬파이어]||
+|| || ||[*/system:page-tags/tag/팀-글래시즈 팀-글래시즈]||
+|||| team-bird ||[*/system:page-tags/tag/팀-버드 팀-버드]||
+|| parawatch-true-crime || ||[*/system:page-tags/tag/파라워치-범죄실록 파라워치-범죄실록]||
+|| || ||[*/system:page-tags/tag/파운데이션-스토리 파운데이션-스토리]||
+|| || ||[*/system:page-tags/tag/포-올-러브 포-올-러브]||
+|||| project-thaumiel ||[*/system:page-tags/tag/프로젝트-타우미엘 프로젝트-타우미엘]||
+|| whore-of-blood || 血の娼婦 ||[*/system:page-tags/tag/피의-탕녀 피의-탕녀]||
+|| heimdall || ヘイムダル ||[*/system:page-tags/tag/헤임달 헤임달]||
+|| admonition || 訓戒 ||[*/system:page-tags/tag/훈계 훈계]||
+|| fading-stars ||  ||[*/system:page-tags/tag/희미해져-가는-별들 희미해져-가는-별들]||
+
++++ 등장인물 태그
+||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||
+|| 8-ball || 8-ボール ||[*/system:page-tags/tag/8번-공 8번-공]||
+|| a.d. || ad渉外長 ||[*/system:page-tags/tag/a.d. a.d.]||
+|| professor-aw || aw教授 ||[*/system:page-tags/tag/aw-교수 aw-교수]||
+||||||[*/system:page-tags/tag/d-11424 d-11424]||
+|| ||||[*/system:page-tags/tag/d-2930 d-2930]||
+||||||[*/system:page-tags/tag/d-7294 d-7294]||
+|| dc-al-fine || d.c.アルフィーネ ||[*/system:page-tags/tag/dc-알-피네 dc-알-피네]||
+||||||[*/system:page-tags/tag/hogslice hogslice]||
+|| researcher-l.what || ||[*/system:page-tags/tag/l.왓-연구원 l.왓-연구원]||
+|| ||||[*/system:page-tags/tag/scp-014-jp-j scp-014-jp-j]||
+|| ||||[*/system:page-tags/tag/scp-1134-jp scp-1134-jp-j]||
+|| ||||[*/system:page-tags/tag/scp-2050-jp-a scp-2050-jp-a]||
+|| ||||[*/system:page-tags/tag/scp-210-jp scp-210-jp]||
+|| ||||[*/system:page-tags/tag/scp-964-jp scp-964-jp]||
+|| tickle-monster || くすぐりオバケ ||[*/system:page-tags/tag/간지럼-괴물 간지럼-괴물]||
+|| || ||[*/system:page-tags/tag/강윤상-이사관 강윤상-이사관]||
+|| doctor-gat || ガット博士 ||[*/system:page-tags/tag/갯-박사 갯-박사]||
+|| big-cheese-horace || ビッグチーズ・ホレス ||[*/system:page-tags/tag/거물-호러스 거물-호러스]||
+|| || ねこです ||[*/system:page-tags/tag/고양이입니다 고양이입니다]||
+|| the-administrator || 管理者 ||[*/system:page-tags/tag/관리자 관리자]||
+|| bobble-the-clown || ピエロのボブル ||[*/system:page-tags/tag/광대-보블 광대-보블]||
+|| grabnok || グラブノック ||[*/system:page-tags/tag/그래브녹 그래브녹]||
+|| agent-green || エージェント・グリーン ||[*/system:page-tags/tag/그린-요원 그린-요원]||
+|| || ||[*/system:page-tags/tag/그림-박사 그림-박사]||
+|| glacon || グラソン ||[*/system:page-tags/tag/글라송 글라송]||
+|| doctor-glass || グラス博士 ||[*/system:page-tags/tag/글라스-박사 글라스-박사]||
+|| doctor-gears || ギアーズ博士 ||[*/system:page-tags/tag/기어스-박사 기어스-박사]||
+|| director-gillespie || ガレスピー管理官 ||[*/system:page-tags/tag/길레스피-이사관 길레스피-이사관]||
+|| || ||[*/system:page-tags/tag/김철현 김철현]||
+|| || ||[*/system:page-tags/tag/나데시코-연구원 나데시코-연구원]||
+|| nadox || ナドックス ||[*/system:page-tags/tag/나독스 나독스]||
+|| agent-navarro || エージェント・ナヴァッロ ||[*/system:page-tags/tag/나바로-요원 나바로-요원]||
+|| || エージェント・那澤なごむ ||[*/system:page-tags/tag/나자와-나고무-요원 나자와-나고무-요원]||
+|| || 難波謙司 ||[*/system:page-tags/tag/난바-켄지 난바-켄지]||
+|| || ||[*/system:page-tags/tag/네렘사-요원 네렘사-요원]||
+|| || ||[*/system:page-tags/tag/노래마인-관리이사관 노래마인-관리이사관]||
+|| || ||[*/system:page-tags/tag/뇌수종-박사 뇌수종-박사]||
+|| || ||[*/system:page-tags/tag/누리 누리]||
+|| nue-saigū || 鵺-斎宮 ||[*/system:page-tags/tag/누에-재궁 누에-재궁]||
+|| the-old-man || オールドマン ||[*/system:page-tags/tag/늙은이 늙은이]||
+|| || ドクター・トラヤー ||[*/system:page-tags/tag/닥터-토라야 닥터-토라야]||
+|| moon-champion || ムーン・チャンピオン ||[*/system:page-tags/tag/달의-대전사 달의-대전사]||
+|| doctor-dan || ダン博士 ||[*/system:page-tags/tag/댄-박사 댄-박사]||
+|| doctor-thereven || セレヴン博士 ||[*/system:page-tags/tag/데레븐-박사 데레븐-박사]||
+|| || 道策管理官 ||[*/system:page-tags/tag/도사쿠-이사관 도사쿠-이사관]||
+|| the-serpent || the-serpent ||[*/system:page-tags/tag/도서관의-뱀 도서관의-뱀]||
+|| draven-kondraki || ドレイヴン・コンドラキ ||[*/system:page-tags/tag/드레이븐-콘드라키 드레이븐-콘드라키]||
+|| brainy-brian || ブレイニー・ブライアン ||[*/system:page-tags/tag/똑똑이-브라이언 똑똑이-브라이언]||
+|||| researcher-labelle ||[*/system:page-tags/tag/라벨-연구원 라벨-연구원]||
+|| doctor-rights || ライツ博士 ||[*/system:page-tags/tag/라이츠-박사 라이츠-박사]||
+|| doctor-light || ライト博士 ||[*/system:page-tags/tag/라이트-박사 라이트-박사]||
+|| agent-laferrier || エージェント・ラフェリエール ||[*/system:page-tags/tag/라페리에-요원 라페리에-요원]||
+|| doctor-reynders || レインデルス博士 ||[*/system:page-tags/tag/랭데르스-박사 랭데르스-박사]||
+|| agent-lament || エージェント・ラメント ||[*/system:page-tags/tag/러멘트-요원 러멘트-요원]||
+|| agent-lurk || エージェント・ラーク ||[*/system:page-tags/tag/러크-요원 러크-요원]||
+|| leslie || レスリー ||[*/system:page-tags/tag/레슬리 레슬리]||
+|| director-lague || ラグー管理官 ||[*/system:page-tags/tag/레이그-이사관 레이그-이사관]||
+|| rainer-miller || ライナー・ミラー ||[*/system:page-tags/tag/레이너-밀러 레이너-밀러]||
+|| robert-bumaro || ロバート・ブマロ ||[*/system:page-tags/tag/로버트-부마로 로버트-부마로]||
+|| researcher-lloyd || ロイド研究員||[*/system:page-tags/tag/로이드-연구원 로이드-연구원]||
+|| doctor-roget || ロジェ博士 ||[*/system:page-tags/tag/로제-박사 로제-박사]||
+|| researcher-rosen || ローゼン研究員 ||[*/system:page-tags/tag/로젠-연구원 로젠-연구원]||
+|| lombardi || ロンバルディ ||[*/system:page-tags/tag/롬바르디 롬바르디]||
+|| ruiz-duchamp || ルイス・デュシャン ||[*/system:page-tags/tag/루이즈-뒤샹 루이즈-뒤샹]||
+|| ruprecht-carter || ruprecht-carter ||[*/system:page-tags/tag/루프레히트-카터 루프레히트-카터]||
+|| lewitt-zairi-family || ルウィット・ザイリ・ファミリー ||[*/system:page-tags/tag/르위트-자이리가 르위트-자이리가]||
+|| doctor-rivera || リベラ博士 ||[*/system:page-tags/tag/리베라-박사 리베라-박사]||
+|| riven-mercer || リーヴィン・マーサー ||[*/system:page-tags/tag/리븐-머서 리븐-머서]||
+|| richard-chappell || リチャード・チャペル ||[*/system:page-tags/tag/리처드-채플 리처드-채플]||
+|| doctor-lillihammer || リリハンメル博士 ||[*/system:page-tags/tag/릴리함메르-박사 릴리함메르-박사]||
+|| || エージェント・斑座 ||[*/system:page-tags/tag/마다라자-요원 마다라자-요원]||
+|| mari-macphaerson || マリ・マクファーソン ||[*/system:page-tags/tag/마리-맥퍼슨 마리-맥퍼슨]||
+|| maria-jones || マリア・ジョーンズ ||[*/system:page-tags/tag/마리아-존스 마리아-존스]||
+|| mark-kiryu || マーク・桐生 ||[*/system:page-tags/tag/마크-키류 마크-키류]||
+|| doctor-mann || マン博士 ||[*/system:page-tags/tag/만-박사 만-박사]||
+|| manny || マニー ||[*/system:page-tags/tag/매니 매니]||
+|| marion-wheeler || マリオン・ホイーラー ||[*/system:page-tags/tag/매리언-휠러 매리언-휠러]||
+|| director-mcinnis || マッキンス管理官 ||[*/system:page-tags/tag/맥기니스-이사관 맥기니스-이사관]||
+|| doctor-mcdoctorate || マクドクトラート博士 ||[*/system:page-tags/tag/맥닥터러트-박사 맥닥터러트-박사]||
+|| || マックス ||[*/system:page-tags/tag/맥스 맥스]||
+|| director-mctiriss || マックティリス管理官 ||[*/system:page-tags/tag/맥티리스-이사관 맥티리스-이사관]||
+|| murphy-law || マーフィー・ロゥ ||[*/system:page-tags/tag/머피-로 머피-로]||
+|| agent-merlo || エージェント・メルロ ||[*/system:page-tags/tag/멀로-요원 멀로-요원]||
+|| hanged-king || 吊られた王 ||[*/system:page-tags/tag/목매달린-왕 목매달린-왕]||
+|| director-moose || ムース管理官 ||[*/system:page-tags/tag/무스-이사관 무스-이사관]||
+|| mr-fish || ミスター・おさかな ||[*/system:page-tags/tag/물고기-씨 물고기-씨]||
+|| midnight-the-cat || ミッドナイト ||[*/system:page-tags/tag/미드나이트 미드나이트]||
+|| || ||[*/system:page-tags/tag/박예지-요원 박예지-요원]||
+|| || ||[*/system:page-tags/tag/배일호-박사 배일호-박사]||
+|| || ||[*/system:page-tags/tag/백연서-연구원 백연서-연구원]||
+|| dr-vang || ヴァン博士 ||[*/system:page-tags/tag/뱅-박사 뱅-박사]||
+|| veronica-fitzroy || ベロニカ・フィッツロイ ||[*/system:page-tags/tag/베로니카-피츠로이 베로니카-피츠로이]||
+|| bailey-brothers || ベイリー三兄弟 ||[*/system:page-tags/tag/베일리-형제 베일리-형제]||
+|| general-bowe || バウ将軍 ||[*/system:page-tags/tag/보위-장군 보위-장군]||
+|| director-bohart || ボハート管理官 ||[*/system:page-tags/tag/보하트-이사관 보하트-이사관]||
+|||| bones ||[*/system:page-tags/tag/본즈 본즈]||
+|| director-bold || ボールド管理官 ||[*/system:page-tags/tag/볼드-이사관 볼드-이사관]||
+|| shy-guy || シャイガイ ||[*/system:page-tags/tag/부끄럼쟁이 부끄럼쟁이]||
+|| doctor-bright || ブライト博士 ||[*/system:page-tags/tag/브라이트-박사 브라이트-박사]||
+|||| blackwood ||[*/system:page-tags/tag/블랙우드 블랙우드]||
+|| doctor-blank || ブランク博士 ||[*/system:page-tags/tag/블랭크-박사 블랭크-박사]||
+|||| professor-bjornsen ||[*/system:page-tags/tag/비욘센-교수 비욘센-교수]||
+|| vincent-anderson || ヴィンセント・アンダーソン ||[*/system:page-tags/tag/빈센트-앤더슨 빈센트-앤더슨]||
+|| possessive-mask || 取り憑くマスク ||[*/system:page-tags/tag/빙의-가면 빙의-가면]||
+|| saarn || サアルン ||[*/system:page-tags/tag/사아른 사아른]||
+|| || 西行 ||[*/system:page-tags/tag/사이교 사이교]||
+|| || エージェント・西塔 ||[*/system:page-tags/tag/사이토-요원 사이토-요원]||
+|| cousin-johnny || 従兄弟のジョニー ||[*/system:page-tags/tag/사촌-조니 사촌-조니]||
+|| doctor-surge || ||[*/system:page-tags/tag/서지-박사 서지-박사]||
+|| saint-hedwig || 聖ヘドウィグ ||[*/system:page-tags/tag/성-헤트비히 성-헤트비히]||
+|| angle-grinders || 角度研削者 ||[*/system:page-tags/tag/세타-90-각마기 세타-90-각마기]||
+|| sheldon-katz || シェルドン・カッツ ||[*/system:page-tags/tag/셸든-카츠 셸든-카츠]||
+|| doctor-sorts || ソーツ博士 ||[*/system:page-tags/tag/소츠-박사 소츠-박사]||
+|| doctor-shaw || ||[*/system:page-tags/tag/쇼-박사 쇼-박사]||
+|| || 川獺丸従業員 ||[*/system:page-tags/tag/수달마루-종업원 수달마루-종업원]||
+|| || 隠し包丁のスニーク ||[*/system:page-tags/tag/숨은식칼의-스니크 숨은식칼의-스니크]||
+|| researcher-smalls || スモールズ研究員 ||[*/system:page-tags/tag/스몰스-연구원 스몰스-연구원]||
+|| || 角宇野記録官 ||[*/system:page-tags/tag/스미우노-기록관 스미우노-기록관]||
+|| || ||[*/system:page-tags/tag/스완-요원 스완-요원]||
+|| director-scout || スカウト管理官 ||[*/system:page-tags/tag/스카우트-이사관 스카우트-이사관]||
+|| doctor-scranton || スクラントン博士 ||[*/system:page-tags/tag/스크랜턴-박사 스크랜턴-박사]||
+|| agent-strelnikov || エージェント・ストレルニコフ ||[*/system:page-tags/tag/스트렐니코프-요원 스트렐니코프-요원]||
+|| doctor-spanko || ドクター・スパンコ ||[*/system:page-tags/tag/스팽코-박사 스팽코-박사]||
+|||| the-specter ||[*/system:page-tags/tag/스펙터 스펙터]||
+|| sigurross || シガーロス ||[*/system:page-tags/tag/시귀로스 시귀로스]||
+|| || 白子博士 ||[*/system:page-tags/tag/시라코-박사 시라코-박사]||
+|| doctor-cimmerian || シメリアン博士 ||[*/system:page-tags/tag/시메리안-박사 시메리안-박사]||
+|| simon-pietrykau || サイモン・ピエトリカウ ||[*/system:page-tags/tag/시몬-피에트리카우 시몬-피에트리카우]||
+|| || 出刃包丁のウィーク ||[*/system:page-tags/tag/식칼의-위크 식칼의-위크]||
+|| || ||[*/system:page-tags/tag/심시영-연구원 심시영-연구원]||
+|| doctor-sinclair || シンクレア博士 ||[*/system:page-tags/tag/싱클레어-박사 싱클레어-박사]||
+|||| aaron-siegel ||[*/system:page-tags/tag/아론-시걸 아론-시걸]||
+|| able || アベル ||[*/system:page-tags/tag/아벨 아벨]||
+|| || エージェント・蒼井 ||[*/system:page-tags/tag/아오이-요원 아오이-요원]||
+|| iris-dark || アイリス・ダーク ||[*/system:page-tags/tag/아이리스-다크 아이리스-다크]||
+|| iris-thompson || アイリス・トンプソン ||[*/system:page-tags/tag/아이리스-톰슨 아이리스-톰슨]||
+|| doctor-iceberg || アイスバーグ博士 ||[*/system:page-tags/tag/아이스버그-박사 아이스버그-박사]||
+|| || アヒージョ ||[*/system:page-tags/tag/아히요 아히요]||
+|| director-aktus || アクタス管理官 ||[*/system:page-tags/tag/악투스-이사관 악투스-이사관]||
+|| aldon || アルドン ||[*/system:page-tags/tag/알돈 알돈]||
+|| alexandra || アレクサンドラ ||[*/system:page-tags/tag/알렉산드라 알렉산드라]||
+|| alexei-belitrov || アレクセイ・ベリトロフ ||[*/system:page-tags/tag/알렉세이-벨리트로프 알렉세이-벨리트로프]||
+|| alex-thorley || アレックス・ソーリー ||[*/system:page-tags/tag/알렉스-톨리 알렉스-톨리]||
+|| last-hope || 残された希望 ||[*/system:page-tags/tag/알파-9-최후-희망 알파-9-최후-희망]||
+|| yaldabaoth || ||[*/system:page-tags/tag/얄다바오트 얄다바오트]||
+|| agent-adams || エージェント・アダムス ||[*/system:page-tags/tag/애덤스-요원 애덤스-요원]||
+|| doctor-asheworth || アシュワース博士 ||[*/system:page-tags/tag/애시워스-박사 애시워스-박사]||
+|| || 闇親方 ||[*/system:page-tags/tag/어둠-어르신 어둠-어르신]||
+|| doctor-edison || エジソン博士 ||[*/system:page-tags/tag/에디슨-박사 에디슨-박사]||
+|| eric || エリック ||[*/system:page-tags/tag/에릭 에릭]||
+|| doctor-everwood || エバーウッド博士 ||[*/system:page-tags/tag/에버우드-박사 에버우드-박사]||
+|| esther-kogan || エスター・コーガン ||[*/system:page-tags/tag/에스더-코간 에스더-코간]||
+|| captain-adrian || キャプテン・エイドリアン ||[*/system:page-tags/tag/에이드리언-대령 에이드리언-대령]||
+|| the-engineer || エンジニア ||[*/system:page-tags/tag/엔지니어 엔지니어]||
+|| doctor-elliott || エリオット博士 ||[*/system:page-tags/tag/엘리엇-박사 엘리엇-박사]||
+|| doctor-elstrom || エルストロム博士 ||[*/system:page-tags/tag/엘스트롬-박사 엘스트-박사]||
+|| odongo-tejani || オドンゴ・テジャニ ||[*/system:page-tags/tag/오돈고-테하니 오돈고-테하니]||
+|| old-ai || オールドai ||[*/system:page-tags/tag/오래된-인공지능 오래된-인공지능]||
+|| || 御蓮寺恋治 ||[*/system:page-tags/tag/오렌지-렌지 오렌지-렌지]||
+|| orok || オロク ||[*/system:page-tags/tag/오로크 오로크]||
+|| doctor-oowa || 大和博士 ||[*/system:page-tags/tag/오오와-박사 오오와-박사]||
+|| agent-yoric || エージェント・ヨリック ||[*/system:page-tags/tag/요릭-요원 요릭-요원]||
+|||| yossarian-leiner || [*/system:page-tags/tag/요사리안-라이너 요사리안-라이너] ||
+|| || 宇喜田博士 ||[*/system:page-tags/tag/우키타-박사 우키타-박사]||
+|| || エージェント・海野 ||[*/system:page-tags/tag/운노-요원 운노-요원]||
+|| || ウェイター ||[*/system:page-tags/tag/웨이터 웨이터]||
+|| doctor-wettle || ウェトル博士 ||[*/system:page-tags/tag/웨틀-박사 웨틀-박사]||
+|| grand-karcist-ion || 崇高なるカルキスト・イオン ||[*/system:page-tags/tag/위대한-카르시스트-이온 위대한-카르시스트-이온]||
+|| || ||[*/system:page-tags/tag/윤성재 윤성재]||
+|| doctor-ngo || ||[*/system:page-tags/tag/응오-박사 응오-박사]||
+|| || ||[*/system:page-tags/tag/이강수-이사관 이강수-이사관]||
+|| chief-ibanez || イバニェス主任 ||[*/system:page-tags/tag/이바네즈-계장 이바네즈-계장]||
+|| || エージェント・イヴァノフ ||[*/system:page-tags/tag/이바노프-요원 이바노프-요원]||
+|| || 日奉茜 ||[*/system:page-tags/tag/이사나기-아카네 이사나기-아카네]||
+|| || 日奉薮 ||[*/system:page-tags/tag/이사나기-야부 이사나기-야부]||
+|| isabel-v || イザベル五世 ||[*/system:page-tags/tag/이사벨-5세 이사벨-5세]||
+|| || エージェント・育良 ||[*/system:page-tags/tag/이쿠라-요원 이쿠라-요원]||
+|| icky || イッキィ ||[*/system:page-tags/tag/이키 이키]||
+|| || 凍霧陽 ||[*/system:page-tags/tag/이테기리-요우 이테기리-요우]||
+|| || ||[*/system:page-tags/tag/임찬미-박사 임찬미-박사]||
+|| django-bridge || ジャンゴ・ブリッジ博士 ||[*/system:page-tags/tag/장고-브리지 장고-브리지]||
+|| doctor-gerald || ジェラルド博士 ||[*/system:page-tags/tag/제럴드-박사 제럴드-박사]||
+|| || ||[*/system:page-tags/tag/제미니-박사 제미니-박사]||
+|| researcher-james || ジェームズ研究員 ||[*/system:page-tags/tag/제임스-연구원 제임스-연구원]||
+|| james-harkness || ジェームス・ハークネス ||[*/system:page-tags/tag/제임스-하크니스 제임스-하크니스]||
+|| geoffrey-quincy-harrison || ジェフリー・クインシー・ハリソン ||[*/system:page-tags/tag/제프리-퀸시-해리슨 제프리-퀸시-해리슨]||
+|| the-sculpture || scp-173 ||[*/system:page-tags/tag/조각상 조각상]||
+|| jude-kriyot || ジュード・クライヨット ||[*/system:page-tags/tag/주드-크리요트 주드-크리요트]||
+|| judy-papill || ジュディ・パピル ||[*/system:page-tags/tag/주디-파필 주디-파필]||
+|| judith-low || ジュディス・ロゥ博士 ||[*/system:page-tags/tag/주디스-로우 주디스-로우]||
+|||| scarlet-king ||[*/system:page-tags/tag/주홍왕 주홍왕]||
+|||| brothers-of-death ||[*/system:page-tags/tag/죽음-형제들 죽음-형제들]||
+|| hard-to-kill-reptile || 不死身の爬虫類 ||[*/system:page-tags/tag/죽일-수-없는-파충류 죽일-수-없는-파충류]||
+|| || ||[*/system:page-tags/tag/즈소-연구원 즈소-연구원]||
+|| zyn-kiryu || ジン・桐生 ||[*/system:page-tags/tag/진-키류 진-키류]||
+|| chaz-ambrose || チャズ・アンブローズ ||[*/system:page-tags/tag/채즈-앰브로즈 채즈-앰브로즈]||
+|| || 寿司の意思 ||[*/system:page-tags/tag/초밥의-의지 초밥의-의지]||
+|| || ||[*/system:page-tags/tag/최신해 최신해]||
+|| alleged-god || scp-343 ||[*/system:page-tags/tag/추정상-신 추정상-신]||
+|| || 土橋博士 ||[*/system:page-tags/tag/츠치하시-박사 츠치하시-박사]||
+|||| kindness ||[*/system:page-tags/tag/친절 친절]||
+|| || karkaroff ||[*/system:page-tags/tag/카르카로프 카르카로프]||
+|| || 神恵研究員 ||[*/system:page-tags/tag/카모에-연구원 카모에-연구원]||
+|| doctor-kamiyama || 神山博士 ||[*/system:page-tags/tag/카미야마-박사 카미야마-박사]||
+|| || 茅野博士 ||[*/system:page-tags/tag/카야노-박사 카야노-박사]||
+|| || カイ ||[*/system:page-tags/tag/카이 카이]||
+|| cain || カイン ||[*/system:page-tags/tag/카인 카인]||
+|| agent-kazmarek || エージェント・カズマレク ||[*/system:page-tags/tag/카즈마레크-요원 카즈마레크-요원]||
+|| kain-pathos-crow || ケイン・パトス・クロウ ||[*/system:page-tags/tag/케인-파토스-크로우 케인-파토스-크로우]||
+|| || 咬冴隊員 ||[*/system:page-tags/tag/코우가-대원 코우가-대원]||
+|| doctor-kondraki || コンドラキ博士 ||[*/system:page-tags/tag/콘드라키-박사 콘드라키-박사]||
+|| researcher-conwell || コーンウェル研究員  ||[*/system:page-tags/tag/콘웰-연구원 콘웰-연구원]||
+|| || 久能尚史 ||[*/system:page-tags/tag/쿠노-히사시 쿠노-히사시]||
+|| agent-kurusu || エージェント・来栖 ||[*/system:page-tags/tag/쿠루스-요원 쿠루스-요원]||
+|| || 桑名博士 ||[*/system:page-tags/tag/쿠와나-박사 쿠와나-박사]||
+|| || ||[*/system:page-tags/tag/클라라-박사 클라라-박사]||
+|| doctor-clef || クレフ博士 ||[*/system:page-tags/tag/클레프-박사 클레프-박사]||
+|| doctor-king || キング博士 ||[*/system:page-tags/tag/킹-박사 킹-박사]||
+|| thad-xyank || シャンク博士 ||[*/system:page-tags/tag/타데우스-크샹크 타데우스-크샹크]||
+|| samsara || サムサラ ||[*/system:page-tags/tag/타우-5-윤회 타우-5-윤회]||
+|| || タカオ ||[*/system:page-tags/tag/타카오 타카오]||
+|| researcher-talloran || タローラン研究員||[*/system:page-tags/tag/탈로란-연구원 탈로란-연구원]||
+|| sauelsuesor || サウエルスエソル ||[*/system:page-tags/tag/태양의-자매 태양의-자매]||
+|| || エージェント・戸神 ||[*/system:page-tags/tag/토가미-요원 토가미-요원]||
+|||| saturn-deer ||[*/system:page-tags/tag/토성사슴 토성사슴]||
+|| agent-trauss || エージェント・トラウス ||[*/system:page-tags/tag/트라우스-요원 트라우스-요원]||
+|| legate-trunnion || レガーテ・トラニオン ||[*/system:page-tags/tag/트루니언-특사 트루니언-특사]||
+|| tim-wilson || ティム・ウィルソン ||[*/system:page-tags/tag/팀-윌슨 팀-윌슨]||
+|| pangloss || パングロス ||[*/system:page-tags/tag/팡글로스 팡글로스]||
+|||| pattern-screamer ||[*/system:page-tags/tag/패턴-스크리머 패턴-스크리머]||
+|| percival-darke || ||[*/system:page-tags/tag/퍼시발-다크 퍼시발-다크]||
+|| faeowynn-wilson || フェオウィン・ウィルソン ||[*/system:page-tags/tag/페오윈-윌슨 페오윈-윌슨]||
+|| agent-popescu || エージェント・ポペスク ||[*/system:page-tags/tag/포페스쿠-요원 포페스쿠-요원]||
+|||| polaricecraps ||[*/system:page-tags/tag/폴라아이스크랩스 폴라아이스크랩스]||
+|| || ||[*/system:page-tags/tag/풍소경-박사 풍소경-박사]||
+|| fred || フレッド ||[*/system:page-tags/tag/프레드 프레드]||
+|| dr-frog || フロッグ博士 ||[*/system:page-tags/tag/프로그-박사 프로그-박사]||
+|| primrose-esquire || プリムローズ法務官 ||[*/system:page-tags/tag/프림로즈-변호사 프림로즈-변호사]||
+|| || ||[*/system:page-tags/tag/플라버-박사 플라버-박사]||
+|| finnegan || フィネガン ||[*/system:page-tags/tag/피네간 피네간]||
+|| doctor-fynegan || フィネガン博士 ||[*/system:page-tags/tag/피네건-박사 피네건-박사]||
+|| philip-deering || フィリップ・ディアリング ||[*/system:page-tags/tag/필리프-디어링 필리프-디어링]||
+|| halyna-ieva || ハリーナ・イエヴァ ||[*/system:page-tags/tag/할리나-이에바 할리나-이에바]||
+|| || ||[*/system:page-tags/tag/함필규-연구원 함필규-연구원]||
+|| herman-fuller || ハーマン・フラー  ||[*/system:page-tags/tag/허먼-풀러 허먼-풀러]||
+|||| doctor-heiden ||[*/system:page-tags/tag/헤이든-박사 헤이든-박사]||
+|| || ||[*/system:page-tags/tag/호야 호야]||
+|| holly-light || ホリィ・ライト ||[*/system:page-tags/tag/홀리-라이트 홀리-라이트]||
+|| || 福路捜索部隊長 ||[*/system:page-tags/tag/후쿠로-수색대장 후쿠로-수색대장]||
+|| plague-doctor || ペスト医師 ||[*/system:page-tags/tag/흑사병-의사 흑사병-의사]||
+|| || 広末サマンサ ||[*/system:page-tags/tag/히로스에-서맨서 히로스에-서맨서]||
+|| || 広末孝行 ||[*/system:page-tags/tag/히로스에-타카유키 히로스에-타카유키]||
+
++++ 이벤트 태그
+||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^원어^^[[footnote]] 한국어, 영어, 일본어 외 지부에서 개최된 경연의 경우 여기 기재함. [[/footnote]]||~ ^^한국어^^ ||
+||||||||[*/system:page-tags/tag/1000 1000]||
+||||||||[*/system:page-tags/tag/1000jp 1000jp]||
+||||||||[*/system:page-tags/tag/1000ko 1000ko]||
+||||||||[*/system:page-tags/tag/100vn 100vn]||
+||||||||[*/system:page-tags/tag/173jp 173jp]||
+||||||||[*/system:page-tags/tag/2000 2000]||
+||||||||[*/system:page-tags/tag/2000jp 2000jp]||
+||||||gbc09||[*/system:page-tags/tag/2009-기어스생일-en 2009-기어스생일-en]||
+||||||talecon10||[*/system:page-tags/tag/2010-이야기경연-en 2010-이야기경연-en]||
+|| ||2012-devan-誕生日祝典||-||[*/system:page-tags/tag/2012-데반-생일축전 2012-데반-생일축전]||
+||||||hc2012||[*/system:page-tags/tag/2012-할로윈경연-en 2012-할로윈경연-en]||
+|| || ||-||[*/system:page-tags/tag/2013-노래마인-생일축전 2013-노래마인-생일축전]||
+||||||five-questions||[*/system:page-tags/tag/2013-다섯개의질문-en 2013-다섯개의질문-en]||
+|| ||忘年会2013||-||[*/system:page-tags/tag/2013-망년회-jp 2013-망년회-jp]||
+||||||tc2013||[*/system:page-tags/tag/2013-시간경연-en 2013-시간경연-en]||
+||||||nyc2013||[*/system:page-tags/tag/2013-신년경연-en 2013-신년경연-en]||
+|| ||halloween-2013||halloween-2013 (es)||[*/system:page-tags/tag/2013-할로윈경연-es 2013-할로윈경연-es]||
+|| ||c2fr2014||c2fr2014 (fr)||[*/system:page-tags/tag/2014-2주년-fr 2014-2주년-fr]||
+|| ||非公式800字掌編企画||-||[*/system:page-tags/tag/2014-800자-jp 2014-800자-jp]||
+||||||dc2014||[*/system:page-tags/tag/2014-디스토피아-en 2014-디스토피아-en]||
+||af2014||-||-||[*/system:page-tags/tag/2014-만우절 2014-만우절]||
+||||||goi2014||[*/system:page-tags/tag/2014-요주의단체-en 2014-요주의단체-en]||
+||||||uac2014||[*/system:page-tags/tag/2014-푸대접-en 2014-푸대접-en]||
+|| ||2014ハロウィン企画||-||[*/system:page-tags/tag/2014-할로윈경연-jp 2014-할로윈경연-jp]||
+|| ||c3fr2015||c3fr2015 (fr)||[*/system:page-tags/tag/2015-3주년-fr 2015-3주년-fr]||
+|| ||500語未満コンテスト||<500 (fr)||[*/system:page-tags/tag/2015-500단어-fr 2015-500단어-fr]||
+||||||sc2015||[*/system:page-tags/tag/2015-단편경연-en 2015-단편경연-en]||
+|| ||無名職員は語る||-||[*/system:page-tags/tag/2015-무명직원은-말한다-jp 2015-무명직원은-말한다-jp]||
+|| ||2周年goiコンテスト _
+2周年goiコンテスト遅刻投稿||-||[*/system:page-tags/tag/2015-요주의단체-jp 2015-요주의단체-jp]||
+||||||rei2015||[*/system:page-tags/tag/2015-재구성-en 2015-재구성-en]||
+|| ||2015財団放送コンテスト||-||[*/system:page-tags/tag/2015-재단방송경연 2015-재단방송경연]||
+|| ||2015夏季コンテスト||2015夏季征文 (cn)||[*/system:page-tags/tag/2015-하계경연-cn 2015-하계경연-cn]||
+|| ||非公式1200字掌編企画||-||[*/system:page-tags/tag/2016-1200자-jp 2016-1200자-jp]||
+|| ||c4fr2016||c4fr2016 (fr)||[*/system:page-tags/tag/2016-4주년-fr 2016-4주년-fr]||
+||||||d-con2016||[*/system:page-tags/tag/2016-d계급-en 2016-d계급-en]||
+||||||mtf2016||[*/system:page-tags/tag/2016-기특대-en 2016-기특대-en]||
+||||af2016||-||[*/system:page-tags/tag/2016-만우절 2016-만우절]||
+|| ||2016イラストコンテスト||-||[*/system:page-tags/tag/2016-일러스트경연-jp 2016-일러스트경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2016-재단방송경연 2016-재단방송경연]||
+|| ||2016-漫画コンテスト||-||[*/system:page-tags/tag/2016-카툰경연 2016-카툰경연]||
+|| ||1600字17||-||[*/system:page-tags/tag/2017-1600자-jp 2017-1600자-jp]||
+||||||173fest||[*/system:page-tags/tag/2017-173페스티벌-en 2017-173페스티벌-en]||
+|| ||c5fr2017||c5fr2017 (fr)||[*/system:page-tags/tag/2017-5주년-fr 2017-5주년-fr]||
+|| ||2017-世界滅亡コンテスト||-||[*/system:page-tags/tag/2017-세계멸망경연 2017-세계멸망경연]||
+|| ||新人執筆者コンテスト||-||[*/system:page-tags/tag/2017-신참경연-jp 2017-신참경연-jp]||
+||||||art2017||[*/system:page-tags/tag/2017-아트워크경연-en 2017-아트워크경연-en]||
+||||||hiscon2017||[*/system:page-tags/tag/2017-역사경연-en 2017-역사경연-en]||
+|| || ||-||[*/system:page-tags/tag/2017-재건경연 2017-재건경연]||
+|| ||recyclecon17 _
+recyclecon17遅刻組||-||[*/system:page-tags/tag/2017-재활용경연-jp 2017-재활용경연-jp]||
+|| ||デスコン17||-||[*/system:page-tags/tag/2017-죽음경연-jp 2017-죽음경연-jp]||
+|| ||cross17jp||-||[*/system:page-tags/tag/2017-크로스경연-jp 2017-크로스경연-jp]||
+|| ||nme2017||nme2017 (fr)||[*/system:page-tags/tag/2017-호적수-fr 2017-호적수-fr]||
+|| ||c6fr2018||c6fr2018 (fr)||[*/system:page-tags/tag/2018-6주년-fr 2018-6주년-fr]||
+|| ||bbc18||-||[*/system:page-tags/tag/2018-곤봉경연-jp 2018-곤봉경연-jp]||
+|| ||2018-短編コンテスト||-||[*/system:page-tags/tag/2018-단편경연 2018-단편경연]||
+|| ||2018冬季コンテスト||2018冬季征文 (cn)||[*/system:page-tags/tag/2018-동계경연-cn 2018-동계경연-cn]||
+|| ||2018-犯罪コンテスト||-||[*/system:page-tags/tag/2018-범죄경연 2018-범죄경연]||
+|| ||ベンチャーコンテスト||-||[*/system:page-tags/tag/2018-신인경연-jp 2018-신인경연-jp]||
+|| ||ワルコン18||-||[*/system:page-tags/tag/2018-악경연-jp 2018-악경연-jp]||
+||||||jam-con2018||[*/system:page-tags/tag/2018-즉흥경연-en 2018-즉흥경연-en]||
+||||||doomsday2018||[*/system:page-tags/tag/2018-최후의-날-en 2018-최후의-날-en]||
+||||||halloween2018||[*/system:page-tags/tag/2018-할로윈경연-en 2018-할로윈경연-en]||
+|| ||1200字19||-||[*/system:page-tags/tag/2019-1200자-jp 2019-1200자-jp]||
+||||||collab-con2019||[*/system:page-tags/tag/2019-공동작업-en 2019-공동작업-en]||
+|| ||af2019||-||[*/system:page-tags/tag/2019-만우절 2019-만우절]||
+|| || ||-||[*/system:page-tags/tag/2019-멘토&멘티 2019-멘토&멘티]||
+|| ||無コン19||-||[*/system:page-tags/tag/2019-무경연-jp 2019-무경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2019-성탄경연 2019-성탄경연]||
+|| ||2019新人コンテスト||2019新人竞赛 (cn)||[*/system:page-tags/tag/2019-신인경연-cn 2019-신인경연-cn]||
+||goi2019||goi2019||goi2019 (int)||[*/system:page-tags/tag/2019-요주의단체-int 2019-요주의단체-int]||
+|| || ||-||[*/system:page-tags/tag/2019-요주의단체ko 2019-요주의단체ko]||
+|| ||リサイクル2019||-||[*/system:page-tags/tag/2019-재활용경연-jp 2019-재활용경연-jp]||
+||||||jam-con2019||[*/system:page-tags/tag/2019-즉흥경연-en 2019-즉흥경연-en]||
+|| ||ジャムコン2019||-||[*/system:page-tags/tag/2019-즉흥경연-jp 2019-즉흥경연-jp]||
+||||||cliche2019||[*/system:page-tags/tag/2019-클리셰-en 2019-클리셰-en]||
+|| ||exploracion2019||exploracion2019 (es)||[*/system:page-tags/tag/2019-탐사경연-es 2019-탐사경연-es]||
+|| ||ch2019||ch2019 (fr)||[*/system:page-tags/tag/2019-할로윈경연-fr 2019-할로윈경연-fr]||
+|| ||2020-04コンテスト ||-||[*/system:page-tags/tag/2020-04경연 2020-04경연]||
+|| || ||-||[*/system:page-tags/tag/2020-06경연 2020-06경연]||
+|| ||2020-08コンテスト ||-||[*/system:page-tags/tag/2020-08경연 2020-08경연]||
+|| ||2020-10コンテスト ||-||[*/system:page-tags/tag/2020-10경연 2020-10경연]||
+|| ||c8fr2020||c8fr2020 (fr)||[*/system:page-tags/tag/2020-8주년-fr 2020-8주년-fr]||
+|| ||嘘コン20||-||[*/system:page-tags/tag/2020-거짓경연-jp 2020-거짓경연-jp]||
+|| ||ルーキーコンテスト||-||[*/system:page-tags/tag/2020-루키경연-jp 2020-루키경연-jp]||
+|| ||af2020||-||[*/system:page-tags/tag/2020-만우절 2020-만우절]||
+|| ||お見合い2020||-||[*/system:page-tags/tag/2020-맞선-jp 2020-맞선-jp]||
+|| ||2020-メタタイトルコンテスト||-||[*/system:page-tags/tag/2020-별칭경연 2020-별칭경연]||
+|| || ||-||[*/system:page-tags/tag/2020-외부문서경연 2020-외부문서경연]||
+||||||exquisite-corpse2020||[*/system:page-tags/tag/2020-우아한-시체-en 2020-우아한-시체-en]||
+||||||jam-con2020||[*/system:page-tags/tag/2020-즉흥경연-en 2020-즉흥경연-en]||
+||||||canon2020||[*/system:page-tags/tag/2020-카논부흥-en 2020-카논부흥-en]||
+|| ||チームコン20||-||[*/system:page-tags/tag/2020-팀경연-jp 2020-팀경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2021-2인3각 2021-2인3각]||
+|| || ||c9fr2021 (fr)||[*/system:page-tags/tag/2021-9주년-fr 2021-9주년-fr]||
+|| || ||2021冬季競賽 (zh)||[*/system:page-tags/tag/2021-동계경연-zh 2021-동계경연-zh]||
+|| ||af2021||-||[*/system:page-tags/tag/2021-만우절 2021-만우절]||
+||||||memecon2021-unofficial||[*/system:page-tags/tag/2021-밈경연-en 2021-밈경연-en]||
+|| ||夜コン21||-||[*/system:page-tags/tag/2021-밤경연-jp 2021-밤경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2021-비평-클리셰-ko 2021-비평-클리셰-ko]||
+|| ||お団子21||-||[*/system:page-tags/tag/2021-십오야경단-jp 2021-십오야경단-jp]||
+||||||nightmarefest||[*/system:page-tags/tag/2021-악몽축연-en 2021-악몽축연-en]||
+|| ||三題噺言霊競演21||-||[*/system:page-tags/tag/2021-언령경연-jp 2021-언령경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2021-연말경연-ko 2021-연말경연-ko]||
+|| ||リサイクル2021||-||[*/system:page-tags/tag/2021-재활용경연-jp 2021-재활용경연-jp]||
+|| ||素手喧嘩コン21||-||[*/system:page-tags/tag/2021-주먹다짐경연-jp 2021-주먹다짐경연-jp]||
+||||||jam-con2021||[*/system:page-tags/tag/2021-즉흥경연-en 2021-즉흥경연-en]||
+|| || 2021-即興コンテスト ||-||[*/system:page-tags/tag/2021-즉흥경연-ko 2021-즉흥경연-ko]||
+||||||cupid2021||[*/system:page-tags/tag/2021-큐피드-en 2021-큐피드-en]||
+|| || 2021夏季コンテスト ||2021夏季競賽 (zh)||[*/system:page-tags/tag/2021-하계경연-zh 2021-하계경연-zh]||
+|| ||qコン22||-||[*/system:page-tags/tag/2022-q경연-jp 2022-q경연-jp]||
+|| ||2022冬季コンテスト||2022冬季征文 (cn)||[*/system:page-tags/tag/2022-동계경연-cn 2022-동계경연-cn]||
+|| || ||-||[*/system:page-tags/tag/2022-등장인물ko 2022-등장인물ko]||
+|| ||わかばコンテスト||-||[*/system:page-tags/tag/2022-떡잎경연-jp 2022-떡잎경연-jp]||
+|| ||af2022||-||[*/system:page-tags/tag/2022-만우절 2022-만우절]||
+|| || ||-||[*/system:page-tags/tag/2022-별칭경연 2022-별칭경연]||
+|| ||crackfic2022||crackfic2022 (pl)||[*/system:page-tags/tag/2022-병맛경연-pl 2022-병맛경연-pl]||
+||||||departmentcon2022||[*/system:page-tags/tag/2022-부서경연-en 2022-부서경연-en]||
+|| || ||chalété2022 (fr)||[*/system:page-tags/tag/2022-여름챌린지-fr 2022-여름챌린지-fr]||
+|| || ||-||[*/system:page-tags/tag/2022-잠들-수-없는-밤 2022-잠들-수-없는-밤]||
+|| || ||-||[*/system:page-tags/tag/2022-즉흥경연-ko 2022-즉흥경연-ko]||
+||||||halloweencon2022 ||[*/system:page-tags/tag/2022-할로윈경연-en 2022-할로윈경연-en]||
+|| || ||c11fr2023 (fr)||[*/system:page-tags/tag/2023-11주년-fr 2023-11주년-fr]||
+|| ||xコン23||-||[*/system:page-tags/tag/2023-x경연-jp 2023-x경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2023-개구라경연 2023-개구라경연]||
+||||||goblincon2023||[*/system:page-tags/tag/2023-고블린경연-en 2023-고블린경연-en]||
+|| ||intcon2023||intcon2023 (int)||[*/system:page-tags/tag/2023-국제협력-int 2023-국제협력-int]||
+|| || ||-||[*/system:page-tags/tag/2023-기지경연-ko 2023-기지경연-ko]||
+|| || || lorecon2023 (int) ||[*/system:page-tags/tag/2023-로어경연-int 2023-로어경연-int]||
+||||||remixcon2023||[*/system:page-tags/tag/2023-리믹스경연-en 2023-리믹스경연-en]||
+|| ||af2023||-||[*/system:page-tags/tag/2023-만우절 2023-만우절]||
+|| ||ショート2023||-||[*/system:page-tags/tag/2023-쇼트경연-jp 2023-쇼트경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2023-연말경연-ko 2023-연말경연-ko]||
+|| ||2023-絶対コンテスト||-||[*/system:page-tags/tag/2023-절대평가 2023-절대평가]||
+|| ||ジャムコン2023||-||[*/system:page-tags/tag/2023-즉흥경연-jp 2023-즉흥경연-jp]||
+||||||coldpostcon||[*/system:page-tags/tag/2023-콜드포스트-en 2023-콜드포스트-en]||
+|| ||チームコン23||-||[*/system:page-tags/tag/2023-팀경연-jp 2023-팀경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2023-한가위축연 2023-한가위축연]||
+|| || ||ch2023 (fr)||[*/system:page-tags/tag/2023-할로윈경연-fr 2023-할로윈경연-fr]||
+||wrathcon2024|| ||-||[*/system:page-tags/tag/2024-격노경연-en 2024-격노경연-en]||
+|| ||bbc24||-||[*/system:page-tags/tag/2024-곤봉경연-jp 2024-곤봉경연-jp]||
+|| ||恐怖コン24||-||[*/system:page-tags/tag/2024-공포경연-jp 2024-공포경연-jp]||
+|| || ||2024冬季競賽 (zh)||[*/system:page-tags/tag/2024-동계경연-zh 2024-동계경연-zh]||
+|| || ||-||[*/system:page-tags/tag/2024-등장인물-ko 2024-등장인물-ko]||
+|| ||af2024||-||[*/system:page-tags/tag/2024-만우절 2024-만우절]||
+|| || ||-||[*/system:page-tags/tag/2024-멘토&멘티 2024-멘토&멘티]||
+|| || 2024-メタタイトルコンテスト ||-||[*/system:page-tags/tag/2024-별칭경연 2024-별칭경연]||
+||||||spring-cleaning24||[*/system:page-tags/tag/2024-봄맞이대청소-en 2024-봄맞이대청소-en]||
+|| ||新星コンテスト||-||[*/system:page-tags/tag/2024-신성경연-jp 2024-신성경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2024-연말경연-ko 2024-연말경연-ko]||
+||||||pridefest2024||[*/system:page-tags/tag/2024-자긍심축연-en 2024-자긍심축연-en]||
+|| ||ジョンドゥコン24||-||[*/system:page-tags/tag/2024-존도우경연-jp 2024-존도우경연-jp]||
+|| ||2024沈黙ショートコンテスト||2024噤声短文竞赛 (cn)||[*/system:page-tags/tag/2024-침묵단편경연-cn 2024-침묵단편경연-cn]||
+|| || ||-||[*/system:page-tags/tag/2025-단편경연-ko 2025-단편경연-ko]||
+|| ||occon||-||[*/system:page-tags/tag/2025-등급경연-jp 2025-등급경연-jp]||
+|| ||af2025||-||[*/system:page-tags/tag/2025-만우절 2025-만우절]||
+|| || ||2025愚人竞赛 (cn)||[*/system:page-tags/tag/2025-만우절경연-cn 2025-만우절경연-cn]||
+|| || ||-||[*/system:page-tags/tag/2025-부서경연-ko 2025-부서경연-ko]||
+|| || 災禍転福キャンペーン ||-||[*/system:page-tags/tag/2025-전화위복-jp 2025-전화위복-jp]||
+|| || ||-||[*/system:page-tags/tag/2025-즉흥경연-ko 2025-즉흥경연-ko]||
+||||||vn-zh-xmas25 (vn, zh) ||[*/system:page-tags/tag/2025-크리스마스-vn-zh 2025-크리스마스-vn-zh]||
+|||||| classiccon2025 ||[*/system:page-tags/tag/2025-클래식경연-en 2025-클래식경연-en]||
+|||||| publicdomaincon2025 ||[*/system:page-tags/tag/2025-퍼블릭도메인-en 2025-퍼블릭도메인-en]||
+|| ||ビギナーズコンテスト||-||[*/system:page-tags/tag/2026-비기너즈경연-jp 2026-비기너즈경연-jp]||
+||||||||[*/system:page-tags/tag/3000 3000]||
+||||||||[*/system:page-tags/tag/3000jp 3000jp]||
+||||||||[*/system:page-tags/tag/4000 4000]||
+||||||||[*/system:page-tags/tag/4000jp 4000jp]||
+||||||||[*/system:page-tags/tag/404fr 404fr]||
+||||||||[*/system:page-tags/tag/5000 5000]||
+||||||||[*/system:page-tags/tag/6000 6000]||
+||||||||[*/system:page-tags/tag/7000 7000]||
+||||||||[*/system:page-tags/tag/8000 8000]||
+||||||||[*/system:page-tags/tag/888ko 888ko]||
+||||||||[*/system:page-tags/tag/cn1000 cn1000]||
+||||||||[*/system:page-tags/tag/cn2000 cn2000]||
+||||||||[*/system:page-tags/tag/cn4000 cn4000]||
+|| ||三千里-江原コンテスト||-||[*/system:page-tags/tag/삼천리-강원 삼천리-강원]||
+|| || ||-||[*/system:page-tags/tag/삼천리-경기 삼천리-경기]||
+|| || ||-||[*/system:page-tags/tag/삼천리-경남 삼천리-경남]||
+|| || ||-||[*/system:page-tags/tag/삼천리-경북 삼천리-경북]||
+|| || ||-||[*/system:page-tags/tag/삼천리-관북 삼천리-관북]||
+|| || ||-||[*/system:page-tags/tag/삼천리-광주 삼천리-광주]||
+|| || ||-||[*/system:page-tags/tag/삼천리-대구 삼천리-대구]||
+|| || ||-||[*/system:page-tags/tag/삼천리-대전-세종 삼천리-대전-세종]||
+|| || ||-||[*/system:page-tags/tag/삼천리-부산 삼천리-부산]||
+|| || ||-||[*/system:page-tags/tag/삼천리-울산 삼천리-울산]||
+|| || ||-||[*/system:page-tags/tag/삼천리-전남 삼천리-전남]||
+|| || ||-||[*/system:page-tags/tag/삼천리-전북 삼천리-전북]||
+|| || ||-||[*/system:page-tags/tag/삼천리-제주 삼천리-제주]||
+|| || ||-||[*/system:page-tags/tag/삼천리-충북 삼천리-충북]||
+|| || ||-||[*/system:page-tags/tag/삼천리-충남 삼천리-충남]||
+|| || ||-||[*/system:page-tags/tag/삼천리-해서 삼천리-해서]||
+|| || ||-||[*/system:page-tags/tag/cb cb]||
+||||||game-day||[*/system:page-tags/tag/게임데이 게임데이]||
+||||||art-exchange||[*/system:page-tags/tag/작품교환 작품교환]||
+
+@@@@
+@@@@
+
+[[module CSS]]
+#page-content table.wiki-content-table {
+  width: min(587px, 100%);
+}
+
+tt::before {
+  content: "{";
+}
+tt::after {
+  content: "}";
+}
+[[/module]]
+
+[[table class="wiki-content-table"]]
+
+[[row]]
+[[hcell]]
+^^English^^
+[[/hcell]]
+[[hcell]]
+^^한국어^^
+[[/hcell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+absurdist
+[[/cell]]
+[[cell style="text-align: center; vertical-align: top;" rowspan="52"]]
+
+[[div style="position: sticky; top: 40vh;"]]
+여기 정렬된 장르/테마/설정/스타일 태그는 번역하지 않습니다.
+
+이 태그들이 번역물에 부착된 경우 운영진이 정기적으로 제거하고 있습니다. 그냥 영문으로 놔두시면 운영진이 제거하므로, 임의로 번역하지 말아주세요.
+
+혹시 장르 태그를 직접 제거하셨다면 {{_장르없음}} 태그로 표시해주세요.
+[[/div]]
+
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+action
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+adventure
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+bittersweet
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+bleak
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+breakout
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+comedy
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+black-comedy
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+chase
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+crime-fiction
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+fantasy
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+heartwarming
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+horror
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+body-horror
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+cosmic-horror
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+psychological-horror
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+metafiction
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+military-fiction
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+mystery
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+romance
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+science-fiction
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+slice-of-life
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+spy-fiction
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+surrealism
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+xenofiction
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+bureaucracy
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+demon
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+faerie
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+lgbtq
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+murder-monster
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+mythological
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+political
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+religious-fiction
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+superhero
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+time-travel
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+alternate-history
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+apocalyptic
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+post-apocalyptic
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+christmas
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+dystopian
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+holloween
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+otherworldly
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+period-piece
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+space-opera
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+utopian
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+western
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+correspondence
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+first-person
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+journal
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+no-dialogue
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+second-person
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+worldbuilding
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+_genreless 
+[[/cell]]
+[[cell]]
+_장르없음
+[[/cell]]
+[[/row]]
+
+[[/table]]
+
+[[/tab]]
+[[tab 번역 태그 표 - 알파벳순]]
++++ 주요 태그 
+||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||
+|| 001-proposal || 001提言 ||[*/system:page-tags/tag/001-제안 001-제안]||
+|| admin || 管理 ||[*/system:page-tags/tag/관리 관리]||
+|| adult || アダルト ||[*/system:page-tags/tag/성인향 성인향]||
+|||| apollyon ||[*/system:page-tags/tag/아폴리온 아폴리온]||
+|| archived || アーカイブ済み ||[*/system:page-tags/tag/보존 보존]||
+|||| archon ||[*/system:page-tags/tag/아르콘 아르콘]||
+|| artwork || アートワーク ||[*/system:page-tags/tag/아트워크 아트워크]||
+|| audio || 音声添付 ||[*/system:page-tags/tag/음성첨부 음성첨부]||
+|| author || 著者ページ ||[*/system:page-tags/tag/작가 작가]||
+||||||[*/system:page-tags/tag/cn cn]||
+|| co-authored || 共著 ||[*/system:page-tags/tag/공저 공저]||
+|| collaboration || 合作 ||[*/system:page-tags/tag/공동작업 공동작업]||
+|| component || コンポーネント ||[*/system:page-tags/tag/구성요소 구성요소]||
+|| component-backend || コンポーネント・バックエンド ||[*/system:page-tags/tag/구성요소-백엔드 구성요소-백엔드]||
+|| contest || コンテスト ||[*/system:page-tags/tag/경연 경연]||
+|| creepypasta || クリーピーパスタ ||[*/system:page-tags/tag/크리피파스타 크리피파스타]||
+||||||[*/system:page-tags/tag/cs cs]||
+||||||[*/system:page-tags/tag/de de]||
+|||| decommissioned ||[*/system:page-tags/tag/퇴역 퇴역]||
+||||||[*/system:page-tags/tag/el el]||
+||||||[*/system:page-tags/tag/en en]||
+||||||[*/system:page-tags/tag/es es]||
+|||| esoteric-class ||[*/system:page-tags/tag/난해한-등급 난해한-등급]||
+|| essay || エッセイ ||[*/system:page-tags/tag/에세이 에세이]||
+|||| euclid ||[*/system:page-tags/tag/유클리드 유클리드]||
+|| experiment || 実験 ||[*/system:page-tags/tag/실험 실험]||
+|||| explained ||[*/system:page-tags/tag/해명 해명]||
+|| exploration || 探査 ||[*/system:page-tags/tag/탐사 탐사]||
+|| featured || 注目記事 ||[*/system:page-tags/tag/특집 특집]||
+|| forum || フォーラム ||[*/system:page-tags/tag/포럼 포럼]||
+|| foundation-format || ||[*/system:page-tags/tag/재단-서식 재단-서식]||
+||||||[*/system:page-tags/tag/fr fr]||
+|| fragment || フラグメント ||[*/system:page-tags/tag/조각문서 조각문서]||
+|||| goi-format ||[*/system:page-tags/tag/요주의단체-서식 요주의단체-서식]||
+|| guide || ガイド ||[*/system:page-tags/tag/안내 안내]||
+|||| heritage ||[*/system:page-tags/tag/유산 유산]||
+|| hub || ハブ ||[*/system:page-tags/tag/허브 허브]||
+||||||[*/system:page-tags/tag/id id]||
+|| incident || インシデント ||[*/system:page-tags/tag/사건 사건]||
+|| in-rewrite || ||[*/system:page-tags/tag/재작성-중 재작성-중]||
+||||||[*/system:page-tags/tag/int int]||
+|| interview || インタビュー ||[*/system:page-tags/tag/면담 면담]||
+||||||[*/system:page-tags/tag/it it]||
+|| joke || ジョーク ||[*/system:page-tags/tag/농담 농담]||
+||||||[*/system:page-tags/tag/jp jp]||
+|||| keter ||[*/system:page-tags/tag/케테르 케테르]||
+||||||[*/system:page-tags/tag/ko ko]||
+||||||[*/system:page-tags/tag/la la]||
+|||| neutralized ||[*/system:page-tags/tag/무효 무효]||
+|| news || ニュース ||[*/system:page-tags/tag/뉴스 뉴스]||
+|||| orientation ||[*/system:page-tags/tag/오리엔테이션 오리엔테이션]||
+|| orphaned || 孤立 ||[*/system:page-tags/tag/외톨이 외톨이]||
+|||| pending ||[*/system:page-tags/tag/보류 보류]||
+||||||[*/system:page-tags/tag/pl pl]||
+|| poetry || 詩的文学 ||[*/system:page-tags/tag/시 시]||
+|| project ||  プロジェクト ||[*/system:page-tags/tag/프로젝트 프로젝트]||
+||||||[*/system:page-tags/tag/pt pt]||
+|| required || 必読 ||[*/system:page-tags/tag/필수 필수]||
+|| rewrite || 改稿 ||[*/system:page-tags/tag/재작성 재작성]||
+||||||[*/system:page-tags/tag/ru ru]||
+|||| safe ||[*/system:page-tags/tag/안전 안전]||
+|| sandbox || サンドボックス ||[*/system:page-tags/tag/샌드박스 샌드박스]||
+||||||[*/system:page-tags/tag/scp scp]||
+|| site || サイト ||[*/system:page-tags/tag/기지 기지]||
+|| splash || 見出し ||[*/system:page-tags/tag/스플래시 스플래시]||
+|| supplement || 補足 ||[*/system:page-tags/tag/보충 보충]||
+|||| tale ||[*/system:page-tags/tag/이야기 이야기]||
+|||| template ||[*/system:page-tags/tag/템플릿 템플릿]||
+||||||[*/system:page-tags/tag/th th]||
+|||| thaumiel ||[*/system:page-tags/tag/타우미엘 타우미엘]||
+|| theme ||  テーマ ||[*/system:page-tags/tag/테마 테마]||
+||||||[*/system:page-tags/tag/ua ua]||
+|| video || 映像添付 ||[*/system:page-tags/tag/영상첨부 영상첨부]||
+||||||[*/system:page-tags/tag/vn vn]||
+|| workbench || ワークベンチ ||[*/system:page-tags/tag/작업용 작업용]||
+||||||[*/system:page-tags/tag/zh zh]||
+
+
++++ 속성 태그
+||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||
+|| acoustic || 音波 ||[*/system:page-tags/tag/음향 음향]||
+|| adaptive || 適応 ||[*/system:page-tags/tag/적응 적응]||
+|| addictive || 中毒 ||[*/system:page-tags/tag/중독 중독]||
+|| afterlife || 死後 ||[*/system:page-tags/tag/사후 사후]||
+|| airborne || 空中 ||[*/system:page-tags/tag/공중 공중]||
+|| alcohol || ||[*/system:page-tags/tag/술 술]||
+|| alive || 生命 ||[*/system:page-tags/tag/생물 생물]||
+|| amorphous || 不定形 ||[*/system:page-tags/tag/비정형 비정형]||
+|| amphibian || 両生類 ||[*/system:page-tags/tag/양서류 양서류]||
+|| animal || 動物 ||[*/system:page-tags/tag/동물 동물]||
+|| anomalous-event || ||[*/system:page-tags/tag/변칙-사건 변칙-사건]||
+|| antimemetic || 反ミーム ||[*/system:page-tags/tag/항밈적 항밈적]||
+|| appliance || 家電 ||[*/system:page-tags/tag/가전 가전]||
+|| aquatic || 水中 ||[*/system:page-tags/tag/수중 수중]||
+|| arachnid || クモ ||[*/system:page-tags/tag/거미 거미]||
+|| archaeological || ||[*/system:page-tags/tag/고고학 고고학]||
+|| arthropod || 節足動物 ||[*/system:page-tags/tag/절지동물 절지동물]||
+|| artifact || 人工 ||[*/system:page-tags/tag/인공물 인공물]||
+|| artificial-intelligence || ||[*/system:page-tags/tag/인공지능 인공지능]||
+|| artistic || 芸術 ||[*/system:page-tags/tag/예술 예술]||
+|| auditory || 聴覚 ||[*/system:page-tags/tag/청각 청각]||
+|| autonomous || 自律 ||[*/system:page-tags/tag/자율 자율]||
+|| bacteria || バクテリア ||[*/system:page-tags/tag/세균 세균]||
+|| bear || クマ ||[*/system:page-tags/tag/곰 곰]||
+|| bee || ハチ ||[*/system:page-tags/tag/벌 벌]||
+|| biohazard || 生物災害 ||[*/system:page-tags/tag/생물재해 생물재해]||
+|| biological || 生物学 ||[*/system:page-tags/tag/생물학 생물학]||
+|| bird || 鳥類 ||[*/system:page-tags/tag/새 새]||
+|| blood || 血液 ||[*/system:page-tags/tag/혈액 혈액]||
+|| bovine || ウシ ||[*/system:page-tags/tag/소 소]||
+|| building || 建造物 ||[*/system:page-tags/tag/건물 건물]||
+|| butterfly || チョウ ||[*/system:page-tags/tag/나비목 나비목]||
+|| cadaver || 死体 ||[*/system:page-tags/tag/사체 사체]||
+|| canine || イヌ ||[*/system:page-tags/tag/개 개]||
+|| carnivorous || 肉食 ||[*/system:page-tags/tag/육식성 육식성]||
+|| cephalopod || 頭足類 ||[*/system:page-tags/tag/두족류 두족류]||
+|| cetacean || クジラ ||[*/system:page-tags/tag/고래 고래]||
+|| chemical || 化学 ||[*/system:page-tags/tag/화학 화학]||
+|| child || ||[*/system:page-tags/tag/어린이 어린이]||
+|| cinema || 映画 ||[*/system:page-tags/tag/영화 영화]||
+|| city || 都市 ||[*/system:page-tags/tag/도시 도시]||
+|| clockwork || ぜんまい仕掛け ||[*/system:page-tags/tag/태엽장치 태엽장치]||
+|| clothing || 衣類 ||[*/system:page-tags/tag/의복 의복]||
+|| clown || 道化師 ||[*/system:page-tags/tag/광대 광대]||
+|| cognitohazard || 認識災害 ||[*/system:page-tags/tag/인식재해 인식재해]||
+|| compulsion || 強制力 ||[*/system:page-tags/tag/강박 강박]||
+|| computer || コンピュータ ||[*/system:page-tags/tag/컴퓨터 컴퓨터]||
+|| concept || 概念 ||[*/system:page-tags/tag/개념 개념]||
+|| contagion || 伝染性 ||[*/system:page-tags/tag/전염성 전염성]||
+|| container || 容器 ||[*/system:page-tags/tag/용기 용기]||
+|| corporate || 企業 ||[*/system:page-tags/tag/법인 법인]||
+|| corrosive || 腐食 ||[*/system:page-tags/tag/부식성 부식성]||
+|| crustacean || 甲殻類 ||[*/system:page-tags/tag/갑각류 갑각류]||
+|| currency || 貨幣 ||[*/system:page-tags/tag/화폐 화폐]||
+|| deer || シカ ||[*/system:page-tags/tag/사슴 사슴]||
+|| deity || ||[*/system:page-tags/tag/신격 신격]||
+|| dental || 歯 ||[*/system:page-tags/tag/치의학 치의학]||
+|| dinosaur || 恐竜 ||[*/system:page-tags/tag/공룡 공룡]||
+|| document || 文書 ||[*/system:page-tags/tag/문서 문서]||
+|| ectoentropic || 外部エントロピー ||[*/system:page-tags/tag/외부엔트로피 외부엔트로피]||
+|| electrical || 電気 ||[*/system:page-tags/tag/전기 전기]||
+|| electromagnetic || 電磁気 ||[*/system:page-tags/tag/전자기 전자기]||
+|| electronic || 電子デバイス ||[*/system:page-tags/tag/전자 전자]||
+|| empathic || 感情 ||[*/system:page-tags/tag/감정이입 감정이입]||
+|| entropic || エントロピー ||[*/system:page-tags/tag/엔트로피 엔트로피]||
+|| equine || ウマ ||[*/system:page-tags/tag/말 말]||
+|| exchange ||交換 ||[*/system:page-tags/tag/교환 교환]||
+|| extradimensional || 異次元 ||[*/system:page-tags/tag/외부차원 외부차원]||
+|| extraterrestrial || 地球外 ||[*/system:page-tags/tag/외계 외계]||
+|| extremity || 体肢 ||[*/system:page-tags/tag/신체말단 신체말단]||
+|| feline || ネコ ||[*/system:page-tags/tag/고양이 고양이]||
+|| fire || 炎 ||[*/system:page-tags/tag/불 불]||
+|| fish || 魚類 ||[*/system:page-tags/tag/물고기 물고기]||
+|| food || 食物 ||[*/system:page-tags/tag/음식 음식]||
+|| forest || 森林 ||[*/system:page-tags/tag/숲 숲]||
+|| foundation-made || 財団製 ||[*/system:page-tags/tag/재단이-만듦 재단이-만듦]||
+|| foundation-personnel || ||[*/system:page-tags/tag/재단-인원 재단-인원]||
+|| fungus || 真菌類 ||[*/system:page-tags/tag/진균 진균]||
+|| furniture || 家具 ||[*/system:page-tags/tag/가구 가구]||
+|| future || 未来 ||[*/system:page-tags/tag/미래 미래]||
+|| game || ゲーム ||[*/system:page-tags/tag/게임 게임]||
+|| gaseous || 気体 ||[*/system:page-tags/tag/기체 기체]||
+|| genetic || 遺伝子 ||[*/system:page-tags/tag/유전자 유전자]||
+|| geological || 地質 ||[*/system:page-tags/tag/지질학 지질학]||
+|| ghost || 霊体 ||[*/system:page-tags/tag/유령 유령]||
+|| gravity || 重力 ||[*/system:page-tags/tag/중력 중력]||
+|| gustatory || 味覚 ||[*/system:page-tags/tag/미각 미각]||
+|| hallucination || 幻覚 ||[*/system:page-tags/tag/환각 환각]||
+|| historical || 歴史 ||[*/system:page-tags/tag/역사적 역사적]||
+|| hive-mind || 集団意識 ||[*/system:page-tags/tag/군체의식 군체의식]||
+|| hostile || 敵対的 ||[*/system:page-tags/tag/적대적 적대적]||
+|| humanoid || 人間型 ||[*/system:page-tags/tag/인간형 인간형]||
+|| immobile || 移動不可能 ||[*/system:page-tags/tag/고정 고정]||
+|| indestructible || 破壊不可能 ||[*/system:page-tags/tag/파괴불가능 파괴불가능]||
+|| infohazard || 情報災害 ||[*/system:page-tags/tag/정보재해 정보재해]||
+|| inscription || 記述 ||[*/system:page-tags/tag/명문 명문]||
+|| insect || 昆虫 ||[*/system:page-tags/tag/곤충 곤충]||
+|| intangible || 非実体 ||[*/system:page-tags/tag/무형 무형]||
+|| interactive || インタラクティブ ||[*/system:page-tags/tag/상호작용식 상호작용식]||
+|| invertebrate || 無脊椎動物 ||[*/system:page-tags/tag/무척추동물 무척추동물]||
+|| island || 島嶼 ||[*/system:page-tags/tag/섬 섬]||
+|| jewelry || 装飾品 ||[*/system:page-tags/tag/장신구 장신구]||
+|| k-class-scenario || k-クラスシナリオ ||[*/system:page-tags/tag/k급-시나리오 k급-시나리오]||
+|| knowledge || 知識 ||[*/system:page-tags/tag/지식 지식]||
+|| language || 言語 ||[*/system:page-tags/tag/언어 언어]||
+|| legal || 法律 ||[*/system:page-tags/tag/법적 법적]||
+|| library || 図書館 ||[*/system:page-tags/tag/서지학 서지학]||
+|| light || 可視光 ||[*/system:page-tags/tag/빛 빛]||
+|| liquid || 液体 ||[*/system:page-tags/tag/액체 액체]||
+|| location || 場所 ||[*/system:page-tags/tag/위치 위치]||
+|| loop || ループ ||[*/system:page-tags/tag/반복성 반복성]||
+|| magnetic ||磁力 ||[*/system:page-tags/tag/자기 자기]||
+|| mathematical || 数学 ||[*/system:page-tags/tag/수학 수학]||
+|| mechanical || 機械 ||[*/system:page-tags/tag/기계 기계]||
+|| media || 記憶媒体 ||[*/system:page-tags/tag/매체 매체]||
+|| medical || 医療 ||[*/system:page-tags/tag/의약학 의약학]||
+|| memetic || ミーム ||[*/system:page-tags/tag/밈적 밈적]||
+|| memory-affecting || 記憶影響 ||[*/system:page-tags/tag/기억조작 기억조작]||
+|| meta || メタ ||[*/system:page-tags/tag/메타 메타]||
+|| metallic || 金属 ||[*/system:page-tags/tag/금속 금속]||
+|| metamorphic || 変身 ||[*/system:page-tags/tag/변성 변성]||
+|| meteorological || 天候 ||[*/system:page-tags/tag/기상학 기상학]||
+|| microscopic || 微視的 ||[*/system:page-tags/tag/미시적 미시적]||
+|| military || 軍事 ||[*/system:page-tags/tag/군사 군사]||
+|| mimetic || 擬態 ||[*/system:page-tags/tag/모방 모방]||
+|| mind-affecting || 精神影響 ||[*/system:page-tags/tag/정신조작 정신조작]||
+|| miniature || ミニチュア ||[*/system:page-tags/tag/미니어처 미니어처]||
+|||| mister ||[*/system:page-tags/tag/미스터 미스터]||
+|| mobile || 移動 ||[*/system:page-tags/tag/이동 이동]||
+|| moon || 月 ||[*/system:page-tags/tag/달 달]||
+|| musical || 音楽 ||[*/system:page-tags/tag/음악 음악]||
+|| narrative || 語り ||[*/system:page-tags/tag/서술 서술]||
+|| neurological || 神経 ||[*/system:page-tags/tag/신경학 신경학]||
+|| nocturnal || 夜行性  ||[*/system:page-tags/tag/야행성 야행성]||
+|| observational || 観測 ||[*/system:page-tags/tag/관찰 관찰]||
+|| ocular || 眼 ||[*/system:page-tags/tag/눈 눈]||
+|| olfactory || 嗅覚 ||[*/system:page-tags/tag/후각 후각]||
+|| online || オンライン ||[*/system:page-tags/tag/온라인 온라인]||
+|| paradox || パラドックス ||[*/system:page-tags/tag/역설적 역설적]||
+|| parasitic || 寄生 ||[*/system:page-tags/tag/기생성 기생성]||
+|| performance || 芸能 ||[*/system:page-tags/tag/공연 공연]||
+|| phenomenon || ||[*/system:page-tags/tag/현상 현상]||
+|| photographic || 写真  ||[*/system:page-tags/tag/사진술 사진술]||
+|| planet || 惑星 ||[*/system:page-tags/tag/행성 행성]||
+|| plant || 植物 ||[*/system:page-tags/tag/식물 식물]||
+|| polyhedral || 多面体 ||[*/system:page-tags/tag/다면체 다면체]||
+|| portal || ポータル ||[*/system:page-tags/tag/통로 통로]||
+|| predatory || 捕食 ||[*/system:page-tags/tag/포식성 포식성]||
+|| predictive || 予知 ||[*/system:page-tags/tag/예측성 예측성]||
+|| primate || サル ||[*/system:page-tags/tag/유인원 유인원]||
+|| probability || 確率 ||[*/system:page-tags/tag/확률 확률]||
+|| rabbit || ウサギ ||[*/system:page-tags/tag/토끼 토끼]||
+|| radioactive || 放射能 ||[*/system:page-tags/tag/방사성 방사성]||
+|| reality-bending || 現実改変 ||[*/system:page-tags/tag/현실조작 현실조작]||
+|| reanimation || 蘇生 ||[*/system:page-tags/tag/소생 소생]||
+|| religious || 宗教 ||[*/system:page-tags/tag/종교 종교]||
+|| reproductive || 生殖 ||[*/system:page-tags/tag/생식 생식]||
+|| reptile || 爬虫類 ||[*/system:page-tags/tag/파충류 파충류]||
+|| ritual || 儀式 ||[*/system:page-tags/tag/의식 의식]||
+|| robotic || 自動装置 ||[*/system:page-tags/tag/로봇 로봇]||
+|| rodent || 齧歯類 ||[*/system:page-tags/tag/다람쥐 다람쥐]||
+|| rodent || 齧歯類 ||[*/system:page-tags/tag/쥐 쥐]||
+|| sapient || 知性 ||[*/system:page-tags/tag/지성 지성]||
+|| satelite || 衛星  ||[*/system:page-tags/tag/위성 위성]||
+|| school || ||[*/system:page-tags/tag/학교 학교]||
+|| sculpture || 彫像 ||[*/system:page-tags/tag/조각품 조각품]||
+|| self-repairing || 自己修復 ||[*/system:page-tags/tag/자가수복 자가수복]||
+|| self-replicating || 自己複製 ||[*/system:page-tags/tag/자가복제 자가복제]||
+|| sensory || 感覚 ||[*/system:page-tags/tag/감각 감각]||
+|| sexual || 性的 ||[*/system:page-tags/tag/성적 성적]||
+|| shadow || 影 ||[*/system:page-tags/tag/그림자 그림자]||
+|| shark || 軟骨魚類 ||[*/system:page-tags/tag/상어 상어]||
+|| skeletal || 骨格 ||[*/system:page-tags/tag/뼈 뼈]||
+|| sleep || 睡眠||[*/system:page-tags/tag/수면 수면]||
+|| snake || ヘビ ||[*/system:page-tags/tag/뱀 뱀]||
+|| spatial || 空間 ||[*/system:page-tags/tag/공간 공간]||
+|| species || 種族 ||[*/system:page-tags/tag/종 종]||
+|| sphere || 球体 ||[*/system:page-tags/tag/구체 구체]||
+|| sports || スポーツ ||[*/system:page-tags/tag/스포츠 스포츠]||
+|| stone || 岩石 ||[*/system:page-tags/tag/돌 돌]||
+|| structure || 構造 ||[*/system:page-tags/tag/구조 구조]||
+|| subterranean || 地下 ||[*/system:page-tags/tag/지하 지하]||
+|| sun || 太陽 ||[*/system:page-tags/tag/항성 항성]||
+|| swarm || 群れ ||[*/system:page-tags/tag/무리 무리]||
+|| tactile || 触覚 ||[*/system:page-tags/tag/촉각 촉각]||
+|| telekinetic || 念力 ||[*/system:page-tags/tag/염력 염력]||
+|| telepathic || テレパシー ||[*/system:page-tags/tag/텔레파시 텔레파시]||
+|| teleportation || 瞬間移動 ||[*/system:page-tags/tag/순간이동 순간이동]||
+|| temporal || 時間  ||[*/system:page-tags/tag/시간 시간]||
+|| thaumaturgy || 奇跡術 ||[*/system:page-tags/tag/기적술 기적술]||
+|| thermal || 温度 ||[*/system:page-tags/tag/열 열]||
+|| thermodynamic || 熱力学 ||[*/system:page-tags/tag/열역학 열역학]||
+|| tool || 道具 ||[*/system:page-tags/tag/도구 도구]||
+|| toxic || 毒性  ||[*/system:page-tags/tag/독성 독성]||
+|| toy || 玩具 ||[*/system:page-tags/tag/장난감 장난감]||
+|| transfiguration || 変容 ||[*/system:page-tags/tag/변형 변형]||
+|| transmission || 通信 ||[*/system:page-tags/tag/전송 전송]||
+|| tree || 樹木 ||[*/system:page-tags/tag/나무 나무]||
+|| uncontained || 未收容 ||[*/system:page-tags/tag/비격리 비격리]||
+|| vehicle || 乗り物 ||[*/system:page-tags/tag/탈것 탈것]||
+|| vibration || 振動 ||[*/system:page-tags/tag/진동 진동]||
+|| virus || ウイルス ||[*/system:page-tags/tag/바이러스 바이러스]||
+|| visual || 視覚 ||[*/system:page-tags/tag/시각 시각]||
+|| weapon || 武器 ||[*/system:page-tags/tag/무기 무기]||
+|| worm || ワーム ||[*/system:page-tags/tag/연충 연충]||
+
+
++++ 요주의 단체 태그
+||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||
+||||||[*/system:page-tags/tag/05 05]||
+||||||[*/system:page-tags/tag/4-r 4-r]||
+|| abnormality-institute || 異学会 ||[*/system:page-tags/tag/이학회 이학회]||
+|||| accelerate-the-future ||[*/system:page-tags/tag/미래가속 미래가속]||
+|| aesthetic-of-music-sound || 音楽審美学 ||[*/system:page-tags/tag/음률미학 음률미학]||
+|| aki-corp || aki商事 ||[*/system:page-tags/tag/aki상사 aki상사]||
+|| alexylva || alexylva大学 ||[*/system:page-tags/tag/알렉실바 알렉실바]||
+|| ambrose-restaurant || アンブローズ・レストラン ||[*/system:page-tags/tag/앰브로즈-레스토랑스 앰브로즈-레스토랑스]||
+|||| andersen ||[*/system:page-tags/tag/안데르센 안데르센]||
+|| anderson || アンダーソン ||[*/system:page-tags/tag/앤더슨 앤더슨]||
+|| annihilism || 絶滅主義 ||[*/system:page-tags/tag/소멸주의 소멸주의]||
+|| antares-society || アンタレス協会 ||[*/system:page-tags/tag/안타레스-결사 안타레스-결사]||
+|| arcadia || アルカディア ||[*/system:page-tags/tag/아르카디아 아르카디아]||
+||||||[*/system:page-tags/tag/are-we-cool-yet are-we-cool-yet]||
+||||||[*/system:page-tags/tag/asci asci]||
+|| avelar || アベラール ||[*/system:page-tags/tag/아벨라르 아벨라르]||
+|| beyond-entropy || エントロピーを越えて ||[*/system:page-tags/tag/엔트로피를-넘어서 엔트로피를-넘어서]||
+|| black-queen || 黒の女王 ||[*/system:page-tags/tag/검은-여왕 검은-여왕]||
+|||| british-occult-service ||[*/system:page-tags/tag/영국-오컬트국 영국-오컬트국]||
+|| broken-god || 壊れた神の教会 ||[*/system:page-tags/tag/부서진-신 부서진-신]||
+|| brothers-foodstuffs || 弟の食料品 ||[*/system:page-tags/tag/아우의-식료품 아우의-식료품]||
+|||| caecus-c ||[*/system:page-tags/tag/눈먼-c 눈먼-c]||
+|| caldeira || ||[*/system:page-tags/tag/칼데라 칼데라]||
+|| celeste || セレスト ||[*/system:page-tags/tag/셀레스트 셀레스트]||
+||||||[*/system:page-tags/tag/cfo cfo]||
+|| chaos-insurgency || カオス・インサージェンシー ||[*/system:page-tags/tag/혼돈의-반란 혼돈의-반란]||
+|| chicago-spirit || シカゴ・スピリット ||[*/system:page-tags/tag/시카고-스피릿 시카고-스피릿]||
+|| children-of-the-night || 夜闇の子ら ||[*/system:page-tags/tag/밤의-아이들 밤의-아이들]||
+|| children-of-the-torch || 松明の子供達 ||[*/system:page-tags/tag/횃불의-아이들 횃불의-아이들]||
+|| Chŏnghæjin || 清海鎮 ||[*/system:page-tags/tag/청해진 청해진]||
+|| chopinian-cult || ショパン・カルト ||[*/system:page-tags/tag/쇼팽교 쇼팽교]||
+|| christina-college || cc ||[*/system:page-tags/tag/성-크리스티나-서원 성-크리스티나-서원]||
+|| cicp || 幻島同盟 ||[*/system:page-tags/tag/환상섬동맹 환상섬동맹]||
+|||| class-of-76 ||[*/system:page-tags/tag/76년도-졸업반 76년도-졸업반]||
+|| cobweb-int || コブウェブ・インターナショナル ||[*/system:page-tags/tag/주망국제 주망국제]||
+|| cogwork-orthodoxy || 歯車仕掛正教 ||[*/system:page-tags/tag/톱니장치-정교 톱니장치-정교]||
+|| corpse-corpus || コウプスコウパス ||[*/system:page-tags/tag/콥스-코퍼스 콥스-코퍼스]||
+|||| dado ||[*/system:page-tags/tag/다도 다도]||
+|||| daevite ||[*/system:page-tags/tag/다에바인 다에바인]||
+|| dark-sushi || 闇寿司 ||[*/system:page-tags/tag/어둠의-초밥 어둠의-초밥]||
+|| deer-college || ディア大学 ||[*/system:page-tags/tag/사슴대학 사슴대학]||
+|| dinodons-hand || 赤斑蛇の手 ||[*/system:page-tags/tag/능구렁이-손 능구렁이-손]||
+|| division-xxv || 第25局 ||[*/system:page-tags/tag/제25분견국 제25분견국]||
+|| doctor || 博士 ||[*/system:page-tags/tag/박사 박사]||
+|||| d-pixsea ||[*/system:page-tags/tag/d-픽시 d-픽시]||
+|| dreaming-tech || 夢見テクノロジー ||[*/system:page-tags/tag/꿈결-테크놀로지 꿈결-테크놀로지]||
+|| drunkness-street || 酩酊街 ||[*/system:page-tags/tag/명정가 명정가]||
+|| dr-wondertainment || ワンダーテインメント博士 ||[*/system:page-tags/tag/원더테인먼트-박사 원더테인먼트-박사]||
+||||||[*/system:page-tags/tag/e&e e&e]||
+|| eco-press || eco出版社 ||[*/system:page-tags/tag/eco출판사 eco출판사]||
+|| elma || エルマ外教 ||[*/system:page-tags/tag/엘마외교 엘마외교]||
+|| factory || ファクトリー ||[*/system:page-tags/tag/공장 공장]||
+|| fifthism || 第五教会 ||[*/system:page-tags/tag/다섯째 다섯째]||
+|| fixed-flowers || 修正花卉 ||[*/system:page-tags/tag/수정화훼 수정화훼]||
+|| gamers-against-weed || ゲーマーズアゲインストウィード ||[*/system:page-tags/tag/대마초를-반대하는-게이머들 대마초를-반대하는-게이머들]||
+|| gendastrerie || 星警隊 ||[*/system:page-tags/tag/성경대 성경대]||
+|| gentilshommes || 貴族たち ||[*/system:page-tags/tag/신사회 신사회]||
+|| global-ocult-coalition || 世界オカルト連合 ||[*/system:page-tags/tag/세계-오컬트-연합 세계-오컬트-연합]||
+|| gogyō-kessha || 五行結社 ||[*/system:page-tags/tag/오행결사 오행결사]||
+|| goldbaker-reinz || ゴールドベイカー・ラインツ ||[*/system:page-tags/tag/골드베이커-라인츠 골드베이커-라인츠]||
+|| golden-horde || 金帳汗国 ||[*/system:page-tags/tag/금장칸국 금장칸국]||
+|| gpexpress || gpエクスプレス ||[*/system:page-tags/tag/gp택배 gp택배]||
+|| great-green-god || 偉大なる緑の神 ||[*/system:page-tags/tag/대록신교 대록신교]||
+|| gru-division-p || gru-p-部局 ||[*/system:page-tags/tag/gru-p-부서 gru-p-부서]||
+||||||[*/system:page-tags/tag/hmfscp hmfscp]||
+|| horizon-initiative || 境界線イニシアチブ ||[*/system:page-tags/tag/지평선-구상 지평선-구상]||
+|| hunters-black-lodge || ハンターの黒きロッジ ||[*/system:page-tags/tag/사냥꾼의-검은-산장 사냥꾼의-검은-산장]||
+|| hunting-club || 動植物狩猟クラブ ||[*/system:page-tags/tag/수렵동호회 수렵동호회]||
+|||| ijamea ||[*/system:page-tags/tag/이자메아 이자메아]||
+|||| imaginanimal ||[*/system:page-tags/tag/이매지내니멀 이매지내니멀]||
+||||||[*/system:page-tags/tag/imbw imbw]||
+|| isanagi-clan || 日奉一族 ||[*/system:page-tags/tag/이사나기-일족 이사나기-일족]||
+||||||[*/system:page-tags/tag/icsut icsut]||
+|| iwanaga-association || イワナガ美容組合 ||[*/system:page-tags/tag/이와나가-미용조합 이와나가-미용조합]||
+|||| jagpato ||[*/system:page-tags/tag/작파토 작파토]||
+|| joicl || 日本生類創研 ||[*/system:page-tags/tag/일본생류창연 일본생류창연]||
+|| just-girly-things || ||[*/system:page-tags/tag/just-girly-things just-girly-things]||
+|| kamikase-clan|| 神枷一族 ||[*/system:page-tags/tag/카미카세-일족 카미카세-일족]||
+|| kcia-10th-bu || 中情第十局 ||[*/system:page-tags/tag/중정-제10국 중정-제10국]||
+|| kisaragi-constr || 如月工務店 ||[*/system:page-tags/tag/키사라기-공무점 키사라기-공무점]||
+|| koigarezaki-simbun || 恋昏崎新聞社 ||[*/system:page-tags/tag/코이가레자키신문사 코이가레자키신문사]||
+|| kuiyang || クイヤン派 ||[*/system:page-tags/tag/규양파 규양파]||
+|| lefty || 左利き ||[*/system:page-tags/tag/왼손잡이 왼손잡이]||
+|| liferaft || ライフラフト ||[*/system:page-tags/tag/라이프래프트 라이프래프트]||
+|||| madao ||[*/system:page-tags/tag/메디치-한림원 메디치-한림원]||
+|| mages-academy || 魔術師学会 ||[*/system:page-tags/tag/마술사한림원 마술사한림원]||
+|| magic-orchestra || 魔法楽団 ||[*/system:page-tags/tag/마법악단 마법악단]||
+|| manna-charitable-foundation || マナによる慈善財団 ||[*/system:page-tags/tag/만나-자선재단 만나-자선재단]||
+|| marshall-carter-and-dark || mc&d ||[*/system:page-tags/tag/마셜-카터&다크 마셜-카터&다크]||
+|| maxwellism || マクスウェリズム ||[*/system:page-tags/tag/맥스웰교 맥스웰교]||
+|| midnight-club || 深夜クラブ ||[*/system:page-tags/tag/심야클럽 심야클럽]||
+||||||[*/system:page-tags/tag/mm-wk mm-wk]||
+|| mujin-getsudō-shū || 無尽月導衆 ||[*/system:page-tags/tag/무진월도중 무진월도중]||
+|| mu-yi || 木易 ||[*/system:page-tags/tag/목역 목역]||
+|| nameless || 名もなきもの ||[*/system:page-tags/tag/이름없음 이름없음]||
+|| nemo-and-the-nautilus || ネモ・アンド・ノーチラス ||[*/system:page-tags/tag/노틸러스호 노틸러스호]||
+|| nobody || 何者でもない ||[*/system:page-tags/tag/아무도-아닌-자 아무도-아닌-자]||
+|| noonday-oak-troupe || 樫の木 ||[*/system:page-tags/tag/떡갈나무 떡갈나무]||
+|| npes || 国家超常防災院 ||[*/system:page-tags/tag/국가초상방재원 국가초상방재원]||
+|| obearwatch || 監督真司令部 ||[*/system:page-tags/tag/상급곰시사령부 상급곰시사령부]||
+|| obskura || オブスクラ ||[*/system:page-tags/tag/옵스쿠라 옵스쿠라]||
+|| oneiroi || オネイロイ ||[*/system:page-tags/tag/오네이로이 오네이로이]||
+|| order-of-light || リュミエール騎士団 ||[*/system:page-tags/tag/빛의-수도회 빛의-수도회]||
+|||| oria ||[*/system:page-tags/tag/유물환수 유물환수]||
+|||| pamwac ||[*/system:page-tags/tag/파무왁 파무왁]||
+|| pangea || ||[*/system:page-tags/tag/판게아 판게아]||
+|| parawatch || パラウォッチ ||[*/system:page-tags/tag/파라워치 파라워치]||
+|| pentagram || ペンタグラム ||[*/system:page-tags/tag/펜타그램 펜타그램]||
+|| plugsoft || プラグソフト ||[*/system:page-tags/tag/플러그소프트 플러그소프트]||
+|| prometheus || プロメテウス ||[*/system:page-tags/tag/프로메테우스 프로메테우스]||
+||||||[*/system:page-tags/tag/psw psw]||
+||||||[*/system:page-tags/tag/pzga pzga]||
+|| raptor-tec || ラプターテック ||[*/system:page-tags/tag/랍토르테크 랍토르테크]||
+|| sai || ||[*/system:page-tags/tag/특이한림원 특이한림원]||
+|| saiga-factions || 犀賀派 ||[*/system:page-tags/tag/사이가파 사이가파]||
+|| samdaecheon || サムデチョン ||[*/system:page-tags/tag/삼대천 삼대천]||
+|| sapphire || saphir ||[*/system:page-tags/tag/사피르 사피르]||
+|| sarkic || サーキック ||[*/system:page-tags/tag/사르킥 사르킥]||
+|| second-hytoth || 第二ハイトス教会 ||[*/system:page-tags/tag/제2하이토스 제2하이토스]||
+|| sekiryu-club || 石榴倶楽部 ||[*/system:page-tags/tag/석류구락부 석류구락부]||
+|| serpents-hand || 蛇の手 ||[*/system:page-tags/tag/뱀의-손 뱀의-손]||
+|| shark-punching-center || サメ殴りセンター ||[*/system:page-tags/tag/상어-죽빵-센터 상어-죽빵-센터]||
+|| shūshū-in || 蒐集院 ||[*/system:page-tags/tag/수집원 수집원]||
+|||| silicon-nornir ||[*/system:page-tags/tag/반도체-노르니르 반도체-노르니르]||
+|| special-affairs-division || 公安部特事課 ||[*/system:page-tags/tag/공안부-특사과 공안부-특사과]||
+|| spicy-crust-pizzeria || スパイシー・クラスト・ピッツェリア ||[*/system:page-tags/tag/스파이시-크러스트-피제리아 스파이시-크러스트-피제리아]||
+|| sugarcomb-confectionery || シュガーコム製菓 ||[*/system:page-tags/tag/슈가컴-제과 슈가컴-제과]||
+|| szwagier&szwagier-motorized || ||[*/system:page-tags/tag/스파기에르&스파기에르-원동기 스파기에르&스파기에르-원동기]||
+|| team-zero || 零号専隊 ||[*/system:page-tags/tag/영호전대 영호전대]||
+|| technothaumaturges || テクノタウマトルゴス ||[*/system:page-tags/tag/기술기적사 기술기적사]||
+|| the-alleys || 路地道 ||[*/system:page-tags/tag/골목길 골목길]||
+|| the-violet || スミレ ||[*/system:page-tags/tag/제비꽃 제비꽃]||
+|| three-moons-initiative || 三ツ月イニシアチブ ||[*/system:page-tags/tag/삼중달-구상 삼중달-구상]||
+||||||[*/system:page-tags/tag/ting ting]||
+|| totleighsoft || トトレイソフト ||[*/system:page-tags/tag/토틀리소프트 토틀리소프트]||
+|| tou-hei || 東弊重工 ||[*/system:page-tags/tag/토헤이중공업 토헤이중공업]||
+|| ttt-co || ttt社 ||[*/system:page-tags/tag/ttt사 ttt사]||
+|| unit-negative-numbers || 負号部隊 ||[*/system:page-tags/tag/부호부대 부호부대]||
+|| univers-isle || ユニヴェルジル ||[*/system:page-tags/tag/위니베르실 위니베르실]||
+|| unusual-cargo || 異常積荷委員会 ||[*/system:page-tags/tag/특이화물 특이화물]||
+|| unusual-incidents-unit || 異常事件課 ||[*/system:page-tags/tag/특이사건반 특이사건반]||
+|| valravn || ヴァルラウン ||[*/system:page-tags/tag/발라븐 발라븐]||
+|| vikander-kneed || ヴィキャンデル・ニード ||[*/system:page-tags/tag/비칸데르니드 비칸데르니드]||
+|| wandsmen || 堂守連盟 ||[*/system:page-tags/tag/권사단 권사단]||
+|| westhead-media || ウェストヘッド・メディア ||[*/system:page-tags/tag/웨스트헤드-미디어 웨스트헤드-미디어]||
+|| wilsons-wildlife || ウィルソンズ・ワイルドライフ ||[*/system:page-tags/tag/윌슨-야생 윌슨-야생]||
+|| wind-dew || 風露旅社 ||[*/system:page-tags/tag/풍로여행사 풍로여행사]||
+|| world-parahealth-organization || 世界超保健機関 ||[*/system:page-tags/tag/세계초상보건기구 세계초보건기구]||
+||||||[*/system:page-tags/tag/www www]||
+|| xia-dynasty || 夏王朝 ||[*/system:page-tags/tag/하왕조 하왕조]||
+|||| yakushi‬ ||[*/system:page-tags/tag/야쿠시 야쿠시]||
+|| yj-inc || 遠己 ||[*/system:page-tags/tag/위안지 위안지]||
+
+
++++ 재단 부서 태그
+||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||
+|| abnormalities || 怪奇部門 ||[*/system:page-tags/tag/이상성부 이상성부]||
+|| antimemetics-division || 反ミーム部門 ||[*/system:page-tags/tag/항밈학과 항밈학과]||
+|| decommissioning-dept || 解体部門 ||[*/system:page-tags/tag/퇴역부 퇴역부]||
+|| deletions-dept || 削除部門 ||[*/system:page-tags/tag/삭제부 삭제부]||
+|| delta-t || デルタ-t ||[*/system:page-tags/tag/델타-t 델타-t]||
+|| ethics-committee || 倫理委員会 ||[*/system:page-tags/tag/윤리위원회 윤리위원회]||
+||||||[*/system:page-tags/tag/ettra ettra]||
+|| fire-suppression-dept || 火急鎮静部門 ||[*/system:page-tags/tag/방화부 방화부]||
+|| folklore-dept || 神話・民俗学部門 ||[*/system:page-tags/tag/민속학부 민속학부]||
+|| miscommunications || 誤伝達部門 ||[*/system:page-tags/tag/의사불통학부 의사불통학부]||
+|| pataphysics-dept || 空想科学部門 ||[*/system:page-tags/tag/형이초학부 형이초학부]||
+|| surrealistics-dept || 超現実部門 ||[*/system:page-tags/tag/초현실학부 초현실학부]||
+|| tactical-theology || 戦術神学部門 ||[*/system:page-tags/tag/전술신학부 전술신학부]||
+|| telecom-office || 電気通信監視室 ||[*/system:page-tags/tag/통신모니터링실 통신모니터링실]||
+|| three-enclosures || 三垣 ||[*/system:page-tags/tag/삼원 삼원]||
+|| unreality-dept || 非現実部門 ||[*/system:page-tags/tag/비현실부 비현실부]||
+
++++ 장소 태그
+||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||
+|||| 7th-occult-war ||[*/system:page-tags/tag/제7차-오컬트-대전 제7차-오컬트-대전]||
+|| alagadda ||  アラガッダ ||[*/system:page-tags/tag/알라가다 알라가다]||
+|| aleph || サイト-aleph ||[*/system:page-tags/tag/알레프-기지 알레프-기지]||
+|| backdoor-soho || バックドア・ソーホー ||[*/system:page-tags/tag/뒷문소호 뒷문소호]||
+|| beth || サイト-beth ||[*/system:page-tags/tag/베트-기지 베트-기지]||
+|| deus-ex-machina || 機械仕掛けの神 ||[*/system:page-tags/tag/데우스-엑스-마키나 데우스-엑스-마키나]||
+|| esterberg || エスターバーグ ||[*/system:page-tags/tag/에스테르베르크 에스테르베르크]||
+|| eurtec || ユーテック ||[*/system:page-tags/tag/유르텍 유르텍]||
+|| he || サイト-he ||[*/system:page-tags/tag/헤-기지 헤-기지]||
+|| hong-shing || 香城 ||[*/system:page-tags/tag/홍싱 홍싱]||
+|| hy-brasil || ハイ・ブラジル ||[*/system:page-tags/tag/히브라실 히브라실]||
+|| koigarezaki || 恋昏崎 ||[*/system:page-tags/tag/코이가레자키 코이가레자키]||
+|| kybian || サイト-kybian ||[*/system:page-tags/tag/키비안-기지 키비안-기지]||
+|| la-rue-macabre || ラ・リュー・マカーブラー ||[*/system:page-tags/tag/라-뤼-마카브르 라-뤼-마카브르]||
+|| mayim || サイト-mayim ||[*/system:page-tags/tag/마임-기지 마임-기지]||
+|| mujin || 霧津 ||[*/system:page-tags/tag/무진 무진]||
+|| noosphere || ノウアスフィア||[*/system:page-tags/tag/정신권 정신권]||
+|| samiomalie || サミオマリエ ||[*/system:page-tags/tag/사미오말리에 사미오말리에]||
+|| shigastan || シガスタン ||[*/system:page-tags/tag/시가스탄 시가스탄]||
+|| site-zh-22 || サイト-zh-22 ||[*/system:page-tags/tag/제zh-22기지 제zh-22기지]||
+|| site-zh-44 || サイト-zh-44 ||[*/system:page-tags/tag/제zh-44기지 제zh-44기지]||
+|| tav || サイト-tav ||[*/system:page-tags/tag/타브-기지 타브-기지]||
+|| three-portlands || スリー・ポートランド ||[*/system:page-tags/tag/스리포틀랜즈 스리포틀랜즈]||
+|| tōno-yōkai-sanctuary || 遠野妖怪保護区 ||[*/system:page-tags/tag/토오노-요괴보호구 토오노-요괴보호구]||
+|| undervegas || アンダーベガス ||[*/system:page-tags/tag/언더베가스 언더베가스]||
+|| wanderers-library || 放浪者の図書館 ||[*/system:page-tags/tag/방랑자의-도서관 방랑자의-도서관]||
+|| yod || サイト-yod ||[*/system:page-tags/tag/요드-기지 요드-기지]||
+
++++ 이야기 & 카논 태그
+||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||
+|||| 1998 ||[*/system:page-tags/tag/1998년 1998년]||
+|| abcs-of-death || 死のabc ||[*/system:page-tags/tag/죽음의-abc 죽음의-abc]||
+|| aces-and-eights || 死人の手札 ||[*/system:page-tags/tag/에이스8투페어 에이스8투페어]||
+|| ad-astra || アド・アストラ ||[*/system:page-tags/tag/별을-향해서 별을-향해서]||
+|| admonition || 訓戒 ||[*/system:page-tags/tag/훈계 훈계]||
+||||||[*/system:page-tags/tag/aiad aiad]||
+|| alchemy-department || 錬金術部門 ||[*/system:page-tags/tag/연금학부 연금학부]||
+|||| animal-hospital ||[*/system:page-tags/tag/동물병원 동물병원]||
+|| antarctic-exchange || 南極の交流 ||[*/system:page-tags/tag/남극의-교환 남극의-교환]||
+|||| ao-tale ||[*/system:page-tags/tag/변칙-개체-이야기 변칙-개체-이야기]||
+|| apotheosis || アポセオシス ||[*/system:page-tags/tag/신격화 신격화]||
+||||||[*/system:page-tags/tag/asp asp]||
+|| bellerverse || 鐘を鳴らす者の詩 ||[*/system:page-tags/tag/벨러버스 벨러버스]||
+|| black-diamond-billions || ||[*/system:page-tags/tag/블랙-다이아몬드-밀리언스 블랙-다이아몬드-밀리언스]||
+|| black-rabbit-company || ブラックラビット社 ||[*/system:page-tags/tag/검은토끼-중대 검은토끼-중대]||
+|| broken-masquerade || 壊された虚構 ||[*/system:page-tags/tag/부서진-가장무도회 부서진-가장무도회]||
+|| but-a-dream || ただの夢 ||[*/system:page-tags/tag/꿈일-뿐 꿈일-뿐]||
+|| cack-hard || カック・ハード ||[*/system:page-tags/tag/깨액-하드 깨액-하드]||
+|| collector-tale || コレクターtale ||[*/system:page-tags/tag/수집가-이야기 수집가-이야기]||
+|| competitive-eschatology || 競り合う終末論 ||[*/system:page-tags/tag/경쟁적-종말론 경쟁적-종말론]||
+|| cool-war-2 || クールな戦争2 ||[*/system:page-tags/tag/제2차-쿨전 제2차-쿨전]||
+|||| dārum-tracer ||[*/system:page-tags/tag/다룸-트레이서 다룸-트레이서]||
+|| daybreak || 破暁 ||[*/system:page-tags/tag/여명 여명]||
+|| deepwell-catalogue || 深淵目録 ||[*/system:page-tags/tag/깊은우물-카탈로그 깊은우물-카탈로그]||
+|| doctors-of-the-church || 教会の博士||[*/system:page-tags/tag/교단의-박사들 교단의-박사들]||
+|| dread&circuses || ドレッド&サーカス ||[*/system:page-tags/tag/겁과-서커스 겁과-서커스]||
+|| end-of-death || 死の終焉 ||[*/system:page-tags/tag/죽음의-끝 죽음의-끝]||
+||||||[*/system:page-tags/tag/etdp etdp]||
+||||||[*/system:page-tags/tag/eve-aic-tales eve-aic-tales]||
+|||| eventyr ||[*/system:page-tags/tag/에번튀아 에번튀아]||
+|| fading-stars ||  ||[*/system:page-tags/tag/희미해져-가는-별들 희미해져-가는-별들]||
+|| foundation4k || 財団4k ||[*/system:page-tags/tag/재단4k 재단4k]||
+|| from-120s-archives || 120の記録書庫より ||[*/system:page-tags/tag/제120기지-보존기록관 제120기지-보존기록관]||
+|| fusōki || 扶桑紀 ||[*/system:page-tags/tag/부상기 부상기]||
+|| goc-casefiles|| goc事件簿 ||[*/system:page-tags/tag/goc-사건파일 goc-사건파일]||
+|| green-king || 翠の王 ||[*/system:page-tags/tag/녹색왕 녹색왕]||
+|| harbinger || ハービンジャー ||[*/system:page-tags/tag/징조 징조]||
+|| heimdall || ヘイムダル ||[*/system:page-tags/tag/헤임달 헤임달]||
+|||| insect-hell ||[*/system:page-tags/tag/벌레지옥 벌레지옥]||
+|| integration-program  || 統合プログラム ||[*/system:page-tags/tag/통합-프로그램 통합-프로그램]||
+|||| kiryu-labs ||[*/system:page-tags/tag/키류-연구실 키류-연구실]||
+|| ksg ||  港城江 ||[*/system:page-tags/tag/콩싱공 콩싱공]||
+|| lampter || ランピーター  ||[*/system:page-tags/tag/램퍼터 램퍼터]||
+|||| linkage ||[*/system:page-tags/tag/링크에이지 링크에이지]||
+|| lolfoundation || たのしいざいだん ||[*/system:page-tags/tag/lol재단 lol재단]||
+|||| machina ||[*/system:page-tags/tag/마키나 마키나]||
+|| man-who-wasnt-there || 存在しなかった者 ||[*/system:page-tags/tag/거기-없었던-남자 거기-없었던-남자]||
+|| memoria-adytum || 追憶のアディトゥム ||[*/system:page-tags/tag/메모리아-아뒤툼 메모리아-아뒤툼]||
+|| mujin || 霧津 ||[*/system:page-tags/tag/무진기담 무진기담]||
+|| mundus-liberari || 世界に自由を ||[*/system:page-tags/tag/문두스-리베라리 문두스-리베라리]||
+|| new-faces || ||[*/system:page-tags/tag/신참 신참]||
+|| nexus || ||[*/system:page-tags/tag/넥서스-연작 넥서스-연작]||
+|| nightfall || ナイトフォール ||[*/system:page-tags/tag/드리운-밤 드리운-밤]||
+|| no-return || ノー・リターン ||[*/system:page-tags/tag/돌이킬-수-없다 돌이킬-수-없다]||
+|||| odss ||[*/system:page-tags/tag/〈odss〉 〈odss〉]||
+|| old-foes || 旧敵たち ||[*/system:page-tags/tag/오래된-적들 오래된-적들]||
+|| old-man-in-the-sea || 老人との海 ||[*/system:page-tags/tag/바다의-노인 바다의-노인]||
+|||| olympia ||[*/system:page-tags/tag/올림피아 올림피아]||
+|||| on-guard-43 ||[*/system:page-tags/tag/지키리라-43기지 지키리라-43기지]||
+|| only-game-in-town || 最上の事 ||[*/system:page-tags/tag/그나마-쓸만한 그나마-쓸만한]||
+|| on-mount-golgotha || ゴルゴタの丘で ||[*/system:page-tags/tag/골고타-산정에서 골고타-산정에서]||
+|| orcadia || オルカディア ||[*/system:page-tags/tag/오르카디아 오르카디아]||
+|| our-open-veins || ||[*/system:page-tags/tag/벌어진-핏줄 벌어진-핏줄]||
+|| parawatch-true-crime || ||[*/system:page-tags/tag/파라워치-범죄실록 파라워치-범죄실록]||
+|| phobia-anthology || 恐怖症アンソロジー ||[*/system:page-tags/tag/공포증-앤솔로지 공포증-앤솔로지]||
+|||| pitch-haven ||[*/system:page-tags/tag/칠흑의-안식처 칠흑의-안식처]||
+|||| project-crossover ||[*/system:page-tags/tag/크로스오버 크로스오버]||
+|||| project-thaumiel ||[*/system:page-tags/tag/프로젝트-타우미엘 프로젝트-타우미엘]||
+|| rats-nest || ラッツネスト ||[*/system:page-tags/tag/쥐구멍 쥐구멍]||
+|| resurrection || リザレクション ||[*/system:page-tags/tag/부활 부활]||
+|| run-the-river-red|| 大河は赤に染められる ||[*/system:page-tags/tag/붉게-물든-강 붉게-물든-강]||
+|| s&c-plastics || s&cプラスチック ||[*/system:page-tags/tag/s&c-플라스틱스 s&c-플라스틱스]||
+|| semiotics || ||[*/system:page-tags/tag/기호학 기호학]||
+|| ship-in-a-bottle || ボトルシップ ||[*/system:page-tags/tag/복리후생부 복리후생부]||
+|||| simulacrum ||[*/system:page-tags/tag/시물라크룸 시물라크룸]||
+||||||[*/system:page-tags/tag/skp skp]||
+||||||[*/system:page-tags/tag/sotm sotm]||
+|| tales-of-alive || 生 ||[*/system:page-tags/tag/생 생]||
+|||| team-bird ||[*/system:page-tags/tag/팀-버드 팀-버드]||
+|| the-coldest-war || 極寒の戦争 ||[*/system:page-tags/tag/최악의-냉전 최악의-냉전]||
+|| the-gulf || メキシコ湾 ||[*/system:page-tags/tag/멕시코만 멕시코만]||
+|| the-trashfire || トラッシュファイア ||[*/system:page-tags/tag/트래쉬파이어 트래쉬파이어]||
+|| third-law || 第三法則 ||[*/system:page-tags/tag/제3법칙 제3법칙]||
+|| time-after-time-password || タイム・アフター・タイム・パスワード ||[*/system:page-tags/tag/다회용-비밀번 다회용-비밀번호]||
+|| twisted-pines || あのヨレハマツの林 ||[*/system:page-tags/tag/뒤틀린-솔밭 뒤틀린-솔밭]||
+|| unfounded || 財団のない世界 ||[*/system:page-tags/tag/비설립 비설립]||
+|| unhuman || 人ならぬもの ||[*/system:page-tags/tag/비인간 비인간]||
+|| untitled-series || ||[*/system:page-tags/tag/무제-연작 무제-연작]||
+|| war-on-all-fronts || 全ての戦線で戦え ||[*/system:page-tags/tag/전면전쟁 전면전쟁]||
+|| whore-of-blood || 血の娼婦 ||[*/system:page-tags/tag/피의-탕녀 피의-탕녀]||
+|| wonderful-world || 素晴らしき世界 ||[*/system:page-tags/tag/원더풀-월드 원더풀-월드]||
+|| world-kept-turning || 世界は廻り続けた ||[*/system:page-tags/tag/세상은-계속-돌아갔다 세상은-계속-돌아갔다]||
+|| yggdrasil-s-surveyor || ユグドラシルの測量技師 ||[*/system:page-tags/tag/위그드라실의-측량사 위그드라실의-측량사]||
+
+
++++ 등장인물 태그
+||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||
+|| 8-ball || 8-ボール ||[*/system:page-tags/tag/8번-공 8번-공]||
+|| a.d. || ad渉外長 ||[*/system:page-tags/tag/a.d. a.d.]||
+|||| aaron-siegel ||[*/system:page-tags/tag/아론-시걸 아론-시걸]||
+|| able || アベル ||[*/system:page-tags/tag/아벨 아벨]||
+|| agent-adams || エージェント・アダムス ||[*/system:page-tags/tag/애덤스-요원 애덤스-요원]||
+|| agent-green || エージェント・グリーン ||[*/system:page-tags/tag/그린-요원 그린-요원]||
+|| agent-kazmarek || エージェント・カズマレク ||[*/system:page-tags/tag/카즈마레크-요원 카즈마레크-요원]||
+|| agent-kurusu || エージェント・来栖 ||[*/system:page-tags/tag/쿠루스-요원 쿠루스-요원]||
+|| agent-laferrier || エージェント・ラフェリエール ||[*/system:page-tags/tag/라페리에-요원 라페리에-요원]||
+|| agent-lament || エージェント・ラメント ||[*/system:page-tags/tag/러멘트-요원 러멘트-요원]||
+|| agent-lurk || エージェント・ラーク ||[*/system:page-tags/tag/러크-요원 러크-요원]||
+|| agent-merlo || エージェント・メルロ ||[*/system:page-tags/tag/멀로-요원 멀로-요원]||
+|| agent-navarro || エージェント・ナヴァッロ ||[*/system:page-tags/tag/나바로-요원 나바로-요원]||
+|| agent-popescu || エージェント・ポペスク ||[*/system:page-tags/tag/포페스쿠-요원 포페스쿠-요원]||
+|| agent-strelnikov || エージェント・ストレルニコフ ||[*/system:page-tags/tag/스트렐니코프-요원 스트렐니코프-요원]||
+|| agent-trauss || エージェント・トラウス ||[*/system:page-tags/tag/트라우스-요원 트라우스-요원]||
+|| agent-yoric || エージェント・ヨリック ||[*/system:page-tags/tag/요릭-요원 요릭-요원]||
+|| aldon || アルドン ||[*/system:page-tags/tag/알돈 알돈]||
+|| alexandra || アレクサンドラ ||[*/system:page-tags/tag/알렉산드라 알렉산드라]||
+|| alexei-belitrov || アレクセイ・ベリトロフ ||[*/system:page-tags/tag/알렉세이-벨리트로프 알렉세이-벨리트로프]||
+|| alex-thorley || アレックス・ソーリー ||[*/system:page-tags/tag/알렉스-톨리 알렉스-톨리]||
+|| alleged-god || scp-343 ||[*/system:page-tags/tag/추정상-신 추정상-신]||
+|| angle-grinders || 角度研削者 ||[*/system:page-tags/tag/세타-90-각마기 세타-90-각마기]||
+|| bailey-brothers || ベイリー三兄弟 ||[*/system:page-tags/tag/베일리-형제 베일리-형제]||
+|| big-cheese-horace || ビッグチーズ・ホレス ||[*/system:page-tags/tag/거물-호러스 거물-호러스]||
+|||| blackwood ||[*/system:page-tags/tag/블랙우드 블랙우드]||
+|| bobble-the-clown || ピエロのボブル ||[*/system:page-tags/tag/광대-보블 광대-보블]||
+|||| bones ||[*/system:page-tags/tag/본즈 본즈]||
+|| brainy-brian || ブレイニー・ブライアン ||[*/system:page-tags/tag/똑똑이-브라이언 똑똑이-브라이언]||
+|||| brothers-of-death ||[*/system:page-tags/tag/죽음-형제들 죽음-형제들]||
+|| cain || カイン ||[*/system:page-tags/tag/카인 카인]||
+|| captain-adrian || キャプテン・エイドリアン ||[*/system:page-tags/tag/에이드리언-대령 에이드리언-대령]||
+|| chaz-ambrose || チャズ・アンブローズ ||[*/system:page-tags/tag/채즈-앰브로즈 채즈-앰브로즈]||
+|| chief-ibanez || イバニェス主任 ||[*/system:page-tags/tag/이바네즈-계장 이바네즈-계장]||
+|| cousin-johnny || 従兄弟のジョニー ||[*/system:page-tags/tag/사촌-조니 사촌-조니]||
+||||||[*/system:page-tags/tag/d-11424 d-11424]||
+||||||[*/system:page-tags/tag/d-7294 d-7294]||
+|| dc-al-fine || d.c.アルフィーネ ||[*/system:page-tags/tag/dc-알-피네 dc-알-피네]||
+|| director-aktus || アクタス管理官 ||[*/system:page-tags/tag/악투스-이사관 악투스-이사관]||
+|| director-bohart || ボハート管理官 ||[*/system:page-tags/tag/보하트-이사관 보하트-이사관]||
+|| director-bold || ボールド管理官 ||[*/system:page-tags/tag/볼드-이사관 볼드-이사관]||
+|| director-gillespie || ガレスピー管理官 ||[*/system:page-tags/tag/길레스피-이사관 길레스피-이사관]||
+|| director-lague || ラグー管理官 ||[*/system:page-tags/tag/레이그-이사관 레이그-이사관]||
+|| director-mcinnis || マッキンス管理官 ||[*/system:page-tags/tag/맥기니스-이사관 맥기니스-이사관]||
+|| director-mctiriss || マックティリス管理官 ||[*/system:page-tags/tag/맥티리스-이사관 맥티리스-이사관]||
+|| director-moose || ムース管理官 ||[*/system:page-tags/tag/무스-이사관 무스-이사관]||
+|| director-scout || スカウト管理官 ||[*/system:page-tags/tag/스카우트-이사관 스카우트-이사관]||
+|| django-bridge || ジャンゴ・ブリッジ博士 ||[*/system:page-tags/tag/장고-브리지 장고-브리지]||
+|| doctor-asheworth || アシュワース博士 ||[*/system:page-tags/tag/애시워스-박사 애시워스-박사]||
+|| doctor-blank || ブランク博士 ||[*/system:page-tags/tag/블랭크-박사 블랭크-박사]||
+|| doctor-bright || ブライト博士 ||[*/system:page-tags/tag/브라이트-박사 브라이트-박사]||
+|| doctor-cimmerian || シメリアン博士 ||[*/system:page-tags/tag/시메리안-박사 시메리안-박사]||
+|| doctor-clef || クレフ博士 ||[*/system:page-tags/tag/클레프-박사 클레프-박사]||
+|| doctor-dan || ダン博士 ||[*/system:page-tags/tag/댄-박사 댄-박사]||
+|| doctor-edison || エジソン博士 ||[*/system:page-tags/tag/에디슨-박사 에디슨-박사]||
+|| doctor-elliott || エリオット博士 ||[*/system:page-tags/tag/엘리엇-박사 엘리엇-박사]||
+|| doctor-elstrom || エルストロム博士 ||[*/system:page-tags/tag/엘스트롬-박사 엘스트-박사]||
+|| doctor-everwood || エバーウッド博士 ||[*/system:page-tags/tag/에버우드-박사 에버우드-박사]||
+|| doctor-fynegan || フィネガン博士 ||[*/system:page-tags/tag/피네건-박사 피네건-박사]||
+|| doctor-gat || ガット博士 ||[*/system:page-tags/tag/갯-박사 갯-박사]||
+|| doctor-gears || ギアーズ博士 ||[*/system:page-tags/tag/기어스-박사 기어스-박사]||
+|| doctor-gerald || ジェラルド博士 ||[*/system:page-tags/tag/제럴드-박사 제럴드-박사]||
+|| doctor-glass || グラス博士 ||[*/system:page-tags/tag/글라스-박사 글라스-박사]||
+|||| doctor-heiden ||[*/system:page-tags/tag/헤이든-박사 헤이든-박사]||
+|| doctor-iceberg || アイスバーグ博士 ||[*/system:page-tags/tag/아이스버그-박사 아이스버그-박사]||
+|| doctor-kamiyama || 神山博士 ||[*/system:page-tags/tag/카미야마-박사 카미야마-박사]||
+|| doctor-king || キング博士 ||[*/system:page-tags/tag/킹-박사 킹-박사]||
+|| doctor-kondraki || コンドラキ博士 ||[*/system:page-tags/tag/콘드라키-박사 콘드라키-박사]||
+|| doctor-light || ライト博士 ||[*/system:page-tags/tag/라이트-박사 라이트-박사]||
+|| doctor-lillihammer || リリハンメル博士 ||[*/system:page-tags/tag/릴리함메르-박사 릴리함메르-박사]||
+|| doctor-mann || マン博士 ||[*/system:page-tags/tag/만-박사 만-박사]||
+|| doctor-mcdoctorate || マクドクトラート博士 ||[*/system:page-tags/tag/맥닥터러트-박사 맥닥터러트-박사]||
+|| doctor-ngo || ||[*/system:page-tags/tag/응오-박사 응오-박사]||
+|| doctor-oowa || 大和博士 ||[*/system:page-tags/tag/오오와-박사 오오와-박사]||
+|| doctor-reynders || レインデルス博士 ||[*/system:page-tags/tag/랭데르스-박사 랭데르스-박사]||
+|| doctor-rights || ライツ博士 ||[*/system:page-tags/tag/라이츠-박사 라이츠-박사]||
+|| doctor-rivera || リベラ博士 ||[*/system:page-tags/tag/리베라-박사 리베라-박사]||
+|| doctor-roget || ロジェ博士 ||[*/system:page-tags/tag/로제-박사 로제-박사]||
+|| doctor-scranton || スクラントン博士 ||[*/system:page-tags/tag/스크랜턴-박사 스크랜턴-박사]||
+|| doctor-shaw || ||[*/system:page-tags/tag/쇼-박사 쇼-박사]||
+|| doctor-sinclair || シンクレア博士 ||[*/system:page-tags/tag/싱클레어-박사 싱클레어-박사]||
+|| doctor-sorts || ソーツ博士 ||[*/system:page-tags/tag/소츠-박사 소츠-박사]||
+|| doctor-spanko || ドクター・スパンコ ||[*/system:page-tags/tag/스팽코-박사 스팽코-박사]||
+|| doctor-surge || ||[*/system:page-tags/tag/서지-박사 서지-박사]||
+|| doctor-thereven || セレヴン博士 ||[*/system:page-tags/tag/데레븐-박사 데레븐-박사]||
+|| doctor-wettle || ウェトル博士 ||[*/system:page-tags/tag/웨틀-박사 웨틀-박사]||
+|| draven-kondraki || ドレイヴン・コンドラキ ||[*/system:page-tags/tag/드레이븐-콘드라키 드레이븐-콘드라키]||
+|| dr-frog || フロッグ博士 ||[*/system:page-tags/tag/프로그-박사 프로그-박사]||
+|| dr-vang || ヴァン博士 ||[*/system:page-tags/tag/뱅-박사 뱅-박사]||
+|| eric || エリック ||[*/system:page-tags/tag/에릭 에릭]||
+|| esther-kogan || エスター・コーガン ||[*/system:page-tags/tag/에스더-코간 에스더-코간]||
+|| faeowynn-wilson || フェオウィン・ウィルソン ||[*/system:page-tags/tag/페오윈-윌슨 페오윈-윌슨]||
+|| finnegan || フィネガン ||[*/system:page-tags/tag/피네간 피네간]||
+|| fred || フレッド ||[*/system:page-tags/tag/프레드 프레드]||
+|| general-bowe || バウ将軍 ||[*/system:page-tags/tag/보위-장군 보위-장군]||
+|| geoffrey-quincy-harrison || ジェフリー・クインシー・ハリソン ||[*/system:page-tags/tag/제프리-퀸시-해리슨 제프리-퀸시-해리슨]||
+|| glacon || グラソン ||[*/system:page-tags/tag/글라송 글라송]||
+|| grabnok || グラブノック ||[*/system:page-tags/tag/그래브녹 그래브녹]||
+|| grand-karcist-ion || 崇高なるカルキスト・イオン ||[*/system:page-tags/tag/위대한-카르시스트-이온 위대한-카르시스트-이온]||
+|| halyna-ieva || ハリーナ・イエヴァ ||[*/system:page-tags/tag/할리나-이에바 할리나-이에바]||
+|| hanged-king || 吊られた王 ||[*/system:page-tags/tag/목매달린-왕 목매달린-왕]||
+|| hard-to-kill-reptile || 不死身の爬虫類 ||[*/system:page-tags/tag/죽일-수-없는-파충류 죽일-수-없는-파충류]||
+|| herman-fuller || ハーマン・フラー  ||[*/system:page-tags/tag/허먼-풀러 허먼-풀러]||
+||||||[*/system:page-tags/tag/hogslice hogslice]||
+|| holly-light || ホリィ・ライト ||[*/system:page-tags/tag/홀리-라이트 홀리-라이트]||
+|| icky || イッキィ ||[*/system:page-tags/tag/이키 이키]||
+|| iris-dark || アイリス・ダーク ||[*/system:page-tags/tag/아이리스-다크 아이리스-다크]||
+|| iris-thompson || アイリス・トンプソン ||[*/system:page-tags/tag/아이리스-톰슨 아이리스-톰슨]||
+|| isabel-v || イザベル五世 ||[*/system:page-tags/tag/이사벨-5세 이사벨-5세]||
+|| james-harkness || ジェームス・ハークネス ||[*/system:page-tags/tag/제임스-하크니스 제임스-하크니스]||
+|| jude-kriyot || ジュード・クライヨット ||[*/system:page-tags/tag/주드-크리요트 주드-크리요트]||
+|| judith-low || ジュディス・ロゥ博士 ||[*/system:page-tags/tag/주디스-로우 주디스-로우]||
+|| judy-papill || ジュディ・パピル ||[*/system:page-tags/tag/주디-파필 주디-파필]||
+|| kain-pathos-crow || ケイン・パトス・クロウ ||[*/system:page-tags/tag/케인-파토스-크로우 케인-파토스-크로우]||
+|||| kindness ||[*/system:page-tags/tag/친절 친절]||
+|| last-hope || 残された希望 ||[*/system:page-tags/tag/알파-9-최후-희망 알파-9-최후-희망]||
+|| legate-trunnion || レガーテ・トラニオン ||[*/system:page-tags/tag/트루니언-특사 트루니언-특사]||
+|| leslie || レスリー ||[*/system:page-tags/tag/레슬리 레슬리]||
+|| lewitt-zairi-family || ルウィット・ザイリ・ファミリー ||[*/system:page-tags/tag/르위트-자이리가 르위트-자이리가]||
+|| lombardi || ロンバルディ ||[*/system:page-tags/tag/롬바르디 롬바르디]||
+|| manny || マニー ||[*/system:page-tags/tag/매니 매니]||
+|| maria-jones || マリア・ジョーンズ ||[*/system:page-tags/tag/마리아-존스 마리아-존스]||
+|| mari-macphaerson || マリ・マクファーソン ||[*/system:page-tags/tag/마리-맥퍼슨 마리-맥퍼슨]||
+|| marion-wheeler || マリオン・ホイーラー ||[*/system:page-tags/tag/매리언-휠러 매리언-휠러]||
+|| mark-kiryu || マーク・桐生 ||[*/system:page-tags/tag/마크-키류 마크-키류]||
+|| midnight-the-cat || ミッドナイト ||[*/system:page-tags/tag/미드나이트 미드나이트]||
+|| moon-champion || ムーン・チャンピオン ||[*/system:page-tags/tag/달의-대전사 달의-대전사]||
+|| mr-fish || ミスター・おさかな ||[*/system:page-tags/tag/물고기-씨 물고기-씨]||
+|| murphy-law || マーフィー・ロゥ ||[*/system:page-tags/tag/머피-로 머피-로]||
+|| nadox || ナドックス ||[*/system:page-tags/tag/나독스 나독스]||
+|| nue-saigū || 鵺-斎宮 ||[*/system:page-tags/tag/누에-재궁 누에-재궁]||
+|| odongo-tejani || オドンゴ・テジャニ ||[*/system:page-tags/tag/오돈고-테하니 오돈고-테하니]||
+|| old-ai || オールドai ||[*/system:page-tags/tag/오래된-인공지능 오래된-인공지능]||
+|| orok || オロク ||[*/system:page-tags/tag/오로크 오로크]||
+|| pangloss || パングロス ||[*/system:page-tags/tag/팡글로스 팡글로스]||
+|||| pattern-screamer ||[*/system:page-tags/tag/패턴-스크리머 패턴-스크리머]||
+|| percival-darke || ||[*/system:page-tags/tag/퍼시발-다크 퍼시발-다크]||
+|| plague-doctor || ペスト医師 ||[*/system:page-tags/tag/흑사병-의사 흑사병-의사]||
+|||| polaricecraps ||[*/system:page-tags/tag/폴라아이스크랩스 폴라아이스크랩스]||
+|| possessive-mask || 取り憑くマスク ||[*/system:page-tags/tag/빙의-가면 빙의-가면]||
+|| primrose-esquire || プリムローズ法務官 ||[*/system:page-tags/tag/프림로즈-변호사 프림로즈-변호사]||
+|| professor-aw || aw教授 ||[*/system:page-tags/tag/aw-교수 aw-교수]||
+|||| professor-bjornsen ||[*/system:page-tags/tag/비욘센-교수 비욘센-교수]||
+|| rainer-miller || ライナー・ミラー ||[*/system:page-tags/tag/레이너-밀러 레이너-밀러]||
+|| researcher-conwell || コーンウェル研究員  ||[*/system:page-tags/tag/콘웰-연구원 콘웰-연구원]||
+|| researcher-james || ジェームズ研究員 ||[*/system:page-tags/tag/제임스-연구원 제임스-연구원]||
+|| researcher-lloyd || ロイド研究員||[*/system:page-tags/tag/로이드-연구원 로이드-연구원]||
+|| researcher-l.what || ||[*/system:page-tags/tag/l.왓-연구원 l.왓-연구원]||
+|||| researcher-labelle ||[*/system:page-tags/tag/라벨-연구원 라벨-연구원]||
+|| researcher-rosen || ローゼン研究員 ||[*/system:page-tags/tag/로젠-연구원 로젠-연구원]||
+|| researcher-smalls || スモールズ研究員 ||[*/system:page-tags/tag/스몰스-연구원 스몰스-연구원]||
+|| researcher-talloran || タローラン研究員||[*/system:page-tags/tag/탈로란-연구원 탈로란-연구원]||
+|| richard-chappell || リチャード・チャペル ||[*/system:page-tags/tag/리처드-채플 리처드-채플]||
+|| riven-mercer || リーヴィン・マーサー ||[*/system:page-tags/tag/리븐-머서 리븐-머서]||
+|| robert-bumaro || ロバート・ブマロ ||[*/system:page-tags/tag/로버트-부마로 로버트-부마로]||
+|| ruiz-duchamp || ルイス・デュシャン ||[*/system:page-tags/tag/루이즈-뒤샹 루이즈-뒤샹]||
+|| ruprecht-carter ||  ||[*/system:page-tags/tag/루프레히트-카터 루프레히트-카터]||
+|| saarn || サアルン ||[*/system:page-tags/tag/사아른 사아른]||
+|| saint-hedwig || 聖ヘドウィグ ||[*/system:page-tags/tag/성-헤트비히 성-헤트비히]||
+|| samsara || サムサラ ||[*/system:page-tags/tag/타우-5-윤회 타우-5-윤회]||
+|||| saturn-deer ||[*/system:page-tags/tag/토성사슴 토성사슴]||
+|| sauelsuesor || サウエルスエソル ||[*/system:page-tags/tag/태양의-자매 태양의-자매]||
+|||| scarlet-king ||[*/system:page-tags/tag/주홍왕 주홍왕]||
+|| sheldon-katz || シェルドン・カッツ ||[*/system:page-tags/tag/셸든-카츠 셸든-카츠]||
+|| shy-guy || シャイガイ ||[*/system:page-tags/tag/부끄럼쟁이 부끄럼쟁이]||
+|| sigurross || シガーロス ||[*/system:page-tags/tag/시귀로스 시귀로스]||
+|| simon-pietrykau || サイモン・ピエトリカウ ||[*/system:page-tags/tag/시몬-피에트리카우 시몬-피에트리카우]||
+|| thad-xyank || シャンク博士 ||[*/system:page-tags/tag/타데우스-크샹크 타데우스-크샹크]||
+|| the-administrator || 管理者 ||[*/system:page-tags/tag/관리자 관리자]||
+|| the-engineer || エンジニア ||[*/system:page-tags/tag/엔지니어 엔지니어]||
+|| the-old-man || オールドマン ||[*/system:page-tags/tag/늙은이 늙은이]||
+|| the-sculpture || scp-173 ||[*/system:page-tags/tag/조각상 조각상]||
+|||| the-serpent ||[*/system:page-tags/tag/도서관의-뱀 도서관의-뱀]||
+|||| the-specter ||[*/system:page-tags/tag/스펙터 스펙터]||
+|| tickle-monster || くすぐりオバケ ||[*/system:page-tags/tag/간지럼-괴물 간지럼-괴물]||
+|| tim-wilson || ティム・ウィルソン ||[*/system:page-tags/tag/팀-윌슨 팀-윌슨]||
+|| veronica-fitzroy || ベロニカ・フィッツロイ ||[*/system:page-tags/tag/베로니카-피츠로이 베로니카-피츠로이]||
+|| vincent-anderson || ヴィンセント・アンダーソン ||[*/system:page-tags/tag/빈센트-앤더슨 빈센트-앤더슨]||
+|| yaldabaoth || ||[*/system:page-tags/tag/얄다바오트 얄다바오트]||
+|||| yossarian-leiner ||[*/system:page-tags/tag/요사리안-라이너 요사리안-라이너]||
+|| zyn-kiryu || ジン・桐生 ||[*/system:page-tags/tag/진-키류 진-키류]||
+
+
++++ 이벤트 태그
+||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^원어^^[[footnote]] 한국어, 영어, 일본어 외 지부에서 개최된 경연의 경우 여기 기재함. [[/footnote]]||~ ^^한국어^^ ||
+||||||||[*/system:page-tags/tag/1000 1000]||
+||||||||[*/system:page-tags/tag/1000jp 1000jp]||
+||||||||[*/system:page-tags/tag/1000ko 1000ko]||
+||||||||[*/system:page-tags/tag/100vn 100vn]||
+||||||||[*/system:page-tags/tag/173jp 173jp]||
+||||||||[*/system:page-tags/tag/2000 2000]||
+||||||||[*/system:page-tags/tag/2000jp 2000jp]||
+||||||gbc09||[*/system:page-tags/tag/2009-기어스생일-en 2009-기어스생일-en]||
+||||||talecon10||[*/system:page-tags/tag/2010-이야기경연-en 2010-이야기경연-en]||
+|| ||2012-devan-誕生日祝典||-||[*/system:page-tags/tag/2012-데반-생일축전 2012-데반-생일축전]||
+||||||hc2012||[*/system:page-tags/tag/2012-할로윈경연-en 2012-할로윈경연-en]||
+|| || ||-||[*/system:page-tags/tag/2013-노래마인-생일축전 2013-노래마인-생일축전]||
+||||||five-questions||[*/system:page-tags/tag/2013-다섯개의질문-en 2013-다섯개의질문-en]||
+|| ||忘年会2013||-||[*/system:page-tags/tag/2013-망년회-jp 2013-망년회-jp]||
+||||||tc2013||[*/system:page-tags/tag/2013-시간경연-en 2013-시간경연-en]||
+||||||nyc2013||[*/system:page-tags/tag/2013-신년경연-en 2013-신년경연-en]||
+|| ||halloween-2013||halloween-2013 (es)||[*/system:page-tags/tag/2013-할로윈경연-es 2013-할로윈경연-es]||
+|| ||c2fr2014||c2fr2014 (fr)||[*/system:page-tags/tag/2014-2주년-fr 2014-2주년-fr]||
+|| ||非公式800字掌編企画||-||[*/system:page-tags/tag/2014-800자-jp 2014-800자-jp]||
+||||||dc2014||[*/system:page-tags/tag/2014-디스토피아-en 2014-디스토피아-en]||
+||af2014||-||-||[*/system:page-tags/tag/2014-만우절 2014-만우절]||
+||||||goi2014||[*/system:page-tags/tag/2014-요주의단체-en 2014-요주의단체-en]||
+||||||uac2014||[*/system:page-tags/tag/2014-푸대접-en 2014-푸대접-en]||
+|| ||2014ハロウィン企画||-||[*/system:page-tags/tag/2014-할로윈경연-jp 2014-할로윈경연-jp]||
+|| ||c3fr2015||c3fr2015 (fr)||[*/system:page-tags/tag/2015-3주년-fr 2015-3주년-fr]||
+|| ||500語未満コンテスト||<500 (fr)||[*/system:page-tags/tag/2015-500단어-fr 2015-500단어-fr]||
+||||||sc2015||[*/system:page-tags/tag/2015-단편경연-en 2015-단편경연-en]||
+|| ||無名職員は語る||-||[*/system:page-tags/tag/2015-무명직원은-말한다-jp 2015-무명직원은-말한다-jp]||
+|| ||2周年goiコンテスト _
+2周年goiコンテスト遅刻投稿||-||[*/system:page-tags/tag/2015-요주의단체-jp 2015-요주의단체-jp]||
+||||||rei2015||[*/system:page-tags/tag/2015-재구성-en 2015-재구성-en]||
+|| ||2015財団放送コンテスト||-||[*/system:page-tags/tag/2015-재단방송경연 2015-재단방송경연]||
+|| ||2015夏季コンテスト||2015夏季征文 (cn)||[*/system:page-tags/tag/2015-하계경연-cn 2015-하계경연-cn]||
+|| ||非公式1200字掌編企画||-||[*/system:page-tags/tag/2016-1200자-jp 2016-1200자-jp]||
+|| ||c4fr2016||c4fr2016 (fr)||[*/system:page-tags/tag/2016-4주년-fr 2016-4주년-fr]||
+||||||d-con2016||[*/system:page-tags/tag/2016-d계급-en 2016-d계급-en]||
+||||||mtf2016||[*/system:page-tags/tag/2016-기특대-en 2016-기특대-en]||
+||||af2016||-||[*/system:page-tags/tag/2016-만우절 2016-만우절]||
+|| ||2016イラストコンテスト||-||[*/system:page-tags/tag/2016-일러스트경연-jp 2016-일러스트경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2016-재단방송경연 2016-재단방송경연]||
+|| ||2016-漫画コンテスト||-||[*/system:page-tags/tag/2016-카툰경연 2016-카툰경연]||
+|| ||1600字17||-||[*/system:page-tags/tag/2017-1600자-jp 2017-1600자-jp]||
+||||||173fest||[*/system:page-tags/tag/2017-173페스티벌-en 2017-173페스티벌-en]||
+|| ||c5fr2017||c5fr2017 (fr)||[*/system:page-tags/tag/2017-5주년-fr 2017-5주년-fr]||
+|| ||2017-世界滅亡コンテスト||-||[*/system:page-tags/tag/2017-세계멸망경연 2017-세계멸망경연]||
+|| ||新人執筆者コンテスト||-||[*/system:page-tags/tag/2017-신참경연-jp 2017-신참경연-jp]||
+||||||art2017||[*/system:page-tags/tag/2017-아트워크경연-en 2017-아트워크경연-en]||
+||||||hiscon2017||[*/system:page-tags/tag/2017-역사경연-en 2017-역사경연-en]||
+|| || ||-||[*/system:page-tags/tag/2017-재건경연 2017-재건경연]||
+|| ||recyclecon17 _
+recyclecon17遅刻組||-||[*/system:page-tags/tag/2017-재활용경연-jp 2017-재활용경연-jp]||
+|| ||デスコン17||-||[*/system:page-tags/tag/2017-죽음경연-jp 2017-죽음경연-jp]||
+|| ||cross17jp||-||[*/system:page-tags/tag/2017-크로스경연-jp 2017-크로스경연-jp]||
+|| ||nme2017||nme2017 (fr)||[*/system:page-tags/tag/2017-호적수-fr 2017-호적수-fr]||
+|| ||c6fr2018||c6fr2018 (fr)||[*/system:page-tags/tag/2018-6주년-fr 2018-6주년-fr]||
+|| ||bbc18||-||[*/system:page-tags/tag/2018-곤봉경연-jp 2018-곤봉경연-jp]||
+|| ||2018-短編コンテスト||-||[*/system:page-tags/tag/2018-단편경연 2018-단편경연]||
+|| ||2018冬季コンテスト||2018冬季征文 (cn)||[*/system:page-tags/tag/2018-동계경연-cn 2018-동계경연-cn]||
+|| ||2018-犯罪コンテスト||-||[*/system:page-tags/tag/2018-범죄경연 2018-범죄경연]||
+|| ||ベンチャーコンテスト||-||[*/system:page-tags/tag/2018-신인경연-jp 2018-신인경연-jp]||
+|| ||ワルコン18||-||[*/system:page-tags/tag/2018-악경연-jp 2018-악경연-jp]||
+||||||jam-con2018||[*/system:page-tags/tag/2018-즉흥경연-en 2018-즉흥경연-en]||
+||||||doomsday2018||[*/system:page-tags/tag/2018-최후의-날-en 2018-최후의-날-en]||
+||||||halloween2018||[*/system:page-tags/tag/2018-할로윈경연-en 2018-할로윈경연-en]||
+|| ||1200字19||-||[*/system:page-tags/tag/2019-1200자-jp 2019-1200자-jp]||
+||||||collab-con2019||[*/system:page-tags/tag/2019-공동작업-en 2019-공동작업-en]||
+|| ||af2019||-||[*/system:page-tags/tag/2019-만우절 2019-만우절]||
+|| || ||-||[*/system:page-tags/tag/2019-멘토&멘티 2019-멘토&멘티]||
+|| ||無コン19||-||[*/system:page-tags/tag/2019-무경연-jp 2019-무경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2019-성탄경연 2019-성탄경연]||
+|| ||2019新人コンテスト||2019新人竞赛 (cn)||[*/system:page-tags/tag/2019-신인경연-cn 2019-신인경연-cn]||
+||goi2019||goi2019||goi2019 (int)||[*/system:page-tags/tag/2019-요주의단체-int 2019-요주의단체-int]||
+|| || ||-||[*/system:page-tags/tag/2019-요주의단체ko 2019-요주의단체ko]||
+|| ||リサイクル2019||-||[*/system:page-tags/tag/2019-재활용경연-jp 2019-재활용경연-jp]||
+||||||jam-con2019||[*/system:page-tags/tag/2019-즉흥경연-en 2019-즉흥경연-en]||
+|| ||ジャムコン2019||-||[*/system:page-tags/tag/2019-즉흥경연-jp 2019-즉흥경연-jp]||
+||||||cliche2019||[*/system:page-tags/tag/2019-클리셰-en 2019-클리셰-en]||
+|| ||exploracion2019||exploracion2019 (es)||[*/system:page-tags/tag/2019-탐사경연-es 2019-탐사경연-es]||
+|| ||ch2019||ch2019 (fr)||[*/system:page-tags/tag/2019-할로윈경연-fr 2019-할로윈경연-fr]||
+|| ||2020-04コンテスト ||-||[*/system:page-tags/tag/2020-04경연 2020-04경연]||
+|| || ||-||[*/system:page-tags/tag/2020-06경연 2020-06경연]||
+|| ||2020-08コンテスト ||-||[*/system:page-tags/tag/2020-08경연 2020-08경연]||
+|| ||2020-10コンテスト ||-||[*/system:page-tags/tag/2020-10경연 2020-10경연]||
+|| ||c8fr2020||c8fr2020 (fr)||[*/system:page-tags/tag/2020-8주년-fr 2020-8주년-fr]||
+|| ||嘘コン20||-||[*/system:page-tags/tag/2020-거짓경연-jp 2020-거짓경연-jp]||
+|| ||ルーキーコンテスト||-||[*/system:page-tags/tag/2020-루키경연-jp 2020-루키경연-jp]||
+|| ||af2020||-||[*/system:page-tags/tag/2020-만우절 2020-만우절]||
+|| ||お見合い2020||-||[*/system:page-tags/tag/2020-맞선-jp 2020-맞선-jp]||
+|| ||2020-メタタイトルコンテスト||-||[*/system:page-tags/tag/2020-별칭경연 2020-별칭경연]||
+|| || ||-||[*/system:page-tags/tag/2020-외부문서경연 2020-외부문서경연]||
+||||||exquisite-corpse2020||[*/system:page-tags/tag/2020-우아한-시체-en 2020-우아한-시체-en]||
+||||||jam-con2020||[*/system:page-tags/tag/2020-즉흥경연-en 2020-즉흥경연-en]||
+||||||canon2020||[*/system:page-tags/tag/2020-카논부흥-en 2020-카논부흥-en]||
+|| ||チームコン20||-||[*/system:page-tags/tag/2020-팀경연-jp 2020-팀경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2021-2인3각 2021-2인3각]||
+|| || ||c9fr2021 (fr)||[*/system:page-tags/tag/2021-9주년-fr 2021-9주년-fr]||
+|| || ||2021冬季競賽 (zh)||[*/system:page-tags/tag/2021-동계경연-zh 2021-동계경연-zh]||
+|| ||af2021||-||[*/system:page-tags/tag/2021-만우절 2021-만우절]||
+||||||memecon2021-unofficial||[*/system:page-tags/tag/2021-밈경연-en 2021-밈경연-en]||
+|| ||夜コン21||-||[*/system:page-tags/tag/2021-밤경연-jp 2021-밤경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2021-비평-클리셰-ko 2021-비평-클리셰-ko]||
+|| ||お団子21||-||[*/system:page-tags/tag/2021-십오야경단-jp 2021-십오야경단-jp]||
+||||||nightmarefest||[*/system:page-tags/tag/2021-악몽축연-en 2021-악몽축연-en]||
+|| ||三題噺言霊競演21||-||[*/system:page-tags/tag/2021-언령경연-jp 2021-언령경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2021-연말경연-ko 2021-연말경연-ko]||
+|| ||リサイクル2021||-||[*/system:page-tags/tag/2021-재활용경연-jp 2021-재활용경연-jp]||
+|| ||素手喧嘩コン21||-||[*/system:page-tags/tag/2021-주먹다짐경연-jp 2021-주먹다짐경연-jp]||
+||||||jam-con2021||[*/system:page-tags/tag/2021-즉흥경연-en 2021-즉흥경연-en]||
+|| || 2021-即興コンテスト ||-||[*/system:page-tags/tag/2021-즉흥경연-ko 2021-즉흥경연-ko]||
+||||||cupid2021||[*/system:page-tags/tag/2021-큐피드-en 2021-큐피드-en]||
+|| || 2021夏季コンテスト ||2021夏季競賽 (zh)||[*/system:page-tags/tag/2021-하계경연-zh 2021-하계경연-zh]||
+|| ||qコン22||-||[*/system:page-tags/tag/2022-q경연-jp 2022-q경연-jp]||
+|| ||2022冬季コンテスト||2022冬季征文 (cn)||[*/system:page-tags/tag/2022-동계경연-cn 2022-동계경연-cn]||
+|| || ||-||[*/system:page-tags/tag/2022-등장인물ko 2022-등장인물ko]||
+|| ||わかばコンテスト||-||[*/system:page-tags/tag/2022-떡잎경연-jp 2022-떡잎경연-jp]||
+|| ||af2022||-||[*/system:page-tags/tag/2022-만우절 2022-만우절]||
+|| || ||-||[*/system:page-tags/tag/2022-별칭경연 2022-별칭경연]||
+|| ||crackfic2022||crackfic2022 (pl)||[*/system:page-tags/tag/2022-병맛경연-pl 2022-병맛경연-pl]||
+||||||departmentcon2022||[*/system:page-tags/tag/2022-부서경연-en 2022-부서경연-en]||
+|| || ||chalété2022 (fr)||[*/system:page-tags/tag/2022-여름챌린지-fr 2022-여름챌린지-fr]||
+|| || ||-||[*/system:page-tags/tag/2022-잠들-수-없는-밤 2022-잠들-수-없는-밤]||
+|| || ||-||[*/system:page-tags/tag/2022-즉흥경연-ko 2022-즉흥경연-ko]||
+||||||halloweencon2022 ||[*/system:page-tags/tag/2022-할로윈경연-en 2022-할로윈경연-en]||
+|| || ||c11fr2023 (fr)||[*/system:page-tags/tag/2023-11주년-fr 2023-11주년-fr]||
+|| ||xコン23||-||[*/system:page-tags/tag/2023-x경연-jp 2023-x경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2023-개구라경연 2023-개구라경연]||
+||||||goblincon2023||[*/system:page-tags/tag/2023-고블린경연-en 2023-고블린경연-en]||
+|| ||intcon2023||intcon2023 (int)||[*/system:page-tags/tag/2023-국제협력-int 2023-국제협력-int]||
+|| || ||-||[*/system:page-tags/tag/2023-기지경연-ko 2023-기지경연-ko]||
+|| || || lorecon2023 (int) ||[*/system:page-tags/tag/2023-로어경연-int 2023-로어경연-int]||
+||||||remixcon2023||[*/system:page-tags/tag/2023-리믹스경연-en 2023-리믹스경연-en]||
+|| ||af2023||-||[*/system:page-tags/tag/2023-만우절 2023-만우절]||
+|| ||ショート2023||-||[*/system:page-tags/tag/2023-쇼트경연-jp 2023-쇼트경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2023-연말경연-ko 2023-연말경연-ko]||
+|| ||2023-絶対コンテスト||-||[*/system:page-tags/tag/2023-절대평가 2023-절대평가]||
+|| ||ジャムコン2023||-||[*/system:page-tags/tag/2023-즉흥경연-jp 2023-즉흥경연-jp]||
+||||||coldpostcon||[*/system:page-tags/tag/2023-콜드포스트-en 2023-콜드포스트-en]||
+|| ||チームコン23||-||[*/system:page-tags/tag/2023-팀경연-jp 2023-팀경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2023-한가위축연 2023-한가위축연]||
+|| || ||ch2023 (fr)||[*/system:page-tags/tag/2023-할로윈경연-fr 2023-할로윈경연-fr]||
+||wrathcon2024|| ||-||[*/system:page-tags/tag/2024-격노경연-en 2024-격노경연-en]||
+|| ||bbc24||-||[*/system:page-tags/tag/2024-곤봉경연-jp 2024-곤봉경연-jp]||
+|| ||恐怖コン24||-||[*/system:page-tags/tag/2024-공포경연-jp 2024-공포경연-jp]||
+|| || ||2024冬季競賽 (zh)||[*/system:page-tags/tag/2024-동계경연-zh 2024-동계경연-zh]||
+|| || ||-||[*/system:page-tags/tag/2024-등장인물-ko 2024-등장인물-ko]||
+|| ||af2024||-||[*/system:page-tags/tag/2024-만우절 2024-만우절]||
+|| || ||-||[*/system:page-tags/tag/2024-멘토&멘티 2024-멘토&멘티]||
+|| || 2024-メタタイトルコンテスト ||-||[*/system:page-tags/tag/2024-별칭경연 2024-별칭경연]||
+||||||spring-cleaning24||[*/system:page-tags/tag/2024-봄맞이대청소-en 2024-봄맞이대청소-en]||
+|| ||新星コンテスト||-||[*/system:page-tags/tag/2024-신성경연-jp 2024-신성경연-jp]||
+|| || ||-||[*/system:page-tags/tag/2024-연말경연-ko 2024-연말경연-ko]||
+||||||pridefest2024||[*/system:page-tags/tag/2024-자긍심축연-en 2024-자긍심축연-en]||
+|| ||ジョンドゥコン24||-||[*/system:page-tags/tag/2024-존도우경연-jp 2024-존도우경연-jp]||
+|| ||2024沈黙ショートコンテスト||2024噤声短文竞赛 (cn)||[*/system:page-tags/tag/2024-침묵단편경연-cn 2024-침묵단편경연-cn]||
+|| || ||-||[*/system:page-tags/tag/2025-단편경연-ko 2025-단편경연-ko]||
+|| ||occon||-||[*/system:page-tags/tag/2025-등급경연-jp 2025-등급경연-jp]||
+|| || ||2025愚人竞赛 (cn)||[*/system:page-tags/tag/2025-만우절경연-cn 2025-만우절경연-cn]||
+|| || ||-||[*/system:page-tags/tag/2025-부서경연-ko 2025-부서경연-ko]||
+|||||| classiccon2025 ||[*/system:page-tags/tag/2025-클래식경연-en 2025-클래식경연-en]||
+|||||| publicdomaincon2025 ||[*/system:page-tags/tag/2025-퍼블릭도메인-en 2025-퍼블릭도메인-en]||
+|| ||ビギナーズコンテスト||-||[*/system:page-tags/tag/2026-비기너즈경연-jp 2026-비기너즈경연-jp]||
+||||||||[*/system:page-tags/tag/3000 3000]||
+||||||||[*/system:page-tags/tag/3000jp 3000jp]||
+||||||||[*/system:page-tags/tag/4000 4000]||
+||||||||[*/system:page-tags/tag/404fr 404fr]||
+||||||||[*/system:page-tags/tag/5000 5000]||
+||||||||[*/system:page-tags/tag/6000 6000]||
+||||||||[*/system:page-tags/tag/7000 7000]||
+||||||||[*/system:page-tags/tag/8000 8000]||
+||||||||[*/system:page-tags/tag/888ko 888ko]||
+||||||||[*/system:page-tags/tag/cn1000 cn1000]||
+||||||||[*/system:page-tags/tag/cn2000 cn2000]||
+|| ||三千里-江原コンテスト||-||[*/system:page-tags/tag/삼천리-강원 삼천리-강원]||
+|| || ||-||[*/system:page-tags/tag/삼천리-경기 삼천리-경기]||
+|| || ||-||[*/system:page-tags/tag/삼천리-경남 삼천리-경남]||
+|| || ||-||[*/system:page-tags/tag/삼천리-경북 삼천리-경북]||
+|| || ||-||[*/system:page-tags/tag/삼천리-관북 삼천리-관북]||
+|| || ||-||[*/system:page-tags/tag/삼천리-광주 삼천리-광주]||
+|| || ||-||[*/system:page-tags/tag/삼천리-대구 삼천리-대구]||
+|| || ||-||[*/system:page-tags/tag/삼천리-부산 삼천리-부산]||
+|| || ||-||[*/system:page-tags/tag/삼천리-울산 삼천리-울산]||
+|| || ||-||[*/system:page-tags/tag/삼천리-전남 삼천리-전남]||
+|| || ||-||[*/system:page-tags/tag/삼천리-전북 삼천리-전북]||
+|| || ||-||[*/system:page-tags/tag/삼천리-제주 삼천리-제주]||
+|| || ||-||[*/system:page-tags/tag/삼천리-충북 삼천리-충북]||
+|| || ||-||[*/system:page-tags/tag/삼천리-충남 삼천리-충남]||
+|| || ||-||[*/system:page-tags/tag/삼천리-해서 삼천리-해서]||
+|| || ||-||[*/system:page-tags/tag/cb cb]||
+||||||game-day||[*/system:page-tags/tag/게임데이 게임데이]||
+||||||art-exchange||[*/system:page-tags/tag/작품교환 작품교환]||
+
+@@@@
+@@@@
+
+[[module CSS]]
+#page-content table.wiki-content-table {
+  width: min(587px, 100%);
+}
+
+tt::before {
+  content: "{";
+}
+tt::after {
+  content: "}";
+}
+[[/module]]
+
+[[table class="wiki-content-table"]]
+
+[[row]]
+[[hcell]]
+^^English^^
+[[/hcell]]
+[[hcell]]
+^^한국어^^
+[[/hcell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+absurdist
+[[/cell]]
+[[cell style="text-align: center; vertical-align: top;" rowspan="52"]]
+
+[[div style="position: sticky; top: 40vh;"]]
+여기 정렬된 장르/테마/설정/스타일 태그는 번역하지 않습니다.
+
+이 태그들이 번역물에 부착된 경우 운영진이 정기적으로 제거하고 있습니다. 그냥 영문으로 놔두시면 운영진이 제거하므로, 임의로 번역하지 말아주세요.
+
+혹시 장르 태그를 직접 제거하셨다면 {{_장르없음}} 태그로 표시해주세요.
+[[/div]]
+
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+action
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+adventure
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+bittersweet
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+bleak
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+breakout
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+comedy
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+black-comedy
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+chase
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+crime-fiction
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+fantasy
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+heartwarming
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+horror
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+body-horror
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+cosmic-horror
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+psychological-horror
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+metafiction
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+military-fiction
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+mystery
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+romance
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+science-fiction
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+slice-of-life
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+spy-fiction
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+surrealism
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+xenofiction
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+bureaucracy
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+demon
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+faerie
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+lgbtq
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+murder-monster
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+mythological
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+political
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+religious-fiction
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+superhero
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+time-travel
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+alternate-history
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+apocalyptic
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+post-apocalyptic
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+christmas
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+dystopian
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+holloween
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+otherworldly
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+period-piece
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+space-opera
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+utopian
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+western
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+correspondence
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+first-person
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+journal
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+no-dialogue
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+second-person
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+worldbuilding
+[[/cell]]
+[[/row]]
+
+[[row]]
+[[cell]]
+_genreless 
+[[/cell]]
+[[cell]]
+_장르없음
+[[/cell]]
+[[/row]]
+
+[[/table]]
+
+
+[[/tab]]
+[[tab 임시 태그]]
+**[*http://scpko.wikidot.com/system:page-tags/tag/ten-dots ten-dots]** - [*http://scpko.wikidot.com/forum/t-15031457#post-5540910 SCP-2521.]
+[[/tab]]
+[[/tabview]]

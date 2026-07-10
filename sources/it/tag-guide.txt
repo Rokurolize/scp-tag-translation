@@ -1,0 +1,1118 @@
+[[tabview]]
+
+[[tab Introduzione]]
+++ Introduzione ai Tag
++++ Cosa è un tag, e a cosa serve?
+Per citare Wikipedia:
+
+> Un tag è una parola chiave non gerarchica associata a un'informazione (come un segnalibro Internet, un'immagine digitale o un file). Questo tipo di metadata (ovvero "dato nel dato") aiuta a descrivere un oggetto e permette di ritrovarlo seguendo quella descrizione.
+
+Quindi, un tag è una parola chiave che applichiamo ad ogni pagina di questa wiki. Queste parole chiave ti permettono di trovare tutte le pagine con elementi simili. Puoi utilizzare la pagina di ricerca tag per combinare più tag e trovare gli articoli che desideri, ad esempio: [http://fondazionescp.wikidot.com/system:page-tags/tag/euclid euclid] e [http://fondazionescp.wikidot.com/system:page-tags/tag/umanoide umanoide], oppure [http://fondazionescp.wikidot.com/system:page-tags/tag/keter keter] e [http://fondazionescp.wikidot.com/system:page-tags/tag/dio-frantumato dio-frantumato]. Puoi anche cliccare sul tag che trovi in una pagina per visualizzare una lista di tutte le pagine corrispondenti a quella parola chiave, il che ci porta a…
+
++++ Dove sono questi tag?
+Vai in fondo ad una qualsiasi pagina della wiki. Vedrai svariate parole in rosso, scritte in piccolo. Quelli sono tag. Ci puoi cliccare sopra per arrivare a qualsiasi altra pagina con lo stesso tag.
+
++++ Come taggo una pagina?
+# Clicca "Tag" in fondo alla pagina.
+# Scrivi, nella barra che appare, tutti i tag di cui hai bisogno. Se ne devi mettere più di uno, puoi tranquillamente scrivere il secondo dopo aver premuto 'spazio'.
+# Clicca "Salva i Tag".
+
++++ C'è un formato specifico per i tag?
+Sì. Si usano solo lettere minuscole (numeri e lettere). Se il tuo tag contiene più di una parola, separa le varie parole con un trattino, "-". Si possono anche creare tag nascosti, che non verranno mostrati né sulla pagina in fondo né sulla lista dei tag, che possono servire agli autori per tenere una lista dinamica dei propri lavori. Per crearli, metti un underscore "_" davanti al tag: "_il-tuo-tag".
+
++++ Posso taggare le pagine create di recente?
+Anche subito! Leggi la lista dei tag e applica quelli appropriati. Se hai dubbi, rivolgiti pure allo staff.
+
++++ Ho un'idea per un tag!
+
+Una volta che un certo numero di articoli condivide un particolare tema, ci sarà chiaramente bisogno di etichettare quest'elemento comune con un tag. Se hai un'idea per una parola chiave che racchiuda al meglio questo tema che sembra essere condiviso da un buon numero di articoli, manda un messaggio privato ad un [[[ecco lo staff|membro dello staff]]] contenente una lista delle pagine in questione e la proposta per il nuovo tag. Non c'è bisogno di essere un membro dello staff per farlo, tutti possono contribuire in questo senso.
+[[=]]
+> + ATTENZIONE
+> Prima di creare un nuovo tag, consultati con lo staff. Inoltre, più avanti è disponibile una lista dei tag già esistenti (quelli principali), quindi controlla quelli prima di tutto per vedere se magari già esiste.
+[[/=]]
+
+[[/tab]]
+
+
+[[tab Tag Principali]]
+
+++ Tag Principali
+Segue una lista di tutti i tag più importanti, di come e quando usarli. Tutte le pagine della Wiki dovrebbero avere uno o più tag principali, che ne descrivano il "tipo". Di solito questi tag non puntano ai //contenuti// della pagina, ma più che altro a che tipo di pagina è.
+
+> **NOTA:** Tutti punti inizieranno con un link alla lista della pagine taggate in quel modo. Se non è un link, vuol dire che quel tag non è stato ancora applicato, ma lo sarà. Quando lo sarà, prego modificare questa scheda per includere il link.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/scp scp] - Tutti gli articoli SCP, inclusi gli SCP [http://fondazionescp.wikidot.com/scp-001 proposte per 001], quelli [http://fondazionescp.wikidot.com/scp-scherzo scherzo], quelli [http://fondazionescp.wikidot.com/scp-archiviati archiviati] e quelli [http://fondazionescp.wikidot.com/scp-risolti risolti].
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/formato-gdi formato-gdi] (goi-format) - Una anomalia o un SCP scritti dal punto di vista di un altro Gruppo di Interesse, sotto il loro hub e nel loro stile. Esclude i tag 'racconto' e 'scp'.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/safe safe] / [http://fondazionescp.wikidot.com/system:page-tags/tag/euclid euclid] / [http://fondazionescp.wikidot.com/system:page-tags/tag/keter keter] / [http://fondazionescp.wikidot.com/system:page-tags/tag/thaumiel thaumiel] / [http://fondazionescp.wikidot.com/system:page-tags/tag/senza-classe senza-classe] / [http://fondazionescp.wikidot.com/system:page-tags/tag/classe-esoterica classe-esoterica] - Tutti gli SCP taggati //scp// devono essere taggati anche con la loro classe, o //senza-classe// se non la hanno, se non si riesce a capire dall'articolo, e se la sua classe non è standard.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/archiviato archiviato] (archived) / [http://fondazionescp.wikidot.com/system:page-tags/tag/scherzo scherzo] (joke) / [http://fondazionescp.wikidot.com/system:page-tags/tag/neutralizzato neutralizzato] (neutralized)/ [http://fondazionescp.wikidot.com/system:page-tags/tag/dismesso dismesso] - Queste sub classi di tag sono da usarsi in tandem ad altri tag in una pagina //scp// del tipo appropriato, che dovrebbe quindi anche essere taggata con la propria classe normale.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/risolto risolto] (explained) - Gli SCP risolti sono un'altra sub classe speciale, da aggiungere agli -EX. Gli articoli risolti devono essere comunque taggati con la loro classe originale o //senza-classe// se non si può capire o non viene specificato.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/proposta-001 proposta-001] (001-proposal) - Tag da applicarsi agli articoli che propongono un nuovo SCP-001. Le pagine così taggate devono comunque includere il tag dell'oggetto, o //senza-classe// se non desumibile.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/supplemento supplemento] (supplement) - Le pagine supplemento sono tutte quelle composte di registri di esperimenti, di incidenti, di interviste o altri documenti linkati ad una pagina //scp// che non hanno senso fuori dal contesto della pagina //scp// di provenienza. Queste pagine dovrebbero avere anche la propria pagina madre settata all'SCP corrispondente per essere ben collegata e per attivare la navigazione breadcrumb. Tutte quelle che non lo sono sono da considerarsi parodia o tributo, e vanno taggate come //racconto//, anche se hanno lo stesso format di un registro.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/esperimento esperimento] (experiment) - Questo tag deve essere usato per tutte le pagine supplemento che sono primariamente o interamente registri di esperimenti. Questo tag non deve essere mai usato per gli SCP in sé, anche se contengono molti registri degli esperimenti.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/esplorazione esplorazione] (exploration)- Questo tag deve essere usato per tutte le pagine supplemento che sono primariamente o interamente registri di esplorazioni. Questo tag non deve essere mai usato per gli SCP in sé, anche se contengono molti registri di esplorazioni.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/incidente incidente] (incident) - Questo tag deve essere usato per tutte le pagine supplemento che sono primariamente o interamente registri di incidenti. Questo tag non deve essere mai usato per gli SCP in sé, anche se contengono molti registri degli incidenti.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/intervista intervista] (interview) - Questo tag deve essere usato per tutte le pagine supplemento che sono primariamente o interamente registri di interviste. Questo tag non deve essere mai usato per gli SCP in sé, anche se contengono molti registri delle interviste.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/splash splash] - Le pagine splash sono usate come "pagine di copertina" per alcuni articoli (vedi [http://www.fondazionescp.wikidot.com/scp-902 SCP-902]).
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/racconto racconto] (tale) - Le pagine dei racconti contengono storie, narrazioni e trascritti di natura non scientifica, oppure registri di incidenti, interviste, esplorazioni ed esperimenti che non sono state realizzate con il consenso dell'autore dell'SCP a cui si riferiscono. Tutti i racconti si devono svolgere all'interno dell'universo narrativo della Fondazione SCP, anche se non necessariamente direttamente collegati ad un SCP. Non è da considerare un deposito di //creepypasta//.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/poesia poesia] (poetry) - Testo scritto seguendo una struttura in versi e facente uso di particolari leggi metriche.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/canone-centrale canone-centrale] - Le pagine dei racconti appartenenti al canone centrale.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/fuori-dal-canone fuori-dal-canone] - Le pagine dei racconti che si discostano dalla lore ufficiale. La Fondazione può dunque essere molto diversa da come la conosciamo e i personaggi possono avere una sorte differente rispetto a quella che hanno nella storia canonica. In nessun caso può essere assegnato questo tag ad un articolo SCP.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/creepypasta creepypasta] - Tutte quelle pagine come i racconti, ma non collegate con l'universo narrativo della Fondazione. Si accettano creepypasta solo di autori della nostra wiki, non esterne. Una pagina //creepypasta// deve avere anche il tag //racconto//.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/audio audio] - pagine che contengono uno o più file audio.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/collaborazione collaborazione] (collaboration) - Le pagine di collaborazione sono aperte all'aggiunta di contenuto da parte di tutti. Ad ogni modo, l'autore e lo staff si riservano il diritto di rimuovere il contenuto che non ha una qualità sufficiente. Questo è un sub tag, e può essere applicato agli articoli //scp//, //racconto// o //creepypasta//.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/autori-multipli autori-multipli] (co-authored) - Le pagine con più autori sono il risultato di due o più autori che hanno lavorato insieme per creare un articolo di qualche tipo, e **non sono aperti al contributo di altri utenti**. Diverso dalla collaborazione. Questo è un sub tag, e può essere applicato agli articoli //scp//, //racconto// o //creepypasta//.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/contest contest] - pagine utilizzate allo scopo di facilitare la ricerca di storie per i vari contest della community. Va usato in maniera congiunta con //hub// nel caso in cui l'articolo sia una lista di articoli iscritti al contest. Questi sono organizzati dallo staff o con il permesso dello stesso.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/autore autore] (author) - Tag usato per le pagine diegetiche degli autori. Ogni autore può avere solo una pagina per ogni membro qualificato del sito
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/guida guida] (guide) - Guide di scrittura, consigli utili o altre pagine che aiutino i membri a contribuire al sito. Solo lo staff o chi autorizzato può mettere questo tag.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/obbligatorio obbligatorio] - Pagine assolutamente da leggere da ogni membro che si unisce alla Wiki.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/saggio saggio] (essay) - Pagine che contengono informazioni utili su determinati argomenti, ma che sono soggettive e riflettono l'opinione personale dell'autore.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/hub hub] - Pagine con un buon numero di link a pagine collegate fra loro. Alcune pagine del sito in sé sono hub, come la [http://www.fondazionescp.wikidot.com/guida-centrale Guida Centrale].
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/sito sito] - Tutte le pagine //hub// che riguardano le strutture specifiche della Fondazione e contengono informazioni sugli oggetti che contengono, sulla storia del sito, sul personale assegnatovi etc.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/consigliato consigliato] - Tag riservato allo staff per la designazione dei [http://fondazionescp.wikidot.com/archivio-racconti-consigliati Racconti Consigliati] e degli [http://fondazionescp.wikidot.com/archivio-scp-consigliati SCP Consigliati].
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/articolo-evento articolo-evento] - Tag riservato agli articoli prodotti durante particolari eventi.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/patrimonio patrimonio] (heritage) - Tutti gli SCP che sono considerate come parte integrante della Storia della Fondazione. Puoi trovare la lista nell'hub [http://fondazionescp.wikidot.com/patrimonio-storico Patrimonio Storico].
+
+[[/tab]]
+
+
+[[tab Tag Attribuitivi]]
+
+++ Tag Attributivi
+
+Questa lista è intesa come una guida ai tag secondari. Quando si tagga un articolo, si dovrebbe cercare di usare i tag già presenti. Se si sente il bisogno di un nuovo tag, discutere con il resto dello staff.
+
+I seguenti tag sono da applicare solo ad articoli SCP, e **solo** per gli articoli SCP, non per i racconti.
+**NOTA:** I tag relativi ai Gruppi d'Interesse (sia italiani che non) sono nella tab "Altri Tag",
++++ A
+[http://fondazionescp.wikidot.com/system:page-tags/tag/acquatico acquatico] (aquatic) - SCP che vive, si muove o si diffonde attraverso l'acqua.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/acustico acustico] (acoustic) - SCP che è composto di, influenza, genera o si propaga con onde sonore. Confrontare con //auditivo// e //vibrazione//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/adattativo adattativo] (adaptive) - SCP che si adatta agli stimoli in maniera anomala.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/aereo aereo] (airborne) - SCP che vive, si muove o si diffonde attraverso l'aria.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/aldil%C3%A0#pages aldilà] (afterlife) - SCP che descrive o è comunque legato a ciò che accade alla coscienza dopo la morte.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/allucinazione allucinazione] (hallucination) - SCP che induce allucinazioni nei soggetti. Spesso usato insieme ad  //auditivo// e //visivo//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/altera-memoria altera-memoria] (memory-affecting) - SCP che impianta ricordi, li modifica o li rimuove dagli esseri senzienti, come soggetti umani. Comparare con //altera-mente//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/altera-mente altera-mente] (mind-affecting) - Che influenza il pensiero dei soggetti, che include il comportamento o l'intelligenza in genere. Vedi la FAQ Tag per altri dettagli, e confronta con //altera-memoria//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/amorfo amorfo] (amorphous)- Un SCP senza una forma definita, o che la cambia continuamente. Si esclude con //metamorfico//, e comunemente applicato a SCP definiti come dei "blob", "nuvole" o "massa informe".
+[http://fondazionescp.wikidot.com/system:page-tags/tag/animale animale] (animal) - Che mostra tratti di vita animale.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/antimemetico antimemetico] (antimemetic) - Che è o coinvolge l'uso di uno o più antimeme, per sopprimere la conoscenza riguardo un'idea o concetto, incluso sé stesso. Contrasta con //memetico//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/apesco apesco] (apian) - Che assomiglia ad api e simili. Se opportuno, usare con //animale// o //insetto//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/apparecchio apparecchio] (appliance) - Che è o assomiglia ad un elettrodomestico o altro apparecchio casalingo. Da usare in congiunzione a //elettrico// o //elettronico// se opportuno.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/aracnide aracnide] (arachnid) - Che assomiglia o ha proprietà di ragni. Da usare con //animale// se opportuno.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/arboreo arboreo] (tree) - Che mostra tratti di o assomiglia a piante tipo alberi. Da usare con //pianta// se opportuno.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/argilla argilla] (clay) - Che è composto interamente o significativamente da argilla.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/arma arma] (weapon) - Cui scopo inteso è l'utilizzo come arma. Soprassiede //artefatto//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/arredamento arredamento] (furniture) - Che è o assomiglia ad un pezzo di arredamento.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/artefatto artefatto] (artifact) - Che è stato originariamente creato da umani. Viene sostituito da tag più specifici come //strumento//, //arma// o //veicolo//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/artistico artistico] (artistic) - Che ha a che fare o è un pezzo d'arte. Rimpiazzato da //musicale//, //scultura// o //statua//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/artropode artropode] (arthropod) - Che è o ha tratti di artropodi come ragni, insetti e crostacei, o in più in generale animali dal corpo segmentato e provvisto di esoscheletro.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/attrezzo attrezzo] (tool)- Che è, o era principalmente inteso per essere usato come attrezzo. Soprassiede //artefatto//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/auto-replicante auto-replicante] (self-replicating) - Che mostra un'anomala abilità di replicarsi in modi diversi dalla riproduzione biologica.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/auto-riparante auto-riparante] (self-repairing) - Che mostra l'abilità di riparare danni a sé stesso.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/automa automa] (automaton) - Che opera da solo come da design. Dovrebbe essere assegnato a tutto ciò che viene descritto come un "robot". Soprassiede //meccanico//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/autonomo autonomo] (autonomous) - Che opera da solo, ma non dovrebbe. Esclude e viene escluso da //vivo//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/aviario aviario] (avian) - Che mostra tratti di uccelli o si muove come tali. Da usare con //animale// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/aziendale aziendale] (corporate) - Che si riferisce ad anomalie che agiscono, operano o sono composte da attività aziendali o di mercato.
++++ B
+[http://fondazionescp.wikidot.com/system:page-tags/tag/batterio batterio] (bacteria) - Che mostra tratti o è un batterio. Soprassiede //contagioso// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/biologico biologico] (biological) - Con tratti biologici. Vedi la FAQ Tag per maggiori dettagli.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/bovino bovino] (bovine) - Che ha tratti di o è un bovino. Usare con //animale// se appropriato.
+
++++ C
+[http://fondazionescp.wikidot.com/system:page-tags/tag/cactaceo cactaceo] (cactaceous) - Con proprietà simile ai Cactus. Da usare con //pianta// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/cadavere cadavere] (cadaver) - Che è, è affetto da o è comunque in relazione con cadaveri e materia organica in decomposizione. Da usare con //scheletrico// o //rianimazione// se opportuno.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/caino caino] (cain) - Che è correlato a Caino
+[http://fondazionescp.wikidot.com/system:page-tags/tag/camelide camelide] (camelid) - Che ha aspetti simili a cammelli, lama o alpaca. Da usare con //animale// se opportuno.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/canino canino] (canine) - Con attributi di cani. Da usare con //animale// se opportuno.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/carnivoro carnivoro] (carnivorous) - Con tratti di animali carnivori.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/cefalopode cefalopode] (cephalopodic) - Con tratti da cefalopode come polpi o calamari. Da usare con //animale// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/cervino cervino] (cervine) - Con caratteristiche di cervo o simili. Da usare con //animale// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/cetaceo cetaceo] (cetacean) - Con caratteristiche da cetaceo come balene o orche assassine. Da usare con //animale// e //acquatico// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/chelonio chelonio] (chelonian) - Con tratti da animale chelonio, ovvero tartarughe e simili. Da usare con //animale// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/chiave chiave] (key) - Che è o assomiglia ad una chiave.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/chimico chimico] (chemical) - Che è o produce composti chimici in modo anomalo.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/cibo cibo] (food) - Che è cibo o comunque edibile.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/città città] (city) - Luogo inteso per l'abitazione umana. Da usare solo se una buona porzione o tutta la città e anomala.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/compulsione compulsione] (compulsion) - Che causa comportamento compulsivo in soggetti altrimenti normali. Vedi la FAQ Tag per ulteriori dettagli.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/computer computer] (computer) - Che è o opera o influisce i computer. Da usare con //elettronico// o //meccanico// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/concetto concetto] (concept) - Che è o interessa qualità puramente concettuali. Non dovrebbe essere usato se ci sono altri tag che indicano qualità fisiche.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/conoscenza conoscenza] (knowledge) - Che assorbe, conserva, genera o trasmette una conoscenza anomala in natura, o con un processo anomalo.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/contagioso contagioso] (contagion)- Che si sparge in modo contagioso. Escluso da //memetico//, //batterio// o //virus//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/contenitore contenitore] (container) - Che è stato creato con lo scopo di tenere o contenere altri materiali o oggetti, ivi includendo vasi decorativi o altri oggetti simili. Soprassiede //artefatto//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/corrosivo corrosivo] (corrosive) - Che esibisce proprietà corrosive.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/cristallino cristallino] (crystalline) - Che esibisce le caratteristiche dei cristalli.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/cubo cubo] (cube) - Che ha forma cubica. Andrebbe utilizzato solo se l'intero SCP è cubico o composto da cubi, piuttosto che per gli SCP che sono formati da uno o più componenti cubici.
+
++++ D
+[http://fondazionescp.wikidot.com/system:page-tags/tag/dentale dentale] (dental) - Che è, o riguarda i denti, o la pratica dell'odontoiatria.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/dinosauro dinosauro] (dinosaurian) - Con attributi di dinosauri non volanti.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/dipendenza dipendenza] (addictive) - Che causa dipendenza nei soggetti affetti.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/documento documento] (document) - Che è un documento di testo di qualsiasi tipo. Include i libri. 
+
++++ E
+[http://fondazionescp.wikidot.com/system:page-tags/tag/ectoentropico ectoentropico] (ectoentropic) - Che viola la prima e/o la seconda legge della [https://it.wikipedia.org/wiki/Termodinamica termodinamica], generando materia e/o energia in una maniera che violi direttamente l'entropia. Si applica a tutto ciò che produca energia o materia in modi non spiegati. In genere è mutualmente esclusivo con //extradimensionale//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/edificio edificio] (building)  - Che è, è parte di, o è comunque in relazione con o influenza un edificio, definito come una struttura intesa per l'occupazione umana. Soprassiede //struttura//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/elettrico elettrico] (electrical) - Che genera, conserva o usa energia elettrica.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/elettromagnetico elettromagnetico] (electromagnetic) - Che genera, conserva o usa campi o energia elettromagnetici.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/elettronico elettronico] (electronic) - Che è o somiglia ad un apparecchio elettronico.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/empatico empatico] (empathic) - Che è capace di leggere o trasmettere emozioni, sentimenti o sensazioni. 
+[http://fondazionescp.wikidot.com/system:page-tags/tag/entropico entropico] (entropic)- Che è, mostra le caratteristiche o è legato al decadimento entropico.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/equino equino] (equine) - Che è o mostra tratti degli equini o di animali simili a cavalli. Da usare con //animale// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/estremità estremità] (extremity) - Che è o influenza specifiche estremità. Usare indipendentemente dalla specie.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/extradimensionale extradimensionale] (extradimensional) - Che è di origine extradimensionale, si muove o propaga extradimensionalmente, e/o permette spostamenti interdimensionali. In genere è mutualmente esclusivo con //ectoentropico//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/extraterrestre extraterrestre] (extraterrestrial) - Che proviene o si trova nello spazio, e/o permette o manifesta spostamenti extraterrestri.
+
++++ F
+[http://fondazionescp.wikidot.com/system:page-tags/tag/fatto-dalla-fondazione fatto-dalla-fondazione] (foundation-made) - Creato, intenzionalmente o meno, dalla Fondazione SCP stessa. Notare che è applicabile solo agli oggetti la cui creazione deriva direttamente da azioni specifiche della Fondazione. Questo esclude i fenomeni che si sono formati spontaneamente in un sito della Fondazione a causa dell'esposizione di routine a un grande numero di anomalie contenute.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/felino felino] (feline) - Che è o è collegato ai felini, o animali simili ai felini. Da usare con //animale// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/fisico fisico] (physics) - Che influenza o viola particolari leggi della fisica. Generalmente soprasseduto da //ectoentropico//, //elettrico//, //magnetico//, ecc. quando appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/formico formico] (formic) - Che è o mostra le caratteristiche delle formiche o animali simili a formiche. Da usare con //animale// o //insetto// se necessario.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/fungo fungo] (fungus) - Che è o mostra le caratteristiche dei funghi.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/fuoco fuoco] (fire) - Che è composto di fuoco, è collegato al fuoco o permette il processo di combustione.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/futuro futuro] (future) - Che proviene dal futuro o che è comunque stato cronologicamente spostato da un intervallo di tempo successivo a uno precedente. Spesso usato assieme a //temporale//.
+
++++ G
+[http://fondazionescp.wikidot.com/system:page-tags/tag/gassoso gassoso] (gaseous) - Che è o genera gas.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/genetico genetico] (genetic) - Che è collegato o funziona principalmente attraverso codifica e decodifica genetica.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/geologico geologico] (geological) - Che è o influenza formazioni geologiche naturali (come caverne, scogliere, valli o vulcani) o eventi geologici rilevanti (come terremoti, slavine o inghiottitoi). Soprassieduto da //pianeta//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/giocattolo giocattolo] (toy)- Che è o è principalmente inteso per essere un giocattolo. Soprassiede //artefatto//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/gioco gioco] (game) - Che è, è usato, è attivato o è comunque collegato a uno o più giochi, definiti come metodi di gioco o sport — specialmente quelli competitivi — che possono essere vinti o persi con abilità, forza o fortuna. Da usare assieme a //sport// se necessario.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/gioiello gioiello] (jewelry) - Che è un oggetto principalmente inteso per essere indossato per fini decorativi. Soprassiede //artefatto// ed è mutualmente esclusivo con //vestiario//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/gravità gravità] (gravity) - Che è influenzato o influenza significativamente la forza di gravità.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/gustativo gustativo] (gustative) - Che è innescato, attivato o influenza il senso del gusto.
+
++++ I
+[http://fondazionescp.wikidot.com/system:page-tags/tag/immobile immobile] (immobile) - Che non può essere spostato in alcun modo noto alla Fondazione.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/inciso inciso] (engraved) - Che è, o presenta intagli e/o incisioni.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/iscrizione iscrizione] (inscription) - Che è un'iscrizione, ovvero ha la forma di parole o numeri scritti o incisi.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/indistruttibile indistruttibile] (indestructible) - Che non può essere distrutto in alcun modo noto alla Fondazione.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/ingranaggi ingranaggi] (clockwork) - Che funziona principalmente grazie a sistemi di ingranaggi, definiti come oggetti meccanici costruiti principalmente d ruote dentate e/o attivati da una molla principale. Soprassiede //meccanico//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/inscritto inscritto] (inscribed) - Che presenta inscrizioni, solitamente sotto forma di parole o numeri. Soprasseduto da //inciso// e //documento//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/insetto insetto] (insect) - Che è o è collegato agli insetti. (**Non include** i ragni, che vanno taggati come //aracnide//.) Usare assieme a //animale// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/intangibile intangibile] (intangible) - Che è intangibile in una maniera che preclude la definizione come gas.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/interattivo interattivo] (interattive) - SCP o articolo che possiede elementi interattivi che richiedono l'input dell'utente o altre interazioni.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/invertebrato invertebrato] (invertebrate) - Che esibisce le caratteristiche degli invertebrati, o animali privi di colonna vertebrale. Soprasseduto da tag specifici per gli invertebrati, come //artropode// o //insetto//.
+
++++ L
+[http://fondazionescp.wikidot.com/system:page-tags/tag/lepidottero lepidottero] (lepidopteran) - Che esibisce le caratteristiche dei lepidotteri, o animali simili a farfalle o falene. Usare assieme a //insetto// e //animale// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/leporino leporino] (leporine) - Che è o esibisce le caratteristiche di animali simili a lepri o conigli. Usare assieme a //animale// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/ligneo ligneo] (wooden) - Che è composto principalmente o significativamente di legno o materiale simile al legno. Non va usato per descrivere piante viventi non modificate che sono composte di legno.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/linguaggio linguaggio] (language) - Che impartisce o manifesta un linguaggio anomalo.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/liquido liquido] (liquid) - Che è o genera un liquido.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/loop loop] (loop) - Che esibisce o è coinvolto in un loop ripetuto di attività.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/luce luce] (light) - Che è innescato, attivato o propagato da o comunque collegato alla presenza di luce visibile.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/luogo luogo] (location) - Che è uno specifico luogo geografico. Soprasseduto da //città//. 
+
++++ M
+[http://fondazionescp.wikidot.com/system:page-tags/tag/magnetico magnetico] (magnetic) - Che è magnetico o manifesta tratti di carica e/o attrazione magnetica.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/mappa mappa] (map) - Che è una mappa, ha una mappa, o comunque mostra rappresentazioni visive alla maniera di una mappa.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/matematico matematico] (mathematic) - Che è, o influenza un numero, un sistema numerico, un'equazione matematica o ha comunque rilevanza matematica.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/meccanico meccanico] (mechanical) - Che opera principalmente in modo meccanico o è un oggetto meccanico. Soprasseduto da //ingranaggi//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/media media] (media) - Che è, o è contenuto in uno o più oggetti di media analogici/digitali fissi/removibili, come cassette, registrazioni, dischi o drive. Soprassiede //artefatto//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/medico medico] (medical) - Che è usato o inteso come strumento medico, o ha comunque rilevanza medica al di fuori della patologia.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/memetico memetico] (memetic) - Che è un agente memetico, o esibisce tratti di [http://fondazionescp.wikidot.com/understanding-memetics propagazione memetica]. Soprassiede //contagio// ed è usato assieme a //rischio-cognitivo//. Vedere FAQ Tag per maggiori delucidazioni.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/mente-alveare mente-alveare] (hive-mind) - Che esibisce i tratti di una mente alveare esterna.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/meta meta] (meta) - Che influenza o è influenzato dalla sua documentazione, o richiede procedure di contenimento riguardanti il modo in cui è documentato. Vedere FAQ Tag per maggiori delucidazioni.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/metallico metallico] (metallic) - Che è un metallo, o composto completamente/significativamente da metallo o sostanze metalliche.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/metamorfico metamorfico] (metamorphic)- Che cambia la propria forma o il proprio aspetto, spesso per imitare l'aspetto di altri oggetti o entità. Mutualmente esclusivo con //amorfo//, spesso usato per descrivere "mutaforma" o "mimic".
+[http://fondazionescp.wikidot.com/system:page-tags/tag/meteorologico meteorologico] (meteorological) - Che è, influenza o è influenzato da fenomeni metereologici significativi.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/microscopico microscopico] (microscopic) - Che è troppo piccolo per essere visto o comunque osservato ad occhio nudo.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/militare militare] (military) - Che è equipaggiamento militare, parte o membro di un'unità militare o ha comunque rilevanza militare. Da usare assieme a //arma// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/mimetico mimetico] (mimetic) - Che manifesta mimetismo anomalo. Usare assieme a //acustico//, //metamorfico//, //visivo// o altri attributi sensitivi appropriati.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/miniatura miniatura] (miniature) - Che è molto più piccolo dell'oggetto a cui somiglia.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/mobile mobile] (mobile) - Che è capace di movimento attraverso metodi anomali. In genere si applica solo a oggetti o entità normalmente incapaci di movimento. Comparare a //teletrasporto//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/muride muride] (murine) - Che è o manifesta caratteristiche dei murini, o animali simili a topi o ratti. Usare assieme a //animale// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/musicale musicale] (musical) - Che è, genera o è generato da composizioni musicali. Soprassiede e sostituisce //artistico//.
+
++++ N
+[http://fondazionescp.wikidot.com/system:page-tags/tag/narrativo narrativo] (narrative) - Che è, è in relazione a, o si propaga con la narrativa scritta.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/neurologico neurologico] (neurological) - Che influisce direttamente o indirettamente il sistema neurologico dei soggetti. Applicabile solo in casi in cui il sistema fisico neurologico viene cambiato, non solo cambi di comportamento. Comparare con //altera-mente//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/non-contenuto non-contenuto] (uncontained) - Un SCP non contenuto, neanche parzialmente. Da applicare solo a degli SCP di cui non si è riusciti a contenere neanche un'istanza.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/notturno notturno] (nocturnal) - Che è attivato o che è altrimenti più significativo di notte.
+
++++ O
+[http://fondazionescp.wikidot.com/system:page-tags/tag/oculare oculare] (ocular) - Che somiglia, è collegato o influenza gli occhi.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/ofide ofide] (ophidian) - Che è o manifesta tratti degli ofidi, o animali simili a serpenti. Usare assieme a //animale// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/olfattivo olfattivo] (olfactory) - Che esibisce odore anomalo, si propaga attraverso gli odori o influenza il senso dell'olfatto.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/ombra ombra] (shadow) - Che è innescato, attivato o comunque significativamente influenzato da ombre proiettate sul soggetto.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/online online] (online) - Che è utilizza, dipende o è accessibile attraverso una connessione a internet. Usare assieme a //computer// o //elettronico// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/onnivoro onnivoro] (omnivorous) - Che manifesta tratti da onnivoro.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/ontocinetico ontocinetico] (ontocinetic) - L'SCP è in grado di manipolare la realtà (reality-bending) con mezzi anomali. Confrontare con //telepatico//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/organico organico] (organic) - Che ha tratti o composizione organica. Vedere FAQ Tag per maggiori delucidazioni.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/orologio orologio] (timepiece) - Che è o è parte principale di uno strumento o meccanismo per la misura del tempo. Soprassiede //artefatto//. Da usare con //ingranaggi// o //meccanico// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/osservativo osservativo] (observational) - Che ha proprietà che vengono innescate o soppresse quando direttamente o indirettamente osservato. Queste proprietà potrebbero essere anche //rischio-cognitivo//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/ostile ostile] (hostile) - Che esibisce ostilità diretta verso il personale che va oltre l'istinto o il comportamento predatorio.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/ovino ovino] (ovine) - Che è o manifesta tratti degli ovini, o animali simili a pecore. Usare assieme a //animale// se appropriato.
+
++++ P
+[http://fondazionescp.wikidot.com/system:page-tags/tag/paradosso paradosso] (paradox) - Che genera, esibisce o è coinvolto in eventi o situazioni paradossali.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/parassitico parassitico] (parasitic) - Che esibisce tratti dei parassiti o dei parassitoidi.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/performance performance] (performance)- Che è o è usato in un'arte performativa, come la danza o la recitazione.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/pesce pesce] (piscine) - Che è o esibisce tratti dei pesci, o animali simili ai pesci. Usare assieme a //animale// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/pianeta pianeta] (planet) - Che è, somiglia o influenza un pianeta, che può essere il nostro.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/pianta pianta] (plant) - Che esibisce le caratteristiche delle piante.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/pietra pietra] (stone) - Che è composto principalmente di pietra (intesa come materiale minerale o terroso compattato) o roccia.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/poliedrico poliedrico] (polyhedral) - Che è un poliedro o un oggetto tridimensionale con facce piane e bordi dritti. //poliedrico// è soprasseduto da //cubo//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/portale portale] (portal) - Che è un'apertura o passaggio che esibisce connettività inconsistente. Spesso usato assieme a //extradimensionale// e/o //spaziotempo//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/predatorio predatorio] (predatory) - Che esibisce comportamento da predatore.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/probabilità probabilità] (probability) - Che altera o manipola la probabilità di determinati eventi o risultati.
+
++++ R
+[http://fondazionescp.wikidot.com/system:page-tags/tag/radioattivo radioattivo] (radioactive) - Che emette radiazioni o che influenza la radioattività.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/ranino ranino] (ranine) - Che esibisce tratti delle rane, o animali simili a rane. Usare assieme a //animale//se opportuno.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/registrazione registrazione] (recording) - Che è o contiene registrazioni audio e/o video. Comparare con //media//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/religioso religioso] (religious) - Che è associato o ha comunque rilevanza con una o più religioni organizzate.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/rettiliano rettile] (reptilian) - Che è o esibisce tratti dei rettili, o animali simili a rettili. Usare assieme a //animale//se opportuno.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/rianimazione rianimazione] (reanimation) - Che è stato riportato o riporta altri in vita, completamente o parzialmente, da uno stato di morte clinica. Usare assieme a //cadavere//se opportuno.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/riproduttivo riproduttivo] (reproductive) - Che influenza o interferisce in modo anomalo con i normali processi biologici riproduttivi di un organismo (può includere l'uomo), o ha metodi riproduttivi anomali oltre a quelli inclusi in //parassitico// e //auto-replicante//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/rischio-biologico rischio-biologico] (biohazard) - Che pone un rischio agli umani o all'ambiente come risultato di processi biologici, o è un pericolo biologico.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/rischio-cognitivo rischio-cognitivo] (cognitohazard) - Che è pericoloso ai soggetti quando rilevato con qualunque dei 5 sensi tradizionali. Usare assieme a //uditivo//, //gustativo//, //olfattivo//, //tattile// o //visivo//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/rischio-informativo rischio-informativo] (infohazard) - Che ha un effetto che si innesca quando viene descritto o ci si riferisce ad esso. Vedere FAQ Tag per maggiori delucidazioni.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/rituale rituale] (ritual) - Che è o è innescato attraverso comportamenti ritualistici. 
+
++++ S
+[http://fondazionescp.wikidot.com/system:page-tags/tag/sapiente sapiente] (sapient) - Che manifesta tratti della sapienza, come l'abilità di comprendere concetti filosofici. Solitamente, ma non sempre, usato assieme a //senziente//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/satellite satellite] (satellite) - Che è un satellite naturale o artificiale che orbita attorno a un corpo celeste.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/scambio scambio] (exchange) - Che involve o viene innescato dallo scambio di beni fisici o intangibili, incluso ma non limitato al baratto e allo scambio monetario.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/scambio-arte scambio-arte] (art-exchange) Che involve lo scambio o la compravendita di beni artistici.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/scenario-classe-k scenario-classe-k] (k-class-scenario) - Che è coinvolto o causa uno o più scenari Classe-K Fine del Mondo. Va usato solo negli articoli che menzionano specificamente un tipo di scenario Classe-K.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/scheletrico scheletrico] (skeletal) - Che è, è un componente o influenza il tessuto scheletrico di un organismo. "Scheletro" è definito come il tessuto di supporto strutturale di un organismo pluricellulare e include ossa e cartilagine.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/sciame sciame] (swarm) - Che forma sciami.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/scimmiesco scimmiesco] (simian) - Che è o manifesta tratti delle scimmie, o animali simili alle scimmie. Usare assieme a //animale//se opportuno.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/sciuride sciuride] (sciurine) - Che è o manifesta tratti degli sciuridi, o animali simili agli scoiattoli. Usare assieme a //animale//se opportuno.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/scultura scultura] (sculpture) - Che è o era un'opera d'arte tridimensionale. Per essere considerato una //scultura//, l'oggetto in questione deve essere stato formato, scolpito o modellato. Soprassiede //artistico// ed è soprasseduto da //statua//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/sensoriale sensoriale] (sensory) - Che influenza la percezione sensoriale. In genere è usato assieme a //uditivo//, //gustativo//, //olfattivo//, //tattile// e/o //visivo//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/senziente senziente] (sentient) - Che ha le caratteristiche degli esseri senzienti, come la consapevolezza di sé e la deduzione cognitiva.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/sessuale sessuale] (sexual) - Che include o influenza gli organi sessuali, attività sessuali o concetti legati al sesso.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/sfera sfera] (sphere) - Che ha forma sferica. Va utilizzato solo se l'intero SCP è sferico o composto da sfere, piuttosto che per gli SCP che sono formati da uno o più componenti sferici.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/sole sole] (sun) - Che è, è collegato o influenza un sole che può essere il nostro.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/sonno sonno] (sleep) - Che è legato in qualche modo al ciclo del sonno dei soggetti.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/sottoterra sottoterra] (subterranean) - Che è localizzato completamente o significativamente sotto terra, definito come sotto la superficie della Terra. Non si applica agli oggetti che sono semplicemente contenuti sotto terra per sicurezza o convenienza.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/spaziotempo spaziotempo] (spacetime) - Che distorce lo spazio-tempo, oppure influenza o viola le leggi dello spazio-tempo.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/specie specie] (species) - Che descrive un'intera specie, piuttosto che uno o più individui. Nel contesto della Fondazione, dovrebbe essere usato specificamente per descrivere SCP viventi che possono riprodursi biologicamente e mantenere le loro proprietà anomale.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/sport sport] (sport) - Che è, è usato, è attivato o è comunque legato a uno o più sport, definiti come attività che implicano sforzo fisico e abilità in cui uno o più individui competono contro altri individui o squadre. Andrebbe anche taggato con //gioco//. Equipaggiamenti o abiti specificamente o esclusivamente usati negli eventi sportivi dovrebbero essere taggati anche con //vestiario// e //strumento//, in modo appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/squalo squalo] (selachian) - Che è, o esibisce le caratteristiche degli squali, o animali simili a squali. Include le razze. Deve essere usato con //pesce//, può essere usato assieme a //animale//se opportuno.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/statua statua] (statue) - Che è o era una statua. Una statua è definita come //scultura// indipendente a corpo intero di un umano o animale. //statua// soprassiede e sostituisce //scultura//; i due non vanno usati assieme.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/storico storico] (historical) - Che influenza o è prominente negli eventi storici, o ha rilevanza storica.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/strumento strumento] (instrument) - Che è uno strumento o attrezzo inteso per lavoro delicato, scientifico o di misura.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/struttura struttura] (structure) - Che è una struttura naturale o artificiale non intesa per l'occupazione umana.
+
++++ T
+[http://fondazionescp.wikidot.com/system:page-tags/tag/tattile tattile] (tactile) - Che è attivato, innescato o influenza il senso del tatto. Notare che si riferisce in modo specifico al senso del tatto, non a qualcosa che può essere attivato toccando qualcos'altro.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/telecinetico telecinetico] (telekinetic) - Che può manipolare oggetti, o iniziare o influenzare relazioni attraverso metodi anomali.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/telepatico telepatico] (telepathic) - Che può trasferire informazioni attraverso metodi anomali.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/teletrasporto teletrasporto] (teleportation) - Che può muoversi senza occupare lo spazio intermedio o comunque spostarsi con metodi anomali che escludono il movimento normale.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/temporale temporale] (temporal) - Che influenza o è comunque collegato al passaggio del tempo.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/termico termico] (thermal) - Che è attivato, innescato o si propaga attraverso cambiamenti di temperatura. Questo include sia gli aumenti che le diminuzioni di temperatura.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/termodinamica termodinamica] (thermodynamic) - Che influenza o è comunque correlato significativamente alle leggi della termodinamica. Soprassiede //fisico//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/tossico tossico] (toxic) - Che induce tossicità chimica nei soggetti.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/trasfigurazione trasfigurazione] (transfiguration) -  Che altera l'aspetto dei soggetti in modo anomalo.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/trasmissione trasmissione] (transmission) - Che trasmette informazioni, tipicamente attraverso onde radio o altri metodi elettromagnetici.
+
++++ U
+[http://fondazionescp.wikidot.com/system:page-tags/tag/uditorio uditorio] (auditory) - Che è attivato o che influenza il senso dell'udito. Distinto da //acustico//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/umanoide umanoide] (humanoid) - Che è o mostra tratti umanoidi.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/ursino ursino] (ursine) - Che è o sembra o ha proprietà di un orso.
+
++++ V
+[http://fondazionescp.wikidot.com/system:page-tags/tag/valuta valuta] (currency) - Che è, è collegato, influenza o è attivato dal denaro e da altri oggetti principalmente intesi come mezzo di scambio.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/veggente veggente] (predictive) - Che è in grado di dare informazioni o di agire in modo predittivo. Generalmente soprassiede //conoscenza//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/veicolo veicolo] (vehicle) - Che è o è inteso per essere usato come veicolo. Soprassiede //artefatto//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/vermesco vermesco] (vermian)- Che è o esibisce tratti dei vermi, o animali simili ai vermi. Usare assieme a //animale// se appropriato.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/vestiario vestiario] (clothing) - Che è un'//artefatto// principalmente inteso per essere indossato per protezione o comfort, includendo armature ed elmetti protettivi. Soprassiede //artefatto// ed è mutualmente esclusivo con //gioiello//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/vetro vetro] (glass)- Che è principalmente o significativamente composto di vetro.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/vibrazione vibrazione] (vibration) - Che genera vibrazioni o altri movimenti ripetitivi anomali. Comparare a //acustico//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/virus virus] (virus) - Che esibisce tratti degli agenti virali. Usare assieme a //biologico// o //computer//. Soprassiede //contagio//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/visivo visivo] (visual) - Che è innescato, attivato o influenzato dal senso della vista. Spesso usato assieme a //rischio-cognitivo// o //sensoriale//.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/vivo vivo] (alive) - Che è vivente, ovvero manifesta i tratti biologici di //metabolismo//, //reattività// e //riproduzione//. Vedere FAQ Tag per maggiori delucidazioni.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/volpesco volpesco] (vulpine) - Che è o esibisce le caratteristiche delle volpi, o animali simili a volpi. Usare con //animale// se appropriato.
+
++++ X
+[http://fondazionescp.wikidot.com/system:page-tags/tag/xenartro xenartro] (xenarthran) - Che è o ha proprietà di uno xenartro, ovvero armadilli, formicai e bradipi. Usare con //animale// se appropriato.
+
+[[/tab]]
+
+[[tab Tag Personaggi]]
+Tag che indicano la presenza di un certo personaggio all'interno dell'SCP o racconto.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/amministratore amministratore] - L'Amministratore, entità separata dal Consiglio O5.
+agente-lament
+agente-merlo - Agente Sasha Merlo.
+agente-navarro - Agente Daniel Navarro.
+direttor-aktus - Direttor Aktus.
+dottor-bright - Dottor Jack Bright.
+dottor-clef - Dottor Alto Clef.
+dottor-everwood - Dottor Everwood.
+dottor-gears - Dottor Gears.
+dottor-glass
+[http://fondazionescp.wikidot.com/system:page-tags/tag/dottor-heiden#pages dottor-heiden] - Dottor Heiden
+dottor-iceberg - Dottor Iceberg.
+dottor-king - Dottor King.
+dottor-kondraki - Dottor Kondraki.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/dottor-mann dottor-mann] - Dottor Everett Mann.
+dottoressa-rights - Dottoressa Agatha Rights.
+ethics-committee - Comitato Etico
+faeowynn-wilson - Faeowynn Wilson, figlia di Tim Wilson
+generale-bowe
+kain-pathos-crow - Professor Kain Pathos Crow.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/maria-jones maria-jones] - Maria Jones, dell'ASIR.
+mark-kiryu - Mark Kiryu.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/robert-bumaro robert-bumaro] - Robert Bumaro.
+ricercatore-conwell - Ricercatore Jacob Conwell.
+ricercatore-rosen - Ricercatore David Rosen.
+riven-mercer - Riven Mercer.
+sheldon-katz - Sheldon Katz
+jude-kriyot - Jude Kryot
+marion-wheeler - Dott.ssa Marion Wheeler, [http://fondazionescp.wikidot.com/antimemetics-division-hub Divisione Antimemetica]
+[[/tab]]
+
+[[tab Tag Contenuti Originali -IT]]
+
+++ Tag -IT
+Questi sono tag nati dai contenuti originali della Branca Italiana. [http://fondazionescp.wikidot.com/forum/t-14672417/thread-di-richiesta-tag Si faccia riferimento al thread rilevante per ulteriori informazioni].
+
++++ Tag Personaggi di -IT
+[http://fondazionescp.wikidot.com/system:page-tags/tag/nicola-rossi#pages nicola-rossi] - Nicola Rossi, direttore del Sito Minerva.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/mauro-bellini#pages mauro-bellini] - Mauro Bellini, vicedirettore del Sito Plutone.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/alice-molinari#pages alice-molinari] - Alice Molinari, psicologa del Sito Iride.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/tullio-cruciani#pages tullio-cruciani] - Tullio Cruciani, direttore del Sito Vulcano.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/emanuele-bigotti#pages emanuele-bigotti] - Emanuele Bigotti, direttore della Sezione Regolamentazione Etico-Morale (SRE-M).
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/tutore-a-l#pages tutore-a-l] - Tutore A.L., Tutore della Sede italiana della MADAO.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/arturo-santilli#pages arturo-santilli] - Arturo Santilli, tenente della SSM-VIII.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/tommaso-passini#pages tommaso-passini] - Tommaso Passini, direttore del Sito Cerere.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/maureen-callassi#pages maureen-callassi] - Maureen Callassi, psicologa infantile del Sito Iride.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/elia-contadi#pages elia-contadi] - Elia Contadi, capitano della SSM-VIII.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/valeria-cattaneo#pages valeria-cattaneo] - Valeria Cattaneo, Colonnello della SSM-I.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/roberto-demichelis#pages roberto-demichelis] - Roberto Demichelis, agente della SSM-X.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/sara-ferri#pages sara-ferri] - Sara Ferri, agente della SSM-X.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/ennio-fanucci#pages ennio-fanucci] - Ennio Fanucci, agente della SSM-X.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/il-corriere#pages il-corriere] - Il Corriere, misteriosa PdI legata al concetto di consegna e a una bizzarra macchina.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/rebar#pages rebar] - Rebar, o qualunque istanza di [[[SCP-024-IT]]].
+-----
++++ Tag GdI di -IT
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/alda alda] - Che appartiene o è collegato al gruppo d'interesse noto come Associazione per la Libera Distribuzione dell'Anomalo (ALDA)
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/ccsg ccsg] - Che appartiene o è collegato al gruppo d'interesse noto come Confraternita dei Cavalieri di San Giorgio (CCSG).
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/cfo cfo] - Che appartiene o è collegato al gruppo d'interesse noto come Consiglio Fascista dell'Occulto (CFO).
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/ridia ridia] - Che appartiene o è collegato al gruppo d'interesse noto come Regio Istituto delle Italiche Anomalie (RIDIA).
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/ordo-iani ordo-iani] - Che appartiene o è collegato al gruppo d'interesse noto come Ordo Iani/Ordine di Giano (OI).
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/cgom cgom] - Che appartiene o è collegato al gruppo d'interesse noto come Culto del Grande Occhio del Mediterraneo (CGOM).
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/madao madao] - Che appartiene o è collegato al gruppo d'interesse noto come Medicea Accademia dell'Arte Occulta (MADAO).
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/scemc scemc] - Che appartiene o è collegato al gruppo d'interesse noto come Serenissimo Colejo degli Estri e dei Maùchi del Comùn (SCEMC). 
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/sisma sisma] - Che appartiene o è collegato al gruppo d'interesse noto come Sistema Informazione e Sicurezza Materiali Anomali (SISMA).
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/oc-m oc-m] - Che appartiene o è collegato al gruppo d'interesse noto come Organum Cybo-Malaspina (OC-M).
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/solis-custodes solis-custodes] - Che appartiene o è collegato al gruppo d'interesse noto come Solis Custodes.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/cadmo cadmo] - Che appartiene o è collegato al gruppo d'interesse noto come Cenacolo Arcano dei Musici Onorati (CADMO).
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/acqua-luna acqua-luna] - Che appartiene o è collegato al gruppo d'interesse noto come Congiunti di Acqua-Luna.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/febris-farmaceutica febris-farmaceutica]  Che appartiene o è collegato al gruppo d'interesse noto come Febris Farmaceutica.
+------
++++ Tag LdI di -IT
+[http://fondazionescp.wikidot.com/system:page-tags/tag/gori%C4%8Dna#pages gorična] - Che appartiene o è collegato a FP-108 "Gorična".
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/nova-cannae#pages nova-cannae] - Che appartiene o è collegato a FP-206 "Nova Cannæ".
+-------
++++ Tag Serie di -IT
+[http://fondazionescp.wikidot.com/system:page-tags/tag/capitanata#pages capitanata] - Relativo al filone narrativo di "Capitanata", basato su [[[scp-it-068-arc]]].
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/zombieverso#pages zombieverso] - Relativo al filone narrativo di "A che ora è la fine del mondo?".
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/svelati#pages svelati] - Relativo al filone narrativo di "Svelati".
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/uno-olistico#pages uno-olistico] - Relativo al filone narrativo dell'Uno Olistico.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/pesanti-bagagli#pages pesanti-bagagli] - Relativo al filone narrativo di "Pesanti Bagagli".
+[[/tab]]
+[[tab Altri Tag]]
+
+++ Altri Tag
+
++++ Tag dei GdI
+Questi sono tag usati nella designazione dei Gruppi di Interesse della Fondazione, e possono essere usati sia per articoli SCP che per racconti.
+
+[http://fondazionescp.wikidot.com/system:page-tags/tag/aigifa aigifa] (ijamea) - Che appartiene o è collegato al gruppo d'interesse conosciuto come AIGIFA (IJAMEA).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/alexylva alexylva] - Che appartiene o è collegato al gruppo d'interesse conosciuto come Università di Alexylva (Alexylva University).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/ambrose ambrose] - Che appartiene o è collegato al gruppo d'interesse conosciuto come Ristoranti Ambrose (Ambrose Restaurants).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/anderson anderson] - Che appartiene o è collegato al gruppo d'interesse conosciuto come Anderson Robotics.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/arcadia arcadia] Che appartiene o è collegato al gruppo d'interesse conosciuto come Arcadia.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/are-we-cool-yet are-we-cool-yet] - Che appartiene o è collegato al gruppo d'interesse conosciuto come Are We Cool Yet?.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/coalizione-globale-occulto coalizione-globale-occulto] (global-occult-coalition) - Che appartiene o è collegato al gruppo d'interesse conosciuto come La Coalizione Globale dell'Occulto - Global Occult Coalization (GOC).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/daevita daevita] - Che è o è collegato ai Daeviti.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/deer-college deer-college] - Che appartiene o è collegato al gruppo d'interesse conosciuto come Deer College.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/dio-frantumato dio-frantumato] (broken-god) - Che appartiene o è collegato al gruppo d'interesse conosciuto come La Chiesa del Dio Frantumato (The Church of the Broken God).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/dr-wondertainment dr-wondertainment] - Che appartiene o è collegato al gruppo d'interesse conosciuto come Dottor Wondertainment (Doctor Wondertainment).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/divisione-gru-p divisione-gru-p] (gru-division-p) - Che appartiene o è collegato al gruppo d'interesse conosciuto come Divisione "P" del GRU (GRU Division "P").
+[http://fondazionescp.wikidot.com/system:page-tags/tag/ente-caritatevole-manna ente-caritatevole-manna] (manna-charitable) - Che appartiene o è collegato al gruppo d'interesse conosciuto come Ente Caritatevole Manna (Manna Charitable Foundation).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/fabbrica fabbrica] (factory) - Che appartiene o è collegato al gruppo d'interesse conosciuto come La Fabbrica (The Factory).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/gamer-contro-erba gamer-contro-erba] (gamers-against-weed) - Che appartiene o è collegato al gruppo d'interesse conosciuto come Gamer Contro l'Erba (Gamers Against Weed).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/herman-fuller herman-fuller] - Che appartiene o è collegato al gruppo d'interesse conosciuto come Il Circo Destabilizzante di Herman Fuller (Herman Fuller's Circus of the Disquieting).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/iniziativa-orizzonte iniziativa-orizzonte] (horizon-initiative) - Che appartiene o è collegato al gruppo d'interesse conosciuto come L'Iniziativa Orizzonte (The Horizon Initiative).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/iniziativa-tre-lune iniziativa-tre-lune] (three-moons-initiative) - Che appartiene o è collegato al gruppo d'interesse conosciuto come L'Iniziativa Tre Lune (The Three Moons Initiative).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/insorgenza-caos insorgenza-caos] (chaos-insurgency) - Che appartiene o è collegato al gruppo d'interesse conosciuto come L'Insorgenza del Caos (The Chaos Insurgency).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/mano-serpente mano-serpente] (serpents-hand) - Che appartiene o è collegato al gruppo d'interesse conosciuto come La Mano del Serpente.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/marshall-carter-dark marshall-carter-dark] - Che appartiene o è collegato al gruppo d'interesse conosciuto come Marshall, Carter, e Dark Ltd. (Marshall, Carter and Dark Ltd.).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/nessuno nessuno] (nobody) - Che appartiene o è collegato al gruppo d'interesse conosciuto come "Nessuno" ("Nobody").
+[http://fondazionescp.wikidot.com/system:page-tags/tag/oneiroi oneiroi] - Che appartiene o è collegato al gruppo d'interesse conosciuto come Collettivo Oneiroi (Oneiroi Collective).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/parawatch parawatch] - Che appartiene o è collegato al gruppo d'interesse conosciuto come Parawatch.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/prometheus prometheus] - Che appartiene o è collegato al gruppo d'interesse conosciuto come Laboratori Prometheus, Inc. (Prometheus Labs, Inc.).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/quintista quintista] (fifthist) - Che appartiene o è collegato al gruppo d'interesse conosciuto come La Quinta Chiesa (The Fifth Church).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/regina-nera regina-nera] (black-queen) - Che appartiene o è collegato al gruppo d'interesse conosciuto come La Regina Nera (The Black Queen).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/riappropriazione riappropriazione] (reclamation) - Che appartiene o è collegato al gruppo d'interesse conosciuto come Ufficio per la Riappropriazione degli Artefatti Islamici (URAI) (Office For The Reclamation of Islamic Artifacts (ORIA)).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/sarkico sarkico] - Che appartiene o è collegato al gruppo d'interesse conosciuto come Culti Sarkici (Sarkic Cults).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/secondo-hytoth secondo-hytoth] (second-hytoth) - Che appartiene o è collegato al gruppo d'interesse conosciuto come Chiesa del Secondo Hytoth (Church of the Second Hytoth).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/sede-pestaggio-carcarodonti sede-pestaggio-carcarodonti] (shark-punching-center) - Che appartiene o è collegato al gruppo d'interesse conosciuto come Sede Pestaggio Carcarodonti (Shark Punching Center).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/spirito-di-chicago spirito-di-chicago] (chicago-spirit) - Che appartiene o è collegato al gruppo d'interesse conosciuto come Lo Spirito di Chicago (The Chicago Spirit).
+[http://fondazionescp.wikidot.com/system:page-tags/tag/unità-incidenti-insoliti unità-incidenti-insoliti] (unusual-incidents-unit) - Che appartiene o è collegato al gruppo d'interesse conosciuto come Unità Incidenti Insoliti - Unusual Incidents Unit (UIU), Federal Bureau of Investigation.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/wilsons-wildlife wilsons-wildlife] - Che appartiene o è collegato al gruppo d'interesse conosciuto come Wilson's Wildlife Solutions.
+
+
+------
+
++++ Canoni
+Tag per dei canoni dall'Hub dei Canoni.
+
+aiad - Appartenente o legato al Canone AIAD.
+sotm - Appartenente o legato al Canone Avanti Dritto Fino al Mattino - Straight On Till Morning (sotm).
+campanaro - Appartenente o legato al Canone Mondo del Campanaro.
+catalogo-deepwell - Appartenente o legato al Canone Catalogo Deepwell del Sito-17.
+classici-rivistati - Appartenente o legato al Canone Classici Rivisitati.
+covo-ratti - Appartenente o legato al Canone Covo di Ratti.
+archivi-120 - Appartenente o legato al Canone Dagli Archivi del Sito-120.
+escatologia-competitiva - Appartenente o legato al Canone Escatologia Competitiva.
+etdp - Appartenente o legato al Canone Et Tam Deum Petivi.
+il-golfo - Appartenente o legato al Canone Il Golfo.
+lolfoundation - Appartenente o legato al Canone lolFoundation.
+re-verde - Appartenente o legato al Canone Nome in Codice: Re Verde.
+rifiuti-al-rogo - Appartenente o legato al Canone Rifiuti al Rogo.
+s&c-plastics - Appartenente o legato al Canone S&C Plastics.
+scambio-antartico - Appartenente o legato al Canone Scambio Antartico.
+smascherati - Appartenente o legato al Canone Smascherati.
+unico-sulla-piazza - Appartenente o legato al Canone L'Unico Sulla Piazza.
+
+------
+
++++ Contest
+Tag dei vari contest.
+
+1000 - Appartenente o legato al Contest SCP-1000
+2000 - Appartenente o legato al Contest SCP-2000.
+3000 - Appartenente o legato al Contest SCP-3000.
+dc2014 - Appartenente o legato al Contest Dystopia.
+five-questions - Appartenente o legato al Contest Five Questions.
+gbc09 - Appartenente o legato al Contest Gears' Birthday 2009.
+goi2014 - Appartenente o legato al Contest 2014 Groups of Interest.
+hc2012 - Appartenente o legato al Contest 2012 Halloween.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/hiscon2017 hiscon2017] - Collegato allo "[http://www.scp-wiki.net/history-contest History Contest 2017]".
+nyc2013 - Appartenente o legato al Contest 2013 New Year's Canon.
+tc2013 - Appartenente o legato al Contest 2013 Time.
+uac2014 - Appartenente o legato al Contest 2014 Under-Appreciated SCPs.
+sc2015 - Appartenente o legato al Contest 2015 Short Works.
+mtf2016 - Appartenente o legato al Contest 2016 Mobile Task Force.
+
+------
+
++++ GdI Minori
+Gruppi d'Interesse minori.
+
+accelerare-il-futuro - Appartenente o legato al gruppo conosciuto come Accelerare il Futuro.
+blackwood - Appartenente o legato alle Avventure di Lord Blackwood, Esploratore e Gentiluomo.
+bonifay - Appartenente o legato al Canone della Famiglia Bonifay.
+classe-del-76 - Appartenente o legato agli SCP e racconti della Classe del '76.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/iacs iacs] - Di o collegato a la Iniziativa Americana per il Contenimento in Sicurezza.
+pangloss - Appartenente o legato all'individuo d'interesse Pangloss.
+professor-aw - Appartenente o legato alle invenzioni e curiosità del Professor A. W.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/saturn-deer#pages| saturn-deer] - Appartenente o legato all'individuo d'interesse Saturn Deer.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/re-impiccato#pages| re-impiccato] - Appartenente o legato al Re Impiccato.
+------
+
++++ Misti
+Tutto il resto.
+
+pa2014 - Appartenente o legato al Pesce d'Aprile del 2014 Animaletti Super Carini!
+pa2016 - Appartenente o legato al Contest Pesce d'Aprile Crack Fiction del 2016.
+poetico - Applicabile ad un racconto che è o consiste in modo significativo di una qualche forma di poesia, come l'utilizzo dei versi o rime.
+traduzione - **ATTENZIONE:** non è un tag di per sé. Quando si traduce qualcosa, basta inserire la sigla della lingua di provenienza sotto. Se l'articolo è italiano, segnarlo come tale. Le varie lingue sono le seguenti, in quanto a tag:
+* en - Inglese
+* it - Italiano
+* ru - Russo
+* ko - Coreano
+* cn - Cinese
+* fr - Francese
+* pl - Polacco
+* es - Spagnolo
+* th - Thailandese
+* jp - Giapponese
+* de - Tedesco
+
+------
+
++++ Progetti
+Tag per progetti collaborativi ad ampia scala.
+
+progetto-crossover - Appartenente o legato al Progetto Crossover.
+game-day -  Appartenente o legato al progetto Game Day.
+heimdall -  Appartenente o legato al Progetto Heimdall.
+
+------
+
++++ Racconti Seriali
+Tag per lunghe serie di racconti, che possono o meno avere un hub.
+
+harper -  Appartenente o legato al Progetto COLD HARPER.
+lombardi -  Appartenente o legato alla vita e alle esperienze dell'Agente Lombardi.
+mister -  Appartenente o legato ai "Piccoli Mister", serie di individui anomali.
+olimpia -  Appartenente o legato al Progetto Olimpia.
+orientamento -  Appartenente o legato alla serie Orientamento.
+progetto-thaumiel -  Appartenente o legato al Progetto Thaumiel.
+racconto-collector -  Appartenente o legato ai Racconti di Mr. Collector.
+resurrezione -  Appartenente o legato al Progetto Resurrezione.
+
+------
+
++++ Luoghi
+
+alagadda - Il regno di Alagadda.
+[http://fondazionescp.wikidot.com/system:page-tags/tag/biblioteca-del-viandante biblioteca-del-viandante] - La Biblioteca del Viandante.
+
+------
+
++++ Contenuti
+Tag per contenuti specifici.
+
+adulto - Contenuto adulto. Visionare a propria discrezione.
+
+------
+
++++ Dipartimenti, Programmi e Protocolli
+Tag per i vari dipartimenti, programmi per il personale e protocolli interni della Fondazione.
+
+[http://fondazionescp.wikidot.com/system:page-tags/ag/dipartimento-alchimia dipartimento-alchimia] - Dipartimento di Alchimia.
+[http://fondazionescp.wikidot.com/system:page-tags/tags/dipartimento-folklore dipartimento-folklore] - Dipartimento di Mitologia e Folklore.
+[http://fondazionescp.wikidot.com/system:page-tags/ag/dipartimento-irrealtà dipartimento-irrealtà] (unreality-dept) - Dipartimento dell'Irrealtà.
+[http://fondazionescp.wikidot.com/system:page-tags/tags/programma-integrazione programma-integrazione] - Programma d'Integrazione, anche noto come Programma di Mediazione.
+[http://fondazionescp.wikidot.com/system:page-tags/tags/teologia-tattica teologia-tattica] (tactical-theology) - Dipartimento di Teologia Tattica.
+[[/tab]]
+
+
+
+[[tab Tag dello Staff]]
+++ Tag dello Staff
+Questi tag sono usati e modificati solo dai membri dello staff a cui è stato assegnato il compito specifico di farlo.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/o o] - __Per i Reviewers__: Questo tag evidenzia le pagine che hanno ancora bisogno di un'ultima occhiata o semplicemente di un secondo parere da parte di un altro membro. Ci si aspetta che queste pagine siano perlopiù complete se non già complete, e il processo di review non dovrebbe durare più di un paio di minuti. Finita la revisione, rimuovere il tag "o" e mettere invece "_o".
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/_o _o] - __Per i Reviewers__: Questo tag indica che la pagina in questione è stata già rivista sufficientemente. Non c'è altro da fare qui.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/template template] - Pagine usate solo per il funzionamento interno della wiki. Da non usare mai per le pagine create da utenti.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/admin admin] - Identifica le pagine legate alla gestione del sito o comunque di responsabilità esclusiva dello staff. Queste pagine sono spesso bloccate, quindi l'utente medio non ha nulla a che fare con tali pagine al di fuori della semplice visualizzazione.
+
+* [http://fondazionescp.wikidot.com/system:page-tags/tag/_p#pages _p] - Indica le pagine che sono state pubblicate sui social. 
+
+[[/tab]]
+[[tab Traduzione dei tag]]
+Quella che segue è la lista di corrispondenza tra tag inglesi e italiani.
+È usata per tradurre velocemente e/o automaticamente i tag degli articoli en.
+La prima colonna è riservata ai tag inglesi, la seconda ai corrispettivi italiani.
+In caso il corrispettivo italiano non esistesse, bisogna mettere uno spazio.
+
+|| euclid || euclid  ||
+|| keter || keter ||
+|| safe || safe ||
+|| scp || scp ||
+|| k-class-scenario || scenario-classe-k ||
+|| key || chiave ||
+|| artwork || artwork ||
+|| aquatic|| acquatico ||
+|| acoustic || acustico||
+||adaptive|| adattativo  ||
+||airborne || aereo ||
+||hallucination || allucinazione ||
+|| memory-affecting || altera-memoria ||
+|| mind-affecting || altera-mente ||
+||amorphous ||amorfo ||
+|| animal || animale ||
+|| antimemetic || antimemetico ||
+|| apian || apesco ||
+|| appliance || apparecchio ||
+|| arachnid|| aracnide ||
+||arboreal || arboreo ||
+|| clay || argilla ||
+|| weapon ||arma ||
+|| furniture || arredamento ||
+|| artifact || artefatto ||
+|| artistic || artistico||
+|| arthropod || artropode ||
+|| self-replicating || auto-replicante ||
+|| self-repairing ||auto-riparante ||
+|| automaton || automa ||
+|| autonomous|| autonomo  ||
+|| avian || aviario ||
+|| bacteria || batterio ||
+|| biological || biologico ||
+|| bovine || bovino ||
+|| cactaceous || cactaceo ||
+|| cadaver || cadavere ||
+|| camelid || cammellide ||
+|| canine || canino ||
+|| carnivorous || carnivoro ||
+|| cephalopodic || cefalopode ||
+|| cervine || cervino ||
+|| cetacean || cetaceo||
+|| chelonian || chelonio ||
+|| chemical || chimico ||
+|| food || cibo ||
+|| city || città ||
+|| compulsion || compulsione ||
+|| computer || computer ||
+|| concept || concetto ||
+|| knowledge || conoscenza ||
+|| contagion || contagioso ||
+|| container || contenitore ||
+|| corrosive || corrosivo ||
+|| crystalline || cristallino ||
+|| cube || cubo ||
+|| currency || denaro ||
+|| addictive || dipendenza ||
+||document || documento||
+|| ectoentropic || ectoentropico ||
+|| building || edificio ||
+|| electrical || elettrico ||
+|| electromagnetic || elettromagnetico ||
+|| electronic || elettronico ||
+|| empathic || empatico ||
+|| entropic || entropico ||
+|| equine || equino ||
+|| extremity || estremità ||
+|| extradimensional || extradimensionale ||
+|| extraterrestrial || extraterrestre ||
+|| foundation-made || fatto-dalla-fondazione ||
+|| feline || felino ||
+|| physics || fisico ||
+|| formic|| formico ||
+|| fungus || fungo ||
+|| fire || fuoco ||
+|| future || futuro ||
+|| gaseous || gassoso ||
+|| genetic || genetico ||
+||geological || geologico ||
+|| toy || giocattolo ||
+|| game || gioco ||
+|| jewelry || gioiello ||
+|| gravity || gravità ||
+|| immobile || immobile ||
+|| engraved || inciso ||
+||inscription|| iscrizione ||
+|| indestructible || indistruttibile ||
+|| clockwork || ingranaggi ||
+|| inscribed || inscritto ||
+|| insect || insetto ||
+|| intangible || intangibile||
+|| invertebrate || invertebrato ||
+|| lepidopteran || lepidottero ||
+|| leporine|| leporino ||
+|| language || linguaggio ||
+|| liquid || liquido ||
+|| light ||luce ||
+|| location || luogo ||
+|| magnetic || magnetico ||
+|| map || mappa ||
+|| mathematical || matematico ||
+|| mechanical || meccanico ||
+|| media || media||
+|| medical || medico ||
+|| memetic || memetico ||
+|| hive-mind || mente-alveare ||
+|| meta || meta ||
+|| metallic || metallico ||
+|| metamorphic || metamorfico ||
+|| meteorological|| meteorologico ||
+|| microscopic || microscopico ||
+||military || militare ||
+|| mimetic|| mimetico||
+|| miniature || miniatura ||
+|| mobile || mobile ||
+|| murine || muride ||
+|| musical || musicale ||
+|| narrative|| narrativo ||
+|| neurological || neurologico ||
+|| uncontained || non-contenuto ||
+|| nocturnal || notturno ||
+|| ocular || oculare ||
+|| ophidian || ofide ||
+|| olfactory || olfattivo ||
+||shadow || ombra ||
+|| online || online ||
+|| omnivorous || onnivoro ||
+|| ontokinetic || ontocinetico ||
+|| organic|| organico ||
+|| timepiece || orologio ||
+||observational ||osservativo ||
+|| hostile || ostile ||
+|| ovine || ovino ||
+|| paradox|| paradosso ||
+||parasitic || parassitico ||
+|| performance || performance ||
+|| piscine || pesce ||
+|| planet || pianeta ||
+|| plant|| pianta||
+|| stone || pietra ||
+|| polyhedral || poliedrico ||
+|| portal || portale||
+||predatory || predatorio ||
+|| probability || probabilità ||
+|| radioactive || radioattivo ||
+|| ranine || ranino ||
+|| recording || registrazione ||
+|| religious || religioso ||
+|| reptilian || rettile ||
+|| reanimation || rianimazione ||
+|| reproductive || riproduttivo ||
+|| biohazard || rischio-biologico ||
+|| cognitohazard || rischio-cognitivo ||
+|| infohazard || rischio-informativo||
+|| ritual|| rituale ||
+||sapient|| sapiente ||
+|| satellite || satellite ||
+|| exchange ||scambio ||
+|| skeletal || scheletrico||
+|| swarm || sciame ||
+|| simian || scimmiesco ||
+|| sciurine || sciuride ||
+|| sculpture || scultura ||
+|| sensory || sensoriale ||
+|| sentient || senziente ||
+|| sexual || sessuale ||
+|| sphere || sfera ||
+|| sun || sole ||
+|| sleep || sonno ||
+|| subterranean || sottoterra ||
+|| spacetime || spaziotempo ||
+|| species || specie ||
+||sport || sport ||
+|| selachian || squalo ||
+|| statue || statua ||
+|| historical || storico ||
+|| tool|| attrezzo||
+||instrument||strumento ||
+|| structure ||struttura ||
+|| tactile || tattile ||
+|| telekinetic || telecinetico ||
+|| telepathic || telepatico ||
+|| teleportation || teletrasporto||
+|| temporal || temporale||
+|| thermal || termico ||
+|| thermodynamic || termodinamica ||
+|| toxic || tossico ||
+|| transfiguration || trasfigurazione ||
+|| transmission || trasmissione ||
+|| auditory || uditorio ||
+|| humanoid || umanoide ||
+||ursine || ursino ||
+|| predictive || veggente ||
+|| vehicle || veicolo ||
+|| clothing || vestiario ||
+|| glass || vetro ||
+|| vibration || vibrazione ||
+|| virus || virus ||
+|| visual || visivo ||
+|| alive || vivo ||
+|| xenarthran || xenartro ||
+|| esoteric-class || classe-esoterica||
+|| thaumiel||thaumiel||
+||goi-format||formato-gdi||
+|| archived || archiviato ||
+|| joke ||  scherzo ||
+|| neutralized || neutralizzato ||
+|| decommissioned ||  smantellato ||
+|| explained || risolto ||
+|| 001-proposal || proposta-001 ||
+|| supplement || supplemento ||
+|| experiment|| esperimento ||
+|| exploration || esplorazione ||
+|| incident || incidente ||
+|| interview || intervista ||
+|| splash || splash ||
+|| tale || racconto ||
+|| creepypasta || creepypasta ||
+||audio || audio ||
+|| collaboration || collaborazione ||
+|| co-authored || autori-multipli ||
+|| contest ||contest ||
+|| author || autore ||
+|| guide || guida ||
+|| required || obbligatorio ||
+|| essay || saggio ||
+|| hub || hub ||
+|| site || site ||
+|| featured || consigliato ||
+|| event-featured || articolo-evento ||
+||heritage || patrimonio  ||
+||wooden||di-legno||
+||loop||loop||
+||vermian||vermesco||
+||vulpine||volpesco||
+||2000 ||2000 ||
+||dc2014 ||dc2014 ||
+||five-questions||five-questions||
+||gbc09 ||gbc09 ||
+||goi2014 ||goi2014 ||
+||hc2012 ||hc2012 ||
+||hiscon2017 ||hiscon2017 ||
+||nyc2013 ||nyc2013 ||
+||tc2013 ||tc2013 ||
+||uac2014 ||uac2014 ||
+||sc2015||sc2015||
+||mtf2016 ||mtf2016 ||
+||alexylva||alexylva||
+||anderson||anderson-robotics||
+||are-we-cool-yet||are-we-cool-yet||
+||broken-god||dio-frantumato||
+||chicago-spirit||chicago-spirit||
+||herman-fuller||circo-herman-fuller||
+||global-occult-coalition||coalizione-globale-occulto||
+||collettivo-oneiroi ||oneiroi||
+||sarkic||culti-sarkici||
+||daevite||daevita||
+||gru-division-p||divisione-gru-p||
+||dr-wondertainment||dr-wondertainment||
+||factory||fabbrica||
+||gamers-against-weed||gamer-contro-erba||
+||horizon-initiative||iniziativa-orizzonte||
+||chaos-insurgency||insorgenza-caos||
+||prometheus||laboratori-prometheus||
+||manna-charitable-foundation||manna-charitable||
+||serpents-hand||mano-serpente||
+||marshall-carter-and-dark||marshall-carter-dark||
+||nobody||nessuno||
+||fifthist||quinta-chiesa ||
+||black-queen||regina-nera||
+||reclamation||ufficio-riappropriazione-islamici ||
+||unusual-incidents-unit||unità-incidenti-insoliti||
+||aiad||aiad||
+||bellerverse ||bellerverse ||
+||rats-nest||covo-ratti||
+||competitive-eschatology||escatologia-competitiva ||
+||etdp||etdp ||
+||the-gulf||il-golfo||
+||lolfoundation||lolfoundation||
+||green-king||re-verde||
+||s&c-plastics||s&c-plastics||
+||antarctic-exchange||scambio-antartico||
+||broken-masquerade||smascherati ||
+||sotm ||sotm ||
+||blackwood ||blackwood ||
+||bonifay ||bonifay ||
+||shark-punching-center||sede-pestaggio-carcarodonti||
+||class-of-76||classe-del-76||
+||asci||iacs||
+||hanged-king||re-impiccato||
+||pangloss||pangloss||
+||professor-aw||professor-aw||
+||pa2014||pa2014||
+||pa2016||pa2016||
+||poetry||poetico ||
+||project-crossover||progetto-crossover||
+||game-day||game-day||
+||heimdall ||heimdall ||
+||harper ||harper ||
+||lombardi ||lombardi ||
+||mister ||mister ||
+||olympia ||olimpia ||
+||project-thaumiel||progetto-thaumiel||
+||collector-tale||racconto-collector||
+||resurrection||resurrezione ||
+||the-administrator||amministratore ||
+||agent-merlo||agente-merlo||
+||agent-navarro||agente-navarro||
+||director-aktus||direttor-aktus||
+||doctor-bright||dottor-bright||
+||doctor-clef||dottor-clef||
+||doctor-gears||dottor-gears||
+||doctor-iceberg||dottor-iceberg||
+||doctor-king||dottor-king||
+||doctor-kondraki||dottor-kondraki||
+||doctor-mann ||dottor-mann ||
+||doctor-rights||dottoressa-rights||
+||kain-pathos-crow||kain-pathos-crow||
+||maria-jones||maria-jones||
+||mark-kiryu||mark-kiryu||
+||robert-bumaro||robert-bumaro||
+||researcher-conwell||ricercatore-conwell||
+||researcher-rosen||ricercatore-rosen||
+||riven-mercer||riven-mercer||
+||adult ||adulto ||
+||ijamea||aigifa||
+||second-hytoth||secondo-hytoth||
+||ambrose-restaurant||ristoranti-ambrose||
+||wilsons-wildlife||wilsons-wildlife||
+||deer-college||deer-college||
+||dental||dentale||
+||jude-kriyot||jude-kriyot||
+||doctor-glass||dottor-glass||
+||3000||3000||
+||agent-lament||agente-lament||
+||ethics-committee||comitato-etico||
+||general-bowe||generale-bowe||
+||international||internazionale||
+||alagadda||alagadda||
+||1000||1000||
+||paul-kim||paul-kim||
+||eric||eric||
+||photographic||fotografico||
+||children-of-the-night||figli-della-notte||
+||hanged-king||re-impiccato||
+||doomsday2018||doomsday2018||
+||doctor-cimmerian||dottor-cimmerian||
+||moon||luna||
+||173fest||173fest||
+||gustatory||gustativo||
+||director-moose||direttrice-moose||
+||sheldon-katz||sheldon-katz||
+||fred||fred||
+||researcher-james||ricercatore-james||
+||orientation||orientamento||
+||parawatch||parawatch||
+||marion-wheeler||marion-wheeler||
+|| doctor-gerald||dottor-gerald||
+||thad-xyank||thad-xyank||
+||scarlet-king||re-scarlatto||
+||bobble-the-clown||bobble-il-clown||
+||aaron-siegel||aaron-siegel||
+||interactive||interattivo||
+||dinosaurian||dinosauro||
+||art-exchange ||art-exchange ||
+||brothers-of-death||fratelli-della-morte||
+||in-rewrite|| ||
+||reviewers-spotlight|| ||
+||kindness ||kindness ||
+||pattern-screamer||urlatori-esterni||
+||prize-feature|| ||
+||golden-horde||orda-d-oro||
+||grand-karcist-ion||grande-karcista-ion||
+||obskura||obskura||
+||metadata||metadata||
+||researcher-talloran||ricercatore-talloran||
+||professor-hutchinson||professor-hutchinson||
+||draven-kondraki||draven-kondraki||
+||doctor-vang||dottor-vang||
+||video||video||
+||doctor-heiden||dottor-heiden||
+||dado||dado||
+||three-moons-initiative||iniziativa-tre-lune||
+||doctor-wensley||dottor-wensley||
+||agent-kulzn||agente-kulzn||
+||agent-bijhan||agente-bijhan||
+||doctor-zartion||dottor-zartion||
+||django-bridge||django-bridge||
+||hmfscp||hmfscp||
+||accelerate-the-future||accelerate-the-future||
+||oneiroi||oneiroi||
+||dc-al-fine||dc-al-fine||
+||jam-con2019||jam-con2019||
+||ruiz-duchamp||ruiz-duchamp||
+||agent-green||agente-green||
+||saturn-deer||saturn-deer||
+||doctor-everwood||dottor-everwood||
+||the-trashfire||bidone-a-fuoco||
+[[/tab]]
+[[tab FAQ Tag]]
+
+++ FAQ
+Questa parte spiega la differenza fra dei tag simili, comunemente fraintesi o scambiati. Se credi che uno di questi tag si applichi da qualche parte, leggi attentamente.
+
++++ **organico vs. biologico  vs. vivo**
+* Qualcosa di **//organico//** è composto di o si rapporta a dei composti organici, come proteine, acidi grassi, o altre sostanze che hanno una relazione o sono usate dagli esseri viventi, ma non sono viventi di per sé.
+* Qualcosa di **//biologico//** ha degli elementi di cose viventi, come tessuto vivo, organi, e altre cose riconoscibili in quanto parti di un organismo, ma senza mostrare segni di effettiva vita. Se è //biologico//, è anche //organico// e quindi non ha bisogno del tag precedente.
+* Qualcosa di **//vivo//** ha tutti i tratti di qualcosa di vivo. Questi tratti variano a seconda dell'opinione, ma solitamente sono i seguenti:
+ * **metabolismo** - Tutto ciò che è vivo consuma energia, la usa per catalizzare i processi che lo  tengono vivo, ed espellono eccesso, anche solo sotto forma di calore.
+ * **reazione** - Tutti gli esseri viventi reagiscono a ciò che li circonda. Cercano cose che pensano siano cibo e fuggono o si difendono dai pericoli. Persino le piante muovono le proprie foglie per massimizzare l'esposizione al sole.
+ * **riproduzione** - Tutte le cose viventi si riproducono, sessualmente o assessualmente.
+* Tutto ciò che è considerabile //vivo// è anche //biologico// ed //organico//, e non ha quindi bisogno di quei tag.
+
++++ **parassitico vs. contagioso vs. auto-replicante vs. riproduttivo**
+* Un'entità **//parassitica//** è qualcosa che si nutre di un'altra entità. Ciò è distinto da una relazione mutualmente benefica, in quanto un'entità parassitica non aiuta mai l'entità ospite; è solo un male per lei. Questo si può riferire ai parassiti, che si nutrono delle risorse dell'ospite, che ai parassitoidi, che si nutrono fino ad uccidere l'ospite, e nessuno dei due è necessariamente //vivo// nel contesto della Fondazione.
+* Un essere **//contagioso//** è qualcosa che infetta un'altra e che, una volta infettata, si sparge verso un altro individuo per infettare anche quello. Nel contesto della Fondazione, anche questo può essere un processo inorganico, ed è separato e distinto da un //parassita// in quanto una volta infettato, esso diventa indistinguibile dall'ospite, al contrario del parassita che rimane un'entità separata. Una virus per computer è anche quello un //contagio//.
+* Un oggetto **//auto-replicante//** è qualcosa che fa copie di sé stesso. Può riuscirci dividendosi in due e poi ricrescendo, o mutando materiali grezzi in altre copie di sé stesso. Di solito, questo è un processo non //biologico//.
+* Un oggetto **//riproduttivo//** è qualcosa che influisce i processi riproduttivi di un organismo vivente. Questo solitamente vuol dire che può usare l'apparato riproduttivo di un altro organismo per fare copie di sé stesso, ed è sempre un processo biologico. Questo è diverso da un //parassita//: se si attacca semplicemente all'utero e se ne ciba, è //parassitico//, mentre se inganna il corpo facendosi credere un feto e facendosi nutrire, allora è //riproduttivo//.
+* //parassitico// e //contagioso// sono normalmente esclusivi l'uno con l'altro. Anche //riproduttivo// e //auto-replicante// lo sono, tranne in rarissimi casi.
+
++++ **compulsione vs. rischio-cognitivo vs. altera-mente vs. memetico**
+* Una **//compulsione//** è qualcosa che costringe l'individuo a fare qualcosa che normalmente non farebbe. Questo è diverso da un //rischio cognitivo// in quanto non richiede un contatto visivo diretto con l'oggetto scatenante; a volte anche solo la vicinanza è sufficiente. Inoltre, si distingue da l'//alterazione mentale// in quanto non è una forza esterna che ti costringe a fare qualcosa, ma è meglio descritto come un'intenso bisogno, o un'estrema curiosità. Inoltre, è solitamente solo temporaneo; se il soggetto e rimosso dall'influenza dell'oggetto che causa la compulsione, esso si rimetterà, anche se con del tempo.
+* Un **//rischio-cognitivo//** è qualcosa che pone una minaccia ad ogni soggetto in grado di percepirlo con uno o più dei cinque sensi aristotelici. Questo si applica sia a cose che causino danno fisico che psicologico, ma solo se in modo anomalo. Una luce molto potente che causa cecità non sarebbe un rischio cognitivo, né un coltello che taglia. Al contrario, un suono che ti fa sanguinare da ogni poro o un odore che ti fa impazzire lo sarebbe.
+* Un effetto **//altera-mente//** è uno che affligge la mente di un soggetto, solitamente per sempre, facendogli cambiare il modo di pensare (comunemente cambiando la personalità o il comportamento, o causando condizioni psichiatriche). Ciò è diverso da una //compulsione// sia per il suo effetto permanente che per l'intensità altamente elevata.
+* Un agente **//memetico//** è descritto al meglio come una "informazione contagiosa". Esso è un dato nella mente di un soggetto che altera lo stato mentale o fisico di un soggetto e che si diffonde se altre persone vengono a conoscenza della stessa informazione. Ogni oggetto //memetico// è quindi un //rischio-cognitivo//, ma non necessariamente il contrario.
+
++++ **memetico vs. rischio-informativo vs. meta**
+* Un oggetto a **//rischio-informativo//** è uno che possiede un effetto che si innesca solo quando ci si riferice o si descrive l'oggetto stesso. Questo è separato da un agente memetico, in quanto è comunque un oggetto, non una semplice idea. SCP-426 è un ottimo esempio di //rischio informativo//; quando provi a parlare di esso, puoi solo farlo usando la prima persona.
+* Un oggetto **//meta//** è uno che influisce la sua stessa documentazione, è affetto dalla sua documentazione, o ha procedure di contenimento che si estendono sulla sua documentazione. A volte questo è usato in compagnia di //rischio informativo//, ma ne è distinto. SCP-048 ne è un ottimo esempio; cercare di documentare un SCP come 048 crea scompiglio, ma il semplice parlarne no.
+
++++ **acustico vs. auditivo vs. audio**
+* Un effetto **//acustico//** è qualcosa composto da un'onda sonora o altro tipo di onda di compressione. Il che implica che ha bisogno di un qualche medium (aria o acqua ad esempio) e che esiste indipendentemente dal fatto che qualcuno lo ascolti o no. Qualcosa che dei soggetti possono sentire ma che anche delle registrazioni possono è probabilmente //acustico//.
+* Un effetto **//auditivo//** è qualcosa che invece si riferisce proprio al senso dell'udito. Un suono sentito da una o più persone, ma che non può essere registrato, è probabilmente auditivo. Se il suono ha anche un effetto, allora diventa un //rischio cognitivo//.
+* //audio// è uno dei tag principali, usato nelle pagine contenenti file audio. Non è quindi un attributo, e non deve essere messo in pagine che semplicemente descrivono un qualche tipo di suono.
+
++++ **extraterrestre vs extradimensionale vs futuro vs ectoentropico**
+* Un oggetto **//extraterrestre//** è uno che "non è della Terra", ovvero che proviene o rimane nello spazio. Ciò si applica a tutto, per forme di vita, oggetti inanimati e oggetti artificiali o naturali (come stelle e pianeti).
+* Un oggetto **//extradimensionale//** può essere originario di un'altra realtà o che garantisce il passaggio in un'altra realtà. Qualsiasi oggetto descritto come creato da una civilizzazione "non conosciuta dalla Storia" può essere descritto come tale, se non c'è dubbio che questa civilizzazione non sia mai esistita nel nostro passato o nel nostro futuro.
+* Un oggetto **//futuro//** è uno che venne dislocato dalla sua posizione nel tempo futuro per essere portato nel passato. Anche se con il passare del tempo l'oggetto "torna" al suo periodo temporale, si considera comunque //futuro//.
+* Un oggetto **//ectoentropico//** è uno che produce energia o materia in modo sconosciuto, o apparentemente dal "nulla". Qualsiasi oggetto che funga da semplice "porta" per prendere oggetti da altre dimensioni non è considerabile //ectoentropico//.
+
+[[/tab]]
+
+[[/tabview]]

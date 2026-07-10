@@ -1,0 +1,637 @@
+[[module css]]
+#page-title {
+    display: none;
+}
+#content-wrap {
+    max-width: 1080px;
+}
+.wp_sheet:first-child {
+    margin-top: -6px;
+}
+.white-paper .wp_sub-title {
+    margin: 1.2em 0 .5em;
+}
+
+.white-paper .wp_title {
+    border: 0;
+    margin: 0;
+}
+.col-title > div > div > .collapsible-block-unfolded-link,
+.col-title > div > .collapsible-block-folded {
+    text-align: center;
+}
+.col-title > .collapsible-block {
+    margin: 0;
+    padding-bottom:  .5em;
+}
+.white-paper .col-title .collapsible-block-link, .white-paper .col-title .foldable-list-container {
+    font-size: 160%;
+}
+
+.wp_sheet:target .collapsible-block-folded {
+    display: none !important;
+}
+.wp_sheet:target .collapsible-block-unfolded {
+    display: block !important;
+}
+code {
+    white-space: pre-wrap;
+}
+
+.white-paper .col-title .collapsible-block-link::before {
+    content: "+ ";
+}
+.white-paper .col-title .collapsible-block-link::after {
+    content: " +";
+}.white-paper .col-title .collapsible-block-unfolded-link .collapsible-block-link::before {
+    content: "- ";
+}
+.white-paper .col-title .collapsible-block-unfolded-link .collapsible-block-link::after {
+    content: " -";
+}
+
+.white-paper .col-title .collapsible-block-content + .collapsible-block-unfolded-link {
+    text-align: right;
+    padding: 4px 0 3px;
+}
+.white-paper .col-title .collapsible-block-content + .collapsible-block-unfolded-link a {
+    color: var(--ct_col_sidebar-subtext);
+    font-size: 0;
+    line-height: 13px;
+}
+.white-paper .col-title .collapsible-block-content + .collapsible-block-unfolded-link a:hover {
+    text-decoration: none;
+}
+.white-paper .col-title .collapsible-block-content + .collapsible-block-unfolded-link a::before {
+    font-size: 13px;
+    content: "Abschnitt schließen";
+    text-align: right;
+    padding: 1em;
+}
+.white-paper .col-title .collapsible-block-content + .collapsible-block-unfolded-link a::after {
+    content: "";
+}
+
+@media (max-width: 452px) {
+    .white-paper .col-title .collapsible-block-link::before,
+    .white-paper .col-title .collapsible-block-link::after,
+    .white-paper .col-title .collapsible-block-unfolded-link .collapsible-block-link::before,
+    .white-paper .col-title .collapsible-block-unfolded-link .collapsible-block-link::after {
+        content: "";
+    }
+    ol, ul {
+        padding-inline-start: 8%;
+    }
+}
+
+@media (max-width: 300px) {
+    .white-paper .col-title .collapsible-block-link {
+        line-break: anywhere;
+    }
+}
+
+[[/module]]
+
+[[include component:button-box]]
+[[include component:credit-button]]
+
+**Seite:** Tag-Richtlinie
+**Original-Autor:** [[*user Tanija]], fertiggestellt von [[*user dr ore]]
+
+[[include credit:end]]
+[[include component:button-end]]
+
+[[div class="white-paper"]]
+
+[[div class="wp_sheet"]]
+[[span class="wp_title"]]Tag-Richtlinie[[/span]]
+[[/div]]
+
+[[div class="wp_sheet" id="u-Richtlinie"]]
+[[div class="col-title"]]
+[[collapsible hideLocation="both" show="Richtlinie" hide="Richtlinie"]]
+[[div class="toc float-right"]]
+**Inhalt**
+[/regeln#S3A1 Grundlegende Regeln]
+[/regeln#S3A2 Existierende Artikel]
+[/regeln#S3A3 Artikel löschen]
+[/regeln#S3A4 Medien]
+[/regeln#S3A5 Elternseiten]
+[/regeln#S3A6 Themes und CSS]
+[[/div]]
+
+[[# S3A1]]
+
+++ Richtlinie
+
+Wie in den [/regeln#u-Tagregeln Tagregeln] in den Regeln unseres Wikis nachlesbar, sind Tags beim Erstellen von Artikeln Pflicht und essentieller Teil der Arbeit in unserem Wiki. Zum leichteren Finden von passenden Tags für einen neuen Artikel, oder um die Tags einer Übersetzung einzupflegen, dient diese Tag-Richtlinie. Im Folgenden findet sich eine Auflistung aller bisher benutzter Tags in unserem Wiki und die Erläuterungen zu diesen, beginnend mit den verpflichtenden Tags zum schnellen Erstellen einer Seite, dem Wörterbuch Englisch-Deutsch.
+
+++ Verbindliche Tags
+
+Beim Erstellen neuer Artikel sind folgende Tags immer zu setzen:
+
+||~ Artikel ||~ Tags ||~ Ausnahmen ||
+|| Alle Artikel || [http://scp-wiki-de.wikidot.com/korrekturbeduerfnislevel Korrekturbedürfnislevel] || Systemseiten ||
+|| Übersetzungen || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/übersetzt übersetzt]}} || - ||
+|| Übersetzungen || Ursprungssprache ausgeschrieben || Englisch ||
+|| Neuen DE-Seiten || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/deutsch deutsch]}} || Systemseiten ||
+|| SCPs || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/scp scp]}} || - ||
+|| SCPs || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/sicher sicher]}} / {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/euclid euclid]}} / {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/keter keter]}} / {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/thaumiel thaumiel]}} / {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/apollyon apollyon]}} / {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/cernunnos cernunnos]}}/ {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/archon archon]}}/ {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/ausstehend ausstehend]}} / {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/neutralisiert neutralisiert]}} || In allen anderen Fällen gilt {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/esoterische-klasse esoterische-klasse]}} ||
+|| Anhänge || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/anhang anhang]}} || - ||
+|| Geschichten || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/geschichte geschichte]}} || - ||
+|| Essays, Aufsätze und Abhandlungen || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/abhandlung abhandlung]}} || - ||
+|| Poesie || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/poesie poesie]}} || - ||
+|| GoI-Formate || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/goi-Format goi-format]}} || - ||
+|| Portale / Hubs || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/portalseite portalseite]}} || - ||
+|| Hintergrundartikel || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/hintergrund hintergrund]}} || - ||
+|| Vertonte Artikel || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/vertont vertont]}} || - ||
+|| Artikel mit Medien || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/_bild _bild]}} || - ||
+|| Lizenz-kompatibel || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/_cc _cc]}} || - ||
+|| Nicht kompatibel || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/_ncc _ncc]}} || - ||
+|| Keine Lizenzangabe || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/_occ _occ]}} || - ||
+|| Fragment-Artikel || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/fragment fragment]}} || - ||
+|| Component-Artikel || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/component component]}} || - ||
+|| Theme-Artikel (CSS) || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/theme theme]}} || - ||
+|| Artikel mit genehmigten Themes || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/_theme _theme]}} || - ||
+|| Script-Artikel || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/script script]}} || - ||
+|| Wettbewerbs-Hubs || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/_wettbewerb _wettbewerb]}} || - ||
+|| Fanart und andere Kunstwerke || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/artwork artwork]}} || - ||
+
+[[/collapsible]]
+[[/div]]
+[[/div]]
+
+[[div class="wp_sheet" id="u-Spezielle Tags"]]
+[[div class="col-title"]]
+[[collapsible hideLocation="both" show="Spezielle Tags" hide="Spezielle Tags"]]
+
+++ Was sind spezielle Tags?
+
+Spezielle Tags weisen besonderen Content eines Artikels aus, etwa in welchem [[[canon-hub|Kanon]]] er spielt,  ob eine [[[Interessengruppen|Interessengruppe]]] involviert ist. Spezielle Tags sind zu setzen, wenn derartiger Content merklichen Einfluss auf das Narrativ des Artikels hat.
+
+++ Liste der Tags[[footnote]] Nicht aufgeführt sind: Serien-Tags und Abteilungs-Tags [[/footnote]]
+
+||~ Name||~ Tags ||~ Informationen ||
+||||||||~ DE-Interessengruppen-Tags ||
+|| Abteilung XXV || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/abteilung-xxv abteilung-xxv]}} || - ||
+|| Caecus Carneliana-Kollektiv || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/caecus-c caecus-c]}} || - ||
+|| IMBW || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/IMBW IMBW]}} || - ||
+|| Die Magierakademie || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/magierakademie magierakademie]}} || - ||
+|| Raptor Tec. Industries || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/raptor-tec raptor-tec]}} || - ||
+|| Das Sonderkommando für Paranormales || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/sonderkommando sonderkommando]}}  || - ||
+|| Das Vierte Reich || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/4-r 4-r]}} || - ||
+|| Das Wunderkabinett || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/mm-wk mm-wk]}} || - ||
+||||||||~ DE-Kanon-Tags ||
+|| SCP-DE-Kanon || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/scp-de scp-de]}} || - ||
+|| Machina-Kanon || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/machina machina]}} || - ||
+|| Projekt Trickster-Kanon || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/projekt-trickster projekt-trickster]}} || - ||
+|| Saphirblauer Himmel || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/sapphire-u sapphire-u]}} || Wird derzeit überarbeitet ||
+|| SKP-Kanon || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/skp skp]}} || - ||
+||||||||~ EN-Interessengruppen-Tags ||
+|| Alexylva-University || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/alexylva alexylva]}}|| - ||
+|| Anderson Robotics || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/anderson anderson]}}|| - ||
+|| Are We Cool Yet? || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/are-we-cool-yet are-we-cool-yet]}}|| - ||
+|| The Black Queen || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/black-queen black-queen]}}|| - ||
+|| The Chaos Insurgency || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/chaos-insurgency chaos-insurgency]}}|| - ||
+|| The Chicago Spirit || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/chicago-spirit chicago-spirit]}}|| - ||
+|| The Church of the Broken God || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/broken-god broken-god]}}|| - ||
+|| Curch of the Second Hytoth || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/second-hytoth second-hytoth]}}|| - ||
+|| Deer College || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/deer-college deer-college]}}|| - ||
+|| Doctor Wondertainment || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/dr-wondertainment dr-wondertainment]}}|| - ||
+|| The Factory || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/factory factory]}}|| - ||
+|| The Fifth Church || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/fifthist fifthist]}}|| - ||
+|| Gamers Against Weed || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/gamers-against-weed gamers-against-weed]}}|| - ||
+|| The Global Occult Coalition (GOC) || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/global-occult-coalition global-occult-coalition]}}|| - ||
+|| GRU-Division "P" || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/gru-division-p gru-division-p]}}|| - ||
+|| Herman Fuller's Circus of the Disquieting || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/herman-fuller herman-fuller]}}|| - ||
+|| The Horizon-Initiative || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/horizon-initiative horizon-initiative]}}|| - ||
+|| Manna Charitable Foundation || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/manna-charitable-foundation manna-charitable-foundation]}}|| - ||
+|| Marshall, Carter, and Dark Ltd. || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/marshall-carter-and-dark marshall-carter-and-dark]}}|| - ||
+|| Nobody || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/nobody nobody]}}|| - ||
+|| Office for the Retrieval of Islmic Artifacts (ORIA) || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/oria oria]}}|| - ||
+|| Oneiroi-Kollektiv || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/oneiroi oneiroi]}}|| - ||
+|| Parawatch || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/parawatch parawatch]}}|| - ||
+|| Prometheus Labs, Inc. || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/prometheus prometheus]}}|| - ||
+|| Sarkische Kulte || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/sarkisch sarkisch]}}|| - ||
+|| The Serpent's Hand || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/serpents-hand serpents-hand]}}|| - ||
+|| Shark Punching Center || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/shark-punching-center shark-punching-center]}}|| - ||
+|| The Three Moons Initiative || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/three-moons-initiative three-moons-initiative]}}|| - ||
+|| Unusual Incidents Unit (UIU),|| {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/unusual-incidents-unit unusual-incidents-unit]}}|| - ||
+|| Wilson's Wildlife Solutions || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/wilsons-wildlife wilsons-wildlife]}}|| - ||
+||||||||~ EN-Kanon-Tags ||
+|| AIAD-Kanon || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/aiad aiad]}} || - ||
+|| Apotheose-Kanon || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/apotheose apotheose]}} || - ||
+|| Bellerverse || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/bellerverse bellerverse]}} || - ||
+|| Der Mann Der Nicht Da War || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/der-mann-der-nicht-da-war der-mann-der-nicht-da-war]}} || - ||
+|| Dread & Circuses || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/dread&circuses dread&circuses]}} || - ||
+|| Ende des Todes-Kanon || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/end-of-death end-of-death]}} || - ||
+|| Fading Stars-Kanon || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/fading-stars fading-stars]}} || - ||
+|| Ohne Rückkehr || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/no-return no-return]}} || - ||
+|| On Guard 43 || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/on-guard-43 on-guard-43]}} || - ||
+|| ㄗitch 卄aven || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/pitch-haven pitch-haven]}} || - ||
+|| Projekt Heimdall || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/heimdall heimdall]}} || - ||
+||||||||~ Interessengruppen anderer Ableger ||
+|| Anonym-Augen GmbH || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/anonym-augen anonym-augen]}}|| PT-BR-Interessengruppe ||
+|| Die Humanistischen Kavaliere || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/kavaliere kavaliere]}}|| FR-Interessengruppe ||
+|| Der Jadgverein von Flora und Fauna || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/jagdverein jagdverein]}}|| PT-BR-Interessengruppe ||
+|| Der Orden des Lichts || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/orden-des-lichts orden-des-lichts]}}|| Übersetzter Tag, FR-GoI ||
+|| Faschistischer Rat des Okkulten || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/cfo cfo]}}|| IT-Interessengruppe ||
+|| Primordial || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/primordial primordial]}}|| FR-Interessengruppe ||
+|| Saiga-Fraktionen || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/saiga-fraktionen saiga-fraktionen]}}|| JP-Interessengruppe ||
+|| Sozialgemeinschaft der Atheisten zur Prävention und Hinderung von Ideologien von Religionen (SAPHIR) || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/saphir saphir]}}|| FR-Interessengruppe ||
+||||||||~ Kanons anderer Ableger ||
+|| Lebendig || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/lebendig geschichten-zu-lebendig]}} || CN-Kanon ||
+|| Foundation 4K || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/foundation4k foundation4k]}} || CN-Kanon ||
+|| Tote Sterne || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/tote-sterne tote-sterne]}} || ES-Kanon ||
+|| Hinter den Kulissen || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/hinter-den-kulissen hinter-den-kulissen]}} || FR-Kanon ||
+|| EMBARGO || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/embargo embargo]}} || FR-Kanon ||
+|| Unkräuter || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/unkräuter unkräuter]}} || PL-Kanon ||
+|| Foundation Collective || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/foundation-collective foundation-collective]}} || JP-Kanon ||
+|| Sushiblade || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/finstersushi finstersushi]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/sushiblade sushiblade]}} || JP-Kanon ||
+
+**Die obigen Listen erheben keinen Anspruch auf Vollständigkeit. Falls euch ein Tag fehlt, gebt der Administration Bescheid, damit er eingesetzt werden kann.**
+
+[[/collapsible]]
+[[/div]]
+[[/div]]
+
+[[div class="wp_sheet" id="u-Charakter- und MTF-Tags"]]
+[[div class="col-title"]]
+[[collapsible hideLocation="both" show="Charakter- und MTF-Tags" hide="Charakter- und MTF-Tags"]]
+
+++ Was sind Charakter-Tags?
+
+Charakter-Tags werden vergeben, wenn eine Figur einen ikonischen Schaffungsgrad erreicht hat. Was das bedeutet? Die Figur muss in mindestens 5 Artikeln vorgekommen sein, in denen sie eine maßgebliche Rolle hatte, oder die Hauptrolle gespielt hat. Zusätzlich muss diese Figur von mindestens drei anderen Autoren in gleicher Höhe verwendet worden sein.
+Dieser Tag dient dazu, Geschichten, in denen diese Figur wieder primär vorkommt, leichter zu identifizieren und über die Tag-Wolke zu finden.
+
++++ Schnellinfos:
+* Figur muss als primärer Fokus in einem Artikel vorgekommen sein, um den Charakter-Tag zu setzen.
+* Charakter-Tags werden von den Admins vergeben, wenn genügend Artikel vorgewiesen werden, die den Kriterien entsprechen.
+* Mindestanforderung: 5 Artikel mit maßgeblicher Rolle, zusätzlich mindestens 3 von anderen Autoren.
+* Charakter-Tags sind **nicht** unter Artikel zu setzen, in denen die Figur keine primäre/relevante Rolle hat, da dies dem Sinn eines Tags entgegenwirkt.
+* Der Autor des Artikels kann über die Annahme eines Tags für Charaktere nach eigenem Ermessen entscheiden.
+* Verwende im besten Fall den Titel des Charakters als Teil des Tags (z. B. {{agent-smith}}, {{doktor-moreau}}, ohne Leerzeile.
+* Wenn du zehn verschiedene Charakter-Tags auf denselben Artikel anwendest, stimmt was mit deinem Artikel nicht. Wir empfehlen höchstens drei.
+
+++ Liste der Tags
+
+||~ Charaktere ||~ Tags ||~ Informationen ||
+||||||~ DE-Charakter-Tags ||
+|| Doktoren || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/doktor-faust doktor-faust]}} || - ||
+|| Agenten || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/agent-frey agent-frey]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/agent-peterson agent-peterson]}} || - ||
+|| Sonstige || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/kira kira]}} || - ||
+||||||~ EN-Charakter-Tags ||
+|| Doktoren || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/doktor-clef doktor-clef]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/doktor-dan doktor-dan]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/doktor-gears doktor-gears]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/doktor-gerald doktor-gerald]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/doktor-glass doktor-glass]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/doktor-iceberg doktor-iceberg]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/doktor-kondraki doktor-kondraki]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/doktor-light doktor-light]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/doktor-mann doktor-mann]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/doktor-rights doktor-rights]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/doktor-shaw doktor-shaw]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/doktor-wettle doktor-wettle]}} || - ||
+|| Agenten || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/agent-lament agent-lament]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/agent-yoric agent-yoric]}} || - ||
+|| Forscher (Researcher) || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/forscher-rosen forscher-rosen]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/forscher-smalls forscher-smalls]}} || - ||
+|| Direktoren || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/direktor-aktus direktor-aktus]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/direktor-aktus direktor-graham]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/direktor-moose direktor-moose]}} || - ||
+|| Sonstige || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/draven-kondraki draven-kondraki]}} || - ||
+||||||~ Anomalien mit Eigennamen || 
+||able ||{{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/abel abel]}} || [[[SCP-076]]] ||
+|| anafabula ||{{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/anafabula anafabula]}} || [[[SCP-2747]]] ||
+|| allegedly-god ||{{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/angeblich-gott angeblich Gott]}} || [[[SCP-343]]] ||
+|| blackwood || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/blackwood blackwood]}} || [[[SCP-1867]]] ||
+|| bobble-the-clown || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/bobble-der-clown bobble-der-clown]}} || [[[SCP-993]]] ||
+|| cain|| {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/kain kain]}} || [[[SCP-073]]] || 
+|| heather-mason || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/heather-mason heather-mason]}} || [[[SCP-3090]]] ||
+||iris-thompson|| {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/iris-thompson iris-thompson]}} || [[[SCP-105]]] ||
+||finnfolk|| {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/finnfolk finnfolk]}} || [[[SCP-4700]]] ||
+|| hard-to-destroy-reptile || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/schwer-zu-zerstörendes-reptil schwer-zu-zerstörendes-reptil]}} || [[[SCP-682]]] ||
+|| laughy-mclaugherson ||{{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/laughy-mclaugherson laughy-mclaugherson]}} || [[[SCP-2030]]] ||
+|| mr-fisch ||{{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/mr-fish mr-fish]}} || [[[SCP-527]]] ||
+|| plague-doctor || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/seuchendoktor seuchendoktor]}} || [[[SCP-049]]] ||
+|| the-kumiho || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/die-kumiho die-kumiho]}} || [[[SCP-953]]] ||
+|| the-sculpture || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/die-skulptur die-skulptur]}} || [[[SCP-173]]] ||
+|| the-serpent || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/die-schlange die-schlange]}} || - ||
+|| tickle-monster  || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/kitzelmonster kitzelmonster]}} || [[[SCP-999]]] ||
+|| too-spooky || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/zu-gruselig zu-gruselig]}} || [[[SCP-2006]]] ||
+|| doctor-wettle || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/doktor-wettle doktor-wettle]}} || [[[SCP-7000]]] ||
+|| yaldabaoth || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/jaldabaoth jaldabaoth]}} || [[[ - ]]] ||
+||||||~ Sonstige || 
+|| D-Klasse-Personal || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/d-11424 d-11424]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/d-7294 d-7294]}} || - ||
+|| Andere || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/der-administrator der-administrator]}},  {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/general-bowe general-bowe]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/maria-jones maria-jones]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/sheldon-katz sheldon-katz]}}, {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/marion-wheeler marion-wheeler]}} || - ||
+||||||~ Personen von besonderem Interesse || 
+|| amos-marshall || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/amos-marshall amos-marshall]}} || Seniorpartnerin bei Marshall, Carter & Dark Ltd. ||
+|| eric ||{{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/eric eric]}} || - ||
+|| dado ||{{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/dado dado]}} || tag für dado, ja ||
+|| kindness || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/freundlichkeit freundlichkeit]}} || - ||
+|| iris-dark || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/iris-dark iris-dark]}} || Juniorpartnerin bei Marshall, Carter & Dark Ltd. ||
+|| isabel-v || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/isabel-v isabel-v]}} || Dr. Isabel Helga Anastasia Parvati Wondertainment V. ||
+|| professor-aw || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/professor-aw professor-aw]}} || - ||
+|| percival-darke  || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/percival-darke  percival-darke]}} || Seniorpartnerin bei Marshall, Carter & Dark Ltd. ||
+|| robert-bumaro || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/robert-bumaro robert-bumaro]}} || Prophet von Mekhane ||
+|| robert-carter || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/robert-carter robert-carter]}} || Seniorpartnerin bei Marshall, Carter & Dark Ltd. ||
+|| ruprecht-carter || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/ruprecht-carter ruprecht-carter]}} || Juniorpartnerin bei Marshall, Carter & Dark Ltd. ||
+|| ruiz-duchamp || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/ruiz-duchamp ruiz-duchamp]}} || - ||
+|| saturn-deer || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/saturn-hirsch saturn-hirsch]}} || - ||
+|| skitter-marshall || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/skitter-marshall skitter-marshall]}} || Juniorpartner bei Marshall, Carter & Dark Ltd. ||
+|| the-engineer ||{{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/der-maschinist der-maschinist]}} || Der Maschinist der Chaos Insurgency. ||
+
+++ Was sind MTF-Tags?
+
+MTF-Tags sind gleich zu behandeln wie Charakter-Tags, jedoch mit dem Unterschied, dass die MTF als Gruppe eine entscheidende Rolle in einem Artikel spielt. Es gelten dieselben Anforderungen wie für einen Charakter-Tag, um einen MTF-Tag zu erstellen.
+
+++ Liste der Tags
+
+||~ Mobile Einsatzgruppe ||~ Tags ||~ Informationen ||
+||||||||~ DE-MTF-Tags ||
+|| MTF DE20-ℜ (20-Rena „Seher“) || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/mtf-seher mtf-seher]}} || - ||
+||||||||~ EN-MTF-Tags ||
+|| MTF Tau-5 ("Samsara") || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/tau-5-samsara tau-5-samsara]}} || - ||
+
+**Die obigen Listen erheben keinen Anspruch auf Vollständigkeit. Falls euch ein Tag fehlt, gebt der Administration Bescheid, damit er eingesetzt werden kann.**
+
+[[/collapsible]]
+[[/div]]
+[[/div]]
+[[div class="wp_sheet" id="u-Tag-Wörterbuch"]]
+[[div class="col-title"]]
+[[collapsible hideLocation="both" show="Tag-Wörterbuch" hide="Tag-Wörterbuch"]]
+
+Dies ist eine Liste der im englischen Wiki verwendeten Tags und ihrer Übersetzung. Die Verwendung dieser Übersetzungen ist verbindlich. Es kann sein, dass Tags noch nicht in die Liste übernommen wurden oder wir andere Tags benutzen, bitte entweder nachfragen, wenn etwas nicht klar ist, oder die Kommentare zu den Tags lesen.
+
+Es ist möglich, den [[[http://scp-wiki-de.wikidot.com/trans-tags|Tag-Übersetzer]]] (verwendet Google-Apps-Script) zu benutzen, um den Prozess zu beschleunigen.
+
+Für eine ausführliche Beschreibung der Tags und ihre Bedeutungen siehe die [http://05command.wikidot.com/tech-hub-tag-list Tag Liste des EN-Teams] (Englisch).
+
+Bitte beachte, dass Tags beim Setzen unter einem Artikel mit Leerzeichen getrennt werden. Tags, die aus mehreren Wörtern bestehen, werden mit Bindestrichen verbunden, nicht mit Unterstrichen. Unterstriche sind für Systemtags.
+
+||~ Englisch ||~ Deutsch ||~ Informationen ||
+||||||~ A bis B ||
+|| absurdism || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/absurdismus absurdismus]}} || - ||
+|| acoustic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/akustisch akustisch]}} || - ||
+|| adaptive || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/anpassungsfähig anpassungsfähig]}} || - ||
+|| addictive || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/süchtig-machend süchtig-machend]}} || - ||
+|| admin || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/admin admin]}} || Wird nur vom Team gesetzt, für administrative Seiten ||
+|| adult || {{adult}} || Wird nicht genutzt, benutze den [http://scp-wiki-de.wikidot.com/hilfe Inhaltswarnungsbutton] ||
+|| airborne || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/aerogen aerogen]}} || - ||
+|| afterlife || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/jenseits jenseits]}} || - ||
+|| alcohol || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/alkohol alkohol]}} || - ||
+|| alien || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/alien alien]}} || - ||
+|| alive || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/lebendig lebendig]}} || Schließt robotisch aus, ersetzt biologisch, wenn verwendet ||
+|| amorphous || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/amorph amorph]}} || Schließt metamorphose aus ||
+|| amphibian || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/amphibisch amphibisch]}} || - ||
+|| animal || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/tier tier]}} || - ||
+|| antimemetic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/antimemetisch antimemetisch]}} || - ||
+|| apocalyptic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/apokalyptisch apokalyptisch]}} || - ||
+|| appliance || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/haushaltsgerät haushaltsgerät]}} || Ersetzt artefakt wenn verwendet; Ersetzt durch computer-Tag, wenn verwendet ||
+|| aquatic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/aquatisch aquatisch]}} || - ||
+|| arachnid || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/spinnentier spinnentier]}} || Schließt krustentier- und insekt aus; Ersetzt arthropode- und wirbellos-Tag, wenn verwendet ||
+|| archaeological || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/archäologisch archäologisch]}} || - ||
+|| archived || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/archiviert archiviert]}} || Für archivierte Artikel, mit Admins abzusprechen ||
+|| arthropod || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/arthropode arthropode]}} || Ersetzt wirbellos, wenn verwendet; Wir durch krustentier-, spinnentier- und insekt-Tag ersetzt, wenn verwendet ||
+|| artistic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/künstlerisch künstlerisch]}} || Ersetzt artefakt, wenn verwendet; Ersetzt durch musikalisch-, aufführung- und skulptur-Tag, wenn verwendet ||
+|| artifact || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/artefakt artefakt]}} || Ersetzt durch haushaltsgerät, künstlerisch, kleidung, computer, dokument, nahrung, schmuck; medien, werkzeug, spielzeug, waffe und fahrzeug, wenn verwendet ||
+|| artificial-intelligence || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/künstliche-intelligenz künstliche-intelligenz]}} || - ||
+|| artwork || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/bildmaterial bildmaterial]}} || Für Seiten mit ausschließlich Zeichnungen oder Grafiken ||
+|| audio || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/audio audio]}} || - ||
+|| auditory || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/auditorisch auditorisch]}} || - ||
+|| author || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/autor autor]}} || Für Autorenseiten ||
+|| autonomous || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/eigenständig eigenständig]}} || - ||
+|| bacteria || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/bakterium bakterium]}} || - ||
+|| bear || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/bär bär]}} || - ||
+|| bee || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/biene biene]}} || - ||
+|| biohazard || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/biologische-gefahr biologische-gefahr]}} || - ||
+|| biological || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/biologisch biologisch]}} || Wird durch lebendig ersetzt, wenn verwendet ||
+|| bird || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/vogel vogel]}} || - ||
+|| bovine || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/rinderartig rinderartig]}} || - ||
+|| building || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/gebäude gebäude]}} || - ||
+|| bureaucracy || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/bürokratie bürokratie]}} || - ||
+|| butterfly || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/schmetterling schmetterling]}} || - ||
+||||||~ C ||
+|| cadaver || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/leichnam leichnam]}} || - ||
+|| cactaceous || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/kakteenartig kakteenartig]}} || - ||
+|| camelid || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/kamelartig kamelartig]}} || - ||
+|| canine || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/hundeartig hundeartig]}} || - ||
+|| canon-hub || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/kanon kanon]}} || - ||
+|| cephalopod || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/kopffüßer kopffüßer]}} || - ||
+|| cetacean || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/walartig walartig]}} || - ||
+|| chelonian || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/schildkrötenartig schildkrötenartig]}} || - ||
+|| chemical || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/chemisch chemisch]}} || - ||
+|| child || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/kind kind]}} || - ||
+|| city || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/stadt stadt]}} || - ||
+|| clockwork || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/uhrwerk uhrwerk]}} || Ersetzt mechanisch, wenn verwendet ||
+|| clothing || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/kleidung kleidung]}} || Schließt schmuck aus; ersetzt artefakt, wenn verwendet ||
+|| co-authored || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/mehrere-autoren mehrere-autoren]}} || Wird bei Artikeln gesetzt, die von mehreren Autoren veröffentlicht wurden ||
+|| cognitohazard || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/wahrnehmungsstörend wahrnehmungsstörend]}} || - ||
+|| collaboration || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/gemeinschaftsarbeit gemeinschaftsarbeit]}} || Wird bei Artikeln gesetzt, die frei editiert werden dürfen ||
+|| compulsion || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/zwang zwang]}} || - ||
+|| computer || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/computer computer ]}} || Ersetzt artefakt und haushaltsgerät, wenn verwendet ||
+|| concept || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/konzept konzept]}} || - ||
+|| contagion || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/ansteckend ansteckend]}} || Ersetzt durch memetisch- oder virus, wenn verwendet ||
+|| contest || {{contest}} || nicht verwenden; für DE-Wettbewerbe ist  {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/_wettbewerb _wettbewerb]}} zu verwenden ||
+|| corporate || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/unternehmen unternehmen]}} || - ||
+|| correspondence || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/korrespondenz korrespondenz]}} || - ||
+|| corrosive || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/ätzend ätzend]}} || - ||
+|| creepypasta || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/creepypasta creepypasta]}} || - ||
+|| crustacean || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/krustentier krustentier]}} || Schließt spinnentier und insekt aus; Ersetzt arthropode, wenn verwendet ||
+|| currency || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/währung währung]}} || - ||
+||||||~ D bis E ||
+|| deer || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/hirsch hirsch]}} || - ||
+|| demon || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/dämon dämon]}} || - ||
+|| dinosaur || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/dinosaurier dinosaurier]}} || - ||
+|| document || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/dokument dokument]}} || Ersetzt artefakt und beschriftung, wenn verwendet ||
+|| dragon || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/drache drache]}} || - ||
+|| ectoentropic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/ectoentropisch ectoentropisch]}}[[footnote]] Objekt erzeugt Energie oder Materie aus dem Nichts [[/footnote]] || Ersetzt durch realitätsbeugend, wenn verwendet ||
+|| electrical || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/elektrisch elektrisch]}} || - ||
+|| electromagnetic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/elektromagnetisch elektromagnetisch]}} || - ||
+|| electronic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/elektronisch elektronisch]}} || - ||
+|| empathic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/empathisch empathisch]}} || - ||
+|| entropic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/entropisch entropisch]}} || - ||
+|| equine || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/pferdeartig pferdeartig]}} || - ||
+|| esoteric-class || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/esoterische-klasse esoterische-klasse]}} || - ||
+|| essay || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/abhandlung abhandlung]}} || Für Artikel, die eine Abhandlung über in-universe oder nicht-in-universe Themen sind ||
+|| ethics-committee || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/ethik-komitee ethik-komitee]}} || - ||
+|| euclid || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/euclid euclid]}} || - ||
+|| event-featured || {{event-featured}} || Nicht verwenden ||
+|| exchange || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/austausch austausch]}} || - ||
+|| experiment || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/experiment experiment]}} || - ||
+|| explained || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/erklärt erklärt]}} || Für Artikel, die den Zusatz -EX haben ||
+|| exploration || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/erkundung erkundung]}} || - ||
+|| extradimensional || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/extradimensional extradimensional]}} || - ||
+|| extraterrestrial || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/außerirdisch außerirdisch]}} || - ||
+|| extremity || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/extremität extremität]}} || - ||
+||||||~ F bis G ||
+|| featured || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/vorgestellt vorgestellt]}} || Ist nur von Admins zu setzen ||
+|| faerie || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/fee fee]}} || - ||
+|| feline || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/katzenartig katzenartig]}} || - ||
+|| fire || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/feuer feuer]}} || - ||
+|| fish || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/fisch fisch]}} || - ||
+|| food || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/nahrung nahrung]}} || Ersetzt artefakt, wenn verwendet ||
+|| formic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/ameisenartig ameisenartig]}} || - ||
+|| foundation-made || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/foundation-geschaffen foundation-geschaffen]}} || - ||
+|| fragment || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/fragment fragment ]}} || Für Seiten, die als Fragment eingebunden werden ||
+|| fungus || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/pilzartig pilzartig]}} || - ||
+|| future || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/zukunft zukunft]}} || - ||
+|| game || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/spiel spiel]}} || - ||
+|| gaseous || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/gas gas]}} || - ||
+|| genetic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/genetisch genetisch]}} || - ||
+|| geological || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/geologisch geologisch]}} || - ||
+|| ghost|| {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/geist geist]}} || - ||
+|| goi-format || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/goi-format goi-format]}} || Nicht {{goi-sichtweise}} ||
+|| group-hub|| {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/gruppe gruppe]}} || - ||
+|| gravity || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/gravitation gravitation]}} || - ||
+|| guide || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/hilfe hilfe]}} || Ausschließlich für Hilfeseiten, mit Admins abzusprechen ||
+|| gustatory || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/geschmacklich geschmacklich]}} || - ||
+||||||||~ H bis K ||
+|| halloween || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/halloween halloween]}} || - ||
+|| hallucination || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/halluzination halluzination]}} || - ||
+|| historical || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/historisch historisch]}} || - ||
+|| hive-mind || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/schwarmbewusstsein schwarmbewusstsein]}} || - ||
+|| hostile || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/feindlich feindlich]}} || Schließt prädator aus ||
+|| hub || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/portalseite portalseite]}} || Für Hauptseiten von Serien, Wettbewerben oder Sammlungen ||
+|| humanoid || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/humanoid humanoid]}} || - ||
+|| immobile || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/immobil immobil]}} || - ||
+|| in-deletion || {{in-deletion}} || Nur von Admins zu setzen, dieser Artikel wird bald entfernt ||
+|| in-rewrite || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/in-bearbeitung in-bearbeitung]}} || Nur von Admins zu setzen, dieser Artikel wird derzeit neu geschrieben ||
+|| incident || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/zwischenfall zwischenfall]}} || - ||
+|| indestructible || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/unzerstörbar unzerstörbar]}} || - ||
+|| infohazard || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/informationelle-gefahr informationelle-gefahr]}} || - ||
+|| insect || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/insekt insekt]}} || Schließt krustentier und spinnentier aus; Ersetzt arthropode, wenn verwendet ||
+|| inscription || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/beschriftung beschriftung]}} || Ersetzt durch dokument, wenn verwendet ||
+|| intangible || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/immateriell immateriell]}} || - ||
+|| interview || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/befragung befragung]}} || - ||
+|| invertebrate || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/wirbellos wirbellos]}} || Wird durch arthropode- oder wurm ersetzt, wenn verwendet ||
+|| jewelry || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/schmuck schmuck]}} || Schließt kleidung aus; ersetzt artefakt, wenn verwendet ||
+|| joke || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/witz witz]}} || Für Artikel mit dem Zusatz -J oder Geschichten, die als Witzartikel gelten ||
+|| journalism || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/journalismus journalismus]}} || - ||
+|| k-class-scenario || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/k-klasse-szenario k-klasse-szenario]}} || - ||
+|| keter || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/keter keter]}} || - ||
+|| knowledge || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/wissen wissen]}} || Ersetzt durch voraussehend, wenn verwendet ||
+||||||||~ L bis M ||
+|| language || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/sprache sprache]}} || - ||
+|| library || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/bibliothek bibliothek]}} || - ||
+|| legal || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/legal legal]}} || - ||
+|| light || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/licht licht]}} || - ||
+|| liquid || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/flüssigkeit flüssigkeit]}} || - ||
+|| location || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/ort ort]}} || - ||
+|| loop || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/schleife schleife]}} || - ||
+|| magnetic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/magnetisch magnetisch]}} || - ||
+|| mathematical || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/mathematisch mathematisch ]}} || - ||
+|| mechanical || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/mechanisch mechanisch]}} || Ersetzt durch uhrwerk und robotisch, wenn verwendet ||
+|| media || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/medien medien]}} || Ersetzt artefakt, wenn verwendet ||
+|| medical || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/medizinisch medizinisch]}} || - ||
+|| memetic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/memetisch memetisch]}} || Ersetzt ansteckend, wenn verwendet ||
+|| memory-affecting || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/gedächtnis-beeinflussend gedächtnis-beeinflussend]}} || - ||
+|| meta || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/meta meta]}} || - ||
+|| metafiction || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/metafiktion metafiktion]}} || - ||
+|| metamorphic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/metamorphose metamorphose]}} || Schließt amorph aus ||
+|| meteorological || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/meteorologisch meteorologisch]}} || - ||
+|| microscopic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/mikroskopisch mikroskopisch]}} || - ||
+|| military || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/militärisch militärisch]}} || - ||
+|| mimetic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/nachahmend nachahmend]}} || - ||
+|| mind-affecting || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/geist-beeinflussend geist-beeinflussend]}} || - ||
+|| miniature || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/miniatur miniatur]}} || - ||
+|| mobile || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/mobil mobil]}} || - ||
+|| moon || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/mond mond]}} || - ||
+|| murder-monster || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/mörder-monster mörder-monster]}} || - ||
+|| musical || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/musikalisch musikalisch]}} || Ersetzt künstlerisch, wenn verwendet ||
+|| mythological || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/mythologisch mythologisch]}} || - ||
+||||||||~ N bis O ||
+|| narrative || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/erzählerisch erzählerisch]}} || - ||
+|| neurological || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/neurologisch neurologisch]}} || - ||
+|| neutralized || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/neutralisiert neutralisiert]}} || - ||
+|| news || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/news news]}} || Nur für News-Artikel ||
+|| nocturnal || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/nachtaktiv nachtaktiv]}} || - ||
+|| noosphere || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/noosphäre noosphäre]}} || - ||
+|| observational || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/beobachtung beobachtung]}} || - ||
+|| ocular || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/okular okular]}} || - ||
+|| olfactory || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/olfaktorisch olfaktorisch]}} || - ||
+|| online || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/online online]}} || - ||
+|| orientation || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/einweisung einweisung]}} || - ||
+|| ovine || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/schafsartig schafsartig]}} || - ||
+||||||||~ P bis R ||
+|| paradox || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/paradox paradox]}} || - ||
+|| parasitic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/parasitär parasitär]}} || - ||
+|| performance || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/aufführung aufführung]}} || ersetzt künstlerisch, wenn verwendet ||
+|| photographic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/fotografisch fotografisch]}} || - ||
+|| plant || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/pflanze pflanze]}} || - ||
+|| planet || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/planet planet]}} || - ||
+|| poetry || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/poesie poesie ]}} || Nebenkategorie von "Geschichten" ||
+|| political || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/politisch politisch ]}} || - ||
+|| polyhedral || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/polyedrisch polyedrisch]}} || - ||
+|| portal || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/portal portal]}} || - ||
+|| predatory || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/prädator prädator]}} || Schließt feindselig aus ||
+|| predictive || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/voraussehend voraussehend]}} || ersetzt wissen, wenn verwendet ||
+|| primate || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/primat primat]}} || - ||
+|| primordial || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/primordial primordial]}} || - ||
+|| probability || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/wahrscheinlichkeit wahrscheinlichkeit]}} || - ||
+|| project || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/project project ]}} || nicht verwenden, Systemtag ||
+|| rabbit || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/hase hase]}} || - ||
+|| radioactive || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/radioaktiv radioaktiv]}} || - ||
+|| reality-bending || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/realitätsbeugend realitätsbeugend]}} || Ersetzt ecteontropisch, wenn verwendet ||
+|| reanimation || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/reanimation reanimation]}} || - ||
+|| religious || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/religiös religiös]}} || - ||
+|| reproductive || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/reproduktiv reproduktiv]}} || - ||
+|| reptile || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/reptil reptil]}} || - ||
+|| required || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/required required]}} || nicht verwenden, Systemtag ||
+|| ritual || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/ritual ritual]}} || - ||
+|| robotic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/robotisch robotisch]}} || Schließt lebendig aus; ersetzt mechanich, wenn verwendet ||
+|| rodent || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/nagetier nagetier]}} || - ||
+||||||||~ S ||
+|| safe || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/sicher sicher]}} || - ||
+|| sandbox || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/sandbox sandbox ]}} || nicht verwenden, Systemtag ||
+|| sapient || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/intelligent intelligent]}} || - ||
+|| satellite || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/satellit satellit]}} || - ||
+|| school || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/schule schule]}} || - ||
+|| scp || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/scp scp]}} || - ||
+|| scp-fuel || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/scp-fuel scp-fuel ]}} || nicht verwenden, nur EN ||
+|| sculpture || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/skulptur skulptur]}} || Ersetzt künstlerisch, wenn verwendet  ||
+|| self-repairing || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/selbstreparierend selbstreparierend]}} || - ||
+|| self-replicating || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/selbstvervielfältigend selbstvervielfältigend]}} || - ||
+|| sensory || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/sensorisch sensorisch]}} || - ||
+|| series-hub || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/serie serie]}} || - ||
+|| sexual || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/sexuell sexuell]}} || - ||
+|| shadow || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/schatten schatten]}} || - ||
+|| shark || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/hai hai]}} || Erfordert fisch ||
+|| site || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/standort standort]}} || Ausschließlich für Standortdossiers ||
+|| skeletal || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/skeletal skeletal]}} || - ||
+|| sleep || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/schlaf schlaf]}} || - ||
+|| snake || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/schlange schlange]}} || - ||
+|| spatial || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/räumlich räumlich]}} || - ||
+|| species || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/spezies spezies]}} || - ||
+|| sphere || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/kugel kugel]}} || - ||
+|| splash || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/deckblatt deckblatt]}} || Systemseite ||
+|| sport || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/sport sport]}} || - ||
+|| structure || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/bauwerk bauwerk]}} || - ||
+|| subterranean || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/unterirdisch unterirdisch]}} || - ||
+|| sun || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/sonne sonne]}} || - ||
+|| superhero || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/superheld superheld]}} || - ||
+|| supplement || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/anhang anhang]}} || Für Seiten, die zu einer übergeordneten gehören ||
+|| surrealism || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/surrealismus surrealismus]}} || - ||
+|| swarm || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/schwarm schwarm]}} || - ||
+||||||||~ T bis X ||
+|| tactile || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/taktil taktil]}} || - ||
+|| tale || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/geschichte geschichte]}} || - ||
+|| telekinetic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/telekinetisch telekinetisch]}} || - ||
+|| telepathic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/telepathisch telepathisch]}} || - ||
+|| teleportation || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/teleportation teleportation]}} || - ||
+|| template || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/template template]}} || Systemseite ||
+|| temporal || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/temporal temporal]}} || - ||
+|| thaumiel || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/thaumiel thaumiel]}} || - ||
+|| thermal || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/thermal thermal]}} || - ||
+|| thermodynamic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/thermodynamisch thermodynamisch]}} || - ||
+|| time-travel || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/zeitreise zeitreise]}} || - ||
+|| tool || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/werkzeug werkzeug]}} || Beinhaltet auch Gebrauchs- und kunstschaffende Gegenstände wie Schlüssel oder Musikinstrumente; Ersetzt artefakt, wenn verwendet ||
+|| toxic || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/giftig giftig]}} || - ||
+|| toy || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/spielzeug spielzeug]}} || Ersetzt artefakt, wenn verwendet ||
+|| transfiguration || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/wandlung wandlung]}} || - ||
+|| transmission || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/übertragung übertragung]}} || - ||
+|| tree || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/baum baum]}} || - ||
+|| uncontained || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/nicht-eingedämmt nicht-eingedämmt]}} || - ||
+|| vehicle || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/fahrzeug fahrzeug]}} || Ersetzt artefakt, wenn verwendet ||
+|| vibration || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/vibration vibration]}} || - ||
+|| virus || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/virus virus]}} || Erfordert entweder den biologisch- oder computer, ersetzt ansteckend-Tag, wenn verwendet ||
+|| visual || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/visuell visuell]}} || - ||
+|| vulpine || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/fuchsartig fuchsartig]}} || - ||
+|| weapon || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/waffe waffe]}} || Ersetzt artefakt, wenn verwendet ||
+|| workbench || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/werkbank werkbank]}} || Systemseiten, nicht benutzen ||
+|| worm || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/wurm wurm]}} || Ersetzt wirbellos, wenn verwendet ||
+|| xenarthran || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/nebengelenktierartig nebengelenktierartig]}} || - ||
+|| xenofiction || {{[http://scp-wiki-de.wikidot.com/system:page-tags/tag/xenofiktion xenofiktion]}} || - ||
+
+[[/collapsible]]
+[[/div]]
+[[/div]]
+
+[[/div]]

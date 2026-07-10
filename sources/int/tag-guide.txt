@@ -1,0 +1,866 @@
+[[module css]]
+#content-wrap {
+ max-width: unset;
+}
+[[/module]]
+
+Translations on the INT wiki should be tagged with all of their original tags, translated into English. Please translate attribute tags to match the English [http://05command.wikidot.com/tech-hub-tag-list tag guide]. If your branch is using additional attribute tags, you may translate and use these too, and add these additional tags to the appropriate list below.
+
+You should also add a tag indicating the article's original language (e.g. {{fr}} for French), and set an initial [[[review-attention-levels|Review Attention Level]]].
+
+The table below lists translations of tags across every branch to ensure consistent tagging on translations. If you know what the correct translation of a tag is, or if you translate a new tag for the first time, you may add it to the appropriate table below.
+
+For tags and translations that aren't listed below, or for easier reference, **[http://topia.wikidot.com/trans-tags-ver2 this automated tag translation tool]** may be useful.
+
+[[toc]]
+
++ English tags and their translations
+
+See [http://05command.wikidot.com/tech-hub-tag-list here] for a full list with definitions, only translations are listed below.
+
+++ Top Level 
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT** || **JP** || **KO** || **PL** || **PT** || **RU** || **TH** || **UA** || **VN** || **ZH** ||
+|| [/system:page-tags/tag/admin admin] || 管理 || || || || || || || || admin || || ||  || || ||  
+|| [/system:page-tags/tag/artist artist] || 艺术家 || || || || || || || || artista || || ||  || || ||  
+|| [/system:page-tags/tag/artwork artwork] || 艺术作品 || bildmaterial || fanart || fanart || artwork || アートワーク || 아트워크 || praca-plastyczna || arte ||  ||  ||  || hội-họa || 藝術作品 ||  
+|| [/system:page-tags/tag/author author] || 作者 || autor || autor || auteur || autore || 著者ページ || 작가 ||  || autor || авторская_страница ||  ||  || tác-giả || 作者頁面 ||  
+|| [/system:page-tags/tag/component component] || 组件 || || || || || || || || componente || || ||  || || ||  
+|| [/system:page-tags/tag/component-backend component-backend] || 组件后端 || || || || || || || || componente-backend || || ||  || || ||  
+|| [/system:page-tags/tag/essay essay] || 文章 || abhandlung || ensayo || essai || saggio || エッセイ || 에세이 ||  || dissertação || очерк_руководство ||  ||  || luận || 心得 ||  
+|| [/system:page-tags/tag/fragment fragment] || 段落 || fragment || fragmento || fragment ||  || フラグメント || 조각 ||  || fragmento ||  ||  ||  ||  || 段落 || 
+|| [/system:page-tags/tag/goi-format goi-format] || goi格式 || goi-format || formato-gdi || format-gdi || formato-gdi || goi-format || 요주의단체-서식 || goi-format || formato-gdi || свор_формат ||  ||  || tài-liệu-goi || goi格式 || 
+|| [/system:page-tags/tag/guide guide] || 指导 || || || || || || || || guia || || ||  || || ||  
+|| [/system:page-tags/tag/hub hub] || 中心 || portalseite || hub || centre || hub || ハブ || 허브 ||  || central || хаб ||  ||  ||  || 中心 ||  
+|| [/system:page-tags/tag/more-by more-by] || || || || || || || || || || || ||  || || ||  
+|| [/system:page-tags/tag/news news] || 新闻 || || || || || || || || notícia || || ||  || || ||  
+|| [/system:page-tags/tag/redirect redirect] || 重定向 || || || || || || || || redirecionamento || || ||  || || ||  
+|| [/system:page-tags/tag/resource resource] || 资源 || || || || || || || || recurso || || ||  || || ||  
+|| [/system:page-tags/tag/scp scp] || scp || scp || scp || scp || scp || scp || scp || scp || scp || объект ||  ||  ||  || scp ||   
+|| [/system:page-tags/tag/splash splash] || 掩藏页 || || || || || || || || início || || ||  || || ||  
+|| [/system:page-tags/tag/supplement supplement] || 补充材料 || anhang || suplemento || annexe || supplemento || 補足 || 보충 || załącznik || suplemento || дополнение ||  ||  || bổ-sung || 附加資料 ||
+|| [/system:page-tags/tag/tale tale] || 故事 || geschichte || relato || conte || racconto || tale || 이야기 || opowieść || conto || рассказ ||  ||  || truyện || 故事 ||  
+|| [/system:page-tags/tag/theme theme] || 版式 || || || || || || || || tema || || ||  || || ||    
+|| [/system:page-tags/tag/workbench workbench] || 工坊 || werkbank || banco-de-trabajo ||  ||  || ワークベンチ ||  ||  ||  ||  ||  ||  || bàn-làm-việc || 工作台 ||  
+
+@@ @@
+++ Major Page Tags
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT** || **JP** || **KO** || **PL** || **PT** || **RU** || **TH** || **UA** || **VN** || **ZH** ||
+|| [/system:page-tags/tag/001-proposal 001-proposal] || 001提案 || 001-vorschlag || propuesta-001 || proposition-001 || proposta-001 || 001提言 || 001-제안 || propozycja-001 || proposta-001 || 001||  ||  || đề-xuất-001 || 001提案 ||
+|| [/system:page-tags/tag/archived archived] || 被归档 || archiviert || archivado || archivé || archiviato || アーカイブ済み || 보존 || zarchiwizowane || arquivado || архив ||  ||  || lưu-trữ || 已歸檔 ||  
+|| [/system:page-tags/tag/co-authored co-authored] || 合著 || mehrere-autoren || co-autores || co-écrit || autori-multipli || 共著 || 공저 || współpraca || coautoria ||  ||  ||  || đồng-tác-giả || 合著 ||  
+|| [/system:page-tags/tag/collaboration collaboration] || 合作 || gemeinschaftsarbeit || colaboración || collaboration || collaborazione || 合作 || 공동작업 || kolaboracja || colaboração || коллаборация ||  ||  || hợp-tác || 合作 ||  
+|| [/system:page-tags/tag/comic comic] || 漫画 || || || || || || || || quadrinho || || ||  || || ||    
+|| [/system:page-tags/tag/contest contest] || 竞赛 ||  || concurso-inglés || concours || contest || コンテスト || 경연 ||  ||  concurso || конкурс ||  ||  || cuộc-thi || 競賽 ||  
+|| [/system:page-tags/tag/experiment experiment] || 实验 || experiment || experimento || expérience || esperimento || 実験 || 실험 ||  || experimento || эксперимент ||  ||  || thử-nghiệm || 實驗 ||  
+|| [/system:page-tags/tag/exploration exploration] || 探索 || erkundung || exploración || exploration || esplorazione || 探査 || 탐사 ||  || exploração || исследование ||  ||  || khám-phá || 探索 ||   
+|| [/system:page-tags/tag/explained explained] || 已解明 || erklärt || explicado || expliqué || risolto || explained || 해명 || zrozumiane || explicado || обоснованный ||  ||  || đã-giải-thích || 已解明 ||  
+|| [/system:page-tags/tag/featured featured] || 精品 || vorgestellt || featured ||  || consigliato || 注目記事 || 특집 ||  ||  ||  ||  ||  || đặc-sắc || 展出 || 
+|| [/system:page-tags/tag/incident incident] || 事故 || zwischenfall || incidente || incident || incidente || インシデント || 사건 ||  || incidente || инцидент ||  ||  || sự-cố || 事故 ||  
+|| [/system:page-tags/tag/interview interview] || 采访 || befragung || entrevista || interview || intervista || インタビュー || 면담 ||  || entrevista || интервью ||  ||  || phỏng-vấn || 採訪 ||  
+|| [/system:page-tags/tag/poetry poetry] || 诗歌 || poesie || poesía || poésie || poetico || poetry || 시 ||  || poesia || поэзия ||  ||  || thơ || 詩歌 ||  
+|| [/system:page-tags/tag/joke joke] || 搞笑 || witz || humorístico || humour || scherzo || ジョーク || 농담 || joke || piada || шуточный ||  || гумор || hài || 搞笑 ||  
+
+@@ @@
+++ Object Classes
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT** || **JP** || **KO** || **PL** || **PT** || **RU** || **TH** || **UA** || **VN** || **ZH** ||
+|| [/system:page-tags/tag/apollyon apollyon] || apollyon || || || || || || || || apollyon || || ||  || || ||    
+|| [/system:page-tags/tag/archon archon] || archon || || || || || || || || archon || || ||  || || ||    
+|| [/system:page-tags/tag/decommissioned decommissioned] || 被废除 || || || || || || || || descomissionado || || ||  || || ||    
+|| [/system:page-tags/tag/esoteric-class esoteric-class] || 机密分级 || || || || || || || || classe-esotérica || || ||  || || ||    
+|| [/system:page-tags/tag/euclid euclid] || euclid || euclid || euclid || euclide || euclid || euclid || 유클리드 || euclid || euclídeo || евклид ||  ||  ||  || euclid ||  
+|| [/system:page-tags/tag/keter keter] || keter || keter || keter || keter || keter || keter || 케테르 || keter || keter || кетер ||  ||  ||  || keter ||  
+|| [/system:page-tags/tag/neutralized neutralized] || 无效化 || neutralisiert || neutralizado || neutralisé || neutralizzato || neutralized || 무효 || zneutralizowane || neutralizado || нейтрализованный ||  ||  || vô-hiệu-hóa || 無效化 ||  
+|| [/system:page-tags/tag/pending pending] || 等待分级 || || || || || || || || pendente || || ||  || || ||    
+|| [/system:page-tags/tag/safe safe] || safe || sicher || seguro || sûr || safe || safe || 안전 || bezpieczne || seguro || безопасный ||  ||  ||  || safe ||
+|| [/system:page-tags/tag/thaumiel thaumiel] || thaumiel || thaumiel || taumiel || thaumiel || thaumiel || thaumiel || 타우미엘 || thaumiel || thaumiel || таумиэль || thaumiel ||  ||  || thaumiel ||  
+|| [/system:page-tags/tag/ticonderoga ticonderoga] || ticonderoga || || || || || || || || ticonderoga || || ||  || || ||    
+
+@@ @@
+++ SCP Attributes
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT** || **JP** || **KO** || **PL** || **PT** || **RU** || **TH** || **UA** || **VN** || **ZH** ||
+|| [/system:page-tags/tag/acoustic acoustic] || 声音 || akustisch || acústico || acoustique || acustico || 音波 || 음향 || akustyka || acústico || звуковой ||  || акустичний || âm-thanh || 聲音 ||  
+|| [/system:page-tags/tag/adaptive adaptive] || 适应性 || anpassungsfähig || adaptativo || adaptatif || adattativo || 適応 || 적응 || adaptacja || adaptativo || адаптивный ||  || адаптивний || thích-nghi || 適應性 ||  
+|| [/system:page-tags/tag/addictive addictive] || 成瘾性 || süchtig-machend || adictivo || addictif || dipendenza || 中毒 || 중독 || nałóg || viciante || привыкание ||  || залежність || gây-nghiện || 成癮性 ||  
+|| [/system:page-tags/tag/airborne airborne] || 天空 || aerogen || aéreo || aérien || aereo || 空棲 || 공중 || powietrze || aerotransportado || воздушный ||  || повітряний || không-khí || 空中 ||  
+|| [/system:page-tags/tag/alive alive] || 活物 || lebendig || vivo || vivant || vivo || 生命 || 생물 || ożywione || vivo || живой ||  || живий || còn-sống || 活物 ||  
+|| [/system:page-tags/tag/amorphous amorphous] || 无定形 || amorph || amorfo || amorphe || amorfo || 不定形 || 비정형 || amorfizm || amorfo || аморфный ||  || аморфний || vô-định-hình || 無定形 ||  
+|| [/system:page-tags/tag/amphibian amphibian] || 蛙类 || amphibie || ranino || batracien || ranino || カエル || 개구리 || żaba || anfíbio || лягушка ||  || жаба || ếch || 蛙類 ||  
+|| [/system:page-tags/tag/animal animal] || 动物 || tierisch || animal || animal || animale || 動物 || 동물 || zwierzę || animal || животное ||  || тварина || động-vật || 動物 ||  
+|| [/system:page-tags/tag/antimemetic antimemetic] || 逆模因 || antimemetisch || antimemético || antimémétique || antimemetico || 反ミーム || 항정신자 || antymemetyka || antimemético || антимеметика ||  || антимеметичний || phản-truyền-tin || 逆模因 ||  
+|| [/system:page-tags/tag/appliance appliance] || 家用物品 || haushaltsgerät || electrodoméstico || appareil || apparecchio || 家電 || 가전 || urządzenie || aparelho || устройство ||  || побутова_техніка || thiết-bị || 家電用品 ||  
+|| [/system:page-tags/tag/aquatic aquatic] || 水生 || aquatisch || acuático || aquatic || acquatico || 水棲 || 수생 || woda || aquático || водный ||  || водний || nước || 水棲 ||  
+|| [/system:page-tags/tag/arachnid arachnid] || 蜘蛛 || arachnid || arácnido || arachnide || aracnide || クモ || 거미 || pajęczy || aracnídeo || паукообразное ||  || павук || nhện || 蜘蛛 ||  
+|| [/system:page-tags/tag/arthropod arthropod] || 节肢动物 || aartropode || rtrópodo || arthropode || artropode || 節足動物 || 절지동물 || stawonóg || artrópode || членистоногое ||  || членистоноге || chân-khớp || 節肢動物 ||  
+|| [/system:page-tags/tag/artifact artifact] || 人造物品 || artefakt || artefacto || artefact || artefatto || 人工 || 인공물 || artefakt || artefato || артефакт ||  || артефакт || tạo-tác || 人造物品 ||  
+|| [/system:page-tags/tag/artistic artistic] || 艺术性 || künstlerisch || artístico || artistique || artistico || 芸術 || 예술 || sztuka || artístico || искусство ||  || мистецтво || nghệ-thuật || 藝術性 ||  
+|| [/system:page-tags/tag/auditory auditory] || 听觉影响 || auditorisch || auditivo || auditif || uditorio || 聴覚 || 청각 || słuch || auditivo || слуховой ||  || слуховий || thính-giác || 聽覺影響 ||  
+|| [/system:page-tags/tag/autonomous autonomous] || 自主 || eigenständig || autónomo || autonome || autonomo || 自律 || 자율 || autonomiczność || autônomo || автономный ||  || автономний || tự-động || 自主 ||  
+|| [/system:page-tags/tag/bacteria bacteria] || 细菌 || bakterium || bacteriano || bactérie || batterio || バクテリア || 세균 || bakteria || bactéria || бактерия ||  || бактерія || vi-khuẩn || 細菌 ||  
+|| [/system:page-tags/tag/bear bear] || 熊类 || bärenartig || úrsido || ursidé || ursino || クマ || 곰 || niedźwiedź || ursino || медведь ||  || ведмідь || gấu || 熊類 ||  
+|| [/system:page-tags/tag/bee bee] || 蜜蜂 || biene || antófilo || abeille || apesco || 蜂 || 벌 || pszczeli || abelha || пчела ||  || бджола || ong || 蜜蜂 ||  
+|| [/system:page-tags/tag/biohazard biohazard] || 生物危害 || biologische-gefahr || bio-peligroso || danger-bio || rischio-biologico || 生物災害 || 생물재해 || zagrożenie-biologiczne || risco-biológico || биологическая_опасность ||  || біозагроза || hiểm-họa-sinh-học || 生物危害 ||  
+|| [/system:page-tags/tag/biological biological] || 生物性 || biologisch || biológico || biologique || biologico || 生物学 || 생물학 || biologia || biológico || 
+|| [/system:page-tags/tag/biological biological] || 有机 || biologisch || orgánico || organique || organico || 有機体 || 유기체 || organiczne || biológico || биологический ||  || біологічний || sinh-học || 生物性 ||  
+|| [/system:page-tags/tag/bird bird] || 鸟类 || vogelartig || ave || aviaire || aviario || 鳥 || 새 || ptak || aviário || птица ||  || птах || chim || 鳥類 ||  
+|| [/system:page-tags/tag/bovine bovine] || 牛类 || rinderartig || bovino || bovin || bovino || 牛 || 소 || wołowy || bovino || корова ||  || корова || bò || 牛類 || 
+|| [/system:page-tags/tag/building building] || 建筑 || gebäude || edificio || bâtiment || edificio || 建築物 || 건물 || konstrukcja || construção || здание ||  || будівля || công-trình || 建築物 ||  
+|| [/system:page-tags/tag/butterfly butterfly] || 蝶蛾 || schmetterlingsartig || lepidóptero || lépidoptère || lepidottero || 蝶 || 나비목 || motyl || borboleta || чешуекрылое ||  || метелик || bướm || 鱗翅目 ||  
+|| [/system:page-tags/tag/cadaver cadaver] || 尸体 || leichnam || cadáver || cadavre || cadavere || 死体 || 사체 || szczątki || cadáver || труп ||  || труп || xác-chết || 屍體 ||  
+|| [/system:page-tags/tag/canine canine] || 犬类 || hundeartig || canino || canin || canino || 犬 || 개 || pies || canino || собака ||  || собака || chó || 犬類 ||  
+|| [/system:page-tags/tag/carnivorous carnivorous] || 肉食性 || karnivor || carnívoro || carnivore || carnivoro || 肉食 || 육식성 || mięsożerność or drapieżność || carnívoro || плотоядное ||  ||  || ăn-thịt || 肉食性 ||  
+|| [/system:page-tags/tag/cephalopod cephalopod] || 头足类动物 ||  kopffüßerartig || cefalópodo || céphalopode || cefalopode || 頭足類 || 두족류 || głowonóg || cefalópode || головоногое ||  || головоноге || chân-đầu || 頭足類動物 ||
+|| [/system:page-tags/tag/cetacean cetacean] || 鲸类 || walartig || cetáceo || cétacé || cetaceo || クジラ || 고래 || walenie || cetáceo || китообразное ||  || кит || cá-voi || 鯨類 ||  
+|| [/system:page-tags/tag/chemical chemical] || 化学性 || chemisch || químico || chimique || chimico || 化学 || 화학 || chemia || químico || химический ||  || хімічний || hóa-học || 化學性 ||  
+|| [/system:page-tags/tag/city city] || 城市 || stadt || ciudad || ville || città || 都市 || 도시 || miasto || cidade || город ||  || місто || thành-phố || 城市 ||  
+|| [/system:page-tags/tag/clockwork clockwork] || 发条 || uhrwerk || engranajes || horlogerie || ingranaggi || 時計仕掛け || 태엽장치 || mechanizm || mecanismo || часовой_механизм ||  || годинниковий_механізм || máy-đồng-hồ || 發條 ||  
+|| [/system:page-tags/tag/clothing clothing] || 衣物 || kleidung || ropa || vêtements || vestiario || 服 || 의복 || odzież || roupa || одежда ||  || одяг || quần-áo || 衣物 ||  
+|| [/system:page-tags/tag/cognitohazard cognitohazard] || 认知危害 || wahrnehmungsstörend || cognito-peligroso || danger-sensitif || rischio-cognitivo || 認識災害 || 인식재해 || zagrożenie-poznawcze || risco-cognitivo || опасность_восприятия ||  || небезпека_сприйняття || nhận-thức-độc || 認知危害 ||  
+|| [/system:page-tags/tag/compulsion compulsion] || 强迫性 || zwang || compulsión || compulsion || compulsione || 強制力 || 강제 or 충동 || przymus || compulsão || принуждение ||  || примус || ép-buộc || 強迫性 ||  
+|| [/system:page-tags/tag/computer computer] || 电脑 || computer || ordenador || ordinateur || computer || コンピュータ || 컴퓨터 || komputer || computador || компьютер ||  || комп'ютер || máy-tính || 電腦 ||  
+|| [/system:page-tags/tag/concept concept] || 概念 || konzept || concepto || concept || concetto || 概念 || 개념 || koncepcja || conceito ||  ||  || концепт || khái-niệm || 概念 ||  
+|| [/system:page-tags/tag/contagion contagion] || 传染性 || ansteckend || contagioso || contagion || contagioso || 伝染性 || 전염성 || zaraźliwość || contágio || заражение ||  || зараження || truyền-nhiễm || 傳染性 ||  
+|| [/system:page-tags/tag/container container] || 容器 || behälter || contenedor || conteneur || contenitore || 容器 || 용기 || pojemnik || || контейнер ||  || контейнер || vật-chứa || 容器 ||  
+|| [/system:page-tags/tag/corrosive corrosive] || 腐蚀性 || ätzend || corrosivo || corrosif || corrosivo || 腐食 || 부식성 || korozyjność || corrosivo || едкий ||  || корозійний || ăn-mòn || 腐蝕性 ||  
+|| [/system:page-tags/tag/crystalline crystalline] || 晶体 || kristallin || cristalino || cristallin || cristallino || 水晶 || 결정체 || kryształ || || кристалл ||  || кристал || tinh-thể || 晶體 ||   
+|| [/system:page-tags/tag/currency currency] || 货币 || währung || dinero || devise || denaro || 貨幣 || 화폐 || waluta || moeda || деньги ||  || гроші || tiền-tệ || 貨幣 ||  
+|| [/system:page-tags/tag/deer deer] || 鹿类 || hirschartig || cervuno || cervidé || cervino || 鹿 || 사슴 || jeleń || cervino || олень ||  || олень || hươu || 鹿類 ||
+|| [/system:page-tags/tag/document document] || 文件 || dokument || documento || document || documento || 文書 || 문서 || dokument || documento || документ ||  || документ || tài-liệu || 文獻 ||  
+|| [/system:page-tags/tag/ectoentropic ectoentropic] || 反熵 || ectoentropisch || ectoentrópico || ectoentropique || ectoentropico || 外部エントロピー || 외부엔트로피 || ektoentropia || ectoentrópico || эктоэнтропийный ||  || ектоентропійний || vận-năng-bất-luật || 反熵 ||  
+|| [/system:page-tags/tag/electrical electrical] || 电力 || elektrisch || eléctrico || électrique || elettrico || 電気 || 전기 || elektryka || elétrico || электрический ||  || електричний || điện-năng || 電力 ||  
+|| [/system:page-tags/tag/electromagnetic electromagnetic] || 电磁 || elektromagnetisch || electromagnético || électromagnétique || elettromagnetico || 電磁気 || 전자기 || elektromagnetyzm || eletromagnético || электромагнитный ||  || електромагнітний || điện-từ || 電磁 ||  
+|| [/system:page-tags/tag/electronic electronic] || 电子 || elektronisch || electrónico || électronique || elettronico || 電子デバイス || 전자 || elektronika || eletrônico || электронный ||  || електронний || điện-tử || 電子 ||  
+|| [/system:page-tags/tag/empathic empathic] || 移情作用 || empathisch || empático || empathique || empatico || 感情 || 감정이입 || empatia || empático || эмпатия ||  || емпатія || đọc-cảm-xúc || 共感 ||  
+|| [/system:page-tags/tag/entropic entropic] || 熵 || entropisch || entrópico || entropique || entropico || エントロピー || 엔트로피 || entropia || entrópico || энтропийный ||  || ентропійний || entropy || 熵 ||  
+|| [/system:page-tags/tag/equine equine] || 马类 || pferdeartig || equino || équin || equino || 馬 || 말 || koń || equino || лошадь ||  || кінь || ngựa || 馬類 ||  
+|| [/system:page-tags/tag/exchange exchange] || 交换 || austausch || intercambio || échange || scambio || 交換 || 교환 || wymiana || troca || обмен ||  || обмін || trao-đổi || 交換 || 
+|| [/system:page-tags/tag/extradimensional extradimensional] || 超维度 || extradimensional || extradimensional || extra-dimensionnel || extradimensionale || 異次元 || 외부차원 || pozawymiarowość || extradimensional || экстрамерный ||  || позапросторовий || ngoại-không-gian || 超維度 ||  
+|| [/system:page-tags/tag/extraterrestrial extraterrestrial] || 星际 || außerirdisch || extraterrestre || extraterrestre || extraterrestre || 地球外 || 외계 || pozaziemskość || extraterrestre || космос ||  || позаземний || ngoài-hành-tinh || 星際 ||  
+|| [/system:page-tags/tag/extremity extremity] || 肢体 || extremität || extremidad || extrémité || estremità || 体肢 || 신체말단 || kończyna || extremidade || конечность ||  || кінцівка || ngón || 肢體 ||  
+|| [/system:page-tags/tag/feline feline] || 猫科 || katzenartig || felino || félin || felino || 猫 || 고양이 || kot || felino || кот ||  || кішка || mèo || 貓類 ||  
+|| [/system:page-tags/tag/fire fire] || 火 || feuer || fuego || feu || fuoco || 炎 || 불 || ogień || fogo || огонь ||  || вогонь || lửa || 火 ||  
+|| [/system:page-tags/tag/fish fish] || 鱼类 || fischartig || pisciforme || piscus || pesce || 魚 || 물고기 || ryba || písceo || рыба ||  || риба || cá || 魚類 ||  
+|| [/system:page-tags/tag/food food] || 食物 || nahrung || comida || alimentaire || cibo || 食物 || 음식 || żywność || alimento || еда ||  || їжа || thực-phẩm || 食物 ||  
+|| [/system:page-tags/tag/foundation-made foundation-made] || 基金会制 || foundation-geschaffen || hecho-por-la-fundación || made-in-foundation || fatto-dalla-fondazione || 財団製 || 재단이-만듦 || stworzone-przez-fundację || feito-pela-fundação ||  ||  || створено_фондом || tổ-chức-tạo || 基金會製造 ||   
+|| [/system:page-tags/tag/fungus fungus] || 真菌 || pilzartig || hongo || fongique || fungo || 真菌類 || 진균 || grzyb || fungo || гриб ||  || гриб || nấm || 真菌 ||  
+|| [/system:page-tags/tag/future future] || 未来 || zukunft || futuro || avenir || futuro || 未来 || 미래 || przyszłość ||  futuro || будущее ||  || майбутнє || tương-lai || 未來 ||  
+|| [/system:page-tags/tag/game game] || 游戏 || spiel || juego || jeu || gioco || ゲーム || 게임 || gra || jogo || игровой ||  || гра || trò-chơi || 遊戲 ||  
+|| [/system:page-tags/tag/gaseous gaseous] || 气体 || gas || gaseoso || gazeux || gassoso || ガス発生 || 기체 || gaz || gasoso || газ ||  || газ || chất-khí || 氣體 ||  
+|| [/system:page-tags/tag/genetic genetic] || 基因 || genetisch || genético || génétique || genetico || 遺伝子 || 유전자 || genetyka || genético || генетический ||  || генетичний || di-truyền || 基因 ||  
+|| [/system:page-tags/tag/geological geological] || 地质 || geologisch || geológico || géologique || geologico || 地質 || 지질학 || geologia || geológico || геологический ||  || геологічний || địa-lý || 地質 ||  
+|| [/system:page-tags/tag/gravity gravity] || 重力影响 || gravitation || gravedad || gravité || gravità || 重力 || 중력 || grawitacja || gravidade || гравитация ||  || гравітація || trọng-lực || 重力影響 ||  
+|| [/system:page-tags/tag/gustatory gustatory] || 味觉影响 || geschmacklich || gustativo || gustatif || gustativo || 味覚 || 미각 || smak || gustatório || вкусовой ||  || смаковий || vị-giác || 味覺影響 ||  
+|| [/system:page-tags/tag/hallucination hallucination] || 幻觉 || halluzination || alucinación || hallucination || allucinazione || 幻覚 || 환각 || halucynacja || alucinação || галлюцинация ||  || галюцинація || ảo-giác || 幻覺 ||  
+|| [/system:page-tags/tag/hive-mind hive-mind] || 蜂巢意识 || schwarmbewusstsein || mente-colmena || conscience-collective || mente-alveare || 集団意識 || 군체의식 || inteligencja-kolektywna || mente-coletiva || коллективный_разум ||  || колективний розум || ý-thức-bầy-đàn || 蜂巢思維 ||  
+|| [/system:page-tags/tag/hostile hostile] || 敌意 || feindlich || hostil || hostile || ostile || 敵対的 || 적대적 || wrogość || hostil || враждебный ||  || ворожий || thù-địch || 敵意 ||  
+|| [/system:page-tags/tag/humanoid humanoid] || 人形生物 || humanoid || humanoide || humanoïde || umanoide || 人間型 || 인간형 || humanoid || humanoide || гуманоид ||  || гуманоїд || dạng-người || 人形 ||  
+|| [/system:page-tags/tag/immobile immobile] || 不可移动 || immobil || inmóvil || immobile || immobile || 移動不可 || 고정 || nieruchomy || imóvel ||  ||  || непорушний || bất-động || 不可移動 ||  
+|| [/system:page-tags/tag/indestructible indestructible] || 不可摧毁 || unzerstörbar || indestructible || indestructible || indistruttibile || 破壊不能 || 파괴불가능 || niezniszczalność || indestrutível || неразрушимый ||  || незруйновний || không-thể-phá-hủy || 不可摧毀 ||  
+|| [/system:page-tags/tag/infohazard infohazard] || 信息危害 || informationelle-gefahr || info-peligroso || danger-info || rischio-informativo || 情報災害 || 정보재해 || zagrożenie-informacyjne || risco-por-informação || опасность_знания ||  || інфозагроза || thông-tin-độc || 資訊危害 ||  
+|| [/system:page-tags/tag/inscription inscription] || 题写 || beschriftet || inscripción || inscription || inscritto || 文字入り || 새김 || zapisany || inscrição || с_надписью ||  || напис || ghi-chép || 題寫 ||  
+|| [/system:page-tags/tag/inscription inscription] || 铭文 || beschriftung || inscripción ||  || iscrizione || 記述 || 명문 ||  ||  || текст || inscrição  ||  ||  || 銘文 ||  
+|| [/system:page-tags/tag/inscription inscription] || 印刻 || || grabado || gravure || inciso || 彫り物 || 각인 || grawerunek || gravado || резьба ||  inscrição || гравіровка || chạm-khắc || 雕刻 ||  
+|| [/system:page-tags/tag/insect insect] || 昆虫 || insekt || insecto || insecte || insetto || 昆虫 || 곤충 || insekt || inseto || насекомое ||  || комаха || côn-trùng || 昆蟲 ||  
+|| [/system:page-tags/tag/instrument instrument] || 仪器 or 乐器 || instrument || instrumento || instrument || strumento || 楽器 || 기구 or 악기 || przyrząd || instrumento || прибор ||  || пристрій || công-cụ || 儀器 ||  
+|| [/system:page-tags/tag/intangible intangible] || 无形 || immateriell || intangible || immatériel || intangibile || 非実体 || 무형 || nienamacalność || intangível || нематериальный ||  || нематеріальний || phi-vật-thể || 無形 ||  
+|| [/system:page-tags/tag/invertebrate invertebrate] || 无脊椎动物 || wirbellos || invertebrado || invertébré || invertebrato || 無脊椎動物 || 무척추동물 || bezkręgowiec || invertebrado || беспозвоночное ||  || безхребетне || không-xương-sống || 無脊椎動物 ||  
+|| [/system:page-tags/tag/jewelry jewelry] || 饰品 || schmuck || joya || bijoux || gioiello || 装飾品 || 장신구 || biżuteria || joia || бижутерия ||  || прикраса || trang-sức || 飾品 ||  
+|| [/system:page-tags/tag/k-class-scenario k-class-scenario] || k级情景 || k-klasse-szenario || escenario-clase-k || classe-k || scenario-classe-k || k-クラスシナリオ || k급-시나리오 || scenariusz-klasy-k || cenário-classe-k || сценарий_класса_k ||  || клас_k || viễn-cảnh-cấp-k || k級情景 ||  
+|| [/system:page-tags/tag/knowledge knowledge] || 知识 || wissen || conocimiento || connaissance || conoscenza || 知識 || 지식 || wiedza || conhecimento || знание ||  || знання || kiến-thức || 知識 ||  
+|| [/system:page-tags/tag/language language] || 语言 || sprache || lenguaje || langage || linguaggio || 言語 || 언어 || lingwistyka || linguagem || лингвистический ||  || мова || ngôn-ngữ || 語言 ||  
+|| [/system:page-tags/tag/light light] || 光照影响 || licht || luz || lumineux || luce || 可視光 || 빛 || światło || luz || свет ||  || світло || ánh-sáng || 光照影響 ||  
+|| [/system:page-tags/tag/liquid liquid] || 液体 || flüssigkeit || líquido || liquide || liquido || 液体 || 액체 || ciecz || líquido || жидкость ||  || рідина || chất-lỏng || 液體 ||  
+|| [/system:page-tags/tag/location location] || 地点 || ort || localización || lieu || luogo || 場所 || 위치 || miejsce || localidade || локация ||  || локація || địa-điểm || 地點 ||  
+|| [/system:page-tags/tag/loop loop] || 循环 || schleife || bucle || boucle || loop || ループ || 반복 || pętla || ciclo || петля ||  || петля || vòng-lặp || 循環 ||  
+|| [/system:page-tags/tag/magnetic magnetic] || 磁性 || magnetisch || magnético || magnétique || magnetico || 磁力 || 자기 || magnetyzm || magnético || магнитный ||  || магнітний || từ-tính || 磁性 ||  
+|| [/system:page-tags/tag/map map] || 地图 || landkarte || mapa || carte || mappa || 地図 || 지도 || mapa || mapa || карта ||  || мапа || bản-đồ || 地圖 ||  
+|| [/system:page-tags/tag/mathematical mathematical] || 数学性 || mathematisch || matemático || mathématique || matematico || 磁気学 || 수학 || matematyka || matemático || математический ||  || математичний || toán-học || 數學性 ||  
+|| [/system:page-tags/tag/mechanical mechanical] || 机械 || mechanisch || mecánico || mécanique || meccanico || 機械 || 기계 || mechanika || mecânico || механический ||  || механічний || máy-móc || 機械 ||  
+|| [/system:page-tags/tag/media media] || 媒体 || medien || reproducible || média || media || 記憶媒体 || 매체 || nośnik || mídia || носитель_информации ||  || носій_інформації || truyền-thông || 媒體 ||  
+|| [/system:page-tags/tag/medical medical] || 医学性 || medizinisch || médico || médical || medico || 医療 || 의약학 || medycyna || médico || медицинский ||  || медичний || y-tế || 醫學性 ||  
+|| [/system:page-tags/tag/memetic memetic] || 模因 || memetisch || memético || mémétique || memetico || ミーム || 정신자 || memetyka || memético || меметический ||  || меметичний || truyền-thông-tin || 模因效應 ||  
+|| [/system:page-tags/tag/memory-affecting memory-affecting] || 记忆影响 || gedächtnis-beeinflussend || mnemónico || mémoire || altera-memoria || 記憶影響 || 기억조작 || pamięciowy || afeta-memória || память ||  || змінення_пам'яті || ảnh-hưởng-ký-ức || 記憶影響 ||  
+|| [/system:page-tags/tag/meta meta] || meta || meta || meta || méta || meta || メタ || 메타 || meta || meta || мета ||  || мета ||  || meta ||   
+|| [/system:page-tags/tag/metamorphic metamorphic] || 形态改变 || metamorphose || metamórfico || métamorphe || metamorfico || 変身 || 변성 || metamorfizm || metamórfico || метаморфный ||  || метаморфний || thay-đổi-hình-dạng || 型態變化 ||  
+|| [/system:page-tags/tag/meteorological meteorological] || 气象 || meteorologisch || meteorológico || météorologique || meteorologico || 天候 || 기상학 || meteorologia || meteorológico || метеорологический ||  || метеорологічний || thời-tiết || 氣象 ||  
+|| [/system:page-tags/tag/microscopic microscopic] || 微观 || mikroskopisch || microscópico || microscopique || microscopico || 微視的 || 미시적 || mikroskopijne || microscópico || микроскопический ||  || мікроскопічний || hiển-vi || 微觀 ||  
+|| [/system:page-tags/tag/military military] || 军事 || militärisch || militar || militaire || militare || 軍事 || 군사 || wojskowość || militar || военный ||  || військовий || quân-sự || 軍事 ||  
+|| [/system:page-tags/tag/mimetic mimetic] || 拟态 || nachahmend || mimético || mimétique || mimetico || 擬態 || 모방 || mimetyczny || mimético || мимикрия ||  || мімікрія || bắt-chước || 擬態 ||  
+|| [/system:page-tags/tag/mind-affecting mind-affecting] || 精神影响 || geist-beeinflussend || psique-alterador || esprit || altera-mente || 精神影響 || 정신조작 || umysł || afeta-mente || ментальное_воздействие ||  || психічний_вплив || ảnh-hưởng-tâm-trí || 精神影響 ||  
+|| [/system:page-tags/tag/miniature miniature] || 微型 || miniatur || miniatura || miniature || miniatura || ミニチュア || 미니어처 || miniatura || miniatura || миниатюрный ||  || мініатюрний || thu-nhỏ || 微型 ||  
+|| [/system:page-tags/tag/moon moon] || 月球 || mond || luna || lune || luna || 月 || 달 || księżyc || lua ||  ||  || місяць || mặt-trăng || 月球 ||  
+|| [/system:page-tags/tag/mobile mobile] || 异常移动 || mobil || móvil || mobile || mobile || 移動 || 이동 || ruchomy || móvel || мобильный ||  || мобільний || di-động || 異常移動 ||  
+|| [/system:page-tags/tag/musical musical] || 音乐性 || musikalisch || musical || musical || musicale || 音楽 || 음악 || muzyka || musical || музыка ||  || музика || âm-nhạc || 音樂性 ||  
+|| [/system:page-tags/tag/narrative narrative] || 叙述性 || erzählerisch || narrativo || narratif || narrativo || 語り || 서술 || narracyjny || narrativo || повествование ||  || розповідь || tường-thuật || 敘述性 ||  
+|| [/system:page-tags/tag/neurological neurological] || 神经性 || neurologisch || neurológico || neurologique || neurologico || 神経 || 신경학 || neurologiczny || neurológico || неврологический ||  || неврологічний || thần-kinh || 神經性 ||  
+|| [/system:page-tags/tag/nocturnal nocturnal] || 夜间活动 || nachtaktiv || nocturno || nocturne || notturno || 夜行性 || 야행성 || nocny || noturno || ночной ||  || нічний || về-đêm || 夜間活動 ||  
+|| [/system:page-tags/tag/observational observational] || 观察影响 || beobachtung || observable || observable || osservativo || 観測 || 관찰 || obserwacja || observacional || наблюдение ||  || спостереження || quan-sát || 觀察影響 ||  
+|| [/system:page-tags/tag/ocular ocular] || 眼睛 || okular || ocular || oculaire || oculare || 眼球 || 눈 || oko || ocular || глаз ||  || очі || thị-giác || 眼睛 ||  
+|| [/system:page-tags/tag/olfactory olfactory] || 嗅觉影响 || olfaktorisch || olfatorio || olfactif || olfattivo || 嗅覚 || 후각 || węch || olfatório || обонятельный ||  || нюховий || khứu-giác || 嗅覺影響 ||  
+|| [/system:page-tags/tag/online online] || 线上 || online || en-línea || internet || online || オンライン || 온라인 || online || online || интернет ||  || інтернет || trực-tuyến || 線上 ||
+|| [/system:page-tags/tag/ontokinetic ontokinetic] ||  ||  ||  ontoquinético  || ||  || |  ||  ||  || ||  || ||  ||  ||  
+|| [/system:page-tags/tag/paradox paradox] || 悖论 || paradox || paradoja || paradoxe || paradosso || パラドックス || 역설적 || paradoks || paradoxo || парадокс ||  || парадокс || nghịch-lý || 悖論 ||  
+|| [/system:page-tags/tag/parasitic parasitic] || 寄生性 || parasitisch || parásito || parasitaire || parassitico || 寄生 || 기생성 || pasożyt || parasitário || паразит ||  || паразит || ký-sinh || 寄生性 ||  
+|| [/system:page-tags/tag/performance performance] || 表演 || aufführung || representación || performance || performance || 芸 || 공연 || występ || performance || представление ||  || вистава || biểu-diễn || 表演 ||  
+|| [/system:page-tags/tag/plant plant] || 植物 || pflanzenartig || planta || plante || pianta || 植物 || 식물 || roślinność || planta || растение ||  || рослина || thực-vật || 植物 ||  
+|| [/system:page-tags/tag/planet planet] || 星球 || planet || planeta || planète || pianeta || 惑星 || 행성 || planeta || planeta || планета ||  || планета || hành-tinh || 星球 ||  
+|| [/system:page-tags/tag/polyhedral polyhedral] || 多面体 || polyedrisch || poliedro || polyédrique || poliedrico || 多面体 || 다면체 || wielościenne || poliedro || многогранник ||  || багатогранник || đa-diện || 多面體 ||  
+|| [/system:page-tags/tag/portal portal] || 门径 || portal || portal || portail || portale || ポータル || 통로 || portal || portal || портал ||  || портал || cổng-không-gian || 門徑 ||  
+|| [/system:page-tags/tag/predatory predatory] || 掠食性 || prädator || depredador || prédateur || predatorio || 捕食 || 포식성 || drapieżność || predatório || хищник ||  || хижий || săn-mồi || 掠食性 ||  
+|| [/system:page-tags/tag/predictive predictive] || 预测性 || voraussehend || predictivo || prédictif || veggente || 未来予知 || 예측성 || proroczy || preditivo || предсказание ||  || прогностичний || tiên-đoán || 預測性 ||  
+|| [/system:page-tags/tag/primate primate] || 猿类 || affenartig || simio || singe || scimmiesco || 猿 || 유인원 || małpa || símio || обезьяна ||  || мавпа || khỉ || 猿類 ||  
+|| [/system:page-tags/tag/probability probability] || 概率性 || wahrscheinlichkeit || probabilidad || probabilité || probabilità || 確率 || 확률 || prawdopodobieństwo || probabilidade || вероятность ||  || ймовірність || khả-năng || 機率性 ||  
+|| [/system:page-tags/tag/rabbit rabbit] || 兔类 || hasenartig || lagomorfo || lepus || leporino || ウサギ || 토끼 || zając || leporino || заяц ||  || заєць || thỏ || 兔類 ||  
+|| [/system:page-tags/tag/radioactive radioactive] || 放射性 || radioaktiv || radioactivo || radioactif || radioattivo || 放射性 || 방사성 || radioaktywność || radioativo || радиоактивный ||  || випромінювання || phóng-xạ || 放射性 ||   
+|| [/system:page-tags/tag/reanimation reanimation] || 复活 || reanimation || reanimación || réanimation || rianimazione || 蘇生 || 소생 || reanimacja || reanimação || воскрешение ||  || оживлення || hồi-sinh || 復活 ||  
+|| [/system:page-tags/tag/religious religious] || 宗教 || religiös || religioso || religieux || religioso || 宗教 || 종교 || religia || religioso || религия ||  || релігія || tôn-giáo || 宗教 ||  
+|| [/system:page-tags/tag/reproductive reproductive] || 生殖性 || reproduktiv || reproductivo || reproduction || riproduttivo || 生殖 || 생식 || reprodukcja || reprodutivo || размножение ||  || розмноження || sinh-sản || 生殖性 ||  
+|| [/system:page-tags/tag/reptile reptile] || 爬行类动物 || reptiloid || reptil || reptilien || rettile || 爬虫類 || 파충류 || gad || reptiliano || пресмыкающееся ||  || рептилія || bò-sát || 爬行類動物 ||  
+|| [/system:page-tags/tag/ritual ritual] || 仪式性 || ritual || ritual || rituel || rituale || 儀式 || 의식 || rytuał || ritual || ритуал ||  || ритуал || nghi-lễ || 儀式性 ||  
+|| [/system:page-tags/tag/robotic robotic] || 机器人 || roboter || autómata || automate || automa || 自動装置 || 자동장치 || automaton || autômato || автомат ||  || автомат || người-máy || 機器人 ||  
+|| [/system:page-tags/tag/rodent rodent] || 鼠类 || mäuseartig || roedor || muridé || muride || ネズミ || 쥐 ||  || roedor || мышь ||  || миша || chuột || 鼠類 ||   
+|| [/system:page-tags/tag/rodent rodent] || 松鼠 || || esciúrido || sciuridé || sciuride || リス || 다람쥐 || wiewiórka || roedor || белка ||  || білка || sóc || 松鼠 ||    
+|| [/system:page-tags/tag/sapient sapient] || 智能 || intelligent || inteligente || sapiens || sapiente || 知性 || 지성 || rozumność || sapiente || разумный ||  || розумний || trí-khôn || 智能 ||  
+|| [/system:page-tags/tag/satellite satellite] || 卫星 || satellit || satélite || satellite || satellite || 衛星 || 위성 || satelita || satélite || спутник ||  || супутник || vệ-tinh || 衛星 || 
+|| [/system:page-tags/tag/sculpture sculpture] || 雕塑 || skulptur || escultura || sculpture || scultura || 彫刻 || 조각품 || rzeźba || escultura || скульптура ||  || скульптура || điêu-khắc || 雕塑 ||  
+|| [/system:page-tags/tag/sculpture sculpture] || 雕像 || || escultura || statue || statua || 像 || 조각상 || statua || estátua || статуя ||  || статуя || tượng || 雕像 ||  
+|| [/system:page-tags/tag/self-repairing self-repairing] || 自我修复 || selbstreparierend || auto-reparable || auto-réparable || auto-riparante || 自己修復 || 자가수복 || samonaprawa || auto-reparação || самовосстанавливающийся ||  || самовідновлення || tự-sửa-chữa || 自我修復 ||  
+|| [/system:page-tags/tag/self-replicating self-replicating] || 自我复制 || selbstvervielfältigend || auto-replicable || auto-répliquant || auto-replicante || 自己複製 || 자가복제 || samopowielanie || auto-replicante || самовоспроизводящийся ||  || самовідтворення || nhân-bản || 自我複製 ||  
+|| [/system:page-tags/tag/sensory sensory] || 感知影响 || sensorisch || sensorial || sensoriel || sensoriale || 感覚 || 감각 || sensoryczny || sensorial || восприятие ||  || сприйняття || giác-quan || 感知影響 ||  
+|| [/system:page-tags/tag/sexual sexual] || 性 || sexuell || sexual || sexuel || sessuale || 性的 || 성적 || seksualny || sexual ||  ||  || статевий || tình-dục || 性 ||    
+|| [/system:page-tags/tag/shadow shadow] || 阴影 || schatten || sombra || ombre || ombra || 影 || 그림자 || cień || sombra || тень ||  || тінь || bóng || 陰影 ||  
+|| [/system:page-tags/tag/shark shark] || 鲨鱼 || haiartig || escualo || elasmobranchii || squalo || サメ || 연골어 || rekin || seláquio || акула ||  || хрящова_риба || cá-mập || 鯊類 ||     
+|| [/system:page-tags/tag/skeletal skeletal] || 骨骼 || skeletal || esqueleto || squelettique || scheletrico || 骨格 || 뼈 || szkielet || esquelético || скелет ||  || скелет || xương || 骨骼 ||  
+|| [/system:page-tags/tag/sleep sleep] || 睡眠 || schlaf || dormir || sommeil || sonno || 睡眠 || 수면 || sen || sono || сон ||  || сон || giấc-ngủ || 睡眠 ||  
+|| [/system:page-tags/tag/spatial spatial] || 空间影响 || || ||  || || || || || espacial ||  ||  || || || ||   
+|| [/system:page-tags/tag/species species] || 种群 || spezies || especie || espèce || specie || 種族 || 종 || gatunek || espécie || вид ||  || вид || loài || 物種 ||  
+|| [/system:page-tags/tag/sphere sphere] || 球体 || kugel || esfera || sphère || sfera || 球体 || 구체 || sfera || esfera || сфера ||  || сфера || hình-cầu || 球體 ||  
+|| [/system:page-tags/tag/splash splash] || 掩藏页 || deckblatt || splash || transition || splash || 表紙 || 스플래시 ||  || início || предупреждение ||  ||  || bìa || 遮蔽頁 ||  
+|| [/system:page-tags/tag/sport sport] || 体育 || sport || deporte || sport || sport || スポーツ || 스포츠 || sport || esporte || спорт ||  || спорт || thể-thao || 體育 ||  
+|| [/system:page-tags/tag/structure structure] || 建筑 || struktur || estructura || structure || struttura || 構造 || 구조 || struktura ||  || сооружение ||  ||  ||  ||結構物||  
+|| [/system:page-tags/tag/subterranean subterranean] || 地下 || unterirdisch || subterráneo || souterrain || sottoterra || 地下 || 지하 || podziemia || subterrâneo || подземный ||  || підземний || dưới-lòng-đất || 地下 ||  
+|| [/system:page-tags/tag/sun sun] || 恒星 || sonne || sol || soleil || sole || 太陽 || 항성 || słońce || sol || солнце ||  || сонце || mặt-trời || 恆星 ||  
+|| [/system:page-tags/tag/swarm swarm] || 群体性 || schwarm || enjambre || essaim || sciame || 群れ || 무리 || rój || enxame || стая ||  || зграя || bầy-đàn || 群體性 ||  
+|| [/system:page-tags/tag/tactile tactile] || 触觉影响 || taktil || táctil || tactile || tattile || 触覚 || 촉각 || dotyk || tátil || осязание ||  || дотик || xúc-giác || 觸覺影響 ||  
+|| [/system:page-tags/tag/telekinetic telekinetic] || 隔地促动 || telekinetisch || telequinético || télékinésie || telecinetico || 念力 || 염력 ||  || telecinético || телекинез ||  ||  ||  || 念力 ||  
+|| [/system:page-tags/tag/telepathic telepathic] || 心灵感应 || telepathisch || telepático || télépathique || telepatico || テレパシー || 텔레파시 || || telepático || телепатия ||  ||  ||  || 心靈感應 ||  
+|| [/system:page-tags/tag/teleportation teleportation] || 传送 || teleportation || teletransporte || téléportation || teletrasporto || 瞬間移動 || 순간이동 || teleportacja || teleportação || телепортация ||  || телепортація || dịch-chuyển-tức-thời || 傳送 ||  
+|| [/system:page-tags/tag/temporal temporal] || 时间影响 || temporal || temporal || temporel || temporale || 時間 || 시간 || czas || temporal || временной ||  || темпоральний || thời-gian || 時間影響 ||  
+|| [/system:page-tags/tag/thermal thermal] || 热量影响 || thermal || termal || thermique || termico || 温度 || 열 || termika || termal || температура ||  || термальний || nhiệt || 熱量影響 ||  
+|| [/system:page-tags/tag/thermodynamic thermodynamic] || 热力学 || thermodynamisch || termodinámico || thermodynamique || termodinamica || 熱力学 || 열역학 || termodynamika || termodinâmico || термодинамический ||  || термодинамічний || nhiệt-động || 熱力學 ||  
+|| [/system:page-tags/tag/tool tool] || 工具 || werkzeug || herramienta || outil || attrezzo || 道具 || 도구 || narzędzie || ferramenta || инструмент ||  || інструмент || dụng-cụ || 工具 ||  
+|| [/system:page-tags/tag/toxic toxic] || 毒性 || giftig || tóxico || toxique || tossico || 毒性 || 독성 || toksyczność || tóxico || ядовитый ||  || токсичний || độc-tính || 毒性 ||  
+|| [/system:page-tags/tag/toy toy] || 玩具 || spielzeug || juguete || jouet || giocattolo || 玩具 || 장난감 || zabawka || brinquedo || игрушка ||  || іграшка || đồ-chơi || 玩具 ||  
+|| [/system:page-tags/tag/transfiguration transfiguration] || 变形 || wandlung || transfiguración || transfiguration || trasfigurazione || 変形 || 변형 || transfiguracja || transfiguração || превращение ||  || перетворення || biến-hình || 變形 ||  
+|| [/system:page-tags/tag/transmission transmission] || 通讯 || übertragung || transmisión || transmission || trasmissione || 通信 || 전송 || transmisja || transmissão || сигнал ||  || сигнал || truyền-thanh || 通訊 ||  
+|| [/system:page-tags/tag/tree tree] || 树木 || baum || arbóreo || arborical || arboreo || 樹木 || 수목 || drzewny || arbóreo || древовидный ||  || дерево || cây-gỗ || 樹木 ||  
+|| [/system:page-tags/tag/unclassed unclassed] || 未分級 || nicht-klassifiziert || sin-clasificar || non-classé ||  || unclassed || 미분류 || tłumaczenie ||  || не_назначен ||  ||  ||  ||  ||  
+|| [/system:page-tags/tag/uncontained uncontained] || 未收容 || nicht-eingedämmt || sin-contener || non-confiné || non-contenuto || 未収容 || 비격리 || niezabezpieczone || não-contido || не_содержиться ||  || не_зберігається || chưa-quản-thúc || 未收容 ||  
+|| [/system:page-tags/tag/vehicle vehicle] || 载具 || fahrzeug || vehículo || véhicule || veicolo || 乗り物 || 탈것 || transport || veículo || транспорт ||  || транспорт || phương-tiện || 載具 ||  
+|| [/system:page-tags/tag/vibration vibration] || 震动 || vibration || vibración || vibration || vibrazione || 振動 || 진동 || wibracje || vibração || вибрация ||  || вібрація || rung-động || 震動 ||  
+|| [/system:page-tags/tag/virus virus] || 病毒 || virus || virus || virus || virus || ウイルス || 바이러스 || wirus || vírus || вирус ||  || вірус ||  || 病毒 ||  
+|| [/system:page-tags/tag/visual visual] || 视觉性 || visuell || visual || visuel || visivo || 視覚 || 시각 || wizualność || visual || визуальный ||  || візуальний || thị-giác || 視覺性 ||  
+|| [/system:page-tags/tag/weapon weapon] || 武器 || waffe || arma || arme || arma || 武器 || 무기 || broń || arma || оружие ||  || зброя || vũ-khí || 武器 ||  
+|| [/system:page-tags/tag/worm worm] || 蠕虫 || wurmartig || vermiano || vermine || vermesco || ワーム || 연충 || robak || verme || червь ||  || черв || giun || 蠕蟲 ||  
+
+@@ @@
+++ Genre and Themes
+
++++ Genre
+
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT** || **JP** || **KO** || **PL** || **PT** || **RU** || **TH** || **UA** || **VN** || **ZH** ||
+|| [/system:page-tags/tag/action action] || 动作 ||  ||  ||  || ||  || ||  || ação ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/adventure adventure] || 冒险||  ||  ||  || ||  || ||  || aventura ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/bittersweet bittersweet] || 悲喜交加 ||  ||  ||  || ||  || ||  || agridoce ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/bleak bleak] || 悲剧 ||  ||  ||  || ||  || ||  || sombrio ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/breakout breakout] || 越狱 ||  ||  ||  || ||  || ||  || fuga ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/comedy comedy] || 喜剧 ||  ||  ||  || ||  || ||  || comédia ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/black-comedy black-comedy] || 黑色喜剧 ||  ||  ||  || ||  || ||  || humor-ácido ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/chase chase] || 追逐 ||  ||  ||  || ||  || ||  || perseguição ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/crime-fiction crime-fiction] || 犯罪小说 ||  ||  ||  || ||  || ||  || ficção-criminal ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/fantasy fantasy] || 奇幻 ||  ||  ||  || ||  || ||  || fantasia ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/heartwarming heartwarming] || 暖心 ||  ||  ||  || ||  || ||  || reconfortante ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/horror horror] || 恐怖 ||  ||  ||  || ||  || ||  || horror ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/body-horror body-horror] || 身体恐怖 ||  ||  ||  || ||  || ||  || horror-corporal ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/cosmic-horror cosmic-horror] || 宇宙恐怖 ||  ||  ||  || ||  || ||  || horror-cósmico ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/psychological-horror psychological-horror] || 精神恐怖 ||  ||  ||  || ||  || ||  || horror-psicológico ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/metafiction metafiction] || 元虚构 ||  ||  ||  || ||  || ||  || metaficção ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/military-fiction military-fiction] || 军事小说 ||  ||  ||  || ||  || ||  || ficção-militar ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/mystery mystery] || 悬疑 ||  ||  ||  || ||  || ||  || mistério||  ||  || ||  || ||  
+|| [/system:page-tags/tag/romance romance] || 浪漫 ||  ||  ||  || ||  || ||  || romance ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/science-fiction science-fiction] || 科幻小说||  ||  ||  || ||  || ||  || ficção-científica ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/slice-of-life slice-of-life] || 日常 ||  ||  ||  || ||  || ||  || slice-of-life ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/spy-fiction spy-fiction] || 间谍小说 ||  ||  ||  || ||  || ||  || ficção-de-espionagem ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/surrealism surrealism] || 超现实小说 ||  ||  ||  || ||  || ||  || surrealismo ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/xenofiction xenofiction] || 异种视角 ||  ||  ||  || ||  || ||  || xenoficção ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/_genreless _genreless] || _无体裁||  ||  ||  || ||  || ||  || _sem-gênero ||  ||  || ||  || ||  
+
++++ Themes
+
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT** || **JP** || **KO** || **PL** || **PT** || **RU** || **TH** || **UA** || **VN** || **ZH** ||
+|| [/system:page-tags/tag/artificial-intelligence artificial-intelligence] || 人工智能 ||  ||  ||  || ||  || ||  || inteligência-artificial ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/bureaucracy bureaucracy] || 科层制 ||  ||  ||  || ||  || ||  || burocracia ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/ghost ghost] || 鬼魂 ||  ||  ||  || ||  || ||  || fantasma || ||  || ||  || ||  
+|| [/system:page-tags/tag/historical historical] || 历史性 || historisch || histórico || historique || storico || 歴史 || 역사적 || historia || histórico || исторический ||  || історичний || lịch-sử || 歷史性 || 
+|| [/system:page-tags/tag/legal legal] || 法律性 ||  ||  ||  || ||  || ||  || jurídico ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/lgbtq lgbtq] || lgbtq||  ||  ||  || ||  || ||  || lgbtq ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/murder-monster murder-monster] || 杀人怪物 ||  ||  ||  || ||  || ||  || monstro-assassino ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/mythological mythological] || 神话小说 ||  ||  ||  || ||  || ||  || mitológico ||  ||  || ||  || ||   
+|| [/system:page-tags/tag/political political] || 政治性 ||  ||  ||  || ||  || ||  || político ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/religious-fiction religious-fiction] || 宗教小说 ||  ||  ||  || ||  || ||  || ficção-religiosa ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/superhero superhero] || 超级英雄 ||  ||  ||  || ||  || ||  || super-herói ||  ||  || ||  || ||  
+
++++ Setting
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT** || **JP** || **KO** || **PL** || **PT** || **RU** || **TH** || **UA** || **VN** || **ZH** ||
+|| [/system:page-tags/tag/afterlife afterlife] || 来世||  ||  ||  || ||  || ||  || pós-vida ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/alternate-history alternate-history] || 架空历史 ||  ||  ||  || ||  || ||  || história-alternativa ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/apocalyptic apocalyptic] || 末日 ||  ||  ||  || ||  || ||  || apocalíptico ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/post-apocalyptic post-apocalyptic] || 后启示录 ||  ||  ||  || ||  || ||  || pós-apocalíptico ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/christmas christmas] || 圣诞节 ||  ||  ||  || ||  || ||  || natal ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/corporate corporate] || 企业性 ||  ||  ||  || ||  || ||  || corporativo || ||  || ||  || ||  
+|| [/system:page-tags/tag/dystopian dystopian] || 反乌托邦 ||  ||  ||  || ||  || ||  || distópico || ||  || ||  || ||  
+|| [/system:page-tags/tag/halloween halloween] || 万圣节 ||  ||  ||  || ||  || ||  || halloween ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/otherworldly otherworldly] || 异世界 ||  ||  ||  || ||  || ||  || outro-mundo ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/period-piece period-piece] || 历史时期 ||  ||  ||  || ||  || ||  || peça-de-época ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/school school] || 学校 ||  ||  ||  || ||  || ||  || escolar ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/space-opera space-opera] || 太空歌剧 ||  ||  ||  || ||  || ||  || novela-espacial ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/utopian utopian] || 乌托邦 ||  ||  ||  || ||  || ||  || utópico ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/western western] || 西部 ||  ||  ||  || ||  || ||  || faroeste ||  ||  || ||  || ||  
+
++++ Style
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT** || **JP** || **KO** || **PL** || **PT** || **RU** || **TH** || **UA** || **VN** || **ZH** ||
+|| [/system:page-tags/tag/correspondence correspondence] || 信件 ||  ||  ||  || ||  || ||  || correspondência ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/creepypasta creepypasta] || creepypasta || creepypasta || creepypasta || creepypasta || creepypasta || クリーピーパスタ || 크리피파스타 ||  || creepypasta || крипипаста ||  ||  ||  || creepypasta || 
+|| [/system:page-tags/tag/first-person first-person] || 第一人称 ||  ||  ||  || ||  || ||  || primeira-pessoa || ||  || ||  || ||  
+|| [/system:page-tags/tag/foundation-format foundation-format] || 基金会格式 ||  ||  ||  || ||  || ||  || formato-da-fundação ||  ||  || объект_рассказ||  || ||  
+|| [/system:page-tags/tag/journal journal] || 日记 ||  ||  ||  || ||  || ||  || diário ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/no-dialogue no-dialogue] || 无对话 ||  ||  ||  || ||  || ||  || sem-diálogo ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/orientation orientation] || 指南 || einweisung || orientación || orientation || orientamento || オリエンテーション || 오리엔테이션 ||  || orientação || лекция ||  ||  || định-hướng || 說明 ||  
+|| [/system:page-tags/tag/second-person second-person] || 第二人称 ||  ||  ||  || ||  || || || segunda-pessoa ||  ||  || ||  || ||  
+|| [/system:page-tags/tag/worldbuilding worldbuilding] || 世界构建 ||  ||  ||  || ||  || || || worldbuilding ||  ||  || ||  || ||  
+
+@@ @@
+++ Groups
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT** || **JP** || **KO** || **PL** || **PT** || **RU** || **TH** || **UA** || **VN** || **ZH** ||
+|| [/system:page-tags/tag/alexylva alexylva] || alexylva大学 || alexylva || alexylva || alexylva || alexylva || alexylva大学 || 알렉실바 || alexylva || alexylva || университет ||  ||  ||  || alexylva大學 ||  
+|| [/system:page-tags/tag/anderson anderson] || 安德森机器人 || anderson || anderson || anderson || anderson-robotics || アンダーソン || 앤더슨 || anderson || anderson || андерсон ||  ||  ||  || 安德森機器人 ||  
+|| [/system:page-tags/tag/are-we-cool-yet are-we-cool-yet] || are-we-cool-yet || are-we-cool-yet || are-we-cool-yet || et-maintenant-on-est-cool || are-we-cool-yet || are-we-cool-yet || are-we-cool-yet || are-we-cool-yet || já-somos-maneiros || твп ||  ||  || chúng-ta-ngầu-chưa || awcy ||  
+|| [/system:page-tags/tag/black-queen black-queen] || 黑皇后 || schwarze-königin || reina-negra || reine-noire || regina-nera || 黒の女王 || 검은-여왕 || czarna-królowa || rainha-negra || чёрная_королева ||  ||  || hậu-đen || 黑皇后 ||  
+|| [/system:page-tags/tag/broken-god broken-god] || 破碎之神教会 || broken-god || dios-roto || dieu-brisé || dio-frantumato || 壊れた神の教会 || 부서진-신 || kościół-zepsutego-boga || deus-quebrado || црб ||  ||  || phế-thần || 破碎之神教會 ||   
+|| [/system:page-tags/tag/chaos-insurgency chaos-insurgency] || 混沌分裂者 || chaos-insurgency || insurgencia-del-caos || insurrection-du-chaos || insorgenza-caos || カオス・インサージェンシー || 혼돈의-반란 || rebelia-chaosu || insurgência-do-caos || повстанцы_хаоса ||  ||  || hỗn-kháng || 渾沌反叛軍 ||  
+|| [/system:page-tags/tag/chicago-spirit chicago-spirit] || 芝加哥鬼灵 || chicago-spirit || espíritu-de-chicago || esprit-de-chicago || chicago-spirit || シカゴ・スピリット || 시카고-스피릿 || duch-chicago || espírito-de-chicago || чикаго_спирит ||  ||  || linh-hồn-chicago || 芝加哥鬼靈 ||  
+|| [/system:page-tags/tag/children-of-the-night children-of-the-night] || 夜之子 || kinder-der-nacht ||  || enfants-de-la-nuit || figli-della-notte || 夜闇の子ら || 밤의-아이들 || dzieci-nocy || filhos-da-noite || дети_ночи ||  ||  || hậu-duệ-của-màn-đêm || 夜之子 ||  
+|| [/system:page-tags/tag/children-of-the-torch children-of-the-torch] || 火炬之子 || kinder-der-fakel || hijos-de-la-antorcha || enfants-de-la-torche ||  || 松明の子供達 || 횃불의-아이들 || dzieci-pochodni || filhos-da-tocha ||  ||  ||  || hậu-duệ-của-ngọn-đuốc || 火炬之子 ||  
+|| [/system:page-tags/tag/daevite daevite] || daevite || daevite || daevita || daevite || daevita || daevite || 다에바인 || dewici || devita || дэва ||  ||  ||  || 殆瓦 ||
+|| [/system:page-tags/tag/dr-wondertainment dr-wondertainment] || wondertainment博士 || dr-wondertainment || dr-wondertainment || dr-wondertainment || dr-wondertainment || ワンダーテインメント博士 || 원더테인먼트-박사 || dr-wondertainment || dr-wondertainment || развлечудов ||  ||  || ts-wondertainment || wondertainment博士 ||  
+|| [/system:page-tags/tag/factory factory] || 工厂 || factory || fábrica || la-fabrique || fabbrica || ファクトリー || 공장 || fabryka || fábrica || фабрика ||  ||  || nhà-máy || 工廠 ||  
+|| [/system:page-tags/tag/fifthist fifthist] || 第五教会 || fifthist || quinta || cinquistes || quinta-chiesa || 第五教会 || 다섯째 || piąty-kościół || quintista || пятая_церковь ||  ||  || ngũ-giáo || 第五教會 ||  
+|| [/system:page-tags/tag/gamers-against-weed gamers-against-weed] || 反大麻玩家 || gamers-against-weed || gamers-against-weed || joueurs-contre-l-herbe || giocatori-contro-erba || ゲーマーズアゲインストウィード || 대마초를-반대하는-게이머들 || gamers-against-weed || gamers-contra-erva || гпт ||  ||  || game-thủ-chống-cần || 反大麻玩家 ||  
+|| [/system:page-tags/tag/global-occult-coalition global-occult-coalition] || 全球超自然联盟 || global-occult-coalition || coalición-oculta-global || cmo || coalizione-globale-occulto || 世界オカルト連合 || 세계-오컬트-연합 || globalna-koalicja-okultystyczna || coalizão-oculta-global || гок ||  ||  || liên-minh-huyền-bí-toàn-cầu || 全球超自然聯盟 ||  
+|| [/system:page-tags/tag/golden-horde golden-horde] || 金帐军 || goldene-horde ||  || horde-d-or || orda-d-oro || 金帳汗国 || 황금-군단 ||  || horda-dourada ||  ||  ||  ||  || 金帳軍 ||  
+|| [/system:page-tags/tag/gru-division-p gru-division-p] || 格鲁乌p部门 || gru-division-p || división-gru-p || gru || divisione-gru-p || gru-p-部局 || gru-p-부서 || gru-dywizja-p || gru-divisão-p || отдел_п ||  ||  || đơn-vị-gru-p || 格魯烏-p部門 ||  
+|| [/system:page-tags/tag/herman-fuller herman-fuller] || 赫曼·富勒 || herman-fuller || herman-fuller || herman-fuller || circo-herman-fuller || ハーマン・フラー || 허먼-풀러 || herman-fuller || herman-fuller || герман_фуллер ||  ||  ||  || 赫曼-富勒 ||  
+|| [/system:page-tags/tag/horizon-initiative horizon-initiative] || 地平线倡议 || horizon-initiative || iniciativa-horizonte || initiative-horizon || iniziativa-orizzonte || 境界線イニシアチブ || 지평선-구상 || inicjatywa-horyzontu || iniciativa-do-horizonte || инициатива_горизонт ||  ||  || chân-trời-khởi-nguyên || 地平線倡議 ||  
+|| [/system:page-tags/tag/manna-charitable-foundation manna-charitable-foundation] || 玛娜慈善基金会 || manna-charitable-foundation || fundación-de-caridad-manna || fondation-caritative-de-la-manne || manna-charitable || マナによる慈善財団 || 만나-자선재단 || fundacja-charytatywna-manna || fundação-caridosa-manna || бф_манна ||  ||  || quỹ-từ-thiện-manna || 瑪納慈善基金會 ||
+|| [/system:page-tags/tag/marshall-carter-and-dark marshall-carter-and-dark] || mc&d || marshall-carter-and-dark || marshall-carter-and-dark || mc&d || marshall-carter-dark || mc&d || 마셜-카터&다크 || marshall-carter-and-dark || marshall-carter-e-dark || мкид ||  ||  || marshall-carter-và-dark || mc&d ||    
+|| [/system:page-tags/tag/nobody nobody] || nobody || nobody || nadie || personne || nessuno || 何者でもない || 아무도-아닌-자 || nikt || ninguém || никто ||  ||  || vô-danh || nobody ||  
+|| [/system:page-tags/tag/oneiroi oneiroi] || 梦神集团 || oneiroi || oneiroi || oneiroi || oneiroi || オネイロイ || 오네이로이 || oneiroi || oneiroi || онир ||  ||  ||  || 夢神 ||  
+|| [/system:page-tags/tag/prometheus prometheus] || 普罗米修斯实验室 || prometheus || prometheus || prometheus || laboratori-prometheus || プロメテウス || 프로메테우스 || laboratoria-prometeusza ||  prometheus || лаборатории_прометея ||  ||  ||  || 普羅米修斯實驗室 ||  
+|| [/system:page-tags/tag/oria oria] || 伊斯兰物品回收办公室 || reclamation || reclamación || brai || ufficio-reclamo-islamici || oria || 유물환수 || oria || oria || ксир ||  ||  || khai-quật || 伊斯蘭物品回收辦公室 ||  
+|| [/system:page-tags/tag/sarkic sarkic] || 欲肉教 || sarkisch || sárkico || sarkique || culti-sarkici || サーキック || 사르킥 || sarkiści || sárkico || саркицизм ||  ||  ||  || 欲肉教 ||  
+|| [/system:page-tags/tag/scarlet-king scarlet-king] || 深红之王 || scarlet-king ||  || roi-écarlate || re-scarlatto || scarlet-king || 주홍왕 || szkarłatny-król || rei-escarlate || алый_король ||  ||  || xích-vương || 猩紅之王 || 
+|| [/system:page-tags/tag/second-hytoth second-hytoth] || 第二海托世教会 || zweiter-hytoth || segundo-hytoth || second-hytoth || secondo-hytoth || 第二ハイトス教会 || 제2하이토스 || drugi-hytoth || segundo-hytoth || второй_хитот ||  ||  || hytoth-đệ-nhị || 第二海托世教會 ||  
+|| [/system:page-tags/tag/serpents-hand serpents-hand] || 蛇之手 || serpents-hand || mano-de-la-serpiente || main-du-serpent || mano-serpente || 蛇の手 || 뱀의-손 || ręka-węża || mão-da-serpente || длань_змея ||  ||  || xà-thủ || 蛇之手 || 
+|| [/system:page-tags/tag/shark-punching-center shark-punching-center] || 打鲨鱼中心 || shark-punching-center || shark-punching-center || shark-punching-center || centro-pugni-squali || サメ殴りセンター || 상어-죽빵-센터 || shark-punching-center || centro-soca-tubarão || скп ||  ||  || trung-tâm-đấm-cá-mập || 毆打鯊魚中心 ||
+|| [/system:page-tags/tag/unusual-incidents-unit unusual-incidents-unit] || uiu || unusual-incidents-unit || unidad-de-incidentes-inusuales || u2i || unità-incidenti-insoliti || 異常事件課 || 특이사건부 || uiu || unidade-de-incidentes-incomuns || онп ||  ||  || đơn-vị-điều-tra-sự-cố-bất-thường || uiu ||  
+|| [/system:page-tags/tag/wilsons-wildlife wilsons-wildlife] || 威尔逊野生动物 || wilsons-wildlife ||  || wilson || wilsons-wildlife || ウィルソンズ・ワイルドライフ || 윌슨-야생 || wws || soluções-silvestres  || общество_уилсона ||  ||  || đời-sống-hoang-dã-của-wilson || 威爾遜生物應對組 ||  
+
+@@ @@
+++ Characters
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT** || **JP** || **KO** || **PL** || **PT** || **RU** || **TH** || **UA** || **VN** || **ZH** ||
+|| [/system:page-tags/tag/agent-green agent-green] || 特工green || agent-green ||  || agent-green || agente-green || エージェント・グリーン || 그린-요원 ||  ||  ||  ||  ||  || đặc-vụ-green || green特工 ||  
+|| [/system:page-tags/tag/blackwood blackwood] ||布莱克伍德 || blackwood || blackwood || blackwood || blackwood || blackwood || 블랙우드 ||  ||  || блэквуд ||  ||  ||  || blackwood ||  
+|| [/system:page-tags/tag/doctor-bright doctor-bright] || bright博士 || doktor-bright || doctor-bright || dr-bright || dottor-bright || ブライト博士 || 브라이트-박사 ||  || || др-брайт ||  ||  || tiến-sĩ-bright || bright博士 ||  
+|| [/system:page-tags/tag/doctor-clef doctor-clef] || clef博士 || doktor-clef || doctor-clef || dr-clef || dottor-clef || クレフ博士 || 클레프-박사 ||  ||  || др-клеф ||  ||  || tiến-sĩ-clef || clef博士 ||  
+|| [/system:page-tags/tag/doctor-gears doctor-gears] || gears博士 || doktor-gears || doctor-gears || dr-gears || dottor-gears || ギアーズ博士 || 기어스-박사 ||  ||  || др-гирс ||  ||  || tiến-sĩ-gears || gears博士 ||  
+|| [/system:page-tags/tag/doctor-kondraki doctor-kondraki] || kondraki博士 || doktor-kondraki || doctor-kondraki || dr-kondraki || dottor-kondraki || コンドラキ博士 || 콘드라키-박사 ||  ||  || др-кондраки ||  ||  || tiến-sĩ-kondraki || kondraki博士 ||  
+|| [/system:page-tags/tag/grand-karcist-ion grand-karcist-ion] || 大术士亚恩 || großkarzist-ion ||  || grand-karciste-ion || grande-karcista-ion || 崇高なるカルキスト・イオン || 위대한-카르시스트-이온 ||  ||  ||  ||  ||  || đại-pháp-quan || 大術士伊仰 ||  
+|| [/system:page-tags/tag/kain-pathos-crow kain-pathos-crow] || kain-pathos-crow || kain-pathos-crow || kain-pathos-crow || kain-pathos-crow || kain-pathos-crow || ケイン教授 || 케인-파토스-크로우 ||  || || пэйтос-кроу ||  ||  ||  || kain-pathos-crow ||  
+|| [/system:page-tags/tag/robert-bumaro robert-bumaro] || robert-bumaro || robert-bumaro || robert-bumaro || robert-bumaro || robert-bumaro || ロバート・ブマロ || 로버트-부마로 || ||  ||  ||  ||  ||  |||| robert-bumaro ||  
+|| [/system:page-tags/tag/amalia-mondragon amalia-mondragon] || amalia-mondragon || amalia-mondragon || amalia-mondragon ||amalia-mondragon || amalia-mondragon || || ||  ||  ||  ||  ||  ||  || amalia-mondragon || ||
+|| [/system:page-tags/tag/victor-penz victor-penz] || victor-penz|| victor-penz|| victor-penz||victor-penz|| victor-penz|| || ||  ||  ||  ||  ||  ||  || victor-penz|| ||
+@@ @@
+
+++ Locations
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT** || **JP** || **KO** || **PL** || **PT** || **RU** || **TH** || **UA** || **VN** || **ZH** ||
+|| [/system:page-tags/tag/alagadda alagadda] || alagadda || || || || || || || || alagadda || || ||  || || ||    
+|| [/system:page-tags/tag/backdoor-soho backdoor-soho] || 苏荷后门 || || || || || || || || backdoor-soho || || ||  || || ||    
+|| [/system:page-tags/tag/deus-ex-machina deus-ex-machina] || 机械降神 || || || || || || || || deus-ex-machina || || ||  || || ||    
+|| [/system:page-tags/tag/esterberg esterberg ] || 埃斯特堡 || || || || || || || || esterberg || || ||  || || ||    
+|| [/system:page-tags/tag/eurtec eurtec] || eurtec || || || || || || || || eurtec || || ||  || || ||    
+|| [/system:page-tags/tag/hy-brasil hy-brasil ] || 巴西岛 || || || || || || || || hy-brasil || || ||  || || ||    
+|| [/system:page-tags/tag/la-rue-macabre la-rue-macabre] || 骇灵街 || || || || || || || || la-rue-macabre || || ||  || || ||    
+||  [/system:page-tags/tag/three-portlands three-portlands] || 三波特兰 || three-portlands ||    || || ||  ||   ||   || três-portlands ||   ||   || || ||  ||
+||  [/system:page-tags/tag/undervegas undervegas] || 阴间维加斯 || ||  || || ||  ||   ||   || subvegas ||   ||   || || ||  ||
+||  [/system:page-tags/tag/wanderers-library wanderers-library] || 被放逐者之图书馆 || ||    || || ||  ||   ||   || biblioteca-do-viajante ||   ||   || || ||  ||
+
+@@ @@
+++ Content Markers
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT** || **JP** || **KO** || **PL** || **PT** || **RU** || **TH** || **UA** || **VN** || **ZH** ||
+|| [/system:page-tags/tag/_adult _adult] || || || || || || || || || || || ||  || || ||    
+|| [/system:page-tags/tag/_listpages _listpages] || || || || || || || || || || || ||  || || ||    
+|| [/system:page-tags/tag/audio audio] || 音频 || audio || audio || audio || audio || 音声添付 || 음성첨부 || audio || áudio ||  ||  ||  || tệp-âm-thanh || 音頻 ||  
+|| [/system:page-tags/tag/interactive interactive] || 互动性 || || || || || || || || interativo || || ||  || || ||    
+|| [/system:page-tags/tag/video video] || 视频 || || || || || || || || vídeo || || ||  || || ||    
+
+@@ @@
+++ Staff Processes
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT** || **JP** || **KO** || **PL** || **PT** || **RU** || **TH** || **UA** || **VN** || **ZH** ||
+|| [/system:page-tags/tag/event-featured event-featured] || 主题精品 ||  ||  ||  || articolo-evento || イベント-注目記事 || 이벤트-특집 ||  ||  ||  ||  ||  || sự-kiện ||活動展出 ||  
+|| [/system:page-tags/tag/featured featured] || 精品 || || || || || || || || || || ||  || || ||    
+|| [/system:page-tags/tag/metadata metadata] || || || || || || || || || || || ||  || || ||    
+
+@@ @@
+++ Tags no longer used on the EN Wiki
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT** || **JP** || **KO** || **PL** || **PT** || **RU** || **TH** || **UA** || **VN** || **ZH** ||
+|| [/system:page-tags/tag/cactaceous cactaceous] || 仙人掌 || || cactáceo || cactaceae || cactaceo || サボテン || 선인장 || kaktusowy || cactáceo || кактус ||  || кактус || xương-rồng || 仙人掌 ||  
+|| [/system:page-tags/tag/camelid camelid] || 骆驼 || || camélido || camélidé || cammellide || ラクダ || 낙타 || wielbłąd || camelídeo || верблюд ||  || верблюд || lạc-đà || 駱駝 ||  
+|| [/system:page-tags/tag/chelonian chelonian] || 龟类 || schildkrötenartig || quelonio || chélonien || chelonio || 亀 || 거북 || żółw || tartaruga || черепаха ||  || черепаха || rùa || 龜類 ||  
+|| [/system:page-tags/tag/clay clay] || 泥土 || || arcilla || argile || argilla || 粘土 || 점토 || glina || argila || глина ||  || глина || đất-sét || 泥土 ||  
+|| [/system:page-tags/tag/cube cube] || 立方体 || würfel || cubo || cube || cubo || 立方体 || 입방체 || sześcian || cubo || куб ||  || куб || lập-phương || 立方體 || 
+|| [/system:page-tags/tag/formic formic] || 蚂蚁 || || fórmico || formicidae || formico || 蟻 || 개미 || mrówka || fórmico || муравей ||  || мураха || kiến || 螞蟻 ||  
+|| [/system:page-tags/tag/furniture furniture] || 家具 || || mueble || mobilier || arredamento || 家具 || 가구 || meble || mobília || мебель ||  || меблі || nội-thất || 家具 ||  
+|| [/system:page-tags/tag/glass glass] || 玻璃 || || vidrio || verre || vetro || ガラス || 유리 || szkło || vidro || стекло ||  || скло || thủy-tinh || 玻璃 ||  
+|| [/system:page-tags/tag/key key] || 钥匙 || schlüssel || llave || clé || chiave || 鍵 || 열쇠 || klucz || chave || ключ ||  || ключ || chìa-khóa || 鑰匙 ||  
+|| [/system:page-tags/tag/metallic metallic] || 金属 || || metálico || métallique || metallico || 金属 || 금속 || metal || metálico || металл ||  || металевий || kim-loại || 金屬 || 
+|| [/system:page-tags/tag/omnivorous omnivorous] || 杂食性 || omnivor || omnívoro || omnivore || onnivoro || 雑食 || 잡식성 || wszystkożerność || omívoro || всеядный ||  || всеїдний || ăn-tạp || 雜食性 ||  
+|| [/system:page-tags/tag/ovine ovine] || 羊类 || schafsartig || ovino || ovin || ovino || 羊 || 양 || owca || ovino || овца ||  || вівця || cừu || 羊類 ||  
+|| [/system:page-tags/tag/physics physics] || 反物理定律 || physikalisch || física || physique || fisico || 物理法則 || 물리학 || fizyka || física || физика ||  || фізика || vật-lý || 反物理定律 ||  
+|| recording (retagged [/system:page-tags/tag/media media]) || 记录 || aufnahme || grabación || enregistrement || registrazione || 録画 or 録音 || 녹음 || nagranie || gravação || запись ||  || запис || bản-ghi || 記錄 ||  
+|| [/system:page-tags/tag/sentient sentient] || 感知力 || || consciente || conscient || senziente || 自我 || 지각 || świadomość || senciente || одушевлённый ||  || свідомий || ý-thức || 感知力 ||
+|| [/system:page-tags/tag/spacetime spacetime] (retagged [/system:page-tags/tag/spatial spatial] or  [/system:page-tags/tag/temporal temporal])|| 时空 || raumzeit || espacio-tiempo || espace-temps || spaziotempo || 時空間 || 시공간 || czasoprzestrzeń || espaço-tempo || пространство-время ||  || час-простір || không-thời-gian || 時空 ||   
+|| [/system:page-tags/tag/stone stone] || 石质 || || piedra || pierre || pietra || 石 || 돌 || kamień || pedra || камень ||  || камінь || đá || 石頭 ||  
+|| [/system:page-tags/tag/template template] || 样版 || template || formato || modèle || template || テンプレート || 템플릿 ||  || modelo ||  ||  ||  || mẫu || 模板 ||  
+|| [/system:page-tags/tag/vulpine vulpine] || 狐狸 || fuchsartig || vulpino || vulpes || volpesco || キツネ || 여우 || lis || vulpino || лиса ||  || лисиця || cáo || 狐狸 ||  
+|| [/system:page-tags/tag/wooden wooden] || 木质 || hölzern || madera || bois || di-legno || 木製 || 목제 || drewno || madeira || деревянный ||  || дерев'яний || gỗ || 木質 || 
+|| [/system:page-tags/tag/xenarthran xenarthran] || 异关节目 || nebengelenktierartig || xenartro || xénarthre || xenartro || 異節目 || 빈치류 || pancernik || desdentado || неполнозубое ||  || неповнозубе || xenarthra || 異關節總目 ||    
+
++ International Tags
+
+++ International Groups of Interest 
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT**|| **KO** || **JP** || **PT** || **PL** || **RU** || **TH** || **UA** || **VN** || **ZH** || **Description** ||
+|| [/system:page-tags/tag/05 05] || 05|| 05|| || || || 05|| 05|| 05 || || || || || || 05 || SCP is of or related to the 05 Council group of interest. || 
+|| [/system:page-tags/tag/19th-bureau 19th-bureau] || || || || || || || || 19-departamento || || || || || || 國安十九局 ||" SCP is of or related to the 19th Bureau of MSS, PRC group of interest. "|| 
+|| [/system:page-tags/tag/4-r 4-r] || 4-r || 4-r || || 4-r || || 4-r || 4-r || 4-r || || Четвертый_Рейх || || || || || SCP is of or related to the Fourth Reich group of interest. || 
+|| [/system:page-tags/tag/aaa aaa] || || || || amateurs || || 아마추어 || || amadores || || Четвертый_Рейх || || || || || SCP is of or related to the Association of the Abnormality Amateurs group of interest. || 
+|| [/system:page-tags/tag/abnormality-institute abnormality-institute] || 异学会 || || || || || 이학회 || 異学会 || instituto-anormalidades || || || || || || 異學會 || SCP is of or related to the Abnormality Institute group of interest. || 
+|| [/system:page-tags/tag/aesthetic-of-music-sound aesthetic-of-music-sound] || || || || || || 음률미학 || || estética-som-música || || || aesthetic-of-music-sound || || || || SCP is of or related to the Aesthetic of Music Sound group of interest. || 
+|| [/system:page-tags/tag/aki-corp aki-corp] || || || || || || aki상사 ||" aki商事 "|| aki-corp || || || || || || || SCP is of or related to the AKI Corporation group of interest. ||
+|| [/system:page-tags/tag/alda alda] || || || || || alda || || || alda || || || || || || || SCP is of or related to the Association for the Liberation and Distribution of Anomalous group of interest. ||
+|| [/system:page-tags/tag/angriff angriff] || || pora || || || || || pora || angriff || || П.О.Р.А || || п.о.р.а. || || || SCP is of or related to the Political Organisation of the Rukh “Angriff” group of interest. || 
+|| [/system:page-tags/tag/annihilism annihilism] || || || || || || ||絶滅主義|| aniilismo || || аннигилизм || || анігілізм || || || SCP is of or related to the Annihilism group of interest. || 
+|| [/system:page-tags/tag/anonymous-eyes anonymous-eyes] || || || || || || || || olhos-anônimos || || || || || || ||" SCP is of or related to the Anonymous Eyes, LTDA. group of interest. "||
+|| [/system:page-tags/tag/antares-society antares-society] || 心宿二协会 || antares-gesellschaft || sociedad-antares || société-antarès || || 안타레스-결사 || アンタレス協会 || sociedade-antares || || Общество_Антарес || || || || 心宿二協會 || SCP is of or related to the Antares Society group of interest. || 
+|| [/system:page-tags/tag/antihuman-faction antihuman-faction] || || antihuman-fraktion || || || || || || facção-anti-humanos || || || || || || || SCP is of or related to the Antihuman Faction group of interest. || 
+|| [/system:page-tags/tag/astronomy-dept astronomy-dept] || || || || || || 천문학부 || || || || || || || || || SCP is of or related to the Department of Astronomy. ||
+|| [/system:page-tags/tag/aooa aooa] || || || || baao || || baao || || aooa || || || || || || || SCP is of or related to the African Office of Occult Affairs group of interest. || 
+|| [/system:page-tags/tag/argus argus] || || || || || || 아르구스 || || argus || argus || || || || || || SCP is of or related to the A.R.G.U.S. Inc. group of interest. ||
+|| [/system:page-tags/tag/association-of-black-magic-power-users association-of-black-magic-power-users] || || || || || || 흑마술사용자협회 || || associação-usuários-poderes-magia-negra || || || association-of-black-magic-power-users || || || || SCP is of or related to the The Association of Black Magic Power Users group of interest. || 
+|| [/system:page-tags/tag/association-of-mutants association-of-mutants] || || || || || || 돌연변이협회 || || associação-mutantes || || || association-of-mutants || || || || SCP is of or related to the Association of Mutants group of interest. ||
+|| [/system:page-tags/tag/bad-trip bad-trip] || || || || || || || || bad-trip || || || || || || || SCP is of or related to the Bad Trip group of interest. ||
+|| [/system:page-tags/tag/bell-thrower bell-thrower] || || || || || || || || lança-sino || || || || || || 拋鈴人 || SCP is of or related to the Bell Thrower group of interest. ||
+|| [/system:page-tags/tag/beyond-entropy beyond-entropy] || 超熵 || || || || || 엔트로피를-넘어서 || エントロピーを越えて || além-entropia || || || || || || || SCP is of or related to the Beyond Entropy group of interest. || 
+|| [/system:page-tags/tag/blue-club blue-club] || || || || || || || || clube-azul || || || || || || 藍色俱樂部 || SCP is of or related to the Blue Club group of interest. ||
+|| [/system:page-tags/tag/brazilian-superintendence brazilian-superintendence] || || || || || || || || superintendência-brasileira || || || || || || || SCP is of or related to the Brazilian Superintendence of the Paranormal group of interest. ||
+|| [/system:page-tags/tag/brothers-foodstuffs brothers-foodstuffs] || || || || || || || 弟の食料品 || produtos-alimentícios-irmão || || || || || || || SCP is of or related to the Brother's Foodstuffs group of interest. ||
+|| [/system:page-tags/tag/caecus-c caecus-c] || 玛瑙盲者 || caecus-c || || caecus-c || || 눈먼-c || caecus-c || caecus-c || || || || || || || SCP is of or related to the Caecus-Carneliana Collective group of interest. || 
+|| [/system:page-tags/tag/caldeira caldeira] || || || || caldeira || || 칼데라 || || caldeira || || || || || || || SCP is of or related to the Caldeira group of interest. ||
+|| [/system:page-tags/tag/christina-college christina-college] || cc || christina-college || || || || || cc || cc || || || || || || 聖克莉斯汀娜書院 || SCP is of or related to the St. Christina College group of interest. || 
+|| [/system:page-tags/tag/ccsg ccsg] || || || || || ccsg || || || ccsg || || || || || || || SCP is of or related to the Confraternity of Saint George's Knights group of interest. ||
+|| [/system:page-tags/tag/celeste celeste] || || || || || || 셀레스트 || || celeste || || || || || || || SCP is of or related to the Celeste group of interest. ||
+|| [/system:page-tags/tag/cfo cfo] || 神秘法西斯委员会 || || || || cfo || || || cfo || || || || || || || SCP is of or related to the Fascist Council of the Occult group of interest. ||
+|| [/system:page-tags/tag/cgom cgom] || || || || || cgom || || || cgom || || || || || || || SCP is of or related to the Cult of the Great Eye of the Mediterranean group of interest. ||
+|| [/system:page-tags/tag/cha-ling-guerrilla cha-ling-guerrilla] || || || || || || || || guerrilha-cha-ling || || || || || || 茶嶺常備隊 || SCP is of or related to the Cha-Ling Guirrella group of interest. ||
+|| [/system:page-tags/tag/chopinian-cult chopinian-cult] || || || || || || 쇼팽교 || || culto-chopiniano ||" kult-chopinowski "|| || || || || || SCP is of or related to the Chopinian Cult group of interest. ||
+|| [/system:page-tags/tag/Chŏnghæjin Chŏnghæjin] || || || || || || 청해진 || || Chŏnghæjin || || || || || || || SCP is of or related to the Chŏnghæjin group of interest. ||
+|| [/system:page-tags/tag/cicp cicp] || || || || || || 환상섬동맹 || 幻島同盟 || cicp || || || || || || || SCP is of or related to the Confederate Island Countries of Phantom group of interest. ||
+|| [/system:page-tags/tag/cma cma] || mac || || mac || mac || || mac || || cma || || || || || mac || 古巴異常部 || SCP is of or related to the Cuban Ministry of Anomalies group of interest. || 
+|| [/system:page-tags/tag/cobweb-int cobweb-int] || || || || || || || || cobweb-int || || || || || || 蛛網國際 || SCP is of or related to the Cobweb International group of interest. ||
+|| [/system:page-tags/tag/commission commission] || 特别安全委员会 || || comisaría || || || 안보특수판무처 || || comissão || || || || || || || SCP is of or related to the Special Security Commission group of interest. || 
+|| [/system:page-tags/tag/dark-sushi dark-sushi] || 闇寿司 || || || || || 어둠의-초밥 || 闇寿司 || sushi-negro || || || || || ||闇壽司|| SCP is of or related to the Dark Sushi group of interest. || 
+|| [/system:page-tags/tag/datssu datssu] || 乌克兰国安异常部 || || || || || ||sbu-異常対策部|| datssu || || || || ваз_сбу || || || SCP is of or related to the Department of Abnormal Threats of the Security Service of Ukraine group of interest. || 
+|| [/system:page-tags/tag/dept-of-logic dept-of-logic] || 逻辑部 || || || || || || || departamento-lógica || || || || || || || SCP is of or related to the Department of Logic group of interest. ||
+|| [/system:page-tags/tag/dimensiology-dept dimensiology-dept] || || || || || || 차원학부 || || || || || || || || || SCP is of or related to the Department of Dimensiology. || 
+|| [/system:page-tags/tag/dinodons-hand dinodons-hand] || || dinodons-hand || || || || 능구렁이-손 || 赤斑蛇の手 || mão-da-dinodon || || || || || ||赤鏈蛇之手|| SCP is of or related to the Dinodon's Hand (Korean Serpent's Hand) group of interest. || 
+|| [/system:page-tags/tag/division-xxv division-xxv] || 二十五号部门 || abteilung-xxv || || département-xxv || || 제25분견국 || 第25局 || divisão-xxv || || Отдел_xxv || || || || || SCP is of or related to the Division XXV group of interest. || 
+|| [/system:page-tags/tag/doctor doctor] || 博士 || || || || || 박사 || 博士 || doutor || || || || || || ||" SCP is of or related to the ""Doctor"" group of interest. "||
+|| [/system:page-tags/tag/dreaming-tech dreaming-tech] || 梦见科技 || || || || || 꿈결-테크놀로지 || 夢見テクノロジー || dreaming-tech || || || || || || || SCP is of or related to the Dreaming Technology group of interest. ||
+|| [/system:page-tags/tag/drunkness-street drunkness-street] || 酩酊街 || || || || || 명정가 || 酩酊街 || rua-bebuns || || || || || || 酩酊街 || SCP is of or related to the Drunkness Street group of interest. || 
+|| [/system:page-tags/tag/eco-press eco-press] || ECO出版社 || eco-press || || || || eco출판사 || eco出版社 || editora-eco || || || || || || || SCP is of or related to the ECO Press group of interest. ||
+|| [/system:page-tags/tag/elma elma] || 厄尔玛外教 || elma || || || || 엘마외교 || エルマ外教 || elma || || || || || ||艾爾瑪異教|| SCP is of or related to the ElMA Gaikyo group of interest. || 
+|| [/system:page-tags/tag/fan-guang fan-guang] || || || || fanguang || || || 繁広 || fan-guang || || || || || || 繁廣 || SCP is of or related to the Fan-Guang Chemistry group of interest. ||
+|| [/system:page-tags/tag/febris-pharmaceuticals febris-pharmaceuticals] || || || || || febris-farmaceutica || || || febris-farmacêuticos || || || || || ||  || SCP is of or related to the Febris Pharmaceuticals group of interest. ||
+|| [/system:page-tags/tag/fixed-flowers fixed-flowers] || 修正花卉 || || || || || 수정화훼 || 修正花卉 || flores-firmes || || || || || || || SCP is of or related to the Fixed Flowers group of interest. || 
+|| [/system:page-tags/tag/galactic-federation galactic-federation] || 银河联邦 || || || || || 은하연방 || 銀河連邦 || federação-galáctica || || || || || ||銀河聯邦 || SCP is of or related to the Galactic Federation group of interest. || 
+|| [/system:page-tags/tag/gec gec] || 全球轰炸联盟 || || || || || || || gec || || || || || || || SCP is of or related to the Global Explosion Coalition group of interest. ||
+|| [/system:page-tags/tag/gendastrerie gendastrerie] || || || || gendastrerie || || 성경대 || || gendastrerie || || || || || || || SCP is of or related to the French National Gendastrerie group of interest. ||
+|| [/system:page-tags/tag/gentilshommes gentilshommes] || 绅士团 || gentilshommes || || gentilshommes || || 신사회 || || cavalheiros || || || || || || || SCP is of or related to the Humanist Gentlemen group of interest. || 
+|| [/system:page-tags/tag/ggg ggg] || || || || || || ||腐ち乱れる神の霊峰|| ggg || || ГГГ || || || || || SCP is of or related to the Grotto of the Gangrenous God group of interest. ||
+|| [/system:page-tags/tag/gogyō-kessha gogyō-kessha] || || || || || || 오행결사 ||" 五行結社 "|| gogyō-kessha || || || || || || || SCP is of or related to the Gogyō-Kessha group of interest. ||
+|| [/system:page-tags/tag/gpexpress gpexpress] || gp快递 || gp-express || || || || gp택배 || gpエクスプレス || gpexpress || || || || || || || SCP is of or related to the GpExpress group of interest. || 
+|| [/system:page-tags/tag/great-green-god great-green-god] || 伟大绿神 || großen-grünen-gottes || gran-dios-verde || || || 대록신교 || 偉大なる緑の神 || grande-deus-verde || || || || || || 偉大綠神崇拜 || SCP is of or related to the Cult of the Great Green God group of interest. || 
+|| [/system:page-tags/tag/green-hands green-hands] || || || || || || || || mãos-verdes || || || || || || || SCP is of or related to the Mãos Verdes group of interest. ||
+|| [/system:page-tags/tag/green-sparrow-foundation green-sparrow-foundation] || 绿麻雀基金会 || || || || || 녹마 || || green-sparrow || || || || || || || SCP is of or related to the Green Sparrow Foundation group of interest. ||
+|| [/system:page-tags/tag/hero hero] || 超电救助队HERO || || || || || 초전구조대-히어로 || 超電救助隊hero || hero || || || || || || || SCP is of or related to the Hyper Electric Rescue Organization HERO group of interest. ||
+|| [/system:page-tags/tag/hive hive] || || || || || || || || colmeia || || || || || || || SCP is of or related to the Hive group of interest. ||
+|| [/system:page-tags/tag/home-wonders home-wonders] || 辉煌居业 || || || || || 놀라운살림 || 荘厳住宅 || maravilhas-domésticas || wspaniałości-mieszkaniowe || || || || || || SCP is of or related to the Home Wonders group of interest. || 
+|| [/system:page-tags/tag/humanity humanity] || || || || humanité || || 진인류 || || humanidade || || || || || || || SCP is of or related to the Humanity group of interest. ||
+|| [/system:page-tags/tag/hunter-industries hunter-industries] || || || || || || || || hunter-industries || hunter-industries || || || || || || SCP is of or related to the Hunter Industries group of interest. ||
+|| [/system:page-tags/tag/hunting-club hunting-club] || || || || || || || || clube-de-caça || || || || || || || SCP is of or related to the Hunting Club of the Fauna and the Flora group of interest. || 
+|| [/system:page-tags/tag/imaginanimal imaginanimal] || || imaginanimal || || || || 이매지내니멀 || imaginanimal || imaginanimal || || || || || || || SCP is of or related to the Imaginanimal group of interest. || 
+|| [/system:page-tags/tag/imbw imbw] || || imbw || || imbw || || imbw || || imbw || || || || || || || SCP is of or related to the IMBW group of interest. || 
+|| [/system:page-tags/tag/initiative initiative] || || initiative || || || || || 人類復興イニシアチブ || iniciativa || || || || || || || SCP is of or related to the Initiative for the Restoration of Humanity group of interest. || 
+|| [/system:page-tags/tag/isanagi-clan isanagi-clan] || || || || || || 이사나기-일족 || 日奉一族 || clã-isanagi || || || || || || || SCP is of or related to the Isanagi Clan group of interest. ||
+|| [/system:page-tags/tag/iwanaga-association iwanaga-association] || || || || || || 이와나가-미용조합 || イワナガ美容組合 || associação-iwanaga || || || || || || || SCP is of or related to the Iwanaga Beauty Association group of interest. ||
+|| [/system:page-tags/tag/jagpato jagpato] || || || || || || 작파토 || jagpato || jagpato || || || || || || || SCP is of or related to the Japanese Anomalous Groups Peace and Amity Treaty Organization group of interest. ||
+|| [/system:page-tags/tag/jie-men jie-men] || || || || || || || || jie-men || || || || || || 截門 || SCP is of or related to the Jie-men group of interest. ||
+|| [/system:page-tags/tag/joicl joicl] || 日本生类创研 || joicl || || || || 일본생류창연 || 日本生類創研 || joicl || || || || || || 日本生類創研 || SCP is of or related to the Japan Organisms Improvement and Creation Laboratory group of interest. || 
+|| [/system:page-tags/tag/kamikase-clan kamikase-clan] || || || || || || 카미카세-일족 ||" 神枷一族 "|| clã-kamikase || || || || || || || SCP is of or related to the Kamikase Clan group of interest. ||
+|| [/system:page-tags/tag/kcia-10th-bu kcia-10th-bu] || || || || || || 중앙정보부 제10국 || || kcia-10th-bu || || || || || || ||" The 10th Bureau, Korean Central Intelligence Agency "||
+|| [/system:page-tags/tag/kisaragi-constr kisaragi-constr] || 如月工务店 || || || || || 키사라기-공무점 || 如月工務店 || kisaragi-construction || || || || || ||如月工務店 || SCP is of or related to the Kisaragi Construction group of interest. || 
+|| [/system:page-tags/tag/knowing-publishing knowing-publishing] || || || || || || 알음출판 || || knowing-publishing || || || knowing-publishing || || || || SCP is of or related to the Knowing Publishing group of interest. ||
+|| [/system:page-tags/tag/koigarezaki-simbun koigarezaki-simbun] || || || || || || 코이가레자키신문사 || 恋昏崎新聞社 || koigarezaki-simbun || || || || || || || SCP is of or related to the Koigarezaki Simbun group of interest. ||
+|| [/system:page-tags/tag/kuiyang kuiyang] || 岿阳派 || kuiyang || || || || 규양파 || クイヤン派 || kuiyang || || || || || || 巋陽派 || SCP is of or related to the Kuiyang Sect group of interest. ||
+|| [/system:page-tags/tag/laundry-department laundry-department] || || || || || || || 洗濯部門 || departamento-lavanderia || || || || || || 洗衣部門 || SCP is of or related to the Laundry Department of interest. ||
+|| [/system:page-tags/tag/lefty lefty] || 左撇子 || || || || || 왼손잡이 ||左利き|| canhoto || || Левша || || || || ||" SCP is of or related to the ""Lefty"" individual of interest. "||
+|| [/system:page-tags/tag/letters-entertainment letters-entertainment] || letters娱乐 || letters_entertainment || || || || 레터스-오락 || レターズ・エンターテイメント || letters-entertainment || || || || || || || SCP is of or related to the Letters Entertainment group of interest. || 
+|| [/system:page-tags/tag/liferaft liferaft] || || || || || || 라이프크래프트 || ライフラフト || liferaft || || || || || || || SCP is of or related to the Liferaft group of interest. ||
+|| [/system:page-tags/tag/lofia lofia] || || || || || || || || lofia || || || || || || Lofia || SCP is of or related to the Lofia group of interest. ||
+|| [/system:page-tags/tag/logos logos] || logos公司 || || || || || ||ロゴス|| logos || || Логос || || || || || SCP is of or related to the Logos Inc. group of interest. ||
+|| [/system:page-tags/tag/madao madao] ||美第奇神秘艺术学院 || madao || || || madao || || || madao || || || || || || 麥地奇藝術學院 || SCP is of or related to the Medicean Academy of Occult Art group of interest. || 
+|| [/system:page-tags/tag/mages-academy mages-academy] || 魔法学院 || magierakademie || || académie-des-mages || || 마술사한림 || || academia-magos || || || || || || || SCP is of or related to the Mages Academy group of interest. || 
+|| [/system:page-tags/tag/magic-orchestra magic-orchestra] || 魔法乐团 || || || || || 마법악단 || || orquestra-mágica || || || || || || || SCP is of or related to the The Magic Orchestra group of interest. ||
+|| [/system:page-tags/tag/manchuria-anomaly-office manchuria-anomaly-office] || || || || || || || || escritório-anomalias-manchúria || || || || || || 滿州國異常辦公室 || SCP is of or related to the Manchuria Office of Anomalies group of interest. ||
+|| [/system:page-tags/tag/maze maze] || 迷宫 || || || || || ||迷宮|| maze || || || || || || || SCP is of or related to the Maze group of interest. ||
+|| [/system:page-tags/tag/meat-circus meat-circus] || 缝合杂技团 || || || cirque-sanglant || || || ミート・サーカス || circo-carne || || Мясной_цирк || || || || || SCP is of or related to the Meat Circus group of interest. || 
+|| [/system:page-tags/tag/midnight-club midnight-club] || || || || || || 심야클럽 || || clube-meia-noite || || || || || || || SCP is of or related to the Clube da Meia-Noite group of interest. ||
+|| [/system:page-tags/tag/mm-wk mm-wk] || 奇物室 || mm-wk || || mm-et-cdm || || 진품실 || mm+wk || mm-wk || || || || || || 奇物室 || SCP is of or related to Ms Mirabilis and Das Wunderkabinett group of interest. || 
+|| [/system:page-tags/tag/mr-royer mr-royer] || || || || || || 로이어씨 || || sr-royer || || || mr-royer || || || ||" SCP is of or related to the Millionaire, Mr. Royer group of interest. "||
+|| [/system:page-tags/tag/mr.fang mr.fang] || 房先生 || || || || || || || sr.fang || || || || || || || SCP is of or related to the Mr. Fang group of interest. ||
+|| [/system:page-tags/tag/mr.k mr.k] || mr.k || || || || || || || sr.k || || || || || || || SCP is of or related to the Mr. K group of interest. ||
+|| [/system:page-tags/tag/mu-yi mu-yi] || || || || mu-yi || || || 木易 || mu-yi || || || || || || 木易 || SCP is of or related to the Mu Yi Private Library and Museum group of interest. || 
+|| [/system:page-tags/tag/mujin-getsudō-shū mujin-getsudō-shū] || || || || || || 무진월도중 || 無尽月導衆 || mujin-getsudō-shū || || || || || || || SCP is of or related to the Mujin-Getsudō-Shū group of interest. ||
+|| [/system:page-tags/tag/nemo-and-the-nautilus nemo-and-the-nautilus] || n&n || némo-et-le-nautilus || || némo-et-le-nautilus || || 노틸러스호 ||ネモ・アンド・ノーチラス || nemo-e-o-nautilus || || || || || || || SCP is of or related to the Nemo and the Nautilus group of interest. || 
+|| [/system:page-tags/tag/new-Sze-Shan new-Sze-Shan] || || || || || || || || nova-Sze-Shan || || || || || || 新四山小學 || SCP is of or related to the New Sze-Shan Elementary School group of interest. ||
+|| [/system:page-tags/tag/nobody-theatre nobody-theatre] || 无名者剧院 || || || || || || || teatro-ninguém || || || || || || || SCP is of or related to the Nobody's Theatre group of interest. ||
+|| [/system:page-tags/tag/noonday-oak-troupe noonday-oak-troupe] || || || || || || 떡갈나무 || 樫の木 || trupe-carvalho-meio-dia || || || || || || || SCP is of or related to the Noonday Oak Troupe (NOTE) group of interest. || 
+|| [/system:page-tags/tag/npes npes] || || || || || || 국가초상방재원 || || npes || || || || || || || SCP is of or related to the National Paranormal Emergency Service group of interest. ||
+|| [/system:page-tags/tag/nsb-8 nsb-8] || || || bsn-8 || || || || 第八処 || nsb-8 || || || || || || 第八處 ||" SCP is of or related to The 8th Department of the National Security Bureau, R. O. C. (NSB-8) group of interest. "|| 
+|| [/system:page-tags/tag/obmedia obmedia] || ob传媒 || obmedia || || || || ob전매 || obメディア || obmultimídia || || || || || || || SCP is of or related to the OB Media group of interest. || 
+|| [/system:page-tags/tag/oc-m oc-m] || || || || || oc-m || || || oc-m || || || || || || || SCP is of or related to the Organym Cybo-Malaspina group of interest. ||
+|| [/system:page-tags/tag/oi oi] || || || || || oi || || || oi || || || || || || || SCP is of or related to the Ordo Iani (Order of Janus) group of interest. ||
+|| [/system:page-tags/tag/order-of-light order-of-light] || 光明骑士团 || orden-des-lichts || || ordre-de-la-lumière || || 빛의-수도회 || リュミエール騎士団 || ordem-da-luz || || Орден_Света || || || || || SCP is of or related to The Order of Light group of interest. || 
+|| [/system:page-tags/tag/pamwac pamwac] || pamwac || pamwac || || || || 파무왁 || pamwac || pamwac || || || || || || pamwac || SCP is of or related to the PAMWAC (research Projects Agency for the Marriage With Anime Characters) group of interest. || 
+|| [/system:page-tags/tag/pangea pangea] || || || || pangea || || || ||" pangeia "|| || || || || || || SCP is of or related to the PANGEA group of interest. ||
+|| [/system:page-tags/tag/paracivilian-agency paracivilian-agency] || || || || || || || || agência-paracivil || || || || || || 民異署 || SCP is of or related to the National Paracivilian Agency group of interest. || 
+|| [/system:page-tags/tag/pcs pcs] || pcs异度署 || || || || || pcs이도서 || || pcs || || || || || || || SCP is of or related to the PCS General Office of Anomalous Reality and Dimensional Research group of interest. ||
+|| [/system:page-tags/tag/plugsoft plugsoft] || 软插头 || || || || || 플러그소프트 || || plugsoft || || || || || || || SCP is of or related to the PlugSoft group of interest. ||
+|| [/system:page-tags/tag/poliejie-appliances poliejie-appliances] || || || || || || || || poliejie-eletrodomésticos || || || || || || 普列結家品有限公司 || SCP is of or related to the Poliejie Appliances group of interest. ||
+|| [/system:page-tags/tag/prichard-gakuin prichard-gakuin] || || Prichard Gakuin|| || || || || || || || || || || || || SCP is of or related to the Prichard Gakuin group of interest. ||
+|| [/system:page-tags/tag/primordial primordial] || || primordial || || primordial || || 주요단 || || primordial || || || || || || || SCP is of or related to the Primordial group of interest. ||
+|| [/system:page-tags/tag/progress-institute progress-institute] ||进步研究中心|| || || || || ||プログレス総研|| instituto-progresso || || НИИ_Прогресс || || || ||進步研究院||" SCP is of or related to the ""Progress"" Research Institute group of interest. "||
+|| [/system:page-tags/tag/psw psw] || || psw || || || || || || || psw || || || || || || SCP is of or related to the Pan-Slavic Resistance group of interest. || 
+|| [/system:page-tags/tag/pzga pzga] || pzga || pzga || || apcca || || pzga || pzga || pzga || pzga || ПСАГ || || || || pzga || SCP is of or related to the Polish Anomalous Mushroom Picking Association group of interest. || 
+|| [/system:page-tags/tag/raptor-tec raptor-tec] || 猛禽科技 || raptor-tec || || raptor-tech || || 랍토르테크 || ラプターテック || raptor-tec || || || || || || || SCP is of or related to the Raptor Tec Industries group of interest. || 
+|| [/system:page-tags/tag/ridia ridia] || || || || || ridia || || || ridia || || || || || || || SCP is of or related to the Royal Institvte of Italian Anomalies group of interest. ||
+|| [/system:page-tags/tag/robotic-republic robotic-republic] || 机器人共和国 || Robotische Republik || || || || ||ロボット共和国|| república-robótica || || || || республіка_роботів || || || SCP is of or related to the Robotic Republic group of interest. || 
+|| [/system:page-tags/tag/saiga-factions saiga-factions] || 犀贺派 || saiga-fraktionen || || || || 사이가파 || 犀賀派 || facções-saiga || || || || || || 犀賀派 || SCP is of or related to the Saiga-factions group of interest. || 
+|| [/system:page-tags/tag/samdaecheon samdaecheon] || || || || || || 삼대천 || || samdaecheon || || || || || || || SCP is of or related to the Samdaecheon group of interest. ||
+|| [/system:page-tags/tag/sapphire sapphire] || saphir || saphir || || saphir || || 사피르 || saphir || safira || || || || || || 藍寶石 || SCP is of or related to the SAPHIR group of interest. || 
+|| [/system:page-tags/tag/scemc scemc] || || || || || scemc || || || scemc || || || || || || || SCP is of or related to the Serenissimo Colejo degli Estri e dei Maùchi del Comùn (The Most Serene College of Anomalies and Oddities of the Municipality) group of interest. ||
+|| [/system:page-tags/tag/scientific-academy scientific-academy] || || || || || || || 異常科学アカデミー || academia-científica || || || || || || || SCP is of or related to the Scientific Academy of the Anomalous group of interest. || 
+|| [/system:page-tags/tag/sekiryu-club sekiryu-club] || 石榴俱乐部 || || || || || 석류구락부 || 石榴倶楽部 || clube-sekiryu || || || || || || 石榴俱樂部 || SCP is of or related to the Sekiryu Club group of interest. || 
+|| [/system:page-tags/tag/shining-lord shining-lord] || 光辉领主 || strahlende-herr || || || || || 輝かしき王 || senhor-brilhante || || || || яскравий_володар || || || SCP is of or related to the Shining Lord group of interest. || 
+|| [/system:page-tags/tag/shūshū-in shūshū-in] || 蒐集院 || shūshū-in || || || || 수집원 || 蒐集院 || shūshū-in || || || || || ||蒐集院 || SCP is of or related to the Shūshū-in group of interest. ||
+|| [/system:page-tags/tag/sisma sisma] || || || || || sisma || || || sisma || || || || || || || SCP is of or related to the Anomalous Materials Information and Security System group of interest. ||
+|| [/system:page-tags/tag/skp skp] || skp || skp || skp || || || skp || skp || skp || skp || || || || || || SCP is of or related to the Sonderkommando for the Paranormal group of interest. || 
+|| [/system:page-tags/tag/solis-custodes solis-custodes] || || || || || solis-custodes || || || solis-custodes || || || || || || || SCP is of or related to the Solis Custodes group of interest. ||
+|| [/system:page-tags/tag/special-affairs-division special-affairs-division] || || || || || || 공안부-특사과 ||" 公安部特事課 "|| divisão-assuntos-especiais || || || || || || ||" SCP is of or related to the Special Affairs Division, Public Security Bureau of Metropolitan Police Department group of interest. "||
+|| [/system:page-tags/tag/spi spi] || spi || || || || || spi || spi || spi || || || || || || || SCP is of or related to the Schistosoma Protect Institute group of interest. || 
+|| [/system:page-tags/tag/sruc sruc] || 卷袖俱乐部 || || || || || 걷은소매-구락부 || 袖まくり倶楽部 || sruc || || || || || || || SCP is of or related to the Sleeves Rolled Up Club group of interest. ||
+|| [/system:page-tags/tag/sustainability-division sustainability-division] || || || || || || 지속가능격리개발과 || || || || || || || || || SCP is of or related to the Division of Sustainable Containment Development. ||
+|| [/system:page-tags/tag/szwagier%26szwagier-motorized szwagier&szwagier-motorized] || 姐夫&妹夫机动车 || szwagier&szwagier-motorized || || || || 스파기에르-원동기 || || szwagier&szwagier-motorized || || || || || || || SCP is of or related to the Szwagier&Szwagier Motorized group of interest. || 
+|| [/system:page-tags/tag/team-zero team-zero] || || || || équipe-zéro || || || 零号専隊 || equipe-zero || || || || || || 零號專隊 ||" SCP is of or related to the Zero Team, Royal Hong Kong Police or Cha Ling Police Station group of interest. "|| 
+|| [/system:page-tags/tag/technothaumaturges technothaumaturges] || || || || || || || テクノタウマトルゴス || tecnotaumaturgos || || || || || || || SCP is of or related to the Technothaumaturges group of interest. || 
+|| [/system:page-tags/tag/the-alleys the-alleys] || || || || || || 골목길 || || os-becos || || || || || || || SCP is of or related to the Alleys group of interest. ||
+|| [/system:page-tags/tag/the-civilian the-civilian] || || || || || || 민간인 || || o-civil || || || the-civilian || || || || SCP is of or related to the Civilian group of interest. ||
+|| [/system:page-tags/tag/the-doctor the-doctor] || the-doctor || || || || || 의사 || 博士 || o-doutor || || || || || || 博士 || SCP is of or related to The Doctor group of interest. ||
+|| [/system:page-tags/tag/the-order the-order] || || || || || || || || ordem-da-torre || || || || || || ||" SCP is of or related to the The Order of the Tower and Valour group of interest. "||
+|| [/system:page-tags/tag/the-pack the-pack] || || || || la-meute || || 애버딘-사냥패 || || a-matilha || || || || || || || SCP is of or related to the Aberdeen Pack group of interest. ||
+|| [/system:page-tags/tag/the-reliquary the-reliquary] || || || || || || || ||" relicário "|| || || || || || || SCP is of or related to the Reliquary group of interest. ||
+|| [/system:page-tags/tag/the-violet the-violet] || || || || || || 제비꽃 || || a-violeta || || || || || || || SCP is of or related to the Violet group of interest. ||
+|| [/system:page-tags/tag/three-enclosures three-enclosures] || 三垣 || || || || || || 三垣 || três-gabinetes || || || || || || 三垣 || SCP is of or related to the Three Enclosures Command/Council. || 
+|| [/system:page-tags/tag/tianyi-gang tianyi-gang] || || || || || || || || gangue-tianyi || || || || || || 天已堂 ||" SCP is of or related to the Tianyi Gang group of interest. "||
+|| [/system:page-tags/tag/tidesoft tidesoft] || || || || || || || || tidesoft || || || || || || 潮汐社 || SCP is of or related to the Tidesoft group of interest. ||
+|| [/system:page-tags/tag/ting ting] || TING论坛 || || || || || || ting || ting || || || || || || || SCP is of or related to the TING Forum group of interest. ||
+|| [/system:page-tags/tag/tou-hei tou-hei] || 东弊重工 || tou-hei || || || || 토헤이중공업 || 東弊重工 || tou-hei || || || || || || 東弊重工 || SCP is of or related to the Tou-hei group of interest. ||
+|| [/system:page-tags/tag/tsars-seers tsars-seers] || || || || voyants-du-tsar || || || ツァーリの賢人団 || profetas-tsar || || || || || || 沙皇先知協會 || SCP is of or related to the Tsar's Seers group of interest. || 
+|| [/system:page-tags/tag/ttt-co ttt-co] || || || || || || ttt사 || ttt社 || ttt-co || || || || || || || SCP is of or related to the Trismegistus Translation & Transportation‬ group of interest. ||
+|| [/system:page-tags/tag/tōno-yōkai-sanctuary tōno-yōkai-sanctuary] || || || || || || 토오노-요괴보호구 || 遠野妖怪保護区 || santuário-tōno-yōkai || || || || || || || SCP is of or related to the Tōno Yōkai Sanctuary group of interest. ||
+|| [/system:page-tags/tag/troupe-s troupe-s] || 剧组 || || || || || 극조 || || o-espetáculo || || || || || || || SCP is of or related to the Troupe S group of interest. || 
+|| [/system:page-tags/tag/unit-negative-numbers unit-negative-numbers] || || || || || || 부호부 || 負号部隊 || unidade-números-negativos || || || || || || ||" SCP is of or related to the Imperial Japanese Army Special Medical Force (a.k.a. ""Unit Negative Numbers"") group of interest. "||
+|| [/system:page-tags/tag/univers-isle univers-isle] || || univers-île || || univers-île || || 위니베르실 || || univers-ilha || || || || || || || SCP is of or related to the Univers'Island group of interest. || 
+|| [/system:page-tags/tag/wind-dew wind-dew] || 风露旅社 || || || || || || || wind-dew || || || || || || || SCP is of or related to the Wind Dew Travel Agency group of interest. ||
+|| [/system:page-tags/tag/wo-chiu-yee wo-chiu-yee] || || || || he-chaoyi || || || 和朝義 || wo-chiu-yee || || || || || || 和朝義 || SCP is of or related to the Wo Chiu Yee group of interest. || 
+|| [/system:page-tags/tag/www www] || || || || || || www || || www || www || || || || || || SCP is of or related to the WWW group of interest. || 
+|| [/system:page-tags/tag/yj-inc yj-inc] || || || || yuanji || || || 遠己 || yj-inc || || || || || || 遠己 || SCP is of or related to the YuanJi Biomedical Inc. group of interest. || 
+
+@@ @@
+++ International Canons and Tale Series
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT**|| **JP** || **KO** || **PL** || **PT** || **RU** || **TH** || **UA** || **VN** || **ZH** || **Description** ||
+|| [/system:page-tags/tag/1998 1998] || 1998 || 1998 || || || || 1998 || || || 1998 || || || || || 1998年 || Entries in the 1998 canon. ||
+|| [/system:page-tags/tag/after-aleph after-aleph] || aleph之从者 || nach-aleph || || après-aleph || || アレフ、その後 || || || || || || || || || Of or related to the After Aleph series. ||
+|| [/system:page-tags/tag/azure-skydome azure-skydome] ||  ||  || || || ||  || || ||  || || || || || 燦藍天穹 || Of or related to the Azure Skydome canon. ||
+|| || 再无异常 || || || retour-à-l-anormal || || || || || de-volta-ao-anormal || || || || || || Of or related to the Back to the Anomalous canon. ||
+|| || 翼 || hinter-den-kulissen || || dans-les-coulisses || || || || || por-trás-das-cenas || || || || || || Of or related to the Behind the Scenes canon. ||
+|| [/system:page-tags/tag/corpse-corpus corpse-corpus]||积尸缉拾|| ||cuerpo-corpus|| || || || || || corpus-cadáver || || || || ||屍體史體|| Of or related to the Corpse Corpus series. ||
+|| || || || || || ||dira|| || || dira || || || || || || Of or related to the DIRA canon.||
+|| [/system:page-tags/tag/foundation4k foundation4k] || 基金会4k || foundation4k || || || || 財団4k || 재단4k || || fundação4000 || || || || || ||" Of or related to the collaborative tales series ""Foundation 4K"". "||
+|| [/system:page-tags/tag/fusōki fusōki] || 扶桑纪 || || || || || 扶桑紀 || 부상기 || || fusōki || || || || || || Of or related to the Fusouki canon. ||
+|| [/system:page-tags/tag/h h] || || ||h|| || ||scp-h|| || || h ||h|| || || || || Of or related to the «H» (Hopetown) canon. ||
+|| [/system:page-tags/tag/human-resources human-resources] || 人类资源|| || || ressources-humaines || || || || || recursos-humanos || || || || || || Of or related to the Human Resources canon. ||
+|| [/system:page-tags/tag/ksg ksg] || 港城江 || kong-shing-gong || || || || 港城江 || || || ksg || || || || || || Related to the Kong Shing Gong canon ||
+|| [/system:page-tags/tag/linkage linkage] || linkage || linkage || || || || linkage || || || linkage || || || || || || Related to the linkAge canon ||
+|| [/system:page-tags/tag/machina machina] || || machina || || || || machina || 마키나 || || machina || || || || || || Related to the Machina canon ||
+|| [/system:page-tags/tag/manhattan-crisis manhattan-crisis] || 曼哈顿危机 || manhattan-krise || || || || マンハッタン・クライシス || || || || || || || || 曼哈頓危機 ||" Entries in the Manhattan Crisis series, part of the 1998 canon "||
+|| [/system:page-tags/tag/miracle-exposition miracle-exposition] || || || || || || 神異博覧会 || || || exposição-de-milagres || || || || || 神異博覽會 || Related to the Miracle Exposition canon ||
+|| [/system:page-tags/tag/mujin mujin] || 雾津 || mujin || || || || 霧津 || 무진 || || mujin || || || || ||霧津 || Of or related to the Mujin Yarn canon. ||
+|| [/system:page-tags/tag/navigation navigation] || || || || || || || || || navegação || || || || || 航海學 || Related to the Navigation canon ||
+|| [/system:page-tags/tag/nexus nexus] || || nexus || || || || || || || || || || || || || Of or related to the Nexus tale series. ||
+|| [/system:page-tags/tag/nucleon-bank nucleon-bank] || || || || || || || || || || || || || || 核裂擠兌 || Related to the Nucleon Bank canon ||
+|| [/system:page-tags/tag/project-reincarnation project-reincarnation] || || projekt-reincarnation || || || || || || || projeto-reencarnação || || || || || 轉世計劃 || Related to the Project Reincarnation canon ||
+|| || || || || || || || || || || || ||проєкт-бійня|| || || ||
+|| [/system:page-tags/tag/project-trickster project-trickster] || || projekt-trickster || || || || トリックスター計画 || || || projeto-trickster || || || || || || Related to the Project Trickster canon ||
+|| [/system:page-tags/tag/sapphire-u sapphire-u] || 蓝宝石天空 || sapphire-u || || || || || || || || || || || || || Related to the SAPPHIRE canon (Outdated Canon) ||
+|| [/system:page-tags/tag/skp skp] || skp || skp || || || || skp || || || skp || || || || || || Of or related to the Sonderkommando for the Paranormal canon. ||
+|| [/system:page-tags/tag/simony simony] || || || || || || || || || simonia || || || || || || Of or related to the Simony Canon. ||
+|| [/system:page-tags/tag/sky-and-earth sky-and-earth] || || himmel-und-erde || || || || || || || céu-e-terra || || || || || || Related to the Sky and Earth canon ||
+|| [/system:page-tags/tag/tales-of-alive tales-of-alive] || 生 || tales-of-alive || || || || || || || contos-da-vida || || || || || ||" Of or related to the collaborative tales series ""Alive"". "||
+|| [/system:page-tags/tag/unforgettable unforgettable] || 再难遗忘 || || || || || || || || inesquecível || || || || || ||" Of or related to the collaborative tales series ""Unforgettable"". "||
+
+@@ @@
+++ International Characters
+|| **EN** || **CN** || **DE** || **ES** || **FR** || **IT** || **JP** || **KO** || **PL** || **PT** || **RU** || **TH** || **UA** || **VN** || **ZH** || **Description** ||
+|| [/system:page-tags/tag/a.d. a.d.] || || || || || ||ad渉外長|| || || || || || а.д. || || || A.D. ||
+|| [/system:page-tags/tag/agent-dears agent-dears] || || agent-dears || || agent-dears || || || || || || || || || || || Agent Lylah Dears ||
+|| [/system:page-tags/tag/agent-peterson agent-peterson] || || agent-peterson || || || || || || || || || || || || || Agent Alice Peterson ||
+|| [/system:page-tags/tag/agent-kurusu agent-kurusu] || || || || || || エージェント・来栖 || || || || || || || || || Agent Kurusu Sakuya ||
+|| [/system:page-tags/tag/agent-xu agent-xu] || 特工许 || agent-xu || || || || エージェント・許 || || || || || || || || || Agent Xu Shanhua / Agent Yuru ||
+|| [/system:page-tags/tag/andrés-mondragón andrés-mondragón] || andrés-mondragón || andrés-mondragón || andrés-mondragón || || || || || || || || || || || || Andrés-Mondragón ||
+|| [/system:page-tags/tag/borja-dowell borja-dowell ] || || borja-dowell || borja-dowell || || || || || || || || || || || || Borja Dowell ||
+|| [/system:page-tags/tag/doctor-ad doctor-ad] || || doktor-ad || || || || || || || || || || || || ad博士 || Dr. Ad ||
+|| [/system:page-tags/tag/doctor-bales doctor-bales] || || doktor-bales || || || || || || || || || || || || bales博士 || Dr. Bales ||
+|| [/system:page-tags/tag/doctor-baeilho doctor-baeilho] || || || || || || || 배일호-박사 || || || || || || || || Dr. Bae Il-ho ||
+|| [/system:page-tags/tag/doctor-clara doctor-clara] || || || || || || || 클라라-박사 || || || || || || || || Dr. Clara ||
+|| [/system:page-tags/tag/doctor-faust doctor-faust] || faust博士 || doktor-faust || || || || || || || || || || || || || Doctor Stephan Faust ||
+|| [/system:page-tags/tag/doctor-kamiyama doctor-kamiyama] || || doktor-kamiyama || || || || 神山博士 || || || || || || || || || Doctor Kamiyama ||
+|| [/system:page-tags/tag/doctor-kris doctor-kris] || || doktor-kris || || || || || || || || || || || || kris博士 || Dr. Kris ||
+|| [/system:page-tags/tag/doctor-komov doctor-komov] || || || || || ||コモフ博士|| || || ||комов|| || || || ||Dr. Komov||
+|| [/system:page-tags/tag/doctor-kuwana doctor-kuwana] || 桑名博士 || doktor-kuwana || || || || 桑名博士 || || || || || || || || 桑名博士 || Doctor Kuwana||
+|| [/system:page-tags/tag/doctor-oowa doctor-oowa] || 大和博士 || doktor-oowa || || || || 大和博士 || || || || || || || || || Doctor Oowa von Bismarck||
+|| [/system:page-tags/tag/doctor-r████ doctor-r████] || || || || || ||r博士|| || || || || || др_Р████ || || || Doctor R████ ||
+|| [/system:page-tags/tag/doctor-reverberate doctor-reverberate] || || doktor-reverberate || || || || || || || || || || || || reverberate博士 || Dr. Reverberate ||
+|| [/system:page-tags/tag/doctor-surge doctor-surge] || || doktor-surge || || || || || || || || || || || || surge博士 ||" Dr. Shaman ""Sam"" Surge "||
+|| [/system:page-tags/tag/doctor-yakym doctor-yakym] || || doctor-yakym || || || || || || || || || || др_яким || || || Doctor Yakym ||
+|| [/system:page-tags/tag/itegiri-yō itegiri-yō] || 冻雾阳 || || || || || 凍霧陽 || || || || || || || || || Yō Itegiri (affiliated with JOICL) ||
+|| [/system:page-tags/tag/mtf-seher mtf-seher] || || mtf-seher || || || || || || || || || || || || ||" Mobile Task Force DE20-ℜ (20-Rena, „Seher”/""Seers"")"||
+|| [/system:page-tags/tag/nue-saigū nue-saigū] || || nue-saigū || || || || 鵺-斎宮 || || || || || || || || 鵺-齋宮 || Director Nue Saigū ||
+|| [/system:page-tags/tag/luisa-vander luisa-vander] || || luisa-vander || luisa-vander || || || || || || || || || || || || Researcher Luisa Vander|| 
+|| [/system:page-tags/tag/researcher-l.what researcher-l.what] || || researcher-l.what || || || || || || || || || || || || 研究員l.what || Researcher L.What ||
+|| [/system:page-tags/tag/richard-barnard richard-barnard] || richard-barnard || richard-barnard || richard-barnard || || || || || || || || || || || || Richard Barnard || 
+|| [/system:page-tags/tag/richard-dunwich richard-dunwich] || richard-dunwich || richard-dunwich || richard-dunwich || || || || || || || || || || || || Richard Dunwich || 
+|| [/system:page-tags/tag/scp-040-jp scp-040-jp] || 在下是猫 || scp-040-jp || || || || ねこです || || || || || || || || 貓咪 ||" SCP-040-JP, ""the cat"". "||
+|| [/system:page-tags/tag/scp-210-jp scp-210-jp] || || scp-210-jp || || || || scp-210-jp || || || || || || || || scp-210-jp || SCP-210-JP ||
+|| [/system:page-tags/tag/scp-1134-jp scp-1134-jp] || || scp-1134-jp || || || || scp-1134-jp || || || || || || || || ||" SCP-1134-JP (Katsu), proprietor of “Rotation Sushi Katsu” and sushiblade teacher. "||
+|| [/system:page-tags/tag/takao takao] || || takao || || || || タカオ || || || || || || || || ||" D-1028 (Takao), sushiblade student. "||
+|| [/system:page-tags/tag/tanaka-sensei tanaka-sensei] || || tanaka-sensei || || || || 田中先生 || || || || || || || || 「田中老師」 || Tanaka-sensei (SCP-1045-JP) ||
+|| [/system:page-tags/tag/tomson-famous tomson-famous] || || tomson-famous || || || || || || || || || tomson-famous || || || || Dr. Tomson Niranarm and Dr. Famous ||
+|| [/system:page-tags/tag/zhang-daoshi zhang-daoshi] || || zhang-daoshi || zhang-daoshi || || || 張道士 || || || || || || || || 張道士 || Zhang Daoshi ||
+
+@@ @@
+++ International Locations
+||  **EN** ||  **CN** ||  **DE** ||  **ES** ||  **FR** || **IT**||  **JP** ||  **KO** ||  **PL** ||  **PT** ||  **RU** ||  **TH** ||  **UA** ||  **VN** ||  **ZH** || **Description** ||
+|| [/system:page-tags/tag/aleph aleph ] ||  || aleph || || aleph || ||  ||   ||   || aleph ||   ||   || || || ||  Contained at or related to the Francophone Branch Site-Aleph. ||
+|| [/system:page-tags/tag/ayin ayin ] ||  || ayin || || ayin || ||  ||   ||   || ayin || ||   || || || ||  Contained at or related to the Francophone Branch Site-Ayin. ||
+||  [/system:page-tags/tag/area-cn-07 area-cn-07] ||  area-cn-07 || areal-cn-07 ||    || || ||  ||   ||   || área-cn-07 ||   ||   || || || ||  Contained at or related to Area-CN-07. ||
+||  [/system:page-tags/tag/area-cn-15 area-cn-15] ||  area-cn-15 || areal-cn-15 ||    || || ||  ||   ||   || área-cn-15 ||   ||   || || || ||  Contained at or related to Area-CN-15. ||
+|| [/system:page-tags/tag/beth beth] ||  || beth || || beth || ||  ||   ||   || beth ||   ||   || || || ||  Contained at or related to the Francophone Branch Site-Beth. ||
+|| [/system:page-tags/tag/ghimel ghimel] ||  || ghimel || || ghimel || ||  ||   ||   || ghimel ||   ||   || || || ||  Contained at or related to the Francophone Branch Site-Ghimel. ||
+||  [/system:page-tags/tag/hong-shing hong-shing] || 香城 || hong-shing ||    || || ||  || 香城  ||   || hong-shing ||   ||   || || || ||  Relating to the Location of Interest "Hong Shing" (SCP-CN-1997-1). ||
+||  [/system:page-tags/tag/koigarezaki koigarezaki] || 恋昏崎 || koigarezaki ||    || || ||  ||  恋昏崎 || || koigarezaki ||   ||   || || || 戀昏崎 ||  Relating to the Location of Interest "Koigarezaki". ||
+||  [/system:page-tags/tag/mobile-site-cn mobile-site-cn] ||  mobile-site-cn||  ||    || || ||  ||   ||   || sítio-móvel-cn ||   ||   || || || ||  Contained at or related to Mobile-Site-CN. ||
+|| [/system:page-tags/tag/he he] ||  ||  || || he || ||  ||   ||   || he ||   ||   || || || ||  Contained at or related to the Francophone Branch He Sites. ||
+|| [/system:page-tags/tag/lamedh lamedh] ||  || lamedh || || lamedh || ||  ||   ||   || lamedh ||   ||   || || || ||  Contained at or related to the Francophone Branch Site-Lamedh. ||
+|| [/system:page-tags/tag/kybian kybian] ||  || kybian || || kybian || ||  ||   ||   || kybian ||   ||   || || || ||  Contained at or related to the Francophone Branch Site-Kybian. ||
+|| [/system:page-tags/tag/mem mem] ||  || mem || || mem|| ||  ||   ||   || mem ||   ||   || || || ||  Contained at or related to the Francophone Branch Area-Mem. ||
+||  [/system:page-tags/tag/new-cha-ling new-cha-ling] ||   || newchaling ||    || || ||  ||   ||   || nova-cha-ling ||   ||   || || || 新茶嶺||  Contained at or related to the New Cha Ling Location of Interest. ||
+|| [/system:page-tags/tag/samiomalie samiomalie] ||   ||  ||    || || ||  || サミオマリエ ||   || ||   ||   || || || ||  Relating to the Location of Interest "Samiomalie". ||
+|| [/system:page-tags/tag/shell shell] ||  || shell || || shell || ||  ||   ||   || shell ||   ||   || || || ||  Contained at or related to the Francophone Branch Area-Shell. ||
+||  [/system:page-tags/tag/shigastan shigastan] ||  西加斯坦  || shigastan ||    || || ||  || シガスタン ||   || ||   ||   || || || ||  Relating to the Location of Interest "Shigastan". ||
+||  [/system:page-tags/tag/site-cn-02 site-cn-02] ||  site-cn-02 ||  ||    || || ||  ||   ||   || sítio-cn-02||   ||   || || || ||  Contained at or related to Site-CN-02. ||
+||  [/system:page-tags/tag/site-cn-03 site-cn-03] ||  site-cn-03 ||  ||    || || ||  ||   ||   || sítio-cn-03 ||   ||   || || || ||  Contained at or related to Site-CN-03. ||
+||  [/system:page-tags/tag/site-cn-06 site-cn-06] ||  site-cn-06 ||  ||    || || ||  ||   ||   || sítio-cn-06 ||   ||   || || || ||  Contained at or related to Site-CN-06. ||
+||  [/system:page-tags/tag/site-cn-09 site-cn-09] ||  site-cn-09 ||  ||    || || ||  ||   ||   || sítio-cn-09 ||   ||   || || || ||  Contained at or related to Site-CN-09. ||
+||  [/system:page-tags/tag/site-cn-10 site-cn-10] ||  site-cn-10 ||  ||    || || ||  ||   ||   || sítio-cn-10 ||   ||   || || || ||  Contained at or related to Site-CN-10. ||
+||  [/system:page-tags/tag/site-cn-19 site-cn-19] ||  site-cn-19 ||  ||    || || ||  ||   ||   || sítio-cn-19||   ||   || || || ||  Contained at or related to Site-CN-19. ||
+||  [/system:page-tags/tag/site-cn-21 site-cn-21] ||  site-cn-21||  ||    || || ||  ||   ||   || sítio-cn-21 ||   ||   || || || ||  Contained at or related to Site-CN-21. ||
+||  [/system:page-tags/tag/site-cn-34 site-cn-34] ||  site-cn-34||  ||    || || ||  ||   ||   || sítio-cn-34 ||   ||   || || || ||  Contained at or related to Site-CN-34. ||
+||  [/system:page-tags/tag/site-cn-64 site-cn-64] ||  site-cn-64||  ||    || || ||  ||   ||   || sítio-cn-64 ||   ||   || || || ||  Contained at or related to Site-CN-64. ||
+||  [/system:page-tags/tag/site-cn-71 site-cn-71] ||  site-cn-71 ||  ||    || || ||  ||   ||   || sítio-cn-71 ||   ||   || || || || Contained at or related to Site-CN-71. ||
+||  [/system:page-tags/tag/site-cn-75 site-cn-75] ||  site-cn-75 ||  ||    || || ||  ||   ||   || sítio-cn-75 ||   ||   || || || || Contained at or related to Site-CN-75. ||
+||  [/system:page-tags/tag/site-cn-77 site-cn-77] ||  site-cn-77 ||  ||    || || ||  ||   ||   || sítio-cn-77 ||   ||   || || || || Contained at or related to Site-CN-77. ||
+||  [/system:page-tags/tag/site-cn-82 site-cn-82] ||  site-cn-82 ||  ||    || || ||  ||   ||   || sítio-cn-82 ||   ||   || || || ||  Contained at or related to Site-CN-82. ||
+||  [/system:page-tags/tag/site-cn-91 site-cn-91] ||  site-cn-91||  ||    || || ||  ||   ||   || sítio-cn-91 ||   ||   || || || ||  Contained at or related to Site-CN-91. ||
+||  [/system:page-tags/tag/site-zh-01 site-zh-01] ||   ||  ||    || || ||  ||   ||   || sítio-zh-01 ||   ||   || || || site-zh-01 ||  Contained at or related to Site-ZH-01. ||
+||  [/system:page-tags/tag/site-zh-02 site-zh-02] ||   ||  ||    || || ||  ||   ||   || sítio-zh-02 ||   ||   || || || site-zh-02 ||  Contained at or related to Site-ZH-02. ||
+||  [/system:page-tags/tag/site-zh-02 site-zh-11] ||   ||  ||    || || ||  ||   ||   || sítio-zh-11 ||   ||   || || || site-zh-11 ||  Contained at or related to Site-ZH-11. ||
+||  [/system:page-tags/tag/site-zh-12 site-zh-12] ||   ||  ||    || || ||  ||   ||   || sítio-zh-12 ||   ||   || || || site-zh-12 ||  Contained at or related to Site-ZH-12. ||
+||  [/system:page-tags/tag/site-zh-02 site-zh-13] ||   ||  ||    || || ||  ||   ||   || sítio-zh-13 ||   ||   || || || site-zh-13 ||  Contained at or related to Site-ZH-13. ||
+||  [/system:page-tags/tag/site-zh-16 site-zh-16] ||   ||  ||    || || ||  ||   ||   || sítio-zh-16 ||   ||   || || || site-zh-16 ||  Contained at or related to Site-ZH-16. ||
+||  [/system:page-tags/tag/site-zh-22 site-zh-22] ||   ||  ||    || || ||  ||   ||   || sítio-zh-22 ||   ||   || || || site-zh-22 ||  Contained at or related to Site-ZH-22. ||
+||  [/system:page-tags/tag/site-zh-25 site-zh-25] ||   ||  ||    || || ||  ||   ||   || sítio-zh-25 ||   ||   || || || site-zh-25 ||  Contained at or related to Site-ZH-25. ||
+||  [/system:page-tags/tag/site-zh-26 site-zh-26] ||   ||  ||    || || ||  ||   ||   || sítio-zh-26 ||   ||   || || || site-zh-26 ||  Contained at or related to Site-ZH-26. ||
+||  [/system:page-tags/tag/site-zh-31 site-zh-31] ||   ||  ||    || || ||  ||   ||   || sítio-zh-31 ||   ||   || || || site-zh-31 ||  Contained at or related to Site-ZH-31. ||
+||  [/system:page-tags/tag/site-zh-44 site-zh-44] ||   ||  ||    || || ||  ||   ||   || sítio-zh-44 ||   ||   || || || site-zh-44 ||  Contained at or related to Site-ZH-44. ||
+||  [/system:page-tags/tag/site-zh-81 site-zh-81] ||   ||  ||    || || ||  ||   ||   || sítio-zh-81 ||   ||   || || || site-zh-81||  Contained at or related to Site-ZH-81. ||
+|| [/system:page-tags/tag/tav tav] ||  ||  || || tav || ||  ||   ||   || tav ||   ||   || || || ||  Contained at or related to the Francophone Branch Site-Tav. ||
+|| [/system:page-tags/tag/yod yod] ||  || yod || || yod || ||  ||   ||   || yod ||   ||   || || || ||  Contained at or related to the Francophone Branch Site-Yod. ||
+|| [/system:page-tags/tag/zayin zayin] ||  || zayin || || zayin || ||  ||   ||   || zayin ||   ||   || || || ||  Contained at or related to the Francophone Branch Site-Zayin. ||
+
+++ International Contests 
+Link the Hub on INT if translated, otherwise link to the original for reference.
+||   **EN** ||   **CN** ||   **DE** ||    **ES** ||   **FR** ||  **IT**||   **JP** ||   **KO** ||   **PL** ||  **PT**||   **RU** ||   **TH** ||   **UA** ||   **VN** ||   **ZH** ||  **Description** ||
+|| [/system:page-tags/tag/100-vn 100-vn] || || || || || || || || || || || || || 100-vn || ||   Of or related to the [[[scp100vncontesthub| SCP-100-VN Contest Hub]]] of the Vietnamese Branch. ||
+|| [/system:page-tags/tag/1000ko 1000ko] || 1000ko || || || || || || 1000ko || || || || || || || || An entry to the [[[scp1000kocontesthub| SCP-1000-KO Contest]]] of the Korean Branch. ||
+|| [/system:page-tags/tag/2018-shorts-contest 2018-shorts-contest] || || || || || ||  2018-短編コンテスト  || 2018-단편경연  || || || || || || || || An entry to the [[[short-contest-2018|2018 Shorts Contest]]] of the Korean Branch. ||
+||   [/system:page-tags/tag/2021-3day-ko 2021-3day-ko] || || || || || || || 2021-즉흥경연-ko || || || || || || || || An entry to the [[[3day-writting-hub|Korean Wiki 3-Day Contest]]] of the Korean Branch. ||
+|| [/system:page-tags/tag/2022-title-contest 2022-title-contest] || || || || || || || 2022-별칭경연  || || || || || || || || An entry to the [[[title-contest-hub-2022|Title Contest 2]]] of the Korean Branch. ||
+|| [/system:page-tags/tag/2025-shorts-contest 2025-shorts-contest] || || || || || || || 2025-단편경연-ko  || || || || || || || || An entry to the [[[short-contest-2025|2025 Shorts Contest]]] of the Korean Branch. ||
+||   [/system:page-tags/tag/af2020-cn af2020-cn] ||  2020愚人竞赛 ||= --  ||    ||     ||  ||    ||   ||    ||  af2020-cn ||   ||    ||  ||  ||  ||   Of or related to the [[[2020-waifu-contest|2020 WAIFU Contest]]] of the Chinese Branch. ||
+|| [/system:page-tags/tag/blackout-contest-vn blackout-contest-vn] || || || || || || || || || || || || || || ||   Of or related to the [[[blackout-contest-vn|Blackout Contest]]] of the Vietnamese Branch. ||
+|| [/system:page-tags/tag/c10fr2022 c10fr2022] || || || || c10fr2022 || || || || || || || || || || || Of or related to the [[[le-concours-des-dix-ans| 10 years celebration contest]]] of the French Branch ||
+||   [/system:page-tags/tag/cn1000 cn1000] || cn1000 || || || || || || || || cn1000 || || || || ||  ||   An entry to the [[[scpcn1000contesthub| SCP-CN-1000 Contest]]] of the Chinese Branch. ||
+||   [/system:page-tags/tag/cn2000 cn2000] || cn2000 || || || || || || || || cn2000 || || || || ||  ||   An entry to the [[[scpcn2000contesthub| SCP-CN-2000 Contest]]] of the Chinese Branch. ||
+||   [/system:page-tags/tag/goi2019 goi2019] ||   2019goi竞赛 ||   goi2019 ||   gdi2019 ||    gdi2019 ||  ||   goi2019 ||   ||    || goi2019 ||   ||    ||  ||  ||  ||  An entry to the [[[international-goi-contest-2019| 2019 International Groups of Interest Contest]]] of the International Translation Archive. ||
+||   [/system:page-tags/tag/intcon2023 intcon2023] || 2023国际竞赛  ||    ||   ||     ||  ||   ||   ||    || intcon2023 ||   ||    ||  ||  ||  ||  An entry to the [[[2023 International Collaboration Contest ]]] of the International Translation Archive. ||
+||   [/system:page-tags/tag/lorecon2023 lorecon2023] ||   ||    ||   ||     ||  ||   ||   ||    ||  ||   ||    ||  ||  ||  ||  An entry to the [[[lorecon2023| 2023 Lore and Aesthetics Contest]]] of the International Translation Archive. ||
+||   [/system:page-tags/tag/concorso-halloween-2021 concorso-halloween-2021] ||   ||    ||   ||     ||  ||   ||   ||    ||  ||   ||    ||  ||  ||  ||  An entry to the [[[concorso-halloween-2021| 2021 Halloween Contest]]] of the Italian Branch. ||
+|| [/system:page-tags/tag/samcheonri-busan samcheonri-busan] || || || || || || || 삼천리 부산  || || || || || || || || An entry to the [[[samcheonri-contest-busan|Samcheonri Contest Busan]]] of the Korean Branch. ||
+
+
+@@ @@
+++ [[[niveaux-de-menace-des-objets-scp| Threat Levels]]]
+||   **EN** ||   **CN** ||   **DE** ||   **ES** ||   **FR** ||  **IT**||   **JP** ||   **KO** ||   **PL** ||  **PT**||   **RU** ||   **TH** ||   **UA** ||   **VN** ||   **ZH** ||  **Description** ||
+||   [/system:page-tags/tag/white white] ||   white ||   weiss ||   ||   blanc ||  ||   白 ||    ||    || branco  ||    ||    ||  ||  ||  ||   Beneficial. ||
+||   [/system:page-tags/tag/blue blue] ||   blue ||    blau ||    ||   bleu ||  ||   青 ||    ||    || azul ||    ||    ||  ||  ||  ||   Useful but poorly understood. ||
+||   [/system:page-tags/tag/green green] ||   green ||   gruen ||   ||   vert ||  ||   緑 ||    ||    || verde  ||    ||    ||  ||  ||  ||   Neither beneficial or hazardous. ||
+||   [/system:page-tags/tag/yellow yellow] ||   yellow ||   gelb ||   ||   jaune ||  ||   黄 ||    ||    || amarelo ||    ||    ||  ||  ||  ||   Dangerous, easy to recontain ||
+||   [/system:page-tags/tag/orange orange] ||   orange ||   orange ||    ||   orange ||  ||   橙 ||    || || laranja ||    ||    ||  ||  ||  ||   Dangerous, difficult to recontain. ||
+||   [/system:page-tags/tag/red red] ||   red ||   rot ||   ||   rouge ||  ||   赤 ||    ||    || vermelho ||    ||    ||  ||  ||  ||   Highly unpredictable, considerable destructive capabilities. ||
+||   [/system:page-tags/tag/black black] ||   black ||   schwarz ||   ||   noir ||  ||   黒 ||    ||    || preto ||    ||    ||  ||  ||  || Capacity for destruction on a global scale. ||
+||    ||   未确定 ||    ||    ||   indéterminé ||  ||    ||    ||    || indeterminado ||    ||    ||  ||  ||  ||   Threat Level Undetermined. ||
+
+++ Other International tags
+||   **EN** ||   **CN** ||   **DE** ||   **ES** ||   **FR** ||   **IT** ||   **JP** ||   **KO** ||   **PL** ||  **PT**||   **RU** ||   **TH** ||   **UA** ||   **VN** ||   **ZH** ||  **Description** ||
+||    [/system:page-tags/tag/background background] ||   ||   hintergrund ||   ||   ||   ||   ||   ||    ||  ||    ||   ||  ||  ||  ||   DE Articles providing background information on the setting. ||
+||    [/system:page-tags/tag/goi-view goi-view] ||   ||   goi-sichtweise ||   ||   ||   ||   ||   ||    ||  ||    ||   ||  ||  ||  ||   DE Tales from the viewpoint of a GOI. ||
+||   [/system:page-tags/tag/indigenous-taiwanese indigenous-taiwanese] ||  ||  ||   ||   ||  ||   ||    ||    ||  ||    ||    ||  ||  || 台灣原住民 ||   Of or relating to the indigenous people of Taiwan. ||
+||   [https://scp-wiki.wikidot.com/system:page-tags/tag/international international] ([https://scp-wiki.wikidot.com/ EN site] only) ||    ||   übersetzt ||    ||   ||   ||    ||   ||   tłumaczenie ||  ||    ||    ||  ||  || 翻譯 ||   Pages that are translated ||
+||   [/system:page-tags/tag/out-of-canon out-of-canon] ||   ||   ||   ||   ||   fuori-dal-canone ||   ||   ||    ||  ||    ||   ||  ||  ||  ||   IT Tales outside of the branch's central canon. ||
+||   [/system:page-tags/tag/thing thing] ||  || ding ||   ||   ||  ||   ||    ||    ||  ||    ||    ||  ||  ||  ||   One of the things from the German branch's April Fools joke. ||
+||   || 原创 ||    ||    ||   ||   ||    ||   ||   oryginał ||  ||    ||    ||  ||  || 原創 ||   Pages that are original content of that branch ||
+||   ||   ||    ||    ||   ||   ||    ||   ||   ||  ||    ||    ||  ||  || 定期檢查 ||   Pages that need to be regularly updated. ||
+||   ||   ||    ||    ||   x ||   ||    ||   ||  ||  ||   ||   ||  ||  || 待翻譯 ||   Needs correction ||
+||   ||    ||   unvollständig ||    ||    ||   ||    ||   ||    ||  ||    ||    ||  ||  ||  ||   Incomplete || 
+||   ||    ||   anhänge-fehlen ||    ||   ||   ||    ||   ||    ||  ||    ||    ||  ||  ||  ||   Supplements are missing ||
+||   ||    ||   in-bearbeitung ||     ||   ||   ||    ||   ||    ||  ||    ||    ||  ||  ||  ||   In progress ||
+||   || 苍树与血 ||    ||    ||    ||   ||    ||    ||    ||    ||   ||    ||    ||    ||    || Green Tree and Blood ||
+||   || wanderers ||    ||    ||    ||   ||    ||    ||    ||    ||   ||    ||    ||    ||    || All CN Wanderers Library pages ||
+
++ Language Tags
+Note that on translations posted on the [https://scp-wiki.wikidot.com/ English Language site], language tags are hidden tags with an underscore in front - see [http://05command.wikidot.com/tech-hub-tag-list here] for a current list.
+||   **EN** ||   **CN** ||   **DE** ||   **ES** ||   **FR** ||  **IT**||   **JP** ||   **KO** ||   **PL** ||   **PT** ||   **RU** ||   **TH** ||   **UA** ||   **VN** ||   **ZH** ||  **Description** || 
+||   [/system:page-tags/tag/cn cn] ||    ||   chinesisch ||   cn ||   ||  ||    ||    ||    || cn ||   cn ||    ||  ||  || cn ||   Translations from SCP-CN ||
+||   [/system:page-tags/tag/de de] ||   de ||   deutsch  ||    ||   ||  ||    ||    ||    || de ||   de ||    ||  ||  || de ||   Translations from SCP-DE ||
+||   [/system:page-tags/tag/es es] ||   es ||   spanisch ||   es ||   ||  ||    ||    ||    || es  ||   es ||    ||  ||  || es ||   Translations from SCP-ES ||
+||   [/system:page-tags/tag/fr fr] ||   fr ||   französisch ||   fr ||   ||  ||    ||    ||    || fr ||   fr ||    ||  ||  || fr ||   Translations from SCP-FR ||
+||   [/system:page-tags/tag/int int] || int ||  international ||  ||   ||  ||    ||    ||    || int || int  ||    ||  ||  || int ||   Original works created for the International Translation Archive. ||
+||   [/system:page-tags/tag/it it] ||   it ||   italienisch ||   it ||   ||  ||    ||    ||    || it ||   it ||    ||  ||  || it ||   Translations from SCP-IT ||
+||   [/system:page-tags/tag/ko ko] ||   ko ||   koreanisch ||    ||   ||  ||    ||    ||    || ko ||   ko ||    ||  ||  || ko ||   Translations from SCP-KO ||
+||   [/system:page-tags/tag/jp jp] ||   jp ||   japanisch ||   ja ||   ||  ||    ||    ||    || jp ||   jp ||    ||  ||  || jp ||   Translations from SCP-JP ||
+||   [/system:page-tags/tag/pl pl] ||   pl ||   polnisch ||    ||   ||  ||    ||    ||    || pl ||   pl ||    ||  ||  || pl ||   Translations from SCP-PL ||
+||   [/system:page-tags/tag/pt pt] ||  pt || portogisich  ||    ||   ||  ||    ||    ||    || pt || pt  ||    ||  ||  || pt ||   Translations from SCP-PT ||
+||   [/system:page-tags/tag/ru ru] ||   ru ||   russisch||   ru ||   ||  ||    ||    ||    || ru || ru ||    ||  ||  || ru ||   Translations from SCP-RU ||
+||   [/system:page-tags/tag/th th] ||  th ||  thailändisch ||    ||   ||  ||    ||    ||    || th ||  th  ||    ||  ||  || th ||   Translations from SCP-TH ||
+||   [/system:page-tags/tag/ua ua] ||  ua || ukrainisch  ||    ||   ||  ||    ||    ||    || ua || ua  ||    ||  ||  || ua ||   Translations from SCP-UA ||
+||   [/system:page-tags/tag/vn vn] || vn  || vietnamesisch  ||    ||   ||  ||    ||    ||    || vn ||   ||    ||  ||  || vn ||   Translations from SCP-VN ||
+||   [/system:page-tags/tag/zh zh] ||   || traditionelles-chinesisch  ||    ||   ||  ||    ||    ||    || zh || zh  ||    ||  ||  ||  ||   Translations from SCP-ZH-TR ||
+
++ Tags Created on the International Translation Archive
+||   **EN** ||   **CN** ||   **DE** ||   **ES** ||   **FR** ||  **IT**||   **JP** ||   **KO** ||   **PL** ||   **PT** ||   **RU** ||   **TH** ||   **UA** ||   **VN** ||   **ZH** ||  **Description** || 
+||   [/system:page-tags/tag/001-hub 001-hub] ||  ||  ||   ||   ||  ||   ||    ||    ||  ||    ||    ||  ||  ||  ||   Lists of SCP-001 Proposals from various branches. ||
+||   [/system:page-tags/tag/goi-list goi-list] ||  ||  ||   ||   ||  ||   ||    ||    ||  ||    ||    ||  ||  ||  ||   Lists of Groups of Interest from various branches. ||
+||   [/system:page-tags/tag/mtf-list mtf-list] ||  ||  ||   ||   ||  ||   ||    ||    ||  ||    ||    ||  ||  ||  ||   Lists of Mobile Task Forces from various branches. ||
+||   [/system:page-tags/tag/site-list site-list] ||  ||  ||   ||   ||  ||   ||    ||    ||  ||    ||    ||  ||  ||  ||  Lists of Secure Foundation Facilities from various branches. ||
+||   [/system:page-tags/tag/translator translator] ||  ||  ||   ||   ||  ||   ||    ||    ||  ||    ||    ||  ||  ||  ||   Translator page. ||
+
+@@ @@
+++ [[[unofficial:language-incubator-hub| Underrepresented Language Incubator Language Tags]]]
+Applied to translations and articles written in languages without their own branch. Ordered by language code, to match order on the [[[unofficial:language-incubator-hub| Language Incubator Hub]]]
+|| **INT** || **Description** ||
+|| [/system:page-tags/tag/language-incubator language-incubator] || Pages in the unofficial: category, written in languages without an officially recognised translation wiki. ||
+|| [/system:page-tags/tag/arabic arabic] || Articles written in Arabic (AR) ||
+|| [/system:page-tags/tag/old-english old-english] || Articles written in Old English (ANG) ||
+|| [/system:page-tags/tag/welsh welsh] || Articles written in Welsh (CY) ||
+|| [/system:page-tags/tag/danish danish] || Articles written in Danish (DA) ||
+|| [/system:page-tags/tag/dutton-speedwords dutton-speedwords] || Articles written in Dutton Speedwords (DWS) ||
+|| [/system:page-tags/tag/simple simple] || Articles written in Simple English (EN) ||
+|| [/system:page-tags/tag/esperanto esperanto] || Articles written in Esperanto (EO) ||
+|| [/system:page-tags/tag/basque basque] || Articles written in Basque (EU) ||
+|| [/system:page-tags/tag/finnish finnish] || Articles written in Finnish (FI) ||
+|| [/system:page-tags/tag/hakka-chinese hakka-chinese] || Articles written in Hakka Chinese (HAK) ||
+|| [/system:page-tags/tag/hungarian hungarian ] || Articles written in Hungarian (HU) ||
+|| [/system:page-tags/tag/hebrew hebrew] || Articles written in Hebrew (HE)||
+|| [/system:page-tags/tag/interlingua interlingua] || Articles written in Interlingua (IA) ||
+|| [/system:page-tags/tag/interlingue interlingue] || Articles written in Interlingue (IE) ||
+|| [/system:page-tags/tag/ido ido] || Articles written in Ido (IO) ||
+|| [/system:page-tags/tag/iranic iranic] || Articles written in Iranic (IR) ||
+|| [/system:page-tags/tag/icelandic icelandic] || Articles written in Icelandic (IS)||
+|| [/system:page-tags/tag/lojban lojban] || Articles written in Lobjan (JBO)||
+|| [/system:page-tags/tag/kazakh kazakh] || Articles written in Kazakh (KK)||
+|| [/system:page-tags/tag/latin latin] || Articles written in Latin (LA)||
+|| [/system:page-tags/tag/lingua-franca-nova lingua-franca-nova] || Articles written in Lingua Franca Nova (LFN) ||
+|| [/system:page-tags/tag/lithuanian lithuanian] || Articles written in Lithuanian (LT)||
+|| [/system:page-tags/tag/luxembourgish luxembourgish] || Articles written in Luxembourgish (LU)||
+|| [/system:page-tags/tag/latvian latvian] || Articles written in Latvian (LV)||
+|| [/system:page-tags/tag/classical-chinese classical-chinese] || Articles written in Classical Chinese (LZH)||
+|| [/system:page-tags/tag/min-nan-chinese min-nan-chinese] || Articles written in Min Nan Chinese (NAN)||
+|| [/system:page-tags/tag/maltese maltese] || Articles written in Maltese (MT)||
+|| [/system:page-tags/tag/mongolian mongolian] || Articles written in Mongolian (MN)||
+|| [/system:page-tags/tag/dutch dutch] || Articles written in Dutch (NL)||
+|| [/system:page-tags/tag/pig-latin pig-latin] || Articles written in Pig Latin (PIG)||
+|| [/system:page-tags/tag/romanian romanian] || Articles written in Romanian (RO)||
+|| [/system:page-tags/tag/slovenian slovenian] || Articles written in Slovenian (SL)||
+|| [/system:page-tags/tag/tagalog tagalog] || Articles written in Tagalog (TL)||
+|| [/system:page-tags/tag/volapuk volapuk] || Articles written in Volapük (VO)||
+|| [/system:page-tags/tag/wu-chinese wu-chinese] || Articles written in Wu Chinese (WUU)||
+|| [/system:page-tags/tag/yasashii-nihongo yasashii-nihongo] || Articles written in Yasashii Nihongo, a form of Simplified Japanese (YN) ||
+|| [/system:page-tags/tag/yue-chinese yue-chinese] || Articles written in Yue Chinese (YUE)||
+|| [/system:page-tags/tag/zhuang zhuang] || Articles written in Zhuang (ZA)||
+|| [/system:page-tags/tag/blissymbolics blissymbolics ] || Articles written in Blissymbolics (ZBL)||
+|| [/system:page-tags/tag/latinized-chinese latinized-chinese] || Articles written in Latinized Chinese (ZH-LA)||
+
+@@ @@
+++ [[[Review Attention Levels]]]
+|| **INT** || **Description** ||
+|| [/system:page-tags/tag/⦿ ⦿] || Reviewed by staff ||
+|| [/system:page-tags/tag/o o], [/system:page-tags/tag/oo oo], [/system:page-tags/tag/ooo ooo], [/system:page-tags/tag/oooo oooo]  || Assessment of translation quality ||
