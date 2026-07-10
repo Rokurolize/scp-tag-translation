@@ -195,7 +195,7 @@
         <option value="zh">繁體中文 (zh)</option>
         --></select>
 
-        <textarea id="sourceText" placeholder="翻訳したいタグを入力"></textarea>
+        <textarea id="sourceText" placeholder="翻訳したいタグを入力" maxlength="20000"></textarea>
       </div>
 
       <div class="column">
@@ -273,7 +273,13 @@
 
       const dictionaryCache = {}; // ペアごとの辞書キャッシュ
       const deprecatedCache = {}; // 非使用タグ置換辞書のキャッシュ
+      const sortedDictionaryKeysCache = new WeakMap(); // 辞書ごとのソート済みキーキャッシュ
       const loadingIndicator = document.getElementById("loadingIndicator");
+      const MAX_INPUT_LENGTH = 20000;
+      const MAX_TOKEN_COUNT = 2000;
+      const MAX_TOKEN_LENGTH = 200;
+      const INPUT_DEBOUNCE_MS = 250;
+      let translateDebounceTimer = null;
 
       window.addEventListener("DOMContentLoaded", () => {
         setupUI();
@@ -289,23 +295,37 @@
           .addEventListener("change", doTranslate);
         document
           .getElementById("sourceText")
-          .addEventListener("input", doTranslate);
+          .addEventListener("input", scheduleTranslate);
         document
           .getElementById("btnCopy")
           .addEventListener("click", copyResult);
+      }
+
+      function scheduleTranslate() {
+        clearTimeout(translateDebounceTimer);
+        translateDebounceTimer = setTimeout(doTranslate, INPUT_DEBOUNCE_MS);
       }
 
       /**
        * メインの翻訳処理
        */
       function doTranslate() {
+        clearTimeout(translateDebounceTimer);
         clearLog();
         showLoading(true);
 
         const srcLang = document.getElementById("sourceLang").value;
         const tgtLang = document.getElementById("targetLang").value;
         const mapKey = `${srcLang}_to_${tgtLang}`;
-        const inputStr = document.getElementById("sourceText").value.trim();
+        const sourceText = document.getElementById("sourceText");
+        if (sourceText.value.length > MAX_INPUT_LENGTH) {
+          sourceText.value = sourceText.value.slice(0, MAX_INPUT_LENGTH);
+          setLog(`【エラー】入力は${MAX_INPUT_LENGTH}文字以内にしてください。`);
+          document.getElementById("targetText").value = "";
+          showLoading(false);
+          return;
+        }
+        const inputStr = sourceText.value.trim();
 
         if (!inputStr) {
           // 入力が空のときは翻訳結果をクリアし、ローディング非表示
@@ -381,10 +401,20 @@
       function doTranslationWithDictionary(dictionary, inputStr, srcLang, deprecatedDict) {
         // 入力を空白で分割して個別のタグに
         const tokens = inputStr.split(/\s+/);
-        let allTags = [];
+        if (tokens.length > MAX_TOKEN_COUNT) {
+          document.getElementById("targetText").value = "";
+          setLog(`【エラー】タグは${MAX_TOKEN_COUNT}個以内にしてください。`);
+          return;
+        }
+
+        const allTags = [];
 
         // 各タグを処理
         tokens.forEach((token) => {
+          if (token.length > MAX_TOKEN_LENGTH) {
+            allTags.push(token);
+            return;
+          }
           // 単一のタグとして辞書に存在するかチェック
           if (dictionary.hasOwnProperty(token)) {
             // 単一のタグとして存在する場合はそのまま追加
@@ -392,7 +422,7 @@
           } else {
             // 存在しない場合は複合タグとして分割処理
             const splitted = splitConcatenatedTags(token, dictionary);
-            allTags = allTags.concat(splitted);
+            allTags.push(...splitted);
           }
         });
 
@@ -451,42 +481,42 @@
       /**
        * 連結タグの最長一致分割
        */
-      function splitConcatenatedTags(token, dictionary) {
-        // 辞書キーをチェックしやすいようにセットに変換
-        const dictKeySet = new Set(Object.keys(dictionary));
-        
-        // 動的計画法で最適な分割を見つける
-        const n = token.length;
-        
-        // dp[i] = 位置iまでの最適な分割
-        const dp = Array(n + 1).fill(null);
-        dp[0] = [];
-        
-        for (let i = 1; i <= n; i++) {
-          for (let j = 0; j < i; j++) {
-            // 部分文字列 j から i までをチェック
-            const segment = token.substring(j, i);
-            
-            // この部分が辞書にあり、j地点までの分割が存在する場合
-            if (dictKeySet.has(segment) && dp[j] !== null) {
-              const newSplitCount = dp[j].length + 1;
-              // Prevent potential overflow or negative values
-              if (newSplitCount < 0) {
-              return; 
-              }
-              if (dp[i] === null || newSplitCount < dp[i].length) {
-              dp[i] = [...dp[j], segment];
-              }
-            }
-          }
+      function getSortedDictionaryKeys(dictionary) {
+        const cachedKeys = sortedDictionaryKeysCache.get(dictionary);
+        if (cachedKeys) {
+          return cachedKeys;
         }
-        
-        // 分割できない場合は元のトークンをそのまま返す
-        if (dp[n] === null) {
+
+        const keys = Object.keys(dictionary).sort((a, b) => b.length - a.length);
+        sortedDictionaryKeysCache.set(dictionary, keys);
+        return keys;
+      }
+
+      /**
+       * 連結タグの最長一致分割
+       */
+      function splitConcatenatedTags(token, dictionary) {
+        if (token.length > MAX_TOKEN_LENGTH) {
           return [token];
         }
-        
-        return dp[n];
+
+        const dictKeys = getSortedDictionaryKeys(dictionary);
+        const result = [];
+        let remaining = token;
+
+        while (remaining.length > 0) {
+          const matchedKey = dictKeys.find((key) => remaining.startsWith(key));
+          if (!matchedKey) {
+            // 未定義の残り部分
+            result.push(remaining);
+            break;
+          }
+
+          result.push(matchedKey);
+          remaining = remaining.slice(matchedKey.length);
+        }
+
+        return result;
       }
 
       /**
