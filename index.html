@@ -452,40 +452,44 @@
        * 連結タグの最長一致分割
        */
       function splitConcatenatedTags(token, dictionary) {
-        // 辞書キーをチェックしやすいようにセットに変換
-        const dictKeySet = new Set(Object.keys(dictionary));
-        
-        // 動的計画法で最適な分割を見つける
+        const dictKeys = Object.keys(dictionary);
+        const dictKeySet = new Set(dictKeys);
+        const maxKeyLength = dictKeys.reduce(
+          (maxLength, key) => Math.max(maxLength, key.length),
+          0
+        );
+
+        // 動的計画法で最適な分割を見つける。辞書に存在し得ない長さの
+        // 部分文字列は確認しないことで、長い未知トークンの入力時に
+        // UIスレッドが長時間ブロックされるのを防ぐ。
         const n = token.length;
-        
-        // dp[i] = 位置iまでの最適な分割
         const dp = Array(n + 1).fill(null);
         dp[0] = [];
-        
+
         for (let i = 1; i <= n; i++) {
-          for (let j = 0; j < i; j++) {
-            // 部分文字列 j から i までをチェック
+          const minStart = Math.max(0, i - maxKeyLength);
+
+          for (let j = minStart; j < i; j++) {
+            if (dp[j] === null) {
+              continue;
+            }
+
             const segment = token.substring(j, i);
-            
-            // この部分が辞書にあり、j地点までの分割が存在する場合
-            if (dictKeySet.has(segment) && dp[j] !== null) {
+
+            if (dictKeySet.has(segment)) {
               const newSplitCount = dp[j].length + 1;
-              // Prevent potential overflow or negative values
-              if (newSplitCount < 0) {
-              return; 
-              }
               if (dp[i] === null || newSplitCount < dp[i].length) {
-              dp[i] = [...dp[j], segment];
+                dp[i] = [...dp[j], segment];
               }
             }
           }
         }
-        
+
         // 分割できない場合は元のトークンをそのまま返す
         if (dp[n] === null) {
           return [token];
         }
-        
+
         return dp[n];
       }
 
