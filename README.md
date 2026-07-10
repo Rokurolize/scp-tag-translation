@@ -52,7 +52,7 @@ scp-tag-translation/
 
 ## 辞書の更新方法（開発者向け）
 
-`sources/` のページソースを最新に差し替えた後、以下の順で実行します。
+`sources/` のページソースを HTTPS の出典 URL から最新に差し替えた後、以下の順で実行します。
 
 ```bash
 # 1. ソースを解析して data/ に出力
@@ -97,5 +97,5 @@ Pull Request 大歓迎です。新タグ・新ペアを追加する際は、対�
 **`sources/jp/` 配下のフラグメントファイル**（fragment-basic.txt / fragment-series.txt / fragment-universe.txt / fragment-event.txt / fragment-unused.txt）
 - Title: タグリスト
 - Author: SCP財団
-- Source: http://scp-jp.wikidot.com/tag-list
+- Source: https://scp-jp.wikidot.com/tag-list
 - License: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/legalcode.en
