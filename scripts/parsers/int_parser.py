@@ -11,6 +11,7 @@ from pathlib import Path
 
 _TAG_LINK_RE = re.compile(r"/system:page-tags/tag/([^\s\]]+)")
 _HEADER_RE = re.compile(r"^\*\*([A-Z]+)\*\*$")
+_EMPTY_MARKERS = {"-", "--", "—", "–", "n/a", "na", "none"}
 _SOURCE_COLUMNS = {
     "EN": ("en", "int"),
     "CN": ("cn",),
@@ -46,7 +47,11 @@ def _cell_tags(cell: str) -> list[str]:
         value = value.strip().strip("|*")
         # Wikidot tags cannot contain spaces.  Skipping prose/ambiguous cells is
         # safer than inventing a mapping.
-        if value and not any(character.isspace() for character in value):
+        if (
+            value
+            and value.casefold() not in _EMPTY_MARKERS
+            and not any(character.isspace() for character in value)
+        ):
             values.append(value)
     return values
 

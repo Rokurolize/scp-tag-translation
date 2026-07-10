@@ -155,6 +155,7 @@ def validate_build_inputs(
         ):
             raise ValueError(f"JP側source_tagsが不正です: {source_tags!r}")
     if deprecated_raw is not None:
+        jp_names = {entry["name"] for entry in jp_tags}
         for index, entry in enumerate(deprecated_raw):
             if not isinstance(entry, dict):
                 raise ValueError(f"非使用タグデータの項目が不正です: index={index}")
@@ -177,6 +178,14 @@ def validate_build_inputs(
                 or replacement != replacement.strip()
             ):
                 raise ValueError(f"非使用タグのreplacementが不正です: {replacement!r}")
+            if (
+                replacement is not None
+                and is_deprecated_for_en_source(entry)
+                and replacement not in jp_names
+            ):
+                raise ValueError(
+                    f"非使用タグのreplacementがJPタグに存在しません: {replacement!r}"
+                )
 
     _ensure_unique((entry["name"] for entry in en_tags), "ENタグ名")
     # Keep the legacy-field validation first so old-style callers receive the

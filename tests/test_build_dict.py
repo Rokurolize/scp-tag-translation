@@ -86,6 +86,15 @@ def test_invalid_deprecated_data_fails_fast():
         )
 
 
+def test_deprecated_replacement_must_name_a_registered_jp_tag():
+    with pytest.raises(ValueError, match="JPタグに存在しません"):
+        build_dict.validate_build_inputs(
+            EN,
+            JP,
+            [{"source_lang": "EN", "en_tag": "artist", "replacement": "未登録"}],
+        )
+
+
 def test_is_deprecated_for_en_source_accepts_legacy_entries():
     assert build_dict.is_deprecated_for_en_source({"en_tag": "artist"})
     assert build_dict.is_deprecated_for_en_source({
@@ -185,6 +194,8 @@ def test_main_ignores_non_en_deprecated_source_collisions(tmp_path, monkeypatch)
         json.dumps([
             {"name": "映画", "en_tag": "film"},
             {"name": "アーティスト", "en_tag": "artist"},
+            {"name": "アートワーク", "en_tag": None},
+            {"name": "映像添付", "en_tag": None},
         ]),
         encoding="utf-8",
     )

@@ -5,6 +5,8 @@ import json
 import sys
 from pathlib import Path
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 import build_branch_dicts_from_corpus as branch_builder
@@ -122,6 +124,35 @@ def test_int_inherits_en_unused_tags_and_origin_replacements(jp_tags_data):
         "resource": "世界観",
         "translator": "著者ページ",
     }
+
+
+def test_deprecated_entries_reject_duplicate_source_keys():
+    entries = [
+        {"source_lang": "EN", "en_tag": "old", "replacement": "対象A"},
+        {"source_lang": "EN", "en_tag": "old", "replacement": "対象B"},
+    ]
+
+    with pytest.raises(ValueError, match="duplicate deprecated entry"):
+        branch_builder.deprecated_by_source_lang(entries, {"対象A", "対象B"})
+
+
+def test_en_builder_includes_effective_replacement_overrides(tmp_path, monkeypatch):
+    en_data = tmp_path / "en_tags.json"
+    en_data.write_text(json.dumps([{"name": "current"}]), encoding="utf-8")
+    monkeypatch.setattr(branch_builder, "DATA_EN", en_data)
+
+    dictionary, deprecated = branch_builder.build_en_dicts(
+        [{"name": "現在", "source_tags": ["current"]}],
+        [],
+        {},
+        {"current", "legacy-tag"},
+        {},
+        {"legacy-tag"},
+        {"legacy-tag": "現在"},
+    )
+
+    assert dictionary["legacy-tag"] is None
+    assert deprecated["legacy-tag"] == "現在"
 
 
 def test_discover_branches_excludes_jp_and_internal_dirs(tmp_path):

@@ -102,15 +102,31 @@ def test_visualization_entries_have_known_statuses_and_required_fields():
             assert isinstance(entry["sample_slugs"], list)
 
 
-def test_visualization_tsv_matches_json_row_count():
+def test_visualization_tsv_exactly_matches_json():
     coverage = _load_coverage()
-    expected_rows = sum(branch["tag_count"] for branch in coverage["branches"])
+    expected_rows = []
+    for branch in coverage["branches"]:
+        for entry in branch["tags"]:
+            expected_rows.append({
+                "branch": branch["branch"],
+                "tag": entry["tag"],
+                "rank": str(entry["rank"]),
+                "page_count": str(entry["page_count"]),
+                "status": entry["status"],
+                "jp_list_handled": str(entry["jp_list_handled"]).lower(),
+                "translator_handled": str(entry["translator_handled"]).lower(),
+                "jp_tag": entry["jp_tag"] or "",
+                "replacement": entry["replacement"] or "",
+                "translation_action": entry["translation_action"],
+                "copy_allowed": str(entry["copy_allowed"]).lower(),
+                "display_tag": entry["display_tag"] or "",
+                "sample_slugs": ",".join(entry["sample_slugs"]),
+            })
 
     with COVERAGE_TSV.open(encoding="utf-8", newline="") as f:
         rows = list(csv.DictReader(f, delimiter="\t"))
 
-    assert len(rows) == expected_rows
-    assert {row["branch"] for row in rows} == set(REQUIRED_BRANCHES)
+    assert rows == expected_rows
 
 
 def test_visualization_records_expected_status_examples():
@@ -168,7 +184,19 @@ def test_application_inventory_exactly_matches_unhandled_coverage():
 
     with APPLICATION_TSV.open(encoding="utf-8", newline="") as f:
         rows = list(csv.DictReader(f, delimiter="\t"))
-    assert len(rows) == len(expected)
+    expected_rows = [
+        {
+            "site": branch["site"],
+            "branch": branch["branch"],
+            "source_tag": entry["tag"],
+            "display_tag": entry["display_tag"],
+            "page_count": str(entry["page_count"]),
+            "sample_slugs": ",".join(entry["sample_slugs"]),
+        }
+        for branch in inventory["branches"]
+        for entry in branch["tags"]
+    ]
+    assert rows == expected_rows
 
 
 def test_visualization_html_escapes_embedded_json_script_boundaries():

@@ -10,7 +10,7 @@ tag_pattern = re.compile(
     r"^\s*\*\s*\*\*\[https?://[^ ]*/system:page-tags/tag/([^ \]]+)"
     r"(?:\s+[^\]]+)?\]\*\*"
 )
-desc_pattern = re.compile(r"--\s*(.*)")
+desc_pattern = re.compile(r"\s+--\s*(.*)")
 meta_pattern = re.compile(r"^\s*\*\s*//\s*(.*?)\s*//")
 quoted_value_pattern = re.compile(r"'([^']+)'")
 tab_pattern = re.compile(r"^\[\[tab\s+(.+?)\]\]$")
@@ -80,7 +80,7 @@ def parse(input_filepath: str, output_filepath: str) -> None:
                     tags_data.append(current_tag)
 
                 tag_name = tag_match.group(1)
-                desc_match = desc_pattern.search(line)
+                desc_match = desc_pattern.search(line, tag_match.end())
                 description = desc_match.group(1).strip() if desc_match else ""
 
                 current_tag = {

@@ -8,6 +8,11 @@ import shutil
 import sys
 from pathlib import Path
 
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from scripts.atomic_output import publish_files_atomically
+
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CORPUS = Path("/home/roku/src/Rokurolize/scp-wiki-translation/corpus")
@@ -55,6 +60,7 @@ def main() -> None:
     args = parser.parse_args()
 
     stale: list[str] = []
+    pending: dict[Path, Path] = {}
     for destination_rel, source_rel in SOURCE_MAP.items():
         source = args.corpus_root / source_rel
         destination = ROOT / destination_rel
@@ -62,11 +68,22 @@ def main() -> None:
             print(f"missing corpus source: {source}")
             stale.append(destination_rel)
             continue
-        if args.write:
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(source, destination)
         if not destination.is_file() or destination.read_bytes() != source.read_bytes():
             stale.append(destination_rel)
+            if args.write:
+                pending[destination] = source
+
+    if args.write and not any(
+        not (args.corpus_root / source_rel).is_file()
+        for source_rel in SOURCE_MAP.values()
+    ):
+        publish_files_atomically({
+            destination: (
+                lambda temporary, source=source: shutil.copyfile(source, temporary)
+            )
+            for destination, source in pending.items()
+        })
+        stale = []
 
     if stale:
         print("tag sources are stale or missing:")

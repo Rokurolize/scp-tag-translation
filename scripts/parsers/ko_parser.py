@@ -10,6 +10,7 @@ from pathlib import Path
 
 
 _KO_LINK_RE = re.compile(r"/system:page-tags/tag/([^\s\]]+)")
+_EMPTY_MARKERS = {"-", "--", "—", "–", "n/a", "na", "none"}
 
 
 def _cells(line: str) -> list[str]:
@@ -41,7 +42,10 @@ def parse_crosswalk(
             if len(ko_tags) != 1 or not jp_tag:
                 if len(ko_tags) != 1 or resolver is None:
                     continue
-            if resolver is None and any(character.isspace() for character in jp_tag):
+            if resolver is None and (
+                jp_tag.casefold() in _EMPTY_MARKERS
+                or any(character.isspace() for character in jp_tag)
+            ):
                 continue
             if resolver is None:
                 target = jp_tag

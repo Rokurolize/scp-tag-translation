@@ -13,6 +13,7 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from scripts import build_dict as en_builder
+from scripts.atomic_output import publish_files_atomically
 from scripts.branch_config import (
     SUPPORTED_BRANCH_CONFIGS,
     SUPPORTED_BRANCHES,
@@ -233,6 +234,7 @@ def deprecated_by_source_lang(
 ) -> tuple[dict[str, set[str]], dict[str, dict[str, str | None]]]:
     deprecated_tags: dict[str, set[str]] = {}
     replacements: dict[str, dict[str, str | None]] = {}
+    seen: set[tuple[str, str]] = set()
     for entry in deprecated_raw:
         if not isinstance(entry, dict):
             raise ValueError(f"invalid deprecated entry: {entry!r}")
@@ -240,6 +242,12 @@ def deprecated_by_source_lang(
         source_tag = entry.get("en_tag")
         if not isinstance(source_lang, str) or not isinstance(source_tag, str):
             raise ValueError(f"invalid deprecated entry: {entry!r}")
+        key = (source_lang, source_tag)
+        if key in seen:
+            raise ValueError(
+                f"duplicate deprecated entry: {source_lang}:{source_tag}"
+            )
+        seen.add(key)
         deprecated_tags.setdefault(source_lang, set()).add(source_tag)
         replacement = entry.get("replacement")
         if replacement is not None and not isinstance(replacement, str):
@@ -326,19 +334,20 @@ def build_en_dicts(
     overrides: dict[str, dict[str, str]],
     corpus_tags: set[str],
     official_crosswalk: dict[str, dict[str, str]],
-) -> tuple[int, int]:
+    effective_deprecated: set[str] | None = None,
+    effective_replacements: dict[str, str | None] | None = None,
+) -> tuple[dict[str, str | None], dict[str, str]]:
     if not DATA_EN.exists():
         raise FileNotFoundError(
             f"{DATA_EN} not found. Run python scripts/parse_sources.py first."
         )
     en_tags: list[dict] = load_json(DATA_EN)
-    dict_out = DICTIONARIES_DIR / "en_to_jp.json"
-
     deprecated_en_tags = {
         entry["en_tag"]
         for entry in deprecated_raw
         if en_builder.is_deprecated_for_en_source(entry)
     }
+    deprecated_en_tags.update(effective_deprecated or set())
     en_overrides = {
         **overrides.get("*", {}),
         **overrides.get("en", {}),
@@ -380,15 +389,19 @@ def build_en_dicts(
         else:
             dictionary[source_tag] = None
     deprecated_dict: dict[str, str] = {
-        entry["en_tag"]: entry["replacement"]
-        for entry in deprecated_raw
-        if en_builder.is_deprecated_for_en_source(entry)
-        and entry.get("replacement")
+        source_tag: replacement
+        for source_tag, replacement in (effective_replacements or {}).items()
+        if replacement is not None
     }
+    if effective_replacements is None:
+        deprecated_dict.update({
+            entry["en_tag"]: entry["replacement"]
+            for entry in deprecated_raw
+            if en_builder.is_deprecated_for_en_source(entry)
+            and entry.get("replacement")
+        })
     deprecated_dict.update(origin_replacements)
-    write_json(dict_out, dictionary)
-    write_json(DICTIONARIES_DIR / "deprecated_en_to_jp.json", deprecated_dict)
-    return sum(1 for value in dictionary.values() if value is not None), len(dictionary)
+    return dict(sorted(dictionary.items())), dict(sorted(deprecated_dict.items()))
 
 
 def build_jp_policy(
@@ -543,23 +556,32 @@ def main() -> None:
         print("エラー: 生成対象の支部が見つかりません。")
         sys.exit(1)
 
+    outputs: dict[Path, Any] = {}
     for branch in sorted(branches):
         if branch == "jp" or branch.startswith("_"):
             continue
         if branch == "en":
             try:
                 source_tags = corpus_tags_for_branch(corpus_root, branch)
-                mapped, total = build_en_dicts(
+                dictionary, deprecated_dict = build_en_dicts(
                     jp_tags,
                     deprecated_raw,
                     overrides,
                     source_tags,
                     official_crosswalk,
+                    deprecated_tags.get("EN", set()),
+                    replacements.get("EN", {}),
                 )
             except (OSError, ValueError) as err:
                 print(f"エラー: EN辞書生成に失敗しました: {err}")
                 sys.exit(1)
-            print(f"en: {mapped}/{total} mapped -> dictionaries/en_to_jp.json")
+            outputs[DICTIONARIES_DIR / "en_to_jp.json"] = dictionary
+            outputs[DICTIONARIES_DIR / "deprecated_en_to_jp.json"] = deprecated_dict
+            mapped = sum(1 for value in dictionary.values() if value is not None)
+            print(
+                f"en: {mapped}/{len(dictionary)} mapped -> "
+                "dictionaries/en_to_jp.json"
+            )
             continue
 
         try:
@@ -580,8 +602,8 @@ def main() -> None:
 
         dict_path = DICTIONARIES_DIR / f"{branch}_to_jp.json"
         deprecated_path = DICTIONARIES_DIR / f"deprecated_{branch}_to_jp.json"
-        write_json(dict_path, dictionary)
-        write_json(deprecated_path, deprecated_dict)
+        outputs[dict_path] = dictionary
+        outputs[deprecated_path] = deprecated_dict
         mapped = sum(1 for value in dictionary.values() if value is not None)
         print(
             f"{branch}: {mapped}/{len(dictionary)} mapped, "
@@ -589,16 +611,17 @@ def main() -> None:
         )
 
     en_tags: list[dict] = load_json(DATA_EN)
-    write_json(
-        JP_POLICY_PATH,
-        build_jp_policy(
+    outputs[JP_POLICY_PATH] = build_jp_policy(
             jp_tags,
             deprecated_raw,
             en_tags,
             overrides,
             replacements,
-        ),
-    )
+        )
+    publish_files_atomically({
+        path: (lambda temporary, data=data: write_json(temporary, data))
+        for path, data in outputs.items()
+    })
     print(f"jp policy: {len(jp_tags)} tags -> {JP_POLICY_PATH}")
 
 
