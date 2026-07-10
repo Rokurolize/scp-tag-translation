@@ -1,20 +1,16 @@
 branch	input_tags	expected_jp_tags
 en	scp euclid humanoid sapient alive	scp euclid 人間型 知性 生命
-cn	原创 故事 euclid 人形生物 智能 活物 精神影响	cn tale euclid 人間型 知性 生命 精神影響
+cn	原创 故事 euclid 人形生物 智能 活物 精神影响 认知危害 段落	cn tale euclid 人間型 知性 生命 精神影響 認識災害 フラグメント
 cs	české tale safe humanoid	cs tale safe 人間型
-de	deutsch geschichte sicher euclid humanoid	de tale safe euclid 人間型
-el	el scp safe euclid	el scp safe euclid
+de	deutsch geschichte sicher euclid humanoid lebendig	de tale safe euclid 人間型 生命
 es	es relato seguro humanoide consciente inteligente vivo	es tale safe 人間型 知性 生命
 fr	fr conte sûr euclide humanoïde conscient	fr tale safe euclid 人間型 知性
-hu	_hu történet biztonságos euklid élő humanoid	hu tale safe euclid 生命 人間型
-id	scp-id kisah-id aman euclid humanoid hidup berakal	id scp tale safe euclid 人間型 生命 知性
+int	scp _vn _cc resource translator _adult _genreless	vn scp 世界観 著者ページ アダルト
 it	it racconto safe euclid senziente umanoide sapiente	it tale safe euclid 知性 人間型
-ko	ko 이야기 유클리드 안전 인간형 케테르 지성	ko tale euclid safe 人間型 keter 知性
-kz	kz scp қауіпсіз евклид гуманоид тірі	kz scp safe euclid 人間型 生命
+ko	ko 이야기 유클리드 안전 인간형 케테르 지성 생물 정신조작	ko tale euclid safe 人間型 keter 知性 生命 精神影響
 pl	oryginał opowieść bezpieczne euclid humanoid rozumne żywe	pl tale safe euclid 人間型 知性 生命
 pt-br	pt conto seguro euclídeo humanoide sapiente	pt tale safe euclid 人間型 知性
 th	scp-th tale-th safe euclid สิ่งมีชีวิต คล้ายมนุษย์	th scp tale safe euclid 生命 人間型
-tr	güvenli öklid keter scp	tr safe euclid keter scp
 ua	ua об'єкт безпечний евклід гуманоїд психічний_вплив	ua scp safe euclid 人間型 精神影響
 vn	scp-vn truyện-vn safe euclid dạng-người trí-khôn	vn scp tale safe euclid 人間型 知性
 zh-tr	原創 故事 safe euclid 精神影響	zh tale safe euclid 精神影響

@@ -1,5 +1,13 @@
 """翻訳整合性テスト — dictionaries/en_to_jp.json と sources/ の整合性を検証する"""
 from collections import defaultdict
+import json
+from pathlib import Path
+
+from build_dict import EN_ORIGIN_TAG_REPLACEMENTS
+from parsers.int_parser import parse_crosswalk
+
+
+ROOT = Path(__file__).parent.parent
 
 
 def test_en_to_jp_values_are_valid_jp_names(committed_dict, jp_tags_data):
@@ -39,12 +47,31 @@ def test_jp_en_tag_consistent_with_dict(jp_tags_data, en_tag_names, committed_di
 
 
 def test_bidirectional_consistency(committed_dict, jp_tags_data, en_tag_names):
-    """dict[en]=jp のとき jp_tags に (en_tag=en, name=jp) のペアが存在する"""
+    """EN辞書の値にJPリスト・FAQ・公式対応表の根拠がある。"""
     jp_pairs = {
-        (j["en_tag"], j["name"])
+        (source_tag, j["name"])
         for j in jp_tags_data
-        if j.get("en_tag") and j["en_tag"] in en_tag_names
+        for source_tag in (
+            j.get("source_tags")
+            or ([j["en_tag"]] if j.get("en_tag") else [])
+        )
+        if source_tag in en_tag_names
     }
+    jp_names = {j["name"] for j in jp_tags_data}
+    jp_pairs.update((name, name) for name in jp_names & en_tag_names)
+
+    raw_overrides = json.loads(
+        (ROOT / "sources" / "branch_to_jp_overrides.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    for branch in ("*", "en"):
+        for source_tag, value in raw_overrides.get(branch, {}).items():
+            target = value["jp_tag"] if isinstance(value, dict) else value
+            jp_pairs.add((source_tag, target))
+
+    official = parse_crosswalk(str(ROOT / "sources" / "int" / "tag-guide.txt"))
+    jp_pairs.update(official.get("en", {}).items())
     failures = [
         f"dict['{en}']={jp!r} but jp_tags has no entry with en_tag='{en}', name='{jp}'"
         for en, jp in committed_dict.items()
@@ -72,18 +99,27 @@ def test_no_case_variant_duplicates_for_source_tags(en_tag_names, committed_dict
     assert not failures, "\n".join(failures)
 
 
-def test_no_duplicate_jp_names_in_dict(committed_dict):
-    """複数のENタグが同一JPタグ名にマッピングされていない"""
+def test_duplicate_jp_targets_are_documented_aliases(committed_dict, jp_tags_data):
+    """同一JPタグへ収束するENタグはJPリスト記載の別名に限る。"""
     reverse = defaultdict(list)
     for en, jp in committed_dict.items():
         if jp is not None:
             reverse[jp].append(en)
-    dups = {jp: ens for jp, ens in reverse.items() if len(ens) > 1}
-    assert not dups, f"Duplicate JP name mappings: {dups}"
+    documented = {
+        entry["name"]: set(entry.get("source_tags") or [])
+        for entry in jp_tags_data
+    }
+    failures = {
+        jp: ens
+        for jp, ens in reverse.items()
+        if len(ens) > 1 and not set(ens) <= documented.get(jp, set())
+    }
+    assert not failures, f"Undocumented duplicate JP target mappings: {failures}"
 
 
 def test_deprecated_replacement_dict_matches_sources(
     deprecated_tags_data,
+    committed_dict,
     committed_deprecated_dict,
 ):
     """deprecated_en_to_jp.json が fragment-unused.txt の単一置換先と一致する"""
@@ -92,6 +128,13 @@ def test_deprecated_replacement_dict_matches_sources(
         for entry in deprecated_tags_data
         if (entry.get("source_lang") or "EN") == "EN" and entry.get("replacement")
     }
+    expected.update(
+        {
+            source_tag: replacement
+            for source_tag, replacement in EN_ORIGIN_TAG_REPLACEMENTS.items()
+            if source_tag in committed_dict
+        }
+    )
     assert committed_deprecated_dict == expected
 
 

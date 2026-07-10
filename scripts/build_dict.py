@@ -23,6 +23,33 @@ _DATA_JP = _ROOT / "data" / "jp_tags.json"
 _DATA_DEPRECATED = _ROOT / "data" / "deprecated_tags.json"
 _DICT_OUT = _ROOT / "dictionaries" / "en_to_jp.json"
 _DICT_DEPRECATED = _ROOT / "dictionaries" / "deprecated_en_to_jp.json"
+EN_CATEGORIES_OMITTED_ON_JP = {"Genre", "Genre and Themes"}
+EN_ORIGIN_TAG_REPLACEMENTS = {
+    "_int": "int",
+    "_ru": "ru",
+    "_ko": "ko",
+    "_cn": "cn",
+    "_fr": "fr",
+    "_pl": "pl",
+    "_es": "es",
+    "_th": "th",
+    "_jp": "jp",
+    "_de": "de",
+    "_it": "it",
+    "_ua": "ua",
+    "_pt": "pt",
+    "_zh": "zh",
+    "_vn": "vn",
+    "_el": "el",
+    "_id": "id",
+    "_hu": "hu",
+    "_nd": "nd",
+}
+EN_CROSSWALK_SEMANTIC_REPLACEMENTS = {
+    **EN_ORIGIN_TAG_REPLACEMENTS,
+    # JP tag-list FAQ: foreign-branch guide tags become 他支部公式 on JP.
+    "guide": "他支部公式",
+}
 
 
 def load_json(path: Path) -> list | dict:
@@ -33,6 +60,35 @@ def load_json(path: Path) -> list | dict:
 def is_deprecated_for_en_source(entry: dict) -> bool:
     source_lang = entry.get("source_lang") or "EN"
     return source_lang == "EN" and bool(entry.get("en_tag"))
+
+
+def jp_source_tags(entry: dict) -> list[str]:
+    """Return every source-language alias recorded for a JP tag."""
+    raw = entry.get("source_tags")
+    if isinstance(raw, list):
+        return [value for value in raw if isinstance(value, str) and value]
+    legacy = entry.get("en_tag")
+    return [legacy] if isinstance(legacy, str) and legacy else []
+
+
+def en_category_omitted_tags(
+    en_tags: list[dict],
+    jp_tags: list[dict],
+    extra_mapped_tags: set[str] | None = None,
+) -> set[str]:
+    """EN Genre tags omitted by JP policy unless JP explicitly maps them."""
+    mapped = {
+        source_tag
+        for entry in jp_tags
+        for source_tag in jp_source_tags(entry)
+    }
+    mapped.update(extra_mapped_tags or set())
+    return {
+        entry["name"]
+        for entry in en_tags
+        if entry.get("category") in EN_CATEGORIES_OMITTED_ON_JP
+        and entry["name"] not in mapped
+    }
 
 
 def _ensure_unique(values, label: str) -> None:
@@ -87,6 +143,17 @@ def validate_build_inputs(
             not isinstance(en_tag, str) or not en_tag or en_tag != en_tag.strip()
         ):
             raise ValueError(f"JP側en_tagが不正です: {en_tag!r}")
+        source_tags = entry.get("source_tags")
+        if source_tags is not None and (
+            not isinstance(source_tags, list)
+            or any(
+                not isinstance(value, str)
+                or not value
+                or value != value.strip()
+                for value in source_tags
+            )
+        ):
+            raise ValueError(f"JP側source_tagsが不正です: {source_tags!r}")
     if deprecated_raw is not None:
         for index, entry in enumerate(deprecated_raw):
             if not isinstance(entry, dict):
@@ -112,9 +179,19 @@ def validate_build_inputs(
                 raise ValueError(f"非使用タグのreplacementが不正です: {replacement!r}")
 
     _ensure_unique((entry["name"] for entry in en_tags), "ENタグ名")
+    # Keep the legacy-field validation first so old-style callers receive the
+    # most specific error.  source_tags is the canonical multi-branch superset.
     _ensure_unique(
-        (entry["en_tag"] for entry in jp_tags if entry.get("en_tag")),
+        (
+            entry["en_tag"]
+            for entry in jp_tags
+            if isinstance(entry.get("en_tag"), str) and entry["en_tag"]
+        ),
         "JP側en_tag",
+    )
+    _ensure_unique(
+        (source_tag for entry in jp_tags for source_tag in jp_source_tags(entry)),
+        "JP側source_tags",
     )
     if deprecated_raw is not None:
         _ensure_unique(
@@ -172,9 +249,8 @@ def build(
     # JP → EN マッピングを構築（en_tag フィールドが設定されているJPタグのみ）
     jp_map: dict[str, str] = {}
     for entry in jp_tags:
-        en_tag = entry.get("en_tag")
-        if en_tag:
-            jp_map[en_tag] = entry["name"]
+        for source_tag in jp_source_tags(entry):
+            jp_map[source_tag] = entry["name"]
 
     new_dict: dict[str, str | None] = {}
 
@@ -235,6 +311,15 @@ def main() -> None:
     for entry in deprecated_raw:
         if is_deprecated_for_en_source(entry):
             deprecated_en_tags.add(entry["en_tag"])
+    category_omitted_tags = en_category_omitted_tags(en_tags, jp_tags)
+    en_tag_names = {entry["name"] for entry in en_tags}
+    origin_replacements = {
+        source_tag: replacement
+        for source_tag, replacement in EN_ORIGIN_TAG_REPLACEMENTS.items()
+        if source_tag in en_tag_names
+    }
+    deprecated_en_tags.update(category_omitted_tags)
+    deprecated_en_tags.update(origin_replacements)
 
     # --- 既存辞書の読み込み（手動追記を保護するため） ---
     existing: dict[str, str | None] = {}
@@ -261,11 +346,12 @@ def main() -> None:
     print(f"辞書生成完了: {mapped}/{total} エントリがマッピング済み → {_DICT_OUT}")
 
     # 非使用タグの置換辞書を生成
-    deprecated_dict = {
+    deprecated_dict: dict[str, str] = {
         entry["en_tag"]: entry["replacement"]
         for entry in deprecated_raw
         if is_deprecated_for_en_source(entry) and entry.get("replacement")
     }
+    deprecated_dict.update(origin_replacements)
     _DICT_DEPRECATED.parent.mkdir(parents=True, exist_ok=True)
     with open(_DICT_DEPRECATED, "w", encoding="utf-8") as f:
         json.dump(dict(sorted(deprecated_dict.items())), f, ensure_ascii=False, indent=2)

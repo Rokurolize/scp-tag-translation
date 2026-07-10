@@ -1,5 +1,12 @@
 {
+  "*": {
+    "guide": {
+      "jp_tag": "他支部公式",
+      "note": "JP tag-list FAQ: foreign branch guide tags map to 他支部公式, not ガイド"
+    }
+  },
   "cn": {
+    "_其他": {"jp_tag": "_その他団体-他支部", "note": "CN-local generic GoI format tag"},
     "原创": {"jp_tag": "cn", "note": "CN origin tag"},
     "故事": {"jp_tag": "tale", "note": "CN tale major tag"},
     "人形生物": {"jp_tag": "人間型", "note": "CN humanoid tag"},
@@ -14,6 +21,9 @@
     "deutsch": {"jp_tag": "de", "note": "DE origin tag"},
     "geschichte": {"jp_tag": "tale", "note": "DE tale major tag"},
     "sicher": {"jp_tag": "safe", "note": "DE safe class tag"}
+  },
+  "en": {
+    "_adult": {"jp_tag": "アダルト", "note": "EN operational spelling of the adult tag"}
   },
   "es": {
     "relato": {"jp_tag": "tale", "note": "ES tale major tag"},
@@ -50,7 +60,11 @@
     "umanoide": {"jp_tag": "人間型", "note": "IT humanoid tag"},
     "sapiente": {"jp_tag": "知性", "note": "IT sapient tag"}
   },
+  "int": {
+    "_adult": {"jp_tag": "アダルト", "note": "SCP-INT inherits EN operational tags"}
+  },
   "ko": {
+    "안내": {"jp_tag": "他支部公式", "note": "JP FAQ overrides KO table guide→ガイド"},
     "이야기": {"jp_tag": "tale", "note": "KO tale major tag"},
     "유클리드": {"jp_tag": "euclid", "note": "KO euclid class tag"},
     "안전": {"jp_tag": "safe", "note": "KO safe class tag"},
@@ -65,6 +79,8 @@
     "тірі": {"jp_tag": "生命", "note": "KZ alive tag"}
   },
   "pl": {
+    "_inne": {"jp_tag": "_その他団体-他支部", "note": "PL generic non-EN GoI format tag"},
+    "_inne-pl": {"jp_tag": "_その他団体-他支部", "note": "PL-local generic GoI format tag"},
     "oryginał": {"jp_tag": "pl", "note": "PL origin tag"},
     "opowieść": {"jp_tag": "tale", "note": "PL tale major tag"},
     "bezpieczne": {"jp_tag": "safe", "note": "PL safe class tag"},
@@ -79,6 +95,7 @@
     "sapiente": {"jp_tag": "知性", "note": "PT/BR sapient tag"}
   },
   "th": {
+    "_อื่น-ๆ": {"jp_tag": "_その他団体-他支部", "note": "TH-local generic GoI format tag"},
     "scp-th": {"jp_tag": "scp", "note": "TH SCP major tag"},
     "tale-th": {"jp_tag": "tale", "note": "TH tale major tag"},
     "สิ่งมีชีวิต": {"jp_tag": "生命", "note": "TH alive tag"},
@@ -96,6 +113,7 @@
     "психічний_вплив": {"jp_tag": "精神影響", "note": "UA mind-affecting tag"}
   },
   "vn": {
+    "_khác": {"jp_tag": "_その他団体-他支部", "note": "VN-local generic GoI format tag"},
     "scp-vn": {"jp_tag": "scp", "note": "VN SCP major tag"},
     "truyện-vn": {"jp_tag": "tale", "note": "VN tale major tag"},
     "dạng-người": {"jp_tag": "人間型", "note": "VN humanoid tag"},

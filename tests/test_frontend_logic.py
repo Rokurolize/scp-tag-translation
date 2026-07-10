@@ -3,10 +3,15 @@ import json
 import re
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 import csv
 
 import pytest
+
+sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
+
+from branch_config import SUPPORTED_BRANCHES
 
 ROOT = Path(__file__).parent.parent
 INDEX_HTML = ROOT / "index.html"
@@ -32,8 +37,48 @@ def _translate_with_frontend(
     input_text: str,
     source_lang: str,
     deprecated: dict[str, str] | None = None,
+    policy: dict | None = None,
 ) -> dict[str, str]:
     node = _node()
+    if policy is None:
+        copyable_targets = {
+            value for value in dictionary.values() if isinstance(value, str)
+        }
+        copyable_targets.update(
+            value for value in (deprecated or {}).values() if isinstance(value, str)
+        )
+        source_branch_tags = {
+            "cn": "cn",
+            "cs": "cs",
+            "de": "de",
+            "en": "en",
+            "es": "es",
+            "fr": "fr",
+            "int": "int",
+            "it": "it",
+            "ko": "ko",
+            "pl": "pl",
+            "pt-br": "pt",
+            "th": "th",
+            "ua": "ua",
+            "vn": "vn",
+            "zh-tr": "zh",
+        }
+        if source_lang in source_branch_tags:
+            copyable_targets.add(source_branch_tags[source_lang])
+        policy = {
+            "tags": {
+                target: {
+                    "copy_allowed_for_translation": True,
+                    "use_restricted": False,
+                    "edit_restricted": False,
+                    "translation_exempt": False,
+                    "special_translation_action": None,
+                }
+                for target in copyable_targets
+            },
+            "source_tags": {},
+        }
     script = r"""
 const fs = require("node:fs");
 const vm = require("node:vm");
@@ -64,11 +109,13 @@ const context = {
 };
 vm.createContext(context);
 vm.runInContext(frontendScript, context);
+const payload = JSON.parse(fs.readFileSync(0, "utf8"));
 context.doTranslationWithDictionary(
-  JSON.parse(process.argv[1]),
-  process.argv[2],
-  process.argv[3],
-  JSON.parse(process.argv[4])
+  payload.dictionary,
+  payload.inputText,
+  payload.sourceLang,
+  payload.deprecated,
+  payload.policy
 );
 console.log(JSON.stringify({
   targetText: elements.targetText.value,
@@ -76,19 +123,21 @@ console.log(JSON.stringify({
 }));
 """
     completed = subprocess.run(
-        [
-            node,
-            "-e",
-            script,
-            json.dumps(dictionary, ensure_ascii=False),
-            input_text,
-            source_lang,
-            json.dumps(deprecated or {}, ensure_ascii=False),
-        ],
+        [node, "-e", script],
         check=True,
         text=True,
         capture_output=True,
         cwd=ROOT,
+        input=json.dumps(
+            {
+                "dictionary": dictionary,
+                "inputText": input_text,
+                "sourceLang": source_lang,
+                "deprecated": deprecated or {},
+                "policy": policy,
+            },
+            ensure_ascii=False,
+        ),
     )
     return json.loads(completed.stdout)
 
@@ -228,7 +277,12 @@ context.doTranslationWithDictionary(
   { hasOwnProperty: "所有", x: "X" },
   "hasOwnPropertyx",
   "en",
-  {}
+  {},
+  { tags: {
+    "所有": { copy_allowed_for_translation: true },
+    X: { copy_allowed_for_translation: true },
+    en: { copy_allowed_for_translation: true },
+  } }
 );
 console.log(JSON.stringify(elements.targetText.value));
 """
@@ -278,7 +332,13 @@ context.doTranslationWithDictionary(
   JSON.parse('{"__proto__":"プロト","constructor":"コンスト","x":"X"}'),
   "__proto__constructorx",
   "en",
-  {}
+  {},
+  { tags: {
+    "プロト": { copy_allowed_for_translation: true },
+    "コンスト": { copy_allowed_for_translation: true },
+    X: { copy_allowed_for_translation: true },
+    en: { copy_allowed_for_translation: true },
+  } }
 );
 console.log(JSON.stringify(elements.targetText.value));
 """
@@ -328,7 +388,11 @@ context.doTranslationWithDictionary(
   { artist: null, artwork: "アートワーク" },
   "artist artwork artwork",
   "en",
-  { artist: "アートワーク" }
+  { artist: "アートワーク" },
+  { tags: {
+    "アートワーク": { copy_allowed_for_translation: true },
+    en: { copy_allowed_for_translation: true },
+  } }
 );
 console.log(JSON.stringify(elements.targetText.value));
 """
@@ -378,7 +442,8 @@ context.doTranslationWithDictionary(
   { unused: null },
   "missing unused",
   "en",
-  {}
+  {},
+  { tags: { en: { copy_allowed_for_translation: true } }, source_tags: {} }
 );
 console.log(JSON.stringify({
   targetText: elements.targetText.value,
@@ -397,6 +462,103 @@ console.log(JSON.stringify({
     assert state["targetText"] == ""
     assert "missing (未定義)" in state["logArea"]
     assert "unused (未対応または非使用タグ)" in state["logArea"]
+
+
+def test_translation_distinguishes_application_from_explicit_jp_omission():
+    omitted = _translate_with_frontend(
+        {"genre-tag": None},
+        "genre-tag",
+        "en",
+        policy={
+            "tags": {},
+            "source_tags": {
+                "en": {
+                    "genre-tag": {
+                        "translation_action": "omit_translation_policy",
+                        "reason": "翻訳時は付与不要です。",
+                    }
+                }
+            },
+        },
+    )
+    application = _translate_with_frontend(
+        {"new-concept": None},
+        "new-concept",
+        "en",
+        policy={"tags": {}, "source_tags": {}},
+    )
+
+    assert omitted["targetText"] == ""
+    assert "JPでは付与しない" in omitted["logArea"]
+    assert "タグ申請" not in omitted["logArea"]
+    assert application["targetText"] == ""
+    assert "未訳-new-concept" in application["logArea"]
+    assert "タグ申請・確認が必要" in application["logArea"]
+
+
+def test_translation_keeps_restricted_jp_tag_out_of_copy_field():
+    state = _translate_with_frontend(
+        {"theme": "テーマ"},
+        "theme",
+        "en",
+        policy={
+            "tags": {
+                "テーマ": {
+                    "copy_allowed_for_translation": False,
+                    "use_restricted": True,
+                    "edit_restricted": False,
+                    "translation_exempt": False,
+                    "special_translation_action": None,
+                }
+            },
+            "source_tags": {},
+        },
+    )
+
+    assert state["targetText"] == ""
+    assert "スタッフ許可が必要" in state["logArea"]
+
+
+def test_translation_copies_restricted_tag_with_translation_exemption():
+    allowed = {
+        "copy_allowed_for_translation": True,
+        "use_restricted": True,
+        "edit_restricted": False,
+        "translation_exempt": True,
+        "special_translation_action": None,
+    }
+    state = _translate_with_frontend(
+        {"featured": "注目記事"},
+        "featured",
+        "en",
+        policy={
+            "tags": {
+                "注目記事": allowed,
+                "en": {
+                    **allowed,
+                    "use_restricted": False,
+                    "translation_exempt": False,
+                },
+            },
+            "source_tags": {},
+        },
+    )
+
+    assert state["targetText"] == "en 注目記事"
+    assert "制限緩和/翻訳によりコピー可能" in state["logArea"]
+
+
+def test_translation_fails_closed_when_jp_policy_is_missing():
+    state = _translate_with_frontend(
+        {"scp": "scp"},
+        "scp",
+        "en",
+        policy={},
+    )
+
+    assert state["targetText"] == ""
+    assert "JPポリシーデータ未読込" in state["logArea"]
+    assert "データ不整合" in state["logArea"]
 
 
 def test_translation_uses_normalized_source_branch_tag():
@@ -429,31 +591,16 @@ def test_required_source_options_are_visible():
     assert source_select is not None
 
     options = set(re.findall(r'<option value="([^"]+)"', source_select.group(1)))
-    required = {
-        "cn",
-        "cs",
-        "de",
-        "el",
-        "en",
-        "es",
-        "fr",
-        "hu",
-        "id",
-        "it",
-        "ko",
-        "kz",
-        "pl",
-        "pt-br",
-        "th",
-        "tr",
-        "ua",
-        "vn",
-        "zh-tr",
-    }
-    assert required <= options
+    required = set(SUPPORTED_BRANCHES)
+    assert options == required
 
 
 def test_branch_acceptance_examples_translate_with_committed_dictionaries():
+    policy = json.loads(
+        (ROOT / "dictionaries" / "jp_tag_policy.json").read_text(
+            encoding="utf-8"
+        )
+    )
     with ACCEPTANCE.open(encoding="utf-8", newline="") as f:
         rows = list(csv.DictReader(f, delimiter="\t"))
 
@@ -471,6 +618,7 @@ def test_branch_acceptance_examples_translate_with_committed_dictionaries():
             row["input_tags"],
             branch,
             deprecated,
+            policy,
         )
         output_tags = state["targetText"].split()
         assert len(output_tags) == len(set(output_tags)), branch

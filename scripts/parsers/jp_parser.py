@@ -1,6 +1,5 @@
 import re
 import json
-import glob
 import os
 from pathlib import Path
 
@@ -19,6 +18,24 @@ _REPLACE_RE = re.compile(
     r"//([^/]+)//(?:タグ)?(?:へ|に)置(?:き)?換(?:え|し)てください"
 )
 _SECTION_RE = re.compile(r"^\+{3,}\s*([A-Z]{2,3})\b")
+
+# SCP-JP's tag list uses Font Awesome glyphs as the machine-visible source of
+# truth for restricted tags.  The surrounding variation selector/comma markup
+# has changed over time, but these private-use code points have stayed stable.
+_USE_RESTRICTED_ICON = "\uf05e"
+_EDIT_RESTRICTED_ICON = "\uf023"
+_TRANSLATION_EXEMPT_ICON = "\uf084"
+
+# Only these include fragments define registered JP tags.  tag-list's FAQ and
+# unused-tag fragments also contain tag links, but those links are references,
+# not additional registered definitions.
+_REGISTERED_FRAGMENT_NAMES = (
+    "tag-list.txt",
+    "fragment-basic.txt",
+    "fragment-series.txt",
+    "fragment-universe.txt",
+    "fragment-event.txt",
+)
 
 
 def _extract_single_replacement(description: str) -> str | None:
@@ -112,6 +129,7 @@ def parse_unused(filepath: str, output_filepath: str) -> None:
                 "source_lang": source_lang,
                 "en_tag": en_tag,
                 "replacement": replacement,
+                "description": description,
             })
 
     Path(output_filepath).parent.mkdir(parents=True, exist_ok=True)
@@ -134,13 +152,13 @@ def parse(sources_jp_dir: str, output_filepath: str) -> None:
         sources_jp_dir: JPフラグメントファイルのディレクトリ (sources/jp/)
         output_filepath: 出力ファイルパス (data/jp_tags.json)
     """
-    tags_data = []
-    seen_names: set[str] = set()
+    tags_by_name: dict[str, dict] = {}
 
-    fragment_files = sorted(
-        f for f in glob.glob(os.path.join(sources_jp_dir, "fragment-*.txt"))
-        if not f.endswith("fragment-unused.txt")
-    )
+    fragment_files = [
+        os.path.join(sources_jp_dir, name)
+        for name in _REGISTERED_FRAGMENT_NAMES
+        if os.path.exists(os.path.join(sources_jp_dir, name))
+    ]
     if not fragment_files:
         print(f"警告: JPフラグメントファイルが見つかりません: {sources_jp_dir}")
 
@@ -153,6 +171,13 @@ def parse(sources_jp_dir: str, output_filepath: str) -> None:
             if not matches:
                 continue
 
+            # Restriction icons precede the first tag definition and apply to
+            # every tag definition on that list item.
+            prefix = line[: matches[0].start()]
+            edit_restricted = _EDIT_RESTRICTED_ICON in prefix
+            use_restricted = edit_restricted or _USE_RESTRICTED_ICON in prefix
+            translation_exempt = _TRANSLATION_EXEMPT_ICON in prefix
+
             # 最後のマッチ終了位置以降から説明文を抽出
             last_end = matches[-1].end()
             remaining = line[last_end:]
@@ -164,15 +189,43 @@ def parse(sources_jp_dir: str, output_filepath: str) -> None:
                 # ENタグ名（省略時は None）
                 en_tag = m.group(3).strip() if m.group(3) else None
 
-                if not slug or slug in seen_names:
+                if not slug:
                     continue
-                seen_names.add(slug)
 
-                tags_data.append({
-                    "name": slug,
-                    "en_tag": en_tag if en_tag else None,
-                    "description": description,
-                })
+                entry = tags_by_name.get(slug)
+                if entry is None:
+                    entry = {
+                        "name": slug,
+                        # Kept for compatibility with existing data consumers.
+                        # New code should use source_tags so a JP tag can retain
+                        # every foreign-language alias listed in multiple tabs.
+                        "en_tag": en_tag if en_tag else None,
+                        "source_tags": [],
+                        "description": description,
+                        "use_restricted": use_restricted,
+                        "edit_restricted": edit_restricted,
+                        "translation_exempt": translation_exempt,
+                    }
+                    tags_by_name[slug] = entry
+                else:
+                    if not entry["description"] and description:
+                        entry["description"] = description
+                    entry["use_restricted"] = (
+                        entry["use_restricted"] or use_restricted
+                    )
+                    entry["edit_restricted"] = (
+                        entry["edit_restricted"] or edit_restricted
+                    )
+                    entry["translation_exempt"] = (
+                        entry["translation_exempt"] or translation_exempt
+                    )
+
+                if en_tag and en_tag not in entry["source_tags"]:
+                    entry["source_tags"].append(en_tag)
+                    if entry["en_tag"] is None:
+                        entry["en_tag"] = en_tag
+
+    tags_data = list(tags_by_name.values())
 
     Path(output_filepath).parent.mkdir(parents=True, exist_ok=True)
     with open(output_filepath, "w", encoding="utf-8") as f:

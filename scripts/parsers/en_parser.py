@@ -13,6 +13,7 @@ tag_pattern = re.compile(
 desc_pattern = re.compile(r"--\s*(.*)")
 meta_pattern = re.compile(r"^\s*\*\s*//\s*(.*?)\s*//")
 quoted_value_pattern = re.compile(r"'([^']+)'")
+tab_pattern = re.compile(r"^\[\[tab\s+(.+?)\]\]$")
 
 
 def _normalize_meta_key(value: str) -> str:
@@ -59,10 +60,19 @@ def parse(input_filepath: str, output_filepath: str) -> None:
     """
     tags_data: list[TagData] = []
     current_tag: TagData | None = None
+    current_category: str | None = None
 
     with open(input_filepath, "r", encoding="utf-8") as f:
         for line in f:
             line = line.strip()
+
+            tab_match = tab_pattern.match(line)
+            if tab_match:
+                current_category = tab_match.group(1).strip()
+                continue
+            if line == "[[/tab]]":
+                current_category = None
+                continue
 
             tag_match = tag_pattern.match(line)
             if tag_match:
@@ -76,6 +86,7 @@ def parse(input_filepath: str, output_filepath: str) -> None:
                 current_tag = {
                     "name": tag_name,
                     "description": description,
+                    "category": current_category,
                     "meta": {},
                 }
                 continue

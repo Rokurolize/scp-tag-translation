@@ -10,33 +10,16 @@ sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 import build_branch_tag_coverage_html as coverage_html_builder
 import build_branch_tag_coverage_data as coverage_builder
+from branch_config import SUPPORTED_BRANCHES
 
 ROOT = Path(__file__).parent.parent
 COVERAGE_JSON = ROOT / "visualization" / "branch_tag_coverage.json"
 COVERAGE_TSV = ROOT / "visualization" / "branch_tag_coverage.tsv"
 COVERAGE_HTML = ROOT / "visualization" / "branch_tag_coverage.html"
+APPLICATION_JSON = ROOT / "visualization" / "tag_application_inventory.json"
+APPLICATION_TSV = ROOT / "visualization" / "tag_application_inventory.tsv"
 
-REQUIRED_BRANCHES = [
-    "cn",
-    "cs",
-    "de",
-    "el",
-    "en",
-    "es",
-    "fr",
-    "hu",
-    "id",
-    "it",
-    "ko",
-    "kz",
-    "pl",
-    "pt-br",
-    "th",
-    "tr",
-    "ua",
-    "vn",
-    "zh-tr",
-]
+REQUIRED_BRANCHES = list(SUPPORTED_BRANCHES)
 
 KNOWN_STATUSES = set(coverage_builder.STATUS_DESCRIPTIONS)
 
@@ -57,27 +40,42 @@ def _load_embedded_html_coverage():
 
 
 def test_classify_tag_distinguishes_jp_list_and_override_states():
-    jp_names = {"scp", "cn", "tale", "外部ウィキアーカイブ"}
-    jp_source_map = {"euclid": "euclid"}
+    jp_names = {"scp", "cn", "euclid", "tale", "外部ウィキアーカイブ"}
+    jp_source_map = {"euclidean": "euclid"}
     deprecated_tags = {"CN": {"wanderers"}}
     replacements = {"CN": {"wanderers": "外部ウィキアーカイブ"}}
     overrides = {"cn": {"原创": "cn"}}
+    policy = {
+        tag: {
+            "copy_allowed_for_translation": True,
+            "use_restricted": False,
+            "edit_restricted": False,
+            "translation_exempt": False,
+            "special_translation_action": None,
+        }
+        for tag in jp_names
+    }
 
-    assert coverage_builder.classify_tag(
-        "cn", "scp", jp_names, jp_source_map, deprecated_tags, replacements, overrides
-    )["status"] == "jp_tag_name"
-    assert coverage_builder.classify_tag(
-        "cn", "euclid", jp_names, jp_source_map, deprecated_tags, replacements, overrides
-    )["status"] == "jp_tag_alias"
-    assert coverage_builder.classify_tag(
-        "cn", "wanderers", jp_names, jp_source_map, deprecated_tags, replacements, overrides
-    )["status"] == "jp_unused_replacement"
-    assert coverage_builder.classify_tag(
-        "cn", "原创", jp_names, jp_source_map, deprecated_tags, replacements, overrides
-    )["status"] == "curated_override_only"
-    assert coverage_builder.classify_tag(
-        "cn", "unknown", jp_names, jp_source_map, deprecated_tags, replacements, overrides
-    )["status"] == "unhandled"
+    def classify(tag):
+        return coverage_builder.classify_tag(
+            "cn",
+            tag,
+            jp_names,
+            jp_source_map,
+            deprecated_tags,
+            replacements,
+            overrides,
+            policy,
+            set(),
+            {"cn": {"official": "tale"}},
+        )["status"]
+
+    assert classify("scp") == "jp_tag_name"
+    assert classify("euclidean") == "jp_tag_alias"
+    assert classify("wanderers") == "jp_unused_replacement"
+    assert classify("原创") == "curated_override_only"
+    assert classify("official") == "official_crosswalk"
+    assert classify("unknown") == "unhandled"
 
 
 def test_visualization_files_exist_and_cover_required_branches():
@@ -98,6 +96,8 @@ def test_visualization_entries_have_known_statuses_and_required_fields():
             assert entry["status"] in KNOWN_STATUSES
             assert isinstance(entry["jp_list_handled"], bool)
             assert isinstance(entry["translator_handled"], bool)
+            assert isinstance(entry["copy_allowed"], bool)
+            assert isinstance(entry["translation_action"], str)
             assert isinstance(entry["sample_slugs"], list)
 
 
@@ -123,6 +123,10 @@ def test_visualization_records_expected_status_examples():
     assert by_branch["pt-br"]["conto"]["status"] == "curated_override_only"
     assert by_branch["zh-tr"]["原創"]["status"] == "jp_unused_replacement"
     assert by_branch["en"]["scp"]["status"] == "jp_tag_name"
+    assert by_branch["cn"]["认知危害"]["status"] == "official_crosswalk"
+    assert by_branch["de"]["amphibisch"]["status"] == "official_crosswalk"
+    assert by_branch["vn"]["hướng-dẫn"]["status"] == "official_crosswalk"
+    assert by_branch["ko"]["생물"]["status"] == "official_crosswalk"
 
 
 def test_visualization_html_is_self_contained_and_embeds_current_data():
@@ -139,6 +143,31 @@ def test_visualization_html_is_self_contained_and_embeds_current_data():
     assert 'id="branchSelect"' in html
     assert 'id="statusFilters"' in html
     assert 'id="tagRows"' in html
+
+
+def test_application_inventory_exactly_matches_unhandled_coverage():
+    coverage = _load_coverage()
+    inventory = json.loads(APPLICATION_JSON.read_text(encoding="utf-8"))
+    expected = {
+        (branch["branch"], entry["tag"])
+        for branch in coverage["branches"]
+        for entry in branch["tags"]
+        if entry["translation_action"] == "tag_application_required"
+    }
+    actual = {
+        (branch["branch"], entry["tag"])
+        for branch in inventory["branches"]
+        for entry in branch["tags"]
+    }
+    assert actual == expected
+    assert [branch["branch"] for branch in inventory["branches"]] == REQUIRED_BRANCHES
+    assert sum(
+        branch["scanned_page_count"] for branch in inventory["branches"]
+    ) == sum(branch["page_count"] for branch in coverage["branches"])
+
+    with APPLICATION_TSV.open(encoding="utf-8", newline="") as f:
+        rows = list(csv.DictReader(f, delimiter="\t"))
+    assert len(rows) == len(expected)
 
 
 def test_visualization_html_escapes_embedded_json_script_boundaries():

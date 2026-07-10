@@ -174,32 +174,28 @@
       <div class="column">
         <label for="sourceLang">翻訳元言語</label>
         <select id="sourceLang">
-          <option value="en" selected>English (en)</option>
-          <option value="cn">中文 (cn)</option>
-          <option value="cs">Česky (cs)</option>
-          <option value="de">Deutsch (de)</option>
-          <option value="el">Ελληνικά (el)</option>
-          <option value="es">Español (es)</option>
-          <option value="fr">Français (fr)</option>
-          <option value="hu">Magyar (hu)</option>
-          <option value="id">Bahasa Indonesia (id)</option>
-          <option value="it">Italiano (it)</option>
-          <option value="ko">한국어 (ko)</option>
-          <option value="kz">Қазақша (kz)</option>
-          <option value="pl">Polski (pl)</option>
-          <option value="pt-br">Português (pt-br)</option>
-          <option value="th">ภาษาไทย (th)</option>
-          <option value="tr">Türkçe (tr)</option>
-          <option value="ua">Українська (ua)</option>
-          <option value="vn">Tiếng Việt (vn)</option>
-          <option value="zh-tr">繁體中文 (zh-tr)</option>
+          <option value="cn">中文 — scp-wiki-cn</option>
+          <option value="cs">Čeština — scp-cs</option>
+          <option value="de">Deutsch — scp-wiki-de</option>
+          <option value="en" selected>English — scp-wiki</option>
+          <option value="es">Español — lafundacionscp</option>
+          <option value="fr">Français — fondationscp</option>
+          <option value="int">International — scp-int</option>
+          <option value="it">Italiano — fondazionescp</option>
+          <option value="ko">한국어 — scpko</option>
+          <option value="pl">Polski — scp-pl</option>
+          <option value="pt-br">Português — scp-pt-br</option>
+          <option value="th">ภาษาไทย — scp-th</option>
+          <option value="ua">Українська — scp-ukrainian</option>
+          <option value="vn">Tiếng Việt — scp-vn</option>
+          <option value="zh-tr">繁體中文 — scp-zh-tr</option>
         </select>
 
         <textarea id="sourceText" placeholder="翻訳したいタグを入力"></textarea>
       </div>
 
       <div class="column">
-        <label for="targetLang">翻訳先言語</label>
+        <label for="targetLang">コピー可能なJPタグ（そのまま使用可）</label>
         <select id="targetLang">
           <!-- 今は日本語(jp)のみ対応 -->
           <option value="jp" selected>日本語 (jp)</option>
@@ -237,7 +233,7 @@
     <!-- ログ表示欄 -->
     <div class="container" style="flex-direction: column">
       <div class="column">
-        <label>ログ</label>
+        <label>要確認・コピー対象外ログ</label>
         <div id="logArea" aria-readonly="true"></div>
 
         <!-- ローディング表示エリア -->
@@ -256,19 +252,15 @@
         cn: "cn",
         cs: "cs",
         de: "de",
-        el: "el",
         en: "en",
         es: "es",
         fr: "fr",
-        hu: "hu",
-        id: "id",
+        int: "int",
         it: "it",
         ko: "ko",
-        kz: "kz",
         pl: "pl",
         "pt-br": "pt",
         th: "th",
-        tr: "tr",
         ua: "ua",
         vn: "vn",
         "zh-tr": "zh",
@@ -298,12 +290,12 @@
         "ua",
         "vn",
         "zh",
-        "外部ウィキアーカイブ",
         "未認可支部",
       ]);
 
       const dictionaryCache = {}; // ペアごとの辞書キャッシュ
       const deprecatedCache = {}; // 非使用タグ置換辞書のキャッシュ
+      let jpPolicyCache = null; // JP登録タグの制限・翻訳緩和ポリシー
       let translationRequestId = 0; // 非同期fetchの古い結果を無視するための連番
       const loadingIndicator = document.getElementById("loadingIndicator");
       const hasOwn = (object, key) =>
@@ -365,20 +357,43 @@
                 return {};
               });
 
+        const policyPromise = jpPolicyCache
+          ? Promise.resolve(jpPolicyCache)
+          : fetch("./dictionaries/jp_tag_policy.json")
+              .then((res) => {
+                if (!res.ok) {
+                  throw new Error("JPタグポリシーを読み込めません");
+                }
+                return res.json();
+              })
+              .then((data) => {
+                jpPolicyCache = data;
+                return data;
+              });
+
         // すでに読み込み済みかどうか
         if (dictionaryCache[mapKey]) {
-          deprecatedPromise.then((deprecated) => {
-            if (requestId !== translationRequestId) {
-              return;
-            }
-            doTranslationWithDictionary(
-              dictionaryCache[mapKey],
-              inputStr,
-              srcLang,
-              deprecated
-            );
-            showLoading(false);
-          });
+          Promise.all([deprecatedPromise, policyPromise])
+            .then(([deprecated, jpPolicy]) => {
+              if (requestId !== translationRequestId) {
+                return;
+              }
+              doTranslationWithDictionary(
+                dictionaryCache[mapKey],
+                inputStr,
+                srcLang,
+                deprecated,
+                jpPolicy
+              );
+            })
+            .catch((err) => {
+              if (requestId !== translationRequestId) return;
+              setLog(`【エラー】${err.message}`);
+              document.getElementById("targetText").value = "";
+            })
+            .finally(() => {
+              if (requestId === translationRequestId) showLoading(false);
+            });
         } else {
           // 辞書ファイルをfetch
           const url = `./dictionaries/${mapKey}.json`;
@@ -391,13 +406,20 @@
                 return res.json();
               }),
             deprecatedPromise,
+            policyPromise,
           ])
-            .then(([data, deprecated]) => {
+            .then(([data, deprecated, jpPolicy]) => {
               if (requestId !== translationRequestId) {
                 return;
               }
               dictionaryCache[mapKey] = data;
-              doTranslationWithDictionary(data, inputStr, srcLang, deprecated);
+              doTranslationWithDictionary(
+                data,
+                inputStr,
+                srcLang,
+                deprecated,
+                jpPolicy
+              );
             })
             .catch((err) => {
               if (requestId !== translationRequestId) {
@@ -427,8 +449,15 @@
        * @param {string} inputStr - ユーザー入力（タグ文字列）
        * @param {string} srcLang - 翻訳元言語
        * @param {object} deprecatedDict - 非使用タグ置換辞書（省略可）
+       * @param {object} jpPolicy - JPタグの制限・翻訳緩和ポリシー
        */
-      function doTranslationWithDictionary(dictionary, inputStr, srcLang, deprecatedDict) {
+      function doTranslationWithDictionary(
+        dictionary,
+        inputStr,
+        srcLang,
+        deprecatedDict,
+        jpPolicy
+      ) {
         // 入力を空白で分割して個別のタグに
         const tokens = inputStr.split(/\s+/);
         let allTags = [];
@@ -448,28 +477,103 @@
 
         const translatedList = [];
         const replacedList = [];
-        const skippedList = [];
-        const appendTranslatedTag = (tag) => {
-          if (!translatedList.includes(tag)) {
-            translatedList.push(tag);
+        const omittedList = [];
+        const applicationList = [];
+        const unknownSourceList = [];
+        const permissionList = [];
+        const exemptedList = [];
+        const policyErrorList = [];
+        const appendTranslatedTag = (sourceTag, targetTag, prepend = false) => {
+          const policyDataset = jpPolicy && jpPolicy.tags;
+          const policy =
+            policyDataset && hasOwn(policyDataset, targetTag)
+              ? policyDataset[targetTag]
+              : null;
+          if (!policyDataset) {
+            policyErrorList.push(
+              `${sourceTag} → ${targetTag} (JPポリシーデータ未読込)`
+            );
+            return false;
           }
+          if (!policy) {
+            policyErrorList.push(`${sourceTag} → ${targetTag} (JPポリシー未収録)`);
+            return false;
+          }
+          if (!policy.copy_allowed_for_translation) {
+            if (policy.special_translation_action === "omit") {
+              omittedList.push(
+                `${sourceTag} → ${targetTag} (翻訳記事には付与しないタグ)`
+              );
+              return false;
+            }
+            const restriction =
+              policy.special_translation_action === "staff_permission_required"
+                ? "タグ固有の翻訳制限"
+                : policy.edit_restricted
+                  ? "編集禁止"
+                  : "使用禁止・制限緩和/翻訳なし";
+            permissionList.push(
+              `${sourceTag} → ${targetTag} (${restriction})`
+            );
+            return false;
+          }
+          if (!translatedList.includes(targetTag)) {
+            if (prepend) {
+              translatedList.unshift(targetTag);
+            } else {
+              translatedList.push(targetTag);
+            }
+          }
+          if (policy.use_restricted && policy.translation_exempt) {
+            const note = `${sourceTag} → ${targetTag}`;
+            if (!exemptedList.includes(note)) exemptedList.push(note);
+          }
+          return true;
         };
 
         allTags.forEach((tag) => {
           if (!hasOwn(dictionary, tag)) {
-            skippedList.push(`${tag} (未定義)`);
+            unknownSourceList.push(
+              `${tag} (未定義) → 未確認-${tag} (翻訳元の現在のタグとして未確認)`
+            );
           } else if (dictionary[tag] === null) {
-            const replacement = deprecatedDict && deprecatedDict[tag];
-            if (replacement) {
-              // 置換先があれば翻訳結果に追加してログに記録
-              appendTranslatedTag(replacement);
-              replacedList.push(`${tag} → ${replacement}`);
+            const sourcePolicy =
+              jpPolicy &&
+              jpPolicy.source_tags &&
+              jpPolicy.source_tags[srcLang] &&
+              hasOwn(jpPolicy.source_tags[srcLang], tag)
+                ? jpPolicy.source_tags[srcLang][tag]
+                : null;
+            if (deprecatedDict && hasOwn(deprecatedDict, tag)) {
+              const replacement = deprecatedDict[tag];
+              if (replacement) {
+                // 置換先にもJP側の制限ポリシーを適用する。
+                if (appendTranslatedTag(tag, replacement)) {
+                  replacedList.push(`${tag} → ${replacement}`);
+                }
+              } else {
+                omittedList.push(
+                  `${tag} (未対応または非使用タグ) (JPでは付与しないタグ)`
+                );
+              }
+            } else if (
+              sourcePolicy &&
+              (sourcePolicy.translation_action === "omit_jp_unused" ||
+                sourcePolicy.translation_action === "omit_translation_policy")
+            ) {
+              const reason = sourcePolicy.reason
+                ? `: ${sourcePolicy.reason}`
+                : "";
+              omittedList.push(
+                `${tag} (未対応または非使用タグ) (JPでは付与しない${reason})`
+              );
             } else {
-              // 置換先なし：未対応または非使用タグとしてスキップ
-              skippedList.push(`${tag} (未対応または非使用タグ)`);
+              applicationList.push(
+                `${tag} (未対応または非使用タグ) → 未訳-${tag} (JPタグリストに対応タグなし)`
+              );
             }
           } else {
-            appendTranslatedTag(dictionary[tag]);
+            appendTranslatedTag(tag, dictionary[tag]);
           }
         });
 
@@ -478,7 +582,7 @@
         const sourceBranchTag = sourceBranchTagByLang[srcLang];
         const hasBranchTag = translatedList.some((tag) => jpBranchTags.has(tag));
         if (translatedList.length > 0 && sourceBranchTag && !hasBranchTag) {
-          translatedList.unshift(sourceBranchTag);
+          appendTranslatedTag(srcLang, sourceBranchTag, true);
         }
 
         // 結果をテキストエリアに表示
@@ -488,12 +592,40 @@
         const logParts = [];
         if (replacedList.length > 0) {
           logParts.push(
-            "【注意】以下のタグは置換されました：\n" + replacedList.join("\n")
+            "【置換済み・コピー可能】\n" + replacedList.join("\n")
           );
         }
-        if (skippedList.length > 0) {
+        if (exemptedList.length > 0) {
           logParts.push(
-            "【注意】以下のタグはスキップされました：\n" + skippedList.join("\n")
+            "【制限緩和/翻訳によりコピー可能】\n" + exemptedList.join("\n")
+          );
+        }
+        if (applicationList.length > 0) {
+          logParts.push(
+            "【タグ申請・確認が必要／コピー対象外】\n" +
+              applicationList.join("\n")
+          );
+        }
+        if (unknownSourceList.length > 0) {
+          logParts.push(
+            "【翻訳元タグ未確認／入力を確認・コピー対象外】\n" +
+              unknownSourceList.join("\n")
+          );
+        }
+        if (permissionList.length > 0) {
+          logParts.push(
+            "【スタッフ許可が必要／コピー対象外】\n" +
+              permissionList.join("\n")
+          );
+        }
+        if (omittedList.length > 0) {
+          logParts.push(
+            "【JPでは付与しない／コピー対象外】\n" + omittedList.join("\n")
+          );
+        }
+        if (policyErrorList.length > 0) {
+          logParts.push(
+            "【データ不整合／コピー対象外】\n" + policyErrorList.join("\n")
           );
         }
         if (logParts.length > 0) {

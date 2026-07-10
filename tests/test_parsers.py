@@ -2,7 +2,13 @@
 import json
 from pathlib import Path
 
-from parsers import en_parser
+from parsers import branch_guide_parser, en_parser, int_parser, ko_parser
+from parsers.crosswalk_resolver import CrosswalkResolver, normalize_tag
+from build_dict import (
+    EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
+    EN_ORIGIN_TAG_REPLACEMENTS,
+)
+import parse_sources
 from parsers.en_parser import _parse_meta_line as _EN_PARSE_META_LINE
 from parsers.en_parser import tag_pattern as _EN_TAG_PATTERN
 from parsers import jp_parser
@@ -18,6 +24,7 @@ class TestEnParser:
         for entry in en_tags_data:
             assert "name" in entry, f"nameキーがない: {entry}"
             assert "description" in entry, f"descriptionキーがない: {entry}"
+            assert "category" in entry, f"categoryキーがない: {entry}"
             assert "meta" in entry, f"metaキーがない: {entry}"
 
     def test_en_no_duplicate_names(self, en_tags_data):
@@ -105,6 +112,10 @@ class TestJpParser:
             assert "name" in entry, f"nameキーがない: {entry}"
             assert "en_tag" in entry, f"en_tagキーがない: {entry}"
             assert "description" in entry, f"descriptionキーがない: {entry}"
+            assert "source_tags" in entry, f"source_tagsキーがない: {entry}"
+            assert "use_restricted" in entry
+            assert "edit_restricted" in entry
+            assert "translation_exempt" in entry
 
     def test_jp_no_duplicate_names(self, jp_tags_data):
         names = [e["name"] for e in jp_tags_data]
@@ -149,8 +160,9 @@ class TestJpParser:
         """ソース中でスラッグ非空のタグ行（重複除去後）が全てパース結果に含まれること。
         fragment-unused.txt は parse_unused() で別途処理するため除外する。"""
         source_slugs: set[str] = set()
-        for fp in sorted(_JP_SOURCE_DIR.glob("fragment-*.txt")):
-            if fp.name == "fragment-unused.txt":
+        for name in jp_parser._REGISTERED_FRAGMENT_NAMES:
+            fp = _JP_SOURCE_DIR / name
+            if not fp.exists():
                 continue
             for line in _JP_UNCOMMENTED_LINES(str(fp)):
                 if "**[[[/system" not in line or "page-tags/tag/" not in line:
@@ -225,11 +237,13 @@ class TestJpParser:
                 "source_lang": "EN",
                 "en_tag": "resource",
                 "replacement": "世界観",
+                "description": "JPでは//世界観//タグに置換してください。",
             },
             {
                 "source_lang": "PL",
                 "en_tag": "film",
                 "replacement": "映像添付",
+                "description": "//映像添付//タグに置換してください。",
             },
         ]
 
@@ -367,3 +381,137 @@ class TestJpParser:
         parsed = json.loads(output.read_text(encoding="utf-8"))
         assert parsed[0]["name"] == "年頃のガイア"
         assert parsed[0]["en_tag"] == "teenage-gaea"
+
+    def test_jp_parser_merges_aliases_and_reads_restriction_prefixes(self, tmp_path):
+        source_dir = tmp_path / "jp"
+        source_dir.mkdir()
+        output = tmp_path / "jp_tags.json"
+        (source_dir / "fragment-basic.txt").write_text(
+            "* ,,\uf05e,,,,\uf084,,**[[[/system:page-tags/tag/対象|対象]]]** //(first)//\n"
+            "* **[[[/system:page-tags/tag/対象|対象]]]** //(second)//\n",
+            encoding="utf-8",
+        )
+
+        jp_parser.parse(str(source_dir), str(output))
+        parsed = json.loads(output.read_text(encoding="utf-8"))
+
+        assert parsed[0]["source_tags"] == ["first", "second"]
+        assert parsed[0]["use_restricted"] is True
+        assert parsed[0]["translation_exempt"] is True
+
+    def test_current_jp_sources_include_wrapper_tags_and_policy_vectors(self, jp_tags_data):
+        by_name = {entry["name"]: entry for entry in jp_tags_data}
+        assert {"始のいろは", "scp漢字ドリル", "t-arot"} <= set(by_name)
+        assert by_name["テーマ"]["use_restricted"] is True
+        assert by_name["テーマ"]["translation_exempt"] is False
+        assert by_name["エッセイ"]["translation_exempt"] is True
+        assert by_name["フラグメント"]["use_restricted"] is False
+
+
+def test_int_crosswalk_parses_multibranch_vectors():
+    source = Path(__file__).parent.parent / "sources" / "int" / "tag-guide.txt"
+    mappings = int_parser.parse_crosswalk(str(source))
+    assert mappings["cn"]["认知危害"] == "認識災害"
+    assert mappings["de"]["lebendig"] == "生命"
+    assert mappings["int"]["cognitohazard"] == "認識災害"
+
+
+def test_ko_crosswalk_parses_direct_jp_vectors():
+    source = Path(__file__).parent.parent / "sources" / "ko" / "translate-tags.txt"
+    mappings = ko_parser.parse_crosswalk(str(source))
+    assert mappings["ko"]["생물"] == "生命"
+    assert mappings["ko"]["정신조작"] == "精神影響"
+
+
+def test_crosswalk_resolver_normalizes_stale_ko_jp_labels(
+    jp_tags_data,
+    deprecated_tags_data,
+):
+    resolver = CrosswalkResolver(
+        jp_tags_data,
+        deprecated_tags_data,
+        EN_ORIGIN_TAG_REPLACEMENTS,
+    )
+    source = Path(__file__).parent.parent / "sources" / "ko" / "translate-tags.txt"
+    mappings = ko_parser.parse_crosswalk(str(source), resolver.resolve)["ko"]
+
+    assert mappings["감정이입"] == "精神感応"
+    assert mappings["비격리"] == "未収容"
+    assert mappings["염력"] == "念力"
+    assert mappings["유산"] == "殿堂入り"
+    assert mappings["야쿠시"] == "yakushi"
+    assert mappings["제cn-15구역"] == "エリア-cn-15"
+    assert mappings["제cn-34기지"] == "サイト-cn-34"
+    assert "제zh-22기지" not in mappings
+    assert "템플릿" not in mappings
+
+
+def test_crosswalk_resolver_rejects_conflicting_current_targets(jp_tags_data):
+    resolver = CrosswalkResolver(jp_tags_data)
+
+    assert resolver.resolve(["empathic"], ["念力"]) is None
+    assert normalize_tag("yakushi\u202c") == "yakushi"
+
+
+def test_crosswalk_semantic_replacement_overrides_stale_raw_jp_label(
+    jp_tags_data,
+    deprecated_tags_data,
+):
+    resolver = CrosswalkResolver(
+        jp_tags_data,
+        deprecated_tags_data,
+        EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
+    )
+
+    assert resolver.resolve(["guide"], ["ガイド"]) == "他支部公式"
+
+
+def test_int_crosswalk_uses_en_semantics_for_current_jp_targets(
+    jp_tags_data,
+    deprecated_tags_data,
+):
+    resolver = CrosswalkResolver(
+        jp_tags_data,
+        deprecated_tags_data,
+        EN_ORIGIN_TAG_REPLACEMENTS,
+    )
+    source = Path(__file__).parent.parent / "sources" / "int" / "tag-guide.txt"
+    mappings = int_parser.parse_crosswalk(str(source), resolver.resolve)
+
+    assert mappings["ko"]["감정이입"] == "精神感応"
+    assert mappings["int"]["resource"] == "世界観"
+
+
+def test_branch_guides_resolve_current_jp_tags_and_reject_ambiguous_rows(
+    jp_tags_data,
+    deprecated_tags_data,
+):
+    resolver = CrosswalkResolver(
+        jp_tags_data,
+        deprecated_tags_data,
+        EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
+    )
+    mappings, stats = branch_guide_parser.parse_crosswalk(
+        parse_sources._BRANCH_GUIDE_SOURCES,
+        resolver,
+    )
+
+    assert mappings["cn"]["指导"] == "他支部公式"
+    assert mappings["de"]["amphibisch"] == "両生類"
+    assert mappings["es"]["adulto"] == "アダルト"
+    assert mappings["fr"]["adulte"] == "アダルト"
+    assert mappings["it"]["caino"] == "カイン"
+    assert mappings["pl"]["poradnik"] == "他支部公式"
+    assert mappings["pt-br"]["guia"] == "他支部公式"
+    assert mappings["th"]["การทหาร"] == "軍事"
+    assert mappings["ua"]["телекінез"] == "念力"
+    assert mappings["vn"]["hướng-dẫn"] == "他支部公式"
+    assert mappings["zh-tr"]["指導"] == "他支部公式"
+
+    assert "建筑" not in mappings["cn"]
+    assert "oria" not in mappings["pt-br"]
+    assert "roedor" not in mappings["pt-br"]
+    for tag in ("作者頁面", "軍事", "宗教", "joicl", "en-8000", "麥地奇藝術學院", "int"):
+        assert tag not in mappings["zh-tr"]
+
+    assert sum(branch["accepted_tags"] for branch in stats.values()) >= 5000
