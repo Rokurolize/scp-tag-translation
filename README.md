@@ -52,7 +52,23 @@ scp-tag-translation/
 
 ## 辞書の更新方法（開発者向け）
 
-`sources/` のページソースを最新に差し替えた後、以下の順で実行します。
+`sources/` のページソースを HTTPS の出典 URL から最新に差し替えた後、以下の順で実行します。
+更新前に、次の `curl` コマンドで JP タグリストの取得経路を確認してください。
+このコマンドは初回 URL とすべてのリダイレクト先で HTTPS 以外を拒否し、応答時間とリダイレクト回数も制限します。
+
+```bash
+curl \
+  --fail --silent --show-error --location \
+  --proto '=https' --proto-redir '=https' \
+  --max-redirs 5 --connect-timeout 10 --max-time 60 \
+  --remove-on-error \
+  --output scp-jp-tag-list.html \
+  'https://scp-jp.wikidot.com/tag-list'
+```
+
+`--proto` と `--proto-redir` はどちらも省略しないでください。前者は初回 URL、後者はすべてのリダイレクト先で HTTPS のみを許可します。
+Wikidot が HTTP へのリダイレクトを返した場合、このコマンドは意図どおり失敗します。HTTP URL に変更したり制約を緩めたりせず、HTTPS のみでページソースを取得できる経路が利用可能になるまで更新を見送ってください。
+コマンドが成功しても、保存される HTML は取得経路の確認用です。ページソースも同じ HTTPS-only 契約で取得し、内容を確認してから対応する節を `sources/jp/fragment-*.txt` に反映します。
 
 ```bash
 # 1. ソースを解析して data/ に出力
@@ -97,5 +113,5 @@ Pull Request 大歓迎です。新タグ・新ペアを追加する際は、対�
 **`sources/jp/` 配下のフラグメントファイル**（fragment-basic.txt / fragment-series.txt / fragment-universe.txt / fragment-event.txt / fragment-unused.txt）
 - Title: タグリスト
 - Author: SCP財団
-- Source: http://scp-jp.wikidot.com/tag-list
+- Source: https://scp-jp.wikidot.com/tag-list
 - License: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/legalcode.en
