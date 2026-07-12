@@ -52,6 +52,26 @@ python -m http.server 8000
 
 その後、`http://localhost:8000/index.html`を開きます。
 
+## 辞書の更新方法（開発者向け）
+
+ローカルコーパスのページソースをWikidotから更新する場合は、HTTPSの出典URLだけを使用します。
+更新前に、次の`curl`コマンドでJPタグリストの取得経路を確認してください。
+このコマンドは初回URLとすべてのリダイレクト先でHTTPS以外を拒否し、応答時間とリダイレクト回数も制限します。
+
+```bash
+curl \
+  --fail --silent --show-error --location \
+  --proto '=https' --proto-redir '=https' \
+  --max-redirs 5 --connect-timeout 10 --max-time 60 \
+  --remove-on-error \
+  --output scp-jp-tag-list.html \
+  'https://scp-jp.wikidot.com/tag-list'
+```
+
+`--proto`と`--proto-redir`はどちらも省略しないでください。前者は初回URL、後者はすべてのリダイレクト先でHTTPSのみを許可します。
+WikidotがHTTPへのリダイレクトを返した場合、このコマンドは意図どおり失敗します。HTTP URLに変更したり制約を緩めたりせず、HTTPSだけでページソースを取得できる経路が利用可能になるまで更新を見送ってください。
+コマンドが成功しても、保存されるHTMLは取得経路の確認用です。ページソースも同じHTTPS-only契約で取得し、内容を確認してからローカルコーパスへ反映します。
+
 ## データ生成
 
 辞書は、ローカルコーパスに保存された公式タグガイドと全ページの`meta.json`から生成します。
@@ -167,4 +187,4 @@ scp-tag-translation/
 | `sources/vn/fragment-tag-guide-for-translator.txt` | [SCP-VN Tag Guide for Translator](https://scp-vn.wikidot.com/fragment:tag-guide-for-translator) |
 | `sources/zh-tr/` | [SCP-ZH-TR Tag Guide](https://scp-zh-tr.wikidot.com/tag-guide)のincludeフラグメント |
 
-各ページの著作者は、該当するSCP Wiki支部の履歴に記録された投稿者です。
+各ページの著作者は、該当するSCP Wiki支部の履歴に記録された投稿者です。個別のページソースにはCC BY-SA 3.0が適用され、[ライセンス本文](https://creativecommons.org/licenses/by-sa/3.0/legalcode.en)で詳細を確認できます。
