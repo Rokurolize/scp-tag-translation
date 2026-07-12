@@ -295,6 +295,7 @@
 
       const dictionaryCache = {}; // ペアごとの辞書キャッシュ
       const deprecatedCache = {}; // 非使用タグ置換辞書のキャッシュ
+      const splitDictionaryIndexCache = new WeakMap();
       let jpPolicyCache = null; // JP登録タグの制限・翻訳緩和ポリシー
       let translationRequestId = 0; // 非同期fetchの古い結果を無視するための連番
       const loadingIndicator = document.getElementById("loadingIndicator");
@@ -444,6 +445,33 @@
       }
 
       /**
+       * 入力文字列を翻訳元タグへ分割する
+       * @param {string} inputStr - ユーザー入力（タグ文字列）
+       * @param {object} dictionary - 翻訳用辞書
+       * @returns {string[]} 分割済みの翻訳元タグ
+       */
+      function tokenizeInputTags(
+        inputStr,
+        dictionary,
+        concatenatedHints = {}
+      ) {
+        const tokens = inputStr.split(/\s+/);
+        let allTags = [];
+
+        tokens.forEach((token) => {
+          if (hasOwn(dictionary, token)) {
+            allTags.push(token);
+          } else if (hasOwn(concatenatedHints, token)) {
+            allTags = allTags.concat(concatenatedHints[token]);
+          } else {
+            allTags = allTags.concat(splitConcatenatedTags(token, dictionary));
+          }
+        });
+
+        return allTags;
+      }
+
+      /**
        * 辞書データで実際の翻訳を行う
        * @param {object} dictionary - 翻訳用辞書
        * @param {string} inputStr - ユーザー入力（タグ文字列）
@@ -458,22 +486,16 @@
         deprecatedDict,
         jpPolicy
       ) {
-        // 入力を空白で分割して個別のタグに
-        const tokens = inputStr.split(/\s+/);
-        let allTags = [];
-
-        // 各タグを処理
-        tokens.forEach((token) => {
-          // 単一のタグとして辞書に存在するかチェック
-          if (hasOwn(dictionary, token)) {
-            // 単一のタグとして存在する場合はそのまま追加
-            allTags.push(token);
-          } else {
-            // 存在しない場合は複合タグとして分割処理
-            const splitted = splitConcatenatedTags(token, dictionary);
-            allTags = allTags.concat(splitted);
-          }
-        });
+        const concatenatedHints =
+          (jpPolicy &&
+            jpPolicy.concatenated_tag_hints &&
+            jpPolicy.concatenated_tag_hints[srcLang]) ||
+          {};
+        const allTags = tokenizeInputTags(
+          inputStr,
+          dictionary,
+          concatenatedHints
+        );
 
         const translatedList = [];
         const replacedList = [];
@@ -637,13 +659,25 @@
        * 連結タグの最長一致分割
        */
       function splitConcatenatedTags(token, dictionary) {
-        // 辞書キーをチェックしやすいようにセットに変換
-        const dictKeys = Object.keys(dictionary);
-        const dictKeySet = new Set(dictKeys);
-        const maxKeyLength = dictKeys.reduce(
-          (max, key) => Math.max(max, key.length),
-          0
-        );
+        // 同じ辞書を使うたびに索引を作り直さないよう、prefix trieをキャッシュする
+        let trieRoot = splitDictionaryIndexCache.get(dictionary);
+        if (!trieRoot) {
+          trieRoot = { children: new Map(), terminal: false };
+          Object.keys(dictionary).forEach((key) => {
+            let node = trieRoot;
+            for (let index = 0; index < key.length; index++) {
+              const character = key[index];
+              let child = node.children.get(character);
+              if (!child) {
+                child = { children: new Map(), terminal: false };
+                node.children.set(character, child);
+              }
+              node = child;
+            }
+            node.terminal = true;
+          });
+          splitDictionaryIndexCache.set(dictionary, trieRoot);
+        }
 
         // 各位置で最長の辞書タグを優先しつつ、末尾まで分割できる候補を選ぶ
         const canSplit = Array(token.length + 1).fill(false);
@@ -651,18 +685,21 @@
         canSplit[token.length] = true;
 
         for (let index = token.length - 1; index >= 0; index--) {
-          const maxEnd = Math.min(token.length, index + maxKeyLength);
-          for (let end = maxEnd; end > index; end--) {
-            const segment = token.substring(index, end);
-            if (!dictKeySet.has(segment)) {
-              continue;
-            }
-
-            if (canSplit[end]) {
-              canSplit[index] = true;
-              nextEndByIndex[index] = end;
+          let node = trieRoot;
+          let longestEnd = -1;
+          for (let end = index; end < token.length; end++) {
+            node = node.children.get(token[end]);
+            if (!node) {
               break;
             }
+            const candidateEnd = end + 1;
+            if (node.terminal && canSplit[candidateEnd]) {
+              longestEnd = candidateEnd;
+            }
+          }
+          if (longestEnd !== -1) {
+            canSplit[index] = true;
+            nextEndByIndex[index] = longestEnd;
           }
         }
 

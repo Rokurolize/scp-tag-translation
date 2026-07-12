@@ -156,6 +156,7 @@ def _split_with_frontend(token: str, dictionary: dict[str, str | None]) -> list[
 
     script = "\n".join(
         [
+            "const splitDictionaryIndexCache = new WeakMap();",
             function_source,
             (
                 "console.log(JSON.stringify(splitConcatenatedTags("
@@ -229,6 +230,7 @@ def test_split_concatenated_tags_handles_long_input_without_recursion_overflow()
 
     script = "\n".join(
         [
+            "const splitDictionaryIndexCache = new WeakMap();",
             function_source,
             "console.log(splitConcatenatedTags('a'.repeat(12000), { a: 'A' }).length);",
         ]
@@ -240,6 +242,120 @@ def test_split_concatenated_tags_handles_long_input_without_recursion_overflow()
         capture_output=True,
     )
     assert completed.stdout.strip() == "12000"
+
+
+def test_scp_3352_copied_tag_string_translates_like_spaced_tags():
+    dictionary = json.loads(
+        (ROOT / "dictionaries" / "en_to_jp.json").read_text(encoding="utf-8")
+    )
+    deprecated = json.loads(
+        (ROOT / "dictionaries" / "deprecated_en_to_jp.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    policy = json.loads(
+        (ROOT / "dictionaries" / "jp_tag_policy.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    spaced = (
+        "anomalous-event fire indestructible inscription neutralized "
+        "reviewers-spotlight scp structure"
+    )
+    concatenated = (
+        "anomalous-eventfireindestructibleinscriptionneutralized"
+        "reviewers-spotlightscpstructure"
+    )
+
+    spaced_state = _translate_with_frontend(
+        dictionary,
+        spaced,
+        "en",
+        deprecated,
+        policy,
+    )
+    concatenated_state = _translate_with_frontend(
+        dictionary,
+        concatenated,
+        "en",
+        deprecated,
+        policy,
+    )
+
+    assert concatenated_state == spaced_state
+    assert concatenated_state["targetText"] == (
+        "en 炎 破壊不可能 記述 neutralized 批評者スポットライト scp 構造"
+    )
+
+
+def test_translation_prefers_corpus_boundary_hint_over_greedy_segmentation():
+    allowed = {
+        "copy_allowed_for_translation": True,
+        "use_restricted": False,
+        "edit_restricted": False,
+        "translation_exempt": False,
+        "special_translation_action": None,
+    }
+    policy = {
+        "tags": {tag: allowed for tag in ("en", "safe", "scp", "彫像")},
+        "source_tags": {},
+        "concatenated_tag_hints": {
+            "en": {
+                "safescpsculpture": ["safe", "scp", "sculpture"]
+            }
+        },
+    }
+    dictionary = {
+        "safe": "safe",
+        "scp": "scp",
+        "sculpture": "彫像",
+        "scpsculpture": None,
+    }
+
+    spaced = _translate_with_frontend(
+        dictionary,
+        "safe scp sculpture",
+        "en",
+        policy=policy,
+    )
+    concatenated = _translate_with_frontend(
+        dictionary,
+        "safescpsculpture",
+        "en",
+        policy=policy,
+    )
+
+    assert concatenated == spaced
+    assert concatenated["targetText"] == "en safe scp 彫像"
+
+
+def test_translation_prefers_exact_dictionary_key_over_boundary_hint():
+    allowed = {
+        "copy_allowed_for_translation": True,
+        "use_restricted": False,
+        "edit_restricted": False,
+        "translation_exempt": False,
+        "special_translation_action": None,
+    }
+    policy = {
+        "tags": {tag: allowed for tag in ("en", "完全一致", "左", "右")},
+        "source_tags": {},
+        "concatenated_tag_hints": {"en": {"joined": ["left", "right"]}},
+    }
+    dictionary = {
+        "joined": "完全一致",
+        "left": "左",
+        "right": "右",
+    }
+
+    translated = _translate_with_frontend(
+        dictionary,
+        "joined",
+        "en",
+        policy=policy,
+    )
+
+    assert translated == {"targetText": "en 完全一致", "logArea": ""}
 
 
 def test_translation_handles_dictionary_keys_that_shadow_object_prototype():

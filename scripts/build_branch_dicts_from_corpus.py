@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
@@ -117,22 +118,189 @@ def discover_branches(corpus_root: Path) -> list[str]:
     return branches
 
 
-def corpus_tags_for_branch(corpus_root: Path, branch: str) -> set[str]:
+def _iter_corpus_page_tags(
+    corpus_root: Path,
+    branch: str,
+) -> Iterator[tuple[str, list[str]]]:
     pages_dir = corpus_root / branch / "pages"
     if not pages_dir.is_dir():
         raise ValueError(f"corpus branch pages directory not found: {pages_dir}")
 
-    tags: set[str] = set()
     for meta_path in sorted(pages_dir.glob("*/meta.json")):
         meta = load_json(meta_path)
         raw_tags = meta.get("tags", [])
         if isinstance(raw_tags, str):
-            tags.add(raw_tags)
+            page_tags = [raw_tags]
         elif isinstance(raw_tags, list):
-            tags.update(tag for tag in raw_tags if isinstance(tag, str) and tag)
+            if any(not isinstance(tag, str) or not tag for tag in raw_tags):
+                raise ValueError(f"invalid tags field in {meta_path}")
+            if len(set(raw_tags)) != len(raw_tags):
+                raise ValueError(f"duplicate tags in {meta_path}")
+            page_tags = raw_tags
         else:
             raise ValueError(f"invalid tags field in {meta_path}")
+        yield meta_path.parent.name, page_tags
+
+
+def collect_corpus_tags_and_visible_sequences(
+    corpus_root: Path,
+    branch: str,
+) -> tuple[set[str], list[tuple[str, tuple[str, ...]]]]:
+    tags: set[str] = set()
+    visible_sequences = []
+    for slug, page_tags in _iter_corpus_page_tags(corpus_root, branch):
+        tags.update(page_tags)
+        visible = tuple(tag for tag in page_tags if not tag.startswith("_"))
+        if visible:
+            visible_sequences.append((slug, visible))
+    return tags, visible_sequences
+
+
+def corpus_tags_for_branch(corpus_root: Path, branch: str) -> set[str]:
+    tags: set[str] = set()
+    for _slug, page_tags in _iter_corpus_page_tags(corpus_root, branch):
+        tags.update(page_tags)
     return tags
+
+
+def _dictionary_trie(dictionary: dict[str, str | None]) -> dict[Any, Any]:
+    root: dict[Any, Any] = {}
+    for tag in dictionary:
+        node = root
+        for character in tag:
+            node = node.setdefault(character, {})
+        node[None] = True
+    return root
+
+
+def _split_concatenated_tag(
+    token: str,
+    trie: dict[Any, Any],
+) -> tuple[str, ...]:
+    can_split = [False] * (len(token) + 1)
+    next_end_by_index = [-1] * (len(token) + 1)
+    can_split[len(token)] = True
+
+    for index in range(len(token) - 1, -1, -1):
+        node = trie
+        longest_end = -1
+        for end in range(index, len(token)):
+            child = node.get(token[end])
+            if child is None:
+                break
+            node = child
+            candidate_end = end + 1
+            if None in node and can_split[candidate_end]:
+                longest_end = candidate_end
+        if longest_end != -1:
+            can_split[index] = True
+            next_end_by_index[index] = longest_end
+
+    if not can_split[0]:
+        return (token,)
+
+    result = []
+    index = 0
+    while index < len(token):
+        next_end = next_end_by_index[index]
+        result.append(token[index:next_end])
+        index = next_end
+    return tuple(result)
+
+
+def _tokenize_without_hints(
+    input_text: str,
+    dictionary: dict[str, str | None],
+    trie: dict[Any, Any],
+) -> tuple[str, ...]:
+    result = []
+    for token in input_text.split():
+        if token in dictionary:
+            result.append(token)
+        else:
+            result.extend(_split_concatenated_tag(token, trie))
+    return tuple(result)
+
+
+def build_concatenated_tag_hints(
+    corpus_root: Path,
+    branch: str,
+    dictionary: dict[str, str | None],
+    visible_sequences: list[tuple[str, tuple[str, ...]]] | None = None,
+) -> dict[str, list[str]]:
+    """Build exact boundaries only where generic longest matching is ambiguous."""
+
+    if visible_sequences is None:
+        _tags, visible_sequences = collect_corpus_tags_and_visible_sequences(
+            corpus_root,
+            branch,
+        )
+
+    trie = _dictionary_trie(dictionary)
+    owners: dict[str, tuple[str, ...]] = {}
+    hints: dict[str, list[str]] = {}
+    for slug, visible_tags in visible_sequences:
+        expected = tuple(
+            normalized
+            for tag in visible_tags
+            for normalized in tag.split()
+        )
+        concatenated = "".join(visible_tags).strip()
+        if not expected or not concatenated:
+            continue
+
+        missing_tags = sorted(set(expected).difference(dictionary))
+        if missing_tags:
+            raise ValueError(
+                "corpus tags missing from dictionary during hint generation: "
+                f"{branch}:{slug}:{missing_tags!r}"
+            )
+
+        existing = owners.get(concatenated)
+        if existing is not None and existing != expected:
+            raise ValueError(
+                "concatenated tag input has multiple corpus boundaries: "
+                f"{branch}:{concatenated!r}->{existing!r}/{expected!r}"
+            )
+        owners[concatenated] = expected
+
+        if concatenated in dictionary and expected != (concatenated,):
+            raise ValueError(
+                "concatenated tag input conflicts with an exact dictionary key: "
+                f"{branch}:{slug}:{concatenated!r}->{expected!r}"
+            )
+
+        recovered = _tokenize_without_hints(concatenated, dictionary, trie)
+        if recovered == expected:
+            continue
+        if len(concatenated.split()) != 1:
+            raise ValueError(
+                "cannot encode a boundary hint containing whitespace: "
+                f"{branch}:{concatenated!r}"
+            )
+        hints[concatenated] = list(expected)
+
+    return dict(sorted(hints.items()))
+
+
+def complete_hint_dictionaries(
+    generated: dict[str, dict[str, str | None]],
+) -> dict[str, dict[str, str | None]]:
+    complete = dict(generated)
+    for branch in SUPPORTED_BRANCHES:
+        if branch in complete:
+            continue
+        path = DICTIONARIES_DIR / f"{branch}_to_jp.json"
+        if not path.is_file():
+            raise ValueError(
+                "existing dictionary required for partial hint generation: "
+                f"{path}"
+            )
+        dictionary = load_json(path)
+        if not isinstance(dictionary, dict):
+            raise ValueError(f"invalid existing dictionary: {path}")
+        complete[branch] = dictionary
+    return complete
 
 
 def jp_maps(jp_tags: list[dict]) -> tuple[set[str], dict[str, str]]:
@@ -410,6 +578,7 @@ def build_jp_policy(
     en_tags: list[dict] | None = None,
     overrides: dict[str, dict[str, str]] | None = None,
     replacements: dict[str, dict[str, str | None]] | None = None,
+    concatenated_tag_hints: dict[str, dict[str, list[str]]] | None = None,
 ) -> dict[str, Any]:
     tags: dict[str, dict[str, Any]] = {}
     for entry in jp_tags:
@@ -487,6 +656,12 @@ def build_jp_policy(
             branch: dict(sorted(entries.items()))
             for branch, entries in sorted(source_tags.items())
         },
+        "concatenated_tag_hints": {
+            branch: dict(sorted(entries.items()))
+            for branch, entries in sorted(
+                (concatenated_tag_hints or {}).items()
+            )
+        },
     }
 
 
@@ -504,7 +679,9 @@ def main() -> None:
         "--branches",
         nargs="*",
         help=(
-            "Optional source branches. Defaults to the 15 supported sites."
+            "Optional dictionary output branches. Defaults to the 15 supported "
+            "sites. The corpus must contain all supported branches so the global "
+            "concatenated-tag policy remains complete."
         ),
     )
     args = parser.parse_args()
@@ -557,12 +734,22 @@ def main() -> None:
         sys.exit(1)
 
     outputs: dict[Path, Any] = {}
+    branch_dictionaries: dict[str, dict[str, str | None]] = {}
+    visible_sequences_by_branch: dict[
+        str,
+        list[tuple[str, tuple[str, ...]]],
+    ] = {}
     for branch in sorted(branches):
         if branch == "jp" or branch.startswith("_"):
             continue
         if branch == "en":
             try:
-                source_tags = corpus_tags_for_branch(corpus_root, branch)
+                source_tags, visible_sequences = (
+                    collect_corpus_tags_and_visible_sequences(
+                        corpus_root,
+                        branch,
+                    )
+                )
                 dictionary, deprecated_dict = build_en_dicts(
                     jp_tags,
                     deprecated_raw,
@@ -577,6 +764,8 @@ def main() -> None:
                 sys.exit(1)
             outputs[DICTIONARIES_DIR / "en_to_jp.json"] = dictionary
             outputs[DICTIONARIES_DIR / "deprecated_en_to_jp.json"] = deprecated_dict
+            branch_dictionaries[branch] = dictionary
+            visible_sequences_by_branch[branch] = visible_sequences
             mapped = sum(1 for value in dictionary.values() if value is not None)
             print(
                 f"en: {mapped}/{len(dictionary)} mapped -> "
@@ -585,7 +774,12 @@ def main() -> None:
             continue
 
         try:
-            source_tags = corpus_tags_for_branch(corpus_root, branch)
+            source_tags, visible_sequences = (
+                collect_corpus_tags_and_visible_sequences(
+                    corpus_root,
+                    branch,
+                )
+            )
             dictionary, deprecated_dict = build_branch_dict(
                 branch,
                 source_tags,
@@ -604,25 +798,54 @@ def main() -> None:
         deprecated_path = DICTIONARIES_DIR / f"deprecated_{branch}_to_jp.json"
         outputs[dict_path] = dictionary
         outputs[deprecated_path] = deprecated_dict
+        branch_dictionaries[branch] = dictionary
+        visible_sequences_by_branch[branch] = visible_sequences
         mapped = sum(1 for value in dictionary.values() if value is not None)
         print(
             f"{branch}: {mapped}/{len(dictionary)} mapped, "
             f"{len(deprecated_dict)} replacements -> {dict_path}"
         )
 
+    try:
+        hint_dictionaries = complete_hint_dictionaries(branch_dictionaries)
+        for branch in SUPPORTED_BRANCHES:
+            if branch not in visible_sequences_by_branch:
+                _source_tags, visible_sequences_by_branch[branch] = (
+                    collect_corpus_tags_and_visible_sequences(
+                        corpus_root,
+                        branch,
+                    )
+                )
+        concatenated_tag_hints = {
+            branch: build_concatenated_tag_hints(
+                corpus_root,
+                branch,
+                hint_dictionaries[branch],
+                visible_sequences_by_branch[branch],
+            )
+            for branch in SUPPORTED_BRANCHES
+        }
+    except (OSError, ValueError) as err:
+        print(f"エラー: 連結タグ境界ヒント生成に失敗しました: {err}")
+        sys.exit(1)
     en_tags: list[dict] = load_json(DATA_EN)
     outputs[JP_POLICY_PATH] = build_jp_policy(
-            jp_tags,
-            deprecated_raw,
-            en_tags,
-            overrides,
-            replacements,
-        )
+        jp_tags,
+        deprecated_raw,
+        en_tags,
+        overrides,
+        replacements,
+        concatenated_tag_hints,
+    )
     publish_files_atomically({
         path: (lambda temporary, data=data: write_json(temporary, data))
         for path, data in outputs.items()
     })
     print(f"jp policy: {len(jp_tags)} tags -> {JP_POLICY_PATH}")
+    print(
+        "concatenated tag hints: "
+        f"{sum(len(entries) for entries in concatenated_tag_hints.values())}"
+    )
 
 
 if __name__ == "__main__":
