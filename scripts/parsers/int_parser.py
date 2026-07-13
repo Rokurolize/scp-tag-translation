@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 from collections import defaultdict
+from collections.abc import Iterable
 from pathlib import Path
 
 from scripts.parsers.contracts import CrosswalkMappings, TargetResolver
@@ -55,9 +56,18 @@ def _cell_tags(cell: str) -> list[str]:
     return values
 
 
-def parse(
+def _raw_target(
+    en_values: Iterable[str],
+    jp_values: Iterable[str],
+) -> str | None:
+    del en_values
+    values = list(jp_values)
+    return values[0] if len(values) == 1 else None
+
+
+def _parse_with_resolver(
     input_path: Path,
-    resolver: TargetResolver | None = None,
+    resolver: TargetResolver,
 ) -> CrosswalkMappings:
     """Parse only unambiguous source-tag -> registered-name candidates.
 
@@ -90,10 +100,7 @@ def parse(
             row = dict(zip(header, cells, strict=False))
             en_values = _cell_tags(row.get("EN", ""))
             jp_values = _cell_tags(row.get("JP", ""))
-            if resolver is None:
-                jp_tag = jp_values[0] if len(jp_values) == 1 else None
-            else:
-                jp_tag = resolver(en_values, jp_values)
+            jp_tag = resolver(en_values, jp_values)
             if jp_tag is None:
                 continue
 
@@ -113,3 +120,18 @@ def parse(
         branch: dict(sorted(mapping.items()))
         for branch, mapping in sorted(mappings.items())
     }
+
+
+def parse_raw(input_path: Path) -> CrosswalkMappings:
+    """Parse unambiguous rows using the table's JP cells verbatim."""
+
+    return _parse_with_resolver(input_path, _raw_target)
+
+
+def parse(
+    input_path: Path,
+    resolver: TargetResolver,
+) -> CrosswalkMappings:
+    """Parse rows through a resolver that targets the current JP tag set."""
+
+    return _parse_with_resolver(input_path, resolver)

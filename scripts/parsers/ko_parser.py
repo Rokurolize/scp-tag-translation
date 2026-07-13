@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 from collections import defaultdict
+from collections.abc import Iterable
 from pathlib import Path
 
 from scripts.parsers.contracts import CrosswalkMappings, TargetResolver
@@ -19,9 +20,26 @@ def _cells(line: str) -> list[str]:
     return [value.strip() for value in values]
 
 
-def parse(
+def _raw_target(
+    en_values: Iterable[str],
+    jp_values: Iterable[str],
+) -> str | None:
+    del en_values
+    values = list(jp_values)
+    if len(values) != 1:
+        return None
+    jp_tag = values[0]
+    if (
+        jp_tag.casefold() in _EMPTY_MARKERS
+        or any(character.isspace() for character in jp_tag)
+    ):
+        return None
+    return jp_tag
+
+
+def _parse_with_resolver(
     input_path: Path,
-    resolver: TargetResolver | None = None,
+    resolver: TargetResolver,
 ) -> CrosswalkMappings:
     candidates: dict[str, set[str]] = defaultdict(set)
     with input_path.open(encoding="utf-8") as source:
@@ -35,21 +53,12 @@ def parse(
             en_tag, jp_tag, ko_cell = cells
             ko_tags = _KO_LINK_RE.findall(ko_cell)
             jp_tag = jp_tag.strip()
-            if len(ko_tags) != 1 or not jp_tag:
-                if len(ko_tags) != 1 or resolver is None:
-                    continue
-            if resolver is None and (
-                jp_tag.casefold() in _EMPTY_MARKERS
-                or any(character.isspace() for character in jp_tag)
-            ):
+            if len(ko_tags) != 1:
                 continue
-            if resolver is None:
-                target = jp_tag
-            else:
-                target = resolver(
-                    [en_tag.strip()] if en_tag.strip() else [],
-                    [jp_tag] if jp_tag else [],
-                )
+            target = resolver(
+                [en_tag.strip()] if en_tag.strip() else [],
+                [jp_tag] if jp_tag else [],
+            )
             if target is not None:
                 candidates[ko_tags[0]].add(target)
 
@@ -59,3 +68,18 @@ def parse(
         if len(targets) == 1
     }
     return {"ko": dict(sorted(mapping.items()))}
+
+
+def parse_raw(input_path: Path) -> CrosswalkMappings:
+    """Parse unambiguous rows using the table's JP cells verbatim."""
+
+    return _parse_with_resolver(input_path, _raw_target)
+
+
+def parse(
+    input_path: Path,
+    resolver: TargetResolver,
+) -> CrosswalkMappings:
+    """Parse rows through a resolver that targets the current JP tag set."""
+
+    return _parse_with_resolver(input_path, resolver)

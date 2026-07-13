@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from scripts.build_dict import EN_ORIGIN_TAG_REPLACEMENTS
-from scripts.parsers.int_parser import parse as parse_int_crosswalk
+from scripts.parsers.int_parser import parse_raw as parse_int_crosswalk
 
 
 ROOT = Path(__file__).parent.parent

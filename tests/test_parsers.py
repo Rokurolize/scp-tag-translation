@@ -411,7 +411,7 @@ class TestJpParser:
 
 def test_int_crosswalk_parses_multibranch_vectors():
     source = Path(__file__).parent.parent / "sources" / "int" / "tag-guide.txt"
-    mappings = int_parser.parse(source)
+    mappings = int_parser.parse_raw(source)
     assert mappings["cn"]["认知危害"] == "認識災害"
     assert mappings["de"]["lebendig"] == "生命"
     assert mappings["int"]["cognitohazard"] == "認識災害"
@@ -419,7 +419,7 @@ def test_int_crosswalk_parses_multibranch_vectors():
 
 def test_ko_crosswalk_parses_direct_jp_vectors():
     source = Path(__file__).parent.parent / "sources" / "ko" / "translate-tags.txt"
-    mappings = ko_parser.parse(source)
+    mappings = ko_parser.parse_raw(source)
     assert mappings["ko"]["생물"] == "生命"
     assert mappings["ko"]["정신조작"] == "精神影響"
 
@@ -525,8 +525,8 @@ def test_int_and_ko_crosswalks_ignore_placeholder_cells(tmp_path):
         encoding="utf-8",
     )
 
-    int_mappings = int_parser.parse(int_source)
-    ko_mappings = ko_parser.parse(ko_source)
+    int_mappings = int_parser.parse_raw(int_source)
+    ko_mappings = ko_parser.parse_raw(ko_source)
 
     assert "-" not in int_mappings.get("cn", {})
     assert "N/A" not in int_mappings.get("cn", {})
