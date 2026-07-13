@@ -104,3 +104,98 @@ def test_publication_preserves_existing_file_mode(tmp_path):
 
     assert destination.read_text(encoding="utf-8") == "new"
     assert destination.stat().st_mode & 0o777 == 0o640
+
+
+def test_rollback_failure_continues_and_chains_publication_error(
+    tmp_path,
+    monkeypatch,
+):
+    first = tmp_path / "first.txt"
+    second = tmp_path / "second.txt"
+    third = tmp_path / "third.txt"
+    for path in (first, second, third):
+        path.write_text(f"old-{path.stem}", encoding="utf-8")
+    real_replace = atomic_output.os.replace
+    publication_count = 0
+
+    def fail_publication_and_second_rollback(source, destination):
+        nonlocal publication_count
+        if str(source).endswith(".tmp"):
+            publication_count += 1
+            if publication_count == 3:
+                raise OSError("primary publication failure")
+        if str(source).endswith(".bak") and Path(destination) == second:
+            raise OSError("secondary rollback failure")
+        return real_replace(source, destination)
+
+    monkeypatch.setattr(
+        atomic_output.os,
+        "replace",
+        fail_publication_and_second_rollback,
+    )
+
+    with pytest.raises(
+        atomic_output.AtomicPublicationError,
+        match="rollback failed",
+    ) as caught:
+        atomic_output.publish_files_atomically({
+            first: _write("new-first"),
+            second: _write("new-second"),
+            third: _write("new-third"),
+        })
+
+    assert isinstance(caught.value.__cause__, OSError)
+    assert "primary publication failure" in str(caught.value.__cause__)
+    assert first.read_text(encoding="utf-8") == "old-first"
+    assert second.read_text(encoding="utf-8") == "new-second"
+    assert third.read_text(encoding="utf-8") == "old-third"
+    assert len(list(tmp_path.glob(".*.bak"))) == 1
+
+
+def test_cleanup_failure_is_chained_from_staging_error(tmp_path, monkeypatch):
+    destination = tmp_path / "published.txt"
+    destination.write_text("old", encoding="utf-8")
+    real_unlink = Path.unlink
+
+    def fail_temporary_cleanup(path, *args, **kwargs):
+        if path.suffix == ".tmp":
+            raise OSError("secondary cleanup failure")
+        return real_unlink(path, *args, **kwargs)
+
+    def fail_staging(_path: Path) -> None:
+        raise OSError("primary staging failure")
+
+    monkeypatch.setattr(Path, "unlink", fail_temporary_cleanup)
+
+    with pytest.raises(
+        atomic_output.AtomicPublicationError,
+        match="cleanup failed",
+    ) as caught:
+        atomic_output.publish_files_atomically({destination: fail_staging})
+
+    assert isinstance(caught.value.__cause__, OSError)
+    assert "primary staging failure" in str(caught.value.__cause__)
+    assert destination.read_text(encoding="utf-8") == "old"
+
+
+def test_successful_publication_reports_cleanup_failure(tmp_path, monkeypatch):
+    destination = tmp_path / "published.txt"
+    destination.write_text("old", encoding="utf-8")
+    real_unlink = Path.unlink
+
+    def fail_backup_cleanup(path, *args, **kwargs):
+        if path.suffix == ".bak":
+            raise OSError("backup cleanup failure")
+        return real_unlink(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "unlink", fail_backup_cleanup)
+
+    with pytest.raises(
+        atomic_output.AtomicPublicationError,
+        match="cleanup failed",
+    ) as caught:
+        atomic_output.publish_files_atomically({destination: _write("new")})
+
+    assert caught.value.__cause__ is None
+    assert destination.read_text(encoding="utf-8") == "new"
+    assert len(list(tmp_path.glob(".*.bak"))) == 1
