@@ -9,9 +9,7 @@ import sys
 from pathlib import Path
 
 from scripts.atomic_output import FileWriter, publish_files_atomically
-
-
-ROOT = Path(__file__).resolve().parents[2]
+from scripts.data_paths import ROOT
 
 SOURCE_MAP = {
     "sources/en/tag-guide.txt": "05command/pages/tech-hub-tag/source.wikidot.txt",

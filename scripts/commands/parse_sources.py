@@ -19,6 +19,7 @@ from scripts.data_paths import (
     DATA_INT_CROSSWALK,
     DATA_JP,
     DATA_KO_CROSSWALK,
+    ROOT,
 )
 from scripts.parsers import (
     branch_guide_parser,
@@ -35,7 +36,6 @@ from scripts.domain.tag_validation import validate_deprecated_tags, validate_jp_
 Language = Literal["en", "jp", "crosswalks", "all"]
 LANGUAGES: tuple[Language, ...] = ("en", "jp", "crosswalks", "all")
 
-ROOT = Path(__file__).resolve().parents[2]
 SOURCES_EN = ROOT / "sources" / "en" / "tag-list.txt"
 SOURCES_JP = ROOT / "sources" / "jp"
 SOURCES_JP_UNUSED = SOURCES_JP / "fragment-unused.txt"
