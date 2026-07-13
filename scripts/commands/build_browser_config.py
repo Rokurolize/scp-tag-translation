@@ -6,10 +6,10 @@ import argparse
 from pathlib import Path
 
 from scripts.atomic_output import publish_files_atomically
+from scripts.data_paths import BROWSER_CONFIG_PATH
 from scripts.domain.branch_config import render_browser_config
 
-ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_OUTPUT = ROOT / "branch_config.js"
+DEFAULT_OUTPUT = BROWSER_CONFIG_PATH
 
 
 def _write_text(path: Path, content: str) -> None:

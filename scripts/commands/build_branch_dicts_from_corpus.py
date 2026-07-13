@@ -18,14 +18,16 @@ from scripts.data_paths import (
     DATA_INT_CROSSWALK,
     DATA_JP,
     DATA_KO_CROSSWALK,
+    DICTIONARIES_DIR,
+    JP_POLICY_PATH,
+    collect_corpus_tags_and_visible_sequences,
+    complete_hint_dictionaries,
     load_json,
     load_mapping_policy_inputs,
 )
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.domain.concatenated_tags import (
     build_concatenated_tag_hints,
-    collect_corpus_tags_and_visible_sequences,
-    complete_hint_dictionaries,
 )
 from scripts.domain.tag_dictionary import build_branch_dict, build_en_dicts
 from scripts.domain.tag_models import DeprecatedTag, EnTag, JpTag
@@ -36,11 +38,6 @@ from scripts.domain.tag_policy import (
     build_mapping_policy,
 )
 from scripts.domain.tag_validation import validate_tag_records
-
-ROOT = Path(__file__).resolve().parents[2]
-DICTIONARIES_DIR = ROOT / "dictionaries"
-JP_POLICY_PATH = DICTIONARIES_DIR / "jp_tag_policy.json"
-
 
 def write_json(path: Path, data: Mapping[str, object]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -146,7 +143,6 @@ def build_artifacts(
             )
     concatenated_tag_hints = {
         branch: build_concatenated_tag_hints(
-            corpus_root,
             branch,
             hint_dictionaries[branch],
             visible_sequences_by_branch[branch],

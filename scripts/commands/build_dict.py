@@ -20,6 +20,13 @@ from pathlib import Path
 from typing import cast
 
 from scripts.atomic_output import publish_files_atomically
+from scripts.data_paths import (
+    DATA_DEPRECATED,
+    DATA_EN,
+    DATA_JP,
+    DEPRECATED_EN_DICTIONARY_PATH,
+    EN_DICTIONARY_PATH,
+)
 from scripts.domain.tag_dictionary import build_en_dicts
 from scripts.domain.tag_models import EnTag, JpTag
 from scripts.domain.tag_policy import (
@@ -31,12 +38,11 @@ from scripts.domain.tag_policy import (
 )
 from scripts.domain.tag_validation import validate_tag_records
 
-_ROOT = Path(__file__).resolve().parents[2]
-_DATA_EN = _ROOT / "data" / "en_tags.json"
-_DATA_JP = _ROOT / "data" / "jp_tags.json"
-_DATA_DEPRECATED = _ROOT / "data" / "deprecated_tags.json"
-_DICT_OUT = _ROOT / "dictionaries" / "en_to_jp.json"
-_DICT_DEPRECATED = _ROOT / "dictionaries" / "deprecated_en_to_jp.json"
+_DATA_EN = DATA_EN
+_DATA_JP = DATA_JP
+_DATA_DEPRECATED = DATA_DEPRECATED
+_DICT_OUT = EN_DICTIONARY_PATH
+_DICT_DEPRECATED = DEPRECATED_EN_DICTIONARY_PATH
 
 
 def load_json(path: Path) -> object:

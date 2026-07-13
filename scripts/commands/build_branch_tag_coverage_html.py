@@ -8,13 +8,13 @@ import sys
 from pathlib import Path
 
 from scripts.atomic_output import publish_files_atomically
+from scripts.data_paths import COVERAGE_HTML_PATH, COVERAGE_JSON_PATH, ROOT
 from scripts.domain.tag_models import Coverage
 from scripts.domain.tag_validation import validate_coverage
 
 
-ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_INPUT = ROOT / "visualization" / "branch_tag_coverage.json"
-DEFAULT_OUTPUT = ROOT / "visualization" / "branch_tag_coverage.html"
+DEFAULT_INPUT = COVERAGE_JSON_PATH
+DEFAULT_OUTPUT = COVERAGE_HTML_PATH
 TEMPLATE_PATH = ROOT / "scripts" / "assets" / "branch_tag_coverage.html"
 
 

@@ -17,6 +17,8 @@ from scripts.data_paths import (
     DATA_DEPRECATED,
     DATA_EN,
     DATA_JP,
+    VISUALIZATION_DIR,
+    iter_corpus_page_tags,
     load_json,
     load_mapping_policy_inputs,
 )
@@ -45,8 +47,7 @@ from scripts.domain.tag_policy import (
 )
 from scripts.domain.tag_validation import validate_tag_records
 
-ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_OUTPUT_DIR = ROOT / "visualization"
+DEFAULT_OUTPUT_DIR = VISUALIZATION_DIR
 SAMPLE_LIMIT = 5
 
 STATUS_DESCRIPTIONS: dict[ClassificationStatus, str] = {
@@ -81,30 +82,16 @@ def collect_branch_tag_stats(
     corpus_root: Path,
     branch: str,
 ) -> tuple[int, dict[str, TagStats]]:
-    pages_dir = corpus_root / branch / "pages"
-    if not pages_dir.is_dir():
-        raise ValueError(f"corpus branch pages directory not found: {pages_dir}")
-
     counts: Counter[str] = Counter()
     samples: dict[str, list[str]] = defaultdict(list)
     page_count = 0
-    for meta_path in sorted(pages_dir.glob("*/meta.json")):
-        meta = load_json(meta_path)
-        if not isinstance(meta, dict):
-            raise ValueError(f"metadata root must be an object: {meta_path}")
+    for slug, tags in iter_corpus_page_tags(corpus_root, branch):
         page_count += 1
-        raw_tags = meta.get("tags", [])
-        if isinstance(raw_tags, str):
-            tags = [raw_tags]
-        elif isinstance(raw_tags, list):
-            tags = [tag for tag in raw_tags if isinstance(tag, str) and tag]
-        else:
-            raise ValueError(f"invalid tags field in {meta_path}")
 
         for tag in set(tags):
             counts[tag] += 1
             if len(samples[tag]) < SAMPLE_LIMIT:
-                samples[tag].append(meta_path.parent.name)
+                samples[tag].append(slug)
 
     tag_stats: dict[str, TagStats] = {
         tag: {

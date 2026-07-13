@@ -161,6 +161,7 @@ scp-tag-translation/
 │   ├── commands/                             # 同期・解析・生成CLI
 │   ├── domain/                               # スキーマ・検証・変換規則・支部設定
 │   ├── parsers/                              # 公式タグソース解析
+│   ├── data_paths.py                         # 生成物パス・JSON読込・コーパス走査
 │   └── atomic_output.py                      # 関連成果物のトランザクション的公開
 ├── tests/
 └── visualization/

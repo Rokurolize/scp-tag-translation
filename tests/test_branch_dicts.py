@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+from scripts import data_paths
 from scripts.commands import build_branch_dicts_from_corpus as branch_builder
 from scripts.domain import concatenated_tags, tag_policy
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
@@ -21,6 +22,13 @@ REQUIRED_BRANCHES = list(SUPPORTED_BRANCHES)
 
 def _load_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _visible_sequences(corpus_root: Path, branch: str):
+    return data_paths.collect_corpus_tags_and_visible_sequences(
+        corpus_root,
+        branch,
+    )[1]
 
 
 def test_required_branch_dictionaries_exist_and_values_are_valid(jp_tags_data):
@@ -300,7 +308,7 @@ def test_discover_branches_excludes_jp_and_internal_dirs(tmp_path):
             encoding="utf-8",
         )
 
-    assert concatenated_tags.discover_branches(tmp_path) == ["en"]
+    assert data_paths.discover_corpus_branches(tmp_path) == ["en"]
 
 
 def test_concatenated_tag_hints_restore_ambiguous_boundaries(tmp_path):
@@ -319,9 +327,9 @@ def test_concatenated_tag_hints_restore_ambiguous_boundaries(tmp_path):
     }
 
     hints = concatenated_tags.build_concatenated_tag_hints(
-        tmp_path,
         "int",
         dictionary,
+        _visible_sequences(tmp_path, "int"),
     )
 
     assert hints == {
@@ -344,9 +352,9 @@ def test_concatenated_tag_hints_reject_intrinsic_collisions(tmp_path):
 
     with pytest.raises(ValueError, match="multiple corpus boundaries"):
         concatenated_tags.build_concatenated_tag_hints(
-            tmp_path,
             "en",
             {"a": None, "ab": None, "bc": None, "c": None},
+            _visible_sequences(tmp_path, "en"),
         )
 
 
@@ -360,9 +368,9 @@ def test_concatenated_tag_hints_reject_exact_dictionary_collision(tmp_path):
 
     with pytest.raises(ValueError, match="exact dictionary key"):
         concatenated_tags.build_concatenated_tag_hints(
-            tmp_path,
             "en",
             {"scp": "scp", "sculpture": "彫像", "scpsculpture": None},
+            _visible_sequences(tmp_path, "en"),
         )
 
 
@@ -376,9 +384,9 @@ def test_concatenated_tag_hints_reject_tags_missing_from_dictionary(tmp_path):
 
     with pytest.raises(ValueError, match="corpus tags missing from dictionary"):
         concatenated_tags.build_concatenated_tag_hints(
-            tmp_path,
             "int",
             {"known": "known"},
+            _visible_sequences(tmp_path, "int"),
         )
 
 
@@ -389,7 +397,7 @@ def test_partial_hint_generation_reuses_other_committed_dictionaries(
         json.dumps({"scp": "scp", "sculpture": "彫像"}),
         encoding="utf-8",
     )
-    complete = concatenated_tags.complete_hint_dictionaries(
+    complete = data_paths.complete_hint_dictionaries(
         {"en": {"scp": "scp"}},
         dictionaries_dir=tmp_path,
         supported_branches=("en", "int"),
@@ -414,7 +422,7 @@ def test_every_current_corpus_tag_is_present_in_its_dictionary():
         return
 
     for branch in REQUIRED_BRANCHES:
-        corpus_tags = concatenated_tags.corpus_tags_for_branch(corpus_root, branch)
+        corpus_tags = data_paths.corpus_tags_for_branch(corpus_root, branch)
         dictionary = _load_json(DICTIONARIES / f"{branch}_to_jp.json")
         assert corpus_tags <= set(dictionary), branch
 
