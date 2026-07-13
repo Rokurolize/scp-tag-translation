@@ -16,7 +16,11 @@ ClassificationStatus = Literal[
     "official_crosswalk",
     "unhandled",
 ]
-TranslationAction = Literal[
+SourceTranslationAction = Literal[
+    "omit_jp_unused",
+    "omit_translation_policy",
+]
+CoverageTranslationAction = Literal[
     "copy",
     "copy_replacement",
     "omit_jp_policy",
@@ -37,7 +41,11 @@ CLASSIFICATION_STATUSES: frozenset[ClassificationStatus] = frozenset({
     "official_crosswalk",
     "unhandled",
 })
-TRANSLATION_ACTIONS: frozenset[TranslationAction] = frozenset({
+SOURCE_TRANSLATION_ACTIONS: frozenset[SourceTranslationAction] = frozenset({
+    "omit_jp_unused",
+    "omit_translation_policy",
+})
+COVERAGE_TRANSLATION_ACTIONS: frozenset[CoverageTranslationAction] = frozenset({
     "copy",
     "copy_replacement",
     "omit_jp_policy",
@@ -84,7 +92,7 @@ class JpTagPolicy(TypedDict):
 
 
 class SourceTagPolicy(TypedDict):
-    translation_action: TranslationAction
+    translation_action: SourceTranslationAction
     reason: str
 
 
@@ -107,7 +115,7 @@ class Classification(TypedDict):
     translator_handled: bool
     jp_tag: str | None
     replacement: str | None
-    translation_action: TranslationAction
+    translation_action: CoverageTranslationAction
     copy_allowed: bool
     display_tag: str | None
     target_policy: JpTagPolicy | None
@@ -125,7 +133,7 @@ class CoverageBranch(TypedDict):
     site: str
     page_count: int
     tag_count: int
-    status_counts: dict[str, int]
+    status_counts: dict[ClassificationStatus, int]
     tags: list[CoverageTag]
 
 
@@ -142,7 +150,7 @@ class Coverage(TypedDict):
     schema_version: int
     source: CoverageSource
     status_descriptions: Mapping[ClassificationStatus, str]
-    action_descriptions: dict[str, str]
+    action_descriptions: Mapping[CoverageTranslationAction, str]
     branches: list[CoverageBranch]
 
 

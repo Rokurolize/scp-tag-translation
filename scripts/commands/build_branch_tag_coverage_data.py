@@ -20,12 +20,12 @@ from scripts.domain.tag_models import (
     ApplicationTag,
     Classification,
     ClassificationStatus,
+    CoverageTranslationAction,
     Coverage,
     CoverageBranch,
     CoverageTag,
     JpTagPolicy,
     TagStats,
-    TranslationAction,
 )
 from scripts.domain.tag_policy import (
     DATA_DEPRECATED,
@@ -54,6 +54,15 @@ STATUS_DESCRIPTIONS: dict[ClassificationStatus, str] = {
     "curated_override_only": "Not recorded in the JP tag list, but mapped by local reviewed override data.",
     "official_crosswalk": "Mapped by an official SCP-INT or branch-local tag crosswalk to a current registered JP tag.",
     "unhandled": "No current JP tag-list mapping, reviewed override, or official crosswalk.",
+}
+ACTION_DESCRIPTIONS: dict[CoverageTranslationAction, str] = {
+    "copy": "Registered JP tag; copyable for a translated page.",
+    "copy_replacement": "JP unused source tag replaced by one registered copyable JP tag.",
+    "omit_jp_unused": "JP explicitly does not use this source tag; omit it.",
+    "omit_translation_policy": "JP translation policy says to omit this source tag category.",
+    "omit_jp_policy": "Registered JP tag whose own definition says not to apply it to this translation.",
+    "staff_permission_required": "Mapped JP restriction tag without translation exemption; do not copy without staff permission.",
+    "tag_application_required": "No JP tag-list mapping; omit and request/confirm a JP tag before use.",
 }
 
 
@@ -201,7 +210,7 @@ def _base_classification(
 def classify_tag(tag: str, context: ClassificationContext) -> Classification:
     base = _base_classification(tag, context)
     target = base.replacement or base.jp_tag
-    action: TranslationAction
+    action: CoverageTranslationAction
     copy_allowed = False
     display_tag: str | None = target
     target_policy: JpTagPolicy | None = None
@@ -290,7 +299,7 @@ def build_coverage(
     branch_entries: list[CoverageBranch] = []
     for branch in branches:
         page_count, tag_stats = collect_branch_tag_stats(corpus_root, branch)
-        status_counts: Counter[str] = Counter()
+        status_counts: Counter[ClassificationStatus] = Counter()
         tags: list[CoverageTag] = []
         context = ClassificationContext.for_branch(
             mapping_policy,
@@ -349,15 +358,7 @@ def build_coverage(
             "crosswalk_source": "SCP-INT, SCP-KO, and synced branch-local official tag guides",
         },
         "status_descriptions": STATUS_DESCRIPTIONS,
-        "action_descriptions": {
-            "copy": "Registered JP tag; copyable for a translated page.",
-            "copy_replacement": "JP unused source tag replaced by one registered copyable JP tag.",
-            "omit_jp_unused": "JP explicitly does not use this source tag; omit it.",
-            "omit_translation_policy": "JP translation policy says to omit this source tag category.",
-            "omit_jp_policy": "Registered JP tag whose own definition says not to apply it to this translation.",
-            "staff_permission_required": "Mapped JP restriction tag without translation exemption; do not copy without staff permission.",
-            "tag_application_required": "No JP tag-list mapping; omit and request/confirm a JP tag before use.",
-        },
+        "action_descriptions": ACTION_DESCRIPTIONS,
         "branches": branch_entries,
     }
 

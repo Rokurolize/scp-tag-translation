@@ -23,6 +23,7 @@ APPLICATION_TSV = ROOT / "visualization" / "tag_application_inventory.tsv"
 REQUIRED_BRANCHES = list(SUPPORTED_BRANCHES)
 
 KNOWN_STATUSES = set(coverage_builder.STATUS_DESCRIPTIONS)
+KNOWN_ACTIONS = set(coverage_builder.ACTION_DESCRIPTIONS)
 
 
 def _load_coverage():
@@ -167,6 +168,7 @@ def test_visualization_files_exist_and_cover_required_branches():
     branches = [branch["branch"] for branch in coverage["branches"]]
     assert branches == REQUIRED_BRANCHES
     assert set(coverage["status_descriptions"]) == KNOWN_STATUSES
+    assert set(coverage["action_descriptions"]) == KNOWN_ACTIONS
 
 
 def test_visualization_entries_have_known_statuses_and_required_fields():
@@ -198,6 +200,29 @@ def test_coverage_validator_rejects_unknown_protocol_values(
     coverage["branches"][0]["tags"][0][field] = value
 
     with pytest.raises(ValueError, match=message):
+        coverage_html_builder.validate_coverage(coverage)
+
+
+@pytest.mark.parametrize(
+    ("mapping", "message"),
+    [
+        ("status_descriptions", "status_descriptions keys"),
+        ("action_descriptions", "action_descriptions keys"),
+    ],
+)
+def test_coverage_validator_rejects_unknown_description_keys(mapping, message):
+    coverage = _load_coverage()
+    coverage[mapping]["misspelled"] = "invalid"
+
+    with pytest.raises(ValueError, match=message):
+        coverage_html_builder.validate_coverage(coverage)
+
+
+def test_coverage_validator_rejects_unknown_status_count_key():
+    coverage = _load_coverage()
+    coverage["branches"][0]["status_counts"]["misspelled"] = 1
+
+    with pytest.raises(ValueError, match="status_counts is invalid"):
         coverage_html_builder.validate_coverage(coverage)
 
 

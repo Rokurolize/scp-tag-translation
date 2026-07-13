@@ -7,8 +7,8 @@ from typing import cast
 
 from scripts.domain.tag_models import (
     CLASSIFICATION_STATUSES,
+    COVERAGE_TRANSLATION_ACTIONS,
     SPECIAL_TRANSLATION_ACTIONS,
-    TRANSLATION_ACTIONS,
     Coverage,
     DeprecatedTag,
     EnTag,
@@ -180,11 +180,19 @@ def validate_tag_records(
     return en_tags, jp_tags, deprecated_tags
 
 
-def _valid_string_map(value: object) -> bool:
-    return isinstance(value, dict) and all(
-        isinstance(key, str) and isinstance(item, str)
+def _validate_description_map(
+    value: object,
+    expected_keys: frozenset[str],
+    context: str,
+) -> None:
+    if not isinstance(value, dict) or any(
+        not isinstance(key, str) or not isinstance(item, str)
         for key, item in value.items()
-    )
+    ):
+        raise ValueError(f"{context} must map strings to strings")
+    actual_keys = set(value)
+    if actual_keys != expected_keys:
+        raise ValueError(f"{context} keys do not match the protocol")
 
 
 def _valid_nonnegative_int(value: object) -> bool:
@@ -218,7 +226,7 @@ def _validate_coverage_tag(value: object, context: str) -> None:
         raise ValueError(f"{context}.tag must be a string")
     if value.get("status") not in CLASSIFICATION_STATUSES:
         raise ValueError(f"{context}.status is unknown")
-    if value.get("translation_action") not in TRANSLATION_ACTIONS:
+    if value.get("translation_action") not in COVERAGE_TRANSLATION_ACTIONS:
         raise ValueError(f"{context}.translation_action is unknown")
     for key in ("jp_list_handled", "translator_handled", "copy_allowed"):
         if not isinstance(value.get(key), bool):
@@ -257,9 +265,16 @@ def validate_coverage(raw: object) -> Coverage:
     ):
         if not isinstance(source.get(key), str):
             raise ValueError(f"coverage.source.{key} must be a string")
-    for key in ("status_descriptions", "action_descriptions"):
-        if not _valid_string_map(raw.get(key)):
-            raise ValueError(f"coverage.{key} must map strings to strings")
+    _validate_description_map(
+        raw.get("status_descriptions"),
+        CLASSIFICATION_STATUSES,
+        "coverage.status_descriptions",
+    )
+    _validate_description_map(
+        raw.get("action_descriptions"),
+        COVERAGE_TRANSLATION_ACTIONS,
+        "coverage.action_descriptions",
+    )
     branches = raw.get("branches")
     if not isinstance(branches, list):
         raise ValueError("coverage.branches must be an array")
@@ -275,7 +290,7 @@ def validate_coverage(raw: object) -> Coverage:
                 raise ValueError(f"{context}.{key} must be a non-negative integer")
         status_counts = branch.get("status_counts")
         if not isinstance(status_counts, dict) or any(
-            not isinstance(key, str) or not _valid_nonnegative_int(count)
+            key not in CLASSIFICATION_STATUSES or not _valid_nonnegative_int(count)
             for key, count in status_counts.items()
         ):
             raise ValueError(f"{context}.status_counts is invalid")
