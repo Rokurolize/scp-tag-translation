@@ -1021,7 +1021,7 @@
         query: "",
         statuses: new Set(statusOrder),
       };
-      const els = {
+      const elements = {
         sourceLine: document.getElementById("sourceLine"),
         metrics: document.getElementById("metrics"),
         branchCount: document.getElementById("branchCount"),
@@ -1133,7 +1133,7 @@
           ["コピー可能", summary.copyable, formatPercent(summary.copyable, summary.total), "var(--crosswalk)"],
           ["申請・確認必要", summary.unhandled, formatPercent(summary.unhandled, summary.total), "var(--unhandled)"],
         ];
-        els.metrics.innerHTML = cards
+        elements.metrics.innerHTML = cards
           .map(
             ([label, value, sub, color]) => `
               <article class="metric" style="--metric-color: ${color}">
@@ -1157,11 +1157,11 @@
               `<option value="${escapeHtml(branch.branch)}">${escapeHtml(branch.branch)} (${formatNumber(branch.tag_count)})</option>`,
           ),
         ];
-        els.branchSelect.innerHTML = options.join("");
+        elements.branchSelect.innerHTML = options.join("");
       }
 
       function renderStatusFilters() {
-        els.statusFilters.innerHTML = statusOrder
+        elements.statusFilters.innerHTML = statusOrder
           .map(
             (status) => `
               <button class="status-filter" type="button" data-status="${status}" aria-pressed="${state.statuses.has(status)}" style="--status-color: ${cssColor(status)}">
@@ -1181,8 +1181,8 @@
           const bRatio = bUnhandled / Math.max(b.tag_count, 1);
           return bRatio - aRatio || b.tag_count - a.tag_count || a.branch.localeCompare(b.branch);
         });
-        els.branchCount.textContent = `${formatNumber(branches.length)}支部`;
-        els.branchList.innerHTML = branches
+        elements.branchCount.textContent = `${formatNumber(branches.length)}支部`;
+        elements.branchList.innerHTML = branches
           .map((branch) => {
             const copyable = branchCopyAllowedCount(branch);
             const active = state.branch === branch.branch ? " active" : "";
@@ -1225,12 +1225,12 @@
         const summary = summarize(rows);
         const selectedBranch = state.branch === "all" ? null : branchMap.get(state.branch);
         const title = selectedBranch ? `${selectedBranch.branch}支部` : "全支部";
-        els.detailTitle.textContent = title;
-        els.visibleCount.textContent = `${formatNumber(rows.length)}タグ`;
-        els.donut.style.setProperty("--donut", donutGradient(summary.counts, summary.total));
-        els.donutValue.textContent = formatPercent(summary.copyable, summary.total);
-        els.donutText.textContent = "コピー可能";
-        els.legend.innerHTML = statusOrder
+        elements.detailTitle.textContent = title;
+        elements.visibleCount.textContent = `${formatNumber(rows.length)}タグ`;
+        elements.donut.style.setProperty("--donut", donutGradient(summary.counts, summary.total));
+        elements.donutValue.textContent = formatPercent(summary.copyable, summary.total);
+        elements.donutText.textContent = "コピー可能";
+        elements.legend.innerHTML = statusOrder
           .map(
             (status) => `
               <div class="legend-item" style="--status-color: ${cssColor(status)}">
@@ -1254,7 +1254,7 @@
           ["ローカル上書き", localOnly, formatPercent(localOnly, summary.total)],
           ["JP非使用扱い", unused, formatPercent(unused, summary.total)],
         ];
-        els.insights.innerHTML = insightItems
+        elements.insights.innerHTML = insightItems
           .map(
             ([label, value, sub]) => `
               <article class="insight">
@@ -1270,13 +1270,13 @@
       function renderTable(rows) {
         const sorted = sortRows(rows);
         const visible = sorted.slice(0, tableLimit);
-        els.tableWrap.classList.toggle("hidden", visible.length === 0);
-        els.emptyState.classList.toggle("hidden", visible.length !== 0);
-        els.visibleCount.textContent =
+        elements.tableWrap.classList.toggle("hidden", visible.length === 0);
+        elements.emptyState.classList.toggle("hidden", visible.length !== 0);
+        elements.visibleCount.textContent =
           sorted.length > tableLimit
             ? `${formatNumber(tableLimit)} / ${formatNumber(sorted.length)}タグ`
             : `${formatNumber(sorted.length)}タグ`;
-        els.tagRows.innerHTML = visible
+        elements.tagRows.innerHTML = visible
           .map((row) => {
             const jpValue = row.jp_tag || row.replacement || "";
             const source = row.replacement && row.jp_tag ? `${row.jp_tag} → ${row.replacement}` : jpValue;
@@ -1309,14 +1309,14 @@
 
       function renderSourceLine() {
         const corpus = rawData.source?.corpus_root || "";
-        els.sourceLine.textContent = `schema${rawData.schema_version} / ${rawData.branches.length}支部 / ${formatNumber(allTags.length)}タグ / corpus参照`;
-        els.sourceLine.title = corpus;
+        elements.sourceLine.textContent = `schema${rawData.schema_version} / ${rawData.branches.length}支部 / ${formatNumber(allTags.length)}タグ / corpus参照`;
+        elements.sourceLine.title = corpus;
       }
 
       function render() {
-        els.branchSelect.value = state.branch;
-        els.sortSelect.value = state.sort;
-        els.queryInput.value = state.query;
+        elements.branchSelect.value = state.branch;
+        elements.sortSelect.value = state.sort;
+        elements.queryInput.value = state.query;
         const rows = filteredRows();
         renderStatusFilters();
         renderBranches();
@@ -1353,19 +1353,19 @@
       }
 
       function bindEvents() {
-        els.branchSelect.addEventListener("change", (event) => {
+        elements.branchSelect.addEventListener("change", (event) => {
           state.branch = event.target.value;
           render();
         });
-        els.sortSelect.addEventListener("change", (event) => {
+        elements.sortSelect.addEventListener("change", (event) => {
           state.sort = event.target.value;
           render();
         });
-        els.queryInput.addEventListener("input", (event) => {
+        elements.queryInput.addEventListener("input", (event) => {
           state.query = event.target.value;
           render();
         });
-        els.statusFilters.addEventListener("click", (event) => {
+        elements.statusFilters.addEventListener("click", (event) => {
           const button = event.target.closest("button[data-status]");
           if (!button) return;
           const status = button.dataset.status;
@@ -1377,7 +1377,7 @@
           }
           render();
         });
-        els.branchList.addEventListener("click", (event) => {
+        elements.branchList.addEventListener("click", (event) => {
           const button = event.target.closest("button[data-branch]");
           if (!button) return;
           state.branch = button.dataset.branch;
