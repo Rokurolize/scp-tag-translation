@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 from scripts.atomic_output import publish_files_atomically
@@ -18,9 +19,11 @@ def _write_text(path: Path, content: str) -> None:
 
 def publish_browser_config(output: Path = DEFAULT_OUTPUT) -> None:
     content = render_browser_config()
-    publish_files_atomically({
-        output: lambda temporary: _write_text(temporary, content),
-    })
+    publish_files_atomically(
+        {
+            output: lambda temporary: _write_text(temporary, content),
+        }
+    )
 
 
 def main() -> None:
@@ -37,8 +40,9 @@ def main() -> None:
 
     try:
         publish_browser_config(args.output)
-    except OSError as error:
-        parser.exit(1, f"エラー: ブラウザ設定の生成に失敗しました: {error}\n")
+    except (OSError, ValueError) as error:
+        print(f"エラー: ブラウザ設定の生成に失敗しました: {error}")
+        sys.exit(1)
     print(f"browser config: {args.output}")
 
 
