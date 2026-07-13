@@ -1173,7 +1173,7 @@ cn	肖邦教	1171	7	unhandled	false			tag_application_required	false	未訳-肖�
 cn	舌尖	1172	7	unhandled	false			tag_application_required	false	未訳-舌尖	a-bit-of-inferior-product-1,a-bite-of-hensec,day-of-fatass,eggtart,eggtart1
 cn	藏枪教会	1173	7	official_crosswalk	false	懐中銃教会		copy	true	懐中銃教会	entretiens-avec-de-potentiels-nouveaux-dieux,scp-1074-jp,scp-2424-jp,scp-457-jp,scp-cn-3507
 cn	角磨机	1174	7	official_crosswalk	false	角度研削者		copy	true	角度研削者	mtf-theta-90-character-profiles,mtf-theta-90-hub-page,scp-1707,scp-3307,scp-4037
-cn	-500	1175	6	jp_tag_alias	true	500語未満コンテスト		copy	true	500語未満コンテスト	scp-103-fr,scp-113-fr,scp-119-fr,scp-155-fr,scp-192-fr
+cn	'-500	1175	6	jp_tag_alias	true	500語未満コンテスト		copy	true	500語未満コンテスト	scp-103-fr,scp-113-fr,scp-119-fr,scp-155-fr,scp-192-fr
 cn	2013短篇故事竞赛	1176	6	unhandled	false			tag_application_required	false	未訳-2013短篇故事竞赛	la-hija-bien-amada,navidad-antartica-de-gauss-castillo-y-trash,noche-tranquila-en-sitio-34,scp-1millon,suenos-navidenos
 cn	2019回收竞赛	1177	6	official_crosswalk	false	リサイクル2019		copy	true	リサイクル2019	jiraku-ogakuzu-yzkrt-proposal-j,scp-1494-jp,scp-1551-jp,scp-1598-jp,scp-1637-jp
 cn	2021十五夜团子祭	1178	6	unhandled	false			tag_application_required	false	未訳-2021十五夜团子祭	kitei-disease,koigarezaki-news-20210809,scp-2288-jp,scp-2655-jp,scp-837-jp
@@ -4982,7 +4982,7 @@ es	dr-torayar	718	5	unhandled	false			tag_application_required	false	未訳-dr-t
 es	el-ingeniero	719	5	official_crosswalk	false	エンジニア		copy	true	エンジニア	burned-a-hole-in-my-mind,djkaktus-s-proposal-iii,footage-recovered-from-a-private-server,sc-02-000-22-000,static-in-my-attic
 es	esciúrido	720	5	official_crosswalk	false	齧歯類		copy	true	齧歯類	scp-1845,scp-2050,scp-2797,scp-3761,scp-es-089
 es	gdicon-2024	721	5	unhandled	false			tag_application_required	false	未訳-gdicon-2024	camila,concurso-gdi-es-2024,la-promesa,manifesto793,testimonio-de-un-contacto-particular
-es	glacon	722	5	official_crosswalk	false	グラソン		copy	true	グラソン	alert-lockdown-initiated,clock-multiplier,command-query-separation,null-terminating-string,superencipherment
+es	'-500	749	4	jp_tag_alias	true	500語未満コンテスト		copy	true	500語未満コンテスト	scp-103-fr,scp-113-fr,scp-119-fr,scp-155-fr
 es	halyna-ieva	723	5	official_crosswalk	false	ハリーナ・イエヴァ		copy	true	ハリーナ・イエヴァ	another-soul-joins-the-halkost,et-ecce,mother-who-demands-ones-toes,scp-5509,tifu-by-getting-a-book-from-the-library
 es	idea2018	724	5	unhandled	false			tag_application_required	false	未訳-idea2018	idea2018,scp-es-052,scp-es-062,scp-es-064,scp-es-073
 es	investigador-james	725	5	official_crosswalk	false	ジェームズ研究員		copy	true	ジェームズ研究員	recording-stuff-or-whatever,scp-078-j,scp-789-j,scp-8231-j,scp-9726
@@ -14718,8 +14718,8 @@ zh-tr	得獎展出	905	2	unhandled	false			tag_application_required	false	未訳
 zh-tr	心宿二協會	906	2	official_crosswalk	false	アンタレス協会		copy	true	アンタレス協会	fragmentos-traducidos-del-libro-de-la-vida,informe-sobre-la-sociedad-antares
 zh-tr	政治	907	2	unhandled	false			tag_application_required	false	未訳-政治	matryoshka-epilogue,the-woodvale-incident
 zh-tr	教會聖師	908	2	official_crosswalk	false	教会の博士		copy	true	教会の博士	doctors-of-the-church-hub,quid-est-non-scitum
-zh-tr	散文	909	2	unhandled	false			tag_application_required	false	未訳-散文	flash-fiction-collection-one,wanderers:all-astronauts-go-to-heaven
-zh-tr	敬持聖杯之影	910	2	unhandled	false			tag_application_required	false	未訳-敬持聖杯之影	artwork-of-rose-and-bronze,holding-grails-hub
+zh-tr	'+_普羅米修斯實驗室-goi格式	936	1	unhandled	false			tag_application_required	false	未訳-+_普羅米修斯實驗室-goi格式	grant-request-for-the-telekinetic-alloy
+zh-tr	'+_毆打鯊魚中心-goi格式	937	1	unhandled	false			tag_application_required	false	未訳-+_毆打鯊魚中心-goi格式	ting129-s-ko-proposal
 zh-tr	整合計畫	911	2	unhandled	false			tag_application_required	false	未訳-整合計畫	scp-7999,scp-9595
 zh-tr	文件	912	2	unhandled	false			tag_application_required	false	未訳-文件	scp-1045-jp,scp-1161
 zh-tr	有村組	913	2	jp_tag_name	true	有村組		copy	true	有村組	scp-2042-jp,scp-3060-jp
