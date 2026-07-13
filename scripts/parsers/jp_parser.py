@@ -106,7 +106,6 @@ def parse_unused(source_path: Path) -> list[DeprecatedTag]:
         if not matches:
             continue
 
-        # 最後のマッチ終了位置以降から説明文を抽出
         last_end = matches[-1].end()
         desc_m = re.search(r"\s*-\s*(.+)", line[last_end:])
         description = desc_m.group(1).strip() if desc_m else ""
@@ -162,15 +161,13 @@ def parse(source_dir: Path) -> list[JpTag]:
             use_restricted = edit_restricted or _USE_RESTRICTED_ICON in prefix
             translation_exempt = _TRANSLATION_EXEMPT_ICON in prefix
 
-            # 最後のマッチ終了位置以降から説明文を抽出
             last_end = matches[-1].end()
             remaining = line[last_end:]
             desc_match = re.search(r"\s*-\s*(.+)", remaining)
             description = desc_match.group(1).strip() if desc_match else ""
 
             for m in matches:
-                slug = m.group(1).strip()   # URLスラッグ = JPタグ名
-                # ENタグ名（省略時は None）
+                slug = m.group(1).strip()
                 en_tag = m.group(3).strip() if m.group(3) else None
 
                 if not slug:
