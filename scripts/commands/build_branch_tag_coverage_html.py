@@ -9,12 +9,12 @@ from pathlib import Path
 from typing import cast
 
 if __package__ in (None, ""):
-    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from scripts.tag_models import Coverage
+from scripts.domain.tag_models import Coverage
 
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_INPUT = ROOT / "visualization" / "branch_tag_coverage.json"
 DEFAULT_OUTPUT = ROOT / "visualization" / "branch_tag_coverage.html"
 

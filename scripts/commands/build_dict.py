@@ -2,7 +2,7 @@
 build_dict.py - data/ の解析済みタグ情報から辞書ファイルを生成する
 
 使い方:
-  python scripts/build_dict.py [--overwrite]
+  python -m scripts.commands.build_dict [--overwrite]
 
 動作:
   1. data/jp_tags.json の source_tags を {source_tag: jp_name} にマッピング
@@ -22,19 +22,19 @@ from pathlib import Path
 from typing import cast
 
 if __package__ in (None, ""):
-    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from scripts.atomic_output import publish_files_atomically
-from scripts.tag_models import EnTag, JpTag
-from scripts.tag_policy import (
+from scripts.domain.tag_models import EnTag, JpTag
+from scripts.domain.tag_policy import (
     EN_ORIGIN_TAG_REPLACEMENTS,
     en_category_omitted_tags,
     is_deprecated_for_en_source,
     jp_source_tags,
 )
-from scripts.tag_validation import validate_tag_records
+from scripts.domain.tag_validation import validate_tag_records
 
-_ROOT = Path(__file__).parent.parent
+_ROOT = Path(__file__).resolve().parents[2]
 _DATA_EN = _ROOT / "data" / "en_tags.json"
 _DATA_JP = _ROOT / "data" / "jp_tags.json"
 _DATA_DEPRECATED = _ROOT / "data" / "deprecated_tags.json"

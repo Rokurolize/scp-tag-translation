@@ -12,17 +12,17 @@ from pathlib import Path
 from typing import cast
 
 if __package__ in (None, ""):
-    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from scripts.atomic_output import publish_files_atomically
-from scripts.branch_config import SUPPORTED_BRANCHES
-from scripts.concatenated_tags import (
+from scripts.domain.branch_config import SUPPORTED_BRANCHES
+from scripts.domain.concatenated_tags import (
     build_concatenated_tag_hints,
     collect_corpus_tags_and_visible_sequences,
     complete_hint_dictionaries,
 )
-from scripts.tag_models import DeprecatedTag, EnTag, JpTag
-from scripts.tag_policy import (
+from scripts.domain.tag_models import DeprecatedTag, EnTag, JpTag
+from scripts.domain.tag_policy import (
     DATA_BRANCH_GUIDE_CROSSWALK,
     DATA_DEPRECATED,
     DATA_EN,
@@ -38,9 +38,9 @@ from scripts.tag_policy import (
     en_category_omitted_tags,
     is_deprecated_for_en_source,
 )
-from scripts.tag_validation import validate_tag_records
+from scripts.domain.tag_validation import validate_tag_records
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 DICTIONARIES_DIR = ROOT / "dictionaries"
 JP_POLICY_PATH = DICTIONARIES_DIR / "jp_tag_policy.json"
 
@@ -305,7 +305,7 @@ def main() -> None:
         DATA_BRANCH_GUIDE_CROSSWALK,
     )
     if any(not path.exists() for path in required_data):
-        print("エラー: 先に python scripts/parse_sources.py を実行してください。")
+        print("エラー: 先に python -m scripts.commands.parse_sources を実行してください。")
         sys.exit(1)
 
     branches = [

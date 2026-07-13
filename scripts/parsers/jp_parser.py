@@ -4,7 +4,7 @@ import re
 from collections.abc import Iterator
 from pathlib import Path
 
-from scripts.tag_models import DeprecatedTag, JpTag
+from scripts.domain.tag_models import DeprecatedTag, JpTag
 
 # タグリンクと任意のENタグ表記のペアにマッチ
 # 形式: **[[[/system:page-tags/tag/{slug}|{display}]]]** //(en-tag)//

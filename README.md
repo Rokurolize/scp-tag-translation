@@ -94,27 +94,27 @@ WikidotがHTTPへのリダイレクトを返した場合、このコマンドは
 
 ```bash
 # 1. コーパス内の公式ページソースとsources/の一致を確認
-python scripts/sync_tag_sources_from_corpus.py \
+python -m scripts.commands.sync_tag_sources_from_corpus \
   --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus
 
 # 必要な場合だけ、コーパスからsources/へ同期
-python scripts/sync_tag_sources_from_corpus.py \
+python -m scripts.commands.sync_tag_sources_from_corpus \
   --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus \
   --write
 
 # 2. タグリストと公式対訳表を解析
-python scripts/parse_sources.py
+python -m scripts.commands.parse_sources
 
 # 3. 15支部の全コーパスタグを含む辞書とSCP-JP利用ポリシーを生成
-python scripts/build_branch_dicts_from_corpus.py \
+python -m scripts.commands.build_branch_dicts_from_corpus \
   --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus
 
 # 4. 全メタデータのカバレッジと申請対象一覧を生成
-python scripts/build_branch_tag_coverage_data.py \
+python -m scripts.commands.build_branch_tag_coverage_data \
   --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus
 
 # 5. 自己完結型の可視化HTMLを生成
-python scripts/build_branch_tag_coverage_html.py
+python -m scripts.commands.build_branch_tag_coverage_html
 ```
 
 主な生成物は次のとおりです。
@@ -131,7 +131,7 @@ python scripts/build_branch_tag_coverage_html.py
 `null`は単なる変換失敗を意味しません。
 UIは置換辞書とSCP-JP利用ポリシーを参照し、省略、スタッフ許可、申請または確認のいずれに当たるかを区別します。
 
-`scripts/build_dict.py`は`data/`からEN辞書を直接生成するCLIであると同時に、`scripts/build_branch_dicts_from_corpus.py`がEN辞書を構築する際に再利用するモジュールです。複数成果物の公開は`scripts/atomic_output.py`が一括ステージングと失敗時のロールバックを担います。
+`scripts/commands/build_dict.py`は`data/`からEN辞書を直接生成するCLIです。共有する変換規則と入力検証は`scripts/domain/`が所有し、複数成果物の公開は`scripts/atomic_output.py`が一括ステージングと失敗時のロールバックを担います。
 
 ## テスト
 
@@ -153,19 +153,10 @@ scp-tag-translation/
 │   ├── pl/ pt-br/ th/ ua/ vn/ zh-tr/
 │   └── jp/
 ├── scripts/
-│   ├── parsers/                              # 支部ごとの公式ソース解析
-│   ├── atomic_output.py                      # 関連成果物のトランザクション的公開
-│   ├── branch_config.py                      # 対応支部メタデータの定義
-│   ├── tag_models.py                         # 生成データの共有スキーマ
-│   ├── tag_validation.py                     # 入力データのスキーマ検証
-│   ├── tag_policy.py                         # SCP-JPタグポリシーの構築
-│   ├── concatenated_tags.py                  # 連結タグの分割とヒント生成
-│   ├── sync_tag_sources_from_corpus.py       # コーパスとsources/の同期
-│   ├── parse_sources.py                      # sources/からdata/への解析
-│   ├── build_dict.py                         # EN辞書CLIと共有構築ロジック
-│   ├── build_branch_dicts_from_corpus.py     # 15支部辞書とJPポリシーの生成
-│   ├── build_branch_tag_coverage_data.py     # カバレッジと申請対象一覧の生成
-│   └── build_branch_tag_coverage_html.py     # 自己完結型ダッシュボードの生成
+│   ├── commands/                             # 同期・解析・生成CLI
+│   ├── domain/                               # スキーマ・検証・変換規則・支部設定
+│   ├── parsers/                              # 公式タグソース解析
+│   └── atomic_output.py                      # 関連成果物のトランザクション的公開
 ├── tests/
 └── visualization/
 ```

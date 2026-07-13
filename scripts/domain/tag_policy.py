@@ -8,8 +8,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
 
-from scripts.branch_config import SUPPORTED_BRANCHES
-from scripts.tag_models import (
+from scripts.domain.branch_config import SUPPORTED_BRANCHES
+from scripts.domain.tag_models import (
     DeprecatedTag,
     EnTag,
     JpPolicyDocument,
@@ -18,7 +18,7 @@ from scripts.tag_models import (
     SourceTagPolicy,
 )
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 DATA_EN = ROOT / "data" / "en_tags.json"
 DATA_JP = ROOT / "data" / "jp_tags.json"
 DATA_DEPRECATED = ROOT / "data" / "deprecated_tags.json"

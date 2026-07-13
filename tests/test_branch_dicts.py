@@ -6,9 +6,9 @@ from pathlib import Path
 
 import pytest
 
-from scripts import build_branch_dicts_from_corpus as branch_builder
-from scripts import concatenated_tags, tag_policy
-from scripts.branch_config import SUPPORTED_BRANCHES
+from scripts.commands import build_branch_dicts_from_corpus as branch_builder
+from scripts.domain import concatenated_tags, tag_policy
+from scripts.domain.branch_config import SUPPORTED_BRANCHES
 
 ROOT = Path(__file__).parent.parent
 DICTIONARIES = ROOT / "dictionaries"

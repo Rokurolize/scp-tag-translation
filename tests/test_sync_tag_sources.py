@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts import sync_tag_sources_from_corpus as source_sync
+from scripts.commands import sync_tag_sources_from_corpus as source_sync
 
 
 def _configure_source_tree(

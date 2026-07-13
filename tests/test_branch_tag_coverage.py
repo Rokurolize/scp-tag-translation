@@ -8,10 +8,10 @@ from pathlib import Path
 
 import pytest
 
-from scripts import build_branch_tag_coverage_html as coverage_html_builder
-from scripts import build_branch_tag_coverage_data as coverage_builder
-from scripts import tag_policy
-from scripts.branch_config import SUPPORTED_BRANCHES
+from scripts.commands import build_branch_tag_coverage_html as coverage_html_builder
+from scripts.commands import build_branch_tag_coverage_data as coverage_builder
+from scripts.domain import tag_policy
+from scripts.domain.branch_config import SUPPORTED_BRANCHES
 
 ROOT = Path(__file__).parent.parent
 COVERAGE_JSON = ROOT / "visualization" / "branch_tag_coverage.json"

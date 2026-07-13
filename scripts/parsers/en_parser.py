@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from scripts.tag_models import EnTag
+from scripts.domain.tag_models import EnTag
 
 _TAG_PATTERN = re.compile(
     r"^\s*\*\s*\*\*\[https?://[^ ]*/system:page-tags/tag/([^ \]]+)"

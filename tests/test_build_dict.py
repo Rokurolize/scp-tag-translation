@@ -6,10 +6,10 @@ from pathlib import Path
 
 import pytest
 
-from scripts import build_dict
-from scripts.build_dict import build
-from scripts.tag_policy import is_deprecated_for_en_source
-from scripts.tag_validation import validate_tag_records
+from scripts.commands import build_dict
+from scripts.commands.build_dict import build
+from scripts.domain.tag_policy import is_deprecated_for_en_source
+from scripts.domain.tag_validation import validate_tag_records
 
 
 EN = [{"name": "scp"}, {"name": "tale"}, {"name": "hub"}]
@@ -23,7 +23,7 @@ JP = [
 def test_direct_script_help_works_from_repository_root():
     root = Path(__file__).parent.parent
     completed = subprocess.run(
-        [sys.executable, "scripts/build_dict.py", "--help"],
+        [sys.executable, "-m", "scripts.commands.build_dict", "--help"],
         cwd=root,
         text=True,
         capture_output=True,

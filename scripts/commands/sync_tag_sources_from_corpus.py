@@ -9,12 +9,12 @@ import sys
 from pathlib import Path
 
 if __package__ in (None, ""):
-    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from scripts.atomic_output import FileWriter, publish_files_atomically
 
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CORPUS = Path("/home/roku/src/Rokurolize/scp-wiki-translation/corpus")
 
 SOURCE_MAP = {

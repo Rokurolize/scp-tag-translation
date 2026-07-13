@@ -14,11 +14,11 @@ from pathlib import Path
 from typing import cast
 
 if __package__ in (None, ""):
-    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from scripts.atomic_output import publish_files_atomically
-from scripts.branch_config import BRANCH_CONFIG_BY_CODE, SUPPORTED_BRANCHES
-from scripts.tag_models import (
+from scripts.domain.branch_config import BRANCH_CONFIG_BY_CODE, SUPPORTED_BRANCHES
+from scripts.domain.tag_models import (
     ApplicationBranch,
     ApplicationInventory,
     ApplicationTag,
@@ -32,7 +32,7 @@ from scripts.tag_models import (
     JpTagPolicy,
     TagStats,
 )
-from scripts.tag_policy import (
+from scripts.domain.tag_policy import (
     DATA_DEPRECATED,
     DATA_EN,
     DATA_JP,
@@ -44,7 +44,7 @@ from scripts.tag_policy import (
     en_category_omitted_tags,
 )
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUTPUT_DIR = ROOT / "visualization"
 SAMPLE_LIMIT = 5
 
@@ -256,7 +256,7 @@ def build_coverage(
     branches: list[str],
 ) -> Coverage:
     if not DATA_JP.exists() or not DATA_DEPRECATED.exists():
-        raise FileNotFoundError("Run python scripts/parse_sources.py first.")
+        raise FileNotFoundError("Run python -m scripts.commands.parse_sources first.")
 
     jp_tags = cast(list[JpTag], load_json(DATA_JP))
     deprecated_tags = cast(list[DeprecatedTag], load_json(DATA_DEPRECATED))

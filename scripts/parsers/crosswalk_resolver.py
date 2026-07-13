@@ -7,8 +7,8 @@ import unicodedata
 from collections.abc import Iterable
 from pathlib import Path
 
-from scripts.tag_models import DeprecatedTag, JpTag
-from scripts.tag_validation import validate_deprecated_tags, validate_jp_tags
+from scripts.domain.tag_models import DeprecatedTag, JpTag
+from scripts.domain.tag_validation import validate_deprecated_tags, validate_jp_tags
 
 
 def normalize_tag(value: str) -> str:

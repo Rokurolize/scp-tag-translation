@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts import parse_sources
+from scripts.commands import parse_sources
 
 
 def _redirect_pipeline_paths(monkeypatch, tmp_path: Path) -> tuple[Path, ...]:
@@ -248,7 +248,7 @@ def test_importing_parse_sources_does_not_mutate_sys_path():
             "-c",
             (
                 "import sys; before=list(sys.path); "
-                "import scripts.parse_sources; "
+                "import scripts.commands.parse_sources; "
                 "assert sys.path == before"
             ),
         ],

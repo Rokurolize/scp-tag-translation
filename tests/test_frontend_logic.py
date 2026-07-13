@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.branch_config import (
+from scripts.domain.branch_config import (
     BROWSER_CONFIG_PATH,
     BRANCH_CONFIG_BY_CODE,
     SUPPORTED_BRANCH_CONFIGS,

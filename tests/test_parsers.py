@@ -3,8 +3,8 @@ from pathlib import Path
 
 import pytest
 
-from scripts import parse_sources
-from scripts.tag_policy import (
+from scripts.commands import parse_sources
+from scripts.domain.tag_policy import (
     EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
     EN_ORIGIN_TAG_REPLACEMENTS,
 )

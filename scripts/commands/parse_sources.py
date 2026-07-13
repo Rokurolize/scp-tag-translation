@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Literal, cast
 
 if __package__ in (None, ""):
-    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from scripts.atomic_output import publish_files_atomically
 from scripts.parsers import (
@@ -23,14 +23,14 @@ from scripts.parsers import (
     ko_parser,
 )
 from scripts.parsers.crosswalk_resolver import CrosswalkResolver
-from scripts.tag_models import DeprecatedTag, JpTag
-from scripts.tag_policy import EN_CROSSWALK_SEMANTIC_REPLACEMENTS
-from scripts.tag_validation import validate_deprecated_tags, validate_jp_tags
+from scripts.domain.tag_models import DeprecatedTag, JpTag
+from scripts.domain.tag_policy import EN_CROSSWALK_SEMANTIC_REPLACEMENTS
+from scripts.domain.tag_validation import validate_deprecated_tags, validate_jp_tags
 
 Language = Literal["en", "jp", "crosswalks", "all"]
 LANGUAGES: tuple[Language, ...] = ("en", "jp", "crosswalks", "all")
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 SOURCES_EN = ROOT / "sources" / "en" / "tag-list.txt"
 SOURCES_JP = ROOT / "sources" / "jp"
 SOURCES_JP_UNUSED = SOURCES_JP / "fragment-unused.txt"

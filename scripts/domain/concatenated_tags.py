@@ -7,9 +7,9 @@ from collections.abc import Iterator, Mapping, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from scripts.branch_config import SUPPORTED_BRANCHES
+from scripts.domain.branch_config import SUPPORTED_BRANCHES
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 DICTIONARIES_DIR = ROOT / "dictionaries"
 
 

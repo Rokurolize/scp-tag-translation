@@ -12,7 +12,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.branch_config import SUPPORTED_BRANCHES
+from scripts.domain.branch_config import SUPPORTED_BRANCHES
 
 ROOT = Path(__file__).parent.parent
 DEFAULT_CORPUS_ROOT = Path(
