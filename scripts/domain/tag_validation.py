@@ -195,11 +195,22 @@ def _valid_nonnegative_int(value: object) -> bool:
     return isinstance(value, int) and not isinstance(value, bool) and value >= 0
 
 
+def _require_keys(
+    value: dict[object, object],
+    required: tuple[str, ...],
+    context: str,
+) -> None:
+    missing = [key for key in required if key not in value]
+    if missing:
+        raise ValueError(f"{context} missing required keys: {', '.join(missing)}")
+
+
 def _validate_jp_policy(value: object, context: str) -> None:
     if value is None:
         return
     if not isinstance(value, dict):
         raise ValueError(f"{context}.target_policy must be an object or null")
+    _require_keys(value, ("special_translation_action",), f"{context}.target_policy")
     for key in (
         "use_restricted",
         "edit_restricted",
@@ -218,6 +229,11 @@ def _validate_jp_policy(value: object, context: str) -> None:
 def _validate_coverage_tag(value: object, context: str) -> None:
     if not isinstance(value, dict):
         raise ValueError(f"{context} must be an object")
+    _require_keys(
+        value,
+        ("jp_tag", "replacement", "display_tag", "target_policy"),
+        context,
+    )
     if not isinstance(value.get("tag"), str):
         raise ValueError(f"{context}.tag must be a string")
     if value.get("status") not in CLASSIFICATION_STATUSES:

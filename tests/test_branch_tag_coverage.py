@@ -240,6 +240,31 @@ def test_coverage_validator_rejects_unknown_special_action():
         coverage_html_builder.validate_coverage(coverage)
 
 
+@pytest.mark.parametrize(
+    "field",
+    ("jp_tag", "replacement", "display_tag", "target_policy"),
+)
+def test_coverage_validator_rejects_missing_nullable_required_field(field):
+    coverage = _load_coverage()
+    coverage["branches"][0]["tags"][0].pop(field)
+
+    with pytest.raises(ValueError, match=field):
+        coverage_html_builder.validate_coverage(coverage)
+
+
+def test_coverage_validator_rejects_missing_special_action_key():
+    coverage = _load_coverage()
+    coverage["branches"][0]["tags"][0]["target_policy"] = {
+        "use_restricted": False,
+        "edit_restricted": False,
+        "translation_exempt": False,
+        "copy_allowed_for_translation": True,
+    }
+
+    with pytest.raises(ValueError, match="special_translation_action"):
+        coverage_html_builder.validate_coverage(coverage)
+
+
 def test_visualization_tsv_exactly_matches_json():
     coverage = _load_coverage()
     expected_rows = []
