@@ -28,71 +28,91 @@ def _ensure_unique(values: Iterable[str], label: str) -> None:
         raise ValueError(f"{label} が重複しています: {sample}")
 
 
+def _valid_trimmed_string(value: object) -> bool:
+    return isinstance(value, str) and bool(value) and value == value.strip()
+
+
+def _validate_en_meta(value: object) -> None:
+    if value is None:
+        return
+    if not isinstance(value, dict) or any(
+        not isinstance(key, str)
+        or not isinstance(values, list)
+        or any(not isinstance(item, str) for item in values)
+        for key, values in value.items()
+    ):
+        raise ValueError(f"ENタグのmetaが不正です: {value!r}")
+
+
+def _validate_en_tag_entry(entry: object, index: int) -> None:
+    if not isinstance(entry, dict) or not isinstance(entry.get("name"), str):
+        raise ValueError(f"ENタグデータの項目が不正です: index={index}")
+    name = entry["name"]
+    if not _valid_trimmed_string(name):
+        raise ValueError(f"ENタグ名が不正です: {name!r}")
+    category = entry.get("category")
+    if category is not None and not isinstance(category, str):
+        raise ValueError(f"ENタグのcategoryが不正です: {category!r}")
+    description = entry.get("description")
+    if description is not None and not isinstance(description, str):
+        raise ValueError(f"ENタグのdescriptionが不正です: {description!r}")
+    _validate_en_meta(entry.get("meta"))
+
+
 def validate_en_tags(raw: object) -> list[EnTag]:
     if not isinstance(raw, list):
         raise ValueError("ENタグデータは配列である必要があります")
     for index, entry in enumerate(raw):
-        if not isinstance(entry, dict) or not isinstance(entry.get("name"), str):
-            raise ValueError(f"ENタグデータの項目が不正です: index={index}")
-        name = entry["name"]
-        if not name or name != name.strip():
-            raise ValueError(f"ENタグ名が不正です: {name!r}")
-        category = entry.get("category")
-        if category is not None and not isinstance(category, str):
-            raise ValueError(f"ENタグのcategoryが不正です: {category!r}")
-        description = entry.get("description")
-        if description is not None and not isinstance(description, str):
-            raise ValueError(f"ENタグのdescriptionが不正です: {description!r}")
-        meta = entry.get("meta")
-        if meta is not None and (
-            not isinstance(meta, dict)
-            or any(
-                not isinstance(key, str)
-                or not isinstance(values, list)
-                or any(not isinstance(value, str) for value in values)
-                for key, values in meta.items()
-            )
-        ):
-            raise ValueError(f"ENタグのmetaが不正です: {meta!r}")
+        _validate_en_tag_entry(entry, index)
 
     records = cast(list[EnTag], raw)
     _ensure_unique((entry["name"] for entry in records), "ENタグ名")
     return records
 
 
+def _valid_source_tags(value: object) -> bool:
+    return isinstance(value, list) and all(
+        _valid_trimmed_string(item) for item in value
+    )
+
+
+def _validate_optional_boolean_fields(
+    entry: dict[object, object],
+    keys: tuple[str, ...],
+    context: str,
+) -> None:
+    for key in keys:
+        value = entry.get(key)
+        if value is not None and not isinstance(value, bool):
+            raise ValueError(f"{context}{key}が不正です: {value!r}")
+
+
+def _validate_jp_tag_entry(entry: object, index: int) -> None:
+    if not isinstance(entry, dict) or not isinstance(entry.get("name"), str):
+        raise ValueError(f"JPタグデータの項目が不正です: index={index}")
+    name = entry["name"]
+    if not _valid_trimmed_string(name):
+        raise ValueError(f"JPタグ名が不正です: {name!r}")
+    if "en_tag" in entry:
+        raise ValueError(f"JPタグデータに旧en_tagがあります: index={index}")
+    source_tags = entry.get("source_tags")
+    if not _valid_source_tags(source_tags):
+        raise ValueError(f"JP側source_tagsが不正です: {source_tags!r}")
+    description = entry.get("description")
+    if description is not None and not isinstance(description, str):
+        raise ValueError(f"JPタグのdescriptionが不正です: {description!r}")
+    _validate_optional_boolean_fields(
+        entry,
+        ("use_restricted", "edit_restricted", "translation_exempt"),
+        "JPタグの",
+    )
+
+
 def validate_jp_tags(raw: object) -> list[JpTag]:
     if not isinstance(raw, list):
         raise ValueError("JPタグデータは配列である必要があります")
     for index, entry in enumerate(raw):
-        if not isinstance(entry, dict) or not isinstance(entry.get("name"), str):
-            raise ValueError(f"JPタグデータの項目が不正です: index={index}")
-        name = entry["name"]
-        if not name or name != name.strip():
-            raise ValueError(f"JPタグ名が不正です: {name!r}")
-        if "en_tag" in entry:
-            raise ValueError(f"JPタグデータに旧en_tagがあります: index={index}")
-        source_tags = entry.get("source_tags")
-        if (
-            not isinstance(source_tags, list)
-            or any(
-                not isinstance(value, str)
-                or not value
-                or value != value.strip()
-                for value in source_tags
-            )
-        ):
-            raise ValueError(f"JP側source_tagsが不正です: {source_tags!r}")
-        description = entry.get("description")
-        if description is not None and not isinstance(description, str):
-            raise ValueError(f"JPタグのdescriptionが不正です: {description!r}")
-        for key in (
-            "use_restricted",
-            "edit_restricted",
-            "translation_exempt",
-        ):
-            value = entry.get(key)
-            if value is not None and not isinstance(value, bool):
-                raise ValueError(f"JPタグの{key}が不正です: {value!r}")
+        _validate_jp_tag_entry(entry, index)
 
     records = cast(list[JpTag], raw)
     _ensure_unique((entry["name"] for entry in records), "JPタグ名")
@@ -103,6 +123,52 @@ def validate_jp_tags(raw: object) -> list[JpTag]:
     return records
 
 
+def _validate_deprecated_replacement(
+    entry: dict[object, object],
+    jp_names: set[str],
+    require_registered_replacement: bool,
+) -> None:
+    replacement = entry.get("replacement")
+    if replacement is not None and not _valid_trimmed_string(replacement):
+        raise ValueError(f"非使用タグのreplacementが不正です: {replacement!r}")
+    source_lang = entry.get("source_lang")
+    if (
+        replacement is not None
+        and (source_lang or "EN") == "EN"
+        and require_registered_replacement
+        and replacement not in jp_names
+    ):
+        raise ValueError(
+            f"非使用タグのreplacementがJPタグに存在しません: {replacement!r}"
+        )
+
+
+def _validate_deprecated_tag_entry(
+    entry: object,
+    index: int,
+    jp_names: set[str],
+    require_registered_replacement: bool,
+) -> None:
+    if not isinstance(entry, dict):
+        raise ValueError(f"非使用タグデータの項目が不正です: index={index}")
+    if "en_tag" in entry:
+        raise ValueError(f"非使用タグデータに旧en_tagがあります: index={index}")
+    source_tag = entry.get("source_tag")
+    if not _valid_trimmed_string(source_tag):
+        raise ValueError(f"非使用タグのsource_tagが不正です: {source_tag!r}")
+    source_lang = entry.get("source_lang")
+    if "source_lang" in entry and not _valid_trimmed_string(source_lang):
+        raise ValueError(f"非使用タグのsource_langが不正です: {source_lang!r}")
+    _validate_deprecated_replacement(
+        entry,
+        jp_names,
+        require_registered_replacement,
+    )
+    description = entry.get("description")
+    if description is not None and not isinstance(description, str):
+        raise ValueError(f"非使用タグのdescriptionが不正です: {description!r}")
+
+
 def validate_deprecated_tags(
     raw: object,
     jp_tags: list[JpTag] | None = None,
@@ -111,43 +177,12 @@ def validate_deprecated_tags(
         raise ValueError("非使用タグデータは配列である必要があります")
     jp_names = {entry["name"] for entry in jp_tags or []}
     for index, entry in enumerate(raw):
-        if not isinstance(entry, dict):
-            raise ValueError(f"非使用タグデータの項目が不正です: index={index}")
-        if "en_tag" in entry:
-            raise ValueError(f"非使用タグデータに旧en_tagがあります: index={index}")
-        source_tag = entry.get("source_tag")
-        if (
-            not isinstance(source_tag, str)
-            or not source_tag
-            or source_tag != source_tag.strip()
-        ):
-            raise ValueError(f"非使用タグのsource_tagが不正です: {source_tag!r}")
-        source_lang = entry.get("source_lang")
-        if "source_lang" in entry and (
-            not isinstance(source_lang, str)
-            or not source_lang
-            or source_lang != source_lang.strip()
-        ):
-            raise ValueError(f"非使用タグのsource_langが不正です: {source_lang!r}")
-        replacement = entry.get("replacement")
-        if replacement is not None and (
-            not isinstance(replacement, str)
-            or not replacement
-            or replacement != replacement.strip()
-        ):
-            raise ValueError(f"非使用タグのreplacementが不正です: {replacement!r}")
-        if (
-            replacement is not None
-            and (source_lang or "EN") == "EN"
-            and jp_tags is not None
-            and replacement not in jp_names
-        ):
-            raise ValueError(
-                f"非使用タグのreplacementがJPタグに存在しません: {replacement!r}"
-            )
-        description = entry.get("description")
-        if description is not None and not isinstance(description, str):
-            raise ValueError(f"非使用タグのdescriptionが不正です: {description!r}")
+        _validate_deprecated_tag_entry(
+            entry,
+            index,
+            jp_names,
+            jp_tags is not None,
+        )
 
     records = cast(list[DeprecatedTag], raw)
     _ensure_unique(
@@ -205,20 +240,63 @@ def _require_keys(
         raise ValueError(f"{context} missing required keys: {', '.join(missing)}")
 
 
+def _validate_required_string_fields(
+    value: dict[object, object],
+    keys: tuple[str, ...],
+    context: str,
+) -> None:
+    for key in keys:
+        if not isinstance(value.get(key), str):
+            raise ValueError(f"{context}.{key} must be a string")
+
+
+def _validate_required_boolean_fields(
+    value: dict[object, object],
+    keys: tuple[str, ...],
+    context: str,
+) -> None:
+    for key in keys:
+        if not isinstance(value.get(key), bool):
+            raise ValueError(f"{context}.{key} must be boolean")
+
+
+def _validate_nullable_string_fields(
+    value: dict[object, object],
+    keys: tuple[str, ...],
+    context: str,
+) -> None:
+    for key in keys:
+        item = value.get(key)
+        if item is not None and not isinstance(item, str):
+            raise ValueError(f"{context}.{key} must be a string or null")
+
+
+def _validate_nonnegative_integer_fields(
+    value: dict[object, object],
+    keys: tuple[str, ...],
+    context: str,
+) -> None:
+    for key in keys:
+        if not _valid_nonnegative_int(value.get(key)):
+            raise ValueError(f"{context}.{key} must be a non-negative integer")
+
+
 def _validate_jp_policy(value: object, context: str) -> None:
     if value is None:
         return
     if not isinstance(value, dict):
         raise ValueError(f"{context}.target_policy must be an object or null")
     _require_keys(value, ("special_translation_action",), f"{context}.target_policy")
-    for key in (
-        "use_restricted",
-        "edit_restricted",
-        "translation_exempt",
-        "copy_allowed_for_translation",
-    ):
-        if not isinstance(value.get(key), bool):
-            raise ValueError(f"{context}.target_policy.{key} must be boolean")
+    _validate_required_boolean_fields(
+        value,
+        (
+            "use_restricted",
+            "edit_restricted",
+            "translation_exempt",
+            "copy_allowed_for_translation",
+        ),
+        f"{context}.target_policy",
+    )
     action = value.get("special_translation_action")
     if action is not None and action not in SPECIAL_TRANSLATION_ACTIONS:
         raise ValueError(
@@ -240,16 +318,21 @@ def _validate_coverage_tag(value: object, context: str) -> None:
         raise ValueError(f"{context}.status is unknown")
     if value.get("translation_action") not in COVERAGE_TRANSLATION_ACTIONS:
         raise ValueError(f"{context}.translation_action is unknown")
-    for key in ("recognized_by_jp_policy", "copy_allowed"):
-        if not isinstance(value.get(key), bool):
-            raise ValueError(f"{context}.{key} must be boolean")
-    for key in ("jp_tag", "replacement", "display_tag"):
-        item = value.get(key)
-        if item is not None and not isinstance(item, str):
-            raise ValueError(f"{context}.{key} must be a string or null")
-    for key in ("rank", "page_count"):
-        if not _valid_nonnegative_int(value.get(key)):
-            raise ValueError(f"{context}.{key} must be a non-negative integer")
+    _validate_required_boolean_fields(
+        value,
+        ("recognized_by_jp_policy", "copy_allowed"),
+        context,
+    )
+    _validate_nullable_string_fields(
+        value,
+        ("jp_tag", "replacement", "display_tag"),
+        context,
+    )
+    _validate_nonnegative_integer_fields(
+        value,
+        ("rank", "page_count"),
+        context,
+    )
     sample_slugs = value.get("sample_slugs")
     if not isinstance(sample_slugs, list) or any(
         not isinstance(slug, str) for slug in sample_slugs
@@ -258,24 +341,56 @@ def _validate_coverage_tag(value: object, context: str) -> None:
     _validate_jp_policy(value.get("target_policy"), context)
 
 
+def _validate_coverage_source(value: object) -> None:
+    if not isinstance(value, dict):
+        raise ValueError("coverage.source must be an object")
+    _validate_required_string_fields(
+        value,
+        (
+            "corpus_root",
+            "jp_tag_source",
+            "jp_unused_source",
+            "override_source",
+            "deprecated_override_source",
+            "crosswalk_source",
+        ),
+        "coverage.source",
+    )
+
+
+def _validate_status_counts(value: object, context: str) -> None:
+    if not isinstance(value, dict) or any(
+        key not in CLASSIFICATION_STATUSES or not _valid_nonnegative_int(count)
+        for key, count in value.items()
+    ):
+        raise ValueError(f"{context}.status_counts is invalid")
+
+
+def _validate_coverage_branch(value: object, context: str) -> None:
+    if not isinstance(value, dict):
+        raise ValueError(f"{context} must be an object")
+    _validate_required_string_fields(value, ("branch", "site"), context)
+    _validate_nonnegative_integer_fields(
+        value,
+        ("page_count", "tag_count"),
+        context,
+    )
+    _validate_status_counts(value.get("status_counts"), context)
+    tags = value.get("tags")
+    if not isinstance(tags, list):
+        raise ValueError(f"{context}.tags must be an array")
+    for tag_index, tag in enumerate(tags):
+        _validate_coverage_tag(tag, f"{context}.tags[{tag_index}]")
+    if value.get("tag_count") != len(tags):
+        raise ValueError(f"{context}.tag_count does not match tags")
+
+
 def validate_coverage(raw: object) -> Coverage:
     if not isinstance(raw, dict):
         raise ValueError("coverage root must be an object")
     if not _valid_nonnegative_int(raw.get("schema_version")):
         raise ValueError("coverage.schema_version must be a non-negative integer")
-    source = raw.get("source")
-    if not isinstance(source, dict):
-        raise ValueError("coverage.source must be an object")
-    for key in (
-        "corpus_root",
-        "jp_tag_source",
-        "jp_unused_source",
-        "override_source",
-        "deprecated_override_source",
-        "crosswalk_source",
-    ):
-        if not isinstance(source.get(key), str):
-            raise ValueError(f"coverage.source.{key} must be a string")
+    _validate_coverage_source(raw.get("source"))
     _validate_description_map(
         raw.get("status_descriptions"),
         CLASSIFICATION_STATUSES,
@@ -290,26 +405,5 @@ def validate_coverage(raw: object) -> Coverage:
     if not isinstance(branches, list):
         raise ValueError("coverage.branches must be an array")
     for branch_index, branch in enumerate(branches):
-        context = f"coverage.branches[{branch_index}]"
-        if not isinstance(branch, dict):
-            raise ValueError(f"{context} must be an object")
-        for key in ("branch", "site"):
-            if not isinstance(branch.get(key), str):
-                raise ValueError(f"{context}.{key} must be a string")
-        for key in ("page_count", "tag_count"):
-            if not _valid_nonnegative_int(branch.get(key)):
-                raise ValueError(f"{context}.{key} must be a non-negative integer")
-        status_counts = branch.get("status_counts")
-        if not isinstance(status_counts, dict) or any(
-            key not in CLASSIFICATION_STATUSES or not _valid_nonnegative_int(count)
-            for key, count in status_counts.items()
-        ):
-            raise ValueError(f"{context}.status_counts is invalid")
-        tags = branch.get("tags")
-        if not isinstance(tags, list):
-            raise ValueError(f"{context}.tags must be an array")
-        for tag_index, tag in enumerate(tags):
-            _validate_coverage_tag(tag, f"{context}.tags[{tag_index}]")
-        if branch["tag_count"] != len(tags):
-            raise ValueError(f"{context}.tag_count does not match tags")
+        _validate_coverage_branch(branch, f"coverage.branches[{branch_index}]")
     return cast(Coverage, raw)
