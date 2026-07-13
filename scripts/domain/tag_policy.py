@@ -2,10 +2,8 @@
 
 from __future__ import annotations
 
-import json
 from collections.abc import Mapping, Sequence, Set
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Literal
 
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
@@ -19,22 +17,6 @@ from scripts.domain.tag_models import (
     SourceTagPolicy,
 )
 
-ROOT = Path(__file__).resolve().parents[2]
-DATA_EN = ROOT / "data" / "en_tags.json"
-DATA_JP = ROOT / "data" / "jp_tags.json"
-DATA_DEPRECATED = ROOT / "data" / "deprecated_tags.json"
-DATA_INT_CROSSWALK = ROOT / "data" / "int_tag_crosswalk.json"
-DATA_KO_CROSSWALK = ROOT / "data" / "ko_tag_crosswalk.json"
-DATA_BRANCH_GUIDE_CROSSWALK = ROOT / "data" / "branch_guide_crosswalk.json"
-OVERRIDES_PATH = ROOT / "sources" / "branch_to_jp_overrides.json"
-DEPRECATED_REPLACEMENT_OVERRIDES_PATH = (
-    ROOT / "sources" / "deprecated_replacement_overrides.json"
-)
-CROSSWALK_PATHS = (
-    DATA_INT_CROSSWALK,
-    DATA_KO_CROSSWALK,
-    DATA_BRANCH_GUIDE_CROSSWALK,
-)
 EN_CATEGORIES_OMITTED_ON_JP = {"Genre", "Genre and Themes"}
 EN_ORIGIN_TAG_REPLACEMENTS = {
     "_int": "int",
@@ -91,11 +73,6 @@ def en_category_omitted_tags(
         if entry.get("category") in EN_CATEGORIES_OMITTED_ON_JP
         and entry["name"] not in mapped
     }
-
-
-def load_json(path: Path) -> object:
-    with path.open("r", encoding="utf-8") as file:
-        return json.load(file)
 
 
 def branch_to_source_lang(branch: str) -> str:
@@ -229,6 +206,13 @@ class JpPolicyInputs:
     concatenated_tag_hints: Mapping[str, Mapping[str, list[str]]] | None = None
 
 
+@dataclass(frozen=True)
+class MappingPolicyInputs:
+    overrides: object
+    replacement_overrides: object
+    official_crosswalks: tuple[object, ...]
+
+
 def jp_maps(jp_tags: list[JpTag]) -> tuple[frozenset[str], dict[str, str]]:
     jp_names: set[str] = set()
     source_to_jp: dict[str, str] = {}
@@ -246,14 +230,10 @@ def jp_maps(jp_tags: list[JpTag]) -> tuple[frozenset[str], dict[str, str]]:
     return frozenset(jp_names), source_to_jp
 
 
-def load_overrides(
-    path: Path,
+def parse_overrides(
+    raw: object,
     jp_names: frozenset[str] | set[str],
 ) -> dict[str, dict[str, str]]:
-    if not path.exists():
-        return {}
-
-    raw = load_json(path)
     if not isinstance(raw, dict):
         raise ValueError("branch override file must be a JSON object")
 
@@ -282,11 +262,10 @@ def load_overrides(
     return overrides
 
 
-def load_official_crosswalk(
-    path: Path,
+def parse_official_crosswalk(
+    raw: object,
     jp_names: frozenset[str] | set[str],
 ) -> dict[str, dict[str, str]]:
-    raw = load_json(path)
     if not isinstance(raw, dict):
         raise ValueError("official crosswalk must be a JSON object")
     result: dict[str, dict[str, str]] = {}
@@ -308,13 +287,13 @@ def load_official_crosswalk(
     return result
 
 
-def load_official_crosswalks(
-    paths: tuple[Path, ...],
+def merge_official_crosswalks(
+    raw_crosswalks: Sequence[object],
     jp_names: frozenset[str] | set[str],
 ) -> dict[str, dict[str, str]]:
     merged: dict[str, dict[str, str]] = {}
-    for path in paths:
-        current = load_official_crosswalk(path, jp_names)
+    for raw in raw_crosswalks:
+        current = parse_official_crosswalk(raw, jp_names)
         for branch, mappings in current.items():
             merged.setdefault(branch, {}).update(mappings)
     return merged
@@ -367,18 +346,18 @@ def deprecated_by_source_lang(
 def build_mapping_policy(
     jp_tags: list[JpTag],
     deprecated_raw: list[DeprecatedTag],
-    *,
-    overrides_path: Path = OVERRIDES_PATH,
-    replacement_overrides_path: Path = DEPRECATED_REPLACEMENT_OVERRIDES_PATH,
-    crosswalk_paths: tuple[Path, ...] = CROSSWALK_PATHS,
+    inputs: MappingPolicyInputs,
 ) -> MappingPolicy:
     jp_names, jp_source_map = jp_maps(jp_tags)
-    overrides = load_overrides(overrides_path, jp_names)
-    replacement_overrides = load_overrides(
-        replacement_overrides_path,
+    overrides = parse_overrides(inputs.overrides, jp_names)
+    replacement_overrides = parse_overrides(
+        inputs.replacement_overrides,
         jp_names,
     )
-    official_crosswalk = load_official_crosswalks(crosswalk_paths, jp_names)
+    official_crosswalk = merge_official_crosswalks(
+        inputs.official_crosswalks,
+        jp_names,
+    )
     deprecated_tags, replacements = deprecated_by_source_lang(
         deprecated_raw,
         jp_names,

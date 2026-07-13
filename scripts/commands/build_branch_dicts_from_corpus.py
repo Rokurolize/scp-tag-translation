@@ -11,6 +11,16 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from scripts.atomic_output import publish_files_atomically
+from scripts.data_paths import (
+    DATA_BRANCH_GUIDE_CROSSWALK,
+    DATA_DEPRECATED,
+    DATA_EN,
+    DATA_INT_CROSSWALK,
+    DATA_JP,
+    DATA_KO_CROSSWALK,
+    load_json,
+    load_mapping_policy_inputs,
+)
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.domain.concatenated_tags import (
     build_concatenated_tag_hints,
@@ -20,12 +30,6 @@ from scripts.domain.concatenated_tags import (
 from scripts.domain.tag_dictionary import build_branch_dict, build_en_dicts
 from scripts.domain.tag_models import DeprecatedTag, EnTag, JpTag
 from scripts.domain.tag_policy import (
-    DATA_BRANCH_GUIDE_CROSSWALK,
-    DATA_DEPRECATED,
-    DATA_EN,
-    DATA_INT_CROSSWALK,
-    DATA_JP,
-    DATA_KO_CROSSWALK,
     JpPolicyInputs,
     MappingPolicy,
     build_jp_policy,
@@ -36,11 +40,6 @@ from scripts.domain.tag_validation import validate_tag_records
 ROOT = Path(__file__).resolve().parents[2]
 DICTIONARIES_DIR = ROOT / "dictionaries"
 JP_POLICY_PATH = DICTIONARIES_DIR / "jp_tag_policy.json"
-
-
-def load_json(path: Path) -> object:
-    with path.open("r", encoding="utf-8") as f:
-        return json.load(f)
 
 
 def write_json(path: Path, data: Mapping[str, object]) -> None:
@@ -225,7 +224,11 @@ def main() -> None:
             load_json(DATA_JP),
             load_json(DATA_DEPRECATED),
         )
-        policy = build_mapping_policy(jp_tags, deprecated_tags)
+        policy = build_mapping_policy(
+            jp_tags,
+            deprecated_tags,
+            load_mapping_policy_inputs(),
+        )
         artifacts = build_artifacts(
             corpus_root,
             branches,

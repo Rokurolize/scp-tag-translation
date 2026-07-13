@@ -13,6 +13,13 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from scripts.atomic_output import publish_files_atomically
+from scripts.data_paths import (
+    DATA_DEPRECATED,
+    DATA_EN,
+    DATA_JP,
+    load_json,
+    load_mapping_policy_inputs,
+)
 from scripts.domain.branch_config import BRANCH_CONFIG_BY_CODE, SUPPORTED_BRANCHES
 from scripts.domain.tag_models import (
     ApplicationBranch,
@@ -28,9 +35,6 @@ from scripts.domain.tag_models import (
     TagStats,
 )
 from scripts.domain.tag_policy import (
-    DATA_DEPRECATED,
-    DATA_EN,
-    DATA_JP,
     BranchMappingPolicy,
     JpPolicyInputs,
     MappingPolicy,
@@ -64,11 +68,6 @@ ACTION_DESCRIPTIONS: dict[CoverageTranslationAction, str] = {
     "staff_permission_required": "Mapped JP restriction tag without translation exemption; do not copy without staff permission.",
     "tag_application_required": "No JP tag-list mapping; omit and request/confirm a JP tag before use.",
 }
-
-
-def load_json(path: Path) -> object:
-    with path.open("r", encoding="utf-8") as f:
-        return json.load(f)
 
 
 def write_json(path: Path, data: Mapping[str, object]) -> None:
@@ -280,7 +279,11 @@ def build_coverage(
         load_json(DATA_JP),
         load_json(DATA_DEPRECATED),
     )
-    mapping_policy = build_mapping_policy(jp_tags, deprecated_tags)
+    mapping_policy = build_mapping_policy(
+        jp_tags,
+        deprecated_tags,
+        load_mapping_policy_inputs(),
+    )
     en_branch_policy = mapping_policy.for_branch("en")
     en_translation_policy_omit = en_category_omitted_tags(
         en_tags,

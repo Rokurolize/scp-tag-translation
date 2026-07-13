@@ -12,6 +12,14 @@ from pathlib import Path
 from typing import Literal, cast
 
 from scripts.atomic_output import publish_files_atomically
+from scripts.data_paths import (
+    DATA_BRANCH_GUIDE_CROSSWALK,
+    DATA_DEPRECATED,
+    DATA_EN,
+    DATA_INT_CROSSWALK,
+    DATA_JP,
+    DATA_KO_CROSSWALK,
+)
 from scripts.parsers import (
     branch_guide_parser,
     en_parser,
@@ -33,13 +41,6 @@ SOURCES_JP = ROOT / "sources" / "jp"
 SOURCES_JP_UNUSED = SOURCES_JP / "fragment-unused.txt"
 SOURCES_INT = ROOT / "sources" / "int" / "tag-guide.txt"
 SOURCES_KO = ROOT / "sources" / "ko" / "translate-tags.txt"
-DATA_EN = ROOT / "data" / "en_tags.json"
-DATA_JP = ROOT / "data" / "jp_tags.json"
-DATA_DEPRECATED = ROOT / "data" / "deprecated_tags.json"
-DATA_INT_CROSSWALK = ROOT / "data" / "int_tag_crosswalk.json"
-DATA_KO_CROSSWALK = ROOT / "data" / "ko_tag_crosswalk.json"
-DATA_BRANCH_GUIDE_CROSSWALK = ROOT / "data" / "branch_guide_crosswalk.json"
-
 BRANCH_GUIDE_SOURCES: Mapping[str, tuple[Path, ...]] = {
     "cn": (ROOT / "sources" / "cn" / "tag-guide.txt",),
     "de": (ROOT / "sources" / "de" / "tag-guide.txt",),
