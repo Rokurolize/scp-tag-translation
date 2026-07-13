@@ -85,6 +85,8 @@ def collect_branch_tag_stats(
     page_count = 0
     for meta_path in sorted(pages_dir.glob("*/meta.json")):
         meta = load_json(meta_path)
+        if not isinstance(meta, dict):
+            raise ValueError(f"metadata root must be an object: {meta_path}")
         page_count += 1
         raw_tags = meta.get("tags", [])
         if isinstance(raw_tags, str):
@@ -99,7 +101,7 @@ def collect_branch_tag_stats(
             if len(samples[tag]) < SAMPLE_LIMIT:
                 samples[tag].append(meta_path.parent.name)
 
-    tag_stats = {
+    tag_stats: dict[str, TagStats] = {
         tag: {
             "page_count": count,
             "sample_slugs": samples[tag],

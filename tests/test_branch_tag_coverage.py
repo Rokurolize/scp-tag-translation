@@ -149,6 +149,15 @@ def test_classify_tag_rejects_missing_mapped_target_policy():
         coverage_builder.classify_tag("mapped", context)
 
 
+def test_collect_branch_tag_stats_rejects_non_object_metadata(tmp_path):
+    meta_path = tmp_path / "corpus" / "en" / "pages" / "sample" / "meta.json"
+    meta_path.parent.mkdir(parents=True)
+    meta_path.write_text("[]", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="metadata root must be an object"):
+        coverage_builder.collect_branch_tag_stats(tmp_path / "corpus", "en")
+
+
 def test_visualization_files_exist_and_cover_required_branches():
     assert COVERAGE_JSON.exists()
     assert COVERAGE_TSV.exists()
