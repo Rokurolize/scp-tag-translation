@@ -109,11 +109,14 @@ python -m scripts.commands.parse_sources
 python -m scripts.commands.build_branch_dicts_from_corpus \
   --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus
 
-# 4. 全メタデータのカバレッジと申請対象一覧を生成
+# 4. ブラウザ用の支部設定を生成
+python -m scripts.commands.build_browser_config
+
+# 5. 全メタデータのカバレッジと申請対象一覧を生成
 python -m scripts.commands.build_branch_tag_coverage_data \
   --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus
 
-# 5. 自己完結型の可視化HTMLを生成
+# 6. 自己完結型の可視化HTMLを生成
 python -m scripts.commands.build_branch_tag_coverage_html
 ```
 
@@ -122,6 +125,7 @@ python -m scripts.commands.build_branch_tag_coverage_html
 - `dictionaries/<branch>_to_jp.json`：支部別の変換辞書
 - `dictionaries/deprecated_<branch>_to_jp.json`：非使用タグの単一置換先
 - `dictionaries/jp_tag_policy.json`：SCP-JP登録タグの使用制限と翻訳時の扱い
+- `branch_config.js`：ブラウザ用の対応支部設定
 - `visualization/branch_tag_coverage.json`：全支部タグの分類結果
 - `visualization/branch_tag_coverage.tsv`：カバレッジの表形式データ
 - `visualization/tag_application_inventory.json`：申請または確認が必要なタグの一覧

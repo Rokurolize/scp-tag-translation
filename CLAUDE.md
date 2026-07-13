@@ -11,6 +11,7 @@ python -m scripts.commands.sync_tag_sources_from_corpus \
 python -m scripts.commands.parse_sources
 python -m scripts.commands.build_branch_dicts_from_corpus \
   --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus
+python -m scripts.commands.build_browser_config
 python -m scripts.commands.build_branch_tag_coverage_data \
   --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus
 python -m scripts.commands.build_branch_tag_coverage_html

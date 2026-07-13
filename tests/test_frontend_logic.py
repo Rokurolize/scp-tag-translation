@@ -9,7 +9,6 @@ from pathlib import Path
 import pytest
 
 from scripts.domain.branch_config import (
-    BROWSER_CONFIG_PATH,
     BRANCH_CONFIG_BY_CODE,
     SUPPORTED_BRANCH_CONFIGS,
     render_browser_config,
@@ -17,6 +16,7 @@ from scripts.domain.branch_config import (
 
 ROOT = Path(__file__).parent.parent
 INDEX_HTML = ROOT / "index.html"
+BROWSER_CONFIG_PATH = ROOT / "branch_config.js"
 ACCEPTANCE = ROOT / "tests" / "fixtures" / "branch_acceptance_examples.tsv"
 
 
