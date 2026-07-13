@@ -22,11 +22,13 @@ from scripts.domain.tag_models import (
     ApplicationInventory,
     ApplicationTag,
     Classification,
+    ClassificationStatus,
     Coverage,
     CoverageBranch,
     CoverageTag,
     JpTagPolicy,
     TagStats,
+    TranslationAction,
 )
 from scripts.domain.tag_policy import (
     DATA_DEPRECATED,
@@ -45,7 +47,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUTPUT_DIR = ROOT / "visualization"
 SAMPLE_LIMIT = 5
 
-STATUS_DESCRIPTIONS = {
+STATUS_DESCRIPTIONS: dict[ClassificationStatus, str] = {
     "jp_unused_replacement": "Listed in the JP unused-tag page for this source branch with one replacement.",
     "jp_unused_no_single_replacement": "Listed in the JP unused-tag page for this source branch without one deterministic replacement.",
     "jp_translation_policy_omit": "Not copied because the JP tag-list FAQ says to omit this source category on translations.",
@@ -134,7 +136,7 @@ class ClassificationContext:
 
 @dataclass(frozen=True)
 class _BaseClassification:
-    status: str
+    status: ClassificationStatus
     jp_list_handled: bool
     translator_handled: bool
     jp_tag: str | None = None
@@ -193,7 +195,7 @@ def _base_classification(
 def classify_tag(tag: str, context: ClassificationContext) -> Classification:
     base = _base_classification(tag, context)
     target = base.replacement or base.jp_tag
-    action: str
+    action: TranslationAction
     copy_allowed = False
     display_tag: str | None = target
     target_policy: JpTagPolicy | None = None

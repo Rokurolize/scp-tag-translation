@@ -181,6 +181,39 @@ def test_visualization_entries_have_known_statuses_and_required_fields():
             assert isinstance(entry["sample_slugs"], list)
 
 
+@pytest.mark.parametrize(
+    ("field", "value", "message"),
+    [
+        ("status", "misspelled", "status is unknown"),
+        ("translation_action", "misspelled", "translation_action is unknown"),
+    ],
+)
+def test_coverage_validator_rejects_unknown_protocol_values(
+    field,
+    value,
+    message,
+):
+    coverage = _load_coverage()
+    coverage["branches"][0]["tags"][0][field] = value
+
+    with pytest.raises(ValueError, match=message):
+        coverage_html_builder.validate_coverage(coverage)
+
+
+def test_coverage_validator_rejects_unknown_special_action():
+    coverage = _load_coverage()
+    coverage["branches"][0]["tags"][0]["target_policy"] = {
+        "use_restricted": False,
+        "edit_restricted": False,
+        "translation_exempt": False,
+        "copy_allowed_for_translation": True,
+        "special_translation_action": "misspelled",
+    }
+
+    with pytest.raises(ValueError, match="special_translation_action"):
+        coverage_html_builder.validate_coverage(coverage)
+
+
 def test_visualization_tsv_exactly_matches_json():
     coverage = _load_coverage()
     expected_rows = []

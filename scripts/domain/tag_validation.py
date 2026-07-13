@@ -5,7 +5,15 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import cast
 
-from scripts.domain.tag_models import Coverage, DeprecatedTag, EnTag, JpTag
+from scripts.domain.tag_models import (
+    CLASSIFICATION_STATUSES,
+    SPECIAL_TRANSLATION_ACTIONS,
+    TRANSLATION_ACTIONS,
+    Coverage,
+    DeprecatedTag,
+    EnTag,
+    JpTag,
+)
 
 
 def _ensure_unique(values: Iterable[str], label: str) -> None:
@@ -197,7 +205,7 @@ def _validate_jp_policy(value: object, context: str) -> None:
         if not isinstance(value.get(key), bool):
             raise ValueError(f"{context}.target_policy.{key} must be boolean")
     action = value.get("special_translation_action")
-    if action is not None and not isinstance(action, str):
+    if action is not None and action not in SPECIAL_TRANSLATION_ACTIONS:
         raise ValueError(
             f"{context}.target_policy.special_translation_action is invalid"
         )
@@ -206,9 +214,12 @@ def _validate_jp_policy(value: object, context: str) -> None:
 def _validate_coverage_tag(value: object, context: str) -> None:
     if not isinstance(value, dict):
         raise ValueError(f"{context} must be an object")
-    for key in ("tag", "status", "translation_action"):
-        if not isinstance(value.get(key), str):
-            raise ValueError(f"{context}.{key} must be a string")
+    if not isinstance(value.get("tag"), str):
+        raise ValueError(f"{context}.tag must be a string")
+    if value.get("status") not in CLASSIFICATION_STATUSES:
+        raise ValueError(f"{context}.status is unknown")
+    if value.get("translation_action") not in TRANSLATION_ACTIONS:
+        raise ValueError(f"{context}.translation_action is unknown")
     for key in ("jp_list_handled", "translator_handled", "copy_allowed"):
         if not isinstance(value.get(key), bool):
             raise ValueError(f"{context}.{key} must be boolean")

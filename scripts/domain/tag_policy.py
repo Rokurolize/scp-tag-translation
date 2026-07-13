@@ -14,6 +14,7 @@ from scripts.domain.tag_models import (
     JpPolicyDocument,
     JpTag,
     JpTagPolicy,
+    SpecialTranslationAction,
     SourceTagPolicy,
 )
 from scripts.domain.tag_validation import validate_tag_records
@@ -64,12 +65,12 @@ EN_CROSSWALK_SEMANTIC_REPLACEMENTS = {
 
 def is_deprecated_for_en_source(entry: DeprecatedTag) -> bool:
     source_lang = entry.get("source_lang") or "EN"
-    return source_lang == "EN" and bool(entry.get("source_tag"))
+    return source_lang == "EN" and bool(entry["source_tag"])
 
 
 def jp_source_tags(entry: JpTag) -> list[str]:
     """Return every source-language alias recorded for a JP tag."""
-    return entry.get("source_tags", [])
+    return entry["source_tags"]
 
 
 def en_category_omitted_tags(
@@ -176,9 +177,7 @@ def jp_maps(jp_tags: list[JpTag]) -> tuple[frozenset[str], dict[str, str]]:
     jp_names: set[str] = set()
     source_to_jp: dict[str, str] = {}
     for entry in jp_tags:
-        name = entry.get("name")
-        if not isinstance(name, str) or not name:
-            raise ValueError(f"invalid JP tag entry: {entry!r}")
+        name = entry["name"]
         jp_names.add(name)
         for source_tag in jp_source_tags(entry):
             existing = source_to_jp.get(source_tag)
@@ -274,20 +273,14 @@ def deprecated_by_source_lang(
     replacements: dict[str, dict[str, str | None]] = {}
     seen: set[tuple[str, str]] = set()
     for entry in deprecated_raw:
-        if not isinstance(entry, dict):
-            raise ValueError(f"invalid deprecated entry: {entry!r}")
         source_lang = entry.get("source_lang") or "EN"
-        source_tag = entry.get("source_tag")
-        if not isinstance(source_lang, str) or not isinstance(source_tag, str):
-            raise ValueError(f"invalid deprecated entry: {entry!r}")
+        source_tag = entry["source_tag"]
         key = (source_lang, source_tag)
         if key in seen:
             raise ValueError(f"duplicate deprecated entry: {source_lang}:{source_tag}")
         seen.add(key)
         deprecated_tags.setdefault(source_lang, set()).add(source_tag)
         replacement = entry.get("replacement")
-        if replacement is not None and not isinstance(replacement, str):
-            raise ValueError(f"invalid replacement for {source_lang}:{source_tag}")
         if replacement is not None and replacement not in jp_names:
             raise ValueError(
                 "deprecated replacement is not a JP tag: "
@@ -353,7 +346,7 @@ def build_jp_policy(inputs: JpPolicyInputs) -> JpPolicyDocument:
         use_restricted = bool(entry.get("use_restricted"))
         edit_restricted = bool(entry.get("edit_restricted"))
         translation_exempt = bool(entry.get("translation_exempt"))
-        special_translation_action = None
+        special_translation_action: SpecialTranslationAction | None = None
         if (
             "新規作成は翻訳を含めて基本的に認められていません" in description
             or "当サイトではサンドボックスページの作成は認められていません"
@@ -376,9 +369,7 @@ def build_jp_policy(inputs: JpPolicyInputs) -> JpPolicyDocument:
     source_tags: dict[str, dict[str, SourceTagPolicy]] = {}
     for entry in inputs.deprecated_tags:
         source_lang = entry.get("source_lang") or "EN"
-        source_tag = entry.get("source_tag")
-        if not isinstance(source_lang, str) or not isinstance(source_tag, str):
-            continue
+        source_tag = entry["source_tag"]
         branches = [
             branch
             for branch in SUPPORTED_BRANCHES

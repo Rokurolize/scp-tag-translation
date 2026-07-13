@@ -46,15 +46,11 @@ class CrosswalkResolver:
             validated_jp_tags,
         )
         for entry in validated_jp_tags:
-            name = entry.get("name")
-            if not isinstance(name, str) or not name:
-                raise ValueError(f"invalid JP tag entry: {entry!r}")
+            name = entry["name"]
             self.jp_names.add(name)
             self.normalized_jp_names.setdefault(normalize_tag(name), set()).add(name)
             source_tags = entry["source_tags"]
             for source_tag in source_tags:
-                if not isinstance(source_tag, str) or not source_tag:
-                    continue
                 normalized_source = normalize_tag(source_tag)
                 if not normalized_source:
                     continue
@@ -70,9 +66,9 @@ class CrosswalkResolver:
         for entry in validated_deprecated_tags:
             if (entry.get("source_lang") or "EN") != "EN":
                 continue
-            source_tag = entry.get("source_tag")
+            source_tag = entry["source_tag"]
             replacement = entry.get("replacement")
-            if isinstance(source_tag, str) and isinstance(replacement, str):
+            if replacement is not None:
                 targets = self.normalized_jp_names.get(normalize_tag(replacement), set())
                 if len(targets) == 1:
                     self._add_en_replacement(source_tag, next(iter(targets)))

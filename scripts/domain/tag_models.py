@@ -2,7 +2,54 @@
 
 from __future__ import annotations
 
-from typing import Required, TypedDict
+from collections.abc import Mapping
+from typing import Literal, Required, TypedDict
+
+
+ClassificationStatus = Literal[
+    "jp_unused_replacement",
+    "jp_unused_no_single_replacement",
+    "jp_translation_policy_omit",
+    "jp_tag_name",
+    "jp_tag_alias",
+    "curated_override_only",
+    "official_crosswalk",
+    "unhandled",
+]
+TranslationAction = Literal[
+    "copy",
+    "copy_replacement",
+    "omit_jp_policy",
+    "omit_jp_unused",
+    "omit_translation_policy",
+    "staff_permission_required",
+    "tag_application_required",
+]
+SpecialTranslationAction = Literal["staff_permission_required", "omit"]
+
+CLASSIFICATION_STATUSES: frozenset[ClassificationStatus] = frozenset({
+    "jp_unused_replacement",
+    "jp_unused_no_single_replacement",
+    "jp_translation_policy_omit",
+    "jp_tag_name",
+    "jp_tag_alias",
+    "curated_override_only",
+    "official_crosswalk",
+    "unhandled",
+})
+TRANSLATION_ACTIONS: frozenset[TranslationAction] = frozenset({
+    "copy",
+    "copy_replacement",
+    "omit_jp_policy",
+    "omit_jp_unused",
+    "omit_translation_policy",
+    "staff_permission_required",
+    "tag_application_required",
+})
+SPECIAL_TRANSLATION_ACTIONS: frozenset[SpecialTranslationAction] = frozenset({
+    "staff_permission_required",
+    "omit",
+})
 
 
 class EnTag(TypedDict, total=False):
@@ -32,12 +79,12 @@ class JpTagPolicy(TypedDict):
     use_restricted: bool
     edit_restricted: bool
     translation_exempt: bool
-    special_translation_action: str | None
+    special_translation_action: SpecialTranslationAction | None
     copy_allowed_for_translation: bool
 
 
 class SourceTagPolicy(TypedDict):
-    translation_action: str
+    translation_action: TranslationAction
     reason: str
 
 
@@ -55,12 +102,12 @@ class TagStats(TypedDict):
 
 
 class Classification(TypedDict):
-    status: str
+    status: ClassificationStatus
     jp_list_handled: bool
     translator_handled: bool
     jp_tag: str | None
     replacement: str | None
-    translation_action: str
+    translation_action: TranslationAction
     copy_allowed: bool
     display_tag: str | None
     target_policy: JpTagPolicy | None
@@ -94,7 +141,7 @@ class CoverageSource(TypedDict):
 class Coverage(TypedDict):
     schema_version: int
     source: CoverageSource
-    status_descriptions: dict[str, str]
+    status_descriptions: Mapping[ClassificationStatus, str]
     action_descriptions: dict[str, str]
     branches: list[CoverageBranch]
 
