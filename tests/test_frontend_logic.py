@@ -3,15 +3,12 @@ import json
 import re
 import shutil
 import subprocess
-import sys
 from pathlib import Path
 import csv
 
 import pytest
 
-sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
-
-from branch_config import SUPPORTED_BRANCHES
+from scripts.branch_config import SUPPORTED_BRANCHES
 
 ROOT = Path(__file__).parent.parent
 INDEX_HTML = ROOT / "index.html"

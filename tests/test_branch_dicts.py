@@ -2,17 +2,13 @@
 
 import csv
 import json
-import sys
 from pathlib import Path
 
 import pytest
 
-sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
-
-import build_branch_dicts_from_corpus as branch_builder
-import concatenated_tags
-import tag_policy
-from branch_config import SUPPORTED_BRANCHES
+from scripts import build_branch_dicts_from_corpus as branch_builder
+from scripts import concatenated_tags, tag_policy
+from scripts.branch_config import SUPPORTED_BRANCHES
 
 ROOT = Path(__file__).parent.parent
 DICTIONARIES = ROOT / "dictionaries"
@@ -137,8 +133,8 @@ def test_int_inherits_en_unused_tags_and_origin_replacements(jp_tags_data):
 
 def test_deprecated_entries_reject_duplicate_source_keys():
     entries = [
-        {"source_lang": "EN", "en_tag": "old", "replacement": "対象A"},
-        {"source_lang": "EN", "en_tag": "old", "replacement": "対象B"},
+        {"source_lang": "EN", "source_tag": "old", "replacement": "対象A"},
+        {"source_lang": "EN", "source_tag": "old", "replacement": "対象B"},
     ]
 
     with pytest.raises(ValueError, match="duplicate deprecated entry"):
@@ -150,7 +146,7 @@ def test_en_builder_includes_effective_replacement_overrides():
     deprecated_tags = [
         {
             "source_lang": "EN",
-            "en_tag": "legacy-tag",
+            "source_tag": "legacy-tag",
             "replacement": "現在",
         }
     ]
@@ -184,7 +180,10 @@ def test_build_artifacts_owns_complete_publication_set(tmp_path):
     output_dir = tmp_path / "dictionaries"
     policy_path = output_dir / "jp_tag_policy.json"
     en_tags = [{"name": "safe"}, {"name": "scp"}]
-    jp_tags = [{"name": "safe"}, {"name": "scp"}]
+    jp_tags = [
+        {"name": "safe", "source_tags": []},
+        {"name": "scp", "source_tags": []},
+    ]
     policy = tag_policy.MappingPolicy(
         jp_names=frozenset({"safe", "scp"}),
         jp_source_map={},

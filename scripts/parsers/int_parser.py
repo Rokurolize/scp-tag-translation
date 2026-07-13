@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-import json
 import re
 from collections import defaultdict
-from collections.abc import Callable
 from pathlib import Path
 
+from scripts.parsers.contracts import CrosswalkMappings, TargetResolver
 
 _TAG_LINK_RE = re.compile(r"/system:page-tags/tag/([^\s\]]+)")
 _HEADER_RE = re.compile(r"^\*\*([A-Z]+)\*\*$")
@@ -56,13 +55,10 @@ def _cell_tags(cell: str) -> list[str]:
     return values
 
 
-TargetResolver = Callable[[list[str], list[str]], str | None]
-
-
-def parse_crosswalk(
-    input_filepath: str,
+def parse(
+    input_path: Path,
     resolver: TargetResolver | None = None,
-) -> dict[str, dict[str, str]]:
+) -> CrosswalkMappings:
     """Parse only unambiguous source-tag -> registered-name candidates.
 
     Rows may repeat and some branch cells intentionally use one local tag for
@@ -75,7 +71,7 @@ def parse_crosswalk(
     )
     header: list[str] | None = None
 
-    with open(input_filepath, encoding="utf-8") as source:
+    with input_path.open(encoding="utf-8") as source:
         for raw_line in source:
             line = raw_line.strip()
             if not line.startswith("||"):
@@ -117,19 +113,3 @@ def parse_crosswalk(
         branch: dict(sorted(mapping.items()))
         for branch, mapping in sorted(mappings.items())
     }
-
-
-def parse(
-    input_filepath: str,
-    output_filepath: str,
-    resolver: TargetResolver | None = None,
-) -> None:
-    mappings = parse_crosswalk(input_filepath, resolver)
-    output = Path(output_filepath)
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(
-        json.dumps(mappings, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    count = sum(len(mapping) for mapping in mappings.values())
-    print(f"INT crosswalk: {count} mappings -> {output_filepath}")

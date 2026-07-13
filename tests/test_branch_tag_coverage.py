@@ -3,17 +3,14 @@
 import csv
 import json
 import re
-import sys
 from pathlib import Path
 
 import pytest
 
-sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
-
-import build_branch_tag_coverage_html as coverage_html_builder
-import build_branch_tag_coverage_data as coverage_builder
-import tag_policy
-from branch_config import SUPPORTED_BRANCHES
+from scripts import build_branch_tag_coverage_html as coverage_html_builder
+from scripts import build_branch_tag_coverage_data as coverage_builder
+from scripts import tag_policy
+from scripts.branch_config import SUPPORTED_BRANCHES
 
 ROOT = Path(__file__).parent.parent
 COVERAGE_JSON = ROOT / "visualization" / "branch_tag_coverage.json"

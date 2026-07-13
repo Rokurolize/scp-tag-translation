@@ -3,8 +3,8 @@ from collections import defaultdict
 import json
 from pathlib import Path
 
-from build_dict import EN_ORIGIN_TAG_REPLACEMENTS
-from parsers.int_parser import parse_crosswalk
+from scripts.build_dict import EN_ORIGIN_TAG_REPLACEMENTS
+from scripts.parsers.int_parser import parse as parse_int_crosswalk
 
 
 ROOT = Path(__file__).parent.parent
@@ -30,19 +30,26 @@ def test_dict_values_do_not_have_surrounding_whitespace(committed_dict):
     assert not failures, "\n".join(failures)
 
 
-def test_jp_en_tag_consistent_with_dict(jp_tags_data, en_tag_names, committed_dict):
-    """jp_tags[name=Y, en_tag=X] かつ X がENリストに存在するとき dict[X] == Y"""
+def test_jp_source_tags_are_consistent_with_dict(
+    jp_tags_data,
+    en_tag_names,
+    committed_dict,
+):
+    """JP tag source aliases present in EN resolve to their JP record."""
     failures = []
-    for j in jp_tags_data:
-        en_tag, jp_name = j.get("en_tag"), j["name"]
-        if not en_tag or en_tag not in en_tag_names:
-            continue  # JP固有タグはスキップ
-        if en_tag not in committed_dict:
-            failures.append(f"'{jp_name}'.en_tag='{en_tag}' missing from dict")
-        elif committed_dict[en_tag] != jp_name:
-            failures.append(
-                f"dict['{en_tag}']={committed_dict[en_tag]!r} ≠ '{jp_name}'"
-            )
+    for entry in jp_tags_data:
+        for source_tag in entry["source_tags"]:
+            if source_tag not in en_tag_names:
+                continue
+            if source_tag not in committed_dict:
+                failures.append(
+                    f"'{entry['name']}'.source_tags contains missing {source_tag!r}"
+                )
+            elif committed_dict[source_tag] != entry["name"]:
+                failures.append(
+                    f"dict['{source_tag}']={committed_dict[source_tag]!r} "
+                    f"≠ '{entry['name']}'"
+                )
     assert not failures, "\n".join(failures)
 
 
@@ -51,10 +58,7 @@ def test_bidirectional_consistency(committed_dict, jp_tags_data, en_tag_names):
     jp_pairs = {
         (source_tag, j["name"])
         for j in jp_tags_data
-        for source_tag in (
-            j.get("source_tags")
-            or ([j["en_tag"]] if j.get("en_tag") else [])
-        )
+        for source_tag in j["source_tags"]
         if source_tag in en_tag_names
     }
     jp_names = {j["name"] for j in jp_tags_data}
@@ -70,10 +74,10 @@ def test_bidirectional_consistency(committed_dict, jp_tags_data, en_tag_names):
             target = value["jp_tag"] if isinstance(value, dict) else value
             jp_pairs.add((source_tag, target))
 
-    official = parse_crosswalk(str(ROOT / "sources" / "int" / "tag-guide.txt"))
+    official = parse_int_crosswalk(ROOT / "sources" / "int" / "tag-guide.txt")
     jp_pairs.update(official.get("en", {}).items())
     failures = [
-        f"dict['{en}']={jp!r} but jp_tags has no entry with en_tag='{en}', name='{jp}'"
+        f"dict['{en}']={jp!r} but JP source_tags has no ({en!r}, {jp!r}) pair"
         for en, jp in committed_dict.items()
         if jp is not None and en in en_tag_names and (en, jp) not in jp_pairs
     ]
@@ -124,7 +128,7 @@ def test_deprecated_replacement_dict_matches_sources(
 ):
     """deprecated_en_to_jp.json が fragment-unused.txt の単一置換先と一致する"""
     expected = {
-        entry["en_tag"]: entry["replacement"]
+        entry["source_tag"]: entry["replacement"]
         for entry in deprecated_tags_data
         if (entry.get("source_lang") or "EN") == "EN" and entry.get("replacement")
     }
@@ -162,9 +166,14 @@ def test_en_source_deprecated_official_tags_are_null(
     """EN節の非使用公式タグはメイン辞書で翻訳値を持たない"""
     failures = []
     for entry in deprecated_tags_data:
-        en_tag = entry["en_tag"]
-        if (entry.get("source_lang") or "EN") != "EN" or en_tag not in en_tag_names:
+        source_tag = entry["source_tag"]
+        if (
+            (entry.get("source_lang") or "EN") != "EN"
+            or source_tag not in en_tag_names
+        ):
             continue
-        if committed_dict.get(en_tag) is not None:
-            failures.append(f"dict['{en_tag}'] must be null because it is deprecated")
+        if committed_dict.get(source_tag) is not None:
+            failures.append(
+                f"dict['{source_tag}'] must be null because it is deprecated"
+            )
     assert not failures, "\n".join(failures)

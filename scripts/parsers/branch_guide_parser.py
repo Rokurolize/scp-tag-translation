@@ -2,15 +2,20 @@
 
 from __future__ import annotations
 
-import json
 import re
 from collections import defaultdict
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping, Sequence
 from pathlib import Path
-from typing import Any
+from typing import TypedDict
 from urllib.parse import unquote
 
-from scripts.parsers.crosswalk_resolver import CrosswalkResolver, normalize_tag
+from scripts.parsers.contracts import (
+    BranchGuideAnalysis,
+    BranchGuideStats,
+    CrosswalkMappings,
+    TargetResolver,
+)
+from scripts.parsers.crosswalk_resolver import normalize_tag
 
 
 _TAG_LINK_RE = re.compile(
@@ -25,7 +30,15 @@ _VALID_TAG_RE = re.compile(r"^[^\s|()\[\]{}*]+$")
 _EN_TAG_RE = re.compile(r"^[a-z0-9_&.:'-]+$", re.IGNORECASE)
 
 
-def _tag_links(line: str) -> list[dict[str, Any]]:
+class _TagLink(TypedDict):
+    path: str
+    label: str
+    host: str
+    start: int
+    end: int
+
+
+def _tag_links(line: str) -> list[_TagLink]:
     links = []
     for match in _TAG_LINK_RE.finditer(line):
         path = normalize_tag(unquote(match.group("path"))).strip("/")
@@ -225,7 +238,7 @@ _PARSERS = {
 
 
 def _parse_zh(
-    paths: list[Path],
+    paths: Sequence[Path],
 ) -> Iterable[tuple[str, list[str], list[str]]]:
     pattern = re.compile(r"[（(]\s*([^（）()]+?)\s*[）)]")
     for path in paths:
@@ -253,17 +266,17 @@ def _parse_zh(
                     yield source, [en_tag], []
 
 
-def parse_crosswalk(
-    source_paths: dict[str, list[Path]],
-    resolver: CrosswalkResolver,
-) -> tuple[dict[str, dict[str, str]], dict[str, dict[str, int]]]:
+def analyze(
+    source_paths: Mapping[str, Sequence[Path]],
+    resolver: TargetResolver,
+) -> BranchGuideAnalysis:
     """Return unique current-JP mappings and deterministic audit counts."""
 
     targets: dict[str, dict[str, set[str]]] = defaultdict(
         lambda: defaultdict(set)
     )
     unresolved_sources: dict[str, set[str]] = defaultdict(set)
-    stats: dict[str, dict[str, int]] = {}
+    stats: BranchGuideStats = {}
     for branch, paths in source_paths.items():
         rows = (
             _parse_zh(paths)
@@ -278,7 +291,7 @@ def parse_crosswalk(
         resolved_rows = 0
         for source_tag, en_values, jp_values in rows:
             parsed_rows += 1
-            target = resolver.resolve(en_values, jp_values)
+            target = resolver(en_values, jp_values)
             if target is None:
                 unresolved_sources[branch].add(source_tag)
                 continue
@@ -308,20 +321,11 @@ def parse_crosswalk(
         )
         for branch, branch_targets in sorted(targets.items())
     }
-    return mappings, stats
+    return BranchGuideAnalysis(mappings=mappings, stats=stats)
 
 
 def parse(
-    source_paths: dict[str, list[Path]],
-    output_path: Path,
-    resolver: CrosswalkResolver,
-) -> dict[str, dict[str, int]]:
-    mappings, stats = parse_crosswalk(source_paths, resolver)
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(
-        json.dumps(mappings, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    count = sum(len(values) for values in mappings.values())
-    print(f"branch guide crosswalk: {count} mappings -> {output_path}")
-    return stats
+    source_paths: Mapping[str, Sequence[Path]],
+    resolver: TargetResolver,
+) -> CrosswalkMappings:
+    return analyze(source_paths, resolver).mappings

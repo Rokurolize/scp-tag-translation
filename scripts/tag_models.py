@@ -9,14 +9,13 @@ class EnTag(TypedDict, total=False):
     name: Required[str]
     category: str | None
     description: str
-    meta: dict[str, object]
+    meta: dict[str, list[str]]
 
 
 class JpTag(TypedDict, total=False):
     name: Required[str]
     description: str
-    source_tags: list[str]
-    en_tag: str | None
+    source_tags: Required[list[str]]
     use_restricted: bool
     edit_restricted: bool
     translation_exempt: bool
@@ -24,7 +23,7 @@ class JpTag(TypedDict, total=False):
 
 class DeprecatedTag(TypedDict, total=False):
     source_lang: str
-    en_tag: Required[str]
+    source_tag: Required[str]
     replacement: str | None
     description: str
 

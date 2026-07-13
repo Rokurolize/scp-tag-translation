@@ -98,7 +98,7 @@ def build_en_dicts(
 ) -> tuple[dict[str, str | None], dict[str, str]]:
     branch_policy = policy.for_branch("en")
     deprecated_en_tags = {
-        entry["en_tag"]
+        entry["source_tag"]
         for entry in deprecated_raw
         if en_builder.is_deprecated_for_en_source(entry)
     }

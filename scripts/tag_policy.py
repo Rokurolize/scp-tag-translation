@@ -222,7 +222,7 @@ def deprecated_by_source_lang(
         if not isinstance(entry, dict):
             raise ValueError(f"invalid deprecated entry: {entry!r}")
         source_lang = entry.get("source_lang") or "EN"
-        source_tag = entry.get("en_tag")
+        source_tag = entry.get("source_tag")
         if not isinstance(source_lang, str) or not isinstance(source_tag, str):
             raise ValueError(f"invalid deprecated entry: {entry!r}")
         key = (source_lang, source_tag)
@@ -321,7 +321,7 @@ def build_jp_policy(inputs: JpPolicyInputs) -> JpPolicyDocument:
     source_tags: dict[str, dict[str, SourceTagPolicy]] = {}
     for entry in inputs.deprecated_tags:
         source_lang = entry.get("source_lang") or "EN"
-        source_tag = entry.get("en_tag")
+        source_tag = entry.get("source_tag")
         if not isinstance(source_lang, str) or not isinstance(source_tag, str):
             continue
         branches = [

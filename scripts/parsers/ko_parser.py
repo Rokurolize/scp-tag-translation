@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-import json
 import re
 from collections import defaultdict
-from collections.abc import Callable
 from pathlib import Path
 
+from scripts.parsers.contracts import CrosswalkMappings, TargetResolver
 
 _KO_LINK_RE = re.compile(r"/system:page-tags/tag/([^\s\]]+)")
 _EMPTY_MARKERS = {"-", "--", "—", "–", "n/a", "na", "none"}
@@ -20,15 +19,12 @@ def _cells(line: str) -> list[str]:
     return [value.strip() for value in values]
 
 
-TargetResolver = Callable[[list[str], list[str]], str | None]
-
-
-def parse_crosswalk(
-    input_filepath: str,
+def parse(
+    input_path: Path,
     resolver: TargetResolver | None = None,
-) -> dict[str, dict[str, str]]:
+) -> CrosswalkMappings:
     candidates: dict[str, set[str]] = defaultdict(set)
-    with open(input_filepath, encoding="utf-8") as source:
+    with input_path.open(encoding="utf-8") as source:
         for raw_line in source:
             line = raw_line.strip()
             if not line.startswith("||"):
@@ -50,7 +46,10 @@ def parse_crosswalk(
             if resolver is None:
                 target = jp_tag
             else:
-                target = resolver([en_tag.strip()] if en_tag.strip() else [], [jp_tag] if jp_tag else [])
+                target = resolver(
+                    [en_tag.strip()] if en_tag.strip() else [],
+                    [jp_tag] if jp_tag else [],
+                )
             if target is not None:
                 candidates[ko_tags[0]].add(target)
 
@@ -60,20 +59,3 @@ def parse_crosswalk(
         if len(targets) == 1
     }
     return {"ko": dict(sorted(mapping.items()))}
-
-
-def parse(
-    input_filepath: str,
-    output_filepath: str,
-    resolver: TargetResolver | None = None,
-) -> None:
-    mappings = parse_crosswalk(input_filepath, resolver)
-    output = Path(output_filepath)
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(
-        json.dumps(mappings, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    print(
-        f"KO crosswalk: {len(mappings['ko'])} mappings -> {output_filepath}"
-    )

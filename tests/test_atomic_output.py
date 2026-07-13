@@ -57,6 +57,44 @@ def test_publication_failure_rolls_back_files_already_replaced(tmp_path, monkeyp
     assert second.read_text(encoding="utf-8") == "old-second"
 
 
+def test_publication_failure_removes_new_files_and_cleanup_artifacts(
+    tmp_path,
+    monkeypatch,
+):
+    existing_first = tmp_path / "first.txt"
+    new_second = tmp_path / "second.txt"
+    existing_third = tmp_path / "third.txt"
+    existing_first.write_text("old-first", encoding="utf-8")
+    existing_third.write_text("old-third", encoding="utf-8")
+    real_replace = atomic_output.os.replace
+    publication_count = 0
+
+    def fail_third_publication(source, destination):
+        nonlocal publication_count
+        if str(source).endswith(".tmp"):
+            publication_count += 1
+            if publication_count == 3:
+                raise OSError("injected mixed publication failure")
+        return real_replace(source, destination)
+
+    monkeypatch.setattr(atomic_output.os, "replace", fail_third_publication)
+
+    with pytest.raises(OSError, match="injected mixed publication failure"):
+        atomic_output.publish_files_atomically({
+            existing_first: _write("new-first"),
+            new_second: _write("new-second"),
+            existing_third: _write("new-third"),
+        })
+
+    assert existing_first.read_text(encoding="utf-8") == "old-first"
+    assert not new_second.exists()
+    assert existing_third.read_text(encoding="utf-8") == "old-third"
+    assert {path.name for path in tmp_path.iterdir()} == {
+        "first.txt",
+        "third.txt",
+    }
+
+
 def test_publication_preserves_existing_file_mode(tmp_path):
     destination = tmp_path / "published.txt"
     destination.write_text("old", encoding="utf-8")

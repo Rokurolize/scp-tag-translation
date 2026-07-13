@@ -11,11 +11,9 @@ class BranchConfig:
     site: str
     label: str
     jp_branch_tag: str
-    requested: bool = True
 
 
-# Keep the user-requested sites first and in the same order as the request.
-REQUESTED_BRANCH_CONFIGS = (
+SUPPORTED_BRANCH_CONFIGS = (
     BranchConfig("cn", "scp-wiki-cn", "中文 / SCP-CN", "cn"),
     BranchConfig("cs", "scp-cs", "Čeština / SCP-CS", "cs"),
     BranchConfig("de", "scp-wiki-de", "Deutsch / SCP-DE", "de"),
@@ -34,9 +32,7 @@ REQUESTED_BRANCH_CONFIGS = (
 )
 
 
-SUPPORTED_BRANCH_CONFIGS = REQUESTED_BRANCH_CONFIGS
 SUPPORTED_BRANCHES = tuple(config.branch for config in SUPPORTED_BRANCH_CONFIGS)
-REQUESTED_BRANCHES = tuple(config.branch for config in REQUESTED_BRANCH_CONFIGS)
 BRANCH_CONFIG_BY_CODE = {
     config.branch: config for config in SUPPORTED_BRANCH_CONFIGS
 }
