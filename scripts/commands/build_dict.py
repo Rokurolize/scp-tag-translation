@@ -10,6 +10,7 @@ build_dict.py - data/ の解析済みタグ情報からEN辞書を生成する�
 オプション:
   --overwrite  既存の辞書を無視して強制上書き
 """
+
 from __future__ import annotations
 
 import argparse
@@ -26,6 +27,7 @@ from scripts.data_paths import (
     DATA_JP,
     DEPRECATED_EN_DICTIONARY_PATH,
     EN_DICTIONARY_PATH,
+    load_json,
 )
 from scripts.domain.tag_dictionary import build_en_dicts
 from scripts.domain.tag_models import EnTag, JpTag
@@ -37,17 +39,6 @@ from scripts.domain.tag_policy import (
     MappingPolicy,
 )
 from scripts.domain.tag_validation import validate_tag_records
-
-_DATA_EN = DATA_EN
-_DATA_JP = DATA_JP
-_DATA_DEPRECATED = DATA_DEPRECATED
-_DICT_OUT = EN_DICTIONARY_PATH
-_DICT_DEPRECATED = DEPRECATED_EN_DICTIONARY_PATH
-
-
-def load_json(path: Path) -> object:
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
 
 
 def _write_json(path: Path, data: object) -> None:
@@ -134,21 +125,16 @@ def build(
 def _build_outputs(
     overwrite: bool,
 ) -> tuple[dict[str, str | None], dict[str, str]]:
-    for path in (_DATA_EN, _DATA_JP):
+    for path in (DATA_EN, DATA_JP):
         if not path.exists():
             raise FileNotFoundError(
-                f"{path} が見つかりません。"
-                "先に parse_sources.py を実行してください。"
+                f"{path} が見つかりません。先に parse_sources.py を実行してください。"
             )
 
     en_tags, jp_tags, deprecated_raw = validate_tag_records(
-        load_json(_DATA_EN),
-        load_json(_DATA_JP),
-        (
-            load_json(_DATA_DEPRECATED)
-            if _DATA_DEPRECATED.exists()
-            else []
-        ),
+        load_json(DATA_EN),
+        load_json(DATA_JP),
+        (load_json(DATA_DEPRECATED) if DATA_DEPRECATED.exists() else []),
     )
 
     deprecated_en_tags = {
@@ -167,8 +153,8 @@ def _build_outputs(
     deprecated_en_tags.update(origin_replacements)
 
     existing: dict[str, str | None] = {}
-    if not overwrite and _DICT_OUT.exists():
-        existing = validate_existing_dict(load_json(_DICT_OUT))
+    if not overwrite and EN_DICTIONARY_PATH.exists():
+        existing = validate_existing_dict(load_json(EN_DICTIONARY_PATH))
 
     sorted_dict = build(en_tags, jp_tags, existing, deprecated_en_tags)
     deprecated_dict = {
@@ -192,14 +178,16 @@ def main() -> None:
 
     try:
         sorted_dict, deprecated_dict = _build_outputs(args.overwrite)
-        publish_files_atomically({
-            _DICT_OUT: (
-                lambda temporary: _write_json(temporary, sorted_dict)
-            ),
-            _DICT_DEPRECATED: (
-                lambda temporary: _write_json(temporary, deprecated_dict)
-            ),
-        })
+        publish_files_atomically(
+            {
+                EN_DICTIONARY_PATH: (
+                    lambda temporary: _write_json(temporary, sorted_dict)
+                ),
+                DEPRECATED_EN_DICTIONARY_PATH: (
+                    lambda temporary: _write_json(temporary, deprecated_dict)
+                ),
+            }
+        )
     except (OSError, ValueError) as err:
         print(f"エラー: 辞書生成に失敗しました: {err}")
         sys.exit(1)
@@ -207,11 +195,11 @@ def main() -> None:
     mapped = sum(1 for value in sorted_dict.values() if value is not None)
     print(
         f"辞書生成完了: {mapped}/{len(sorted_dict)} "
-        f"エントリがマッピング済み → {_DICT_OUT}"
+        f"エントリがマッピング済み → {EN_DICTIONARY_PATH}"
     )
     print(
         f"非使用タグ置換辞書: {len(deprecated_dict)} "
-        f"エントリ → {_DICT_DEPRECATED}"
+        f"エントリ → {DEPRECATED_EN_DICTIONARY_PATH}"
     )
 
 

@@ -1,4 +1,5 @@
 """辞書構築ロジック（build_dict.build）の単体テスト"""
+
 import json
 import subprocess
 import sys
@@ -186,14 +187,18 @@ def test_deprecated_replacement_must_name_a_registered_jp_tag():
 
 def test_is_deprecated_for_en_source_uses_source_tag():
     assert is_deprecated_for_en_source({"source_tag": "artist"})
-    assert is_deprecated_for_en_source({
-        "source_lang": None,
-        "source_tag": "artist",
-    })
-    assert not is_deprecated_for_en_source({
-        "source_lang": "PL",
-        "source_tag": "film",
-    })
+    assert is_deprecated_for_en_source(
+        {
+            "source_lang": None,
+            "source_tag": "artist",
+        }
+    )
+    assert not is_deprecated_for_en_source(
+        {
+            "source_lang": "PL",
+            "source_tag": "film",
+        }
+    )
 
 
 def test_output_is_sorted():
@@ -250,11 +255,11 @@ def test_main_writes_empty_deprecated_dict_when_source_missing(tmp_path, monkeyp
         encoding="utf-8",
     )
 
-    monkeypatch.setattr(build_dict, "_DATA_EN", data_en)
-    monkeypatch.setattr(build_dict, "_DATA_JP", data_jp)
-    monkeypatch.setattr(build_dict, "_DATA_DEPRECATED", data_deprecated)
-    monkeypatch.setattr(build_dict, "_DICT_OUT", dict_out)
-    monkeypatch.setattr(build_dict, "_DICT_DEPRECATED", dict_deprecated)
+    monkeypatch.setattr(build_dict, "DATA_EN", data_en)
+    monkeypatch.setattr(build_dict, "DATA_JP", data_jp)
+    monkeypatch.setattr(build_dict, "DATA_DEPRECATED", data_deprecated)
+    monkeypatch.setattr(build_dict, "EN_DICTIONARY_PATH", dict_out)
+    monkeypatch.setattr(build_dict, "DEPRECATED_EN_DICTIONARY_PATH", dict_deprecated)
     monkeypatch.setattr(sys, "argv", ["build_dict.py"])
 
     build_dict.main()
@@ -280,27 +285,35 @@ def test_main_ignores_non_en_deprecated_source_collisions(tmp_path, monkeypatch)
         encoding="utf-8",
     )
     data_jp.write_text(
-        json.dumps([
-            {"name": "映画", "source_tags": ["film"]},
-            {"name": "アーティスト", "source_tags": ["artist"]},
-            {"name": "アートワーク", "source_tags": []},
-            {"name": "映像添付", "source_tags": []},
-        ]),
+        json.dumps(
+            [
+                {"name": "映画", "source_tags": ["film"]},
+                {"name": "アーティスト", "source_tags": ["artist"]},
+                {"name": "アートワーク", "source_tags": []},
+                {"name": "映像添付", "source_tags": []},
+            ]
+        ),
         encoding="utf-8",
     )
     data_deprecated.write_text(
-        json.dumps([
-            {"source_lang": "PL", "source_tag": "film", "replacement": "映像添付"},
-            {"source_lang": "EN", "source_tag": "artist", "replacement": "アートワーク"},
-        ]),
+        json.dumps(
+            [
+                {"source_lang": "PL", "source_tag": "film", "replacement": "映像添付"},
+                {
+                    "source_lang": "EN",
+                    "source_tag": "artist",
+                    "replacement": "アートワーク",
+                },
+            ]
+        ),
         encoding="utf-8",
     )
 
-    monkeypatch.setattr(build_dict, "_DATA_EN", data_en)
-    monkeypatch.setattr(build_dict, "_DATA_JP", data_jp)
-    monkeypatch.setattr(build_dict, "_DATA_DEPRECATED", data_deprecated)
-    monkeypatch.setattr(build_dict, "_DICT_OUT", dict_out)
-    monkeypatch.setattr(build_dict, "_DICT_DEPRECATED", dict_deprecated)
+    monkeypatch.setattr(build_dict, "DATA_EN", data_en)
+    monkeypatch.setattr(build_dict, "DATA_JP", data_jp)
+    monkeypatch.setattr(build_dict, "DATA_DEPRECATED", data_deprecated)
+    monkeypatch.setattr(build_dict, "EN_DICTIONARY_PATH", dict_out)
+    monkeypatch.setattr(build_dict, "DEPRECATED_EN_DICTIONARY_PATH", dict_deprecated)
     monkeypatch.setattr(sys, "argv", ["build_dict.py"])
 
     build_dict.main()
@@ -327,20 +340,26 @@ def test_main_rejects_duplicate_en_deprecated_entries(tmp_path, monkeypatch):
     data_en.write_text(json.dumps([{"name": "artist"}]), encoding="utf-8")
     data_jp.write_text(json.dumps([]), encoding="utf-8")
     data_deprecated.write_text(
-        json.dumps([
-            {"source_lang": "EN", "source_tag": "artist", "replacement": "アートワーク"},
-            {"source_lang": "EN", "source_tag": "artist", "replacement": "芸術"},
-        ]),
+        json.dumps(
+            [
+                {
+                    "source_lang": "EN",
+                    "source_tag": "artist",
+                    "replacement": "アートワーク",
+                },
+                {"source_lang": "EN", "source_tag": "artist", "replacement": "芸術"},
+            ]
+        ),
         encoding="utf-8",
     )
 
-    monkeypatch.setattr(build_dict, "_DATA_EN", data_en)
-    monkeypatch.setattr(build_dict, "_DATA_JP", data_jp)
-    monkeypatch.setattr(build_dict, "_DATA_DEPRECATED", data_deprecated)
-    monkeypatch.setattr(build_dict, "_DICT_OUT", dict_dir / "en_to_jp.json")
+    monkeypatch.setattr(build_dict, "DATA_EN", data_en)
+    monkeypatch.setattr(build_dict, "DATA_JP", data_jp)
+    monkeypatch.setattr(build_dict, "DATA_DEPRECATED", data_deprecated)
+    monkeypatch.setattr(build_dict, "EN_DICTIONARY_PATH", dict_dir / "en_to_jp.json")
     monkeypatch.setattr(
         build_dict,
-        "_DICT_DEPRECATED",
+        "DEPRECATED_EN_DICTIONARY_PATH",
         dict_dir / "deprecated_en_to_jp.json",
     )
     monkeypatch.setattr(sys, "argv", ["build_dict.py"])
@@ -370,13 +389,13 @@ def test_main_rejects_non_list_deprecated_data(tmp_path, monkeypatch):
         encoding="utf-8",
     )
 
-    monkeypatch.setattr(build_dict, "_DATA_EN", data_en)
-    monkeypatch.setattr(build_dict, "_DATA_JP", data_jp)
-    monkeypatch.setattr(build_dict, "_DATA_DEPRECATED", data_deprecated)
-    monkeypatch.setattr(build_dict, "_DICT_OUT", dict_dir / "en_to_jp.json")
+    monkeypatch.setattr(build_dict, "DATA_EN", data_en)
+    monkeypatch.setattr(build_dict, "DATA_JP", data_jp)
+    monkeypatch.setattr(build_dict, "DATA_DEPRECATED", data_deprecated)
+    monkeypatch.setattr(build_dict, "EN_DICTIONARY_PATH", dict_dir / "en_to_jp.json")
     monkeypatch.setattr(
         build_dict,
-        "_DICT_DEPRECATED",
+        "DEPRECATED_EN_DICTIONARY_PATH",
         dict_dir / "deprecated_en_to_jp.json",
     )
     monkeypatch.setattr(sys, "argv", ["build_dict.py"])
@@ -403,13 +422,13 @@ def test_main_rejects_malformed_deprecated_entry(tmp_path, monkeypatch):
     data_jp.write_text(json.dumps([]), encoding="utf-8")
     data_deprecated.write_text(json.dumps(["artist"]), encoding="utf-8")
 
-    monkeypatch.setattr(build_dict, "_DATA_EN", data_en)
-    monkeypatch.setattr(build_dict, "_DATA_JP", data_jp)
-    monkeypatch.setattr(build_dict, "_DATA_DEPRECATED", data_deprecated)
-    monkeypatch.setattr(build_dict, "_DICT_OUT", dict_dir / "en_to_jp.json")
+    monkeypatch.setattr(build_dict, "DATA_EN", data_en)
+    monkeypatch.setattr(build_dict, "DATA_JP", data_jp)
+    monkeypatch.setattr(build_dict, "DATA_DEPRECATED", data_deprecated)
+    monkeypatch.setattr(build_dict, "EN_DICTIONARY_PATH", dict_dir / "en_to_jp.json")
     monkeypatch.setattr(
         build_dict,
-        "_DICT_DEPRECATED",
+        "DEPRECATED_EN_DICTIONARY_PATH",
         dict_dir / "deprecated_en_to_jp.json",
     )
     monkeypatch.setattr(sys, "argv", ["build_dict.py"])
@@ -437,11 +456,11 @@ def test_main_rejects_malformed_existing_dict(tmp_path, monkeypatch):
     data_jp.write_text(json.dumps(JP), encoding="utf-8")
     dict_out.write_text(json.dumps({"hub": "ハブ "}), encoding="utf-8")
 
-    monkeypatch.setattr(build_dict, "_DATA_EN", data_en)
-    monkeypatch.setattr(build_dict, "_DATA_JP", data_jp)
-    monkeypatch.setattr(build_dict, "_DATA_DEPRECATED", data_dir / "missing.json")
-    monkeypatch.setattr(build_dict, "_DICT_OUT", dict_out)
-    monkeypatch.setattr(build_dict, "_DICT_DEPRECATED", dict_deprecated)
+    monkeypatch.setattr(build_dict, "DATA_EN", data_en)
+    monkeypatch.setattr(build_dict, "DATA_JP", data_jp)
+    monkeypatch.setattr(build_dict, "DATA_DEPRECATED", data_dir / "missing.json")
+    monkeypatch.setattr(build_dict, "EN_DICTIONARY_PATH", dict_out)
+    monkeypatch.setattr(build_dict, "DEPRECATED_EN_DICTIONARY_PATH", dict_deprecated)
     monkeypatch.setattr(sys, "argv", ["build_dict.py"])
 
     with pytest.raises(SystemExit) as excinfo:
@@ -464,13 +483,13 @@ def test_main_reports_malformed_json_without_traceback(
     data_jp = data_dir / "jp_tags.json"
     data_en.write_text("{", encoding="utf-8")
     data_jp.write_text(json.dumps(JP), encoding="utf-8")
-    monkeypatch.setattr(build_dict, "_DATA_EN", data_en)
-    monkeypatch.setattr(build_dict, "_DATA_JP", data_jp)
-    monkeypatch.setattr(build_dict, "_DATA_DEPRECATED", data_dir / "missing.json")
-    monkeypatch.setattr(build_dict, "_DICT_OUT", dict_dir / "en_to_jp.json")
+    monkeypatch.setattr(build_dict, "DATA_EN", data_en)
+    monkeypatch.setattr(build_dict, "DATA_JP", data_jp)
+    monkeypatch.setattr(build_dict, "DATA_DEPRECATED", data_dir / "missing.json")
+    monkeypatch.setattr(build_dict, "EN_DICTIONARY_PATH", dict_dir / "en_to_jp.json")
     monkeypatch.setattr(
         build_dict,
-        "_DICT_DEPRECATED",
+        "DEPRECATED_EN_DICTIONARY_PATH",
         dict_dir / "deprecated_en_to_jp.json",
     )
     monkeypatch.setattr(sys, "argv", ["build_dict.py"])
@@ -495,13 +514,13 @@ def test_main_reports_publication_failure_without_partial_outputs(
     data_jp = data_dir / "jp_tags.json"
     data_en.write_text(json.dumps(EN), encoding="utf-8")
     data_jp.write_text(json.dumps(JP), encoding="utf-8")
-    monkeypatch.setattr(build_dict, "_DATA_EN", data_en)
-    monkeypatch.setattr(build_dict, "_DATA_JP", data_jp)
-    monkeypatch.setattr(build_dict, "_DATA_DEPRECATED", data_dir / "missing.json")
-    monkeypatch.setattr(build_dict, "_DICT_OUT", dict_dir / "en_to_jp.json")
+    monkeypatch.setattr(build_dict, "DATA_EN", data_en)
+    monkeypatch.setattr(build_dict, "DATA_JP", data_jp)
+    monkeypatch.setattr(build_dict, "DATA_DEPRECATED", data_dir / "missing.json")
+    monkeypatch.setattr(build_dict, "EN_DICTIONARY_PATH", dict_dir / "en_to_jp.json")
     monkeypatch.setattr(
         build_dict,
-        "_DICT_DEPRECATED",
+        "DEPRECATED_EN_DICTIONARY_PATH",
         dict_dir / "deprecated_en_to_jp.json",
     )
     monkeypatch.setattr(sys, "argv", ["build_dict.py"])
@@ -515,7 +534,5 @@ def test_main_reports_publication_failure_without_partial_outputs(
         build_dict.main()
 
     assert excinfo.value.code == 1
-    assert capsys.readouterr().out == (
-        "エラー: 辞書生成に失敗しました: disk full\n"
-    )
+    assert capsys.readouterr().out == ("エラー: 辞書生成に失敗しました: disk full\n")
     assert not dict_dir.exists()
