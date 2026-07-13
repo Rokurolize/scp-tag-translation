@@ -20,6 +20,10 @@ function arraysEqual(left, right) {
 }
 
 const indexHtml = fs.readFileSync(path.join(repoRoot, "index.html"), "utf8");
+const branchConfig = fs.readFileSync(
+  path.join(repoRoot, "branch_config.js"),
+  "utf8"
+);
 const scriptMatch = indexHtml.match(/<script>([\s\S]*?)<\/script>/);
 if (!scriptMatch) {
   throw new Error("index.htmlのscriptブロックが見つかりません");
@@ -48,7 +52,8 @@ const loadFrontend = new Function(
   "window",
   "navigator",
   "console",
-  `${scriptMatch[1]}
+  `${branchConfig}
+${scriptMatch[1]}
 return { doTranslationWithDictionary, tokenizeInputTags };`
 );
 const frontend = loadFrontend(

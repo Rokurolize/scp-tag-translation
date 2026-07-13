@@ -1,19 +1,18 @@
+from __future__ import annotations
+
 import re
-import json
 from pathlib import Path
-from typing import TypeAlias
 
-TagMeta: TypeAlias = dict[str, list[str]]
-TagData: TypeAlias = dict[str, str | TagMeta]
+from scripts.domain.tag_models import EnTag
 
-tag_pattern = re.compile(
+_TAG_PATTERN = re.compile(
     r"^\s*\*\s*\*\*\[https?://[^ ]*/system:page-tags/tag/([^ \]]+)"
     r"(?:\s+[^\]]+)?\]\*\*"
 )
-desc_pattern = re.compile(r"\s+--\s*(.*)")
-meta_pattern = re.compile(r"^\s*\*\s*//\s*(.*?)\s*//")
-quoted_value_pattern = re.compile(r"'([^']+)'")
-tab_pattern = re.compile(r"^\[\[tab\s+(.+?)\]\]$")
+_DESC_PATTERN = re.compile(r"\s+--\s*(.*)")
+_META_PATTERN = re.compile(r"^\s*\*\s*//\s*(.*?)\s*//")
+_QUOTED_VALUE_PATTERN = re.compile(r"'([^']+)'")
+_TAB_PATTERN = re.compile(r"^\[\[tab\s+(.+?)\]\]$")
 
 
 def _normalize_meta_key(value: str) -> str:
@@ -21,7 +20,7 @@ def _normalize_meta_key(value: str) -> str:
 
 
 def _parse_meta_line(line: str) -> tuple[str, list[str]] | None:
-    meta_match = meta_pattern.match(line)
+    meta_match = _META_PATTERN.match(line)
     if not meta_match:
         return None
 
@@ -31,7 +30,7 @@ def _parse_meta_line(line: str) -> tuple[str, list[str]] | None:
 
     if ":" in meta_text:
         meta_key_text, meta_value_text = meta_text.split(":", 1)
-        meta_values = quoted_value_pattern.findall(meta_value_text)
+        meta_values = _QUOTED_VALUE_PATTERN.findall(meta_value_text)
         if not meta_values:
             meta_values = [
                 v.strip().replace("'", "")
@@ -39,7 +38,7 @@ def _parse_meta_line(line: str) -> tuple[str, list[str]] | None:
                 if v.strip()
             ]
     else:
-        meta_values = quoted_value_pattern.findall(meta_text)
+        meta_values = _QUOTED_VALUE_PATTERN.findall(meta_text)
         if not meta_values:
             return None
         meta_key_text = meta_text[: meta_text.find("'")]
@@ -50,23 +49,18 @@ def _parse_meta_line(line: str) -> tuple[str, list[str]] | None:
     return meta_key, meta_values
 
 
-def parse(input_filepath: str, output_filepath: str) -> None:
-    """
-    Wikidot形式のENタグリストを解析してJSONに出力する。
+def parse_en_tags(input_path: Path) -> list[EnTag]:
+    """Parse the Wikidot EN tag list into typed records."""
 
-    Args:
-        input_filepath: 入力ファイルパス (sources/en/tag-list.txt)
-        output_filepath: 出力ファイルパス (data/en_tags.json)
-    """
-    tags_data: list[TagData] = []
-    current_tag: TagData | None = None
+    tags_data: list[EnTag] = []
+    current_tag: EnTag | None = None
     current_category: str | None = None
 
-    with open(input_filepath, "r", encoding="utf-8") as f:
-        for line in f:
+    with input_path.open("r", encoding="utf-8") as source:
+        for line in source:
             line = line.strip()
 
-            tab_match = tab_pattern.match(line)
+            tab_match = _TAB_PATTERN.match(line)
             if tab_match:
                 current_category = tab_match.group(1).strip()
                 continue
@@ -74,13 +68,13 @@ def parse(input_filepath: str, output_filepath: str) -> None:
                 current_category = None
                 continue
 
-            tag_match = tag_pattern.match(line)
+            tag_match = _TAG_PATTERN.match(line)
             if tag_match:
                 if current_tag:
                     tags_data.append(current_tag)
 
                 tag_name = tag_match.group(1)
-                desc_match = desc_pattern.search(line, tag_match.end())
+                desc_match = _DESC_PATTERN.search(line, tag_match.end())
                 description = desc_match.group(1).strip() if desc_match else ""
 
                 current_tag = {
@@ -95,16 +89,10 @@ def parse(input_filepath: str, output_filepath: str) -> None:
                 meta_data = _parse_meta_line(line)
                 if meta_data:
                     meta_key, meta_values = meta_data
-                    if isinstance(current_tag["meta"], dict):
-                        if meta_key not in current_tag["meta"]:
-                            current_tag["meta"][meta_key] = []
-                        current_tag["meta"][meta_key].extend(meta_values)
+                    metadata = current_tag["meta"]
+                    metadata.setdefault(meta_key, []).extend(meta_values)
 
         if current_tag:
             tags_data.append(current_tag)
 
-    Path(output_filepath).parent.mkdir(parents=True, exist_ok=True)
-    with open(output_filepath, "w", encoding="utf-8") as f:
-        json.dump(tags_data, f, ensure_ascii=False, indent=2)
-
-    print(f"EN: {len(tags_data)} タグを解析 → {output_filepath}")
+    return tags_data

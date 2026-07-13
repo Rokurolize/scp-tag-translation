@@ -7,6 +7,9 @@ import unicodedata
 from collections.abc import Iterable
 from pathlib import Path
 
+from scripts.domain.tag_models import DeprecatedTag, JpTag
+from scripts.domain.tag_validation import validate_deprecated_tags, validate_jp_tags
+
 
 def normalize_tag(value: str) -> str:
     """Normalize compatibility glyphs and discard invisible format controls."""
@@ -30,25 +33,24 @@ class CrosswalkResolver:
 
     def __init__(
         self,
-        jp_tags: list[dict],
-        deprecated_tags: list[dict] | None = None,
+        jp_tags: list[JpTag],
+        deprecated_tags: list[DeprecatedTag] | None = None,
         origin_replacements: dict[str, str] | None = None,
     ) -> None:
         self.jp_names: set[str] = set()
         self.normalized_jp_names: dict[str, set[str]] = {}
         self.source_to_jp: dict[str, str] = {}
-        for entry in jp_tags:
-            name = entry.get("name")
-            if not isinstance(name, str) or not name:
-                raise ValueError(f"invalid JP tag entry: {entry!r}")
+        validated_jp_tags = validate_jp_tags(jp_tags)
+        validated_deprecated_tags = validate_deprecated_tags(
+            deprecated_tags or [],
+            validated_jp_tags,
+        )
+        for entry in validated_jp_tags:
+            name = entry["name"]
             self.jp_names.add(name)
             self.normalized_jp_names.setdefault(normalize_tag(name), set()).add(name)
-            source_tags = entry.get("source_tags") or []
-            if not source_tags and entry.get("en_tag"):
-                source_tags = [entry["en_tag"]]
+            source_tags = entry["source_tags"]
             for source_tag in source_tags:
-                if not isinstance(source_tag, str) or not source_tag:
-                    continue
                 normalized_source = normalize_tag(source_tag)
                 if not normalized_source:
                     continue
@@ -61,12 +63,12 @@ class CrosswalkResolver:
                 self.source_to_jp[normalized_source] = name
 
         self.en_replacements: dict[str, str] = {}
-        for entry in deprecated_tags or []:
+        for entry in validated_deprecated_tags:
             if (entry.get("source_lang") or "EN") != "EN":
                 continue
-            source_tag = entry.get("en_tag")
+            source_tag = entry["source_tag"]
             replacement = entry.get("replacement")
-            if isinstance(source_tag, str) and isinstance(replacement, str):
+            if replacement is not None:
                 targets = self.normalized_jp_names.get(normalize_tag(replacement), set())
                 if len(targets) == 1:
                     self._add_en_replacement(source_tag, next(iter(targets)))
@@ -91,10 +93,13 @@ class CrosswalkResolver:
         normalized = normalize_tag(value)
         if normalized in self.en_replacements:
             return self.en_replacements[normalized]
+        mapped = self.source_to_jp.get(normalized)
+        if mapped is not None:
+            return mapped
         registered = self.normalized_jp_names.get(normalized, set())
         if len(registered) == 1:
             return next(iter(registered))
-        return self.source_to_jp.get(normalized)
+        return None
 
     def _resolve_jp(self, value: str) -> str | None:
         normalized = normalize_tag(value)

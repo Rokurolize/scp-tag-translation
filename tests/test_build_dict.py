@@ -1,22 +1,36 @@
 """辞書構築ロジック（build_dict.build）の単体テスト"""
-import json
+
+import subprocess
 import sys
 from pathlib import Path
 
 import pytest
 
-sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
-
-import build_dict
-from build_dict import build
+from scripts.commands.build_dict import build
+from scripts.domain.tag_policy import is_deprecated_for_en_source
+from scripts.domain.tag_validation import validate_tag_records
 
 
 EN = [{"name": "scp"}, {"name": "tale"}, {"name": "hub"}]
 JP = [
-    {"name": "scp", "en_tag": "scp"},
-    {"name": "テイル", "en_tag": "tale"},
-    {"name": "JP専用", "en_tag": None},
+    {"name": "scp", "source_tags": ["scp"]},
+    {"name": "テイル", "source_tags": ["tale"]},
+    {"name": "JP専用", "source_tags": []},
 ]
+
+
+def test_direct_script_help_works_from_repository_root():
+    root = Path(__file__).parent.parent
+    completed = subprocess.run(
+        [sys.executable, "-m", "scripts.commands.build_dict", "--help"],
+        cwd=root,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert completed.returncode == 0, completed.stderr
+    assert "--overwrite" in completed.stdout
 
 
 def test_basic_mapping():
@@ -52,13 +66,13 @@ def test_duplicate_en_names_fail_fast():
         build([{"name": "scp"}, {"name": "scp"}], JP)
 
 
-def test_duplicate_jp_en_tags_fail_fast():
+def test_duplicate_jp_source_tags_fail_fast():
     jp = [
-        {"name": "scp", "en_tag": "scp"},
-        {"name": "別名scp", "en_tag": "scp"},
+        {"name": "scp", "source_tags": ["scp"]},
+        {"name": "別名scp", "source_tags": ["scp"]},
     ]
 
-    with pytest.raises(ValueError, match="JP側en_tag"):
+    with pytest.raises(ValueError, match="JP側source_tags"):
         build(EN, jp)
 
 
@@ -67,44 +81,122 @@ def test_invalid_en_tag_data_fails_fast():
         build([{"name": " scp"}], JP)
 
 
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("category", 3),
+        ("description", ["not text"]),
+        ("meta", {"requires": "scp"}),
+        ("meta", {"requires": [1]}),
+    ],
+)
+def test_invalid_optional_en_fields_fail_fast(field, value):
+    with pytest.raises(ValueError, match=field):
+        build([{"name": "scp", field: value}], JP)
+
+
 def test_invalid_jp_tag_data_fails_fast():
     with pytest.raises(ValueError, match="JPタグ名"):
-        build(EN, [{"name": " テイル", "en_tag": "tale"}])
+        build(EN, [{"name": " テイル", "source_tags": ["tale"]}])
 
 
-def test_invalid_jp_en_tag_data_fails_fast():
-    with pytest.raises(ValueError, match="JP側en_tag"):
-        build(EN, [{"name": "テイル", "en_tag": " tale"}])
+def test_invalid_jp_source_tag_data_fails_fast():
+    with pytest.raises(ValueError, match="JP側source_tags"):
+        build(EN, [{"name": "テイル", "source_tags": [" tale"]}])
+
+
+def test_missing_jp_source_tags_fail_fast():
+    with pytest.raises(ValueError, match="JP側source_tags"):
+        build(EN, [{"name": "テイル"}])
+
+
+@pytest.mark.parametrize(
+    ("key", "value"),
+    [
+        ("description", ["not text"]),
+        ("use_restricted", "false"),
+        ("edit_restricted", 1),
+        ("translation_exempt", "true"),
+    ],
+)
+def test_invalid_optional_jp_fields_fail_fast(key, value):
+    entry = {"name": "テイル", "source_tags": ["tale"], key: value}
+
+    with pytest.raises(ValueError, match=key):
+        build(EN, [entry])
+
+
+def test_every_jp_source_alias_is_mapped():
+    result = build(
+        [{"name": "primary"}, {"name": "secondary"}],
+        [{"name": "対象", "source_tags": ["primary", "secondary"]}],
+    )
+
+    assert result == {"primary": "対象", "secondary": "対象"}
 
 
 def test_invalid_deprecated_data_fails_fast():
     with pytest.raises(ValueError, match="replacement"):
-        build_dict.validate_build_inputs(
+        validate_tag_records(
             EN,
             JP,
-            [{"source_lang": "EN", "en_tag": "artist", "replacement": " アート"}],
+            [
+                {
+                    "source_lang": "EN",
+                    "source_tag": "artist",
+                    "replacement": " アート",
+                }
+            ],
+        )
+
+
+def test_invalid_deprecated_description_fails_fast():
+    with pytest.raises(ValueError, match="description"):
+        validate_tag_records(
+            EN,
+            JP,
+            [{"source_tag": "artist", "description": ["not text"]}],
+        )
+
+
+def test_explicit_null_deprecated_source_language_fails_fast():
+    with pytest.raises(ValueError, match="source_lang"):
+        validate_tag_records(
+            EN,
+            JP,
+            [{"source_lang": None, "source_tag": "artist"}],
         )
 
 
 def test_deprecated_replacement_must_name_a_registered_jp_tag():
     with pytest.raises(ValueError, match="JPタグに存在しません"):
-        build_dict.validate_build_inputs(
+        validate_tag_records(
             EN,
             JP,
-            [{"source_lang": "EN", "en_tag": "artist", "replacement": "未登録"}],
+            [
+                {
+                    "source_lang": "EN",
+                    "source_tag": "artist",
+                    "replacement": "未登録",
+                }
+            ],
         )
 
 
-def test_is_deprecated_for_en_source_accepts_legacy_entries():
-    assert build_dict.is_deprecated_for_en_source({"en_tag": "artist"})
-    assert build_dict.is_deprecated_for_en_source({
-        "source_lang": None,
-        "en_tag": "artist",
-    })
-    assert not build_dict.is_deprecated_for_en_source({
-        "source_lang": "PL",
-        "en_tag": "film",
-    })
+def test_is_deprecated_for_en_source_uses_source_tag():
+    assert is_deprecated_for_en_source({"source_tag": "artist"})
+    assert is_deprecated_for_en_source(
+        {
+            "source_lang": None,
+            "source_tag": "artist",
+        }
+    )
+    assert not is_deprecated_for_en_source(
+        {
+            "source_lang": "PL",
+            "source_tag": "film",
+        }
+    )
 
 
 def test_output_is_sorted():
@@ -140,221 +232,3 @@ def test_existing_dict_case_variant_of_source_key_fails_fast():
 
     with pytest.raises(ValueError, match="大小文字違い"):
         build(en, [], {"Amoni-Ram": None})
-
-
-def test_main_writes_empty_deprecated_dict_when_source_missing(tmp_path, monkeypatch):
-    data_dir = tmp_path / "data"
-    dict_dir = tmp_path / "dictionaries"
-    data_dir.mkdir()
-    dict_dir.mkdir()
-
-    data_en = data_dir / "en_tags.json"
-    data_jp = data_dir / "jp_tags.json"
-    data_deprecated = data_dir / "deprecated_tags.json"
-    dict_out = dict_dir / "en_to_jp.json"
-    dict_deprecated = dict_dir / "deprecated_en_to_jp.json"
-
-    data_en.write_text(json.dumps(EN), encoding="utf-8")
-    data_jp.write_text(json.dumps(JP), encoding="utf-8")
-    dict_deprecated.write_text(
-        json.dumps({"stale": "古い置換"}),
-        encoding="utf-8",
-    )
-
-    monkeypatch.setattr(build_dict, "_DATA_EN", data_en)
-    monkeypatch.setattr(build_dict, "_DATA_JP", data_jp)
-    monkeypatch.setattr(build_dict, "_DATA_DEPRECATED", data_deprecated)
-    monkeypatch.setattr(build_dict, "_DICT_OUT", dict_out)
-    monkeypatch.setattr(build_dict, "_DICT_DEPRECATED", dict_deprecated)
-    monkeypatch.setattr(sys, "argv", ["build_dict.py"])
-
-    build_dict.main()
-
-    assert json.loads(dict_out.read_text(encoding="utf-8"))["scp"] == "scp"
-    assert json.loads(dict_deprecated.read_text(encoding="utf-8")) == {}
-
-
-def test_main_ignores_non_en_deprecated_source_collisions(tmp_path, monkeypatch):
-    data_dir = tmp_path / "data"
-    dict_dir = tmp_path / "dictionaries"
-    data_dir.mkdir()
-    dict_dir.mkdir()
-
-    data_en = data_dir / "en_tags.json"
-    data_jp = data_dir / "jp_tags.json"
-    data_deprecated = data_dir / "deprecated_tags.json"
-    dict_out = dict_dir / "en_to_jp.json"
-    dict_deprecated = dict_dir / "deprecated_en_to_jp.json"
-
-    data_en.write_text(
-        json.dumps([{"name": "film"}, {"name": "artist"}]),
-        encoding="utf-8",
-    )
-    data_jp.write_text(
-        json.dumps([
-            {"name": "映画", "en_tag": "film"},
-            {"name": "アーティスト", "en_tag": "artist"},
-            {"name": "アートワーク", "en_tag": None},
-            {"name": "映像添付", "en_tag": None},
-        ]),
-        encoding="utf-8",
-    )
-    data_deprecated.write_text(
-        json.dumps([
-            {"source_lang": "PL", "en_tag": "film", "replacement": "映像添付"},
-            {"source_lang": "EN", "en_tag": "artist", "replacement": "アートワーク"},
-        ]),
-        encoding="utf-8",
-    )
-
-    monkeypatch.setattr(build_dict, "_DATA_EN", data_en)
-    monkeypatch.setattr(build_dict, "_DATA_JP", data_jp)
-    monkeypatch.setattr(build_dict, "_DATA_DEPRECATED", data_deprecated)
-    monkeypatch.setattr(build_dict, "_DICT_OUT", dict_out)
-    monkeypatch.setattr(build_dict, "_DICT_DEPRECATED", dict_deprecated)
-    monkeypatch.setattr(sys, "argv", ["build_dict.py"])
-
-    build_dict.main()
-
-    assert json.loads(dict_out.read_text(encoding="utf-8")) == {
-        "artist": None,
-        "film": "映画",
-    }
-    assert json.loads(dict_deprecated.read_text(encoding="utf-8")) == {
-        "artist": "アートワーク",
-    }
-
-
-def test_main_rejects_duplicate_en_deprecated_entries(tmp_path, monkeypatch):
-    data_dir = tmp_path / "data"
-    dict_dir = tmp_path / "dictionaries"
-    data_dir.mkdir()
-    dict_dir.mkdir()
-
-    data_en = data_dir / "en_tags.json"
-    data_jp = data_dir / "jp_tags.json"
-    data_deprecated = data_dir / "deprecated_tags.json"
-
-    data_en.write_text(json.dumps([{"name": "artist"}]), encoding="utf-8")
-    data_jp.write_text(json.dumps([]), encoding="utf-8")
-    data_deprecated.write_text(
-        json.dumps([
-            {"source_lang": "EN", "en_tag": "artist", "replacement": "アートワーク"},
-            {"source_lang": "EN", "en_tag": "artist", "replacement": "芸術"},
-        ]),
-        encoding="utf-8",
-    )
-
-    monkeypatch.setattr(build_dict, "_DATA_EN", data_en)
-    monkeypatch.setattr(build_dict, "_DATA_JP", data_jp)
-    monkeypatch.setattr(build_dict, "_DATA_DEPRECATED", data_deprecated)
-    monkeypatch.setattr(build_dict, "_DICT_OUT", dict_dir / "en_to_jp.json")
-    monkeypatch.setattr(
-        build_dict,
-        "_DICT_DEPRECATED",
-        dict_dir / "deprecated_en_to_jp.json",
-    )
-    monkeypatch.setattr(sys, "argv", ["build_dict.py"])
-
-    with pytest.raises(SystemExit) as excinfo:
-        build_dict.main()
-
-    assert excinfo.value.code == 1
-    assert not (dict_dir / "en_to_jp.json").exists()
-    assert not (dict_dir / "deprecated_en_to_jp.json").exists()
-
-
-def test_main_rejects_non_list_deprecated_data(tmp_path, monkeypatch):
-    data_dir = tmp_path / "data"
-    dict_dir = tmp_path / "dictionaries"
-    data_dir.mkdir()
-    dict_dir.mkdir()
-
-    data_en = data_dir / "en_tags.json"
-    data_jp = data_dir / "jp_tags.json"
-    data_deprecated = data_dir / "deprecated_tags.json"
-
-    data_en.write_text(json.dumps([{"name": "artist"}]), encoding="utf-8")
-    data_jp.write_text(json.dumps([]), encoding="utf-8")
-    data_deprecated.write_text(json.dumps({"en_tag": "artist"}), encoding="utf-8")
-
-    monkeypatch.setattr(build_dict, "_DATA_EN", data_en)
-    monkeypatch.setattr(build_dict, "_DATA_JP", data_jp)
-    monkeypatch.setattr(build_dict, "_DATA_DEPRECATED", data_deprecated)
-    monkeypatch.setattr(build_dict, "_DICT_OUT", dict_dir / "en_to_jp.json")
-    monkeypatch.setattr(
-        build_dict,
-        "_DICT_DEPRECATED",
-        dict_dir / "deprecated_en_to_jp.json",
-    )
-    monkeypatch.setattr(sys, "argv", ["build_dict.py"])
-
-    with pytest.raises(SystemExit) as excinfo:
-        build_dict.main()
-
-    assert excinfo.value.code == 1
-    assert not (dict_dir / "en_to_jp.json").exists()
-    assert not (dict_dir / "deprecated_en_to_jp.json").exists()
-
-
-def test_main_rejects_malformed_deprecated_entry(tmp_path, monkeypatch):
-    data_dir = tmp_path / "data"
-    dict_dir = tmp_path / "dictionaries"
-    data_dir.mkdir()
-    dict_dir.mkdir()
-
-    data_en = data_dir / "en_tags.json"
-    data_jp = data_dir / "jp_tags.json"
-    data_deprecated = data_dir / "deprecated_tags.json"
-
-    data_en.write_text(json.dumps([{"name": "artist"}]), encoding="utf-8")
-    data_jp.write_text(json.dumps([]), encoding="utf-8")
-    data_deprecated.write_text(json.dumps(["artist"]), encoding="utf-8")
-
-    monkeypatch.setattr(build_dict, "_DATA_EN", data_en)
-    monkeypatch.setattr(build_dict, "_DATA_JP", data_jp)
-    monkeypatch.setattr(build_dict, "_DATA_DEPRECATED", data_deprecated)
-    monkeypatch.setattr(build_dict, "_DICT_OUT", dict_dir / "en_to_jp.json")
-    monkeypatch.setattr(
-        build_dict,
-        "_DICT_DEPRECATED",
-        dict_dir / "deprecated_en_to_jp.json",
-    )
-    monkeypatch.setattr(sys, "argv", ["build_dict.py"])
-
-    with pytest.raises(SystemExit) as excinfo:
-        build_dict.main()
-
-    assert excinfo.value.code == 1
-    assert not (dict_dir / "en_to_jp.json").exists()
-    assert not (dict_dir / "deprecated_en_to_jp.json").exists()
-
-
-def test_main_rejects_malformed_existing_dict(tmp_path, monkeypatch):
-    data_dir = tmp_path / "data"
-    dict_dir = tmp_path / "dictionaries"
-    data_dir.mkdir()
-    dict_dir.mkdir()
-
-    data_en = data_dir / "en_tags.json"
-    data_jp = data_dir / "jp_tags.json"
-    dict_out = dict_dir / "en_to_jp.json"
-    dict_deprecated = dict_dir / "deprecated_en_to_jp.json"
-
-    data_en.write_text(json.dumps(EN), encoding="utf-8")
-    data_jp.write_text(json.dumps(JP), encoding="utf-8")
-    dict_out.write_text(json.dumps({"hub": "ハブ "}), encoding="utf-8")
-
-    monkeypatch.setattr(build_dict, "_DATA_EN", data_en)
-    monkeypatch.setattr(build_dict, "_DATA_JP", data_jp)
-    monkeypatch.setattr(build_dict, "_DATA_DEPRECATED", data_dir / "missing.json")
-    monkeypatch.setattr(build_dict, "_DICT_OUT", dict_out)
-    monkeypatch.setattr(build_dict, "_DICT_DEPRECATED", dict_deprecated)
-    monkeypatch.setattr(sys, "argv", ["build_dict.py"])
-
-    with pytest.raises(SystemExit) as excinfo:
-        build_dict.main()
-
-    assert excinfo.value.code == 1
-    assert json.loads(dict_out.read_text(encoding="utf-8")) == {"hub": "ハブ "}
-    assert not dict_deprecated.exists()

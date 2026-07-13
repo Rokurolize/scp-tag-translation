@@ -173,23 +173,7 @@
     <div class="container">
       <div class="column">
         <label for="sourceLang">翻訳元言語</label>
-        <select id="sourceLang">
-          <option value="cn">中文 — scp-wiki-cn</option>
-          <option value="cs">Čeština — scp-cs</option>
-          <option value="de">Deutsch — scp-wiki-de</option>
-          <option value="en" selected>English — scp-wiki</option>
-          <option value="es">Español — lafundacionscp</option>
-          <option value="fr">Français — fondationscp</option>
-          <option value="int">International — scp-int</option>
-          <option value="it">Italiano — fondazionescp</option>
-          <option value="ko">한국어 — scpko</option>
-          <option value="pl">Polski — scp-pl</option>
-          <option value="pt-br">Português — scp-pt-br</option>
-          <option value="th">ภาษาไทย — scp-th</option>
-          <option value="ua">Українська — scp-ukrainian</option>
-          <option value="vn">Tiếng Việt — scp-vn</option>
-          <option value="zh-tr">繁體中文 — scp-zh-tr</option>
-        </select>
+        <select id="sourceLang"></select>
 
         <textarea id="sourceText" placeholder="翻訳したいタグを入力"></textarea>
       </div>
@@ -244,27 +228,14 @@
       </div>
     </div>
 
+    <script src="./branch_config.js"></script>
     <script>
       "use strict";
 
-      // 翻訳元支部コードからJP側の支部タグへの対応。
-      const sourceBranchTagByLang = {
-        cn: "cn",
-        cs: "cs",
-        de: "de",
-        en: "en",
-        es: "es",
-        fr: "fr",
-        int: "int",
-        it: "it",
-        ko: "ko",
-        pl: "pl",
-        "pt-br": "pt",
-        th: "th",
-        ua: "ua",
-        vn: "vn",
-        "zh-tr": "zh",
-      };
+      const supportedBranchConfigs = globalThis.SCP_TAG_TRANSLATION_BRANCHES;
+      const sourceBranchTagByLang = Object.fromEntries(
+        supportedBranchConfigs.map((config) => [config.branch, config.jp_branch_tag])
+      );
       const jpBranchTags = new Set([
         "cn",
         "cs",
@@ -303,9 +274,23 @@
         Object.prototype.hasOwnProperty.call(object, key);
 
       window.addEventListener("DOMContentLoaded", () => {
+        renderSourceBranchOptions();
         setupUI();
         doTranslate(); // ページ読み込み時に1度実行
       });
+
+      function renderSourceBranchOptions() {
+        const sourceLang = document.getElementById("sourceLang");
+        sourceLang.replaceChildren(
+          ...supportedBranchConfigs.map((config) => {
+            const option = document.createElement("option");
+            option.value = config.branch;
+            option.textContent = `${config.label} — ${config.site}`;
+            option.selected = config.branch === "en";
+            return option;
+          })
+        );
+      }
 
       function setupUI() {
         document

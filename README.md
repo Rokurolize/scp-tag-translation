@@ -54,6 +54,8 @@ python -m http.server 8000
 
 ## 辞書の更新方法（開発者向け）
 
+開発用スクリプトとテストにはPython 3.11以上が必要です。
+
 ローカルコーパスのページソースをWikidotから更新する場合は、HTTPSの出典URLだけを使用します。
 更新前に、次の`curl`コマンドでJPタグリストの取得経路を確認してください。
 このコマンドは初回URLとすべてのリダイレクト先でHTTPS以外を拒否し、応答時間とリダイレクト回数も制限します。
@@ -77,6 +79,8 @@ WikidotがHTTPへのリダイレクトを返した場合、このコマンドは
 辞書は、ローカルコーパスに保存された公式タグガイドと全ページの`meta.json`から生成します。
 ネットワーク経由でWikidotを取得する処理はありません。
 
+生成パイプラインは`sources/`の公式ページソースを`data/`の中間JSONへ解析し、その結果とコーパスのメタデータから`dictionaries/`と`visualization/`を生成します。`data/`は再生成可能なローカル中間データであり、Gitにはコミットしません。
+
 生成処理は次の根拠を順に適用します。
 
 1. 現行のSCP-JPタグ名とタグリスト記載の翻訳元別名
@@ -90,27 +94,30 @@ WikidotがHTTPへのリダイレクトを返した場合、このコマンドは
 
 ```bash
 # 1. コーパス内の公式ページソースとsources/の一致を確認
-python scripts/sync_tag_sources_from_corpus.py \
+python -m scripts.commands.sync_tag_sources_from_corpus \
   --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus
 
 # 必要な場合だけ、コーパスからsources/へ同期
-python scripts/sync_tag_sources_from_corpus.py \
+python -m scripts.commands.sync_tag_sources_from_corpus \
   --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus \
   --write
 
 # 2. タグリストと公式対訳表を解析
-python scripts/parse_sources.py
+python -m scripts.commands.parse_sources
 
 # 3. 15支部の全コーパスタグを含む辞書とSCP-JP利用ポリシーを生成
-python scripts/build_branch_dicts_from_corpus.py \
+python -m scripts.commands.build_branch_dicts_from_corpus \
   --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus
 
-# 4. 全メタデータのカバレッジと申請対象一覧を生成
-python scripts/build_branch_tag_coverage_data.py \
+# 4. ブラウザ用の支部設定を生成
+python -m scripts.commands.build_browser_config
+
+# 5. 全メタデータのカバレッジと申請対象一覧を生成
+python -m scripts.commands.build_branch_tag_coverage_data \
   --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus
 
-# 5. 自己完結型の可視化HTMLを生成
-python scripts/build_branch_tag_coverage_html.py
+# 6. 自己完結型の可視化HTMLを生成
+python -m scripts.commands.build_branch_tag_coverage_html
 ```
 
 主な生成物は次のとおりです。
@@ -118,6 +125,7 @@ python scripts/build_branch_tag_coverage_html.py
 - `dictionaries/<branch>_to_jp.json`：支部別の変換辞書
 - `dictionaries/deprecated_<branch>_to_jp.json`：非使用タグの単一置換先
 - `dictionaries/jp_tag_policy.json`：SCP-JP登録タグの使用制限と翻訳時の扱い
+- `branch_config.js`：ブラウザ用の対応支部設定
 - `visualization/branch_tag_coverage.json`：全支部タグの分類結果
 - `visualization/branch_tag_coverage.tsv`：カバレッジの表形式データ
 - `visualization/tag_application_inventory.json`：申請または確認が必要なタグの一覧
@@ -126,6 +134,8 @@ python scripts/build_branch_tag_coverage_html.py
 
 `null`は単なる変換失敗を意味しません。
 UIは置換辞書とSCP-JP利用ポリシーを参照し、省略、スタッフ許可、申請または確認のいずれに当たるかを区別します。
+
+`scripts/commands/build_dict.py`はコーパスを渡せない既存自動化向けの互換CLIです。正規の生成経路は`build_branch_dicts_from_corpus`だけであり、互換CLIも同じ`scripts/domain/tag_dictionary.py`へ委譲します。引数なしの互換動作に依存する外部自動化がなくなった時点で、このCLIを削除します。複数成果物の公開は`scripts/atomic_output.py`が一括ステージングと失敗時のロールバックを担います。
 
 ## テスト
 
@@ -141,17 +151,18 @@ python -m pytest
 scp-tag-translation/
 ├── index.html
 ├── dictionaries/
+├── data/                                  # Git管理外の中間JSON
 ├── sources/
 │   ├── cn/ cs/ de/ en/ es/ fr/ int/ it/ ko/
 │   ├── pl/ pt-br/ th/ ua/ vn/ zh-tr/
 │   └── jp/
 ├── scripts/
-│   ├── parsers/
-│   ├── sync_tag_sources_from_corpus.py
-│   ├── parse_sources.py
-│   ├── build_branch_dicts_from_corpus.py
-│   ├── build_branch_tag_coverage_data.py
-│   └── build_branch_tag_coverage_html.py
+│   ├── assets/                               # 生成HTMLのソーステンプレート
+│   ├── commands/                             # 同期・解析・生成CLI
+│   ├── domain/                               # スキーマ・検証・変換規則・支部設定
+│   ├── parsers/                              # 公式タグソース解析
+│   ├── data_paths.py                         # 生成物パス・JSON読込・コーパス走査
+│   └── atomic_output.py                      # 関連成果物のトランザクション的公開
 ├── tests/
 └── visualization/
 ```

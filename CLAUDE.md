@@ -6,14 +6,15 @@
 ## 検証コマンド
 
 ```bash
-python scripts/sync_tag_sources_from_corpus.py \
+python -m scripts.commands.sync_tag_sources_from_corpus \
   --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus
-python scripts/parse_sources.py
-python scripts/build_branch_dicts_from_corpus.py \
+python -m scripts.commands.parse_sources
+python -m scripts.commands.build_branch_dicts_from_corpus \
   --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus
-python scripts/build_branch_tag_coverage_data.py \
+python -m scripts.commands.build_browser_config
+python -m scripts.commands.build_branch_tag_coverage_data \
   --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus
-python scripts/build_branch_tag_coverage_html.py
+python -m scripts.commands.build_branch_tag_coverage_html
 python -m pytest
 ```
 
@@ -24,11 +25,11 @@ python -m pytest
 
 翻訳元は`cn`、`cs`、`de`、`en`、`es`、`fr`、`int`、`it`、`ko`、`pl`、`pt-br`、`th`、`ua`、`vn`、`zh-tr`です。
 翻訳先はSCP-JPです。
-支部コード、Wikidotサイト名、SCP-JP支部タグの正本は`scripts/branch_config.py`です。
+支部コード、Wikidotサイト名、SCP-JP支部タグの正本は`scripts/domain/branch_config.py`です。
 
 ## 生成パイプライン
 
-`scripts/parse_sources.py`は次の中間JSONを`data/`へ生成します。
+`scripts/commands/parse_sources.py`は次の中間JSONを`data/`へ生成します。
 `data/`はGit管理の対象外です。
 
 - `en_tags.json`：ENの現行タグ
@@ -42,7 +43,7 @@ python -m pytest
 複数の現行JPタグへ分かれる行は採用しません。
 `scripts/parsers/branch_guide_parser.py`は、同じ翻訳元タグに未解決行が併記されている場合も採用しません。
 
-`scripts/build_branch_dicts_from_corpus.py`は、指定15支部の全`meta.json`に現れるタグを辞書キーへ含めます。
+`scripts/commands/build_branch_dicts_from_corpus.py`は、指定15支部の全`meta.json`に現れるタグを辞書キーへ含めます。
 同じスクリプトが`dictionaries/jp_tag_policy.json`も生成します。
 INTはENのタグ体系を基礎にするため、ENとINTの非使用タグ規則を両方適用します。
 

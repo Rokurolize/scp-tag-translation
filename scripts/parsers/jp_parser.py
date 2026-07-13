@@ -1,7 +1,10 @@
+from __future__ import annotations
+
 import re
-import json
-import os
+from collections.abc import Iterator
 from pathlib import Path
+
+from scripts.domain.tag_models import DeprecatedTag, JpTag
 
 # タグリンクと任意のENタグ表記のペアにマッチ
 # 形式: **[[[/system:page-tags/tag/{slug}|{display}]]]** //(en-tag)//
@@ -14,9 +17,7 @@ _PAIR_RE = re.compile(
 # 説明文中の単一置換先を抽出するパターン
 # 例: "JPでは//世界観//タグに置換してください", "//scp//タグに置換してください"
 _TAG_REF_RE = re.compile(r"//([^/]+)//")
-_REPLACE_RE = re.compile(
-    r"//([^/]+)//(?:タグ)?(?:へ|に)置(?:き)?換(?:え|し)てください"
-)
+_REPLACE_RE = re.compile(r"//([^/]+)//(?:タグ)?(?:へ|に)置(?:き)?換(?:え|し)てください")
 _SECTION_RE = re.compile(r"^\+{3,}\s*([A-Z]{2,3})\b")
 
 # SCP-JP's tag list uses Font Awesome glyphs as the machine-visible source of
@@ -49,11 +50,11 @@ def _extract_single_replacement(description: str) -> str | None:
     return replacement or None
 
 
-def _iter_uncommented_lines(filepath: str):
+def _iter_uncommented_lines(path: Path) -> Iterator[str]:
     """Wikidotコメント [!-- ... --] を除外して行を返す。"""
     in_comment = False
-    with open(filepath, "r", encoding="utf-8") as f:
-        for raw_line in f:
+    with path.open("r", encoding="utf-8") as source:
+        for raw_line in source:
             line_parts: list[str] = []
             cursor = 0
 
@@ -84,19 +85,14 @@ def _iter_uncommented_lines(filepath: str):
                 yield uncommented
 
 
-def parse_unused(filepath: str, output_filepath: str) -> None:
-    """
-    fragment-unused.txt から支部別の非使用タグと置換先（単一タグのみ）を抽出してJSONに出力する。
+def parse_unused(source_path: Path) -> list[DeprecatedTag]:
+    """Parse source-language unused tags and deterministic replacements."""
 
-    Args:
-        filepath: fragment-unused.txt のパス
-        output_filepath: 出力ファイルパス (data/deprecated_tags.json)
-    """
-    results = []
+    results: list[DeprecatedTag] = []
     seen_source_tags: set[tuple[str, str]] = set()
     source_lang = "EN"
 
-    for line in _iter_uncommented_lines(filepath):
+    for line in _iter_uncommented_lines(source_path):
         section_match = _SECTION_RE.match(line.strip())
         if section_match:
             source_lang = section_match.group(1)
@@ -108,7 +104,6 @@ def parse_unused(filepath: str, output_filepath: str) -> None:
         if not matches:
             continue
 
-        # 最後のマッチ終了位置以降から説明文を抽出
         last_end = matches[-1].end()
         desc_m = re.search(r"\s*-\s*(.+)", line[last_end:])
         description = desc_m.group(1).strip() if desc_m else ""
@@ -125,42 +120,30 @@ def parse_unused(filepath: str, output_filepath: str) -> None:
                 continue
             seen_source_tags.add(source_key)
 
-            results.append({
-                "source_lang": source_lang,
-                "en_tag": en_tag,
-                "replacement": replacement,
-                "description": description,
-            })
+            results.append(
+                {
+                    "source_lang": source_lang,
+                    "source_tag": en_tag,
+                    "replacement": replacement,
+                    "description": description,
+                }
+            )
 
-    Path(output_filepath).parent.mkdir(parents=True, exist_ok=True)
-    with open(output_filepath, "w", encoding="utf-8") as f:
-        json.dump(results, f, ensure_ascii=False, indent=2)
-
-    print(f"JP(未使用): {len(results)} タグを解析 → {output_filepath}")
+    return results
 
 
-def parse(sources_jp_dir: str, output_filepath: str) -> None:
-    """
-    sources/jp/ 以下のフラグメントファイルを解析してJSONに出力する。
+def parse_jp_tags(source_dir: Path) -> list[JpTag]:
+    """Parse registered JP tag fragments into canonical tag records."""
 
-    フラグメントファイルの形式:
-      * **[[[/system:page-tags/tag/{jp-tag}|{display}]]]** //(en-tag)// - description
-      （//(en-tag)// はJP固有タグの場合は省略される）
-      複数タグが ` / ` で同一行に並ぶこともある。
-
-    Args:
-        sources_jp_dir: JPフラグメントファイルのディレクトリ (sources/jp/)
-        output_filepath: 出力ファイルパス (data/jp_tags.json)
-    """
-    tags_by_name: dict[str, dict] = {}
+    tags_by_name: dict[str, JpTag] = {}
 
     fragment_files = [
-        os.path.join(sources_jp_dir, name)
+        source_dir / name
         for name in _REGISTERED_FRAGMENT_NAMES
-        if os.path.exists(os.path.join(sources_jp_dir, name))
+        if (source_dir / name).exists()
     ]
     if not fragment_files:
-        print(f"警告: JPフラグメントファイルが見つかりません: {sources_jp_dir}")
+        raise ValueError(f"JPフラグメントファイルが見つかりません: {source_dir}")
 
     for filepath in fragment_files:
         for line in _iter_uncommented_lines(filepath):
@@ -178,15 +161,13 @@ def parse(sources_jp_dir: str, output_filepath: str) -> None:
             use_restricted = edit_restricted or _USE_RESTRICTED_ICON in prefix
             translation_exempt = _TRANSLATION_EXEMPT_ICON in prefix
 
-            # 最後のマッチ終了位置以降から説明文を抽出
             last_end = matches[-1].end()
             remaining = line[last_end:]
             desc_match = re.search(r"\s*-\s*(.+)", remaining)
             description = desc_match.group(1).strip() if desc_match else ""
 
             for m in matches:
-                slug = m.group(1).strip()   # URLスラッグ = JPタグ名
-                # ENタグ名（省略時は None）
+                slug = m.group(1).strip()
                 en_tag = m.group(3).strip() if m.group(3) else None
 
                 if not slug:
@@ -194,41 +175,29 @@ def parse(sources_jp_dir: str, output_filepath: str) -> None:
 
                 entry = tags_by_name.get(slug)
                 if entry is None:
-                    entry = {
-                        "name": slug,
-                        # Kept for compatibility with existing data consumers.
-                        # New code should use source_tags so a JP tag can retain
-                        # every foreign-language alias listed in multiple tabs.
-                        "en_tag": en_tag if en_tag else None,
-                        "source_tags": [],
-                        "description": description,
-                        "use_restricted": use_restricted,
-                        "edit_restricted": edit_restricted,
-                        "translation_exempt": translation_exempt,
-                    }
+                    entry = JpTag(
+                        name=slug,
+                        source_tags=[],
+                        description=description,
+                        use_restricted=use_restricted,
+                        edit_restricted=edit_restricted,
+                        translation_exempt=translation_exempt,
+                    )
                     tags_by_name[slug] = entry
                 else:
-                    if not entry["description"] and description:
+                    if not entry.get("description") and description:
                         entry["description"] = description
                     entry["use_restricted"] = (
-                        entry["use_restricted"] or use_restricted
+                        entry.get("use_restricted", False) or use_restricted
                     )
                     entry["edit_restricted"] = (
-                        entry["edit_restricted"] or edit_restricted
+                        entry.get("edit_restricted", False) or edit_restricted
                     )
                     entry["translation_exempt"] = (
-                        entry["translation_exempt"] or translation_exempt
+                        entry.get("translation_exempt", False) or translation_exempt
                     )
 
                 if en_tag and en_tag not in entry["source_tags"]:
                     entry["source_tags"].append(en_tag)
-                    if entry["en_tag"] is None:
-                        entry["en_tag"] = en_tag
 
-    tags_data = list(tags_by_name.values())
-
-    Path(output_filepath).parent.mkdir(parents=True, exist_ok=True)
-    with open(output_filepath, "w", encoding="utf-8") as f:
-        json.dump(tags_data, f, ensure_ascii=False, indent=2)
-
-    print(f"JP: {len(tags_data)} タグを解析 → {output_filepath}")
+    return list(tags_by_name.values())

@@ -6,18 +6,15 @@ import json
 import os
 import shutil
 import subprocess
-import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import pytest
 
+from scripts.domain.branch_config import SUPPORTED_BRANCHES
+
 ROOT = Path(__file__).parent.parent
-sys.path.insert(0, str(ROOT / "scripts"))
-
-from branch_config import SUPPORTED_BRANCHES
-
 DEFAULT_CORPUS_ROOT = Path(
     "/home/roku/src/Rokurolize/scp-wiki-translation/corpus"
 )

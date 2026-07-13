@@ -2,16 +2,19 @@
 
 from __future__ import annotations
 
-import json
 import re
 from collections import defaultdict
-from collections.abc import Callable
+from collections.abc import Iterable
 from pathlib import Path
 
+from scripts.parsers.contracts import CrosswalkMappings, TargetResolver
+from scripts.parsers.crosswalk_table import (
+    EMPTY_CELL_MARKERS,
+    split_wikidot_table_row,
+)
 
 _TAG_LINK_RE = re.compile(r"/system:page-tags/tag/([^\s\]]+)")
 _HEADER_RE = re.compile(r"^\*\*([A-Z]+)\*\*$")
-_EMPTY_MARKERS = {"-", "--", "—", "–", "n/a", "na", "none"}
 _SOURCE_COLUMNS = {
     "EN": ("en", "int"),
     "CN": ("cn",),
@@ -29,13 +32,6 @@ _SOURCE_COLUMNS = {
 }
 
 
-def _cells(line: str) -> list[str]:
-    values = line.split("||")[1:]
-    if values and not values[-1].strip():
-        values.pop()
-    return [value.strip() for value in values]
-
-
 def _cell_tags(cell: str) -> list[str]:
     """Return concrete tag values from one crosswalk cell."""
     linked = _TAG_LINK_RE.findall(cell)
@@ -49,20 +45,26 @@ def _cell_tags(cell: str) -> list[str]:
         # safer than inventing a mapping.
         if (
             value
-            and value.casefold() not in _EMPTY_MARKERS
+            and value.casefold() not in EMPTY_CELL_MARKERS
             and not any(character.isspace() for character in value)
         ):
             values.append(value)
     return values
 
 
-TargetResolver = Callable[[list[str], list[str]], str | None]
+def _raw_target(
+    en_values: Iterable[str],
+    jp_values: Iterable[str],
+) -> str | None:
+    del en_values
+    values = list(jp_values)
+    return values[0] if len(values) == 1 else None
 
 
-def parse_crosswalk(
-    input_filepath: str,
-    resolver: TargetResolver | None = None,
-) -> dict[str, dict[str, str]]:
+def _parse_with_resolver(
+    input_path: Path,
+    resolver: TargetResolver,
+) -> CrosswalkMappings:
     """Parse only unambiguous source-tag -> registered-name candidates.
 
     Rows may repeat and some branch cells intentionally use one local tag for
@@ -70,17 +72,15 @@ def parse_crosswalk(
     points to the same JP cell.
     """
 
-    candidates: dict[str, dict[str, set[str]]] = defaultdict(
-        lambda: defaultdict(set)
-    )
+    candidates: dict[str, dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
     header: list[str] | None = None
 
-    with open(input_filepath, encoding="utf-8") as source:
+    with input_path.open(encoding="utf-8") as source:
         for raw_line in source:
             line = raw_line.strip()
             if not line.startswith("||"):
                 continue
-            cells = _cells(line)
+            cells = split_wikidot_table_row(line)
             possible_header = [
                 match.group(1) if (match := _HEADER_RE.match(cell)) else ""
                 for cell in cells
@@ -94,10 +94,7 @@ def parse_crosswalk(
             row = dict(zip(header, cells, strict=False))
             en_values = _cell_tags(row.get("EN", ""))
             jp_values = _cell_tags(row.get("JP", ""))
-            if resolver is None:
-                jp_tag = jp_values[0] if len(jp_values) == 1 else None
-            else:
-                jp_tag = resolver(en_values, jp_values)
+            jp_tag = resolver(en_values, jp_values)
             if jp_tag is None:
                 continue
 
@@ -119,17 +116,12 @@ def parse_crosswalk(
     }
 
 
-def parse(
-    input_filepath: str,
-    output_filepath: str,
-    resolver: TargetResolver | None = None,
-) -> None:
-    mappings = parse_crosswalk(input_filepath, resolver)
-    output = Path(output_filepath)
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(
-        json.dumps(mappings, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    count = sum(len(mapping) for mapping in mappings.values())
-    print(f"INT crosswalk: {count} mappings -> {output_filepath}")
+def parse_int_crosswalk_raw(input_path: Path) -> CrosswalkMappings:
+    return _parse_with_resolver(input_path, _raw_target)
+
+
+def parse_int_crosswalk(
+    input_path: Path,
+    resolver: TargetResolver,
+) -> CrosswalkMappings:
+    return _parse_with_resolver(input_path, resolver)
