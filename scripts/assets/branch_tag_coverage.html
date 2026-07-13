@@ -1059,22 +1059,19 @@
 
       function summarize(rows) {
         const counts = Object.fromEntries(statusOrder.map((status) => [status, 0]));
-        let jpListHandled = 0;
-        let translatorHandled = 0;
+        let recognizedByJpPolicy = 0;
         let copyable = 0;
         let pages = 0;
         for (const row of rows) {
           counts[row.status] += 1;
-          if (row.jp_list_handled) jpListHandled += 1;
-          if (row.translator_handled) translatorHandled += 1;
+          if (row.recognized_by_jp_policy) recognizedByJpPolicy += 1;
           if (row.copy_allowed) copyable += 1;
           pages += row.page_count;
         }
         return {
           total: rows.length,
           counts,
-          jpListHandled,
-          translatorHandled,
+          recognizedByJpPolicy,
           copyable,
           pages,
           unhandled: counts.unhandled,
@@ -1108,8 +1105,8 @@
         const sorted = [...rows];
         sorted.sort((a, b) => {
           if (state.sort === "unhandled-first") {
-            const aRank = a.status === "unhandled" ? 0 : a.translator_handled ? 2 : 1;
-            const bRank = b.status === "unhandled" ? 0 : b.translator_handled ? 2 : 1;
+            const aRank = a.status === "unhandled" ? 0 : a.copy_allowed ? 2 : 1;
+            const bRank = b.status === "unhandled" ? 0 : b.copy_allowed ? 2 : 1;
             if (aRank !== bRank) return aRank - bRank;
             return b.page_count - a.page_count || a.tag.localeCompare(b.tag, "ja");
           }

@@ -130,8 +130,7 @@ class ClassificationContext:
 @dataclass(frozen=True)
 class _BaseClassification:
     status: ClassificationStatus
-    jp_list_handled: bool
-    translator_handled: bool
+    recognized_by_jp_policy: bool
     jp_tag: str | None = None
     replacement: str | None = None
 
@@ -152,14 +151,12 @@ def _base_classification(
                 if resolution.replacement
                 else "jp_unused_no_single_replacement"
             ),
-            jp_list_handled=True,
-            translator_handled=bool(resolution.replacement),
+            recognized_by_jp_policy=True,
             replacement=resolution.replacement,
         )
     if resolution.origin == "jp_tag_name":
         return _BaseClassification(
             "jp_tag_name",
-            True,
             True,
             jp_tag=resolution.target,
         )
@@ -167,30 +164,26 @@ def _base_classification(
         return _BaseClassification(
             "curated_override_only",
             False,
-            True,
             jp_tag=resolution.target,
         )
     if tag in context.translation_policy_omit:
         return _BaseClassification(
             "jp_translation_policy_omit",
             True,
-            False,
         )
     if resolution.origin == "official_crosswalk":
         return _BaseClassification(
             "official_crosswalk",
             False,
-            True,
             jp_tag=resolution.target,
         )
     if resolution.origin == "jp_tag_alias":
         return _BaseClassification(
             "jp_tag_alias",
             True,
-            True,
             jp_tag=resolution.target,
         )
-    return _BaseClassification("unhandled", False, False)
+    return _BaseClassification("unhandled", False)
 
 
 def classify_tag(tag: str, context: ClassificationContext) -> Classification:
@@ -200,7 +193,6 @@ def classify_tag(tag: str, context: ClassificationContext) -> Classification:
     copy_allowed = False
     display_tag: str | None = target
     target_policy: JpTagPolicy | None = None
-    translator_handled = base.translator_handled
 
     if base.status == "unhandled":
         action = "tag_application_required"
@@ -232,10 +224,8 @@ def classify_tag(tag: str, context: ClassificationContext) -> Classification:
         copy_allowed = target_policy["copy_allowed_for_translation"]
         if target_policy["special_translation_action"] == "omit":
             action = "omit_jp_policy"
-            translator_handled = False
         elif not copy_allowed:
             action = "staff_permission_required"
-            translator_handled = False
         elif base.status == "jp_unused_replacement":
             action = "copy_replacement"
         else:
@@ -243,8 +233,7 @@ def classify_tag(tag: str, context: ClassificationContext) -> Classification:
 
     return {
         "status": base.status,
-        "jp_list_handled": base.jp_list_handled,
-        "translator_handled": translator_handled,
+        "recognized_by_jp_policy": base.recognized_by_jp_policy,
         "jp_tag": base.jp_tag,
         "replacement": base.replacement,
         "translation_action": action,
@@ -313,8 +302,9 @@ def build_coverage(
                 "rank": rank,
                 "page_count": tag_stats[tag]["page_count"],
                 "status": classification["status"],
-                "jp_list_handled": classification["jp_list_handled"],
-                "translator_handled": classification["translator_handled"],
+                "recognized_by_jp_policy": classification[
+                    "recognized_by_jp_policy"
+                ],
                 "jp_tag": classification["jp_tag"],
                 "replacement": classification["replacement"],
                 "translation_action": classification["translation_action"],
@@ -338,7 +328,7 @@ def build_coverage(
         })
 
     return {
-        "schema_version": 2,
+        "schema_version": 3,
         "source": {
             "corpus_root": str(corpus_root),
             "jp_tag_source": "sources/jp/tag-list.txt + registered fragments",
@@ -361,8 +351,7 @@ def write_tsv(path: Path, coverage: Coverage) -> None:
         "rank",
         "page_count",
         "status",
-        "jp_list_handled",
-        "translator_handled",
+        "recognized_by_jp_policy",
         "jp_tag",
         "replacement",
         "translation_action",
@@ -387,8 +376,9 @@ def write_tsv(path: Path, coverage: Coverage) -> None:
                     "rank": tag_entry["rank"],
                     "page_count": tag_entry["page_count"],
                     "status": tag_entry["status"],
-                    "jp_list_handled": str(tag_entry["jp_list_handled"]).lower(),
-                    "translator_handled": str(tag_entry["translator_handled"]).lower(),
+                    "recognized_by_jp_policy": str(
+                        tag_entry["recognized_by_jp_policy"]
+                    ).lower(),
                     "jp_tag": tag_entry["jp_tag"] or "",
                     "replacement": tag_entry["replacement"] or "",
                     "translation_action": tag_entry["translation_action"],

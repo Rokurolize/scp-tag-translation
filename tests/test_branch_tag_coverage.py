@@ -120,7 +120,7 @@ def test_classify_tag_applies_copy_and_omission_policy():
     ] == "copy_replacement"
     restricted = coverage_builder.classify_tag("restricted", context)
     assert restricted["translation_action"] == "staff_permission_required"
-    assert restricted["translator_handled"] is False
+    assert restricted["copy_allowed"] is False
     assert coverage_builder.classify_tag("omit", context)["translation_action"] == (
         "omit_jp_policy"
     )
@@ -178,8 +178,7 @@ def test_visualization_entries_have_known_statuses_and_required_fields():
         assert branch["tag_count"] == len(branch["tags"])
         for entry in branch["tags"]:
             assert entry["status"] in KNOWN_STATUSES
-            assert isinstance(entry["jp_list_handled"], bool)
-            assert isinstance(entry["translator_handled"], bool)
+            assert isinstance(entry["recognized_by_jp_policy"], bool)
             assert isinstance(entry["copy_allowed"], bool)
             assert isinstance(entry["translation_action"], str)
             assert isinstance(entry["sample_slugs"], list)
@@ -252,8 +251,9 @@ def test_visualization_tsv_exactly_matches_json():
                 "rank": str(entry["rank"]),
                 "page_count": str(entry["page_count"]),
                 "status": entry["status"],
-                "jp_list_handled": str(entry["jp_list_handled"]).lower(),
-                "translator_handled": str(entry["translator_handled"]).lower(),
+                "recognized_by_jp_policy": str(
+                    entry["recognized_by_jp_policy"]
+                ).lower(),
                 "jp_tag": entry["jp_tag"] or "",
                 "replacement": entry["replacement"] or "",
                 "translation_action": entry["translation_action"],

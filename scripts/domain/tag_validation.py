@@ -224,7 +224,7 @@ def _validate_coverage_tag(value: object, context: str) -> None:
         raise ValueError(f"{context}.status is unknown")
     if value.get("translation_action") not in COVERAGE_TRANSLATION_ACTIONS:
         raise ValueError(f"{context}.translation_action is unknown")
-    for key in ("jp_list_handled", "translator_handled", "copy_allowed"):
+    for key in ("recognized_by_jp_policy", "copy_allowed"):
         if not isinstance(value.get(key), bool):
             raise ValueError(f"{context}.{key} must be boolean")
     for key in ("jp_tag", "replacement", "display_tag"):

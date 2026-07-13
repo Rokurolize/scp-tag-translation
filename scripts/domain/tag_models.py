@@ -111,8 +111,7 @@ class TagStats(TypedDict):
 
 class Classification(TypedDict):
     status: ClassificationStatus
-    jp_list_handled: bool
-    translator_handled: bool
+    recognized_by_jp_policy: bool
     jp_tag: str | None
     replacement: str | None
     translation_action: CoverageTranslationAction
