@@ -170,6 +170,51 @@ def test_en_builder_includes_effective_replacement_overrides():
     assert deprecated["legacy-tag"] == "現在"
 
 
+def test_en_builder_applies_shared_mapping_precedence():
+    jp_tags = [
+        {"name": "same", "source_tags": []},
+        {"name": "override-target", "source_tags": []},
+        {"name": "official-target", "source_tags": []},
+        {"name": "alias-target", "source_tags": ["alias"]},
+    ]
+    policy = tag_policy.MappingPolicy(
+        jp_names=frozenset(entry["name"] for entry in jp_tags),
+        jp_source_map={
+            "override": "alias-target",
+            "official": "alias-target",
+            "alias": "alias-target",
+        },
+        deprecated_tags={"EN": {"deprecated"}},
+        replacements={"EN": {"deprecated": "same"}},
+        overrides={"en": {"override": "override-target"}},
+        official_crosswalk={"en": {"official": "official-target"}},
+    )
+
+    dictionary, _deprecated = branch_builder.build_en_dicts(
+        [
+            {"name": "same"},
+            {"name": "override"},
+            {"name": "official"},
+            {"name": "alias"},
+            {"name": "deprecated"},
+            {"name": "unknown"},
+        ],
+        jp_tags,
+        [],
+        set(),
+        policy,
+    )
+
+    assert dictionary == {
+        "alias": "alias-target",
+        "deprecated": None,
+        "official": "official-target",
+        "override": "override-target",
+        "same": "same",
+        "unknown": None,
+    }
+
+
 def test_build_artifacts_owns_complete_publication_set(tmp_path):
     page_dir = tmp_path / "corpus" / "en" / "pages" / "sample"
     page_dir.mkdir(parents=True)

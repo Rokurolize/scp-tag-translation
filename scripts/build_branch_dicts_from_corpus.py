@@ -6,7 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from collections.abc import Mapping, Sequence
+from collections.abc import Mapping, Sequence, Set
 from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
@@ -30,6 +30,7 @@ from scripts.tag_policy import (
     DATA_INT_CROSSWALK,
     DATA_JP,
     DATA_KO_CROSSWALK,
+    BranchMappingPolicy,
     JpPolicyInputs,
     MappingPolicy,
     build_jp_policy,
@@ -53,6 +54,23 @@ def write_json(path: Path, data: Mapping[str, object]) -> None:
         f.write("\n")
 
 
+def _resolve_source_tag(
+    source_tag: str,
+    deprecated_tags: Set[str],
+    branch_policy: BranchMappingPolicy,
+    policy: MappingPolicy,
+) -> str | None:
+    if source_tag in deprecated_tags:
+        return None
+    if source_tag in policy.jp_names:
+        return source_tag
+    if source_tag in branch_policy.overrides:
+        return branch_policy.overrides[source_tag]
+    if source_tag in branch_policy.official_crosswalk:
+        return branch_policy.official_crosswalk[source_tag]
+    return policy.jp_source_map.get(source_tag)
+
+
 def build_branch_dict(
     branch: str,
     source_tags: set[str],
@@ -60,26 +78,21 @@ def build_branch_dict(
 ) -> tuple[dict[str, str | None], dict[str, str]]:
     branch_policy = policy.for_branch(branch)
 
-    dictionary: dict[str, str | None] = {}
     all_source_tags = (
         set(source_tags)
         | set(branch_policy.deprecated_tags)
         | set(branch_policy.overrides)
         | set(branch_policy.official_crosswalk)
     )
-    for source_tag in sorted(all_source_tags):
-        if source_tag in branch_policy.deprecated_tags:
-            dictionary[source_tag] = None
-        elif source_tag in policy.jp_names:
-            dictionary[source_tag] = source_tag
-        elif source_tag in branch_policy.overrides:
-            dictionary[source_tag] = branch_policy.overrides[source_tag]
-        elif source_tag in branch_policy.official_crosswalk:
-            dictionary[source_tag] = branch_policy.official_crosswalk[source_tag]
-        elif source_tag in policy.jp_source_map:
-            dictionary[source_tag] = policy.jp_source_map[source_tag]
-        else:
-            dictionary[source_tag] = None
+    dictionary = {
+        source_tag: _resolve_source_tag(
+            source_tag,
+            branch_policy.deprecated_tags,
+            branch_policy,
+            policy,
+        )
+        for source_tag in sorted(all_source_tags)
+    }
 
     concrete_replacements = {
         source_tag: replacement
@@ -123,20 +136,15 @@ def build_en_dicts(
     deprecated_en_tags.update(category_omitted_tags)
     deprecated_en_tags.update(origin_replacements)
     all_source_tags.update(deprecated_en_tags)
-    dictionary: dict[str, str | None] = {}
-    for source_tag in sorted(all_source_tags):
-        if source_tag in deprecated_en_tags:
-            dictionary[source_tag] = None
-        elif source_tag in policy.jp_names:
-            dictionary[source_tag] = source_tag
-        elif source_tag in branch_policy.overrides:
-            dictionary[source_tag] = branch_policy.overrides[source_tag]
-        elif source_tag in branch_policy.official_crosswalk:
-            dictionary[source_tag] = branch_policy.official_crosswalk[source_tag]
-        elif source_tag in policy.jp_source_map:
-            dictionary[source_tag] = policy.jp_source_map[source_tag]
-        else:
-            dictionary[source_tag] = None
+    dictionary = {
+        source_tag: _resolve_source_tag(
+            source_tag,
+            deprecated_en_tags,
+            branch_policy,
+            policy,
+        )
+        for source_tag in sorted(all_source_tags)
+    }
     deprecated_dict = {
         source_tag: replacement
         for source_tag, replacement in branch_policy.replacements.items()
