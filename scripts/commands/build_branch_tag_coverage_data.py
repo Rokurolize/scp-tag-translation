@@ -201,6 +201,9 @@ def classify_tag(tag: str, context: ClassificationContext) -> Classification:
     if base.status == "unhandled":
         action = "tag_application_required"
         display_tag = f"未訳-{tag}"
+    elif base.status == "jp_translation_policy_omit":
+        action = "omit_translation_policy"
+        display_tag = None
     elif target is None:
         action = "omit_jp_unused"
         display_tag = None
@@ -341,6 +344,7 @@ def build_coverage(
             "copy": "Registered JP tag; copyable for a translated page.",
             "copy_replacement": "JP unused source tag replaced by one registered copyable JP tag.",
             "omit_jp_unused": "JP explicitly does not use this source tag; omit it.",
+            "omit_translation_policy": "JP translation policy says to omit this source tag category.",
             "omit_jp_policy": "Registered JP tag whose own definition says not to apply it to this translation.",
             "staff_permission_required": "Mapped JP restriction tag without translation exemption; do not copy without staff permission.",
             "tag_application_required": "No JP tag-list mapping; omit and request/confirm a JP tag before use.",

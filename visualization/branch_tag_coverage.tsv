@@ -3322,23 +3322,23 @@ en	fragment	9	2252	official_crosswalk	false	true	フラグメント		copy	true	�
 en	alive	10	2198	official_crosswalk	false	true	生命		copy	true	生命	bleep-s-onyx-proposal,captain-kirby-s-proposal,djkaktus-s-proposal-j,djoric-dmatix-proposal,dyfscp0012
 en	keter	11	1960	jp_tag_name	true	true	keter		copy	true	keter	001-blank-i,chamomile82-s-proposal,deepwell-proposal,djkaktus-s-proposal-ii,dr-cimmerian-s-proposal
 en	mind-affecting	12	1636	official_crosswalk	false	true	精神影響		copy	true	精神影響	dr-cimmerian-s-proposal,dyfscp0013,etc-proposal,lulus-proposal,nagiros-proposal
-en	horror	13	1450	jp_translation_policy_omit	true	false			omit_jp_unused	false		1,1-001-dark-and-stormy-nights,1-mr-headless,1-remember-remember,1-staar-cuttt-2-5
-en	fantasy	14	1432	jp_translation_policy_omit	true	false			omit_jp_unused	false		0-underture,11-mr-feather,11-turnover,17-phoenix-street,1st-cetres-donation
+en	horror	13	1450	jp_translation_policy_omit	true	false			omit_translation_policy	false		1,1-001-dark-and-stormy-nights,1-mr-headless,1-remember-remember,1-staar-cuttt-2-5
+en	fantasy	14	1432	jp_translation_policy_omit	true	false			omit_translation_policy	false		0-underture,11-mr-feather,11-turnover,17-phoenix-street,1st-cetres-donation
 en	co-authored	15	1219	official_crosswalk	false	true	共著		copy	true	共著	12-days-of-christmas-hub,1998-911-hub,3ports-schools,4480-expl-log,61-dividing-time
 en	animal	16	1142	official_crosswalk	false	true	動物		copy	true	動物	djkaktus-s-proposal-j,nagiros-proposal,plauge-proposal,queerious-proposal,scp-004-it
-en	comedy	17	1119	jp_translation_policy_omit	true	false			omit_jp_unused	false		049-x-minion-x-reader,1-800-scp,10-30-a-m,12-angry-penguins,12-aromantic-abatement
+en	comedy	17	1119	jp_translation_policy_omit	true	false			omit_translation_policy	false		049-x-minion-x-reader,1-800-scp,10-30-a-m,12-angry-penguins,12-aromantic-abatement
 en	esoteric-class	18	998	jp_tag_name	true	true	esoteric-class		copy	true	esoteric-class	001-blank-i,billiths-proposal,cimmerian-kaktus-proposal,ddd-2034,djkaktus-s-proposal-iii
 en	artwork	19	989	official_crosswalk	false	true	アートワーク		copy	true	アートワーク	10th-animation,2521-emoji,2k24biatch,4784-va2024-art,a-dodo-mission
 en	extradimensional	20	982	official_crosswalk	false	true	異次元		copy	true	異次元	djkaktus-s-proposal,djkaktus-s-proposal-ii,dyfscp-001,dyfscp0012,dyfscp0013
 en	cognitohazard	21	947	official_crosswalk	false	true	認識災害		copy	true	認識災害	daveyoufool-proposal,dr-cimmerian-s-proposal,liz-the-gm-s-proposal,queerious-proposal,scp-002-pt
 en	visual	22	917	official_crosswalk	false	true	視覚		copy	true	視覚	dr-cimmerian-s-proposal,liz-the-gm-s-proposal,scp-005-it,scp-012,scp-015-it
-en	science-fiction	23	883	jp_translation_policy_omit	true	false			omit_jp_unused	false		0-underture,1-remember-remember,16-the-eighth-of-september,2-the-mausoleum-at-ipperwash,22-borrowing-trouble
-en	mystery	24	869	jp_translation_policy_omit	true	false			omit_jp_unused	false		0-texts-found,10-mr-mission,14-drilling-down,15-11-2012,16-the-eighth-of-september
+en	science-fiction	23	883	jp_translation_policy_omit	true	false			omit_translation_policy	false		0-underture,1-remember-remember,16-the-eighth-of-september,2-the-mausoleum-at-ipperwash,22-borrowing-trouble
+en	mystery	24	869	jp_translation_policy_omit	true	false			omit_translation_policy	false		0-texts-found,10-mr-mission,14-drilling-down,15-11-2012,16-the-eighth-of-september
 en	uncontained	25	862	official_crosswalk	false	true	未収容		copy	true	未収容	cimmerian-kaktus-proposal,director-bold-s-proposal-j,etc-proposal,fishish-s-proposal-j,henzoid-crocket-s-proposal-j
 en	historical	26	849	official_crosswalk	false	true	歴史		copy	true	歴史	0-underture,001-blank-i,1,a-few-last-wolves,a-folklorist-approach-to-myth-case-study-01-the-tuatha-de-da
-en	bleak	27	826	jp_translation_policy_omit	true	false			omit_jp_unused	false		01092025,1,4-mr-lie,7-beyond-repair,784incident7
+en	bleak	27	826	jp_translation_policy_omit	true	false			omit_translation_policy	false		01092025,1,4-mr-lie,7-beyond-repair,784incident7
 en	building	28	803	official_crosswalk	false	true	建造物		copy	true	建造物	acidfrog-s-proposal-internal,keter-duty,ralliston-s-proposal,rounderhouse-proposal,scantron-s-proposal
-en	slice-of-life	29	781	jp_translation_policy_omit	true	false			omit_jp_unused	false		085-romance-adult,100th-tale,12-aromantic-abatement,13th-23rd-december-2008,15-a-clean-break
+en	slice-of-life	29	781	jp_translation_policy_omit	true	false			omit_translation_policy	false		085-romance-adult,100th-tale,12-aromantic-abatement,13th-23rd-december-2008,15-a-clean-break
 en	author	30	778	official_crosswalk	false	true	著者ページ		copy	true	著者ページ	102point3lemonsensefm,7eventy7evenfold,8b3,a-certain-veraltanic-author-page,a-fat-ghost-s-dossier
 en	ectoentropic	31	777	official_crosswalk	false	true	外部エントロピー		copy	true	外部エントロピー	djkaktus-s-proposal-ii,djoric-dmatix-proposal,dr-clef-s-proposal,protasi-tou-ags,sandrewswann-s-proposal
 en	scp-art	32	769	unhandled	false	false			tag_application_required	false	未訳-scp-art	1831-comic-excerpt,2-rhine-2-river,2521-emoji,2521-xxx,2k24biatch
@@ -3349,9 +3349,9 @@ en	artifact	36	722	official_crosswalk	false	true	人工		copy	true	人工	scp-00
 en	illustrated	37	712	unhandled	false	false			tag_application_required	false	未訳-illustrated	0-underture,0-unsinkable,001-blank-i,1-hachiro,1-remember-remember
 en	location	38	691	official_crosswalk	false	true	場所		copy	true	場所	calibold-harryblank-nico-proposal,dr-manns-proposal,eberstrom-s-proposal-arc,scp-006,scp-006-int
 en	biological	39	677	official_crosswalk	false	true	生物学		copy	true	生物学	dr-gears-s-proposal,jack-ike-s-proposal-i,metaphysician-karpin-proposal,protected:scp-2721,rounderhouse-bone-proposal
-en	action	40	656	jp_translation_policy_omit	true	false			omit_jp_unused	false		19-detour-de-force,29-meeting-in-the-middle,35-fire-in-the-hole,784incident5,784incident7
+en	action	40	656	jp_translation_policy_omit	true	false			omit_translation_policy	false		19-detour-de-force,29-meeting-in-the-middle,35-fire-in-the-hole,784incident5,784incident7
 en	reality-bending	41	649	jp_tag_alias	true	true	現実改変		copy	true	現実改変	001-blank-i,bleep-s-onyx-proposal,djkaktus-s-proposal-iii,dyfscp0012,etc-proposal
-en	bittersweet	42	648	jp_translation_policy_omit	true	false			omit_jp_unused	false		14-mr-brass,17-luxemburg-prospekt,25-12-2047,39-double-date,3portsplaysitself
+en	bittersweet	42	648	jp_translation_policy_omit	true	false			omit_translation_policy	false		14-mr-brass,17-luxemburg-prospekt,25-12-2047,39-double-date,3portsplaysitself
 en	autonomous	43	619	official_crosswalk	false	true	自律		copy	true	自律	jack-ike-s-proposal-i,scp-011,scp-013-arc,scp-015,scp-022
 en	meta	44	587	official_crosswalk	false	true	メタ		copy	true	メタ	calibold-harryblank-nico-proposal,dyfscp-001,dyfscp0012,etc-proposal,gpt-4546-j
 en	global-occult-coalition	45	573	official_crosswalk	false	true	世界オカルト連合		copy	true	世界オカルト連合	1,2521-escaped,38-world-of-difference,5-veil-tiers,5th-global-occult-coalition-donation
@@ -3369,22 +3369,22 @@ en	spatial	56	507	official_crosswalk	false	true	空間		copy	true	空間	billith
 en	document	57	503	official_crosswalk	false	true	文書		copy	true	文書	jonathan-ball-s-proposal,mackenzie-s-proposal,scp-000-j,scp-002-pt,scp-009-j
 en	joke	58	496	official_crosswalk	false	true	ジョーク		copy	true	ジョーク	173-3-or-less,a-brief-overview-of-antimemetic-hazards,abraka-davids-proposal,april-fools-2024,aprillipaiva
 en	hostile	59	495	official_crosswalk	false	true	敵対的		copy	true	敵対的	djkaktus-s-proposal-j,dr-frueh-s-proposal,nagiros-proposal,scp-001-it-graf,scp-005-it
-en	lgbtq	60	492	jp_translation_policy_omit	true	false			omit_jp_unused	false		3portsplaysitself,9-to-5,9-transition,a-box-for-those-people,a-crack-in-the-porcelain
+en	lgbtq	60	492	jp_translation_policy_omit	true	false			omit_translation_policy	false		3portsplaysitself,9-to-5,9-transition,a-box-for-those-people,a-crack-in-the-porcelain
 en	memetic	61	492	official_crosswalk	false	true	ミーム		copy	true	ミーム	etc-proposal,gpt-4546-j,jjj-jjjj-j,mcdoctorate-s-proposal,misterfrown-s-proposal-j
-en	religious-fiction	62	488	jp_translation_policy_omit	true	false			omit_jp_unused	false		0-texts-found,1-staar-cuttt-2-5,37-beggar-belief,a-baptism-of-fire,a-blessed-day
+en	religious-fiction	62	488	jp_translation_policy_omit	true	false			omit_translation_policy	false		0-texts-found,1-staar-cuttt-2-5,37-beggar-belief,a-baptism-of-fire,a-blessed-day
 en	extraterrestrial	63	484	official_crosswalk	false	true	地球外		copy	true	地球外	billiths-proposal,dr-cimmerian-s-proposal,dyfscp0013,protected:scp-2721,scp-002-ex
 en	_cc4	64	480	unhandled	false	false			tag_application_required	false	未訳-_cc4	3ports-schools,a-man-in-a-cave,alex-thorley-goes-offline-for-shabbat,all-eyes-on-silesia-hub,am-i-in-heaven
 en	media	65	478	official_crosswalk	false	true	記憶媒体		copy	true	記憶媒体	kate-mctiriss-s-proposal,mcdoctorate-s-proposal,misterfrown-s-proposal-j,scp-011-de,scp-024
 en	k-class-scenario	66	473	official_crosswalk	false	true	k-クラスシナリオ		copy	true	k-クラスシナリオ	daveyoufool-proposal,djkaktus-s-proposal-ii,djkaktus-s-proposal-j,dr-clef-s-proposal,dyfscp-001
 en	featured	67	465	official_crosswalk	false	true	注目記事		copy	true	注目記事	16th-wondertainment-donation,a-brief-explanation-on-demonics,a-calm-evening-at-the-clown-park,a-cosmic-cycle,a-day-in-the-life
-en	first-person	68	465	jp_translation_policy_omit	true	false			omit_jp_unused	false		085-romance-adult,10-mr-mission,13-mr-purple,13th-23rd-december-2008,15-ms-sweetie
+en	first-person	68	465	jp_translation_policy_omit	true	false			omit_translation_policy	false		085-romance-adult,10-mr-mission,13-mr-purple,13th-23rd-december-2008,15-ms-sweetie
 en	electronic	69	457	official_crosswalk	false	true	電子デバイス		copy	true	電子デバイス	dr-frueh-s-proposal,dyfscp0012,k1s10r0d-s-proposal,nico-queer-001,rounderhouse-proposal
-en	spy-fiction	70	457	jp_translation_policy_omit	true	false			omit_jp_unused	false		13-reproduction,14-drilling-down,16th-wondertainment-donation,20-goto-10,22-borrowing-trouble
-en	military-fiction	71	454	jp_translation_policy_omit	true	false			omit_jp_unused	false		1914,2-the-mausoleum-at-ipperwash,29-meeting-in-the-middle,34-the-cruelest-fight,35-fire-in-the-hole
+en	spy-fiction	70	457	jp_translation_policy_omit	true	false			omit_translation_policy	false		13-reproduction,14-drilling-down,16th-wondertainment-donation,20-goto-10,22-borrowing-trouble
+en	military-fiction	71	454	jp_translation_policy_omit	true	false			omit_translation_policy	false		1914,2-the-mausoleum-at-ipperwash,29-meeting-in-the-middle,34-the-cruelest-fight,35-fire-in-the-hole
 en	art-exchange	72	449	jp_tag_name	true	true	art-exchange		copy	true	art-exchange	12-angry-penguins,17-luxemburg-prospekt,17-phoenix-street,a-baptism-of-fire,a-canadian-standoff
 en	broken-god	73	449	official_crosswalk	false	true	壊れた神の教会		copy	true	壊れた神の教会	1,1-001-dark-and-stormy-nights,20-goto-10,a-baptism-of-fire,a-blessed-day
 en	cel-shaded	74	449	unhandled	false	false			tag_application_required	false	未訳-cel-shaded	1831-comic-excerpt,2-rhine-2-river,2521-escaped,2k24biatch,4x4x4-cell
-en	otherworldly	75	449	jp_translation_policy_omit	true	false			omit_jp_unused	false		049-x-minion-x-reader,a-bio-scanner-alone-on-a-dead-world,a-circus-come-to-not,a-circus-of-a-wreck,a-circus-with-paranoia
+en	otherworldly	75	449	jp_translation_policy_omit	true	false			omit_translation_policy	false		049-x-minion-x-reader,a-bio-scanner-alone-on-a-dead-world,a-circus-come-to-not,a-circus-of-a-wreck,a-circus-with-paranoia
 en	_listpages	76	429	unhandled	false	false			tag_application_required	false	未訳-_listpages	2521-xxx,66-kaleidoscope,67-terminal-terminal,7owrpg,a-eulogy-in-eleven-eight-time
 en	computer	77	409	official_crosswalk	false	true	コンピュータ		copy	true	コンピュータ	calibold-harryblank-nico-proposal,director-bold-s-proposal-j,dr-cimmerian-s-proposal,dr-frueh-s-proposal,dyfscp0012
 en	sarkic	78	403	official_crosswalk	false	true	サーキック		copy	true	サーキック	1,1-001-dark-and-stormy-nights,17-luxemburg-prospekt,a-baptism-of-fire,a-blessed-day
@@ -3395,14 +3395,14 @@ en	sensory	82	391	official_crosswalk	false	true	感覚		copy	true	感覚	etc-pro
 en	acoustic	83	389	official_crosswalk	false	true	音波		copy	true	音波	djkaktus-s-proposal-j,liz-the-gm-s-proposal,scantron-s-proposal,scp-037-it,scp-069-ua
 en	painted	84	388	unhandled	false	false			tag_application_required	false	未訳-painted	2521-xxx,aberrant-factor-manual,acoriander,again-and-again-comic,agente-shuffle-s-art-page
 en	species	85	387	official_crosswalk	false	true	種族		copy	true	種族	dyfscp0012,fishish-s-proposal-j,queerious-proposal,scp-012-ex,scp-016
-en	surrealism	86	380	jp_translation_policy_omit	true	false			omit_jp_unused	false		12-angry-penguins,13-mr-purple,4012-the-play,53-those-who-cant,66-kaleidoscope
+en	surrealism	86	380	jp_translation_policy_omit	true	false			omit_translation_policy	false		12-angry-penguins,13-mr-purple,4012-the-play,53-those-who-cant,66-kaleidoscope
 en	foundation-made	87	374	official_crosswalk	false	true	財団製		copy	true	財団製	calibold-harryblank-nico-proposal,director-bold-s-proposal-j,djkaktus-s-proposal,djkaktus-s-proposal-ii,jack-ike-s-proposal-i
 en	knowledge	88	374	official_crosswalk	false	true	知識		copy	true	知識	pickman-blank-proposal,sandrewswann-s-proposal,scp-012-ex,scp-028,scp-030
-en	absurdism	89	371	jp_translation_policy_omit	true	false			omit_jp_unused	false		049-x-minion-x-reader,10-30-a-m,a-calm-evening-at-the-clown-park,a-cooler-manifesto,a-disgruntled-fan-letter-on-the-subject-of-clownery
+en	absurdism	89	371	jp_translation_policy_omit	true	false			omit_translation_policy	false		049-x-minion-x-reader,10-30-a-m,a-calm-evening-at-the-clown-park,a-cooler-manifesto,a-disgruntled-fan-letter-on-the-subject-of-clownery
 en	vehicle	90	370	official_crosswalk	false	true	乗り物		copy	true	乗り物	billiths-proposal,dyfscp-001,dyfscp0013,queerious-proposal,scp-005-int
-en	period-piece	91	369	jp_translation_policy_omit	true	false			omit_jp_unused	false		0-underture,30-underlude,32-executive-dysfunction,34-the-cruelest-fight,35-fire-in-the-hole
-en	bureaucracy	92	368	jp_translation_policy_omit	true	false			omit_jp_unused	false		10-under-new-direction,11-turnover,31-the-lines-are-down,32-executive-dysfunction,33-taking-the-lead
-en	romance	93	359	jp_translation_policy_omit	true	false			omit_jp_unused	false		049-x-minion-x-reader,085-romance-adult,13-reproduction,2521-xxx,26-working-wonders
+en	period-piece	91	369	jp_translation_policy_omit	true	false			omit_translation_policy	false		0-underture,30-underlude,32-executive-dysfunction,34-the-cruelest-fight,35-fire-in-the-hole
+en	bureaucracy	92	368	jp_translation_policy_omit	true	false			omit_translation_policy	false		10-under-new-direction,11-turnover,31-the-lines-are-down,32-executive-dysfunction,33-taking-the-lead
+en	romance	93	359	jp_translation_policy_omit	true	false			omit_translation_policy	false		049-x-minion-x-reader,085-romance-adult,13-reproduction,2521-xxx,26-working-wonders
 en	telepathic	94	353	official_crosswalk	false	true	テレパシー		copy	true	テレパシー	metaphysician-karpin-proposal,scp-001-and-a-half-j,scp-003,scp-013-arc,scp-016-j
 en	chaos-insurgency	95	349	official_crosswalk	false	true	カオス・インサージェンシー		copy	true	カオス・インサージェンシー	32-executive-dysfunction,34-the-cruelest-fight,35-fire-in-the-hole,38-world-of-difference,53-those-who-cant
 en	concept	96	349	official_crosswalk	false	true	概念		copy	true	概念	001-blank-i,djkaktus-s-proposal-iii,etc-proposal,jack-ike-s-proposal-iv,k1s10r0d-s-proposal
@@ -3416,17 +3416,17 @@ en	transmission	103	338	official_crosswalk	false	true	通信		copy	true	通信	l
 en	observational	104	337	official_crosswalk	false	true	観測		copy	true	観測	etc-proposal,scp-007-j,scp-011-j,scp-012-ex,scp-012-j
 en	ritual	105	336	official_crosswalk	false	true	儀式		copy	true	儀式	scp-072-th,scp-077,scp-089,scp-1036,scp-1089-j
 en	supplement	106	330	official_crosswalk	false	true	補足		copy	true	補足	026-exploration-logs,2117-recovered-materials,2212-archival-class,2212-archival-containment-procedures,2212-archival-cross-test-log
-en	crime-fiction	107	327	jp_translation_policy_omit	true	false			omit_jp_unused	false		10-mr-mission,12-angry-penguins,17-phoenix-street,a-dark-forsaken-candle,a-farewell-to-kings
+en	crime-fiction	107	327	jp_translation_policy_omit	true	false			omit_translation_policy	false		10-mr-mission,12-angry-penguins,17-phoenix-street,a-dark-forsaken-candle,a-farewell-to-kings
 en	inscription	108	325	official_crosswalk	false	true	記述		copy	true	記述	rounderhouse-proposal,scp-016-j,scp-031-pt,scp-073,scp-076
 en	infohazard	109	324	official_crosswalk	false	true	情報災害		copy	true	情報災害	jjj-jjjj-j,mcdoctorate-s-proposal,poufys-proposal,scp-005-j,scp-010-j
 en	unusual-incidents-unit	110	319	official_crosswalk	false	true	異常事件課		copy	true	異常事件課	04-23-87,100th-tale,2521-escaped,38-world-of-difference,a-day-at-the-call-center
 en	empathic	111	318	official_crosswalk	false	true	精神感応		copy	true	精神感応	proposition-du-dr-gray,scp-1293,scp-131,scp-132-arc,scp-1353
 en	predatory	112	318	official_crosswalk	false	true	捕食		copy	true	捕食	deepwell-proposal,dr-gears-s-proposal,scp-015-it,scp-031,scp-046
-en	post-apocalyptic	113	317	jp_translation_policy_omit	true	false			omit_jp_unused	false		1,18-the-only-constant,19-detour-de-force,20-not-my-day,21-the-short-version
+en	post-apocalyptic	113	317	jp_translation_policy_omit	true	false			omit_translation_policy	false		1,18-the-only-constant,19-detour-de-force,20-not-my-day,21-the-short-version
 en	rewrite	114	316	jp_tag_alias	true	true	改稿		copy	true	改稿	a-semi-comprehensive-list-of-foundation-fronts,a-sort-of-challenge,anime-is-art-too-guys,archived:tag-search-helen,black-queen-hub
-en	adventure	115	312	jp_translation_policy_omit	true	false			omit_jp_unused	false		7owrpg,a-chance-at-freedom,a-circus-come-to-not,a-journal-found-in-the-collection-of-the-peabody-museum-of-n,a-long-ways-from-home
+en	adventure	115	312	jp_translation_policy_omit	true	false			omit_translation_policy	false		7owrpg,a-chance-at-freedom,a-circus-come-to-not,a-journal-found-in-the-collection-of-the-peabody-museum-of-n,a-long-ways-from-home
 en	portal	116	312	official_crosswalk	false	true	ポータル		copy	true	ポータル	dr-clef-s-proposal,dyfscp-001,scp-004,scp-014-int,scp-028-de
-en	worldbuilding	117	312	jp_translation_policy_omit	true	false			omit_jp_unused	false		10-30-a-m,15-ms-sweetie,5-veil-tiers,60-underlogue,72qna
+en	worldbuilding	117	312	jp_translation_policy_omit	true	false			omit_translation_policy	false		10-30-a-m,15-ms-sweetie,5-veil-tiers,60-underlogue,72qna
 en	metamorphic	118	309	official_crosswalk	false	true	変身		copy	true	変身	dyfscp0014,scp-003-j,scp-031,scp-038,scp-056
 en	antimemetic	119	308	official_crosswalk	false	true	反ミーム		copy	true	反ミーム	captain-kirby-s-proposal,scp-002-de-j,scp-050-int,scp-055,scp-055-j
 en	intangible	120	308	official_crosswalk	false	true	非実体		copy	true	非実体	scp-023,scp-023-j,scp-072,scp-080,scp-1057
@@ -3435,14 +3435,14 @@ en	weapon	122	301	official_crosswalk	false	true	武器		copy	true	武器	djkaktu
 en	doctor-clef	123	300	official_crosswalk	false	true	クレフ博士		copy	true	クレフ博士	085-romance-adult,12-angry-penguins,784incident2,784incident3,784incident4
 en	structure	124	299	official_crosswalk	false	true	構造		copy	true	構造	deepwell-proposal,dr-frueh-s-proposal,scp-002,scp-002-ex,scp-004
 en	dr-wondertainment	125	297	official_crosswalk	false	true	ワンダーテインメント博士		copy	true	ワンダーテインメント博士	1,1-mr-headless,10-mr-mission,11-mr-feather,13-mr-purple
-en	body-horror	126	296	jp_translation_policy_omit	true	false			omit_jp_unused	false		17-luxemburg-prospekt,1914,69-red-shift,a-betamax-suicide-note,a-crack-in-the-porcelain
+en	body-horror	126	296	jp_translation_policy_omit	true	false			omit_translation_policy	false		17-luxemburg-prospekt,1914,69-red-shift,a-betamax-suicide-note,a-crack-in-the-porcelain
 en	ethics-committee	127	296	jp_tag_alias	true	true	倫理委員会		copy	true	倫理委員会	38-world-of-difference,49-repent-at-leisure,a-memorandum,a-strange-orientation,agent-in-orange
 en	liquid	128	295	official_crosswalk	false	true	液体		copy	true	液体	queerious-proposal,scp-006,scp-009,scp-021-j,scp-025-j
 en	are-we-cool-yet	129	294	jp_tag_name	true	true	are-we-cool-yet		copy	true	are-we-cool-yet	3portsplaysitself,a-betamax-suicide-note,a-broken-bookshelf,a-cloud-over-lichtenberg,a-cooler-manifesto
-en	mythological	130	292	jp_translation_policy_omit	true	false			omit_jp_unused	false		a-dreaming-giant-s-chair,a-faerie-tale-of-twin-queens,a-folklorist-approach-to-myth-case-study-01-the-tuatha-de-da,a-god-and-a-marine,a-gospel-for-church-mice
+en	mythological	130	292	jp_translation_policy_omit	true	false			omit_translation_policy	false		a-dreaming-giant-s-chair,a-faerie-tale-of-twin-queens,a-folklorist-approach-to-myth-case-study-01-the-tuatha-de-da,a-god-and-a-marine,a-gospel-for-church-mice
 en	indestructible	131	291	official_crosswalk	false	true	破壊不可能		copy	true	破壊不可能	djkaktus-s-proposal,dyfscp-001,jack-ike-s-proposal-i,qntm-s-proposal,scp-0001-j
 en	self-repairing	132	289	official_crosswalk	false	true	自己修復		copy	true	自己修復	dyfscp0013,jack-ike-s-proposal-i,scp-005-int,scp-006,scp-032-it
-en	psychological-horror	133	288	jp_translation_policy_omit	true	false			omit_jp_unused	false		9-to-5,a-crack-in-the-porcelain,a-dove-in-a-chicken-pen,a-man-at-the-top-of-his-profession,a-matter-of-perception
+en	psychological-horror	133	288	jp_translation_policy_omit	true	false			omit_translation_policy	false		9-to-5,a-crack-in-the-porcelain,a-dove-in-a-chicken-pen,a-man-at-the-top-of-his-profession,a-matter-of-perception
 en	phenomenon	134	287	unhandled	false	false			tag_application_required	false	未訳-phenomenon	lily-s-proposal,scp-027,scp-033,scp-055,scp-1155
 en	subterranean	135	284	official_crosswalk	false	true	地下		copy	true	地下	keter-duty,rounderhouse-bone-proposal,scp-052,scp-057,scp-057-int
 en	collaboration	136	273	official_crosswalk	false	true	合作		copy	true	合作	1998-911-hub,2117-recovered-materials,603-ft-2012,7416-aldi,8000-dead-rats-hub
@@ -3457,13 +3457,13 @@ en	light	144	254	official_crosswalk	false	true	可視光		copy	true	可視光	he
 en	corporate	145	253	official_crosswalk	false	true	企業		copy	true	企業	a-completely-normal-employee-initiation-ritual-that-definite,a-cosmic-cycle,a-day-in-the-balance,a-few-memos,a-pound-of-flesh-a-piece-of-meat
 en	self-replicating	146	252	official_crosswalk	false	true	自己複製		copy	true	自己複製	liz-the-gm-s-proposal,sandrewswann-s-proposal,scantron-s-proposal,scp-001-ex-j,scp-003
 en	artistic	147	251	official_crosswalk	false	true	芸術		copy	true	芸術	protected:scp-2721,scp-021,scp-067,scp-085,scp-095
-en	heartwarming	148	248	jp_translation_policy_omit	true	false			omit_jp_unused	false		4eyes4arms-and-other-conversations,a-containment-proposal,a-day-like-any-other,a-funeral-on-mars,a-gift-from-my-uncles
+en	heartwarming	148	248	jp_translation_policy_omit	true	false			omit_translation_policy	false		4eyes4arms-and-other-conversations,a-containment-proposal,a-day-like-any-other,a-funeral-on-mars,a-gift-from-my-uncles
 en	_adult	149	246	curated_override_only	false	true	アダルト		copy	true	アダルト	13-reproduction,37-beggar-belief,39-double-date,42-life-cycled,46-nothing-changes
 en	series-hub	150	245	unhandled	false	false			tag_application_required	false	未訳-series-hub	12-days-of-christmas-hub,1998-911-hub,8000-dead-rats-hub,a-dark-forsaken-candle,above-all-stand-i
 en	narrative	151	238	official_crosswalk	false	true	語り		copy	true	語り	i-h-p-proposal,jack-ike-s-proposal-i,ninth-s-proposal-ii,not-a-seagull-proposal,scp-031-vn
 en	reanimation	152	238	official_crosswalk	false	true	蘇生		copy	true	蘇生	calibold-harryblank-nico-proposal,scp-0000-ex,scp-005-vn,scp-008,scp-022
 en	artist	153	237	jp_unused_replacement	true	true		アートワーク	copy_replacement	true	アートワーク	2-rhine-2-river,a-green-squid-kid-s-arts-n-crafts,a1cipher-and-the-failed-arts,abyssal,aethris-art
-en	metafiction	154	235	jp_translation_policy_omit	true	false			omit_jp_unused	false		1-001-dark-and-stormy-nights,100th-tale,a-christmas-caterwaul,a-failed-two-weeks-notice,a-look-back-on-what-we-accomplished
+en	metafiction	154	235	jp_translation_policy_omit	true	false			omit_translation_policy	false		1-001-dark-and-stormy-nights,100th-tale,a-christmas-caterwaul,a-failed-two-weeks-notice,a-look-back-on-what-we-accomplished
 en	tool	155	234	official_crosswalk	false	true	道具		copy	true	道具	dr-frueh-s-proposal,mackenzie-s-proposal,scp-004,scp-005,scp-014-j
 en	insect	156	233	official_crosswalk	false	true	昆虫		copy	true	昆虫	scp-006-cu-ex,scp-006-j,scp-027,scp-097-ko,scp-1131
 en	bird	157	230	official_crosswalk	false	true	鳥類		copy	true	鳥類	djkaktus-s-proposal-j,scp-015-de-j,scp-027-de-j,scp-1013,scp-1028
@@ -3475,9 +3475,9 @@ en	probability	162	224	official_crosswalk	false	true	確率		copy	true	確率	et
 en	personnel-art	163	223	unhandled	false	false			tag_application_required	false	未訳-personnel-art	4x4x4-cell,agent-carriontrooper-s-personnel-file,aiko-artpage,amai-s-art-gallery,art-contest-hub-characters
 en	biohazard	164	221	official_crosswalk	false	true	生物災害		copy	true	生物災害	henzoid-crocket-s-proposal-j,psul-001,scp-002-de-j,scp-008,scp-016
 en	tactile	165	219	official_crosswalk	false	true	触覚		copy	true	触覚	scp-049,scp-049-arc,scp-053,scp-093-j,scp-1109
-en	black-comedy	166	217	jp_translation_policy_omit	true	false			omit_jp_unused	false		6-66,784incident3,9-mr-clumsy,a-bit-more-of-a-plan,a-circus-with-paranoia
+en	black-comedy	166	217	jp_translation_policy_omit	true	false			omit_translation_policy	false		6-66,784incident3,9-mr-clumsy,a-bit-more-of-a-plan,a-circus-with-paranoia
 en	telekinetic	167	215	official_crosswalk	false	true	念力		copy	true	念力	scp-092,scp-1031,scp-105,scp-1110,scp-1114
-en	apocalyptic	168	214	jp_translation_policy_omit	true	false			omit_jp_unused	false		31-the-lines-are-down,32-executive-dysfunction,69-red-shift,70-parasite,a-hole-for-a-heart-pt-1
+en	apocalyptic	168	214	jp_translation_policy_omit	true	false			omit_translation_policy	false		31-the-lines-are-down,32-executive-dysfunction,69-red-shift,70-parasite,a-hole-for-a-heart-pt-1
 en	sculpture	169	214	official_crosswalk	false	true	彫像		copy	true	彫像	scp-011,scp-024-j,scp-089,scp-1011,scp-1018
 en	theme	170	212	official_crosswalk	false	false	テーマ		staff_permission_required	false	テーマ	theme:3law,theme:3law-7ow,theme:3law-pride,theme:3lawcracked,theme:5k
 en	appliance	171	210	official_crosswalk	false	true	家電		copy	true	家電	scp-001-d-j,scp-086,scp-1-800-j,scp-1032,scp-1040
@@ -3488,23 +3488,23 @@ en	contagion	175	200	official_crosswalk	false	true	伝染性		copy	true	伝染�
 en	nobody	176	200	official_crosswalk	false	true	何者でもない		copy	true	何者でもない	1,a-continuous-reflection,a-day-notable-to-nobody,a-dove-in-a-chicken-pen,a-nice-waffle-dinner
 en	chemical	177	199	official_crosswalk	false	true	化学		copy	true	化学	scp-030-vn,scp-037-it,scp-045,scp-049,scp-049-arc
 en	mobile	178	199	official_crosswalk	false	true	移動		copy	true	移動	protasi-tou-ags,scp-005-int,scp-072-th,scp-085,scp-1027
-en	chase	179	196	jp_translation_policy_omit	true	false			omit_jp_unused	false		1-mr-headless,19-detour-de-force,53-those-who-cant,784incident7,a-baptism-of-fire
+en	chase	179	196	jp_translation_policy_omit	true	false			omit_translation_policy	false		1-mr-headless,19-detour-de-force,53-those-who-cant,784incident7,a-baptism-of-fire
 en	creepypasta	180	196	official_crosswalk	false	true	クリーピーパスタ		copy	true	クリーピーパスタ	a-fairy-tale,a-little-bunnys-doctor,a-lost-advertisement,a-need-for-inspiration,a-night-in-the-woods
-en	no-dialogue	181	196	jp_translation_policy_omit	true	false			omit_jp_unused	false		1914,1st-12th-december-2008,5-veil-tiers,a-bus-ride-to-nowhere,a-fancy-dinosaur
+en	no-dialogue	181	196	jp_translation_policy_omit	true	false			omit_translation_policy	false		1914,1st-12th-december-2008,5-veil-tiers,a-bus-ride-to-nowhere,a-fancy-dinosaur
 en	airborne	182	195	official_crosswalk	false	true	空中		copy	true	空中	protasi-tou-ags,scp-013-j,scp-037,scp-037-it,scp-051-arc
 en	daevite	183	195	jp_tag_name	true	true	daevite		copy	true	daevite	a-completed-chronicle,a-dove-in-a-chicken-pen,a-poem-for-the-mekhanites,a-visitation,a-wandsman-in-the-court-of-the-hanged-king
 en	rewritable	184	193	jp_unused_no_single_replacement	true	false			omit_jp_unused	false		a-concrete-shrine,a-few-more-words-from-the-administrator,acquisitions-training,activity-documentation-file-11-a,alternate-hypotheses
 en	parasitic	185	190	official_crosswalk	false	true	寄生		copy	true	寄生	scp-002-de-j,scp-021,scp-031,scp-074,scp-097-ko
 en	scarlet-king	186	188	jp_tag_name	true	true	scarlet-king		copy	true	scarlet-king	7ring,a-wonderful-world-contingency,abridged-retirement-proposals,ambrose-backdoor-soho,ambrose-makiling
 en	wilsons-wildlife	187	188	official_crosswalk	false	true	ウィルソンズ・ワイルドライフ		copy	true	ウィルソンズ・ワイルドライフ	38-world-of-difference,a-bearly-thought-out-plan,a-passing-rain,a-strange-orientation,a-transfer-of-responsibility
-en	cosmic-horror	188	187	jp_translation_policy_omit	true	false			omit_jp_unused	false		1,1-staar-cuttt-2-5,54-not-ready-for-prime-time,a-pathetic-attempt-to-explain-fifthism,a-thin-dangerous-line
+en	cosmic-horror	188	187	jp_translation_policy_omit	true	false			omit_translation_policy	false		1,1-staar-cuttt-2-5,54-not-ready-for-prime-time,a-pathetic-attempt-to-explain-fifthism,a-thin-dangerous-line
 en	meteorological	189	187	official_crosswalk	false	true	天候		copy	true	天候	not-a-seagull-proposal,scp-1018,scp-107,scp-1108,scp-111-j
 en	parawatch	190	186	jp_tag_alias	true	true	パラウォッチ		copy	true	パラウォッチ	a-little-bunnys-doctor,a-lost-advertisement,a-night-in-the-woods,a-strange-door-in-my-basement,abwesenheit
 en	loop	191	182	official_crosswalk	false	true	ループ		copy	true	ループ	chamomile82-s-proposal,jack-ike-s-proposal-ii,keter-duty,mcdoctorate-s-proposal,nicos-proposal-ii
 en	predictive	192	181	official_crosswalk	false	true	予知		copy	true	予知	bleep-s-onyx-proposal,chamomile82-s-proposal,jack-ike-s-proposal-ii,jonathan-ball-s-proposal,k1s10r0d-s-proposal
 en	city	193	179	official_crosswalk	false	true	都市		copy	true	都市	metaphysician-karpin-proposal,rounderhouse-bone-proposal,rounderhouse-gold-proposal,rounderhouse-golder-proposal,rounderhouse-jade-proposal
-en	political	194	177	jp_translation_policy_omit	true	false			omit_jp_unused	false		4012-the-play,8000-dead-rats-hub,a-folklorist-approach-to-myth-case-study-01-the-tuatha-de-da,ambrose-backdoor-soho,ambrose-dc-restaurant-week
-en	artificial-intelligence	195	176	jp_translation_policy_omit	true	false			omit_jp_unused	false		72qna,a-clean-fast-end,a-symphony-of-iron-and-steel,additional-resources,ai-classification-guide
+en	political	194	177	jp_translation_policy_omit	true	false			omit_translation_policy	false		4012-the-play,8000-dead-rats-hub,a-folklorist-approach-to-myth-case-study-01-the-tuatha-de-da,ambrose-backdoor-soho,ambrose-dc-restaurant-week
+en	artificial-intelligence	195	176	jp_translation_policy_omit	true	false			omit_translation_policy	false		72qna,a-clean-fast-end,a-symphony-of-iron-and-steel,additional-resources,ai-classification-guide
 en	the-administrator	196	176	jp_tag_alias	true	true	管理者		copy	true	管理者	a-few-more-words-from-the-administrator,a-gullet-made-of-the-flesh-of-a-swan,a-simple-sheaf-of-papers,about-the-scp-foundation,adnan-s-alibi
 en	three-portlands	197	176	official_crosswalk	false	true	スリー・ポートランド		copy	true	スリー・ポートランド	3ports-schools,3portsplaysitself,a-dark-forsaken-candle,a-final-dying-ember,a-pristine-untouched-wick
 en	electrical	198	172	official_crosswalk	false	true	電気		copy	true	電気	liz-the-gm-s-proposal,nico-queer-001,scp-001-ex,scp-071-ko,scp-078
@@ -3517,7 +3517,7 @@ en	foundation-personnel	204	163	unhandled	false	false			tag_application_required
 en	doctor-lillihammer	205	162	jp_tag_alias	true	true	リリハンメル博士		copy	true	リリハンメル博士	001-blank-i,1-remember-remember,10-under-new-direction,11-turnover,12-aromantic-abatement
 en	fire	206	161	official_crosswalk	false	true	炎		copy	true	炎	scp-001-ex-j,scp-023,scp-060,scp-069-ua,scp-081
 en	amorphous	207	159	official_crosswalk	false	true	不定形		copy	true	不定形	protected:scp-2721,scp-007-int,scp-031,scp-054,scp-066
-en	correspondence	208	158	jp_translation_policy_omit	true	false			omit_jp_unused	false		a-clean-fast-end,a-collection-of-emails-from-site-19-vol-1-personal-loss,a-disgruntled-fan-letter-on-the-subject-of-clownery,a-few-memos,a-hrd-day-s-work
+en	correspondence	208	158	jp_translation_policy_omit	true	false			omit_translation_policy	false		a-clean-fast-end,a-collection-of-emails-from-site-19-vol-1-personal-loss,a-disgruntled-fan-letter-on-the-subject-of-clownery,a-few-memos,a-hrd-day-s-work
 en	dream	209	158	unhandled	false	false			tag_application_required	false	未訳-dream	scp-046,scp-097,scp-1074,scp-1154,scp-1230
 en	prometheus	210	158	official_crosswalk	false	true	プロメテウス		copy	true	プロメテウス	38-world-of-difference,a-brief-explanation-on-demonics,all-quiet-on-the-wall-street-front,art:montagueetc-sciptember-2022,as-it-happened
 en	unlisted	211	158	unhandled	false	false			tag_application_required	false	未訳-unlisted	unlisted:10576876,unlisted:106-takes-manhattan,unlisted:11502197,unlisted:11709943,unlisted:11832139
@@ -3528,8 +3528,8 @@ en	skeletal	215	156	official_crosswalk	false	true	骨格		copy	true	骨格	scp-0
 en	the-sculpture	216	156	jp_tag_alias	true	true	scp-173		copy	true	scp-173	173,173-3-or-less,173-anniversary-hub,173-festival,173thankyouletter
 en	doctor-blank	217	155	jp_tag_alias	true	true	ブランク博士		copy	true	ブランク博士	0-underture,0-unsinkable,001-blank-i,1-remember-remember,10-under-new-direction
 en	canine	218	153	official_crosswalk	false	true	イヌ		copy	true	イヌ	scp-004-it,scp-023,scp-048-arc,scp-1111,scp-1241
-en	halloween	219	153	jp_translation_policy_omit	true	false			omit_jp_unused	false		a-little-mister-s-halloween-special,a-need-for-inspiration,a-nightmare-on-17th-street,a-real-actual-blood-cult,a-very-cool-dude-halloween
-en	murder-monster	220	153	jp_translation_policy_omit	true	false			omit_jp_unused	false		173,a-concrete-shrine,a-girl-that-died,alex-avon-s-first-kiss,anddays
+en	halloween	219	153	jp_translation_policy_omit	true	false			omit_translation_policy	false		a-little-mister-s-halloween-special,a-need-for-inspiration,a-nightmare-on-17th-street,a-real-actual-blood-cult,a-very-cool-dude-halloween
+en	murder-monster	220	153	jp_translation_policy_omit	true	false			omit_translation_policy	false		173,a-concrete-shrine,a-girl-that-died,alex-avon-s-first-kiss,anddays
 en	radioactive	221	153	official_crosswalk	false	true	放射能		copy	true	放射能	djkaktus-s-proposal,dr-gears-s-proposal,protasi-tou-ags,qntm-s-proposal,scp-003
 en	goi-art	222	152	unhandled	false	false			tag_application_required	false	未訳-goi-art	aethris-art,agente-shuffle-s-art-page,aiko-artpage,amindele-s-art-page,art-contest-hub-goi
 en	language	223	152	official_crosswalk	false	true	言語		copy	true	言語	scp-003-j,scp-030,scp-050-int,scp-062,scp-078
@@ -3569,8 +3569,8 @@ en	logo	256	123	unhandled	false	false			tag_application_required	false	未訳-lo
 en	doomsday2018	257	122	jp_tag_name	true	true	doomsday2018		copy	true	doomsday2018	0-texts-found,a-farewell-to-arms,a-man-of-clay-and-men-formerly-men,a-new-age-of-magic,a-quiet-night
 en	jam-con2019	258	120	jp_tag_name	true	true	jam-con2019		copy	true	jam-con2019	04-23-87,144-hour-jam-contest,7ring,a-beautiful-machine-i-made,a-bit-more-of-a-plan
 en	plague-doctor	259	120	jp_tag_alias	true	true	ペスト医師		copy	true	ペスト医師	049-x-minion-x-reader,a-nightmare-on-17th-street,a-romantic-comedy-starring-a-dead-mosquito-guest-starring-th,a-true-account-of-the-events-of-1666,acoriander
-en	christmas	260	119	jp_translation_policy_omit	true	false			omit_jp_unused	false		12-days-of-christmas-hub,25-12-2047,a-cackmas-carol,a-christmas-caterwaul,a-day-like-any-other
-en	alien	261	117	jp_translation_policy_omit	true	false			omit_jp_unused	false		a-ghost-in-the-mechanism,a-hole-in-mars,adana-protocol,agent-calendars-hot-date-2,aglais-io
+en	christmas	260	119	jp_translation_policy_omit	true	false			omit_translation_policy	false		12-days-of-christmas-hub,25-12-2047,a-cackmas-carol,a-christmas-caterwaul,a-day-like-any-other
+en	alien	261	117	jp_translation_policy_omit	true	false			omit_translation_policy	false		a-ghost-in-the-mechanism,a-hole-in-mars,adana-protocol,agent-calendars-hot-date-2,aglais-io
 en	anomalous-event	262	117	unhandled	false	false			tag_application_required	false	未訳-anomalous-event	captain-kirby-s-proposal,etc-proposal,lily-s-proposal,nicos-proposal-ii,scp-092-vn
 en	canon2020	263	117	jp_tag_name	true	true	canon2020		copy	true	canon2020	a-memory-from-your-lonesome-past-keeps-us-so-far-apart,a-small-bundle-of-letters,a-sympathetic-thorn-in-the-side-of-the-bookburners,a-symphony-of-iron-and-steel,a-team-you-can-maybe-trust
 en	performance	264	117	official_crosswalk	false	true	芸能		copy	true	芸能	nicos-proposal-ii,scp-021-pt,scp-1241,scp-1274,scp-139-it
@@ -3589,7 +3589,7 @@ en	broken-masquerade	276	112	jp_tag_alias	true	true	壊された虚構		copy	tru
 en	thermal	277	112	official_crosswalk	false	true	温度		copy	true	温度	dyfscp0013,scp-001-ex-j,scp-003,scp-009,scp-026-j
 en	electromagnetic	278	111	official_crosswalk	false	true	電磁気		copy	true	電磁気	scp-1042,scp-1078,scp-1281,scp-1320,scp-1411
 en	jam-con2021	279	111	jp_tag_name	true	true	jam-con2021		copy	true	jam-con2021	a-bed-that-grows-arms-and-deals-drugs,a-disgruntled-fan-letter-on-the-subject-of-clownery,charybdis,clowncon-time-clowns-temporal-tomfoolery,corruption-within-the-clown-industry
-en	alternate-history	280	110	jp_translation_policy_omit	true	false			omit_jp_unused	false		a-hopper-in-the-offshoot,aar-5950-osaka,acopalypse,address-to-the-students-and-faculty,all-things-considered
+en	alternate-history	280	110	jp_translation_policy_omit	true	false			omit_translation_policy	false		a-hopper-in-the-offshoot,aar-5950-osaka,acopalypse,address-to-the-students-and-faculty,all-things-considered
 en	doctor-kondraki	281	110	official_crosswalk	false	true	コンドラキ博士		copy	true	コンドラキ博士	784incident3,a-suicide-note,altoid-clef,art:a-gaggle-of-doctors-and-others,art:artwork-what-do-they-talk-about
 en	factory	282	110	official_crosswalk	false	true	ファクトリー		copy	true	ファクトリー	1,a-few-memos,a-shift-at-the-factory,anomaly-306-the-silver-alder,art:dio-artex-2025-drawing-hub
 en	homo-sapiens-sidhe	283	110	jp_tag_name	true	true	homo-sapiens-sidhe		copy	true	homo-sapiens-sidhe	a-faerie-tale-of-twin-queens,a-form-to-outlast-time,ambrose-esterberg,and-to-the-stars-i-went-with-only-a-name-hub,anderson-airlines
@@ -3600,20 +3600,20 @@ en	admin	287	106	official_crosswalk	false	false	管理		staff_permission_require
 en	faeowynn-wilson	288	106	jp_tag_alias	true	true	フェオウィン・ウィルソン		copy	true	フェオウィン・ウィルソン	a-bearly-thought-out-plan,a-passing-rain,a-welcome-distraction,adoption-poster-darius,adoption-poster-hx
 en	no-return	289	105	jp_tag_alias	true	true	ノー・リターン		copy	true	ノー・リターン	a-friendly-guide-to-the-katharsys-music-festival,a-magic-show,a-sarkic-by-any-other-name,a-trip-down-memory-lane,an-assembly-of-sarkics
 en	oneiroi	290	105	official_crosswalk	false	true	オネイロイ		copy	true	オネイロイ	1,12-angry-penguins,a-breath-of-relief-no-different-from-drowning,a-dead-man-s-dream-of-hot-sauce,a-wandsman-in-the-court-of-the-hanged-king
-en	second-person	291	105	jp_translation_policy_omit	true	false			omit_jp_unused	false		01092025,14-mr-brass,a-man-who-once-mattered,a-matter-of-perception,a-thorley-little-christmas
+en	second-person	291	105	jp_translation_policy_omit	true	false			omit_translation_policy	false		01092025,14-mr-brass,a-man-who-once-mattered,a-matter-of-perception,a-thorley-little-christmas
 en	sexual	292	105	official_crosswalk	false	true	性的		copy	true	性的	djkaktus-s-proposal-j,queerious-proposal,scp-071,scp-096-j,scp-1215
 en	_ko	293	104	jp_unused_replacement	true	true		ko	copy_replacement	true	ko	acidfrog-s-proposal-external,acidfrog-s-proposal-internal,adoption-poster-hx,anyworld666,asdf142857art
 en	director-mcinnis	294	104	jp_tag_alias	true	true	マッキンス管理官		copy	true	マッキンス管理官	0-underture,001-blank-i,1-remember-remember,10-under-new-direction,11-turnover
 en	raisa	295	103	jp_tag_name	true	true	raisa		copy	true	raisa	airgap,alex-thorley-confuses-a-guy,autopsy,breakthrough,cimmerian-sends-650-pms
 en	reptile	296	103	official_crosswalk	false	true	爬虫類		copy	true	爬虫類	nagiros-proposal,scp-015-j,scp-021,scp-1013,scp-1108
-en	demon	297	102	jp_translation_policy_omit	true	false			omit_jp_unused	false		6-66,a-brief-explanation-on-demonics,a-drink-with-the-devil,a-wandsman-in-a-vegas-cathouse,agent-calendars-hot-date-1
-en	faerie	298	102	jp_translation_policy_omit	true	false			omit_jp_unused	false		a-faerie-tale-of-twin-queens,a-fellow-scholar,a-folklorist-approach-to-myth-case-study-01-the-tuatha-de-da,a-form-to-outlast-time,a-foul-storm-in-a-fair-land
+en	demon	297	102	jp_translation_policy_omit	true	false			omit_translation_policy	false		6-66,a-brief-explanation-on-demonics,a-drink-with-the-devil,a-wandsman-in-a-vegas-cathouse,agent-calendars-hot-date-1
+en	faerie	298	102	jp_translation_policy_omit	true	false			omit_translation_policy	false		a-faerie-tale-of-twin-queens,a-fellow-scholar,a-folklorist-approach-to-myth-case-study-01-the-tuatha-de-da,a-form-to-outlast-time,a-foul-storm-in-a-fair-land
 en	mathematical	299	102	official_crosswalk	false	true	数学		copy	true	数学	jack-ike-s-proposal-iv,scp-001-ex,scp-033,scp-048,scp-063-j
 en	chicago-spirit	300	101	official_crosswalk	false	true	シカゴ・スピリット		copy	true	シカゴ・スピリット	adoption-poster-ol-shock,and-his-name-was,art:a-favour-a-deal,art:dinodraws-goitober2023,art:diristine-s-art-avenue
 en	black-diamond-billions	301	100	jp_tag_alias	true	true	ブラックダイヤモンド・ビリオンズ		copy	true	ブラックダイヤモンド・ビリオンズ	a-completely-normal-employee-initiation-ritual-that-definite,a-dance-with-the-devil,a-murder-and-relief-in-the-dark,a-wolf-at-the-door,a-wondertastic-and-splendidly-whimsical-employee-onboarding
 en	paradox	302	100	official_crosswalk	false	true	パラドックス		copy	true	パラドックス	etc-proposal,jack-ike-s-proposal-iv,k1s10r0d-s-proposal,keter-duty,nagiros-proposal
 en	planet	303	100	official_crosswalk	false	true	惑星		copy	true	惑星	billiths-proposal,scp-007,scp-067-tl,scp-100-jp,scp-1094-ex
-en	school	304	100	jp_translation_policy_omit	true	false			omit_jp_unused	false		3ports-schools,a-final-dying-ember,a-pristine-untouched-wick,a-s-s-and-other-low-threat-groups-of-interest,a-slow-flickering-flame
+en	school	304	100	jp_translation_policy_omit	true	false			omit_translation_policy	false		3ports-schools,a-final-dying-ember,a-pristine-untouched-wick,a-s-s-and-other-low-threat-groups-of-interest,a-slow-flickering-flame
 en	deity	305	99	unhandled	false	false			tag_application_required	false	未訳-deity	001-blank-i,bleep-s-onyx-proposal,dyfscp0012,kate-mctiriss-s-proposal,liz-the-gm-s-proposal
 en	gravity	306	99	official_crosswalk	false	true	重力		copy	true	重力	djkaktus-s-proposal-ii,dr-gears-s-proposal,gpt-4546-j,scp-1136,scp-123
 en	alagadda	307	98	official_crosswalk	false	true	アラガッダ		copy	true	アラガッダ	a-form-to-outlast-time,a-shadow-over,a-wandsman-in-the-court-of-the-hanged-king,about-the-serpent,aiko-artpage
@@ -3630,7 +3630,7 @@ en	doctor-cimmerian	317	93	jp_tag_alias	true	true	シメリアン博士		copy	tr
 en	iris-dark	318	93	jp_tag_alias	true	true	アイリス・ダーク		copy	true	アイリス・ダーク	1-001-dark-and-stormy-nights,a-completely-normal-employee-initiation-ritual-that-definite,a-murder-and-relief-in-the-dark,a-vale-of-tears,a-wolf-at-the-door
 en	maxwellism	319	93	jp_tag_alias	true	true	マクスウェリズム		copy	true	マクスウェリズム	20-goto-10,a-symphony-of-iron-and-steel,anderson-robotics-hub,ascension-ascension-ascension,basic-observations
 en	001-proposal	320	92	official_crosswalk	false	true	001提言		copy	true	001提言	001-blank-i,abraka-davids-proposal,acidfrog-s-proposal-internal,billiths-proposal,bleep-s-onyx-proposal
-en	dystopian	321	92	jp_translation_policy_omit	true	false			omit_jp_unused	false		9-to-5,a-gally-fellows-lens,a-gullet-made-of-the-flesh-of-a-swan,a-moment-captured,altitudes-hub
+en	dystopian	321	92	jp_translation_policy_omit	true	false			omit_translation_policy	false		9-to-5,a-gally-fellows-lens,a-gullet-made-of-the-flesh-of-a-swan,a-moment-captured,altitudes-hub
 en	wonderful-world	322	92	jp_tag_alias	true	true	素晴らしき世界		copy	true	素晴らしき世界	a-welcome-distraction,a-wonderful-world-contingency,alice-oezdemir,amarilla-y-morada-y-maravilla,and-i-m-the-star
 en	doctor-reynders	323	91	jp_tag_alias	true	true	レインデルス博士		copy	true	レインデルス博士	001-blank-i,10-under-new-direction,16-the-eighth-of-september,17-here-today,25-off-track
 en	currency	324	90	official_crosswalk	false	true	貨幣		copy	true	貨幣	cimmerian-kaktus-proposal,scp-1015,scp-1168,scp-1289,scp-1442
@@ -3641,12 +3641,12 @@ en	manna-charitable-foundation	328	89	official_crosswalk	false	true	マナによ
 en	animated	329	88	unhandled	false	false			tag_application_required	false	未訳-animated	a-green-squid-kid-s-arts-n-crafts,aethris-art,aiko-artpage,art:9kcon-boss-fight,art:angelus-abyss
 en	delta-t	330	88	jp_tag_alias	true	true	デルタ-t		copy	true	デルタ-t	001-blank-i,20-goto-10,30-underlude,31-the-lines-are-down,40-waiting-to-happen
 en	gustatory	331	88	official_crosswalk	false	true	味覚		copy	true	味覚	scp-1117,scp-1255,scp-1622,scp-1798,scp-1838
-en	xenofiction	332	88	jp_translation_policy_omit	true	false			omit_jp_unused	false		a-chance-at-freedom,a-child-to-teach,a-concrete-shrine,a-ghost-in-the-mechanism,a-love-letter-to-a-lady-mantis
+en	xenofiction	332	88	jp_translation_policy_omit	true	false			omit_translation_policy	false		a-chance-at-freedom,a-child-to-teach,a-concrete-shrine,a-ghost-in-the-mechanism,a-love-letter-to-a-lady-mantis
 en	director-moose	333	87	jp_tag_alias	true	true	ムース管理官		copy	true	ムース管理官	a-look-back-on-what-we-accomplished,a-new-age-of-magic,a-sarkic-by-any-other-name,a-site-19-christmas-carol,a-trip-down-memory-lane
 en	image-editing	334	87	unhandled	false	false			tag_application_required	false	未訳-image-editing	4784-va2024-art,a-dodo-mission,a-self-portrait,art:2025-art-exchange-bad-data,art:a-basilisk
 en	pixel-art	335	87	unhandled	false	false			tag_application_required	false	未訳-pixel-art	aethris-art,art-page-of-allerarey,art:4943-pixel-art,art:9kcon-boss-fight,art:angelus-abyss
 en	6000	336	86	jp_tag_name	true	true	6000		copy	true	6000	scp-6000,scp-6001,scp-6002,scp-6003,scp-6004
-en	breakout	337	86	jp_translation_policy_omit	true	false			omit_jp_unused	false		784incident5,784incident6,a-glance-onto-perfection,a-shift-at-the-factory,a-spin-around-the-library
+en	breakout	337	86	jp_translation_policy_omit	true	false			omit_translation_policy	false		784incident5,784incident6,a-glance-onto-perfection,a-shift-at-the-factory,a-spin-around-the-library
 en	forgotten-memories	338	85	jp_tag_alias	true	true	忘れられた記憶		copy	true	忘れられた記憶	a-funeral-without-a-body,a-gift-from-my-uncles,a-memory-of-grafton,adrift-in-an-ocean-of-memories,alittlepush
 en	fungus	339	85	official_crosswalk	false	true	真菌類		copy	true	真菌類	scp-002-de-j,scp-020,scp-059,scp-067-ex,scp-1077
 en	doctor-okorie	340	83	jp_tag_alias	true	true	オコリー博士		copy	true	オコリー博士	001-blank-i,1-remember-remember,12-aromantic-abatement,13-reproduction,14-drilling-down
@@ -3660,16 +3660,16 @@ en	second-hytoth	347	81	official_crosswalk	false	true	第二ハイトス教会		
 en	immobile	348	80	official_crosswalk	false	true	移動不可能		copy	true	移動不可能	djkaktus-s-proposal-ii,scp-125-de,scp-1266,scp-1307,scp-1699
 en	archaeological	349	79	unhandled	false	false			tag_application_required	false	未訳-archaeological	rounderhouse-bone-proposal,rounderhouse-gold-proposal,rounderhouse-jade-proposal,scp-089,scp-1050
 en	nyc2013	350	79	jp_tag_name	true	true	nyc2013		copy	true	nyc2013	a-child-to-teach,all-things-considered,anno-domino,antediluvian,apakht
-en	foundation-format	351	78	jp_translation_policy_omit	true	false			omit_jp_unused	false		173-3-or-less,32-executive-dysfunction,40-waiting-to-happen,a-funeral-without-a-body,a-once-and-future-king
+en	foundation-format	351	78	jp_translation_policy_omit	true	false			omit_translation_policy	false		173-3-or-less,32-executive-dysfunction,40-waiting-to-happen,a-funeral-without-a-body,a-once-and-future-king
 en	future	352	78	official_crosswalk	false	true	未来		copy	true	未来	dyfscp-001,dyfscp0014,jack-ike-s-proposal-ii,nagiros-proposal,scp-110
 en	group-hub	353	78	unhandled	false	false			tag_application_required	false	未訳-group-hub	aiad-homescreen,alexylva-university-hub,ambrose-restaurant-hub,anderson-robotics-hub,anomalous-entity-engagement-division-hub
 en	hanged-king	354	78	jp_tag_alias	true	true	吊られた王		copy	true	吊られた王	a-selection-of-media-referencing-the-anomalous,a-shadow-over,a-site-19-christmas-carol,a-wandsman-in-the-court-of-the-hanged-king,about-the-serpent
-en	journal	355	78	jp_translation_policy_omit	true	false			omit_jp_unused	false		13th-23rd-december-2008,1st-12th-december-2008,72qna,a-curious-case-of-botanophobia,a-journal-found-in-the-collection-of-the-peabody-museum-of-n
+en	journal	355	78	jp_translation_policy_omit	true	false			omit_translation_policy	false		13th-23rd-december-2008,1st-12th-december-2008,72qna,a-curious-case-of-botanophobia,a-journal-found-in-the-collection-of-the-peabody-museum-of-n
 en	photographic	356	78	jp_tag_alias	true	true	写真		copy	true	写真	misterfrown-s-proposal-j,scp-073-ko,scp-105,scp-1110,scp-1278
 en	_cn	357	77	jp_unused_replacement	true	true		cn	copy_replacement	true	cn	2521-emoji,2521-escaped,a-battlefield-for-idols,acoriander,art:c2hlaxnozxjl
 en	doctor-mcdoctorate	358	77	jp_tag_alias	true	true	マクドクトラート博士		copy	true	マクドクトラート博士	001-blank-i,37-beggar-belief,38-world-of-difference,47-past-caring,4x4x4-cell
 en	moon	359	77	official_crosswalk	false	true	月		copy	true	月	scp-002-de-j,scp-1233,scp-1282,scp-1284,scp-1426
-en	time-travel	360	76	jp_translation_policy_omit	true	false			omit_jp_unused	false		20-goto-10,a-stitch-in-time-saved-mine,adjustment-period,alpha-double-negative,and-the-winner-is
+en	time-travel	360	76	jp_translation_policy_omit	true	false			omit_translation_policy	false		20-goto-10,a-stitch-in-time-saved-mine,adjustment-period,alpha-double-negative,and-the-winner-is
 en	vikander-kneed	361	76	jp_tag_alias	true	true	ヴィキャンデル・ニード		copy	true	ヴィキャンデル・ニード	43-nothing-happens,53-those-who-cant,9-to-5,a-culinary-broadcast,art:dinodraws-goitober2023
 en	virus	362	76	official_crosswalk	false	true	ウイルス		copy	true	ウイルス	scp-081,scp-1242,scp-1363,scp-1462,scp-149
 en	apollyon	363	75	jp_tag_name	true	true	apollyon		copy	true	apollyon	daveyoufool-proposal,dyfscp0013,oris-proposal,queerious-proposal,scp-001-and-a-half-j
@@ -3681,7 +3681,7 @@ en	ambrose-restaurant	368	73	jp_tag_alias	true	true	アンブローズ・レス�
 en	doctor-asheworth	369	73	jp_tag_alias	true	true	アシュワース博士		copy	true	アシュワース博士	43-nothing-happens,a-library-empty,a-man-fishes-in-wyoming,all-i-know-is-that-i-know-pizza,and-every-time-we-meet-again-hub
 en	archon	370	72	jp_tag_name	true	true	archon		copy	true	archon	i-h-p-proposal,nico-queer-001,scp-1500-ko,scp-1661,scp-2805
 en	deepwell-catalog	371	72	unhandled	false	false			tag_application_required	false	未訳-deepwell-catalog	a-hymn-for-pandora,admonition,apas,art:8980anniversary,art:art-mycotherapy-6747-pix
-en	legal	372	72	jp_translation_policy_omit	true	false			omit_jp_unused	false		6-66,amnesia-was-fir-name,bigfoot-did-it,calibold-harryblank-nico-proposal,chronicle-of-the-worm
+en	legal	372	72	jp_translation_policy_omit	true	false			omit_translation_policy	false		6-66,amnesia-was-fir-name,bigfoot-did-it,calibold-harryblank-nico-proposal,chronicle-of-the-worm
 en	thad-xyank	373	72	jp_tag_alias	true	true	シャンク博士		copy	true	シャンク博士	20-goto-10,31-the-lines-are-down,40-waiting-to-happen,51-stop-the-clock,54-not-ready-for-prime-time
 en	thermodynamic	374	72	official_crosswalk	false	true	熱力学		copy	true	熱力学	oris-proposal,scp-1411,scp-1718,scp-1814,scp-1995
 en	contest	375	71	official_crosswalk	false	true	コンテスト		copy	true	コンテスト	144-hour-jam-contest,144-hour-jam-contest-two,173-festival,72-hour-jam-contest,an-incredibly-important-announcement
@@ -3717,11 +3717,11 @@ en	valravn	404	64	jp_tag_alias	true	true	ヴァルラウン		copy	true	ヴァル
 en	coldpostcon	405	63	jp_tag_name	true	true	coldpostcon		copy	true	coldpostcon	a-damned-memory,cold-post,coldpostcon,contest-contest,don-t
 en	dc-al-fine	406	63	jp_tag_alias	true	true	d.c.アルフィーネ		copy	true	d.c.アルフィーネ	8000-dead-rats-hub,arco,because,bowegate,breaking-it-all-down-on-me
 en	entropic	407	63	official_crosswalk	false	true	エントロピー		copy	true	エントロピー	dyfscp0012,k1s10r0d-s-proposal,oris-proposal,psul-001,queerious-proposal
-en	space-opera	408	63	jp_translation_policy_omit	true	false			omit_jp_unused	false		and-to-the-stars-i-went-with-only-a-name-hub,army-dreamers,autonomy-part-ii,autonomy-part-iii,burnin-for-you
+en	space-opera	408	63	jp_translation_policy_omit	true	false			omit_translation_policy	false		and-to-the-stars-i-went-with-only-a-name-hub,army-dreamers,autonomy-part-ii,autonomy-part-iii,burnin-for-you
 en	addictive	409	62	official_crosswalk	false	true	中毒		copy	true	中毒	scp-1092-ru,scp-1317,scp-1361,scp-1423,scp-1838
 en	our-open-veins	410	62	jp_tag_alias	true	true	切り裂かれた我らの脈		copy	true	切り裂かれた我らの脈	a-wandsman-in-the-navel-of-the-moon,aar-1320-chacaltaya,arboles-bajo-la-tierra,art:a-promise-to-the-pale-lady,art:agent-ramirez
 en	_de	411	61	jp_unused_replacement	true	true		de	copy_replacement	true	de	das-taegliche-leben-mit-einer-ausserirdischen,der-lampes-funke,der-legendaere-zauberstab-von-morgan-le-fay,ein-mahl-nach-naelkae-art,emily-and-captain-monster
-en	journalism	412	61	jp_translation_policy_omit	true	false			omit_jp_unused	false		3ports-schools,72qna,a-form-to-outlast-time,a-friendly-guide-to-the-katharsys-music-festival,a-pathetic-attempt-to-explain-fifthism
+en	journalism	412	61	jp_translation_policy_omit	true	false			omit_translation_policy	false		3ports-schools,72qna,a-form-to-outlast-time,a-friendly-guide-to-the-katharsys-music-festival,a-pathetic-attempt-to-explain-fifthism
 en	jude-kriyot	413	61	jp_tag_alias	true	true	ジュード・クライヨット		copy	true	ジュード・クライヨット	a-hopeless-case,art:pridefest-banner-art-2026,because-of-the-shame,bong-rip-tendency,broken-masquerade-epistolary
 en	olfactory	414	61	official_crosswalk	false	true	嗅覚		copy	true	嗅覚	scp-1020-j,scp-1029,scp-1361,scp-1834,scp-1842
 en	pridefest2026	415	61	jp_tag_name	true	true	pridefest2026		copy	true	pridefest2026	3portsplaysitself,all-you-people-are-vampires,always-another-day,art:a-washbasin-in-the-corner-of-the-room,art:aspenq-pride-art-2026
@@ -3729,7 +3729,7 @@ en	asci	416	60	jp_tag_name	true	true	asci		copy	true	asci	anomaly-306-the-silver
 en	cain	417	60	jp_tag_alias	true	true	カイン		copy	true	カイン	and-then-i-died2,art:pridefest-banner-art-2026,brenzan-s-art-dump,brother-s-keeper,calm
 en	doctor-glass	418	60	jp_tag_alias	true	true	グラス博士		copy	true	グラス博士	agne-and-their-deer,an-apple-a-day,art:we-die-on-the-dark-so-you-can-live-in-the-light,black-lotus,black-queen-renaissance-hub
 en	series-0	419	60	jp_tag_alias	true	true	シリーズ0		copy	true	シリーズ0	a-few-last-wolves,file-scp-9224-194b,scp-1538,scp-8197,scp-8353
-en	superhero	420	60	jp_translation_policy_omit	true	false			omit_jp_unused	false		a-hero-i-would-be,a-team-you-can-maybe-trust,being-cactusman,cactus-insurgent,cassandra
+en	superhero	420	60	jp_translation_policy_omit	true	false			omit_translation_policy	false		a-hero-i-would-be,a-team-you-can-maybe-trust,being-cactusman,cactus-insurgent,cassandra
 en	ijamea	421	59	jp_tag_name	true	true	ijamea		copy	true	ijamea	a-bitter-taste,a-date-which-will-live-in-infamy,ankoshoku,commentary-on-selected-items-in-the-seimei-gallery,dai-to-a
 en	_explosions	422	58	jp_tag_alias	true	true	_大爆発		copy	true	_大爆発	cool-guys-dont-look-at-explosions,critter-profile-potoooooooo,exe-plosion,five-minutes-to-midnight,focus
 en	canon-hub	423	58	unhandled	false	false			tag_application_required	false	未訳-canon-hub	aces-and-eights,ad-astra-per-aspera-hub,aiad-homescreen,antarctic-exchange-hub,apotheosis-hub
@@ -3767,7 +3767,7 @@ en	robert-bumaro	454	52	official_crosswalk	false	true	ロバート・ブマロ		
 en	tim-wilson	455	52	jp_tag_alias	true	true	ティム・ウィルソン		copy	true	ティム・ウィルソン	adoption-poster-bonzo,alice-oezdemir,and-the-endings-thereof,anders-robin,audrey-fuchs
 en	rats-nest	456	51	jp_tag_alias	true	true	ラッツネスト		copy	true	ラッツネスト	1,a-small-bundle-of-letters,a-terrible-thing,agne-and-their-deer,ambrose-vienna
 en	talecon10	457	51	jp_tag_name	true	true	talecon10		copy	true	talecon10	a-chance-encounter,a-fitting-end,all-they-want-is-the-blood,along-came-a-spider,an-average-life
-en	_genreless	458	50	jp_translation_policy_omit	true	false			omit_jp_unused	false		a-few-more-words-from-the-administrator,a-hymn-for-pandora,a-photograph-of-isadora-gray,acidverse,acquisitions-training
+en	_genreless	458	50	jp_translation_policy_omit	true	false			omit_translation_policy	false		a-few-more-words-from-the-administrator,a-hymn-for-pandora,a-photograph-of-isadora-gray,acidverse,acquisitions-training
 en	blackwood	459	50	jp_tag_name	true	true	blackwood		copy	true	blackwood	a-keter-kinda-christmas,a-most-unfortunate-reunion,a-true-account-of-the-events-of-1666,anachronisms,anomaly-243-the-neamh-mairbh
 en	corrosive	460	50	official_crosswalk	false	true	腐食		copy	true	腐食	scp-007-int,scp-075,scp-088,scp-106,scp-1344-j
 en	cupid2021	461	50	jp_tag_name	true	true	cupid2021		copy	true	cupid2021	1001-words-from-a-world-in-love-again,a-round-peg-for-the-square-hole-in-my-heart,ace-of-hearts,belladonna,content-warning-this-is-still-a-foundation-story-after-all
@@ -3792,7 +3792,7 @@ en	microscopic	479	47	official_crosswalk	false	true	微視的		copy	true	微視�
 en	nocturnal	480	47	official_crosswalk	false	true	夜行性		copy	true	夜行性	scp-012-ex,scp-1353,scp-1763-ex,scp-1779,scp-2448
 en	queen-mab	481	47	jp_tag_alias	true	true	マブ女帝		copy	true	マブ女帝	a-faerie-tale-of-twin-queens,a-form-to-outlast-time,art:not-human-comic,cos-tu-smierdzi,cycle-of-seasons-hub
 en	sportscon2026	482	47	jp_tag_name	true	true	sportscon2026		copy	true	sportscon2026	greg-aquathlon-world-champion,ifas-floorball,scp-8239,scp-8438,scp-8482
-en	western	483	47	jp_translation_policy_omit	true	false			omit_jp_unused	false		a-few-last-wolves,a-memory-from-your-lonesome-past-keeps-us-so-far-apart,an-explosive-shout-cracks-the-great-empty-sky,and-i-d-let-that-lonesome-whistle-blow-my-blues-away,and-the-cab-passed-at-nine
+en	western	483	47	jp_translation_policy_omit	true	false			omit_translation_policy	false		a-few-last-wolves,a-memory-from-your-lonesome-past-keeps-us-so-far-apart,an-explosive-shout-cracks-the-great-empty-sky,and-i-d-let-that-lonesome-whistle-blow-my-blues-away,and-the-cab-passed-at-nine
 en	_delicious	484	46	jp_tag_alias	true	true	_美味しい		copy	true	_美味しい	a-dark-green-kiss,adoption-poster-pearl,ambrose-dc-restaurant-week,candy-cat,critter-profile-gabby
 en	_pl	485	46	jp_unused_replacement	true	true		pl	copy_replacement	true	pl	bo-wszyscy-juz-zgineli,cierpienia-noworoczne,cos-tu-smierdzi,czarne-niebo-hub,czas-na-pisanie
 en	bear	486	46	official_crosswalk	false	true	クマ		copy	true	クマ	djkaktus-s-proposal-j,scp-1048,scp-1055,scp-1145,scp-1313
@@ -4140,7 +4140,7 @@ en	parawatch-true-crime	827	13	jp_tag_alias	true	true	実録犯罪		copy	true	�
 en	tales-of-the-mosaic	828	13	jp_tag_name	true	true	tales-of-the-mosaic		copy	true	tales-of-the-mosaic	a-gally-fellows-lens,bessie-bogan-and-the-crow-road-inn,canvas-fish-fly,juni-writes-a-poem,leasehold-on-daylight
 en	tc2013	829	13	jp_tag_name	true	true	tc2013		copy	true	tc2013	and-the-winner-is,automata-et-cetera,bronze,faith-and-knighthood,i-ll-see-you-next-time
 en	the-archivist	830	13	jp_tag_alias	true	true	記録管理人		copy	true	記録管理人	a-study-in-cinnabar,broken-bowe,djkaktus-s-proposal-iii,jolly-cooperation,maria-jones-this-is-your-life
-en	utopian	831	13	jp_translation_policy_omit	true	false			omit_jp_unused	false		a-faerie-tale-of-twin-queens,chaoskampf-and-creation,his-mighty-snailordship,miau-miau-asheworth-kun,scp-2000-b-the-lonely-cowboy
+en	utopian	831	13	jp_translation_policy_omit	true	false			omit_translation_policy	false		a-faerie-tale-of-twin-queens,chaoskampf-and-creation,his-mighty-snailordship,miau-miau-asheworth-kun,scp-2000-b-the-lonely-cowboy
 en	with-the-old-gods	832	13	unhandled	false	false			tag_application_required	false	未訳-with-the-old-gods	cat-got-your-tongue,love-across-a-nonbinary-spectrum,medea-filicidium,multi-goddess-drifting,on-the-rails
 en	_manna-charitable-foundation	833	12	jp_tag_alias	true	true	_マナによる慈善財団		copy	true	_マナによる慈善財団	16th-wondertainment-donation,1st-cetres-donation,3rd-vesta-donation,5th-global-occult-coalition-donation,draft-proposal-for-programme-arduinosis-9001
 en	_pt	834	12	jp_unused_replacement	true	true		pt	copy_replacement	true	pt	incriveis-sapatos-ozwalds,scp-002-pt,scp-011-pt,scp-021-pt,scp-031-pt
@@ -6773,7 +6773,7 @@ int	planet	229	21	official_crosswalk	false	true	惑星		copy	true	惑星	scp-029
 int	2018-shorts-contest	230	20	official_crosswalk	false	true	2018-短編コンテスト		copy	true	2018-短編コンテスト	answer-of-life,atashi-merisa,dream,dreamer,go-to-bed-if-you-re-tired
 int	audio	231	20	official_crosswalk	false	true	音声添付		copy	true	音声添付	manhattan-crisis-fake-movie,ordre-de-la-lumiere,propozycja-zerostrider,scp-013-ko,scp-071-de
 int	carnivorous	232	20	official_crosswalk	false	true	肉食		copy	true	肉食	scp-003-fr,scp-023-it,scp-054-fr,scp-131-de,scp-1642-jp
-int	comedy	233	20	jp_translation_policy_omit	true	false			omit_jp_unused	false		deleted:unofficial:son:scp-021-j,unofficial:ca:big-dick-chappell,unofficial:ca:i-a-polar-bear-covering-my-nose-in-a-snowstorm,unofficial:ca:i-am-late,unofficial:ca:scp-010-j
+int	comedy	233	20	jp_translation_policy_omit	true	false			omit_translation_policy	false		deleted:unofficial:son:scp-021-j,unofficial:ca:big-dick-chappell,unofficial:ca:i-a-polar-bear-covering-my-nose-in-a-snowstorm,unofficial:ca:i-am-late,unofficial:ca:scp-010-j
 int	dado	234	20	jp_tag_name	true	true	dado		copy	true	dado	dado-darling,des-fleurs-pour-dado,drzewa-wolnosci,gp-phy-ele-t169534964,ozakitaii-10
 int	ethics-committee	235	20	jp_tag_alias	true	true	倫理委員会		copy	true	倫理委員会	henry-von-kartoffe-proposal,scp-097-ko,scp-291-fr,scp-399-de,scp-537-fr
 int	fifthist	236	20	official_crosswalk	false	true	第五教会		copy	true	第五教会	an-ode-to-transcendence,and-then-become-like-the-stars,can-you-feel-yamizushi-file-555,centre-de-minuit-moins-cinq,chapitre-2-folie-a-deux
@@ -6824,7 +6824,7 @@ int	ccsg	280	15	jp_tag_name	true	true	ccsg		copy	true	ccsg	nexus-12-1,nexus-12-2
 int	doctor-bright	281	15	official_crosswalk	false	true	ブライト博士		copy	true	ブライト博士	alove,aw-1,exit-deus-ex-machina,falling-into-stars,immortal
 int	foundation4k	282	15	official_crosswalk	false	true	財団4k		copy	true	財団4k	an-ode-to-transcendence,f4k,foundation-fi,human-in-contain,nexus-13-3
 int	hard-to-destroy-reptile	283	15	jp_tag_alias	true	true	不死身の爬虫類		copy	true	不死身の爬虫類	collected-item-no19316,deleted:scp-pl-286,early-summer-5000000000000000,na-bestyje-przepis-jeden-kranca-wdech,samuel-el-topo
-int	horror	284	15	jp_translation_policy_omit	true	false			omit_jp_unused	false		ingray,scp-1027-ru,scp-333-cs,unofficial:bg:scp-173,unofficial:bg:scp-682
+int	horror	284	15	jp_translation_policy_omit	true	false			omit_translation_policy	false		ingray,scp-1027-ru,scp-333-cs,unofficial:bg:scp-173,unofficial:bg:scp-682
 int	pattern-screamer	285	15	jp_tag_name	true	true	pattern-screamer		copy	true	pattern-screamer	an-ode-to-transcendence,henry-von-kartoffe-proposal,scp-082-cs,scp-410-fr,scp-7669
 int	phenomenon	286	15	unhandled	false	false			tag_application_required	false	未訳-phenomenon	scp-008-pig,scp-034-vn,scp-1555-ko,scp-1597-ko,scp-645-ko
 int	project-arca	287	15	unhandled	false	false			tag_application_required	false	未訳-project-arca	a-n-0064,ambrose-the-end-of-the-world,birds-027,comeout-from-arca,dear-dr-please-remember-us
@@ -6836,7 +6836,7 @@ int	children-of-the-night	292	14	official_crosswalk	false	true	夜闇の子ら		
 int	doctor-clef	293	14	official_crosswalk	false	true	クレフ博士		copy	true	クレフ博士	always-love-you-ben,koigarezaki-news-911-1998-ver,manhattan-crisis-fake-movie,scp-1953-ko,scp-2910-jp
 int	experiment	294	14	official_crosswalk	false	true	実験		copy	true	実験	experiment-log-009-ko,experiment-log-1109-ru,experiment-log-747-1-5,experimentation-418-fr,journal-d-experience-327-fr
 int	factory	295	14	official_crosswalk	false	true	ファクトリー		copy	true	ファクトリー	an-ode-to-transcendence,deleted:scp-es-031,mcd-tabula-veritatis,nuri-15-1,nuri-15-2
-int	fantasy	296	14	jp_translation_policy_omit	true	false			omit_jp_unused	false		bao-cao-khai-quat-diem-g198-vn,chuong-su-ngam-khuc,mat-toi-cua-quan-phan-su,nhiem-vu-o-thanh-hoa,scp-123-vn
+int	fantasy	296	14	jp_translation_policy_omit	true	false			omit_translation_policy	false		bao-cao-khai-quat-diem-g198-vn,chuong-su-ngam-khuc,mat-toi-cua-quan-phan-su,nhiem-vu-o-thanh-hoa,scp-123-vn
 int	future	297	14	official_crosswalk	false	true	未来		copy	true	未来	scp-010-de,scp-033-th,scp-095-vn,scp-105-it,scp-1379-jp
 int	gru-division-p	298	14	official_crosswalk	false	true	gru-p-部局		copy	true	gru-p-部局	dossier-lph,le-chant-de-la-cigogne,sc-99-734-01-506,scp-051-ua,scp-1345-ru
 int	gustatory	299	14	official_crosswalk	false	true	味覚		copy	true	味覚	scp-004-de-j,scp-009-de-j,scp-017-ko,scp-086-ko,scp-1018-jp
@@ -6854,7 +6854,7 @@ int	ghost	310	13	official_crosswalk	false	true	霊体		copy	true	霊体	rote-ruh
 int	ksg	311	13	official_crosswalk	false	true	港城江		copy	true	港城江	hong-shing-hub,k-s-g-hub,reg-profile-s11013387,reg-profile-s11443617,rumsey-stations
 int	manna-charitable-foundation	312	13	official_crosswalk	false	true	マナによる慈善財団		copy	true	マナによる慈善財団	bulldog-s-collar,cierpienia-noworoczne,critter-profile-shigastan,kanshin-ryoiki-koigarezaki,scp-118-ko
 int	moon	313	13	official_crosswalk	false	true	月		copy	true	月	scp-002-de-j,scp-034-ko,scp-1290-i57,scp-152-vn,scp-2057-jp
-int	mystery	314	13	jp_translation_policy_omit	true	false			omit_jp_unused	false		o-misterio-das-tres-cartolas,raisa-9600,unofficial:bg:scp-173,unofficial:ca:scp-184,unofficial:ca:scp-447
+int	mystery	314	13	jp_translation_policy_omit	true	false			omit_translation_policy	false		o-misterio-das-tres-cartolas,raisa-9600,unofficial:bg:scp-173,unofficial:ca:scp-184,unofficial:ca:scp-447
 int	ocular	315	13	official_crosswalk	false	true	眼		copy	true	眼	deleted:scp-cn-994,scp-002-nd,scp-140-de,scp-149-ko,scp-1548-jp
 int	subterranean-con-2021	316	13	unhandled	false	false			tag_application_required	false	未訳-subterranean-con-2021	el-abismo-de-odosha,exploracion-urbana-al-metro-de-mi-ciudad,kte-3770-ex-machina-pigmalion,mcd-reisen-traum-train-resort,mis-disculpas
 int	05	317	12	jp_tag_name	true	true	05		copy	true	05	404-not-found,doom,if-thanos-in-scpu,scp-cn-2586,scp-cn-357
@@ -6907,7 +6907,7 @@ int	kybian	363	10	official_crosswalk	false	true	サイト-kybian		copy	true	サ�
 int	letters-entertainment	364	10	official_crosswalk	false	true	レターズ・エンターテイメント		copy	true	レターズ・エンターテイメント	component:letters-theme,deleted:back-to-square-one,deleted:life-s-not-a-dating-sim-you-can-just-win,dinge-die-inspirieren,foundation-fi
 int	machina	365	10	jp_tag_name	true	true	machina		copy	true	machina	antihuman-fraktion,asp-173,initiative-zur-wiederherstellung-der-menschheit,machina-portal,nexus-10-1
 int	manhattan-crisis	366	10	official_crosswalk	false	true	マンハッタン・クライシス		copy	true	マンハッタン・クライシス	1998-911-hub,koigarezaki-news-911-1998-ver,manhattan-crisis-fake-movie,sc-99-734-01-506,scp-2910-jp
-int	murder-monster	367	10	jp_translation_policy_omit	true	false			omit_jp_unused	false		unofficial:bg:scp-017,unofficial:bg:scp-173,unofficial:bg:scp-682,unofficial:ca:dr-gears-s-proposal,unofficial:eu:scp-017
+int	murder-monster	367	10	jp_translation_policy_omit	true	false			omit_translation_policy	false		unofficial:bg:scp-017,unofficial:bg:scp-173,unofficial:bg:scp-682,unofficial:ca:dr-gears-s-proposal,unofficial:eu:scp-017
 int	pangloss	368	10	jp_tag_alias	true	true	パングロス		copy	true	パングロス	an-ode-to-transcendence,chonghaejin,nobody-would-sing-the-rhythm-in-the-wing-again-and-again,scp-034-vn,scp-1687-jp
 int	pentagram	369	10	jp_tag_alias	true	true	ペンタグラム		copy	true	ペンタグラム	file-no-hkc454,koigarezaki-news-911-1998-ver,kompas-parapolityczny-na-trudne-czasy,nobody-is-the-true-westen-hero,scp-111-vn
 int	primate	370	10	official_crosswalk	false	true	サル		copy	true	サル	scp-003-vn,scp-019-jp,scp-1305-jp,scp-1566-jp,scp-1788-jp
@@ -7107,9 +7107,9 @@ int	_unusual-incidents-unit	563	4	jp_tag_alias	true	true	_異常事件課		copy	
 int	andrés-mondragón	564	4	official_crosswalk	false	true	アンドレス・モンドラゴン		copy	true	アンドレス・モンドラゴン	iconoclasta,ofrendas-34,scp-es-132,scp-es-296
 int	archived	565	4	official_crosswalk	false	true	アーカイブ済み		copy	true	アーカイブ済み	scp-004-it-arc,scp-008-it-arc,scp-010-it-arc,scp-014-it-arc
 int	artificial	566	4	unhandled	false	false			tag_application_required	false	未訳-artificial	indonootoko-s-proposal,scp-043-jp,scp-1407-jp,scp-602-ko
-int	bittersweet	567	4	jp_translation_policy_omit	true	false			omit_jp_unused	false		az-me-zitra-rano-v-pet-ke-zdi-postavi,doi-ta-khi-la-giay,sea-and-you,tren-nhung-tang-may
+int	bittersweet	567	4	jp_translation_policy_omit	true	false			omit_translation_policy	false		az-me-zitra-rano-v-pet-ke-zdi-postavi,doi-ta-khi-la-giay,sea-and-you,tren-nhung-tang-may
 int	black-sky	568	4	unhandled	false	false			tag_application_required	false	未訳-black-sky	czarne-niebo-hub,dwie-strony-z-pamietnika-gorala,scp-pl-207,scp-pl-231
-int	bleak	569	4	jp_translation_policy_omit	true	false			omit_jp_unused	false		ingray,obraz-a-odraz,unofficial:eu:scp-8513,zapomenout-a-zit
+int	bleak	569	4	jp_translation_policy_omit	true	false			omit_translation_policy	false		ingray,obraz-a-odraz,unofficial:eu:scp-8513,zapomenout-a-zit
 int	british-occult-service	570	4	jp_tag_name	true	true	british-occult-service		copy	true	british-occult-service	el-almacen-de-cadaveres,file-no-hkc454,new-cha-ling,raisa-9600
 int	brotherhood	571	4	unhandled	false	false			tag_application_required	false	未訳-brotherhood	bruderschaft,nexus-17-1,nexus-17-2,nexus-17-3
 int	butterfly	572	4	official_crosswalk	false	true	チョウ		copy	true	チョウ	scp-068-it,scp-287-de,scp-589-fr,scp-es-070
@@ -7131,7 +7131,7 @@ int	elma	587	4	official_crosswalk	false	true	エルマ外教		copy	true	エル�
 int	equine	588	4	official_crosswalk	false	true	ウマ		copy	true	ウマ	scp-020-it,scp-376-de,scp-es-199,scp-sga-171
 int	eurtec	589	4	unhandled	false	false			tag_application_required	false	未訳-eurtec	cathedrale-de-plomb,centre-embargo,scp-021-int,scp-es-229
 int	formality-department	590	4	unhandled	false	false			tag_application_required	false	未訳-formality-department	early-summer-5000000000000000,formality-department-orientation,scp-2844-jp,scp-3599-jp
-int	foundation-format	591	4	jp_translation_policy_omit	true	false			omit_jp_unused	false		poi-1933,raisa-9600,scp-001-h,unofficial:ca:scp-000
+int	foundation-format	591	4	jp_translation_policy_omit	true	false			omit_translation_policy	false		poi-1933,raisa-9600,scp-001-h,unofficial:ca:scp-000
 int	galactic-federation	592	4	official_crosswalk	false	true	銀河連邦		copy	true	銀河連邦	an-ode-to-transcendence,deleted:scp-cn-2291,scp-cn-111,scp-cn-204
 int	gendastrerie	593	4	official_crosswalk	false	true	星警隊		copy	true	星警隊	nx-59-vn,scp-335-fr,scp-410-fr,scp-589-fr
 int	green-sparrow-foundation	594	4	unhandled	false	false			tag_application_required	false	未訳-green-sparrow-foundation	birds-027,gsf,reg-profile-s11443617,scp-3188-jp
@@ -7152,7 +7152,7 @@ int	maria-jones	608	4	jp_tag_alias	true	true	マリア・ジョーンズ		copy	t
 int	master-yami	609	4	unhandled	false	false			tag_application_required	false	未訳-master-yami	koigarezaki-news-20210809,scp-1134-jp,yamizushi-file-no042,yamizushi-file-no064
 int	midnight-club	610	4	unhandled	false	false			tag_application_required	false	未訳-midnight-club	deleted:midnight-club-hub,nostalgia-s-flag,scp-877-ko,si-es-real-entonces-me-quedare
 int	mr-fish	611	4	jp_tag_alias	true	true	ミスター・おさかな		copy	true	ミスター・おさかな	unofficial:ca:scp-527,unofficial:lt:mr-fish,unofficial:qwd:scp-527,unofficial:tok:scp-527
-int	mythological	612	4	jp_translation_policy_omit	true	false			omit_jp_unused	false		unofficial:ca:scp-073,unofficial:ca:scp-208,unofficial:ca:scp-336,wanderers:the-seven-preciousness-lection-of-xu-empyrean
+int	mythological	612	4	jp_translation_policy_omit	true	false			omit_translation_policy	false		unofficial:ca:scp-073,unofficial:ca:scp-208,unofficial:ca:scp-336,wanderers:the-seven-preciousness-lection-of-xu-empyrean
 int	nirvana	613	4	jp_tag_alias	true	true	ニルヴァーナ		copy	true	ニルヴァーナ	nirvana-hub,scp-cn-026,scp-cn-114,scp-cn-120
 int	no-return	614	4	jp_tag_alias	true	true	ノー・リターン		copy	true	ノー・リターン	drzewa-wolnosci,ende-des-einsamen-wanderers,kompas-parapolityczny-na-trudne-czasy,zlecenie-mef-7629
 int	nue-saigū	615	4	official_crosswalk	false	true	鵺-斎宮		copy	true	鵺-斎宮	nue-artwork,nue-artwork-kihaku,r-sinano-chuo-co-jp-2050-09-07-e34j876,rui-take-directorsjp
@@ -7169,7 +7169,7 @@ int	shark	625	4	official_crosswalk	false	true	軟骨魚類		copy	true	軟骨魚�
 int	shinano-chuo-simbun	626	4	unhandled	false	false			tag_application_required	false	未訳-shinano-chuo-simbun	r-sinano-chuo-co-jp-2020-03-17-7wybf8,r-sinano-chuo-co-jp-2045-08-14-42a7279,r-sinano-chuo-co-jp-2050-09-07-e34j876,scp-front-jp
 int	simony	627	4	unhandled	false	false			tag_application_required	false	未訳-simony	dokumentacja-bezpiecznej-placowki-osrodek-101,dokumentacja-bezpiecznej-placowki-strefa-pl-34,symonia-hub,w-osrodku-101-bez-zmian
 int	site-zh-01	628	4	unhandled	false	false			tag_application_required	false	未訳-site-zh-01	lostwhat-s-proposal,scp-zh-228,scp-zh-60053-j,scp-zh-865
-int	spy-fiction	629	4	jp_translation_policy_omit	true	false			omit_jp_unused	false		messenger-rna,unofficial:ca:scp-006,unofficial:eu:scp-006,unofficial:isv:scp-006
+int	spy-fiction	629	4	jp_translation_policy_omit	true	false			omit_translation_policy	false		messenger-rna,unofficial:ca:scp-006,unofficial:eu:scp-006,unofficial:isv:scp-006
 int	standard-galactic-alphabet	630	4	unhandled	false	false			tag_application_required	false	未訳-standard-galactic-alphabet	unofficial:galactic:scp-173,unofficial:sga:scp-4645,unofficial:sga:scp-sga-002,unofficial:sga:scp-sga-009
 int	statue	631	4	unhandled	false	false			tag_application_required	false	未訳-statue	scp-065-fr,scp-185-cs,scp-500-fr,scp-cn-2065
 int	summer-bird-thought	632	4	unhandled	false	false			tag_application_required	false	未訳-summer-bird-thought	sc-99-734-01-506,the-f,uiu-file-2001-745,yamizushi-file-no233
@@ -7193,7 +7193,7 @@ int	_ambrose-restaurant	649	3	jp_tag_alias	true	true	_アンブローズ・レ�
 int	_code	650	3	unhandled	false	false			tag_application_required	false	未訳-_code	deleted:ratemod:sentimentbar-credit-style,ratemod:sbar-adapter-cn,ratemod:sbar-adapter-en
 int	_prometheus	651	3	jp_tag_alias	true	true	_プロメテウス		copy	true	_プロメテウス	cierpienia-noworoczne,wniosek-o-dotacje-na-opracowanie-srodka-przeciwko-alergii,wniosek-o-dotacje-na-wykorzystanie-paryskiej-architektury
 int	absinthe-dreams	652	3	unhandled	false	false			tag_application_required	false	未訳-absinthe-dreams	absinthiana-dream,reve-degalite,scp-107-jp
-int	absurdism	653	3	jp_translation_policy_omit	true	false			omit_jp_unused	false		unofficial:ca:i-a-polar-bear-covering-my-nose-in-a-snowstorm,unofficial:ca:scp-010-j,unofficial:eo:scp-268-j
+int	absurdism	653	3	jp_translation_policy_omit	true	false			omit_translation_policy	false		unofficial:ca:i-a-polar-bear-covering-my-nose-in-a-snowstorm,unofficial:ca:scp-010-j,unofficial:eo:scp-268-j
 int	aimb	654	3	unhandled	false	false			tag_application_required	false	未訳-aimb	bsia,djinn-tonic,reveil-d-un-homme
 int	akane-isanagi	655	3	unhandled	false	false			tag_application_required	false	未訳-akane-isanagi	collected-item-no0723,collected-item-no1080,collected-item-no2020
 int	alchemy-department	656	3	jp_tag_alias	true	true	錬金術部門		copy	true	錬金術部門	an-ode-to-transcendence,scp-471-fr,scp-cn-930
@@ -7209,7 +7209,7 @@ int	beth	665	3	official_crosswalk	false	true	サイト-beth		copy	true	サイト
 int	blackout-contest-vn	666	3	unhandled	false	false			tag_application_required	false	未訳-blackout-contest-vn	anh-nhin-t-man-dem,blackout-contest-vn,me-oi
 int	blissymbolics	667	3	unhandled	false	false			tag_application_required	false	未訳-blissymbolics	unofficial:zbl:scp-021-j,unofficial:zbl:scp-1047-j,unofficial:zbl:scp-j
 int	blue-crab	668	3	unhandled	false	false			tag_application_required	false	未訳-blue-crab	anti-es-264,scp-057-int,scp-es-264
-int	body-horror	669	3	jp_translation_policy_omit	true	false			omit_jp_unused	false		scp-1027-ru,unofficial:eu:scp-002,unofficial:eu:scp-8557
+int	body-horror	669	3	jp_translation_policy_omit	true	false			omit_translation_policy	false		scp-1027-ru,unofficial:eu:scp-002,unofficial:eu:scp-8557
 int	butai	670	3	jp_tag_alias	true	true	ブタイ		copy	true	ブタイ	scp-es-229,scp-es-278,scp-es-293
 int	cain	671	3	jp_tag_alias	true	true	カイン		copy	true	カイン	an-ode-to-transcendence,if-thanos-in-scpu,unofficial:ca:scp-073
 int	cetacean	672	3	official_crosswalk	false	true	クジラ		copy	true	クジラ	scp-983-ko,scp-es-152,scp-zh-299
@@ -7235,7 +7235,7 @@ int	folklore-dept	691	3	jp_tag_alias	true	true	神話・民俗学部門		copy	tr
 int	formic	692	3	unhandled	false	false			tag_application_required	false	未訳-formic	scp-070-de,scp-073-fr,scp-632-jp
 int	frog	693	3	unhandled	false	false			tag_application_required	false	未訳-frog	scp-106-it,scp-403-fr,scp-8918-ko-j
 int	glass	694	3	unhandled	false	false			tag_application_required	false	未訳-glass	scp-195-pt,scp-475-jp,scp-es-101-j
-int	heartwarming	695	3	jp_translation_policy_omit	true	false			omit_jp_unused	false		unofficial:eo:scp-529,unofficial:eu:scp-529,unofficial:eu:scp-999
+int	heartwarming	695	3	jp_translation_policy_omit	true	false			omit_translation_policy	false		unofficial:eo:scp-529,unofficial:eu:scp-529,unofficial:eu:scp-999
 int	hmfscp	696	3	jp_tag_name	true	true	hmfscp		copy	true	hmfscp	manifest-704,raisa-9600,scp-cn-2008
 int	horror-foundation	697	3	jp_tag_alias	true	true	ホラーな財団		copy	true	ホラーな財団	7-ghost-story-in-the-site-29,d-6679,horror-foundation
 int	icelandic	698	3	unhandled	false	false			tag_application_required	false	未訳-icelandic	unofficial:is:scp-006,unofficial:is:scp-010-is,unofficial:is:scp-173
@@ -7245,7 +7245,7 @@ int	initiative	701	3	official_crosswalk	false	true	人類復興イニシアチ�
 int	invisible	702	3	unhandled	false	false			tag_application_required	false	未訳-invisible	scp-056-de,scp-124-de,scp-cn-2091
 int	it-summer-contest-2021	703	3	unhandled	false	false			tag_application_required	false	未訳-it-summer-contest-2021	concorso-estivo-2021,scp-069-it,vedi-napoli-e-poi-muori
 int	itegiri-yō	704	3	official_crosswalk	false	true	凍霧陽		copy	true	凍霧陽	a-n-0064,comeout-from-arca,scp-cn-2176
-int	journal	705	3	jp_translation_policy_omit	true	false			omit_jp_unused	false		obraz-a-odraz,raisa-9600,wanderers:the-poem-in-dust-that-xuanpin
+int	journal	705	3	jp_translation_policy_omit	true	false			omit_translation_policy	false		obraz-a-odraz,raisa-9600,wanderers:the-poem-in-dust-that-xuanpin
 int	kai	706	3	unhandled	false	false			tag_application_required	false	未訳-kai	scp-1134-jp,sushi-3-2-1-hey-rassyai,sushiblade
 int	latinized-chinese	707	3	unhandled	false	false			tag_application_required	false	未訳-latinized-chinese	unofficial:zh-la:director-bold-s-proposal-la,unofficial:zh-la:scp-075,unofficial:zh-la:scp-j
 int	legality	708	3	jp_tag_alias	true	true	法律		copy	true	法律	scp-045-int,scp-1552-jp,scp-es-397
@@ -7256,11 +7256,11 @@ int	lv	712	3	unhandled	false	false			tag_application_required	false	未訳-lv	un
 int	macrochaosism	713	3	unhandled	false	false			tag_application_required	false	未訳-macrochaosism	koigarezaki-news-20210809,koigarezaki-news-911-1998-ver,reg-profile-s11443617
 int	maze	714	3	official_crosswalk	false	true	迷宮		copy	true	迷宮	goc-tale-ke-fou-zhi-shi-cai-pai,lte-1969-blaecca-ford-osmanthus-spiral,scp-cn-1296
 int	metadata	715	3	official_crosswalk	false	true	メタデータ		copy	true	メタデータ	unofficial:ca:scp-001,unofficial:eu:joke-scps,unofficial:eu:scp-001
-int	metafiction	716	3	jp_translation_policy_omit	true	false			omit_jp_unused	false		fiction-enter-reality,unofficial:ca:scp-309-j,unofficial:eu:scp-309-j
+int	metafiction	716	3	jp_translation_policy_omit	true	false			omit_translation_policy	false		fiction-enter-reality,unofficial:ca:scp-309-j,unofficial:eu:scp-309-j
 int	mu-yi	717	3	official_crosswalk	false	true	木易		copy	true	木易	scp-zh-251,scp-zh-299,yamizushi-file-no233
 int	necronomicon-2024	718	3	unhandled	false	false			tag_application_required	false	未訳-necronomicon-2024	hatuey,scp-es-344,tiendita-de-minerales
 int	new-cha-ling	719	3	unhandled	false	false			tag_application_required	false	未訳-new-cha-ling	file-no-hkc454,new-cha-ling,yamizushi-file-no233
-int	no-dialogue	720	3	jp_translation_policy_omit	true	false			omit_jp_unused	false		raisa-9600,unofficial:ca:i-a-polar-bear-covering-my-nose-in-a-snowstorm,zapomenout-a-zit
+int	no-dialogue	720	3	jp_translation_policy_omit	true	false			omit_translation_policy	false		raisa-9600,unofficial:ca:i-a-polar-bear-covering-my-nose-in-a-snowstorm,zapomenout-a-zit
 int	non-rotary-sushi-association	721	3	unhandled	false	false			tag_application_required	false	未訳-non-rotary-sushi-association	koigarezaki-news-20210809,sushi-3-2-1-hey-rassyai,yamizushi-file-no064
 int	norvelio-medatia	722	3	unhandled	false	false			tag_application_required	false	未訳-norvelio-medatia	kte-3770-ex-machina-pigmalion,nx-14,scp-es-089
 int	npes	723	3	unhandled	false	false			tag_application_required	false	未訳-npes	joint-statement-12-05-2017,scp-045-int,scp-877-ko
@@ -7270,7 +7270,7 @@ int	organic	726	3	unhandled	false	false			tag_application_required	false	未訳-
 int	oria	727	3	jp_tag_name	true	true	oria		copy	true	oria	deleted:scp-es-267,scp-131-ko,scp-281-fr
 int	overlapped-hometown	728	3	unhandled	false	false			tag_application_required	false	未訳-overlapped-hometown	double-hometown-hub,k-b-0519,utsuki-k-03
 int	pcs	729	3	unhandled	false	false			tag_application_required	false	未訳-pcs	an-ode-to-transcendence,kte-3930-ex-machina-bosch-sunset,scp-cn-1486
-int	period-piece	730	3	jp_translation_policy_omit	true	false			omit_jp_unused	false		o-misterio-das-tres-cartolas,raisa-9600,tan-cuoc
+int	period-piece	730	3	jp_translation_policy_omit	true	false			omit_translation_policy	false		o-misterio-das-tres-cartolas,raisa-9600,tan-cuoc
 int	plague-doctor	731	3	jp_tag_alias	true	true	ペスト医師		copy	true	ペスト医師	sc-17-035-20-462,unofficial:he:scp-049,yishengyeshiyaochifande
 int	prichard-gakuin	732	3	unhandled	false	false			tag_application_required	false	未訳-prichard-gakuin	kanshin-ryoiki-koigarezaki,prichard-sc-narratological-foundations-of-the-multiverse,scp-front-jp
 int	project-oules	733	3	unhandled	false	false			tag_application_required	false	未訳-project-oules	deleted:scp-es-208,deleted:scp-es-310,la-irrealidad-permiana
@@ -7282,7 +7282,7 @@ int	romanian	738	3	unhandled	false	false			tag_application_required	false	未訳
 int	rookie-contest	739	3	unhandled	false	false			tag_application_required	false	未訳-rookie-contest	alove,comeout-from-arca,scp-2077-jp
 int	saarn	740	3	jp_tag_alias	true	true	サアルン		copy	true	サアルン	manifest-704,na-bestyje-przepis-jeden-kranca-wdech,scp-839-ko
 int	saigyō	741	3	unhandled	false	false			tag_application_required	false	未訳-saigyō	koigarezaki-news-911-1998-ver,scp-571-jp,sushiblade
-int	science-fiction	742	3	jp_translation_policy_omit	true	false			omit_jp_unused	false		messenger-rna,unofficial:ca:scp-914,unofficial:tok:scp-055
+int	science-fiction	742	3	jp_translation_policy_omit	true	false			omit_translation_policy	false		messenger-rna,unofficial:ca:scp-914,unofficial:tok:scp-055
 int	sga	743	3	unhandled	false	false			tag_application_required	false	未訳-sga	scp-sga-002,scp-sga-009,scp-sga-171
 int	shy-guy	744	3	jp_tag_alias	true	true	シャイガイ		copy	true	シャイガイ	raisa-9600,unofficial:ca:scp-096,unofficial:fi:scp-096
 int	site-cn-02	745	3	official_crosswalk	false	true	サイト-cn-02		copy	true	サイト-cn-02	scp-cn-1976,scp-cn-647,unofficial:eo:scp-cn-1976
@@ -7305,7 +7305,7 @@ int	trinitycon2023	761	3	jp_tag_name	true	true	trinitycon2023		copy	true	trinity
 int	víctor-penz	762	3	unhandled	false	false			tag_application_required	false	未訳-víctor-penz	deleted:scp-es-214,ofrendas-34,scp-es-222
 int	war-on-all-fronts	763	3	jp_tag_alias	true	true	全ての戦線で戦え		copy	true	全ての戦線で戦え	koigarezaki-news-911-1998-ver,kte-3930-ex-machina-bosch-sunset,scp-pl-213
 int	why-say-beautiful-day	764	3	unhandled	false	false			tag_application_required	false	未訳-why-say-beautiful-day	exit-deus-ex-machina,quiet-and,why-did-they-say-its-a-beautiful-day-in-the-quiet-world-hub
-int	worldbuilding	765	3	jp_translation_policy_omit	true	false			omit_jp_unused	false		bao-cao-khai-quat-diem-g198-vn,podvodstoleti1,podvodstoleti2
+int	worldbuilding	765	3	jp_translation_policy_omit	true	false			omit_translation_policy	false		bao-cao-khai-quat-diem-g198-vn,podvodstoleti1,podvodstoleti2
 int	xia-dynasty	766	3	jp_tag_alias	true	true	夏王朝		copy	true	夏王朝	an-ode-to-transcendence,nobody-would-sing-the-rhythm-in-the-wing-again-and-again,unofficial:ca:church-of-the-broken-god-hub
 int	yabu-isanagi	767	3	unhandled	false	false			tag_application_required	false	未訳-yabu-isanagi	dreamlandiwate,poi-1933,surface-to-air-bamboo
 int	zizkovs-pit	768	3	unhandled	false	false			tag_application_required	false	未訳-zizkovs-pit	abstinencni-priznaky,scp-500-cs,zizkovska-dira-hub
@@ -7326,17 +7326,17 @@ int	_special-affairs-division	782	2	unhandled	false	false			tag_application_requ
 int	_univers-isle	783	2	unhandled	false	false			tag_application_required	false	未訳-_univers-isle	centro-centre-18-20-oct-312,le-phare-du-vide
 int	_vn	784	2	jp_unused_replacement	true	true		vn	copy_replacement	true	vn	scp-042-vn,scp-123-vn
 int	accelerate-the-future	785	2	jp_tag_name	true	true	accelerate-the-future		copy	true	accelerate-the-future	critter-profile-shigastan,scp-cn-1459
-int	action	786	2	jp_translation_policy_omit	true	false			omit_jp_unused	false		nhung-ke-thach-thuc,unofficial:bg:scp-682
+int	action	786	2	jp_translation_policy_omit	true	false			omit_translation_policy	false		nhung-ke-thach-thuc,unofficial:bg:scp-682
 int	after-aleph	787	2	official_crosswalk	false	true	アレフ、その後		copy	true	アレフ、その後	apres-aleph-team-10,willkommen-im-berg
 int	agent	788	2	unhandled	false	false			tag_application_required	false	未訳-agent	oral-examination-for-site-director,unofficial:ir:agent-daal
 int	ajillo	789	2	unhandled	false	false			tag_application_required	false	未訳-ajillo	otter-al-ajillo,scp-1129-jp
 int	aki-corp	790	2	unhandled	false	false			tag_application_required	false	未訳-aki-corp	koigarezaki-news-911-1998-ver,scp-1579-jp
 int	al	791	2	unhandled	false	false			tag_application_required	false	未訳-al	project-proposal-2059-059,unofficial:ca:scp-527
 int	alleged-god	792	2	jp_tag_alias	true	true	scp-343		copy	true	scp-343	if-thanos-in-scpu,unofficial:ca:scp-343
-int	alternate-history	793	2	jp_translation_policy_omit	true	false			omit_jp_unused	false		mot-the-gioi-khac,nhung-ke-thach-thuc
+int	alternate-history	793	2	jp_translation_policy_omit	true	false			omit_translation_policy	false		mot-the-gioi-khac,nhung-ke-thach-thuc
 int	amphibian	794	2	official_crosswalk	false	true	両生類		copy	true	両生類	scp-084-vn,scp-1788-jp
 int	anderson	795	2	official_crosswalk	false	true	アンダーソン		copy	true	アンダーソン	gp-phy-ele-t169534964,scp-750-ko
-int	apocalyptic	796	2	jp_translation_policy_omit	true	false			omit_jp_unused	false		unofficial:ca:dr-clef-s-proposal,unofficial:eu:scp-8513
+int	apocalyptic	796	2	jp_translation_policy_omit	true	false			omit_translation_policy	false		unofficial:ca:dr-clef-s-proposal,unofficial:eu:scp-8513
 int	aquaticon-2023	797	2	unhandled	false	false			tag_application_required	false	未訳-aquaticon-2023	look-at-the-sea,scp-es-227
 int	aratta	798	2	unhandled	false	false			tag_application_required	false	未訳-aratta	sand-and-ash,unofficial:ir:sand-and-ash
 int	arcadia	799	2	jp_tag_alias	true	true	アルカディア		copy	true	アルカディア	deal-storepage,sc-99-734-01-506
@@ -7379,7 +7379,7 @@ int	dr-ann	835	2	unhandled	false	false			tag_application_required	false	未訳-d
 int	empire	836	2	unhandled	false	false			tag_application_required	false	未訳-empire	ghost-sign,scp-711-jp
 int	essoteric-class	837	2	unhandled	false	false			tag_application_required	false	未訳-essoteric-class	scp-es-2357-j,scp-es-4991-j
 int	ex-kitan-kai	838	2	unhandled	false	false			tag_application_required	false	未訳-ex-kitan-kai	collected-item-no1080,ghost-sign
-int	first-person	839	2	jp_translation_policy_omit	true	false			omit_jp_unused	false		doi-ta-khi-la-giay,tren-nhung-tang-may
+int	first-person	839	2	jp_translation_policy_omit	true	false			omit_translation_policy	false		doi-ta-khi-la-giay,tren-nhung-tang-may
 int	georgian	840	2	unhandled	false	false			tag_application_required	false	未訳-georgian	unofficial:ka:glossary-of-terms,unofficial:ka:scp-173
 int	golden-horde	841	2	official_crosswalk	false	true	金帳汗国		copy	true	金帳汗国	scp-595-fr,wikipedia-shigastan
 int	gorična	842	2	jp_tag_alias	true	true	ゴリチュニャ		copy	true	ゴリチュニャ	ricordi-di-un-nessuno,scp-014-int
@@ -7408,7 +7408,7 @@ int	knowing-publishing	864	2	official_crosswalk	false	true	ノウイング出版
 int	kunō-hisashi	865	2	unhandled	false	false			tag_application_required	false	未訳-kunō-hisashi	a-n-0064,y-b-0035
 int	kz	866	2	jp_tag_name	true	true	kz		copy	true	kz	scp-001-kz,scp-011-kz
 int	laundry-department	867	2	official_crosswalk	false	true	洗濯部門		copy	true	洗濯部門	laundry-of-miya,red-1354
-int	lgbtq	868	2	jp_translation_policy_omit	true	false			omit_jp_unused	false		scp-cn-3252,unofficial:eu:scp-8557
+int	lgbtq	868	2	jp_translation_policy_omit	true	false			omit_translation_policy	false		scp-cn-3252,unofficial:eu:scp-8557
 int	magnetic	869	2	official_crosswalk	false	true	磁力		copy	true	磁力	scp-003-it,scp-038-it
 int	maltese	870	2	unhandled	false	false			tag_application_required	false	未訳-maltese	unofficial:mt:scp-002,unofficial:mt:scp-6255
 int	marion-wheeler	871	2	jp_tag_alias	true	true	マリオン・ホイーラー		copy	true	マリオン・ホイーラー	scp-500-fr,unofficial:isv:scp-blank-j
@@ -7437,15 +7437,15 @@ int	poorfoundation	893	2	unhandled	false	false			tag_application_required	false	
 int	post-singularity	894	2	unhandled	false	false			tag_application_required	false	未訳-post-singularity	an-end-and-a-beginning,unofficial:ir:an-end-and-a-beginning
 int	practical-examination	895	2	unhandled	false	false			tag_application_required	false	未訳-practical-examination	practical-examination-548-jp,practical-examination-hub
 int	psw	896	2	jp_tag_name	true	true	psw		copy	true	psw	psw-hub,skp-217-ko
-int	psychological-horror	897	2	jp_translation_policy_omit	true	false			omit_jp_unused	false		unofficial:ca:scp-000,unofficial:eu:scp-8557
+int	psychological-horror	897	2	jp_translation_policy_omit	true	false			omit_translation_policy	false		unofficial:ca:scp-000,unofficial:eu:scp-8557
 int	recording	898	2	jp_tag_alias	true	true	録音録画		copy	true	録音録画	scp-668-fr,scp-zh-002-j
 int	regional-scp	899	2	unhandled	false	false			tag_application_required	false	未訳-regional-scp	scp-1290-i57,scp-ru-178
 int	religion	900	2	unhandled	false	false			tag_application_required	false	未訳-religion	wanderers:the-poem-in-dust-that-xuanpin,wanderers:the-seven-preciousness-lection-of-xu-empyrean
-int	religious-fiction	901	2	jp_translation_policy_omit	true	false			omit_jp_unused	false		haeretische-aufzeichnung-11,unofficial:ca:dr-clef-s-proposal
+int	religious-fiction	901	2	jp_translation_policy_omit	true	false			omit_translation_policy	false		haeretische-aufzeichnung-11,unofficial:ca:dr-clef-s-proposal
 int	researcher-rosen	902	2	jp_tag_alias	true	true	ローゼン研究員		copy	true	ローゼン研究員	scp-cn-937,unofficial:ca:scp-000
 int	reviewers-spotlight	903	2	jp_tag_alias	true	true	批評者スポットライト		copy	true	批評者スポットライト	unofficial:sga:scp-4645,unofficial:vi-cn:scp-4465
 int	rigaiken	904	2	unhandled	false	false			tag_application_required	false	未訳-rigaiken	koigarezaki-news-911-1998-ver,r-sinano-chuo-co-jp-2045-08-14-42a7279
-int	romance	905	2	jp_translation_policy_omit	true	false			omit_jp_unused	false		sea-and-you,unofficial:eu:scp-8557
+int	romance	905	2	jp_translation_policy_omit	true	false			omit_translation_policy	false		sea-and-you,unofficial:eu:scp-8557
 int	sauelsuesor	906	2	jp_tag_alias	true	true	サウエルスエソル		copy	true	サウエルスエソル	la-vigia,scp-es-026
 int	scemc	907	2	unhandled	false	false			tag_application_required	false	未訳-scemc	scp-087-it,scp-100-it
 int	scp-014-jp-ex-1	908	2	jp_tag_name	true	true	scp-014-jp-ex-1		copy	true	scp-014-jp-ex-1	scp-014-jp-ex,scp-2005-jp
@@ -7466,7 +7466,7 @@ int	site-zh-25	922	2	official_crosswalk	false	true	サイト-zh-25		copy	true	�
 int	site-zh-31	923	2	official_crosswalk	false	true	サイト-zh-31		copy	true	サイト-zh-31	scp-zh-178,scp-zh-261
 int	site-zh-81	924	2	official_crosswalk	false	true	サイト-zh-81		copy	true	サイト-zh-81	navigation,scp-zh-9288-ex
 int	sl	925	2	unhandled	false	false			tag_application_required	false	未訳-sl	scp-mc-sl-j,unofficial:sl:scp-series-int
-int	slice-of-life	926	2	jp_translation_policy_omit	true	false			omit_jp_unused	false		doi-ta-khi-la-giay,tren-nhung-tang-may
+int	slice-of-life	926	2	jp_translation_policy_omit	true	false			omit_translation_policy	false		doi-ta-khi-la-giay,tren-nhung-tang-may
 int	summercon2024	927	2	unhandled	false	false			tag_application_required	false	未訳-summercon2024	scp-648-fr,scp-655-fr
 int	sustainability-division	928	2	unhandled	false	false			tag_application_required	false	未訳-sustainability-division	scp-1112-ko,scp-569-ko
 int	szwagier&szwagier-motorised	929	2	unhandled	false	false			tag_application_required	false	未訳-szwagier&szwagier-motorised	scp-pl-183,sprawa-warta-uranu
@@ -7514,7 +7514,7 @@ int	_deer-college	970	1	jp_tag_alias	true	true	_ディア大学		copy	true	_デ�
 int	_deleted	971	1	unhandled	false	false			tag_application_required	false	未訳-_deleted	deleted:scp-es-116
 int	_fixed-flowers	972	1	unhandled	false	false			tag_application_required	false	未訳-_fixed-flowers	early-summer-rain-on-arca
 int	_gamers-against-weed	973	1	jp_tag_alias	true	true	_ゲーマーズアゲインストウィード		copy	true	_ゲーマーズアゲインストウィード	the-pale-people
-int	_genreless	974	1	jp_translation_policy_omit	true	false			omit_jp_unused	false		nexus-13
+int	_genreless	974	1	jp_translation_policy_omit	true	false			omit_translation_policy	false		nexus-13
 int	_gpexpress	975	1	unhandled	false	false			tag_application_required	false	未訳-_gpexpress	gp-phy-ele-t169534964
 int	_green-sparrow-foundation	976	1	unhandled	false	false			tag_application_required	false	未訳-_green-sparrow-foundation	birds-027
 int	_herman-fuller	977	1	jp_tag_alias	true	true	_ハーマン・フラー		copy	true	_ハーマン・フラー	doctor-muerte
@@ -7534,7 +7534,7 @@ int	aces-and-eights	990	1	jp_tag_alias	true	true	死人の手札		copy	true	死�
 int	acqua-luna	991	1	unhandled	false	false			tag_application_required	false	未訳-acqua-luna	scp-198-it
 int	acústico	992	1	unhandled	false	false			tag_application_required	false	未訳-acústico	unofficial:ca:scp-es-095
 int	addendum	993	1	unhandled	false	false			tag_application_required	false	未訳-addendum	242-de-traumtagebuch
-int	adventure	994	1	jp_translation_policy_omit	true	false			omit_jp_unused	false		unofficial:ca:scp-184
+int	adventure	994	1	jp_translation_policy_omit	true	false			omit_translation_policy	false		unofficial:ca:scp-184
 int	aesthetic-of-music-sound	995	1	unhandled	false	false			tag_application_required	false	未訳-aesthetic-of-music-sound	scp-1999-ko
 int	agent-adams	996	1	jp_tag_alias	true	true	エージェント・アダムス		copy	true	エージェント・アダムス	scp-075-int
 int	agent-dears	997	1	unhandled	false	false			tag_application_required	false	未訳-agent-dears	dossier-personnel-agent-lylah-dears
@@ -7572,8 +7572,8 @@ int	cbsp	1028	1	jp_tag_name	true	true	cbsp		copy	true	cbsp	uiu-file-1999-074
 int	cc	1029	1	jp_tag_name	true	true	cc		copy	true	cc	yixue671
 int	cgom	1030	1	unhandled	false	false			tag_application_required	false	未訳-cgom	scp-057-it
 int	ch25	1031	1	unhandled	false	false			tag_application_required	false	未訳-ch25	des-fleurs-pour-dado
-int	chase	1032	1	jp_translation_policy_omit	true	false			omit_jp_unused	false		mot-the-gioi-khac
-int	christmas	1033	1	jp_translation_policy_omit	true	false			omit_jp_unused	false		unofficial:eu:scp-784
+int	chase	1032	1	jp_translation_policy_omit	true	false			omit_translation_policy	false		mot-the-gioi-khac
+int	christmas	1033	1	jp_translation_policy_omit	true	false			omit_translation_policy	false		unofficial:eu:scp-784
 int	church-of-yong-heng	1034	1	unhandled	false	false			tag_application_required	false	未訳-church-of-yong-heng	scp-zh-251
 int	cicp	1035	1	official_crosswalk	false	true	幻島同盟		copy	true	幻島同盟	yixue671
 int	clase-esotérica	1036	1	unhandled	false	false			tag_application_required	false	未訳-clase-esotérica	unofficial:ca:la-propuesta-de-nico-j
@@ -7588,9 +7588,9 @@ int	continuity-dept	1044	1	jp_tag_alias	true	true	継続部門		copy	true	継続
 int	cool-war-2	1045	1	jp_tag_alias	true	true	クールな戦争2		copy	true	クールな戦争2	projektvorschlag-2014-001
 int	corail	1046	1	unhandled	false	false			tag_application_required	false	未訳-corail	le-reseau-corail
 int	corpse	1047	1	unhandled	false	false			tag_application_required	false	未訳-corpse	scp-193-it
-int	cosmic-horror	1048	1	jp_translation_policy_omit	true	false			omit_jp_unused	false		unofficial:ca:scp-000
+int	cosmic-horror	1048	1	jp_translation_policy_omit	true	false			omit_translation_policy	false		unofficial:ca:scp-000
 int	crack-hard	1049	1	unhandled	false	false			tag_application_required	false	未訳-crack-hard	unofficial:ca:big-dick-chappell
-int	crime-fiction	1050	1	jp_translation_policy_omit	true	false			omit_jp_unused	false		unofficial:ca:big-dick-chappell
+int	crime-fiction	1050	1	jp_translation_policy_omit	true	false			omit_translation_policy	false		unofficial:ca:big-dick-chappell
 int	crossroad-comedy	1051	1	unhandled	false	false			tag_application_required	false	未訳-crossroad-comedy	collected-item-no2020
 int	cs-competition-1	1052	1	unhandled	false	false			tag_application_required	false	未訳-cs-competition-1	scp-023-cs
 int	cs-contest-cliche	1053	1	unhandled	false	false			tag_application_required	false	未訳-cs-contest-cliche	scp-342-cs
@@ -7761,7 +7761,7 @@ int	old-ai	1217	1	jp_tag_alias	true	true	オールドai		copy	true	オールドa
 int	olympia	1218	1	jp_tag_name	true	true	olympia		copy	true	olympia	black-vassal
 int	organogram	1219	1	unhandled	false	false			tag_application_required	false	未訳-organogram	niveis-de-acesso-e-seguranca
 int	orok	1220	1	jp_tag_alias	true	true	オロク		copy	true	オロク	na-bestyje-przepis-jeden-kranca-wdech
-int	otherworldly	1221	1	jp_translation_policy_omit	true	false			omit_jp_unused	false		unofficial:ca:scp-184
+int	otherworldly	1221	1	jp_translation_policy_omit	true	false			omit_translation_policy	false		unofficial:ca:scp-184
 int	out-of-canon	1222	1	unhandled	false	false			tag_application_required	false	未訳-out-of-canon	trovare-un-confine
 int	page	1223	1	unhandled	false	false			tag_application_required	false	未訳-page	unofficial:ca:scp-527
 int	pangea	1224	1	unhandled	false	false			tag_application_required	false	未訳-pangea	goc-supplemental-implantation-fr
@@ -7773,10 +7773,10 @@ int	photo-interpretation-lavender	1229	1	unhandled	false	false			tag_application
 int	pitch-haven	1230	1	jp_tag_name	true	true	pitch-haven		copy	true	pitch-haven	zwei-ohne-namen-und-titel
 int	poi-1933	1231	1	jp_tag_name	true	true	poi-1933		copy	true	poi-1933	poi-1933
 int	polar-light-night	1232	1	unhandled	false	false			tag_application_required	false	未訳-polar-light-night	early-summer-5000000000000000
-int	political	1233	1	jp_translation_policy_omit	true	false			omit_jp_unused	false		unofficial:ca:scp-095
+int	political	1233	1	jp_translation_policy_omit	true	false			omit_translation_policy	false		unofficial:ca:scp-095
 int	possess	1234	1	unhandled	false	false			tag_application_required	false	未訳-possess	unofficial:tl:scp-547-tl
 int	possessive-mask	1235	1	jp_tag_alias	true	true	取り憑くマスク		copy	true	取り憑くマスク	sc-17-035-20-462
-int	post-apocalyptic	1236	1	jp_translation_policy_omit	true	false			omit_jp_unused	false		sea-and-you
+int	post-apocalyptic	1236	1	jp_translation_policy_omit	true	false			omit_translation_policy	false		sea-and-you
 int	progress-institute	1237	1	unhandled	false	false			tag_application_required	false	未訳-progress-institute	berinsk-special-administrative-zone
 int	project-reincarnation	1238	1	unhandled	false	false			tag_application_required	false	未訳-project-reincarnation	k1s10r0d-s-proposal
 int	proto-germanic	1239	1	unhandled	false	false			tag_application_required	false	未訳-proto-germanic	unofficial:pg:scp-j
@@ -7811,7 +7811,7 @@ int	scp-040-jp	1267	1	official_crosswalk	false	true	ねこです		copy	true	ね�
 int	scp-210-jp	1268	1	jp_tag_name	true	true	scp-210-jp		copy	true	scp-210-jp	scp-front-jp
 int	scp-300-de	1269	1	jp_tag_name	true	true	scp-300-de		copy	true	scp-300-de	scp-300-de
 int	scpsculpture	1270	1	unhandled	false	false			tag_application_required	false	未訳-scpsculpture	unofficial:eu:scp-7914
-int	second-person	1271	1	jp_translation_policy_omit	true	false			omit_jp_unused	false		ingray
+int	second-person	1271	1	jp_translation_policy_omit	true	false			omit_translation_policy	false		ingray
 int	seocheon-country-club	1272	1	unhandled	false	false			tag_application_required	false	未訳-seocheon-country-club	yakubyo-gami
 int	setting	1273	1	unhandled	false	false			tag_application_required	false	未訳-setting	aodaisho-hub
 int	shopping-arcade	1274	1	unhandled	false	false			tag_application_required	false	未訳-shopping-arcade	scp-zh-618
@@ -7843,8 +7843,8 @@ int	subterraneo-con-2021	1299	1	unhandled	false	false			tag_application_required
 int	summer-contest-2021-zh	1300	1	unhandled	false	false			tag_application_required	false	未訳-summer-contest-2021-zh	unofficial:eo:scp-zh-339
 int	summer-contest-2022	1301	1	unhandled	false	false			tag_application_required	false	未訳-summer-contest-2022	fuck-you-scp
 int	sun-down-scp	1302	1	unhandled	false	false			tag_application_required	false	未訳-sun-down-scp	scp-fra93-062
-int	superhero	1303	1	jp_translation_policy_omit	true	false			omit_jp_unused	false		scp-025-vn
-int	surrealism	1304	1	jp_translation_policy_omit	true	false			omit_jp_unused	false		unofficial:ca:scp-426
+int	superhero	1303	1	jp_translation_policy_omit	true	false			omit_translation_policy	false		scp-025-vn
+int	surrealism	1304	1	jp_translation_policy_omit	true	false			omit_translation_policy	false		unofficial:ca:scp-426
 int	surrealistics-dept	1305	1	jp_tag_alias	true	true	超現実部門		copy	true	超現実部門	scp-cn-3350
 int	takayuki-hirosue	1306	1	unhandled	false	false			tag_application_required	false	未訳-takayuki-hirosue	koigarezaki-news-20210809
 int	tanaka-sensei	1307	1	official_crosswalk	false	true	田中先生		copy	true	田中先生	scp-1045-jp
@@ -7860,7 +7860,7 @@ int	third-law	1316	1	jp_tag_alias	true	true	第三法則		copy	true	第三法則
 int	this-lovely-world	1317	1	unhandled	false	false			tag_application_required	false	未訳-this-lovely-world	scp-1732-jp
 int	three-enclosures	1318	1	official_crosswalk	false	true	三垣		copy	true	三垣	lostwhat-s-proposal
 int	time	1319	1	unhandled	false	false			tag_application_required	false	未訳-time	scp-362-de
-int	time-travel	1320	1	jp_translation_policy_omit	true	false			omit_jp_unused	false		scp-609-cs
+int	time-travel	1320	1	jp_translation_policy_omit	true	false			omit_translation_policy	false		scp-609-cs
 int	timepiece	1321	1	unhandled	false	false			tag_application_required	false	未訳-timepiece	scp-177-pt
 int	tl	1322	1	unhandled	false	false			tag_application_required	false	未訳-tl	scp-067-tl
 int	toaq-delta	1323	1	unhandled	false	false			tag_application_required	false	未訳-toaq-delta	unofficial:qtq:scp-017

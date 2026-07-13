@@ -122,9 +122,10 @@ def test_classify_tag_applies_copy_and_omission_policy():
     assert coverage_builder.classify_tag("omit", context)["translation_action"] == (
         "omit_jp_policy"
     )
-    assert coverage_builder.classify_tag("genre", context)["status"] == (
-        "jp_translation_policy_omit"
-    )
+    genre = coverage_builder.classify_tag("genre", context)
+    assert genre["status"] == "jp_translation_policy_omit"
+    assert genre["translation_action"] == "omit_translation_policy"
+    assert genre["display_tag"] is None
     assert coverage_builder.classify_tag("unknown", context)["display_tag"] == (
         "未訳-unknown"
     )
