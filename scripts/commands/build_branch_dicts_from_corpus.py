@@ -9,7 +9,6 @@ import sys
 from collections.abc import Mapping, Sequence, Set
 from dataclasses import dataclass
 from pathlib import Path
-from typing import cast
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
@@ -318,10 +317,9 @@ def main() -> None:
         sys.exit(1)
 
     try:
-        en_tags = cast(list[EnTag], load_json(DATA_EN))
-        jp_tags = cast(list[JpTag], load_json(DATA_JP))
-        deprecated_tags = cast(
-            list[DeprecatedTag],
+        en_tags, jp_tags, deprecated_tags = validate_tag_records(
+            load_json(DATA_EN),
+            load_json(DATA_JP),
             load_json(DATA_DEPRECATED),
         )
         policy = build_mapping_policy(jp_tags, deprecated_tags)

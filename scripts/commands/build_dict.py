@@ -71,7 +71,8 @@ def _ensure_no_case_variant_keys(
         raise ValueError(f"{label} に大小文字違いの重複があります: {sample}")
 
 
-def validate_existing_dict(existing: dict[str, str | None]) -> None:
+def validate_existing_dict(raw: object) -> dict[str, str | None]:
+    existing = cast(dict[object, object], raw) if isinstance(raw, dict) else None
     if not isinstance(existing, dict):
         raise ValueError("既存辞書はオブジェクトである必要があります")
     for en_name, jp_name in existing.items():
@@ -81,6 +82,7 @@ def validate_existing_dict(existing: dict[str, str | None]) -> None:
             not isinstance(jp_name, str) or not jp_name or jp_name != jp_name.strip()
         ):
             raise ValueError(f"既存辞書の値が不正です: {en_name!r} -> {jp_name!r}")
+    return cast(dict[str, str | None], existing)
 
 
 def build(
@@ -177,8 +179,7 @@ def _build_outputs(
 
     existing: dict[str, str | None] = {}
     if not overwrite and _DICT_OUT.exists():
-        existing = cast(dict[str, str | None], load_json(_DICT_OUT))
-        validate_existing_dict(existing)
+        existing = validate_existing_dict(load_json(_DICT_OUT))
 
     sorted_dict = build(en_tags, jp_tags, existing, deprecated_en_tags)
     deprecated_dict = {

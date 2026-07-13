@@ -11,7 +11,6 @@ from collections import Counter, defaultdict
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import cast
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
@@ -26,9 +25,6 @@ from scripts.domain.tag_models import (
     Coverage,
     CoverageBranch,
     CoverageTag,
-    DeprecatedTag,
-    EnTag,
-    JpTag,
     JpTagPolicy,
     TagStats,
 )
@@ -43,6 +39,7 @@ from scripts.domain.tag_policy import (
     build_mapping_policy,
     en_category_omitted_tags,
 )
+from scripts.domain.tag_validation import validate_tag_records
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUTPUT_DIR = ROOT / "visualization"
@@ -258,9 +255,11 @@ def build_coverage(
     if not DATA_JP.exists() or not DATA_DEPRECATED.exists():
         raise FileNotFoundError("Run python -m scripts.commands.parse_sources first.")
 
-    jp_tags = cast(list[JpTag], load_json(DATA_JP))
-    deprecated_tags = cast(list[DeprecatedTag], load_json(DATA_DEPRECATED))
-    en_tags = cast(list[EnTag], load_json(DATA_EN))
+    en_tags, jp_tags, deprecated_tags = validate_tag_records(
+        load_json(DATA_EN),
+        load_json(DATA_JP),
+        load_json(DATA_DEPRECATED),
+    )
     mapping_policy = build_mapping_policy(jp_tags, deprecated_tags)
     en_branch_policy = mapping_policy.for_branch("en")
     en_translation_policy_omit = en_category_omitted_tags(

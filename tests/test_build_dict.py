@@ -82,6 +82,20 @@ def test_invalid_en_tag_data_fails_fast():
         build([{"name": " scp"}], JP)
 
 
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("category", 3),
+        ("description", ["not text"]),
+        ("meta", {"requires": "scp"}),
+        ("meta", {"requires": [1]}),
+    ],
+)
+def test_invalid_optional_en_fields_fail_fast(field, value):
+    with pytest.raises(ValueError, match=field):
+        build([{"name": "scp", field: value}], JP)
+
+
 def test_invalid_jp_tag_data_fails_fast():
     with pytest.raises(ValueError, match="JPタグ名"):
         build(EN, [{"name": " テイル", "source_tags": ["tale"]}])

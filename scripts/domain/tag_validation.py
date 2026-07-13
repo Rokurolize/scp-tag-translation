@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import cast
 
-from scripts.domain.tag_models import DeprecatedTag, EnTag, JpTag
+from scripts.domain.tag_models import Coverage, DeprecatedTag, EnTag, JpTag
 
 
 def _ensure_unique(values: Iterable[str], label: str) -> None:
@@ -170,3 +170,109 @@ def validate_tag_records(
         else []
     )
     return en_tags, jp_tags, deprecated_tags
+
+
+def _valid_string_map(value: object) -> bool:
+    return isinstance(value, dict) and all(
+        isinstance(key, str) and isinstance(item, str)
+        for key, item in value.items()
+    )
+
+
+def _valid_nonnegative_int(value: object) -> bool:
+    return isinstance(value, int) and not isinstance(value, bool) and value >= 0
+
+
+def _validate_jp_policy(value: object, context: str) -> None:
+    if value is None:
+        return
+    if not isinstance(value, dict):
+        raise ValueError(f"{context}.target_policy must be an object or null")
+    for key in (
+        "use_restricted",
+        "edit_restricted",
+        "translation_exempt",
+        "copy_allowed_for_translation",
+    ):
+        if not isinstance(value.get(key), bool):
+            raise ValueError(f"{context}.target_policy.{key} must be boolean")
+    action = value.get("special_translation_action")
+    if action is not None and not isinstance(action, str):
+        raise ValueError(
+            f"{context}.target_policy.special_translation_action is invalid"
+        )
+
+
+def _validate_coverage_tag(value: object, context: str) -> None:
+    if not isinstance(value, dict):
+        raise ValueError(f"{context} must be an object")
+    for key in ("tag", "status", "translation_action"):
+        if not isinstance(value.get(key), str):
+            raise ValueError(f"{context}.{key} must be a string")
+    for key in ("jp_list_handled", "translator_handled", "copy_allowed"):
+        if not isinstance(value.get(key), bool):
+            raise ValueError(f"{context}.{key} must be boolean")
+    for key in ("jp_tag", "replacement", "display_tag"):
+        item = value.get(key)
+        if item is not None and not isinstance(item, str):
+            raise ValueError(f"{context}.{key} must be a string or null")
+    for key in ("rank", "page_count"):
+        if not _valid_nonnegative_int(value.get(key)):
+            raise ValueError(f"{context}.{key} must be a non-negative integer")
+    sample_slugs = value.get("sample_slugs")
+    if not isinstance(sample_slugs, list) or any(
+        not isinstance(slug, str) for slug in sample_slugs
+    ):
+        raise ValueError(f"{context}.sample_slugs must be a string array")
+    _validate_jp_policy(value.get("target_policy"), context)
+
+
+def validate_coverage(raw: object) -> Coverage:
+    """Validate and narrow one generated branch-coverage document."""
+    if not isinstance(raw, dict):
+        raise ValueError("coverage root must be an object")
+    if not _valid_nonnegative_int(raw.get("schema_version")):
+        raise ValueError("coverage.schema_version must be a non-negative integer")
+    source = raw.get("source")
+    if not isinstance(source, dict):
+        raise ValueError("coverage.source must be an object")
+    for key in (
+        "corpus_root",
+        "jp_tag_source",
+        "jp_unused_source",
+        "override_source",
+        "deprecated_override_source",
+        "crosswalk_source",
+    ):
+        if not isinstance(source.get(key), str):
+            raise ValueError(f"coverage.source.{key} must be a string")
+    for key in ("status_descriptions", "action_descriptions"):
+        if not _valid_string_map(raw.get(key)):
+            raise ValueError(f"coverage.{key} must map strings to strings")
+    branches = raw.get("branches")
+    if not isinstance(branches, list):
+        raise ValueError("coverage.branches must be an array")
+    for branch_index, branch in enumerate(branches):
+        context = f"coverage.branches[{branch_index}]"
+        if not isinstance(branch, dict):
+            raise ValueError(f"{context} must be an object")
+        for key in ("branch", "site"):
+            if not isinstance(branch.get(key), str):
+                raise ValueError(f"{context}.{key} must be a string")
+        for key in ("page_count", "tag_count"):
+            if not _valid_nonnegative_int(branch.get(key)):
+                raise ValueError(f"{context}.{key} must be a non-negative integer")
+        status_counts = branch.get("status_counts")
+        if not isinstance(status_counts, dict) or any(
+            not isinstance(key, str) or not _valid_nonnegative_int(count)
+            for key, count in status_counts.items()
+        ):
+            raise ValueError(f"{context}.status_counts is invalid")
+        tags = branch.get("tags")
+        if not isinstance(tags, list):
+            raise ValueError(f"{context}.tags must be an array")
+        for tag_index, tag in enumerate(tags):
+            _validate_coverage_tag(tag, f"{context}.tags[{tag_index}]")
+        if branch["tag_count"] != len(tags):
+            raise ValueError(f"{context}.tag_count does not match tags")
+    return cast(Coverage, raw)

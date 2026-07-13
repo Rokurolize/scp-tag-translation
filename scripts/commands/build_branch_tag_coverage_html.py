@@ -6,12 +6,12 @@ import argparse
 import json
 import sys
 from pathlib import Path
-from typing import cast
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from scripts.domain.tag_models import Coverage
+from scripts.domain.tag_validation import validate_coverage
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -1452,7 +1452,9 @@ def main() -> None:
     args = parser.parse_args()
 
     try:
-        data = cast(Coverage, json.loads(args.input.read_text(encoding="utf-8")))
+        data = validate_coverage(
+            json.loads(args.input.read_text(encoding="utf-8"))
+        )
         html = build_html(data)
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(html, encoding="utf-8")

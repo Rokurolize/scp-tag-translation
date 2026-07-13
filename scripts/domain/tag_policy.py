@@ -6,7 +6,6 @@ import json
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import cast
 
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.domain.tag_models import (
@@ -17,6 +16,7 @@ from scripts.domain.tag_models import (
     JpTagPolicy,
     SourceTagPolicy,
 )
+from scripts.domain.tag_validation import validate_tag_records
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA_EN = ROOT / "data" / "en_tags.json"
@@ -441,8 +441,8 @@ def build_jp_policy(inputs: JpPolicyInputs) -> JpPolicyDocument:
 
 
 def load_tag_records() -> tuple[list[EnTag], list[JpTag], list[DeprecatedTag]]:
-    return (
-        cast(list[EnTag], load_json(DATA_EN)),
-        cast(list[JpTag], load_json(DATA_JP)),
-        cast(list[DeprecatedTag], load_json(DATA_DEPRECATED)),
+    return validate_tag_records(
+        load_json(DATA_EN),
+        load_json(DATA_JP),
+        load_json(DATA_DEPRECATED),
     )
