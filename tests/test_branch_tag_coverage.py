@@ -417,3 +417,48 @@ def test_coverage_html_main_rejects_invalid_nested_schema(
     assert excinfo.value.code == 1
     assert "coverage.source.corpus_root" in capsys.readouterr().out
     assert not output.exists()
+
+
+def test_coverage_html_main_preserves_output_on_publication_failure(
+    tmp_path,
+    monkeypatch,
+    capsys,
+):
+    input_path = tmp_path / "coverage.json"
+    input_path.write_text("{}", encoding="utf-8")
+    output = tmp_path / "coverage.html"
+    output.write_text("previous", encoding="utf-8")
+    monkeypatch.setattr(
+        coverage_html_builder,
+        "validate_coverage",
+        lambda raw: raw,
+    )
+
+    def fail_publication(_writers):
+        raise OSError("disk full")
+
+    monkeypatch.setattr(
+        coverage_html_builder,
+        "publish_files_atomically",
+        fail_publication,
+    )
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "build_branch_tag_coverage_html.py",
+            "--input",
+            str(input_path),
+            "--output",
+            str(output),
+        ],
+    )
+
+    with pytest.raises(SystemExit) as excinfo:
+        coverage_html_builder.main()
+
+    assert excinfo.value.code == 1
+    assert capsys.readouterr().out == (
+        "エラー: HTML可視化生成に失敗しました: disk full\n"
+    )
+    assert output.read_text(encoding="utf-8") == "previous"

@@ -10,6 +10,7 @@ from pathlib import Path
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
+from scripts.atomic_output import publish_files_atomically
 from scripts.domain.tag_models import Coverage
 from scripts.domain.tag_validation import validate_coverage
 
@@ -1445,6 +1446,10 @@ def build_html(data: Coverage) -> str:
     return HTML_TEMPLATE.replace("__DATA_JSON__", embedded_json)
 
 
+def _write_html(path: Path, html: str) -> None:
+    path.write_text(html, encoding="utf-8")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
@@ -1456,8 +1461,9 @@ def main() -> None:
             json.loads(args.input.read_text(encoding="utf-8"))
         )
         html = build_html(data)
-        args.output.parent.mkdir(parents=True, exist_ok=True)
-        args.output.write_text(html, encoding="utf-8")
+        publish_files_atomically({
+            args.output: lambda temporary: _write_html(temporary, html),
+        })
     except (OSError, ValueError) as err:
         print(f"エラー: HTML可視化生成に失敗しました: {err}")
         sys.exit(1)
