@@ -7731,6 +7731,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "サイト-lamedh": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "サイト-r31": {
       "use_restricted": false,
       "edit_restricted": false,
