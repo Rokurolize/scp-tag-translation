@@ -173,19 +173,28 @@ class BuildArtifacts:
     hint_count: int
 
 
+@dataclass(frozen=True)
+class BranchBuildInputs:
+    en_tags: list[EnTag]
+    jp_tags: list[JpTag]
+    deprecated_tags: list[DeprecatedTag]
+    policy: MappingPolicy
+
+
 def build_artifacts(
     corpus_root: Path,
     branches: Sequence[str],
-    en_tags: list[EnTag],
-    jp_tags: list[JpTag],
-    deprecated_tags: list[DeprecatedTag],
-    policy: MappingPolicy,
+    inputs: BranchBuildInputs,
     *,
     dictionaries_dir: Path = DICTIONARIES_DIR,
     jp_policy_path: Path = JP_POLICY_PATH,
     supported_branches: Sequence[str] = SUPPORTED_BRANCHES,
 ) -> BuildArtifacts:
-    validate_tag_records(en_tags, jp_tags, deprecated_tags)
+    validate_tag_records(
+        inputs.en_tags,
+        inputs.jp_tags,
+        inputs.deprecated_tags,
+    )
     outputs: dict[Path, Mapping[str, object]] = {}
     summaries = []
     branch_dictionaries: dict[str, dict[str, str | None]] = {}
@@ -201,17 +210,17 @@ def build_artifacts(
         )
         if branch == "en":
             dictionary, deprecated_dict = build_en_dicts(
-                en_tags,
-                jp_tags,
-                deprecated_tags,
+                inputs.en_tags,
+                inputs.jp_tags,
+                inputs.deprecated_tags,
                 source_tags,
-                policy,
+                inputs.policy,
             )
         else:
             dictionary, deprecated_dict = build_branch_dict(
                 branch,
                 source_tags,
-                policy,
+                inputs.policy,
             )
 
         dictionary_path = dictionaries_dir / f"{branch}_to_jp.json"
@@ -253,17 +262,17 @@ def build_artifacts(
     }
     outputs[jp_policy_path] = build_jp_policy(
         JpPolicyInputs(
-            jp_tags=jp_tags,
-            deprecated_tags=deprecated_tags,
-            en_tags=en_tags,
-            mapping_policy=policy,
+            jp_tags=inputs.jp_tags,
+            deprecated_tags=inputs.deprecated_tags,
+            en_tags=inputs.en_tags,
+            mapping_policy=inputs.policy,
             concatenated_tag_hints=concatenated_tag_hints,
         )
     )
     return BuildArtifacts(
         outputs=outputs,
         branch_summaries=tuple(summaries),
-        jp_tag_count=len(jp_tags),
+        jp_tag_count=len(inputs.jp_tags),
         hint_count=sum(
             len(entries) for entries in concatenated_tag_hints.values()
         ),
@@ -326,10 +335,12 @@ def main() -> None:
         artifacts = build_artifacts(
             corpus_root,
             branches,
-            en_tags,
-            jp_tags,
-            deprecated_tags,
-            policy,
+            BranchBuildInputs(
+                en_tags=en_tags,
+                jp_tags=jp_tags,
+                deprecated_tags=deprecated_tags,
+                policy=policy,
+            ),
         )
         publish_files_atomically({
             path: (lambda temporary, data=data: write_json(temporary, data))

@@ -241,10 +241,12 @@ def test_build_artifacts_owns_complete_publication_set(tmp_path):
     artifacts = branch_builder.build_artifacts(
         tmp_path / "corpus",
         ["en"],
-        en_tags,
-        jp_tags,
-        [],
-        policy,
+        branch_builder.BranchBuildInputs(
+            en_tags=en_tags,
+            jp_tags=jp_tags,
+            deprecated_tags=[],
+            policy=policy,
+        ),
         dictionaries_dir=output_dir,
         jp_policy_path=policy_path,
         supported_branches=("en",),
