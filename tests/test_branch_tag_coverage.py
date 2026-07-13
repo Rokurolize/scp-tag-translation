@@ -177,3 +177,77 @@ def test_coverage_main_reports_publication_failure(
         "エラー: 可視化データ生成に失敗しました: disk full\n"
     )
     assert not (tmp_path / "output").exists()
+
+
+def test_write_tsv_hardens_spreadsheet_formula_cells(tmp_path):
+    output = tmp_path / "coverage.tsv"
+    coverage_builder.write_tsv(
+        output,
+        {
+            "schema_version": 1,
+            "source": {},
+            "status_descriptions": {},
+            "action_descriptions": {},
+            "branches": [
+                {
+                    "branch": "en",
+                    "site": "scp-wiki.net",
+                    "page_count": 1,
+                    "tag_count": 1,
+                    "status_counts": {},
+                    "tags": [
+                        {
+                            "tag": "=1+1",
+                            "rank": 1,
+                            "page_count": 1,
+                            "status": "unhandled",
+                            "recognized_by_jp_policy": False,
+                            "jp_tag": "+jp",
+                            "replacement": " -replacement",
+                            "translation_action": "tag_application_required",
+                            "copy_allowed": False,
+                            "display_tag": "@display",
+                            "target_policy": None,
+                            "sample_slugs": ["@SUM(1)", "safe"],
+                        }
+                    ],
+                }
+            ],
+        },
+    )
+
+    assert output.read_text(encoding="utf-8").splitlines()[1] == (
+        "en\t'=1+1\t1\t1\tunhandled\tfalse\t'+jp\t' -replacement\t"
+        "tag_application_required\tfalse\t'@display\t'@SUM(1),safe"
+    )
+
+
+def test_write_application_tsv_hardens_spreadsheet_formula_cells(tmp_path):
+    output = tmp_path / "application.tsv"
+    coverage_builder.write_application_tsv(
+        output,
+        {
+            "schema_version": 1,
+            "rule": "test",
+            "branches": [
+                {
+                    "site": "=site",
+                    "branch": "+branch",
+                    "scanned_page_count": 1,
+                    "tag_count": 1,
+                    "tags": [
+                        {
+                            "tag": "-tag",
+                            "display_tag": "@display",
+                            "page_count": 1,
+                            "sample_slugs": ["=slug"],
+                        }
+                    ],
+                }
+            ],
+        },
+    )
+
+    assert output.read_text(encoding="utf-8").splitlines()[1] == (
+        "'=site\t'+branch\t'-tag\t'@display\t1\t'=slug"
+    )

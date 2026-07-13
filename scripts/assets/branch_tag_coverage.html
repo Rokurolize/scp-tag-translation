@@ -1329,6 +1329,11 @@
         render();
       }
 
+      function hardenSpreadsheetCell(value) {
+        const cell = String(value ?? "").replaceAll("\t", " ").replaceAll("\n", " ");
+        return /^[\s]*[=+\-@]/.test(cell) ? `'${cell}` : cell;
+      }
+
       function exportTsv() {
         const rows = sortRows(filteredRows());
         const headers = ["branch", "tag", "status", "translation_action", "copy_allowed", "jp_tag", "replacement", "page_count", "rank", "sample_slugs"];
@@ -1338,7 +1343,7 @@
             headers
               .map((key) => {
                 const value = key === "sample_slugs" ? (row.sample_slugs || []).join(",") : row[key];
-                return String(value ?? "").replaceAll("\t", " ").replaceAll("\n", " ");
+                return hardenSpreadsheetCell(value);
               })
               .join("\t"),
           );

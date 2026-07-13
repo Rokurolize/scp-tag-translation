@@ -252,3 +252,11 @@ def test_coverage_html_main_preserves_output_on_publication_failure(
         "エラー: HTML可視化生成に失敗しました: disk full\n"
     )
     assert output.read_text(encoding="utf-8") == "previous"
+
+
+def test_dashboard_export_hardens_spreadsheet_formula_cells():
+    template = TEMPLATE_HTML.read_text(encoding="utf-8")
+
+    assert "function hardenSpreadsheetCell" in template
+    assert "return /^[\\s]*[=+\\-@]/.test(cell) ? `'${cell}` : cell;" in template
+    assert "return hardenSpreadsheetCell(value);" in template

@@ -70,6 +70,17 @@ ACTION_DESCRIPTIONS: dict[CoverageTranslationAction, str] = {
     "tag_application_required": "No JP tag-list mapping; omit and request/confirm a JP tag before use.",
 }
 
+FORMULA_PREFIX_CHARS = ("=", "+", "-", "@")
+
+
+def harden_spreadsheet_cell(value: object) -> str:
+    """Return a TSV/CSV cell safe to open in spreadsheet applications."""
+    cell = str(value)
+    if cell.lstrip().startswith(FORMULA_PREFIX_CHARS):
+        return f"'{cell}"
+    return cell
+
+
 
 def write_json(path: Path, data: Mapping[str, object]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -371,20 +382,26 @@ def write_tsv(path: Path, coverage: Coverage) -> None:
             branch = branch_entry["branch"]
             for tag_entry in branch_entry["tags"]:
                 writer.writerow({
-                    "branch": branch,
-                    "tag": tag_entry["tag"],
+                    "branch": harden_spreadsheet_cell(branch),
+                    "tag": harden_spreadsheet_cell(tag_entry["tag"]),
                     "rank": tag_entry["rank"],
                     "page_count": tag_entry["page_count"],
-                    "status": tag_entry["status"],
+                    "status": harden_spreadsheet_cell(tag_entry["status"]),
                     "recognized_by_jp_policy": str(
                         tag_entry["recognized_by_jp_policy"]
                     ).lower(),
-                    "jp_tag": tag_entry["jp_tag"] or "",
-                    "replacement": tag_entry["replacement"] or "",
-                    "translation_action": tag_entry["translation_action"],
+                    "jp_tag": harden_spreadsheet_cell(tag_entry["jp_tag"] or ""),
+                    "replacement": harden_spreadsheet_cell(tag_entry["replacement"] or ""),
+                    "translation_action": harden_spreadsheet_cell(
+                        tag_entry["translation_action"]
+                    ),
                     "copy_allowed": str(tag_entry["copy_allowed"]).lower(),
-                    "display_tag": tag_entry["display_tag"] or "",
-                    "sample_slugs": ",".join(tag_entry["sample_slugs"]),
+                    "display_tag": harden_spreadsheet_cell(
+                        tag_entry["display_tag"] or ""
+                    ),
+                    "sample_slugs": harden_spreadsheet_cell(
+                        ",".join(tag_entry["sample_slugs"])
+                    ),
                 })
 
 
@@ -436,12 +453,14 @@ def write_application_tsv(path: Path, inventory: ApplicationInventory) -> None:
         for branch_entry in inventory["branches"]:
             for tag_entry in branch_entry["tags"]:
                 writer.writerow({
-                    "site": branch_entry["site"],
-                    "branch": branch_entry["branch"],
-                    "source_tag": tag_entry["tag"],
-                    "display_tag": tag_entry["display_tag"],
+                    "site": harden_spreadsheet_cell(branch_entry["site"]),
+                    "branch": harden_spreadsheet_cell(branch_entry["branch"]),
+                    "source_tag": harden_spreadsheet_cell(tag_entry["tag"]),
+                    "display_tag": harden_spreadsheet_cell(tag_entry["display_tag"]),
                     "page_count": tag_entry["page_count"],
-                    "sample_slugs": ",".join(tag_entry["sample_slugs"]),
+                    "sample_slugs": harden_spreadsheet_cell(
+                        ",".join(tag_entry["sample_slugs"])
+                    ),
                 })
 
 

@@ -47,20 +47,28 @@ def test_visualization_tsv_exactly_matches_json(coverage):
     for branch in coverage["branches"]:
         for entry in branch["tags"]:
             expected_rows.append({
-                "branch": branch["branch"],
-                "tag": entry["tag"],
+                "branch": coverage_builder.harden_spreadsheet_cell(branch["branch"]),
+                "tag": coverage_builder.harden_spreadsheet_cell(entry["tag"]),
                 "rank": str(entry["rank"]),
                 "page_count": str(entry["page_count"]),
-                "status": entry["status"],
+                "status": coverage_builder.harden_spreadsheet_cell(entry["status"]),
                 "recognized_by_jp_policy": str(
                     entry["recognized_by_jp_policy"]
                 ).lower(),
-                "jp_tag": entry["jp_tag"] or "",
-                "replacement": entry["replacement"] or "",
-                "translation_action": entry["translation_action"],
+                "jp_tag": coverage_builder.harden_spreadsheet_cell(entry["jp_tag"] or ""),
+                "replacement": coverage_builder.harden_spreadsheet_cell(
+                    entry["replacement"] or ""
+                ),
+                "translation_action": coverage_builder.harden_spreadsheet_cell(
+                    entry["translation_action"]
+                ),
                 "copy_allowed": str(entry["copy_allowed"]).lower(),
-                "display_tag": entry["display_tag"] or "",
-                "sample_slugs": ",".join(entry["sample_slugs"]),
+                "display_tag": coverage_builder.harden_spreadsheet_cell(
+                    entry["display_tag"] or ""
+                ),
+                "sample_slugs": coverage_builder.harden_spreadsheet_cell(
+                    ",".join(entry["sample_slugs"])
+                ),
             })
 
     with COVERAGE_TSV.open(encoding="utf-8", newline="") as f:
@@ -108,12 +116,14 @@ def test_application_inventory_exactly_matches_unhandled_coverage(coverage):
         rows = list(csv.DictReader(f, delimiter="\t"))
     expected_rows = [
         {
-            "site": branch["site"],
-            "branch": branch["branch"],
-            "source_tag": entry["tag"],
-            "display_tag": entry["display_tag"],
+            "site": coverage_builder.harden_spreadsheet_cell(branch["site"]),
+            "branch": coverage_builder.harden_spreadsheet_cell(branch["branch"]),
+            "source_tag": coverage_builder.harden_spreadsheet_cell(entry["tag"]),
+            "display_tag": coverage_builder.harden_spreadsheet_cell(entry["display_tag"]),
             "page_count": str(entry["page_count"]),
-            "sample_slugs": ",".join(entry["sample_slugs"]),
+            "sample_slugs": coverage_builder.harden_spreadsheet_cell(
+                ",".join(entry["sample_slugs"])
+            ),
         }
         for branch in inventory["branches"]
         for entry in branch["tags"]
