@@ -571,7 +571,7 @@ def test_branch_guides_resolve_current_jp_tags_and_reject_ambiguous_rows(
         deprecated_tags_data,
         EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
     )
-    analysis = branch_guide_parser.analyze(
+    analysis = branch_guide_parser.analyze_branch_guides(
         parse_sources.BRANCH_GUIDE_SOURCES,
         resolver.resolve,
     )
@@ -615,7 +615,10 @@ def test_branch_guide_analysis_accepts_callable_and_reports_exact_audit(tmp_path
         calls.append((list(en_values), list(jp_values)))
         return targets.get(calls[-1][0][0])
 
-    analysis = branch_guide_parser.analyze({"ua": (source,)}, resolve)
+    analysis = branch_guide_parser.analyze_branch_guides(
+        {"ua": (source,)},
+        resolve,
+    )
 
     assert analysis.mappings == {"ua": {"ok": "A"}}
     assert analysis.stats == {

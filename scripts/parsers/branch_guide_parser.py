@@ -266,7 +266,7 @@ def _parse_zh(
                     yield source, [en_tag], []
 
 
-def analyze(
+def analyze_branch_guides(
     source_paths: Mapping[str, Sequence[Path]],
     resolver: TargetResolver,
 ) -> BranchGuideAnalysis:
@@ -328,4 +328,4 @@ def parse(
     source_paths: Mapping[str, Sequence[Path]],
     resolver: TargetResolver,
 ) -> CrosswalkMappings:
-    return analyze(source_paths, resolver).mappings
+    return analyze_branch_guides(source_paths, resolver).mappings
