@@ -157,6 +157,7 @@ scp-tag-translation/
 │   ├── pl/ pt-br/ th/ ua/ vn/ zh-tr/
 │   └── jp/
 ├── scripts/
+│   ├── assets/                               # 生成HTMLのソーステンプレート
 │   ├── commands/                             # 同期・解析・生成CLI
 │   ├── domain/                               # スキーマ・検証・変換規則・支部設定
 │   ├── parsers/                              # 公式タグソース解析

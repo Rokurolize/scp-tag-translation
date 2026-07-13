@@ -19,6 +19,7 @@ COVERAGE_TSV = ROOT / "visualization" / "branch_tag_coverage.tsv"
 COVERAGE_HTML = ROOT / "visualization" / "branch_tag_coverage.html"
 APPLICATION_JSON = ROOT / "visualization" / "tag_application_inventory.json"
 APPLICATION_TSV = ROOT / "visualization" / "tag_application_inventory.tsv"
+TEMPLATE_HTML = ROOT / "scripts" / "assets" / "branch_tag_coverage.html"
 
 REQUIRED_BRANCHES = list(SUPPORTED_BRANCHES)
 
@@ -298,6 +299,13 @@ def test_visualization_html_is_self_contained_and_embeds_current_data():
     assert 'id="branchSelect"' in html
     assert 'id="statusFilters"' in html
     assert 'id="tagRows"' in html
+
+
+def test_dashboard_template_has_one_data_placeholder():
+    template = TEMPLATE_HTML.read_text(encoding="utf-8")
+
+    assert template.count("__DATA_JSON__") == 1
+    assert '<script type="application/json" id="coverage-data">' in template
 
 
 def test_application_inventory_exactly_matches_unhandled_coverage():
