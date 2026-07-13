@@ -51,9 +51,7 @@ BRANCH_GUIDE_SOURCES: Mapping[str, tuple[Path, ...]] = {
     "pt-br": (ROOT / "sources" / "pt-br" / "fragment-lista-mestra.txt",),
     "th": (ROOT / "sources" / "th" / "tag-list.txt",),
     "ua": (ROOT / "sources" / "ua" / "tag-guide.txt",),
-    "vn": (
-        ROOT / "sources" / "vn" / "fragment-tag-guide-for-translator.txt",
-    ),
+    "vn": (ROOT / "sources" / "vn" / "fragment-tag-guide-for-translator.txt",),
     "zh-tr": (
         ROOT / "sources" / "zh-tr" / "fragment-base-tag.txt",
         ROOT / "sources" / "zh-tr" / "fragment-characteristic-tag.txt",
@@ -84,9 +82,7 @@ def _require_branch_guides() -> None:
     ]
     if missing:
         formatted = "\n".join(f"  {path}" for path in missing)
-        raise FileNotFoundError(
-            f"支部公式タグガイドが見つかりません:\n{formatted}"
-        )
+        raise FileNotFoundError(f"支部公式タグガイドが見つかりません:\n{formatted}")
 
 
 def _load_json_array(path: Path, label: str) -> list[object]:
@@ -118,7 +114,7 @@ def collect_outputs(language: Language) -> ParseBatch:
 
     if language in {"en", "all"}:
         _require_file(SOURCES_EN, "ENソースファイル")
-        en_tags = en_parser.parse(SOURCES_EN)
+        en_tags = en_parser.parse_en_tags(SOURCES_EN)
         outputs[DATA_EN] = en_tags
         messages.append(f"EN: {len(en_tags)} タグを解析 → {DATA_EN}")
 
@@ -127,7 +123,7 @@ def collect_outputs(language: Language) -> ParseBatch:
             raise FileNotFoundError(
                 f"JPソースディレクトリが見つかりません: {SOURCES_JP}"
             )
-        jp_tags = jp_parser.parse(SOURCES_JP)
+        jp_tags = jp_parser.parse_jp_tags(SOURCES_JP)
         deprecated_tags = (
             jp_parser.parse_unused(SOURCES_JP_UNUSED)
             if SOURCES_JP_UNUSED.is_file()
@@ -135,19 +131,16 @@ def collect_outputs(language: Language) -> ParseBatch:
         )
         outputs[DATA_JP] = jp_tags
         outputs[DATA_DEPRECATED] = deprecated_tags
-        messages.extend((
-            f"JP: {len(jp_tags)} タグを解析 → {DATA_JP}",
+        messages.extend(
             (
-                f"JP(未使用): {len(deprecated_tags)} タグを解析 → "
-                f"{DATA_DEPRECATED}"
-            ),
-        ))
+                f"JP: {len(jp_tags)} タグを解析 → {DATA_JP}",
+                (f"JP(未使用): {len(deprecated_tags)} タグを解析 → {DATA_DEPRECATED}"),
+            )
+        )
 
     if language in {"crosswalks", "all"}:
         if jp_tags is None or deprecated_tags is None:
-            jp_tags = validate_jp_tags(
-                _load_json_array(DATA_JP, "JPタグデータ")
-            )
+            jp_tags = validate_jp_tags(_load_json_array(DATA_JP, "JPタグデータ"))
             deprecated_tags = validate_deprecated_tags(
                 _load_json_array(DATA_DEPRECATED, "JP非使用タグデータ"),
                 jp_tags,
@@ -156,8 +149,14 @@ def collect_outputs(language: Language) -> ParseBatch:
         _require_file(SOURCES_INT, "INTタグクロスウォーク")
         _require_file(SOURCES_KO, "KOタグクロスウォーク")
         _require_branch_guides()
-        int_mappings = int_parser.parse(SOURCES_INT, resolver.resolve)
-        ko_mappings = ko_parser.parse(SOURCES_KO, resolver.resolve)
+        int_mappings = int_parser.parse_int_crosswalk(
+            SOURCES_INT,
+            resolver.resolve,
+        )
+        ko_mappings = ko_parser.parse_ko_crosswalk(
+            SOURCES_KO,
+            resolver.resolve,
+        )
         branch_analysis = branch_guide_parser.analyze_branch_guides(
             BRANCH_GUIDE_SOURCES,
             resolver.resolve,
@@ -170,30 +169,31 @@ def collect_outputs(language: Language) -> ParseBatch:
             stats["conflicting_tags"] for stats in branch_analysis.stats.values()
         )
         unresolved_count = sum(
-            stats["unresolved_source_tags"]
-            for stats in branch_analysis.stats.values()
+            stats["unresolved_source_tags"] for stats in branch_analysis.stats.values()
         )
         outputs[DATA_INT_CROSSWALK] = int_mappings
         outputs[DATA_KO_CROSSWALK] = ko_mappings
         outputs[DATA_BRANCH_GUIDE_CROSSWALK] = branch_mappings
-        messages.extend((
+        messages.extend(
             (
-                "INT crosswalk: "
-                f"{sum(len(values) for values in int_mappings.values())} "
-                f"mappings -> {DATA_INT_CROSSWALK}"
-            ),
-            (
-                f"KO crosswalk: {len(ko_mappings.get('ko', {}))} mappings -> "
-                f"{DATA_KO_CROSSWALK}"
-            ),
-            (
-                "branch guide crosswalk: "
-                f"{sum(len(values) for values in branch_mappings.values())} "
-                "mappings "
-                f"(accepted={accepted_count}, conflicting={conflict_count}, "
-                f"unresolved={unresolved_count}) -> {DATA_BRANCH_GUIDE_CROSSWALK}"
-            ),
-        ))
+                (
+                    "INT crosswalk: "
+                    f"{sum(len(values) for values in int_mappings.values())} "
+                    f"mappings -> {DATA_INT_CROSSWALK}"
+                ),
+                (
+                    f"KO crosswalk: {len(ko_mappings.get('ko', {}))} mappings -> "
+                    f"{DATA_KO_CROSSWALK}"
+                ),
+                (
+                    "branch guide crosswalk: "
+                    f"{sum(len(values) for values in branch_mappings.values())} "
+                    "mappings "
+                    f"(accepted={accepted_count}, conflicting={conflict_count}, "
+                    f"unresolved={unresolved_count}) -> {DATA_BRANCH_GUIDE_CROSSWALK}"
+                ),
+            )
+        )
 
     return ParseBatch(outputs=outputs, messages=tuple(messages))
 
@@ -203,12 +203,14 @@ def publish_outputs(outputs: Mapping[Path, object]) -> None:
         destination: json.dumps(data, ensure_ascii=False, indent=2) + "\n"
         for destination, data in outputs.items()
     }
-    publish_files_atomically({
-        destination: (
-            lambda temporary, payload=payload: _write_payload(temporary, payload)
-        )
-        for destination, payload in serialized.items()
-    })
+    publish_files_atomically(
+        {
+            destination: (
+                lambda temporary, payload=payload: _write_payload(temporary, payload)
+            )
+            for destination, payload in serialized.items()
+        }
+    )
 
 
 def _write_payload(path: Path, payload: str) -> None:

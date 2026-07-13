@@ -1,4 +1,5 @@
 """ENパーサー・JPパーサーの単体テスト"""
+
 from pathlib import Path
 
 import pytest
@@ -8,7 +9,13 @@ from scripts.domain.tag_policy import (
     EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
     EN_ORIGIN_TAG_REPLACEMENTS,
 )
-from scripts.parsers import branch_guide_parser, en_parser, int_parser, jp_parser, ko_parser
+from scripts.parsers import (
+    branch_guide_parser,
+    en_parser,
+    int_parser,
+    jp_parser,
+    ko_parser,
+)
 from scripts.parsers.crosswalk_resolver import CrosswalkResolver, normalize_tag
 from scripts.parsers.en_parser import _parse_meta_line as _EN_PARSE_META_LINE
 from scripts.parsers.en_parser import _TAG_PATTERN as _EN_TAG_PATTERN
@@ -70,7 +77,7 @@ class TestEnParser:
             encoding="utf-8",
         )
 
-        parsed = en_parser.parse(source)
+        parsed = en_parser.parse_en_tags(source)
 
         assert parsed[0]["name"] == "amoni-ram"
 
@@ -82,7 +89,7 @@ class TestEnParser:
             encoding="utf-8",
         )
 
-        parsed = en_parser.parse(source)
+        parsed = en_parser.parse_en_tags(source)
 
         assert parsed[0]["name"] == "foo--bar"
         assert parsed[0]["description"] == "Real description"
@@ -95,7 +102,7 @@ class TestEnParser:
             encoding="utf-8",
         )
 
-        assert en_parser.parse(source) == [
+        assert en_parser.parse_en_tags(source) == [
             {
                 "name": "standalone",
                 "description": "Description",
@@ -119,7 +126,9 @@ class TestEnParser:
         assert not unparsed, f"未解析のENメタ行: {unparsed[:10]}"
 
     def test_en_count_lower_bound(self, en_tags_data):
-        assert len(en_tags_data) >= 800, f"ENタグ件数が少なすぎます: {len(en_tags_data)}"
+        assert len(en_tags_data) >= 800, (
+            f"ENタグ件数が少なすぎます: {len(en_tags_data)}"
+        )
 
     def test_en_exhaustive_coverage(self, en_tags_data):
         """ソース中で tag_pattern にマッチする全行がパース結果に含まれること"""
@@ -153,14 +162,10 @@ class TestJpParser:
 
     def test_jp_no_duplicate_source_tags(self, jp_tags_data):
         source_tags = [
-            source_tag
-            for entry in jp_tags_data
-            for source_tag in entry["source_tags"]
+            source_tag for entry in jp_tags_data for source_tag in entry["source_tags"]
         ]
         seen = set()
-        duplicates = [
-            tag for tag in source_tags if tag in seen or seen.add(tag)
-        ]
+        duplicates = [tag for tag in source_tags if tag in seen or seen.add(tag)]
         assert not duplicates, f"重複するJP側source tag対応: {duplicates}"
 
     def test_jp_known_tags_exist(self, jp_tags_data):
@@ -178,7 +183,9 @@ class TestJpParser:
         assert not bad_entries, f"前後空白付きのJPタグデータ: {bad_entries[:10]}"
 
     def test_jp_count_lower_bound(self, jp_tags_data):
-        assert len(jp_tags_data) >= 1500, f"JPタグ件数が少なすぎます: {len(jp_tags_data)}"
+        assert len(jp_tags_data) >= 1500, (
+            f"JPタグ件数が少なすぎます: {len(jp_tags_data)}"
+        )
 
     def test_jp_exhaustive_coverage(self, jp_tags_data):
         """ソース中でスラッグ非空のタグ行（重複除去後）が全てパース結果に含まれること。
@@ -303,9 +310,7 @@ class TestJpParser:
         )
 
         parsed = jp_parser.parse_unused(source)
-        assert [
-            (entry["source_lang"], entry["source_tag"]) for entry in parsed
-        ] == [
+        assert [(entry["source_lang"], entry["source_tag"]) for entry in parsed] == [
             ("CN", "wanderers"),
             ("ZH", "wanderers"),
         ]
@@ -328,9 +333,7 @@ class TestJpParser:
                     expected.add((source_lang, en_tag))
 
         parsed = jp_parser.parse_unused(source)
-        parsed_pairs = {
-            (entry["source_lang"], entry["source_tag"]) for entry in parsed
-        }
+        parsed_pairs = {(entry["source_lang"], entry["source_tag"]) for entry in parsed}
         assert parsed_pairs == expected
 
     def test_jp_parser_ignores_wikidot_comments(self, tmp_path):
@@ -349,7 +352,7 @@ class TestJpParser:
             encoding="utf-8",
         )
 
-        parsed = jp_parser.parse(source_dir)
+        parsed = jp_parser.parse_jp_tags(source_dir)
         names = {entry["name"] for entry in parsed}
 
         assert {"有効", "後続"} <= names
@@ -367,7 +370,7 @@ class TestJpParser:
             encoding="utf-8",
         )
 
-        parsed = jp_parser.parse(source_dir)
+        parsed = jp_parser.parse_jp_tags(source_dir)
         names = {entry["name"] for entry in parsed}
 
         assert {"前", "後"} <= names
@@ -381,7 +384,7 @@ class TestJpParser:
             encoding="utf-8",
         )
 
-        parsed = jp_parser.parse(source_dir)
+        parsed = jp_parser.parse_jp_tags(source_dir)
         assert parsed[0]["name"] == "年頃のガイア"
         assert parsed[0]["source_tags"] == ["teenage-gaea"]
 
@@ -394,13 +397,15 @@ class TestJpParser:
             encoding="utf-8",
         )
 
-        parsed = jp_parser.parse(source_dir)
+        parsed = jp_parser.parse_jp_tags(source_dir)
 
         assert parsed[0]["source_tags"] == ["first", "second"]
         assert parsed[0]["use_restricted"] is True
         assert parsed[0]["translation_exempt"] is True
 
-    def test_current_jp_sources_include_wrapper_tags_and_policy_vectors(self, jp_tags_data):
+    def test_current_jp_sources_include_wrapper_tags_and_policy_vectors(
+        self, jp_tags_data
+    ):
         by_name = {entry["name"]: entry for entry in jp_tags_data}
         assert {"始のいろは", "scp漢字ドリル", "t-arot"} <= set(by_name)
         assert by_name["テーマ"]["use_restricted"] is True
@@ -411,7 +416,7 @@ class TestJpParser:
 
 def test_int_crosswalk_parses_multibranch_vectors():
     source = Path(__file__).parent.parent / "sources" / "int" / "tag-guide.txt"
-    mappings = int_parser.parse_raw(source)
+    mappings = int_parser.parse_int_crosswalk_raw(source)
     assert mappings["cn"]["认知危害"] == "認識災害"
     assert mappings["de"]["lebendig"] == "生命"
     assert mappings["int"]["cognitohazard"] == "認識災害"
@@ -419,7 +424,7 @@ def test_int_crosswalk_parses_multibranch_vectors():
 
 def test_ko_crosswalk_parses_direct_jp_vectors():
     source = Path(__file__).parent.parent / "sources" / "ko" / "translate-tags.txt"
-    mappings = ko_parser.parse_raw(source)
+    mappings = ko_parser.parse_ko_crosswalk_raw(source)
     assert mappings["ko"]["생물"] == "生命"
     assert mappings["ko"]["정신조작"] == "精神影響"
 
@@ -434,7 +439,7 @@ def test_crosswalk_resolver_normalizes_stale_ko_jp_labels(
         EN_ORIGIN_TAG_REPLACEMENTS,
     )
     source = Path(__file__).parent.parent / "sources" / "ko" / "translate-tags.txt"
-    mappings = ko_parser.parse(source, resolver.resolve)["ko"]
+    mappings = ko_parser.parse_ko_crosswalk(source, resolver.resolve)["ko"]
 
     assert mappings["감정이입"] == "精神感応"
     assert mappings["비격리"] == "未収容"
@@ -474,17 +479,21 @@ def test_crosswalk_resolver_normalizes_index_keys_and_detects_collisions():
     assert resolver.resolve(["old", "bar"], []) is None
 
     with pytest.raises(ValueError, match="source tag maps to multiple"):
-        CrosswalkResolver([
-            {"name": "対象A", "source_tags": ["foo\u200b"]},
-            {"name": "対象B", "source_tags": ["foo"]},
-        ])
+        CrosswalkResolver(
+            [
+                {"name": "対象A", "source_tags": ["foo\u200b"]},
+                {"name": "対象B", "source_tags": ["foo"]},
+            ]
+        )
 
 
 def test_en_resolution_prefers_declared_source_alias_over_coincident_jp_name():
-    resolver = CrosswalkResolver([
-        {"name": "semantic-target", "source_tags": ["collision"]},
-        {"name": "collision", "source_tags": []},
-    ])
+    resolver = CrosswalkResolver(
+        [
+            {"name": "semantic-target", "source_tags": ["collision"]},
+            {"name": "collision", "source_tags": []},
+        ]
+    )
 
     assert resolver.resolve(["collision"], []) == "semantic-target"
     assert resolver.resolve([], ["collision"]) == "collision"
@@ -525,8 +534,8 @@ def test_int_and_ko_crosswalks_ignore_placeholder_cells(tmp_path):
         encoding="utf-8",
     )
 
-    int_mappings = int_parser.parse_raw(int_source)
-    ko_mappings = ko_parser.parse_raw(ko_source)
+    int_mappings = int_parser.parse_int_crosswalk_raw(int_source)
+    ko_mappings = ko_parser.parse_ko_crosswalk_raw(ko_source)
 
     assert "-" not in int_mappings.get("cn", {})
     assert "N/A" not in int_mappings.get("cn", {})
@@ -556,7 +565,7 @@ def test_int_crosswalk_uses_en_semantics_for_current_jp_targets(
         EN_ORIGIN_TAG_REPLACEMENTS,
     )
     source = Path(__file__).parent.parent / "sources" / "int" / "tag-guide.txt"
-    mappings = int_parser.parse(source, resolver.resolve)
+    mappings = int_parser.parse_int_crosswalk(source, resolver.resolve)
 
     assert mappings["ko"]["감정이입"] == "精神感応"
     assert mappings["int"]["resource"] == "世界観"
@@ -593,7 +602,15 @@ def test_branch_guides_resolve_current_jp_tags_and_reject_ambiguous_rows(
     assert "建筑" not in mappings["cn"]
     assert "oria" not in mappings["pt-br"]
     assert "roedor" not in mappings["pt-br"]
-    for tag in ("作者頁面", "軍事", "宗教", "joicl", "en-8000", "麥地奇藝術學院", "int"):
+    for tag in (
+        "作者頁面",
+        "軍事",
+        "宗教",
+        "joicl",
+        "en-8000",
+        "麥地奇藝術學院",
+        "int",
+    ):
         assert tag not in mappings["zh-tr"]
 
     assert sum(branch["accepted_tags"] for branch in stats.values()) >= 5000
@@ -602,10 +619,7 @@ def test_branch_guides_resolve_current_jp_tags_and_reject_ambiguous_rows(
 def test_branch_guide_analysis_accepts_callable_and_reports_exact_audit(tmp_path):
     source = tmp_path / "ua.txt"
     source.write_text(
-        "**foo** (a)\n"
-        "**foo** (b)\n"
-        "**bar** (unknown)\n"
-        "**ok** (ok)\n",
+        "**foo** (a)\n**foo** (b)\n**bar** (unknown)\n**ok** (ok)\n",
         encoding="utf-8",
     )
     targets = {"a": "A", "b": "B", "ok": "A"}

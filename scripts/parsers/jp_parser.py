@@ -17,9 +17,7 @@ _PAIR_RE = re.compile(
 # 説明文中の単一置換先を抽出するパターン
 # 例: "JPでは//世界観//タグに置換してください", "//scp//タグに置換してください"
 _TAG_REF_RE = re.compile(r"//([^/]+)//")
-_REPLACE_RE = re.compile(
-    r"//([^/]+)//(?:タグ)?(?:へ|に)置(?:き)?換(?:え|し)てください"
-)
+_REPLACE_RE = re.compile(r"//([^/]+)//(?:タグ)?(?:へ|に)置(?:き)?換(?:え|し)てください")
 _SECTION_RE = re.compile(r"^\+{3,}\s*([A-Z]{2,3})\b")
 
 # SCP-JP's tag list uses Font Awesome glyphs as the machine-visible source of
@@ -122,17 +120,19 @@ def parse_unused(source_path: Path) -> list[DeprecatedTag]:
                 continue
             seen_source_tags.add(source_key)
 
-            results.append({
-                "source_lang": source_lang,
-                "source_tag": en_tag,
-                "replacement": replacement,
-                "description": description,
-            })
+            results.append(
+                {
+                    "source_lang": source_lang,
+                    "source_tag": en_tag,
+                    "replacement": replacement,
+                    "description": description,
+                }
+            )
 
     return results
 
 
-def parse(source_dir: Path) -> list[JpTag]:
+def parse_jp_tags(source_dir: Path) -> list[JpTag]:
     """Parse registered JP tag fragments into canonical tag records."""
 
     tags_by_name: dict[str, JpTag] = {}
@@ -194,8 +194,7 @@ def parse(source_dir: Path) -> list[JpTag]:
                         entry.get("edit_restricted", False) or edit_restricted
                     )
                     entry["translation_exempt"] = (
-                        entry.get("translation_exempt", False)
-                        or translation_exempt
+                        entry.get("translation_exempt", False) or translation_exempt
                     )
 
                 if en_tag and en_tag not in entry["source_tags"]:

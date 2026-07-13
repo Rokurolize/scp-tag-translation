@@ -12,7 +12,6 @@ from urllib.parse import unquote
 from scripts.parsers.contracts import (
     BranchGuideAnalysis,
     BranchGuideStats,
-    CrosswalkMappings,
     TargetResolver,
 )
 from scripts.parsers.crosswalk_resolver import normalize_tag
@@ -56,14 +55,14 @@ def _tag_links(line: str) -> list[_TagLink]:
 
 
 def _valid_tag(value: str) -> str | None:
-    value = normalize_tag(value).strip('"\'')
+    value = normalize_tag(value).strip("\"'")
     if not value or not _VALID_TAG_RE.fullmatch(value):
         return None
     return value
 
 
 def _valid_en_tag(value: str) -> str | None:
-    value = normalize_tag(value).strip('"\'')
+    value = normalize_tag(value).strip("\"'")
     if not value or not _EN_TAG_RE.fullmatch(value):
         return None
     return value
@@ -90,14 +89,12 @@ def _parse_cn(lines: Iterable[str]) -> Iterable[tuple[str, list[str], list[str]]
         en_values = [
             link["path"]
             for link in links
-            if "scpwiki.com" in link["host"]
-            or "scp-wiki.wikidot.com" in link["host"]
+            if "scpwiki.com" in link["host"] or "scp-wiki.wikidot.com" in link["host"]
         ]
         jp_values = [
             link["path"]
             for link in links
-            if "ja.scp-wiki.net" in link["host"]
-            or "scp-jp.wikidot.com" in link["host"]
+            if "ja.scp-wiki.net" in link["host"] or "scp-jp.wikidot.com" in link["host"]
         ]
         if not en_values and not jp_values:
             tail = line[local["end"] :]
@@ -144,7 +141,9 @@ def _parse_link_followed_by_en(
             if not link["host"] or branch_host in link["host"]
         ]
         for index, link in enumerate(links):
-            tail_end = links[index + 1]["start"] if index + 1 < len(links) else len(line)
+            tail_end = (
+                links[index + 1]["start"] if index + 1 < len(links) else len(line)
+            )
             tail = line[link["end"] : tail_end]
             match = en_pattern.search(tail)
             source = _valid_tag(link["path"])
@@ -272,9 +271,7 @@ def analyze_branch_guides(
 ) -> BranchGuideAnalysis:
     """Return unique current-JP mappings and deterministic audit counts."""
 
-    targets: dict[str, dict[str, set[str]]] = defaultdict(
-        lambda: defaultdict(set)
-    )
+    targets: dict[str, dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
     unresolved_sources: dict[str, set[str]] = defaultdict(set)
     stats: BranchGuideStats = {}
     for branch, paths in source_paths.items():
@@ -322,10 +319,3 @@ def analyze_branch_guides(
         for branch, branch_targets in sorted(targets.items())
     }
     return BranchGuideAnalysis(mappings=mappings, stats=stats)
-
-
-def parse(
-    source_paths: Mapping[str, Sequence[Path]],
-    resolver: TargetResolver,
-) -> CrosswalkMappings:
-    return analyze_branch_guides(source_paths, resolver).mappings

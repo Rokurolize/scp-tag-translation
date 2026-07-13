@@ -29,9 +29,8 @@ def _raw_target(
     if len(values) != 1:
         return None
     jp_tag = values[0]
-    if (
-        jp_tag.casefold() in _EMPTY_MARKERS
-        or any(character.isspace() for character in jp_tag)
+    if jp_tag.casefold() in _EMPTY_MARKERS or any(
+        character.isspace() for character in jp_tag
     ):
         return None
     return jp_tag
@@ -70,11 +69,11 @@ def _parse_with_resolver(
     return {"ko": dict(sorted(mapping.items()))}
 
 
-def parse_raw(input_path: Path) -> CrosswalkMappings:
+def parse_ko_crosswalk_raw(input_path: Path) -> CrosswalkMappings:
     return _parse_with_resolver(input_path, _raw_target)
 
 
-def parse(
+def parse_ko_crosswalk(
     input_path: Path,
     resolver: TargetResolver,
 ) -> CrosswalkMappings:

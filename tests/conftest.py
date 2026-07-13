@@ -14,12 +14,12 @@ DEPRECATED_DICT_FILE = ROOT / "dictionaries" / "deprecated_en_to_jp.json"
 
 @pytest.fixture(scope="session")
 def en_tags_data():
-    return en_parser.parse(EN_SOURCE)
+    return en_parser.parse_en_tags(EN_SOURCE)
 
 
 @pytest.fixture(scope="session")
 def jp_tags_data():
-    return jp_parser.parse(JP_SOURCE_DIR)
+    return jp_parser.parse_jp_tags(JP_SOURCE_DIR)
 
 
 @pytest.fixture(scope="session")

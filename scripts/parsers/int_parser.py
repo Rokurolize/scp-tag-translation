@@ -76,9 +76,7 @@ def _parse_with_resolver(
     points to the same JP cell.
     """
 
-    candidates: dict[str, dict[str, set[str]]] = defaultdict(
-        lambda: defaultdict(set)
-    )
+    candidates: dict[str, dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
     header: list[str] | None = None
 
     with input_path.open(encoding="utf-8") as source:
@@ -122,11 +120,11 @@ def _parse_with_resolver(
     }
 
 
-def parse_raw(input_path: Path) -> CrosswalkMappings:
+def parse_int_crosswalk_raw(input_path: Path) -> CrosswalkMappings:
     return _parse_with_resolver(input_path, _raw_target)
 
 
-def parse(
+def parse_int_crosswalk(
     input_path: Path,
     resolver: TargetResolver,
 ) -> CrosswalkMappings:

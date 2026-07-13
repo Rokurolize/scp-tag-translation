@@ -49,7 +49,7 @@ def _parse_meta_line(line: str) -> tuple[str, list[str]] | None:
     return meta_key, meta_values
 
 
-def parse(input_path: Path) -> list[EnTag]:
+def parse_en_tags(input_path: Path) -> list[EnTag]:
     """Parse the Wikidot EN tag list into typed records."""
 
     tags_data: list[EnTag] = []

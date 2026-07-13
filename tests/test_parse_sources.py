@@ -48,14 +48,17 @@ def _redirect_pipeline_paths(monkeypatch, tmp_path: Path) -> tuple[Path, ...]:
     for source in (source_en, source_int, source_ko, source_guide):
         source.write_text("fixture\n", encoding="utf-8")
 
-    outputs = tuple(data / name for name in (
-        "en_tags.json",
-        "jp_tags.json",
-        "deprecated_tags.json",
-        "int_tag_crosswalk.json",
-        "ko_tag_crosswalk.json",
-        "branch_guide_crosswalk.json",
-    ))
+    outputs = tuple(
+        data / name
+        for name in (
+            "en_tags.json",
+            "jp_tags.json",
+            "deprecated_tags.json",
+            "int_tag_crosswalk.json",
+            "ko_tag_crosswalk.json",
+            "branch_guide_crosswalk.json",
+        )
+    )
     replacements = {
         "SOURCES_EN": source_en,
         "SOURCES_JP": jp_dir,
@@ -104,17 +107,21 @@ def test_run_all_does_not_publish_when_last_parser_fails(tmp_path, monkeypatch):
 
     monkeypatch.setattr(
         parse_sources.en_parser,
-        "parse",
+        "parse_en_tags",
         lambda _path: [{"name": "source", "category": None, "meta": {}}],
     )
     monkeypatch.setattr(
         parse_sources.jp_parser,
-        "parse",
+        "parse_jp_tags",
         lambda _path: [{"name": "target", "source_tags": ["source"]}],
     )
     monkeypatch.setattr(parse_sources.jp_parser, "parse_unused", lambda _path: [])
-    monkeypatch.setattr(parse_sources.int_parser, "parse", lambda *_args: {"en": {}})
-    monkeypatch.setattr(parse_sources.ko_parser, "parse", lambda *_args: {"ko": {}})
+    monkeypatch.setattr(
+        parse_sources.int_parser, "parse_int_crosswalk", lambda *_args: {"en": {}}
+    )
+    monkeypatch.setattr(
+        parse_sources.ko_parser, "parse_ko_crosswalk", lambda *_args: {"ko": {}}
+    )
     monkeypatch.setattr(
         parse_sources.branch_guide_parser,
         "analyze_branch_guides",
@@ -138,10 +145,10 @@ def test_all_crosswalks_use_same_run_jp_records(tmp_path, monkeypatch):
     outputs = _redirect_pipeline_paths(monkeypatch, tmp_path)
     outputs[1].write_text("not current JSON", encoding="utf-8")
     outputs[2].write_text("not current JSON", encoding="utf-8")
-    monkeypatch.setattr(parse_sources.en_parser, "parse", lambda _path: [])
+    monkeypatch.setattr(parse_sources.en_parser, "parse_en_tags", lambda _path: [])
     monkeypatch.setattr(
         parse_sources.jp_parser,
-        "parse",
+        "parse_jp_tags",
         lambda _path: [{"name": "new-target", "source_tags": ["semantic"]}],
     )
     monkeypatch.setattr(parse_sources.jp_parser, "parse_unused", lambda _path: [])
@@ -149,8 +156,10 @@ def test_all_crosswalks_use_same_run_jp_records(tmp_path, monkeypatch):
     def parse_int(_path, resolver):
         return {"en": {"semantic": resolver(["semantic"], [])}}
 
-    monkeypatch.setattr(parse_sources.int_parser, "parse", parse_int)
-    monkeypatch.setattr(parse_sources.ko_parser, "parse", lambda *_args: {"ko": {}})
+    monkeypatch.setattr(parse_sources.int_parser, "parse_int_crosswalk", parse_int)
+    monkeypatch.setattr(
+        parse_sources.ko_parser, "parse_ko_crosswalk", lambda *_args: {"ko": {}}
+    )
     monkeypatch.setattr(
         parse_sources.branch_guide_parser,
         "analyze_branch_guides",
@@ -204,15 +213,19 @@ def test_crosswalks_reject_noncanonical_persisted_schema(
 
 def test_run_all_publishes_six_outputs_in_one_atomic_batch(tmp_path, monkeypatch):
     outputs = _redirect_pipeline_paths(monkeypatch, tmp_path)
-    monkeypatch.setattr(parse_sources.en_parser, "parse", lambda _path: [])
+    monkeypatch.setattr(parse_sources.en_parser, "parse_en_tags", lambda _path: [])
     monkeypatch.setattr(
         parse_sources.jp_parser,
-        "parse",
+        "parse_jp_tags",
         lambda _path: [{"name": "target", "source_tags": ["source"]}],
     )
     monkeypatch.setattr(parse_sources.jp_parser, "parse_unused", lambda _path: [])
-    monkeypatch.setattr(parse_sources.int_parser, "parse", lambda *_args: {"en": {}})
-    monkeypatch.setattr(parse_sources.ko_parser, "parse", lambda *_args: {"ko": {}})
+    monkeypatch.setattr(
+        parse_sources.int_parser, "parse_int_crosswalk", lambda *_args: {"en": {}}
+    )
+    monkeypatch.setattr(
+        parse_sources.ko_parser, "parse_ko_crosswalk", lambda *_args: {"ko": {}}
+    )
     monkeypatch.setattr(
         parse_sources.branch_guide_parser,
         "analyze_branch_guides",
@@ -255,9 +268,7 @@ def test_main_reports_expected_input_failures(monkeypatch, capsys, error):
         parse_sources.main()
 
     assert caught.value.code == 1
-    assert capsys.readouterr().out == (
-        f"エラー: ソース解析に失敗しました: {error}\n"
-    )
+    assert capsys.readouterr().out == (f"エラー: ソース解析に失敗しました: {error}\n")
 
 
 def test_main_does_not_hide_programming_errors(monkeypatch):

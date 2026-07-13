@@ -1,9 +1,10 @@
 """翻訳整合性テスト — dictionaries/en_to_jp.json と sources/ の整合性を検証する"""
+
 from collections import defaultdict
 import json
 from pathlib import Path
 
-from scripts.parsers.int_parser import parse_raw as parse_int_crosswalk
+from scripts.parsers.int_parser import parse_int_crosswalk_raw
 from scripts.domain.tag_policy import EN_ORIGIN_TAG_REPLACEMENTS
 
 
@@ -65,16 +66,14 @@ def test_bidirectional_consistency(committed_dict, jp_tags_data, en_tag_names):
     jp_pairs.update((name, name) for name in jp_names & en_tag_names)
 
     raw_overrides = json.loads(
-        (ROOT / "sources" / "branch_to_jp_overrides.json").read_text(
-            encoding="utf-8"
-        )
+        (ROOT / "sources" / "branch_to_jp_overrides.json").read_text(encoding="utf-8")
     )
     for branch in ("*", "en"):
         for source_tag, value in raw_overrides.get(branch, {}).items():
             target = value["jp_tag"] if isinstance(value, dict) else value
             jp_pairs.add((source_tag, target))
 
-    official = parse_int_crosswalk(ROOT / "sources" / "int" / "tag-guide.txt")
+    official = parse_int_crosswalk_raw(ROOT / "sources" / "int" / "tag-guide.txt")
     jp_pairs.update(official.get("en", {}).items())
     failures = [
         f"dict['{en}']={jp!r} but JP source_tags has no ({en!r}, {jp!r}) pair"
@@ -110,8 +109,7 @@ def test_duplicate_jp_targets_are_documented_aliases(committed_dict, jp_tags_dat
         if jp is not None:
             reverse[jp].append(en)
     documented = {
-        entry["name"]: set(entry.get("source_tags") or [])
-        for entry in jp_tags_data
+        entry["name"]: set(entry.get("source_tags") or []) for entry in jp_tags_data
     }
     failures = {
         jp: ens
@@ -167,10 +165,7 @@ def test_en_source_deprecated_official_tags_are_null(
     failures = []
     for entry in deprecated_tags_data:
         source_tag = entry["source_tag"]
-        if (
-            (entry.get("source_lang") or "EN") != "EN"
-            or source_tag not in en_tag_names
-        ):
+        if (entry.get("source_lang") or "EN") != "EN" or source_tag not in en_tag_names:
             continue
         if committed_dict.get(source_tag) is not None:
             failures.append(
