@@ -1,6 +1,9 @@
+from __future__ import annotations
+
 import re
 import json
 import os
+from collections.abc import Iterator
 from pathlib import Path
 
 # タグリンクと任意のENタグ表記のペアにマッチ
@@ -49,7 +52,7 @@ def _extract_single_replacement(description: str) -> str | None:
     return replacement or None
 
 
-def _iter_uncommented_lines(filepath: str):
+def _iter_uncommented_lines(filepath: str) -> Iterator[str]:
     """Wikidotコメント [!-- ... --] を除外して行を返す。"""
     in_comment = False
     with open(filepath, "r", encoding="utf-8") as f:

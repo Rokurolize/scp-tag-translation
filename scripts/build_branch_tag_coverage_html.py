@@ -4,7 +4,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
+from typing import cast
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from scripts.tag_models import Coverage
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -1426,7 +1433,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 """
 
 
-def build_html(data: dict) -> str:
+def build_html(data: Coverage) -> str:
     embedded_json = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
     embedded_json = (
         embedded_json.replace("<", "\\u003c")
@@ -1444,7 +1451,7 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
 
-    data = json.loads(args.input.read_text(encoding="utf-8"))
+    data = cast(Coverage, json.loads(args.input.read_text(encoding="utf-8")))
     html = build_html(data)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(html, encoding="utf-8")

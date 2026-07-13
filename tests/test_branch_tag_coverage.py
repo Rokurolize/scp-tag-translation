@@ -6,10 +6,13 @@ import re
 import sys
 from pathlib import Path
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 import build_branch_tag_coverage_html as coverage_html_builder
 import build_branch_tag_coverage_data as coverage_builder
+import tag_policy
 from branch_config import SUPPORTED_BRANCHES
 
 ROOT = Path(__file__).parent.parent
@@ -55,20 +58,24 @@ def test_classify_tag_distinguishes_jp_list_and_override_states():
         }
         for tag in jp_names
     }
+    mapping_policy = tag_policy.MappingPolicy(
+        jp_names=frozenset(jp_names),
+        jp_source_map=jp_source_map,
+        deprecated_tags=deprecated_tags,
+        replacements=replacements,
+        overrides=overrides,
+        official_crosswalk={
+            "cn": {"official": "tale", "international": "tale"}
+        },
+    )
+    context = coverage_builder.ClassificationContext.for_branch(
+        mapping_policy,
+        "cn",
+        target_policies=policy,
+    )
 
     def classify(tag):
-        return coverage_builder.classify_tag(
-            "cn",
-            tag,
-            jp_names,
-            jp_source_map,
-            deprecated_tags,
-            replacements,
-            overrides,
-            policy,
-            set(),
-            {"cn": {"official": "tale", "international": "tale"}},
-        )["status"]
+        return coverage_builder.classify_tag(tag, context)["status"]
 
     assert classify("scp") == "jp_tag_name"
     assert classify("euclidean") == "jp_tag_alias"
@@ -77,6 +84,71 @@ def test_classify_tag_distinguishes_jp_list_and_override_states():
     assert classify("official") == "official_crosswalk"
     assert classify("international") == "official_crosswalk"
     assert classify("unknown") == "unhandled"
+
+
+def test_classify_tag_applies_copy_and_omission_policy():
+    mapping_policy = tag_policy.MappingPolicy(
+        jp_names=frozenset({"copy", "restricted", "omit", "replacement"}),
+        jp_source_map={},
+        deprecated_tags={"EN": {"legacy"}},
+        replacements={"EN": {"legacy": "replacement"}},
+        overrides={},
+        official_crosswalk={},
+    )
+    target_policies = {
+        tag: {
+            "copy_allowed_for_translation": tag in {"copy", "replacement"},
+            "use_restricted": tag == "restricted",
+            "edit_restricted": False,
+            "translation_exempt": False,
+            "special_translation_action": "omit" if tag == "omit" else None,
+        }
+        for tag in mapping_policy.jp_names
+    }
+    context = coverage_builder.ClassificationContext.for_branch(
+        mapping_policy,
+        "en",
+        target_policies=target_policies,
+        translation_policy_omit={"genre"},
+    )
+
+    assert coverage_builder.classify_tag("copy", context)["translation_action"] == (
+        "copy"
+    )
+    assert coverage_builder.classify_tag("legacy", context)[
+        "translation_action"
+    ] == "copy_replacement"
+    restricted = coverage_builder.classify_tag("restricted", context)
+    assert restricted["translation_action"] == "staff_permission_required"
+    assert restricted["translator_handled"] is False
+    assert coverage_builder.classify_tag("omit", context)["translation_action"] == (
+        "omit_jp_policy"
+    )
+    assert coverage_builder.classify_tag("genre", context)["status"] == (
+        "jp_translation_policy_omit"
+    )
+    assert coverage_builder.classify_tag("unknown", context)["display_tag"] == (
+        "未訳-unknown"
+    )
+
+
+def test_classify_tag_rejects_missing_mapped_target_policy():
+    mapping_policy = tag_policy.MappingPolicy(
+        jp_names=frozenset({"mapped"}),
+        jp_source_map={},
+        deprecated_tags={},
+        replacements={},
+        overrides={},
+        official_crosswalk={},
+    )
+    context = coverage_builder.ClassificationContext.for_branch(
+        mapping_policy,
+        "en",
+        target_policies={},
+    )
+
+    with pytest.raises(ValueError, match="JP policy missing"):
+        coverage_builder.classify_tag("mapped", context)
 
 
 def test_visualization_files_exist_and_cover_required_branches():

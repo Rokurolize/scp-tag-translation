@@ -1,0 +1,393 @@
+"""Shared source-to-JP mapping policy and typed policy artifacts."""
+
+from __future__ import annotations
+
+import json
+from collections.abc import Mapping, Sequence
+from dataclasses import dataclass
+from pathlib import Path
+from typing import cast
+
+from scripts import build_dict as en_builder
+from scripts.branch_config import SUPPORTED_BRANCHES
+from scripts.tag_models import (
+    DeprecatedTag,
+    EnTag,
+    JpPolicyDocument,
+    JpTag,
+    JpTagPolicy,
+    SourceTagPolicy,
+)
+
+ROOT = Path(__file__).resolve().parent.parent
+DATA_EN = ROOT / "data" / "en_tags.json"
+DATA_JP = ROOT / "data" / "jp_tags.json"
+DATA_DEPRECATED = ROOT / "data" / "deprecated_tags.json"
+DATA_INT_CROSSWALK = ROOT / "data" / "int_tag_crosswalk.json"
+DATA_KO_CROSSWALK = ROOT / "data" / "ko_tag_crosswalk.json"
+DATA_BRANCH_GUIDE_CROSSWALK = ROOT / "data" / "branch_guide_crosswalk.json"
+OVERRIDES_PATH = ROOT / "sources" / "branch_to_jp_overrides.json"
+DEPRECATED_REPLACEMENT_OVERRIDES_PATH = (
+    ROOT / "sources" / "deprecated_replacement_overrides.json"
+)
+CROSSWALK_PATHS = (
+    DATA_INT_CROSSWALK,
+    DATA_KO_CROSSWALK,
+    DATA_BRANCH_GUIDE_CROSSWALK,
+)
+
+
+def load_json(path: Path) -> object:
+    with path.open("r", encoding="utf-8") as file:
+        return json.load(file)
+
+
+def branch_to_source_lang(branch: str) -> str:
+    if branch == "pt-br":
+        return "PT"
+    if branch == "zh-tr":
+        return "ZH"
+    return branch.upper()
+
+
+def source_languages_for_branch(branch: str) -> tuple[str, ...]:
+    """Return JP unused-list sections inherited by a source branch."""
+
+    if branch == "int":
+        return ("EN", "INT")
+    return (branch_to_source_lang(branch),)
+
+
+@dataclass(frozen=True)
+class BranchMappingPolicy:
+    deprecated_tags: frozenset[str]
+    replacements: Mapping[str, str | None]
+    overrides: Mapping[str, str]
+    official_crosswalk: Mapping[str, str]
+
+
+@dataclass(frozen=True)
+class MappingPolicy:
+    jp_names: frozenset[str]
+    jp_source_map: Mapping[str, str]
+    deprecated_tags: Mapping[str, set[str]]
+    replacements: Mapping[str, Mapping[str, str | None]]
+    overrides: Mapping[str, Mapping[str, str]]
+    official_crosswalk: Mapping[str, Mapping[str, str]]
+
+    def for_branch(self, branch: str) -> BranchMappingPolicy:
+        applicable: set[str] = set()
+        effective_replacements: dict[str, str | None] = {}
+        for source_lang in source_languages_for_branch(branch):
+            applicable.update(self.deprecated_tags.get(source_lang, set()))
+            for source_tag, replacement in self.replacements.get(
+                source_lang,
+                {},
+            ).items():
+                existing = effective_replacements.get(source_tag)
+                if (
+                    existing is not None
+                    and replacement is not None
+                    and existing != replacement
+                ):
+                    raise ValueError(
+                        "conflicting inherited replacements: "
+                        f"{branch}:{source_tag}->{existing}/{replacement}"
+                    )
+                if replacement is not None or source_tag not in effective_replacements:
+                    effective_replacements[source_tag] = replacement
+
+        return BranchMappingPolicy(
+            deprecated_tags=frozenset(applicable),
+            replacements=effective_replacements,
+            overrides={
+                **self.overrides.get("*", {}),
+                **self.overrides.get(branch, {}),
+            },
+            official_crosswalk=self.official_crosswalk.get(branch, {}),
+        )
+
+
+@dataclass(frozen=True)
+class JpPolicyInputs:
+    jp_tags: Sequence[JpTag]
+    deprecated_tags: Sequence[DeprecatedTag] = ()
+    en_tags: Sequence[EnTag] | None = None
+    mapping_policy: MappingPolicy | None = None
+    concatenated_tag_hints: Mapping[str, Mapping[str, list[str]]] | None = None
+
+
+def jp_maps(jp_tags: list[JpTag]) -> tuple[frozenset[str], dict[str, str]]:
+    jp_names: set[str] = set()
+    source_to_jp: dict[str, str] = {}
+    for entry in jp_tags:
+        name = entry.get("name")
+        if not isinstance(name, str) or not name:
+            raise ValueError(f"invalid JP tag entry: {entry!r}")
+        jp_names.add(name)
+        for source_tag in en_builder.jp_source_tags(entry):
+            existing = source_to_jp.get(source_tag)
+            if existing is not None and existing != name:
+                raise ValueError(
+                    "source tag maps to multiple JP tags: "
+                    f"{source_tag!r}->{existing!r}/{name!r}"
+                )
+            source_to_jp[source_tag] = name
+    return frozenset(jp_names), source_to_jp
+
+
+def load_overrides(
+    path: Path,
+    jp_names: frozenset[str] | set[str],
+) -> dict[str, dict[str, str]]:
+    if not path.exists():
+        return {}
+
+    raw = load_json(path)
+    if not isinstance(raw, dict):
+        raise ValueError("branch override file must be a JSON object")
+
+    overrides: dict[str, dict[str, str]] = {}
+    for branch, branch_values in raw.items():
+        if not isinstance(branch, str) or not branch:
+            raise ValueError(f"invalid override branch: {branch!r}")
+        if not isinstance(branch_values, dict):
+            raise ValueError(f"override branch must map tags: {branch!r}")
+        overrides[branch] = {}
+        for source_tag, value in branch_values.items():
+            if not isinstance(source_tag, str) or not source_tag:
+                raise ValueError(f"invalid override source tag for {branch!r}")
+            if isinstance(value, str):
+                jp_tag = value
+            elif isinstance(value, dict) and isinstance(value.get("jp_tag"), str):
+                jp_tag = value["jp_tag"]
+            else:
+                raise ValueError(f"invalid override value for {branch}:{source_tag}")
+            if jp_tag not in jp_names:
+                raise ValueError(
+                    "override target is not a JP tag: "
+                    f"{branch}:{source_tag}->{jp_tag}"
+                )
+            overrides[branch][source_tag] = jp_tag
+    return overrides
+
+
+def load_official_crosswalk(
+    path: Path,
+    jp_names: frozenset[str] | set[str],
+) -> dict[str, dict[str, str]]:
+    raw = load_json(path)
+    if not isinstance(raw, dict):
+        raise ValueError("official crosswalk must be a JSON object")
+    result: dict[str, dict[str, str]] = {}
+    for branch, mappings in raw.items():
+        if not isinstance(branch, str) or not isinstance(mappings, dict):
+            raise ValueError(f"invalid official crosswalk branch: {branch!r}")
+        result[branch] = {}
+        for source_tag, jp_tag in mappings.items():
+            if not isinstance(source_tag, str) or not source_tag:
+                raise ValueError(
+                    f"invalid crosswalk source tag: {branch}:{source_tag!r}"
+                )
+            if not isinstance(jp_tag, str):
+                raise ValueError(
+                    f"invalid crosswalk target: {branch}:{source_tag}->{jp_tag!r}"
+                )
+            if jp_tag in jp_names:
+                result[branch][source_tag] = jp_tag
+    return result
+
+
+def load_official_crosswalks(
+    paths: tuple[Path, ...],
+    jp_names: frozenset[str] | set[str],
+) -> dict[str, dict[str, str]]:
+    merged: dict[str, dict[str, str]] = {}
+    for path in paths:
+        current = load_official_crosswalk(path, jp_names)
+        for branch, mappings in current.items():
+            merged.setdefault(branch, {}).update(mappings)
+    return merged
+
+
+def deprecated_by_source_lang(
+    deprecated_raw: list[DeprecatedTag],
+    jp_names: frozenset[str] | set[str],
+    replacement_overrides: Mapping[str, Mapping[str, str]] | None = None,
+) -> tuple[dict[str, set[str]], dict[str, dict[str, str | None]]]:
+    deprecated_tags: dict[str, set[str]] = {}
+    replacements: dict[str, dict[str, str | None]] = {}
+    seen: set[tuple[str, str]] = set()
+    for entry in deprecated_raw:
+        if not isinstance(entry, dict):
+            raise ValueError(f"invalid deprecated entry: {entry!r}")
+        source_lang = entry.get("source_lang") or "EN"
+        source_tag = entry.get("en_tag")
+        if not isinstance(source_lang, str) or not isinstance(source_tag, str):
+            raise ValueError(f"invalid deprecated entry: {entry!r}")
+        key = (source_lang, source_tag)
+        if key in seen:
+            raise ValueError(f"duplicate deprecated entry: {source_lang}:{source_tag}")
+        seen.add(key)
+        deprecated_tags.setdefault(source_lang, set()).add(source_tag)
+        replacement = entry.get("replacement")
+        if replacement is not None and not isinstance(replacement, str):
+            raise ValueError(f"invalid replacement for {source_lang}:{source_tag}")
+        if replacement is not None and replacement not in jp_names:
+            raise ValueError(
+                "deprecated replacement is not a JP tag: "
+                f"{source_lang}:{source_tag}->{replacement}"
+            )
+        replacements.setdefault(source_lang, {})[source_tag] = replacement
+
+    for source_tag, replacement in en_builder.EN_ORIGIN_TAG_REPLACEMENTS.items():
+        if replacement not in jp_names:
+            raise ValueError(
+                f"EN origin replacement is not a JP tag: {source_tag}->{replacement}"
+            )
+        deprecated_tags.setdefault("EN", set()).add(source_tag)
+        replacements.setdefault("EN", {})[source_tag] = replacement
+
+    for source_lang, mappings in (replacement_overrides or {}).items():
+        for source_tag, replacement in mappings.items():
+            if replacement not in jp_names:
+                raise ValueError(
+                    "deprecated override target is not a JP tag: "
+                    f"{source_lang}:{source_tag}->{replacement}"
+                )
+            deprecated_tags.setdefault(source_lang, set()).add(source_tag)
+            replacements.setdefault(source_lang, {})[source_tag] = replacement
+    return deprecated_tags, replacements
+
+
+def build_mapping_policy(
+    jp_tags: list[JpTag],
+    deprecated_raw: list[DeprecatedTag],
+    *,
+    overrides_path: Path = OVERRIDES_PATH,
+    replacement_overrides_path: Path = DEPRECATED_REPLACEMENT_OVERRIDES_PATH,
+    crosswalk_paths: tuple[Path, ...] = CROSSWALK_PATHS,
+) -> MappingPolicy:
+    jp_names, jp_source_map = jp_maps(jp_tags)
+    overrides = load_overrides(overrides_path, jp_names)
+    replacement_overrides = load_overrides(
+        replacement_overrides_path,
+        jp_names,
+    )
+    official_crosswalk = load_official_crosswalks(crosswalk_paths, jp_names)
+    deprecated_tags, replacements = deprecated_by_source_lang(
+        deprecated_raw,
+        jp_names,
+        replacement_overrides,
+    )
+    return MappingPolicy(
+        jp_names=jp_names,
+        jp_source_map=jp_source_map,
+        deprecated_tags=deprecated_tags,
+        replacements=replacements,
+        overrides=overrides,
+        official_crosswalk=official_crosswalk,
+    )
+
+
+def build_jp_policy(inputs: JpPolicyInputs) -> JpPolicyDocument:
+    tags: dict[str, JpTagPolicy] = {}
+    for entry in inputs.jp_tags:
+        name = entry["name"]
+        description = entry.get("description") or ""
+        use_restricted = bool(entry.get("use_restricted"))
+        edit_restricted = bool(entry.get("edit_restricted"))
+        translation_exempt = bool(entry.get("translation_exempt"))
+        special_translation_action = None
+        if (
+            "新規作成は翻訳を含めて基本的に認められていません" in description
+            or "当サイトではサンドボックスページの作成は認められていません"
+            in description
+        ):
+            special_translation_action = "staff_permission_required"
+        elif "他言語やSCP-INTに翻訳された記事には付与しないでください" in description:
+            special_translation_action = "omit"
+        tags[name] = {
+            "use_restricted": use_restricted,
+            "edit_restricted": edit_restricted,
+            "translation_exempt": translation_exempt,
+            "special_translation_action": special_translation_action,
+            "copy_allowed_for_translation": (
+                (not use_restricted or translation_exempt)
+                and special_translation_action is None
+            ),
+        }
+
+    source_tags: dict[str, dict[str, SourceTagPolicy]] = {}
+    for entry in inputs.deprecated_tags:
+        source_lang = entry.get("source_lang") or "EN"
+        source_tag = entry.get("en_tag")
+        if not isinstance(source_lang, str) or not isinstance(source_tag, str):
+            continue
+        branches = [
+            branch
+            for branch in SUPPORTED_BRANCHES
+            if source_lang in source_languages_for_branch(branch)
+        ]
+        replacements = (
+            inputs.mapping_policy.replacements
+            if inputs.mapping_policy is not None
+            else {}
+        )
+        effective_replacement = replacements.get(source_lang, {}).get(source_tag)
+        if not branches or effective_replacement is not None:
+            continue
+        for branch in branches:
+            source_tags.setdefault(branch, {})[source_tag] = {
+                "translation_action": "omit_jp_unused",
+                "reason": entry.get("description")
+                or "SCP-JPの非使用タグのため、翻訳記事には付与しません。",
+            }
+
+    if inputs.en_tags is not None:
+        overrides = (
+            inputs.mapping_policy.overrides
+            if inputs.mapping_policy is not None
+            else {}
+        )
+        en_overrides = {
+            **overrides.get("*", {}),
+            **overrides.get("en", {}),
+        }
+        for source_tag in en_builder.en_category_omitted_tags(
+            list(inputs.en_tags),
+            list(inputs.jp_tags),
+            set(en_overrides),
+        ):
+            for branch in ("en", "int"):
+                source_tags.setdefault(branch, {})[source_tag] = {
+                    "translation_action": "omit_translation_policy",
+                    "reason": (
+                        "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、"
+                        "翻訳の際は付与不要です。"
+                    ),
+                }
+
+    return {
+        "schema_version": 2,
+        "source": "SCP-JP tag-list and fragment:tag-list-*",
+        "tags": dict(sorted(tags.items())),
+        "source_tags": {
+            branch: dict(sorted(entries.items()))
+            for branch, entries in sorted(source_tags.items())
+        },
+        "concatenated_tag_hints": {
+            branch: dict(sorted(entries.items()))
+            for branch, entries in sorted(
+                (inputs.concatenated_tag_hints or {}).items()
+            )
+        },
+    }
+
+
+def load_tag_records() -> tuple[list[EnTag], list[JpTag], list[DeprecatedTag]]:
+    return (
+        cast(list[EnTag], load_json(DATA_EN)),
+        cast(list[JpTag], load_json(DATA_JP)),
+        cast(list[DeprecatedTag], load_json(DATA_DEPRECATED)),
+    )

@@ -10,6 +10,8 @@ import pytest
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts"))
 
 import build_branch_dicts_from_corpus as branch_builder
+import concatenated_tags
+import tag_policy
 from branch_config import SUPPORTED_BRANCHES
 
 ROOT = Path(__file__).parent.parent
@@ -67,8 +69,16 @@ def test_override_targets_are_valid_jp_tags(jp_tags_data):
 
 
 def test_branch_builder_applies_expected_precedence(jp_tags_data):
-    jp_names, jp_source_map = branch_builder.jp_maps(jp_tags_data)
+    jp_names, jp_source_map = tag_policy.jp_maps(jp_tags_data)
     jp_source_map["international"] = "インターナショナル"
+    policy = tag_policy.MappingPolicy(
+        jp_names=jp_names,
+        jp_source_map=jp_source_map,
+        deprecated_tags={"CN": {"wanderers"}},
+        replacements={"CN": {"wanderers": "外部ウィキアーカイブ"}},
+        overrides={"cn": {"原创": "cn", "故事": "tale"}},
+        official_crosswalk={"cn": {"international": "int"}},
+    )
     dictionary, deprecated = branch_builder.build_branch_dict(
         "cn",
         {
@@ -79,12 +89,7 @@ def test_branch_builder_applies_expected_precedence(jp_tags_data):
             "international",
             "unknown",
         },
-        jp_names,
-        jp_source_map,
-        {"CN": {"wanderers"}},
-        {"CN": {"wanderers": "外部ウィキアーカイブ"}},
-        {"cn": {"原创": "cn", "故事": "tale"}},
-        {"cn": {"international": "int"}},
+        policy,
     )
 
     assert dictionary["原创"] == "cn"
@@ -97,21 +102,25 @@ def test_branch_builder_applies_expected_precedence(jp_tags_data):
 
 
 def test_int_inherits_en_unused_tags_and_origin_replacements(jp_tags_data):
-    jp_names, jp_source_map = branch_builder.jp_maps(jp_tags_data)
-    dictionary, deprecated = branch_builder.build_branch_dict(
-        "int",
-        {"scp", "_cc", "_vn", "resource", "translator"},
-        jp_names,
-        jp_source_map,
-        {
+    jp_names, jp_source_map = tag_policy.jp_maps(jp_tags_data)
+    policy = tag_policy.MappingPolicy(
+        jp_names=jp_names,
+        jp_source_map=jp_source_map,
+        deprecated_tags={
             "EN": {"_cc", "_vn", "resource"},
             "INT": {"translator"},
         },
-        {
+        replacements={
             "EN": {"_cc": None, "_vn": "vn", "resource": "世界観"},
             "INT": {"translator": "著者ページ"},
         },
-        {},
+        overrides={},
+        official_crosswalk={},
+    )
+    dictionary, deprecated = branch_builder.build_branch_dict(
+        "int",
+        {"scp", "_cc", "_vn", "resource", "translator"},
+        policy,
     )
 
     assert dictionary["scp"] == "scp"
@@ -133,26 +142,83 @@ def test_deprecated_entries_reject_duplicate_source_keys():
     ]
 
     with pytest.raises(ValueError, match="duplicate deprecated entry"):
-        branch_builder.deprecated_by_source_lang(entries, {"対象A", "対象B"})
+        tag_policy.deprecated_by_source_lang(entries, {"対象A", "対象B"})
 
 
-def test_en_builder_includes_effective_replacement_overrides(tmp_path, monkeypatch):
-    en_data = tmp_path / "en_tags.json"
-    en_data.write_text(json.dumps([{"name": "current"}]), encoding="utf-8")
-    monkeypatch.setattr(branch_builder, "DATA_EN", en_data)
-
+def test_en_builder_includes_effective_replacement_overrides():
+    jp_tags = [{"name": "現在", "source_tags": ["current"]}]
+    deprecated_tags = [
+        {
+            "source_lang": "EN",
+            "en_tag": "legacy-tag",
+            "replacement": "現在",
+        }
+    ]
+    policy = tag_policy.MappingPolicy(
+        jp_names=frozenset({"現在"}),
+        jp_source_map={"current": "現在"},
+        deprecated_tags={"EN": {"legacy-tag"}},
+        replacements={"EN": {"legacy-tag": "現在"}},
+        overrides={},
+        official_crosswalk={},
+    )
     dictionary, deprecated = branch_builder.build_en_dicts(
-        [{"name": "現在", "source_tags": ["current"]}],
-        [],
-        {},
+        [{"name": "current"}],
+        jp_tags,
+        deprecated_tags,
         {"current", "legacy-tag"},
-        {},
-        {"legacy-tag"},
-        {"legacy-tag": "現在"},
+        policy,
     )
 
     assert dictionary["legacy-tag"] is None
     assert deprecated["legacy-tag"] == "現在"
+
+
+def test_build_artifacts_owns_complete_publication_set(tmp_path):
+    page_dir = tmp_path / "corpus" / "en" / "pages" / "sample"
+    page_dir.mkdir(parents=True)
+    (page_dir / "meta.json").write_text(
+        json.dumps({"tags": ["safe", "scp"]}),
+        encoding="utf-8",
+    )
+    output_dir = tmp_path / "dictionaries"
+    policy_path = output_dir / "jp_tag_policy.json"
+    en_tags = [{"name": "safe"}, {"name": "scp"}]
+    jp_tags = [{"name": "safe"}, {"name": "scp"}]
+    policy = tag_policy.MappingPolicy(
+        jp_names=frozenset({"safe", "scp"}),
+        jp_source_map={},
+        deprecated_tags={},
+        replacements={},
+        overrides={},
+        official_crosswalk={},
+    )
+
+    artifacts = branch_builder.build_artifacts(
+        tmp_path / "corpus",
+        ["en"],
+        en_tags,
+        jp_tags,
+        [],
+        policy,
+        dictionaries_dir=output_dir,
+        jp_policy_path=policy_path,
+        supported_branches=("en",),
+    )
+
+    assert set(artifacts.outputs) == {
+        output_dir / "en_to_jp.json",
+        output_dir / "deprecated_en_to_jp.json",
+        policy_path,
+    }
+    assert artifacts.outputs[output_dir / "en_to_jp.json"] == {
+        "safe": "safe",
+        "scp": "scp",
+    }
+    assert artifacts.outputs[policy_path]["concatenated_tag_hints"] == {
+        "en": {}
+    }
+    assert artifacts.hint_count == 0
 
 
 def test_discover_branches_excludes_jp_and_internal_dirs(tmp_path):
@@ -164,7 +230,7 @@ def test_discover_branches_excludes_jp_and_internal_dirs(tmp_path):
             encoding="utf-8",
         )
 
-    assert branch_builder.discover_branches(tmp_path) == ["en"]
+    assert concatenated_tags.discover_branches(tmp_path) == ["en"]
 
 
 def test_concatenated_tag_hints_restore_ambiguous_boundaries(tmp_path):
@@ -182,7 +248,7 @@ def test_concatenated_tag_hints_restore_ambiguous_boundaries(tmp_path):
         "scpsculpture": None,
     }
 
-    hints = branch_builder.build_concatenated_tag_hints(
+    hints = concatenated_tags.build_concatenated_tag_hints(
         tmp_path,
         "int",
         dictionary,
@@ -207,7 +273,7 @@ def test_concatenated_tag_hints_reject_intrinsic_collisions(tmp_path):
         )
 
     with pytest.raises(ValueError, match="multiple corpus boundaries"):
-        branch_builder.build_concatenated_tag_hints(
+        concatenated_tags.build_concatenated_tag_hints(
             tmp_path,
             "en",
             {"a": None, "ab": None, "bc": None, "c": None},
@@ -223,7 +289,7 @@ def test_concatenated_tag_hints_reject_exact_dictionary_collision(tmp_path):
     )
 
     with pytest.raises(ValueError, match="exact dictionary key"):
-        branch_builder.build_concatenated_tag_hints(
+        concatenated_tags.build_concatenated_tag_hints(
             tmp_path,
             "en",
             {"scp": "scp", "sculpture": "彫像", "scpsculpture": None},
@@ -239,7 +305,7 @@ def test_concatenated_tag_hints_reject_tags_missing_from_dictionary(tmp_path):
     )
 
     with pytest.raises(ValueError, match="corpus tags missing from dictionary"):
-        branch_builder.build_concatenated_tag_hints(
+        concatenated_tags.build_concatenated_tag_hints(
             tmp_path,
             "int",
             {"known": "known"},
@@ -248,17 +314,15 @@ def test_concatenated_tag_hints_reject_tags_missing_from_dictionary(tmp_path):
 
 def test_partial_hint_generation_reuses_other_committed_dictionaries(
     tmp_path,
-    monkeypatch,
 ):
     (tmp_path / "int_to_jp.json").write_text(
         json.dumps({"scp": "scp", "sculpture": "彫像"}),
         encoding="utf-8",
     )
-    monkeypatch.setattr(branch_builder, "SUPPORTED_BRANCHES", ("en", "int"))
-    monkeypatch.setattr(branch_builder, "DICTIONARIES_DIR", tmp_path)
-
-    complete = branch_builder.complete_hint_dictionaries(
-        {"en": {"scp": "scp"}}
+    complete = concatenated_tags.complete_hint_dictionaries(
+        {"en": {"scp": "scp"}},
+        dictionaries_dir=tmp_path,
+        supported_branches=("en", "int"),
     )
 
     assert complete == {
@@ -280,7 +344,7 @@ def test_every_current_corpus_tag_is_present_in_its_dictionary():
         return
 
     for branch in REQUIRED_BRANCHES:
-        corpus_tags = branch_builder.corpus_tags_for_branch(corpus_root, branch)
+        corpus_tags = concatenated_tags.corpus_tags_for_branch(corpus_root, branch)
         dictionary = _load_json(DICTIONARIES / f"{branch}_to_jp.json")
         assert corpus_tags <= set(dictionary), branch
 

@@ -8,14 +8,41 @@ import csv
 import json
 import sys
 from collections import Counter, defaultdict
+from collections.abc import Mapping
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import cast
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from scripts import build_branch_dicts_from_corpus as branch_builder
+from scripts import build_dict as en_builder
 from scripts.atomic_output import publish_files_atomically
+from scripts.branch_config import BRANCH_CONFIG_BY_CODE, SUPPORTED_BRANCHES
+from scripts.tag_models import (
+    ApplicationBranch,
+    ApplicationInventory,
+    ApplicationTag,
+    Classification,
+    Coverage,
+    CoverageBranch,
+    CoverageTag,
+    DeprecatedTag,
+    EnTag,
+    JpTag,
+    JpTagPolicy,
+    TagStats,
+)
+from scripts.tag_policy import (
+    DATA_DEPRECATED,
+    DATA_EN,
+    DATA_JP,
+    BranchMappingPolicy,
+    JpPolicyInputs,
+    MappingPolicy,
+    build_jp_policy,
+    build_mapping_policy,
+)
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUTPUT_DIR = ROOT / "visualization"
@@ -33,12 +60,12 @@ STATUS_DESCRIPTIONS = {
 }
 
 
-def load_json(path: Path) -> Any:
+def load_json(path: Path) -> object:
     with path.open("r", encoding="utf-8") as f:
         return json.load(f)
 
 
-def write_json(path: Path, data: dict[str, Any]) -> None:
+def write_json(path: Path, data: Mapping[str, object]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
@@ -48,7 +75,7 @@ def write_json(path: Path, data: dict[str, Any]) -> None:
 def collect_branch_tag_stats(
     corpus_root: Path,
     branch: str,
-) -> tuple[int, dict[str, dict[str, Any]]]:
+) -> tuple[int, dict[str, TagStats]]:
     pages_dir = corpus_root / branch / "pages"
     if not pages_dir.is_dir():
         raise ValueError(f"corpus branch pages directory not found: {pages_dir}")
@@ -82,212 +109,193 @@ def collect_branch_tag_stats(
     return page_count, tag_stats
 
 
-def classify_tag(
-    branch: str,
+@dataclass(frozen=True)
+class ClassificationContext:
+    mapping_policy: MappingPolicy
+    branch_policy: BranchMappingPolicy
+    target_policies: Mapping[str, JpTagPolicy] | None = None
+    translation_policy_omit: frozenset[str] = frozenset()
+
+    @classmethod
+    def for_branch(
+        cls,
+        mapping_policy: MappingPolicy,
+        branch: str,
+        *,
+        target_policies: Mapping[str, JpTagPolicy] | None = None,
+        translation_policy_omit: set[str] | frozenset[str] = frozenset(),
+    ) -> ClassificationContext:
+        return cls(
+            mapping_policy=mapping_policy,
+            branch_policy=mapping_policy.for_branch(branch),
+            target_policies=target_policies,
+            translation_policy_omit=frozenset(translation_policy_omit),
+        )
+
+
+@dataclass(frozen=True)
+class _BaseClassification:
+    status: str
+    jp_list_handled: bool
+    translator_handled: bool
+    jp_tag: str | None = None
+    replacement: str | None = None
+
+
+def _base_classification(
     tag: str,
-    jp_names: set[str],
-    jp_source_map: dict[str, str],
-    deprecated_tags: dict[str, set[str]],
-    replacements: dict[str, dict[str, str | None]],
-    overrides: dict[str, dict[str, str]],
-    jp_policy: dict[str, dict[str, Any]] | None = None,
-    translation_policy_omit: set[str] | None = None,
-    official_crosswalk: dict[str, dict[str, str]] | None = None,
-) -> dict[str, Any]:
-    require_target_policy = jp_policy is not None
-    jp_policy = jp_policy or {}
-    translation_policy_omit = translation_policy_omit or set()
-    official_crosswalk = official_crosswalk or {}
-    branch_deprecated, branch_replacements = (
-        branch_builder.deprecated_policy_for_branch(
-            branch,
-            deprecated_tags,
-            replacements,
+    context: ClassificationContext,
+) -> _BaseClassification:
+    branch_policy = context.branch_policy
+    if tag in branch_policy.deprecated_tags:
+        replacement = branch_policy.replacements.get(tag)
+        return _BaseClassification(
+            status=(
+                "jp_unused_replacement"
+                if replacement
+                else "jp_unused_no_single_replacement"
+            ),
+            jp_list_handled=True,
+            translator_handled=bool(replacement),
+            replacement=replacement,
         )
-    )
-    branch_overrides = {
-        **overrides.get("*", {}),
-        **overrides.get(branch, {}),
-    }
-    branch_crosswalk = official_crosswalk.get(branch, {})
-
-    if tag in branch_deprecated:
-        replacement = branch_replacements.get(tag)
-        status = (
-            "jp_unused_replacement"
-            if replacement
-            else "jp_unused_no_single_replacement"
+    if tag in context.mapping_policy.jp_names:
+        return _BaseClassification("jp_tag_name", True, True, jp_tag=tag)
+    if tag in branch_policy.overrides:
+        return _BaseClassification(
+            "curated_override_only",
+            False,
+            True,
+            jp_tag=branch_policy.overrides[tag],
         )
-        result = {
-            "status": status,
-            "jp_list_handled": True,
-            "translator_handled": bool(replacement),
-            "jp_tag": None,
-            "replacement": replacement,
-        }
-    elif tag in jp_names:
-        result = {
-            "status": "jp_tag_name",
-            "jp_list_handled": True,
-            "translator_handled": True,
-            "jp_tag": tag,
-            "replacement": None,
-        }
-    elif tag in branch_overrides:
-        result = {
-            "status": "curated_override_only",
-            "jp_list_handled": False,
-            "translator_handled": True,
-            "jp_tag": branch_overrides[tag],
-            "replacement": None,
-        }
-    elif tag in translation_policy_omit:
-        result = {
-            "status": "jp_translation_policy_omit",
-            "jp_list_handled": True,
-            "translator_handled": False,
-            "jp_tag": None,
-            "replacement": None,
-        }
-    elif tag in branch_crosswalk:
-        result = {
-            "status": "official_crosswalk",
-            "jp_list_handled": False,
-            "translator_handled": True,
-            "jp_tag": branch_crosswalk[tag],
-            "replacement": None,
-        }
-    elif tag in jp_source_map:
-        result = {
-            "status": "jp_tag_alias",
-            "jp_list_handled": True,
-            "translator_handled": True,
-            "jp_tag": jp_source_map[tag],
-            "replacement": None,
-        }
-    else:
-        result = {
-            "status": "unhandled",
-            "jp_list_handled": False,
-            "translator_handled": False,
-            "jp_tag": None,
-            "replacement": None,
-        }
+    if tag in context.translation_policy_omit:
+        return _BaseClassification(
+            "jp_translation_policy_omit",
+            True,
+            False,
+        )
+    if tag in branch_policy.official_crosswalk:
+        return _BaseClassification(
+            "official_crosswalk",
+            False,
+            True,
+            jp_tag=branch_policy.official_crosswalk[tag],
+        )
+    if tag in context.mapping_policy.jp_source_map:
+        return _BaseClassification(
+            "jp_tag_alias",
+            True,
+            True,
+            jp_tag=context.mapping_policy.jp_source_map[tag],
+        )
+    return _BaseClassification("unhandled", False, False)
 
-    target = result["replacement"] or result["jp_tag"]
-    if result["status"] == "unhandled":
-        result.update({
-            "translation_action": "tag_application_required",
-            "copy_allowed": False,
-            "display_tag": f"未訳-{tag}",
-            "target_policy": None,
-        })
-        return result
-    if target is None:
-        result.update({
-            "translation_action": "omit_jp_unused",
-            "copy_allowed": False,
-            "display_tag": None,
-            "target_policy": None,
-        })
-        return result
 
-    policy = jp_policy.get(target)
-    if policy is None:
-        if require_target_policy:
-            raise ValueError(f"JP policy missing for mapped target: {tag}->{target}")
-        policy = {
-            "copy_allowed_for_translation": True,
-            "special_translation_action": None,
-        }
-    copy_allowed = bool(policy["copy_allowed_for_translation"])
-    if policy.get("special_translation_action") == "omit":
-        action = "omit_jp_policy"
-        result["translator_handled"] = False
-    elif not copy_allowed:
-        action = "staff_permission_required"
-        result["translator_handled"] = False
-    elif result["status"] == "jp_unused_replacement":
-        action = "copy_replacement"
+def classify_tag(tag: str, context: ClassificationContext) -> Classification:
+    base = _base_classification(tag, context)
+    target = base.replacement or base.jp_tag
+    action: str
+    copy_allowed = False
+    display_tag: str | None = target
+    target_policy: JpTagPolicy | None = None
+    translator_handled = base.translator_handled
+
+    if base.status == "unhandled":
+        action = "tag_application_required"
+        display_tag = f"未訳-{tag}"
+    elif target is None:
+        action = "omit_jp_unused"
+        display_tag = None
     else:
-        action = "copy"
-    result.update({
+        target_policy = (
+            context.target_policies.get(target)
+            if context.target_policies is not None
+            else None
+        )
+        if target_policy is None:
+            if context.target_policies is not None:
+                raise ValueError(
+                    f"JP policy missing for mapped target: {tag}->{target}"
+                )
+            target_policy = {
+                "copy_allowed_for_translation": True,
+                "use_restricted": False,
+                "edit_restricted": False,
+                "translation_exempt": False,
+                "special_translation_action": None,
+            }
+        copy_allowed = target_policy["copy_allowed_for_translation"]
+        if target_policy["special_translation_action"] == "omit":
+            action = "omit_jp_policy"
+            translator_handled = False
+        elif not copy_allowed:
+            action = "staff_permission_required"
+            translator_handled = False
+        elif base.status == "jp_unused_replacement":
+            action = "copy_replacement"
+        else:
+            action = "copy"
+
+    return {
+        "status": base.status,
+        "jp_list_handled": base.jp_list_handled,
+        "translator_handled": translator_handled,
+        "jp_tag": base.jp_tag,
+        "replacement": base.replacement,
         "translation_action": action,
         "copy_allowed": copy_allowed,
-        "display_tag": target,
-        "target_policy": policy,
-    })
-    return result
+        "display_tag": display_tag,
+        "target_policy": target_policy,
+    }
 
 
 def build_coverage(
     corpus_root: Path,
     branches: list[str],
-) -> dict[str, Any]:
-    if not branch_builder.DATA_JP.exists() or not branch_builder.DATA_DEPRECATED.exists():
+) -> Coverage:
+    if not DATA_JP.exists() or not DATA_DEPRECATED.exists():
         raise FileNotFoundError("Run python scripts/parse_sources.py first.")
 
-    jp_tags: list[dict] = load_json(branch_builder.DATA_JP)
-    deprecated_raw: list[dict] = load_json(branch_builder.DATA_DEPRECATED)
-    jp_names, jp_source_map = branch_builder.jp_maps(jp_tags)
-    overrides = branch_builder.load_overrides(branch_builder.OVERRIDES_PATH, jp_names)
-    replacement_overrides = branch_builder.load_overrides(
-        branch_builder.DEPRECATED_REPLACEMENT_OVERRIDES_PATH,
-        jp_names,
-    )
-    official_crosswalk = branch_builder.load_official_crosswalks(
-        (
-            branch_builder.DATA_INT_CROSSWALK,
-            branch_builder.DATA_KO_CROSSWALK,
-            branch_builder.DATA_BRANCH_GUIDE_CROSSWALK,
-        ),
-        jp_names,
-    )
-    deprecated_tags, replacements = branch_builder.deprecated_by_source_lang(
-        deprecated_raw,
-        jp_names,
-        replacement_overrides,
-    )
-    en_tags: list[dict] = load_json(branch_builder.DATA_EN)
-    en_overrides = {
-        **overrides.get("*", {}),
-        **overrides.get("en", {}),
-    }
-    en_translation_policy_omit = branch_builder.en_builder.en_category_omitted_tags(
+    jp_tags = cast(list[JpTag], load_json(DATA_JP))
+    deprecated_tags = cast(list[DeprecatedTag], load_json(DATA_DEPRECATED))
+    en_tags = cast(list[EnTag], load_json(DATA_EN))
+    mapping_policy = build_mapping_policy(jp_tags, deprecated_tags)
+    en_branch_policy = mapping_policy.for_branch("en")
+    en_translation_policy_omit = en_builder.en_category_omitted_tags(
         en_tags,
         jp_tags,
-        set(en_overrides),
+        set(en_branch_policy.overrides),
     )
-    jp_policy = branch_builder.build_jp_policy(
-        jp_tags,
-        deprecated_raw,
-        en_tags,
-        overrides,
-        replacements,
+    jp_policy = build_jp_policy(
+        JpPolicyInputs(
+            jp_tags=jp_tags,
+            deprecated_tags=deprecated_tags,
+            en_tags=en_tags,
+            mapping_policy=mapping_policy,
+        )
     )["tags"]
 
-    branch_entries = []
+    branch_entries: list[CoverageBranch] = []
     for branch in branches:
         page_count, tag_stats = collect_branch_tag_stats(corpus_root, branch)
         status_counts: Counter[str] = Counter()
-        tags = []
+        tags: list[CoverageTag] = []
+        context = ClassificationContext.for_branch(
+            mapping_policy,
+            branch,
+            target_policies=jp_policy,
+            translation_policy_omit=(
+                en_translation_policy_omit
+                if branch in {"en", "int"}
+                else set()
+            ),
+        )
         sorted_tags = sorted(
             tag_stats,
             key=lambda tag: (-tag_stats[tag]["page_count"], tag),
         )
         for rank, tag in enumerate(sorted_tags, start=1):
-            classification = classify_tag(
-                branch,
-                tag,
-                jp_names,
-                jp_source_map,
-                deprecated_tags,
-                replacements,
-                overrides,
-                jp_policy,
-                en_translation_policy_omit if branch in {"en", "int"} else set(),
-                official_crosswalk,
-            )
+            classification = classify_tag(tag, context)
             status_counts[classification["status"]] += 1
             tags.append({
                 "tag": tag,
@@ -307,7 +315,11 @@ def build_coverage(
 
         branch_entries.append({
             "branch": branch,
-            "site": branch_builder.OFFICIAL_BRANCH_SITES.get(branch, branch),
+            "site": (
+                BRANCH_CONFIG_BY_CODE[branch].site
+                if branch in BRANCH_CONFIG_BY_CODE
+                else branch
+            ),
             "page_count": page_count,
             "tag_count": len(tags),
             "status_counts": dict(sorted(status_counts.items())),
@@ -337,7 +349,7 @@ def build_coverage(
     }
 
 
-def write_tsv(path: Path, coverage: dict[str, Any]) -> None:
+def write_tsv(path: Path, coverage: Coverage) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fieldnames = [
         "branch",
@@ -382,10 +394,10 @@ def write_tsv(path: Path, coverage: dict[str, Any]) -> None:
                 })
 
 
-def build_application_inventory(coverage: dict[str, Any]) -> dict[str, Any]:
-    branches = []
+def build_application_inventory(coverage: Coverage) -> ApplicationInventory:
+    branches: list[ApplicationBranch] = []
     for branch_entry in coverage["branches"]:
-        tags = [
+        tags: list[ApplicationTag] = [
             {
                 "tag": entry["tag"],
                 "display_tag": entry["display_tag"],
@@ -409,7 +421,7 @@ def build_application_inventory(coverage: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def write_application_tsv(path: Path, inventory: dict[str, Any]) -> None:
+def write_application_tsv(path: Path, inventory: ApplicationInventory) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fieldnames = [
         "site",
@@ -467,7 +479,7 @@ def main() -> None:
         print(f"エラー: corpus rootが見つかりません: {corpus_root}")
         sys.exit(1)
 
-    branches = args.branches if args.branches else list(branch_builder.OFFICIAL_BRANCHES)
+    branches = args.branches if args.branches else list(SUPPORTED_BRANCHES)
     branches = [
         branch
         for branch in branches

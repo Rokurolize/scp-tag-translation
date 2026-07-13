@@ -12,10 +12,16 @@ build_dict.py - data/ の解析済みタグ情報から辞書ファイルを生�
 オプション:
   --overwrite  既存の辞書を無視して強制上書き
 """
+from __future__ import annotations
+
 import argparse
 import json
 import sys
+from collections.abc import Iterable
 from pathlib import Path
+from typing import cast
+
+from scripts.tag_models import DeprecatedTag, EnTag, JpTag
 
 _ROOT = Path(__file__).parent.parent
 _DATA_EN = _ROOT / "data" / "en_tags.json"
@@ -52,17 +58,17 @@ EN_CROSSWALK_SEMANTIC_REPLACEMENTS = {
 }
 
 
-def load_json(path: Path) -> list | dict:
+def load_json(path: Path) -> object:
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
 
-def is_deprecated_for_en_source(entry: dict) -> bool:
+def is_deprecated_for_en_source(entry: DeprecatedTag) -> bool:
     source_lang = entry.get("source_lang") or "EN"
     return source_lang == "EN" and bool(entry.get("en_tag"))
 
 
-def jp_source_tags(entry: dict) -> list[str]:
+def jp_source_tags(entry: JpTag) -> list[str]:
     """Return every source-language alias recorded for a JP tag."""
     raw = entry.get("source_tags")
     if isinstance(raw, list):
@@ -72,8 +78,8 @@ def jp_source_tags(entry: dict) -> list[str]:
 
 
 def en_category_omitted_tags(
-    en_tags: list[dict],
-    jp_tags: list[dict],
+    en_tags: list[EnTag],
+    jp_tags: list[JpTag],
     extra_mapped_tags: set[str] | None = None,
 ) -> set[str]:
     """EN Genre tags omitted by JP policy unless JP explicitly maps them."""
@@ -91,7 +97,7 @@ def en_category_omitted_tags(
     }
 
 
-def _ensure_unique(values, label: str) -> None:
+def _ensure_unique(values: Iterable[str], label: str) -> None:
     seen: set[str] = set()
     duplicates: set[str] = set()
     for value in values:
@@ -104,7 +110,11 @@ def _ensure_unique(values, label: str) -> None:
         raise ValueError(f"{label} が重複しています: {sample}")
 
 
-def _ensure_no_case_variant_keys(existing_keys, source_keys, label: str) -> None:
+def _ensure_no_case_variant_keys(
+    existing_keys: Iterable[str],
+    source_keys: Iterable[str],
+    label: str,
+) -> None:
     lower_to_source = {key.lower(): key for key in source_keys}
     collisions = []
     for key in existing_keys:
@@ -118,9 +128,9 @@ def _ensure_no_case_variant_keys(existing_keys, source_keys, label: str) -> None
 
 
 def validate_build_inputs(
-    en_tags: list[dict],
-    jp_tags: list[dict],
-    deprecated_raw: list[dict] | None = None,
+    en_tags: list[EnTag],
+    jp_tags: list[JpTag],
+    deprecated_raw: list[DeprecatedTag] | None = None,
 ) -> None:
     if not isinstance(en_tags, list):
         raise ValueError("ENタグデータは配列である必要があります")
@@ -226,8 +236,8 @@ def validate_existing_dict(existing: dict[str, str | None]) -> None:
 
 
 def build(
-    en_tags: list[dict],
-    jp_tags: list[dict],
+    en_tags: list[EnTag],
+    jp_tags: list[JpTag],
     existing: dict[str, str | None] | None = None,
     deprecated_en_tags: set[str] | None = None,
 ) -> dict[str, str | None]:
@@ -303,14 +313,17 @@ def main() -> None:
             print(f"エラー: {path} が見つかりません。先に parse_sources.py を実行してください。")
             sys.exit(1)
 
-    en_tags: list[dict] = load_json(_DATA_EN)
-    jp_tags: list[dict] = load_json(_DATA_JP)
+    en_tags = cast(list[EnTag], load_json(_DATA_EN))
+    jp_tags = cast(list[JpTag], load_json(_DATA_JP))
 
     # --- 非使用タグセットの読み込み ---
     deprecated_en_tags: set[str] = set()
-    deprecated_raw: list[dict] = []
+    deprecated_raw: list[DeprecatedTag] = []
     if _DATA_DEPRECATED.exists():
-        deprecated_raw = load_json(_DATA_DEPRECATED)
+        deprecated_raw = cast(
+            list[DeprecatedTag],
+            load_json(_DATA_DEPRECATED),
+        )
     try:
         validate_build_inputs(en_tags, jp_tags, deprecated_raw)
     except ValueError as err:
@@ -333,7 +346,7 @@ def main() -> None:
     # --- 既存辞書の読み込み（手動追記を保護するため） ---
     existing: dict[str, str | None] = {}
     if not args.overwrite and _DICT_OUT.exists():
-        existing = load_json(_DICT_OUT)
+        existing = cast(dict[str, str | None], load_json(_DICT_OUT))
         try:
             validate_existing_dict(existing)
         except ValueError as err:

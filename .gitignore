@@ -182,3 +182,6 @@ repomix.config.json
 repomix-output.txt
 repomix-output.xml
 repomix-output.md
+
+# Desloppify local state
+.desloppify/
