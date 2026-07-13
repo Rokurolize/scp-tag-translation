@@ -123,8 +123,6 @@ def _parse_with_resolver(
 
 
 def parse_raw(input_path: Path) -> CrosswalkMappings:
-    """Parse unambiguous rows using the table's JP cells verbatim."""
-
     return _parse_with_resolver(input_path, _raw_target)
 
 
@@ -132,6 +130,4 @@ def parse(
     input_path: Path,
     resolver: TargetResolver,
 ) -> CrosswalkMappings:
-    """Parse rows through a resolver that targets the current JP tag set."""
-
     return _parse_with_resolver(input_path, resolver)

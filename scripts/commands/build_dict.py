@@ -88,18 +88,7 @@ def build(
     existing: dict[str, str | None] | None = None,
     deprecated_en_tags: set[str] | None = None,
 ) -> dict[str, str | None]:
-    """
-    ENタグリストとJPタグリストから辞書を構築する。
-
-    Args:
-        en_tags: ENタグのリスト（各エントリに "name" キーを持つ）
-        jp_tags: JPタグのリスト（各エントリに "name", "source_tags" キーを持つ）
-        existing: 既存辞書（手動追記を保護するため）
-        deprecated_en_tags: 非使用ENタグのセット（これらは既存値があってもnullにする）
-
-    Returns:
-        ソート済みの {en_name: jp_name | None} 辞書
-    """
+    """Treat existing mappings as compatibility overrides; deprecation still wins."""
     if existing is None:
         existing = {}
     if deprecated_en_tags is None:

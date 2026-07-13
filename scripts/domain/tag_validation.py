@@ -29,7 +29,6 @@ def _ensure_unique(values: Iterable[str], label: str) -> None:
 
 
 def validate_en_tags(raw: object) -> list[EnTag]:
-    """Validate and narrow one canonical EN tag-record array."""
     if not isinstance(raw, list):
         raise ValueError("ENタグデータは配列である必要があります")
     for index, entry in enumerate(raw):
@@ -62,7 +61,6 @@ def validate_en_tags(raw: object) -> list[EnTag]:
 
 
 def validate_jp_tags(raw: object) -> list[JpTag]:
-    """Validate and narrow one canonical JP tag-record array."""
     if not isinstance(raw, list):
         raise ValueError("JPタグデータは配列である必要があります")
     for index, entry in enumerate(raw):
@@ -109,7 +107,6 @@ def validate_deprecated_tags(
     raw: object,
     jp_tags: list[JpTag] | None = None,
 ) -> list[DeprecatedTag]:
-    """Validate and narrow one canonical deprecated tag-record array."""
     if not isinstance(raw, list):
         raise ValueError("非使用タグデータは配列である必要があります")
     jp_names = {entry["name"] for entry in jp_tags or []}
@@ -169,7 +166,6 @@ def validate_tag_records(
     jp_raw: object,
     deprecated_raw: object | None = None,
 ) -> tuple[list[EnTag], list[JpTag], list[DeprecatedTag]]:
-    """Validate the persisted record families consumed by tag builders."""
     en_tags = validate_en_tags(en_raw)
     jp_tags = validate_jp_tags(jp_raw)
     deprecated_tags = (
@@ -247,7 +243,6 @@ def _validate_coverage_tag(value: object, context: str) -> None:
 
 
 def validate_coverage(raw: object) -> Coverage:
-    """Validate and narrow one generated branch-coverage document."""
     if not isinstance(raw, dict):
         raise ValueError("coverage root must be an object")
     if not _valid_nonnegative_int(raw.get("schema_version")):

@@ -65,8 +65,6 @@ def render_browser_config() -> str:
     )
 
 def source_site_for_branch(branch: str) -> str:
-    """Return the Wikidot site unix name for a supported corpus branch."""
-
     try:
         return BRANCH_CONFIG_BY_CODE[branch].site
     except KeyError as exc:
@@ -74,8 +72,6 @@ def source_site_for_branch(branch: str) -> str:
 
 
 def jp_branch_tag_for_branch(branch: str) -> str:
-    """Return the SCP-JP origin tag corresponding to a source branch."""
-
     try:
         return BRANCH_CONFIG_BY_CODE[branch].jp_branch_tag
     except KeyError as exc:
