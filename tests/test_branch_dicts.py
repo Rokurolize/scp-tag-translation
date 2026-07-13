@@ -9,6 +9,7 @@ import pytest
 from scripts.commands import build_branch_dicts_from_corpus as branch_builder
 from scripts.domain import concatenated_tags, tag_policy
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
+from scripts.domain.tag_dictionary import build_en_dicts
 
 ROOT = Path(__file__).parent.parent
 DICTIONARIES = ROOT / "dictionaries"
@@ -190,7 +191,7 @@ def test_en_builder_applies_shared_mapping_precedence():
         official_crosswalk={"en": {"official": "official-target"}},
     )
 
-    dictionary, _deprecated = branch_builder.build_en_dicts(
+    dictionary, _deprecated = build_en_dicts(
         [
             {"name": "same"},
             {"name": "override"},

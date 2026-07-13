@@ -1,13 +1,11 @@
 """
-build_dict.py - data/ の解析済みタグ情報から辞書ファイルを生成する
+build_dict.py - data/ の解析済みタグ情報からEN辞書を生成する互換CLI
 
 使い方:
   python -m scripts.commands.build_dict [--overwrite]
 
 動作:
-  1. data/jp_tags.json の source_tags を {source_tag: jp_name} にマッピング
-  2. data/en_tags.json のうちマッピングが存在しないものを {en_name: null} として追加
-  3. 既存の dictionaries/en_to_jp.json があればマージして手動追記を保護
+  正規パイプラインと同じ共有辞書ビルダーを使用し、既存の辞書キーと値を互換入力として渡す。
 
 オプション:
   --overwrite  既存の辞書を無視して強制上書き
@@ -25,12 +23,14 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from scripts.atomic_output import publish_files_atomically
+from scripts.domain.tag_dictionary import build_en_dicts
 from scripts.domain.tag_models import EnTag, JpTag
 from scripts.domain.tag_policy import (
     EN_ORIGIN_TAG_REPLACEMENTS,
     en_category_omitted_tags,
     is_deprecated_for_en_source,
-    jp_source_tags,
+    jp_maps,
+    MappingPolicy,
 )
 from scripts.domain.tag_validation import validate_tag_records
 
@@ -115,31 +115,28 @@ def build(
         "既存辞書キー",
     )
 
-    jp_map: dict[str, str] = {}
-    for entry in jp_tags:
-        for source_tag in jp_source_tags(entry):
-            jp_map[source_tag] = entry["name"]
-
-    new_dict: dict[str, str | None] = {}
-
-    for entry in en_tags:
-        en_name: str = entry["name"]
-
-        if en_name in deprecated_en_tags:
-            new_dict[en_name] = None
-        elif en_name in jp_map:
-            new_dict[en_name] = jp_map[en_name]
-        elif en_name in existing and existing[en_name] is not None:
-            new_dict[en_name] = existing[en_name]
-        else:
-            new_dict[en_name] = None
-
-    # ENソース外の手動エントリは、非使用タグでない限り保持する。
-    for en_name, jp_name in existing.items():
-        if en_name not in new_dict:
-            new_dict[en_name] = None if en_name in deprecated_en_tags else jp_name
-
-    return dict(sorted(new_dict.items()))
+    jp_names, jp_source_map = jp_maps(jp_tags)
+    compatibility_overrides = {
+        source_tag: target
+        for source_tag, target in existing.items()
+        if target is not None
+    }
+    policy = MappingPolicy(
+        jp_names=jp_names,
+        jp_source_map=jp_source_map,
+        deprecated_tags={"EN": deprecated_en_tags},
+        replacements={},
+        overrides={"en": compatibility_overrides},
+        official_crosswalk={},
+    )
+    dictionary, _replacements = build_en_dicts(
+        en_tags,
+        jp_tags,
+        [],
+        set(existing),
+        policy,
+    )
+    return dictionary
 
 
 def _build_outputs(
