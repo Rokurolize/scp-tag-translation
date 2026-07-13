@@ -106,6 +106,22 @@ def test_publication_preserves_existing_file_mode(tmp_path):
     assert destination.stat().st_mode & 0o777 == 0o640
 
 
+def test_new_publication_uses_explicit_mode_without_reading_umask(
+    tmp_path,
+    monkeypatch,
+):
+    destination = tmp_path / "published.txt"
+
+    def fail_umask(_mode):
+        raise AssertionError("publication must not inspect the process umask")
+
+    monkeypatch.setattr(atomic_output.os, "umask", fail_umask)
+
+    atomic_output.publish_files_atomically({destination: _write("new")})
+
+    assert destination.stat().st_mode & 0o777 == 0o644
+
+
 def test_rollback_failure_continues_and_chains_publication_error(
     tmp_path,
     monkeypatch,

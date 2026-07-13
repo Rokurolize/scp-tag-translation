@@ -11,16 +11,11 @@ from pathlib import Path
 
 
 FileWriter = Callable[[Path], None]
+DEFAULT_NEW_FILE_MODE = 0o644
 
 
 class AtomicPublicationError(OSError):
     """Report a secondary rollback or cleanup failure with its cause."""
-
-
-def _new_file_mode() -> int:
-    current_umask = os.umask(0)
-    os.umask(current_umask)
-    return 0o666 & ~current_umask
 
 
 def _operation_error(
@@ -70,6 +65,7 @@ def publish_files_atomically(writers: Mapping[Path, FileWriter]) -> None:
 
     Individual replacements are atomic. If a later replacement fails, files
     already replaced in this batch are restored from same-directory backups.
+    Existing permissions are preserved; new generated files use mode 0644.
     """
 
     staged: dict[Path, Path] = {}
@@ -92,7 +88,7 @@ def publish_files_atomically(writers: Mapping[Path, FileWriter]) -> None:
             mode = (
                 stat.S_IMODE(destination.stat().st_mode)
                 if destination.exists()
-                else _new_file_mode()
+                else DEFAULT_NEW_FILE_MODE
             )
             temporary.chmod(mode)
 
