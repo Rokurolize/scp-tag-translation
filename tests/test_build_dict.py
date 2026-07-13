@@ -8,6 +8,8 @@ import pytest
 
 from scripts import build_dict
 from scripts.build_dict import build
+from scripts.tag_policy import is_deprecated_for_en_source
+from scripts.tag_validation import validate_tag_records
 
 
 EN = [{"name": "scp"}, {"name": "tale"}, {"name": "hub"}]
@@ -122,7 +124,7 @@ def test_every_jp_source_alias_is_mapped():
 
 def test_invalid_deprecated_data_fails_fast():
     with pytest.raises(ValueError, match="replacement"):
-        build_dict.validate_build_inputs(
+        validate_tag_records(
             EN,
             JP,
             [
@@ -137,7 +139,7 @@ def test_invalid_deprecated_data_fails_fast():
 
 def test_invalid_deprecated_description_fails_fast():
     with pytest.raises(ValueError, match="description"):
-        build_dict.validate_build_inputs(
+        validate_tag_records(
             EN,
             JP,
             [{"source_tag": "artist", "description": ["not text"]}],
@@ -146,7 +148,7 @@ def test_invalid_deprecated_description_fails_fast():
 
 def test_explicit_null_deprecated_source_language_fails_fast():
     with pytest.raises(ValueError, match="source_lang"):
-        build_dict.validate_build_inputs(
+        validate_tag_records(
             EN,
             JP,
             [{"source_lang": None, "source_tag": "artist"}],
@@ -155,7 +157,7 @@ def test_explicit_null_deprecated_source_language_fails_fast():
 
 def test_deprecated_replacement_must_name_a_registered_jp_tag():
     with pytest.raises(ValueError, match="JPタグに存在しません"):
-        build_dict.validate_build_inputs(
+        validate_tag_records(
             EN,
             JP,
             [
@@ -169,12 +171,12 @@ def test_deprecated_replacement_must_name_a_registered_jp_tag():
 
 
 def test_is_deprecated_for_en_source_uses_source_tag():
-    assert build_dict.is_deprecated_for_en_source({"source_tag": "artist"})
-    assert build_dict.is_deprecated_for_en_source({
+    assert is_deprecated_for_en_source({"source_tag": "artist"})
+    assert is_deprecated_for_en_source({
         "source_lang": None,
         "source_tag": "artist",
     })
-    assert not build_dict.is_deprecated_for_en_source({
+    assert not is_deprecated_for_en_source({
         "source_lang": "PL",
         "source_tag": "film",
     })

@@ -25,8 +25,14 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from scripts.atomic_output import publish_files_atomically
-from scripts.tag_models import DeprecatedTag, EnTag, JpTag
-from scripts.tag_validation import validate_deprecated_tags, validate_jp_tags
+from scripts.tag_models import EnTag, JpTag
+from scripts.tag_policy import (
+    EN_ORIGIN_TAG_REPLACEMENTS,
+    en_category_omitted_tags,
+    is_deprecated_for_en_source,
+    jp_source_tags,
+)
+from scripts.tag_validation import validate_tag_records
 
 _ROOT = Path(__file__).parent.parent
 _DATA_EN = _ROOT / "data" / "en_tags.json"
@@ -34,33 +40,6 @@ _DATA_JP = _ROOT / "data" / "jp_tags.json"
 _DATA_DEPRECATED = _ROOT / "data" / "deprecated_tags.json"
 _DICT_OUT = _ROOT / "dictionaries" / "en_to_jp.json"
 _DICT_DEPRECATED = _ROOT / "dictionaries" / "deprecated_en_to_jp.json"
-EN_CATEGORIES_OMITTED_ON_JP = {"Genre", "Genre and Themes"}
-EN_ORIGIN_TAG_REPLACEMENTS = {
-    "_int": "int",
-    "_ru": "ru",
-    "_ko": "ko",
-    "_cn": "cn",
-    "_fr": "fr",
-    "_pl": "pl",
-    "_es": "es",
-    "_th": "th",
-    "_jp": "jp",
-    "_de": "de",
-    "_it": "it",
-    "_ua": "ua",
-    "_pt": "pt",
-    "_zh": "zh",
-    "_vn": "vn",
-    "_el": "el",
-    "_id": "id",
-    "_hu": "hu",
-    "_nd": "nd",
-}
-EN_CROSSWALK_SEMANTIC_REPLACEMENTS = {
-    **EN_ORIGIN_TAG_REPLACEMENTS,
-    # JP tag-list FAQ: foreign-branch guide tags become 他支部公式 on JP.
-    "guide": "他支部公式",
-}
 
 
 def load_json(path: Path) -> object:
@@ -73,49 +52,6 @@ def _write_json(path: Path, data: object) -> None:
         f"{json.dumps(data, ensure_ascii=False, indent=2)}\n",
         encoding="utf-8",
     )
-
-
-def is_deprecated_for_en_source(entry: DeprecatedTag) -> bool:
-    source_lang = entry.get("source_lang") or "EN"
-    return source_lang == "EN" and bool(entry.get("source_tag"))
-
-
-def jp_source_tags(entry: JpTag) -> list[str]:
-    """Return every source-language alias recorded for a JP tag."""
-    return entry.get("source_tags", [])
-
-
-def en_category_omitted_tags(
-    en_tags: list[EnTag],
-    jp_tags: list[JpTag],
-    extra_mapped_tags: set[str] | None = None,
-) -> set[str]:
-    """EN Genre tags omitted by JP policy unless JP explicitly maps them."""
-    mapped = {
-        source_tag
-        for entry in jp_tags
-        for source_tag in jp_source_tags(entry)
-    }
-    mapped.update(extra_mapped_tags or set())
-    return {
-        entry["name"]
-        for entry in en_tags
-        if entry.get("category") in EN_CATEGORIES_OMITTED_ON_JP
-        and entry["name"] not in mapped
-    }
-
-
-def _ensure_unique(values: Iterable[str], label: str) -> None:
-    seen: set[str] = set()
-    duplicates: set[str] = set()
-    for value in values:
-        if value in seen:
-            duplicates.add(value)
-        seen.add(value)
-
-    if duplicates:
-        sample = ", ".join(sorted(duplicates)[:10])
-        raise ValueError(f"{label} が重複しています: {sample}")
 
 
 def _ensure_no_case_variant_keys(
@@ -133,25 +69,6 @@ def _ensure_no_case_variant_keys(
     if collisions:
         sample = ", ".join(sorted(collisions)[:10])
         raise ValueError(f"{label} に大小文字違いの重複があります: {sample}")
-
-
-def validate_build_inputs(
-    en_tags: list[EnTag],
-    jp_tags: list[JpTag],
-    deprecated_raw: list[DeprecatedTag] | None = None,
-) -> None:
-    if not isinstance(en_tags, list):
-        raise ValueError("ENタグデータは配列である必要があります")
-    for index, entry in enumerate(en_tags):
-        if not isinstance(entry, dict) or not isinstance(entry.get("name"), str):
-            raise ValueError(f"ENタグデータの項目が不正です: index={index}")
-        if not entry["name"] or entry["name"] != entry["name"].strip():
-            raise ValueError(f"ENタグ名が不正です: {entry['name']!r}")
-    validated_jp_tags = validate_jp_tags(jp_tags)
-    if deprecated_raw is not None:
-        validate_deprecated_tags(deprecated_raw, validated_jp_tags)
-
-    _ensure_unique((entry["name"] for entry in en_tags), "ENタグ名")
 
 
 def validate_existing_dict(existing: dict[str, str | None]) -> None:
@@ -188,7 +105,7 @@ def build(
         existing = {}
     if deprecated_en_tags is None:
         deprecated_en_tags = set()
-    validate_build_inputs(en_tags, jp_tags)
+    validate_tag_records(en_tags, jp_tags)
     validate_existing_dict(existing)
     _ensure_no_case_variant_keys(
         existing.keys(),
@@ -233,14 +150,15 @@ def _build_outputs(
                 "先に parse_sources.py を実行してください。"
             )
 
-    en_tags = cast(list[EnTag], load_json(_DATA_EN))
-    jp_tags = cast(list[JpTag], load_json(_DATA_JP))
-    deprecated_raw = (
-        cast(list[DeprecatedTag], load_json(_DATA_DEPRECATED))
-        if _DATA_DEPRECATED.exists()
-        else []
+    en_tags, jp_tags, deprecated_raw = validate_tag_records(
+        load_json(_DATA_EN),
+        load_json(_DATA_JP),
+        (
+            load_json(_DATA_DEPRECATED)
+            if _DATA_DEPRECATED.exists()
+            else []
+        ),
     )
-    validate_build_inputs(en_tags, jp_tags, deprecated_raw)
 
     deprecated_en_tags = {
         entry["source_tag"]

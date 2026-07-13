@@ -8,7 +8,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
 
-from scripts import build_dict as en_builder
 from scripts.branch_config import SUPPORTED_BRANCHES
 from scripts.tag_models import (
     DeprecatedTag,
@@ -35,6 +34,62 @@ CROSSWALK_PATHS = (
     DATA_KO_CROSSWALK,
     DATA_BRANCH_GUIDE_CROSSWALK,
 )
+EN_CATEGORIES_OMITTED_ON_JP = {"Genre", "Genre and Themes"}
+EN_ORIGIN_TAG_REPLACEMENTS = {
+    "_int": "int",
+    "_ru": "ru",
+    "_ko": "ko",
+    "_cn": "cn",
+    "_fr": "fr",
+    "_pl": "pl",
+    "_es": "es",
+    "_th": "th",
+    "_jp": "jp",
+    "_de": "de",
+    "_it": "it",
+    "_ua": "ua",
+    "_pt": "pt",
+    "_zh": "zh",
+    "_vn": "vn",
+    "_el": "el",
+    "_id": "id",
+    "_hu": "hu",
+    "_nd": "nd",
+}
+EN_CROSSWALK_SEMANTIC_REPLACEMENTS = {
+    **EN_ORIGIN_TAG_REPLACEMENTS,
+    "guide": "他支部公式",
+}
+
+
+def is_deprecated_for_en_source(entry: DeprecatedTag) -> bool:
+    source_lang = entry.get("source_lang") or "EN"
+    return source_lang == "EN" and bool(entry.get("source_tag"))
+
+
+def jp_source_tags(entry: JpTag) -> list[str]:
+    """Return every source-language alias recorded for a JP tag."""
+    return entry.get("source_tags", [])
+
+
+def en_category_omitted_tags(
+    en_tags: Sequence[EnTag],
+    jp_tags: Sequence[JpTag],
+    extra_mapped_tags: set[str] | None = None,
+) -> set[str]:
+    """Return EN genre tags omitted unless JP maps them explicitly."""
+    mapped = {
+        source_tag
+        for entry in jp_tags
+        for source_tag in jp_source_tags(entry)
+    }
+    mapped.update(extra_mapped_tags or set())
+    return {
+        entry["name"]
+        for entry in en_tags
+        if entry.get("category") in EN_CATEGORIES_OMITTED_ON_JP
+        and entry["name"] not in mapped
+    }
 
 
 def load_json(path: Path) -> object:
@@ -125,7 +180,7 @@ def jp_maps(jp_tags: list[JpTag]) -> tuple[frozenset[str], dict[str, str]]:
         if not isinstance(name, str) or not name:
             raise ValueError(f"invalid JP tag entry: {entry!r}")
         jp_names.add(name)
-        for source_tag in en_builder.jp_source_tags(entry):
+        for source_tag in jp_source_tags(entry):
             existing = source_to_jp.get(source_tag)
             if existing is not None and existing != name:
                 raise ValueError(
@@ -240,7 +295,7 @@ def deprecated_by_source_lang(
             )
         replacements.setdefault(source_lang, {})[source_tag] = replacement
 
-    for source_tag, replacement in en_builder.EN_ORIGIN_TAG_REPLACEMENTS.items():
+    for source_tag, replacement in EN_ORIGIN_TAG_REPLACEMENTS.items():
         if replacement not in jp_names:
             raise ValueError(
                 f"EN origin replacement is not a JP tag: {source_tag}->{replacement}"
@@ -354,7 +409,7 @@ def build_jp_policy(inputs: JpPolicyInputs) -> JpPolicyDocument:
             **overrides.get("*", {}),
             **overrides.get("en", {}),
         }
-        for source_tag in en_builder.en_category_omitted_tags(
+        for source_tag in en_category_omitted_tags(
             list(inputs.en_tags),
             list(inputs.jp_tags),
             set(en_overrides),

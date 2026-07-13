@@ -14,7 +14,6 @@ from typing import Literal, cast
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from scripts import build_dict
 from scripts.atomic_output import publish_files_atomically
 from scripts.parsers import (
     branch_guide_parser,
@@ -25,6 +24,7 @@ from scripts.parsers import (
 )
 from scripts.parsers.crosswalk_resolver import CrosswalkResolver
 from scripts.tag_models import DeprecatedTag, JpTag
+from scripts.tag_policy import EN_CROSSWALK_SEMANTIC_REPLACEMENTS
 from scripts.tag_validation import validate_deprecated_tags, validate_jp_tags
 
 Language = Literal["en", "jp", "crosswalks", "all"]
@@ -106,7 +106,7 @@ def _resolver(
     return CrosswalkResolver(
         jp_tags,
         deprecated_tags,
-        build_dict.EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
+        EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
     )
 
 

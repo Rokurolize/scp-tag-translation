@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 from scripts import parse_sources
-from scripts.build_dict import (
+from scripts.tag_policy import (
     EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
     EN_ORIGIN_TAG_REPLACEMENTS,
 )

@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import cast
 
-from scripts.tag_models import DeprecatedTag, JpTag
+from scripts.tag_models import DeprecatedTag, EnTag, JpTag
 
 
 def _ensure_unique(values: Iterable[str], label: str) -> None:
@@ -18,6 +18,39 @@ def _ensure_unique(values: Iterable[str], label: str) -> None:
     if duplicates:
         sample = ", ".join(sorted(duplicates)[:10])
         raise ValueError(f"{label} が重複しています: {sample}")
+
+
+def validate_en_tags(raw: object) -> list[EnTag]:
+    """Validate and narrow one canonical EN tag-record array."""
+    if not isinstance(raw, list):
+        raise ValueError("ENタグデータは配列である必要があります")
+    for index, entry in enumerate(raw):
+        if not isinstance(entry, dict) or not isinstance(entry.get("name"), str):
+            raise ValueError(f"ENタグデータの項目が不正です: index={index}")
+        name = entry["name"]
+        if not name or name != name.strip():
+            raise ValueError(f"ENタグ名が不正です: {name!r}")
+        category = entry.get("category")
+        if category is not None and not isinstance(category, str):
+            raise ValueError(f"ENタグのcategoryが不正です: {category!r}")
+        description = entry.get("description")
+        if description is not None and not isinstance(description, str):
+            raise ValueError(f"ENタグのdescriptionが不正です: {description!r}")
+        meta = entry.get("meta")
+        if meta is not None and (
+            not isinstance(meta, dict)
+            or any(
+                not isinstance(key, str)
+                or not isinstance(values, list)
+                or any(not isinstance(value, str) for value in values)
+                for key, values in meta.items()
+            )
+        ):
+            raise ValueError(f"ENタグのmetaが不正です: {meta!r}")
+
+    records = cast(list[EnTag], raw)
+    _ensure_unique((entry["name"] for entry in records), "ENタグ名")
+    return records
 
 
 def validate_jp_tags(raw: object) -> list[JpTag]:
@@ -121,3 +154,19 @@ def validate_deprecated_tags(
         "EN非使用タグ",
     )
     return records
+
+
+def validate_tag_records(
+    en_raw: object,
+    jp_raw: object,
+    deprecated_raw: object | None = None,
+) -> tuple[list[EnTag], list[JpTag], list[DeprecatedTag]]:
+    """Validate the persisted record families consumed by tag builders."""
+    en_tags = validate_en_tags(en_raw)
+    jp_tags = validate_jp_tags(jp_raw)
+    deprecated_tags = (
+        validate_deprecated_tags(deprecated_raw, jp_tags)
+        if deprecated_raw is not None
+        else []
+    )
+    return en_tags, jp_tags, deprecated_tags

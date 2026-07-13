@@ -14,7 +14,6 @@ from typing import cast
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from scripts import build_dict as en_builder
 from scripts.atomic_output import publish_files_atomically
 from scripts.branch_config import SUPPORTED_BRANCHES
 from scripts.concatenated_tags import (
@@ -31,11 +30,15 @@ from scripts.tag_policy import (
     DATA_JP,
     DATA_KO_CROSSWALK,
     BranchMappingPolicy,
+    EN_ORIGIN_TAG_REPLACEMENTS,
     JpPolicyInputs,
     MappingPolicy,
     build_jp_policy,
     build_mapping_policy,
+    en_category_omitted_tags,
+    is_deprecated_for_en_source,
 )
+from scripts.tag_validation import validate_tag_records
 
 ROOT = Path(__file__).resolve().parent.parent
 DICTIONARIES_DIR = ROOT / "dictionaries"
@@ -113,10 +116,10 @@ def build_en_dicts(
     deprecated_en_tags = {
         entry["source_tag"]
         for entry in deprecated_raw
-        if en_builder.is_deprecated_for_en_source(entry)
+        if is_deprecated_for_en_source(entry)
     }
     deprecated_en_tags.update(branch_policy.deprecated_tags)
-    category_omitted_tags = en_builder.en_category_omitted_tags(
+    category_omitted_tags = en_category_omitted_tags(
         en_tags,
         jp_tags,
         set(branch_policy.overrides),
@@ -130,7 +133,7 @@ def build_en_dicts(
     )
     origin_replacements = {
         source_tag: replacement
-        for source_tag, replacement in en_builder.EN_ORIGIN_TAG_REPLACEMENTS.items()
+        for source_tag, replacement in EN_ORIGIN_TAG_REPLACEMENTS.items()
         if source_tag in all_source_tags
     }
     deprecated_en_tags.update(category_omitted_tags)
@@ -183,7 +186,7 @@ def build_artifacts(
     jp_policy_path: Path = JP_POLICY_PATH,
     supported_branches: Sequence[str] = SUPPORTED_BRANCHES,
 ) -> BuildArtifacts:
-    en_builder.validate_build_inputs(en_tags, jp_tags, deprecated_tags)
+    validate_tag_records(en_tags, jp_tags, deprecated_tags)
     outputs: dict[Path, Mapping[str, object]] = {}
     summaries = []
     branch_dictionaries: dict[str, dict[str, str | None]] = {}

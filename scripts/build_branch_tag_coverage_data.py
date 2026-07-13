@@ -16,7 +16,6 @@ from typing import cast
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from scripts import build_dict as en_builder
 from scripts.atomic_output import publish_files_atomically
 from scripts.branch_config import BRANCH_CONFIG_BY_CODE, SUPPORTED_BRANCHES
 from scripts.tag_models import (
@@ -42,6 +41,7 @@ from scripts.tag_policy import (
     MappingPolicy,
     build_jp_policy,
     build_mapping_policy,
+    en_category_omitted_tags,
 )
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -263,7 +263,7 @@ def build_coverage(
     en_tags = cast(list[EnTag], load_json(DATA_EN))
     mapping_policy = build_mapping_policy(jp_tags, deprecated_tags)
     en_branch_policy = mapping_policy.for_branch("en")
-    en_translation_policy_omit = en_builder.en_category_omitted_tags(
+    en_translation_policy_omit = en_category_omitted_tags(
         en_tags,
         jp_tags,
         set(en_branch_policy.overrides),
