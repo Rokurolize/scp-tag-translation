@@ -37,6 +37,7 @@ from scripts.domain.tag_policy import (
     build_jp_policy,
     build_mapping_policy,
     en_category_omitted_tags,
+    resolve_source_tag,
 )
 from scripts.domain.tag_validation import validate_tag_records
 
@@ -144,27 +145,35 @@ def _base_classification(
     tag: str,
     context: ClassificationContext,
 ) -> _BaseClassification:
-    branch_policy = context.branch_policy
-    if tag in branch_policy.deprecated_tags:
-        replacement = branch_policy.replacements.get(tag)
+    resolution = resolve_source_tag(
+        tag,
+        context.mapping_policy,
+        context.branch_policy,
+    )
+    if resolution.origin == "jp_unused":
         return _BaseClassification(
             status=(
                 "jp_unused_replacement"
-                if replacement
+                if resolution.replacement
                 else "jp_unused_no_single_replacement"
             ),
             jp_list_handled=True,
-            translator_handled=bool(replacement),
-            replacement=replacement,
+            translator_handled=bool(resolution.replacement),
+            replacement=resolution.replacement,
         )
-    if tag in context.mapping_policy.jp_names:
-        return _BaseClassification("jp_tag_name", True, True, jp_tag=tag)
-    if tag in branch_policy.overrides:
+    if resolution.origin == "jp_tag_name":
+        return _BaseClassification(
+            "jp_tag_name",
+            True,
+            True,
+            jp_tag=resolution.target,
+        )
+    if resolution.origin == "curated_override":
         return _BaseClassification(
             "curated_override_only",
             False,
             True,
-            jp_tag=branch_policy.overrides[tag],
+            jp_tag=resolution.target,
         )
     if tag in context.translation_policy_omit:
         return _BaseClassification(
@@ -172,19 +181,19 @@ def _base_classification(
             True,
             False,
         )
-    if tag in branch_policy.official_crosswalk:
+    if resolution.origin == "official_crosswalk":
         return _BaseClassification(
             "official_crosswalk",
             False,
             True,
-            jp_tag=branch_policy.official_crosswalk[tag],
+            jp_tag=resolution.target,
         )
-    if tag in context.mapping_policy.jp_source_map:
+    if resolution.origin == "jp_tag_alias":
         return _BaseClassification(
             "jp_tag_alias",
             True,
             True,
-            jp_tag=context.mapping_policy.jp_source_map[tag],
+            jp_tag=resolution.target,
         )
     return _BaseClassification("unhandled", False, False)
 

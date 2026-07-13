@@ -68,6 +68,7 @@ def test_override_targets_are_valid_jp_tags(jp_tags_data):
 def test_branch_builder_applies_expected_precedence(jp_tags_data):
     jp_names, jp_source_map = tag_policy.jp_maps(jp_tags_data)
     jp_source_map["international"] = "インターナショナル"
+    jp_source_map["alias-only"] = "tale"
     policy = tag_policy.MappingPolicy(
         jp_names=jp_names,
         jp_source_map=jp_source_map,
@@ -84,6 +85,7 @@ def test_branch_builder_applies_expected_precedence(jp_tags_data):
             "euclid",
             "wanderers",
             "international",
+            "alias-only",
             "unknown",
         },
         policy,
@@ -94,8 +96,29 @@ def test_branch_builder_applies_expected_precedence(jp_tags_data):
     assert dictionary["euclid"] == "euclid"
     assert dictionary["wanderers"] is None
     assert dictionary["international"] == "int"
+    assert dictionary["alias-only"] == "tale"
     assert dictionary["unknown"] is None
     assert deprecated == {"wanderers": "外部ウィキアーカイブ"}
+
+    branch_policy = policy.for_branch("cn")
+    resolutions = {
+        tag: tag_policy.resolve_source_tag(tag, policy, branch_policy)
+        for tag in (
+            "wanderers",
+            "euclid",
+            "故事",
+            "international",
+            "alias-only",
+            "unknown",
+        )
+    }
+    assert resolutions["wanderers"].origin == "jp_unused"
+    assert resolutions["wanderers"].replacement == "外部ウィキアーカイブ"
+    assert resolutions["euclid"].origin == "jp_tag_name"
+    assert resolutions["故事"].origin == "curated_override"
+    assert resolutions["international"].origin == "official_crosswalk"
+    assert resolutions["alias-only"].origin == "jp_tag_alias"
+    assert resolutions["unknown"].origin == "unhandled"
 
 
 def test_int_inherits_en_unused_tags_and_origin_replacements(jp_tags_data):

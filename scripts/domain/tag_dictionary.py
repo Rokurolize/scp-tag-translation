@@ -2,33 +2,14 @@
 
 from __future__ import annotations
 
-from collections.abc import Set
-
 from scripts.domain.tag_models import DeprecatedTag, EnTag, JpTag
 from scripts.domain.tag_policy import (
-    BranchMappingPolicy,
     EN_ORIGIN_TAG_REPLACEMENTS,
     MappingPolicy,
     en_category_omitted_tags,
     is_deprecated_for_en_source,
+    resolve_source_tag,
 )
-
-
-def _resolve_source_tag(
-    source_tag: str,
-    deprecated_tags: Set[str],
-    branch_policy: BranchMappingPolicy,
-    policy: MappingPolicy,
-) -> str | None:
-    if source_tag in deprecated_tags:
-        return None
-    if source_tag in policy.jp_names:
-        return source_tag
-    if source_tag in branch_policy.overrides:
-        return branch_policy.overrides[source_tag]
-    if source_tag in branch_policy.official_crosswalk:
-        return branch_policy.official_crosswalk[source_tag]
-    return policy.jp_source_map.get(source_tag)
 
 
 def build_branch_dict(
@@ -44,12 +25,11 @@ def build_branch_dict(
         | set(branch_policy.official_crosswalk)
     )
     dictionary = {
-        source_tag: _resolve_source_tag(
+        source_tag: resolve_source_tag(
             source_tag,
-            branch_policy.deprecated_tags,
-            branch_policy,
             policy,
-        )
+            branch_policy,
+        ).target
         for source_tag in sorted(all_source_tags)
     }
     concrete_replacements = {
@@ -95,12 +75,12 @@ def build_en_dicts(
     deprecated_en_tags.update(origin_replacements)
     all_source_tags.update(deprecated_en_tags)
     dictionary = {
-        source_tag: _resolve_source_tag(
+        source_tag: resolve_source_tag(
             source_tag,
-            deprecated_en_tags,
-            branch_policy,
             policy,
-        )
+            branch_policy,
+            deprecated_tags=deprecated_en_tags,
+        ).target
         for source_tag in sorted(all_source_tags)
     }
     deprecated_dict = {

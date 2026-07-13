@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 import json
-from collections.abc import Mapping, Sequence
+from collections.abc import Mapping, Sequence, Set
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Literal
 
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.domain.tag_models import (
@@ -162,6 +163,62 @@ class MappingPolicy:
             },
             official_crosswalk=self.official_crosswalk.get(branch, {}),
         )
+
+
+MappingOrigin = Literal[
+    "jp_unused",
+    "jp_tag_name",
+    "curated_override",
+    "official_crosswalk",
+    "jp_tag_alias",
+    "unhandled",
+]
+
+
+@dataclass(frozen=True)
+class SourceTagResolution:
+    origin: MappingOrigin
+    target: str | None = None
+    replacement: str | None = None
+
+
+def resolve_source_tag(
+    source_tag: str,
+    mapping_policy: MappingPolicy,
+    branch_policy: BranchMappingPolicy,
+    *,
+    deprecated_tags: Set[str] | None = None,
+) -> SourceTagResolution:
+    """Resolve one source tag with the shared mapping precedence."""
+
+    effective_deprecated = (
+        branch_policy.deprecated_tags
+        if deprecated_tags is None
+        else deprecated_tags
+    )
+    if source_tag in effective_deprecated:
+        return SourceTagResolution(
+            "jp_unused",
+            replacement=branch_policy.replacements.get(source_tag),
+        )
+    if source_tag in mapping_policy.jp_names:
+        return SourceTagResolution("jp_tag_name", target=source_tag)
+    if source_tag in branch_policy.overrides:
+        return SourceTagResolution(
+            "curated_override",
+            target=branch_policy.overrides[source_tag],
+        )
+    if source_tag in branch_policy.official_crosswalk:
+        return SourceTagResolution(
+            "official_crosswalk",
+            target=branch_policy.official_crosswalk[source_tag],
+        )
+    if source_tag in mapping_policy.jp_source_map:
+        return SourceTagResolution(
+            "jp_tag_alias",
+            target=mapping_policy.jp_source_map[source_tag],
+        )
+    return SourceTagResolution("unhandled")
 
 
 @dataclass(frozen=True)
