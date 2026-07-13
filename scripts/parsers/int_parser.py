@@ -8,10 +8,13 @@ from collections.abc import Iterable
 from pathlib import Path
 
 from scripts.parsers.contracts import CrosswalkMappings, TargetResolver
+from scripts.parsers.crosswalk_table import (
+    EMPTY_CELL_MARKERS,
+    split_wikidot_table_row,
+)
 
 _TAG_LINK_RE = re.compile(r"/system:page-tags/tag/([^\s\]]+)")
 _HEADER_RE = re.compile(r"^\*\*([A-Z]+)\*\*$")
-_EMPTY_MARKERS = {"-", "--", "—", "–", "n/a", "na", "none"}
 _SOURCE_COLUMNS = {
     "EN": ("en", "int"),
     "CN": ("cn",),
@@ -29,13 +32,6 @@ _SOURCE_COLUMNS = {
 }
 
 
-def _cells(line: str) -> list[str]:
-    values = line.split("||")[1:]
-    if values and not values[-1].strip():
-        values.pop()
-    return [value.strip() for value in values]
-
-
 def _cell_tags(cell: str) -> list[str]:
     """Return concrete tag values from one crosswalk cell."""
     linked = _TAG_LINK_RE.findall(cell)
@@ -49,7 +45,7 @@ def _cell_tags(cell: str) -> list[str]:
         # safer than inventing a mapping.
         if (
             value
-            and value.casefold() not in _EMPTY_MARKERS
+            and value.casefold() not in EMPTY_CELL_MARKERS
             and not any(character.isspace() for character in value)
         ):
             values.append(value)
@@ -84,7 +80,7 @@ def _parse_with_resolver(
             line = raw_line.strip()
             if not line.startswith("||"):
                 continue
-            cells = _cells(line)
+            cells = split_wikidot_table_row(line)
             possible_header = [
                 match.group(1) if (match := _HEADER_RE.match(cell)) else ""
                 for cell in cells

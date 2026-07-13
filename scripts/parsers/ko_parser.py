@@ -8,16 +8,12 @@ from collections.abc import Iterable
 from pathlib import Path
 
 from scripts.parsers.contracts import CrosswalkMappings, TargetResolver
+from scripts.parsers.crosswalk_table import (
+    EMPTY_CELL_MARKERS,
+    split_wikidot_table_row,
+)
 
 _KO_LINK_RE = re.compile(r"/system:page-tags/tag/([^\s\]]+)")
-_EMPTY_MARKERS = {"-", "--", "—", "–", "n/a", "na", "none"}
-
-
-def _cells(line: str) -> list[str]:
-    values = line.split("||")[1:]
-    if values and not values[-1].strip():
-        values.pop()
-    return [value.strip() for value in values]
 
 
 def _raw_target(
@@ -29,7 +25,7 @@ def _raw_target(
     if len(values) != 1:
         return None
     jp_tag = values[0]
-    if jp_tag.casefold() in _EMPTY_MARKERS or any(
+    if jp_tag.casefold() in EMPTY_CELL_MARKERS or any(
         character.isspace() for character in jp_tag
     ):
         return None
@@ -46,7 +42,7 @@ def _parse_with_resolver(
             line = raw_line.strip()
             if not line.startswith("||"):
                 continue
-            cells = _cells(line)
+            cells = split_wikidot_table_row(line)
             if len(cells) != 3:
                 continue
             en_tag, jp_tag, ko_cell = cells

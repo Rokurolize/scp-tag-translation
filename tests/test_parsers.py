@@ -17,6 +17,10 @@ from scripts.parsers import (
     ko_parser,
 )
 from scripts.parsers.crosswalk_resolver import CrosswalkResolver, normalize_tag
+from scripts.parsers.crosswalk_table import (
+    EMPTY_CELL_MARKERS,
+    split_wikidot_table_row,
+)
 from scripts.parsers.en_parser import _parse_meta_line as _EN_PARSE_META_LINE
 from scripts.parsers.en_parser import _TAG_PATTERN as _EN_TAG_PATTERN
 from scripts.parsers.jp_parser import _PAIR_RE as _JP_PAIR_RE
@@ -518,6 +522,11 @@ def test_crosswalk_resolver_rejects_noncanonical_schema(
 ):
     with pytest.raises(ValueError, match=message):
         CrosswalkResolver(jp_tags, deprecated_tags)
+
+
+def test_crosswalk_table_row_splits_cells_and_discards_trailing_delimiter():
+    assert split_wikidot_table_row("|| EN || || JP ||") == ["EN", "", "JP"]
+    assert {"-", "N/A".casefold(), "none"} <= EMPTY_CELL_MARKERS
 
 
 def test_int_and_ko_crosswalks_ignore_placeholder_cells(tmp_path):
