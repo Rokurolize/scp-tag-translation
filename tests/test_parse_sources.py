@@ -10,6 +10,28 @@ from pathlib import Path
 import pytest
 
 from scripts.commands import parse_sources
+from scripts.parsers.contracts import BranchGuideAnalysis
+
+
+def _branch_analysis(
+    mappings=None,
+    *,
+    accepted=0,
+    conflicting=0,
+    unresolved=0,
+):
+    return BranchGuideAnalysis(
+        mappings=mappings or {"ua": {}},
+        stats={
+            "ua": {
+                "parsed_rows": accepted + conflicting + unresolved,
+                "resolved_rows": accepted + conflicting,
+                "accepted_tags": accepted,
+                "conflicting_tags": conflicting,
+                "unresolved_source_tags": unresolved,
+            }
+        },
+    )
 
 
 def _redirect_pipeline_paths(monkeypatch, tmp_path: Path) -> tuple[Path, ...]:
@@ -95,7 +117,7 @@ def test_run_all_does_not_publish_when_last_parser_fails(tmp_path, monkeypatch):
     monkeypatch.setattr(parse_sources.ko_parser, "parse", lambda *_args: {"ko": {}})
     monkeypatch.setattr(
         parse_sources.branch_guide_parser,
-        "parse",
+        "analyze_branch_guides",
         lambda *_args: (_ for _ in ()).throw(ValueError("late parser failure")),
     )
     publish_calls = []
@@ -131,13 +153,23 @@ def test_all_crosswalks_use_same_run_jp_records(tmp_path, monkeypatch):
     monkeypatch.setattr(parse_sources.ko_parser, "parse", lambda *_args: {"ko": {}})
     monkeypatch.setattr(
         parse_sources.branch_guide_parser,
-        "parse",
-        lambda *_args: {"ua": {}},
+        "analyze_branch_guides",
+        lambda *_args: _branch_analysis(
+            {"ua": {"local": "new-target"}},
+            accepted=1,
+            conflicting=2,
+            unresolved=3,
+        ),
     )
 
     batch = parse_sources.collect_outputs("all")
 
     assert batch.outputs[outputs[3]] == {"en": {"semantic": "new-target"}}
+    assert batch.outputs[outputs[5]] == {"ua": {"local": "new-target"}}
+    assert any(
+        "accepted=1, conflicting=2, unresolved=3" in message
+        for message in batch.messages
+    )
     assert set(batch.outputs) == set(outputs)
 
 
@@ -183,8 +215,8 @@ def test_run_all_publishes_six_outputs_in_one_atomic_batch(tmp_path, monkeypatch
     monkeypatch.setattr(parse_sources.ko_parser, "parse", lambda *_args: {"ko": {}})
     monkeypatch.setattr(
         parse_sources.branch_guide_parser,
-        "parse",
-        lambda *_args: {"ua": {}},
+        "analyze_branch_guides",
+        lambda *_args: _branch_analysis(),
     )
     calls = []
     monkeypatch.setattr(

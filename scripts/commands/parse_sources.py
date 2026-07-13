@@ -158,9 +158,20 @@ def collect_outputs(language: Language) -> ParseBatch:
         _require_branch_guides()
         int_mappings = int_parser.parse(SOURCES_INT, resolver.resolve)
         ko_mappings = ko_parser.parse(SOURCES_KO, resolver.resolve)
-        branch_mappings = branch_guide_parser.parse(
+        branch_analysis = branch_guide_parser.analyze_branch_guides(
             BRANCH_GUIDE_SOURCES,
             resolver.resolve,
+        )
+        branch_mappings = branch_analysis.mappings
+        accepted_count = sum(
+            stats["accepted_tags"] for stats in branch_analysis.stats.values()
+        )
+        conflict_count = sum(
+            stats["conflicting_tags"] for stats in branch_analysis.stats.values()
+        )
+        unresolved_count = sum(
+            stats["unresolved_source_tags"]
+            for stats in branch_analysis.stats.values()
         )
         outputs[DATA_INT_CROSSWALK] = int_mappings
         outputs[DATA_KO_CROSSWALK] = ko_mappings
@@ -178,7 +189,9 @@ def collect_outputs(language: Language) -> ParseBatch:
             (
                 "branch guide crosswalk: "
                 f"{sum(len(values) for values in branch_mappings.values())} "
-                f"mappings -> {DATA_BRANCH_GUIDE_CROSSWALK}"
+                "mappings "
+                f"(accepted={accepted_count}, conflicting={conflict_count}, "
+                f"unresolved={unresolved_count}) -> {DATA_BRANCH_GUIDE_CROSSWALK}"
             ),
         ))
 
