@@ -7,9 +7,6 @@ import json
 import sys
 from pathlib import Path
 
-if __package__ in (None, ""):
-    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-
 from scripts.atomic_output import publish_files_atomically
 from scripts.domain.tag_models import Coverage
 from scripts.domain.tag_validation import validate_coverage

@@ -12,9 +12,6 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 
-if __package__ in (None, ""):
-    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-
 from scripts.atomic_output import publish_files_atomically
 from scripts.domain.branch_config import BRANCH_CONFIG_BY_CODE, SUPPORTED_BRANCHES
 from scripts.domain.tag_models import (

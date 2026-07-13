@@ -29,3 +29,11 @@ def test_agent_guide_names_current_branch_config_source():
 
     assert "`scripts/domain/branch_config.py`" in guide
     assert "`scripts/branch_config.py`" not in guide
+
+
+def test_command_modules_do_not_bootstrap_import_paths():
+    command_dir = ROOT / "scripts" / "commands"
+    sources = [path.read_text(encoding="utf-8") for path in command_dir.glob("*.py")]
+
+    assert all("sys.path.insert" not in source for source in sources)
+    assert all("if __package__" not in source for source in sources)
