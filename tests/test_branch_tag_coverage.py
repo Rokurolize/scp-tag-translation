@@ -3,6 +3,7 @@
 import csv
 import json
 import re
+import sys
 from pathlib import Path
 
 import pytest
@@ -287,3 +288,86 @@ def test_visualization_html_escapes_embedded_json_script_boundaries():
     )
     assert match
     assert json.loads(match.group(1))["probe"] == "</script><p>breakout</p>"
+
+
+def test_coverage_main_reports_publication_failure(
+    tmp_path,
+    monkeypatch,
+    capsys,
+):
+    corpus_root = tmp_path / "corpus"
+    corpus_root.mkdir()
+    coverage = {
+        "schema_version": 1,
+        "source": {},
+        "status_descriptions": {},
+        "branches": [],
+    }
+    monkeypatch.setattr(
+        coverage_builder,
+        "build_coverage",
+        lambda _corpus_root, _branches: coverage,
+    )
+    monkeypatch.setattr(
+        coverage_builder,
+        "build_application_inventory",
+        lambda _coverage: {"branches": []},
+    )
+
+    def fail_publication(_writers):
+        raise OSError("disk full")
+
+    monkeypatch.setattr(
+        coverage_builder,
+        "publish_files_atomically",
+        fail_publication,
+    )
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "build_branch_tag_coverage_data.py",
+            "--corpus-root",
+            str(corpus_root),
+            "--output-dir",
+            str(tmp_path / "output"),
+        ],
+    )
+
+    with pytest.raises(SystemExit) as excinfo:
+        coverage_builder.main()
+
+    assert excinfo.value.code == 1
+    assert capsys.readouterr().out == (
+        "エラー: 可視化データ生成に失敗しました: disk full\n"
+    )
+    assert not (tmp_path / "output").exists()
+
+
+def test_coverage_html_main_reports_input_failure(
+    tmp_path,
+    monkeypatch,
+    capsys,
+):
+    missing_input = tmp_path / "missing.json"
+    output = tmp_path / "output" / "coverage.html"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "build_branch_tag_coverage_html.py",
+            "--input",
+            str(missing_input),
+            "--output",
+            str(output),
+        ],
+    )
+
+    with pytest.raises(SystemExit) as excinfo:
+        coverage_html_builder.main()
+
+    assert excinfo.value.code == 1
+    assert capsys.readouterr().out.startswith(
+        "エラー: HTML可視化生成に失敗しました: "
+    )
+    assert not output.exists()

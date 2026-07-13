@@ -11,7 +11,7 @@ from pathlib import Path
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from scripts.atomic_output import publish_files_atomically
+from scripts.atomic_output import FileWriter, publish_files_atomically
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -49,6 +49,13 @@ SOURCE_MAP = {
 }
 
 
+def _copy_writer(source: Path) -> FileWriter:
+    def copy_to(temporary: Path) -> None:
+        shutil.copyfile(source, temporary)
+
+    return copy_to
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--corpus-root", type=Path, default=DEFAULT_CORPUS)
@@ -59,31 +66,36 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    stale: list[str] = []
-    pending: dict[Path, Path] = {}
-    for destination_rel, source_rel in SOURCE_MAP.items():
-        source = args.corpus_root / source_rel
-        destination = ROOT / destination_rel
-        if not source.is_file():
-            print(f"missing corpus source: {source}")
-            stale.append(destination_rel)
-            continue
-        if not destination.is_file() or destination.read_bytes() != source.read_bytes():
-            stale.append(destination_rel)
-            if args.write:
-                pending[destination] = source
+    try:
+        stale: list[str] = []
+        pending: dict[Path, Path] = {}
+        for destination_rel, source_rel in SOURCE_MAP.items():
+            source = args.corpus_root / source_rel
+            destination = ROOT / destination_rel
+            if not source.is_file():
+                print(f"missing corpus source: {source}")
+                stale.append(destination_rel)
+                continue
+            if (
+                not destination.is_file()
+                or destination.read_bytes() != source.read_bytes()
+            ):
+                stale.append(destination_rel)
+                if args.write:
+                    pending[destination] = source
 
-    if args.write and not any(
-        not (args.corpus_root / source_rel).is_file()
-        for source_rel in SOURCE_MAP.values()
-    ):
-        publish_files_atomically({
-            destination: (
-                lambda temporary, source=source: shutil.copyfile(source, temporary)
-            )
-            for destination, source in pending.items()
-        })
-        stale = []
+        if args.write and not any(
+            not (args.corpus_root / source_rel).is_file()
+            for source_rel in SOURCE_MAP.values()
+        ):
+            publish_files_atomically({
+                destination: _copy_writer(source)
+                for destination, source in pending.items()
+            })
+            stale = []
+    except (OSError, ValueError) as err:
+        print(f"エラー: タグソース同期に失敗しました: {err}")
+        sys.exit(1)
 
     if stale:
         print("tag sources are stale or missing:")

@@ -434,3 +434,72 @@ def test_main_rejects_malformed_existing_dict(tmp_path, monkeypatch):
     assert excinfo.value.code == 1
     assert json.loads(dict_out.read_text(encoding="utf-8")) == {"hub": "ハブ "}
     assert not dict_deprecated.exists()
+
+
+def test_main_reports_malformed_json_without_traceback(
+    tmp_path,
+    monkeypatch,
+    capsys,
+):
+    data_dir = tmp_path / "data"
+    dict_dir = tmp_path / "dictionaries"
+    data_dir.mkdir()
+    data_en = data_dir / "en_tags.json"
+    data_jp = data_dir / "jp_tags.json"
+    data_en.write_text("{", encoding="utf-8")
+    data_jp.write_text(json.dumps(JP), encoding="utf-8")
+    monkeypatch.setattr(build_dict, "_DATA_EN", data_en)
+    monkeypatch.setattr(build_dict, "_DATA_JP", data_jp)
+    monkeypatch.setattr(build_dict, "_DATA_DEPRECATED", data_dir / "missing.json")
+    monkeypatch.setattr(build_dict, "_DICT_OUT", dict_dir / "en_to_jp.json")
+    monkeypatch.setattr(
+        build_dict,
+        "_DICT_DEPRECATED",
+        dict_dir / "deprecated_en_to_jp.json",
+    )
+    monkeypatch.setattr(sys, "argv", ["build_dict.py"])
+
+    with pytest.raises(SystemExit) as excinfo:
+        build_dict.main()
+
+    assert excinfo.value.code == 1
+    assert capsys.readouterr().out.startswith("エラー: 辞書生成に失敗しました: ")
+    assert not dict_dir.exists()
+
+
+def test_main_reports_publication_failure_without_partial_outputs(
+    tmp_path,
+    monkeypatch,
+    capsys,
+):
+    data_dir = tmp_path / "data"
+    dict_dir = tmp_path / "dictionaries"
+    data_dir.mkdir()
+    data_en = data_dir / "en_tags.json"
+    data_jp = data_dir / "jp_tags.json"
+    data_en.write_text(json.dumps(EN), encoding="utf-8")
+    data_jp.write_text(json.dumps(JP), encoding="utf-8")
+    monkeypatch.setattr(build_dict, "_DATA_EN", data_en)
+    monkeypatch.setattr(build_dict, "_DATA_JP", data_jp)
+    monkeypatch.setattr(build_dict, "_DATA_DEPRECATED", data_dir / "missing.json")
+    monkeypatch.setattr(build_dict, "_DICT_OUT", dict_dir / "en_to_jp.json")
+    monkeypatch.setattr(
+        build_dict,
+        "_DICT_DEPRECATED",
+        dict_dir / "deprecated_en_to_jp.json",
+    )
+    monkeypatch.setattr(sys, "argv", ["build_dict.py"])
+
+    def fail_publication(_writers):
+        raise OSError("disk full")
+
+    monkeypatch.setattr(build_dict, "publish_files_atomically", fail_publication)
+
+    with pytest.raises(SystemExit) as excinfo:
+        build_dict.main()
+
+    assert excinfo.value.code == 1
+    assert capsys.readouterr().out == (
+        "エラー: 辞書生成に失敗しました: disk full\n"
+    )
+    assert not dict_dir.exists()

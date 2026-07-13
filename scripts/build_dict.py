@@ -24,6 +24,7 @@ from typing import cast
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from scripts.atomic_output import publish_files_atomically
 from scripts.tag_models import DeprecatedTag, EnTag, JpTag
 from scripts.tag_validation import validate_deprecated_tags, validate_jp_tags
 
@@ -65,6 +66,13 @@ EN_CROSSWALK_SEMANTIC_REPLACEMENTS = {
 def load_json(path: Path) -> object:
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def _write_json(path: Path, data: object) -> None:
+    path.write_text(
+        f"{json.dumps(data, ensure_ascii=False, indent=2)}\n",
+        encoding="utf-8",
+    )
 
 
 def is_deprecated_for_en_source(entry: DeprecatedTag) -> bool:
@@ -199,25 +207,70 @@ def build(
         en_name: str = entry["name"]
 
         if en_name in deprecated_en_tags:
-            # 非使用タグは既存値やJP対応があってもnull（置換先はdeprecated辞書で管理）
             new_dict[en_name] = None
         elif en_name in jp_map:
-            # JPタグに対応するENタグが存在する
             new_dict[en_name] = jp_map[en_name]
         elif en_name in existing and existing[en_name] is not None:
-            # 既存辞書に手動追記がある場合はそれを保護
             new_dict[en_name] = existing[en_name]
         else:
-            # 未マッピング
             new_dict[en_name] = None
 
-    # 既存辞書にあってENタグリストにないエントリも保持（手動追記の保護）
-    # ただし非使用タグは保護しない（nullで上書き）
+    # ENソース外の手動エントリは、非使用タグでない限り保持する。
     for en_name, jp_name in existing.items():
         if en_name not in new_dict:
             new_dict[en_name] = None if en_name in deprecated_en_tags else jp_name
 
     return dict(sorted(new_dict.items()))
+
+
+def _build_outputs(
+    overwrite: bool,
+) -> tuple[dict[str, str | None], dict[str, str]]:
+    for path in (_DATA_EN, _DATA_JP):
+        if not path.exists():
+            raise FileNotFoundError(
+                f"{path} が見つかりません。"
+                "先に parse_sources.py を実行してください。"
+            )
+
+    en_tags = cast(list[EnTag], load_json(_DATA_EN))
+    jp_tags = cast(list[JpTag], load_json(_DATA_JP))
+    deprecated_raw = (
+        cast(list[DeprecatedTag], load_json(_DATA_DEPRECATED))
+        if _DATA_DEPRECATED.exists()
+        else []
+    )
+    validate_build_inputs(en_tags, jp_tags, deprecated_raw)
+
+    deprecated_en_tags = {
+        entry["source_tag"]
+        for entry in deprecated_raw
+        if is_deprecated_for_en_source(entry)
+    }
+    category_omitted_tags = en_category_omitted_tags(en_tags, jp_tags)
+    en_tag_names = {entry["name"] for entry in en_tags}
+    origin_replacements = {
+        source_tag: replacement
+        for source_tag, replacement in EN_ORIGIN_TAG_REPLACEMENTS.items()
+        if source_tag in en_tag_names
+    }
+    deprecated_en_tags.update(category_omitted_tags)
+    deprecated_en_tags.update(origin_replacements)
+
+    existing: dict[str, str | None] = {}
+    if not overwrite and _DICT_OUT.exists():
+        existing = cast(dict[str, str | None], load_json(_DICT_OUT))
+        validate_existing_dict(existing)
+
+    sorted_dict = build(en_tags, jp_tags, existing, deprecated_en_tags)
+    deprecated_dict = {
+        entry["source_tag"]: replacement
+        for entry in deprecated_raw
+        if is_deprecated_for_en_source(entry)
+        and isinstance(replacement := entry.get("replacement"), str)
+    }
+    deprecated_dict.update(origin_replacements)
+    return sorted_dict, dict(sorted(deprecated_dict.items()))
 
 
 def main() -> None:
@@ -229,78 +282,29 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    # --- 入力ファイルの確認 ---
-    for path in (_DATA_EN, _DATA_JP):
-        if not path.exists():
-            print(f"エラー: {path} が見つかりません。先に parse_sources.py を実行してください。")
-            sys.exit(1)
-
-    en_tags = cast(list[EnTag], load_json(_DATA_EN))
-    jp_tags = cast(list[JpTag], load_json(_DATA_JP))
-
-    # --- 非使用タグセットの読み込み ---
-    deprecated_en_tags: set[str] = set()
-    deprecated_raw: list[DeprecatedTag] = []
-    if _DATA_DEPRECATED.exists():
-        deprecated_raw = cast(
-            list[DeprecatedTag],
-            load_json(_DATA_DEPRECATED),
-        )
     try:
-        validate_build_inputs(en_tags, jp_tags, deprecated_raw)
-    except ValueError as err:
-        print(f"エラー: {err}")
+        sorted_dict, deprecated_dict = _build_outputs(args.overwrite)
+        publish_files_atomically({
+            _DICT_OUT: (
+                lambda temporary: _write_json(temporary, sorted_dict)
+            ),
+            _DICT_DEPRECATED: (
+                lambda temporary: _write_json(temporary, deprecated_dict)
+            ),
+        })
+    except (OSError, ValueError) as err:
+        print(f"エラー: 辞書生成に失敗しました: {err}")
         sys.exit(1)
 
-    for entry in deprecated_raw:
-        if is_deprecated_for_en_source(entry):
-            deprecated_en_tags.add(entry["source_tag"])
-    category_omitted_tags = en_category_omitted_tags(en_tags, jp_tags)
-    en_tag_names = {entry["name"] for entry in en_tags}
-    origin_replacements = {
-        source_tag: replacement
-        for source_tag, replacement in EN_ORIGIN_TAG_REPLACEMENTS.items()
-        if source_tag in en_tag_names
-    }
-    deprecated_en_tags.update(category_omitted_tags)
-    deprecated_en_tags.update(origin_replacements)
-
-    # --- 既存辞書の読み込み（手動追記を保護するため） ---
-    existing: dict[str, str | None] = {}
-    if not args.overwrite and _DICT_OUT.exists():
-        existing = cast(dict[str, str | None], load_json(_DICT_OUT))
-        try:
-            validate_existing_dict(existing)
-        except ValueError as err:
-            print(f"エラー: {err}")
-            sys.exit(1)
-
-    try:
-        sorted_dict = build(en_tags, jp_tags, existing, deprecated_en_tags)
-    except ValueError as err:
-        print(f"エラー: {err}")
-        sys.exit(1)
-
-    _DICT_OUT.parent.mkdir(parents=True, exist_ok=True)
-    with open(_DICT_OUT, "w", encoding="utf-8") as f:
-        json.dump(sorted_dict, f, ensure_ascii=False, indent=2)
-
-    mapped = sum(1 for v in sorted_dict.values() if v is not None)
-    total = len(sorted_dict)
-    print(f"辞書生成完了: {mapped}/{total} エントリがマッピング済み → {_DICT_OUT}")
-
-    # 非使用タグの置換辞書を生成
-    deprecated_dict: dict[str, str] = {
-        entry["source_tag"]: replacement
-        for entry in deprecated_raw
-        if is_deprecated_for_en_source(entry)
-        and isinstance(replacement := entry.get("replacement"), str)
-    }
-    deprecated_dict.update(origin_replacements)
-    _DICT_DEPRECATED.parent.mkdir(parents=True, exist_ok=True)
-    with open(_DICT_DEPRECATED, "w", encoding="utf-8") as f:
-        json.dump(dict(sorted(deprecated_dict.items())), f, ensure_ascii=False, indent=2)
-    print(f"非使用タグ置換辞書: {len(deprecated_dict)} エントリ → {_DICT_DEPRECATED}")
+    mapped = sum(1 for value in sorted_dict.values() if value is not None)
+    print(
+        f"辞書生成完了: {mapped}/{len(sorted_dict)} "
+        f"エントリがマッピング済み → {_DICT_OUT}"
+    )
+    print(
+        f"非使用タグ置換辞書: {len(deprecated_dict)} "
+        f"エントリ → {_DICT_DEPRECATED}"
+    )
 
 
 if __name__ == "__main__":

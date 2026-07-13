@@ -77,6 +77,8 @@ WikidotがHTTPへのリダイレクトを返した場合、このコマンドは
 辞書は、ローカルコーパスに保存された公式タグガイドと全ページの`meta.json`から生成します。
 ネットワーク経由でWikidotを取得する処理はありません。
 
+生成パイプラインは`sources/`の公式ページソースを`data/`の中間JSONへ解析し、その結果とコーパスのメタデータから`dictionaries/`と`visualization/`を生成します。`data/`は再生成可能なローカル中間データであり、Gitにはコミットしません。
+
 生成処理は次の根拠を順に適用します。
 
 1. 現行のSCP-JPタグ名とタグリスト記載の翻訳元別名
@@ -127,6 +129,8 @@ python scripts/build_branch_tag_coverage_html.py
 `null`は単なる変換失敗を意味しません。
 UIは置換辞書とSCP-JP利用ポリシーを参照し、省略、スタッフ許可、申請または確認のいずれに当たるかを区別します。
 
+`scripts/build_dict.py`は`data/`からEN辞書を直接生成するCLIであると同時に、`scripts/build_branch_dicts_from_corpus.py`がEN辞書を構築する際に再利用するモジュールです。複数成果物の公開は`scripts/atomic_output.py`が一括ステージングと失敗時のロールバックを担います。
+
 ## テスト
 
 ```bash
@@ -141,17 +145,25 @@ python -m pytest
 scp-tag-translation/
 ├── index.html
 ├── dictionaries/
+├── data/                                  # Git管理外の中間JSON
 ├── sources/
 │   ├── cn/ cs/ de/ en/ es/ fr/ int/ it/ ko/
 │   ├── pl/ pt-br/ th/ ua/ vn/ zh-tr/
 │   └── jp/
 ├── scripts/
-│   ├── parsers/
-│   ├── sync_tag_sources_from_corpus.py
-│   ├── parse_sources.py
-│   ├── build_branch_dicts_from_corpus.py
-│   ├── build_branch_tag_coverage_data.py
-│   └── build_branch_tag_coverage_html.py
+│   ├── parsers/                              # 支部ごとの公式ソース解析
+│   ├── atomic_output.py                      # 関連成果物のトランザクション的公開
+│   ├── branch_config.py                      # 対応支部メタデータの定義
+│   ├── tag_models.py                         # 生成データの共有スキーマ
+│   ├── tag_validation.py                     # 入力データのスキーマ検証
+│   ├── tag_policy.py                         # SCP-JPタグポリシーの構築
+│   ├── concatenated_tags.py                  # 連結タグの分割とヒント生成
+│   ├── sync_tag_sources_from_corpus.py       # コーパスとsources/の同期
+│   ├── parse_sources.py                      # sources/からdata/への解析
+│   ├── build_dict.py                         # EN辞書CLIと共有構築ロジック
+│   ├── build_branch_dicts_from_corpus.py     # 15支部辞書とJPポリシーの生成
+│   ├── build_branch_tag_coverage_data.py     # カバレッジと申請対象一覧の生成
+│   └── build_branch_tag_coverage_html.py     # 自己完結型ダッシュボードの生成
 ├── tests/
 └── visualization/
 ```

@@ -1102,7 +1102,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         };
       }
 
-      function branchTranslatorHandledCount(branch) {
+      function branchCopyAllowedCount(branch) {
         return branch.tags.filter((tag) => tag.copy_allowed).length;
       }
 
@@ -1208,7 +1208,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         els.branchCount.textContent = `${formatNumber(branches.length)}支部`;
         els.branchList.innerHTML = branches
           .map((branch) => {
-            const handled = branchTranslatorHandledCount(branch);
+            const copyable = branchCopyAllowedCount(branch);
             const active = state.branch === branch.branch ? " active" : "";
             const segments = statusOrder
               .map((status) => {
@@ -1222,9 +1222,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
                 <span class="branch-code">${escapeHtml(branch.branch)}</span>
                 <span class="branch-meta">
                   <span class="branch-bar">${segments}</span>
-                  <span class="branch-caption">${formatNumber(handled)} / ${formatNumber(branch.tag_count)} コピー可能</span>
+                  <span class="branch-caption">${formatNumber(copyable)} / ${formatNumber(branch.tag_count)} コピー可能</span>
                 </span>
-                <span class="branch-score">${formatPercent(handled, branch.tag_count)}</span>
+                <span class="branch-score">${formatPercent(copyable, branch.tag_count)}</span>
               </button>
             `;
           })
@@ -1451,10 +1451,14 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     args = parser.parse_args()
 
-    data = cast(Coverage, json.loads(args.input.read_text(encoding="utf-8")))
-    html = build_html(data)
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(html, encoding="utf-8")
+    try:
+        data = cast(Coverage, json.loads(args.input.read_text(encoding="utf-8")))
+        html = build_html(data)
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(html, encoding="utf-8")
+    except (OSError, ValueError) as err:
+        print(f"エラー: HTML可視化生成に失敗しました: {err}")
+        sys.exit(1)
     print(f"HTML可視化を生成しました: {args.output}")
 
 

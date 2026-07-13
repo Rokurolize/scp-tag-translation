@@ -1,14 +1,19 @@
 """index.html 内の翻訳ロジックの回帰テスト"""
+import csv
 import json
 import re
 import shutil
 import subprocess
 from pathlib import Path
-import csv
 
 import pytest
 
-from scripts.branch_config import SUPPORTED_BRANCHES
+from scripts.branch_config import (
+    BROWSER_CONFIG_PATH,
+    BRANCH_CONFIG_BY_CODE,
+    SUPPORTED_BRANCH_CONFIGS,
+    render_browser_config,
+)
 
 ROOT = Path(__file__).parent.parent
 INDEX_HTML = ROOT / "index.html"
@@ -26,7 +31,7 @@ def _frontend_script() -> str:
     html = INDEX_HTML.read_text(encoding="utf-8")
     match = re.search(r"<script>(.*?)</script>", html, re.DOTALL)
     assert match is not None, "script ブロックが見つかりません"
-    return match.group(1)
+    return f"{BROWSER_CONFIG_PATH.read_text(encoding='utf-8')}\n{match.group(1)}"
 
 
 def _translate_with_frontend(
@@ -44,25 +49,8 @@ def _translate_with_frontend(
         copyable_targets.update(
             value for value in (deprecated or {}).values() if isinstance(value, str)
         )
-        source_branch_tags = {
-            "cn": "cn",
-            "cs": "cs",
-            "de": "de",
-            "en": "en",
-            "es": "es",
-            "fr": "fr",
-            "int": "int",
-            "it": "it",
-            "ko": "ko",
-            "pl": "pl",
-            "pt-br": "pt",
-            "th": "th",
-            "ua": "ua",
-            "vn": "vn",
-            "zh-tr": "zh",
-        }
-        if source_lang in source_branch_tags:
-            copyable_targets.add(source_branch_tags[source_lang])
+        if source_lang in BRANCH_CONFIG_BY_CODE:
+            copyable_targets.add(BRANCH_CONFIG_BY_CODE[source_lang].jp_branch_tag)
         policy = {
             "tags": {
                 target: {
@@ -80,7 +68,7 @@ def _translate_with_frontend(
 const fs = require("node:fs");
 const vm = require("node:vm");
 const html = fs.readFileSync("index.html", "utf8");
-const frontendScript = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const frontendScript = fs.readFileSync("branch_config.js", "utf8") + "\n" + html.match(/<script>([\s\S]*?)<\/script>/)[1];
 const elements = {
   targetText: { value: "" },
   logArea: { textContent: "" },
@@ -360,7 +348,7 @@ def test_translation_handles_dictionary_keys_that_shadow_object_prototype():
 const fs = require("node:fs");
 const vm = require("node:vm");
 const html = fs.readFileSync("index.html", "utf8");
-const frontendScript = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const frontendScript = fs.readFileSync("branch_config.js", "utf8") + "\n" + html.match(/<script>([\s\S]*?)<\/script>/)[1];
 const elements = {
   targetText: { value: "" },
   logArea: { textContent: "" },
@@ -415,7 +403,7 @@ def test_translation_handles_json_dictionary_proto_keys():
 const fs = require("node:fs");
 const vm = require("node:vm");
 const html = fs.readFileSync("index.html", "utf8");
-const frontendScript = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const frontendScript = fs.readFileSync("branch_config.js", "utf8") + "\n" + html.match(/<script>([\s\S]*?)<\/script>/)[1];
 const elements = {
   targetText: { value: "" },
   logArea: { textContent: "" },
@@ -471,7 +459,7 @@ def test_translation_deduplicates_replacement_and_direct_outputs():
 const fs = require("node:fs");
 const vm = require("node:vm");
 const html = fs.readFileSync("index.html", "utf8");
-const frontendScript = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const frontendScript = fs.readFileSync("branch_config.js", "utf8") + "\n" + html.match(/<script>([\s\S]*?)<\/script>/)[1];
 const elements = {
   targetText: { value: "" },
   logArea: { textContent: "" },
@@ -525,7 +513,7 @@ def test_translation_does_not_emit_source_lang_when_all_tags_are_skipped():
 const fs = require("node:fs");
 const vm = require("node:vm");
 const html = fs.readFileSync("index.html", "utf8");
-const frontendScript = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const frontendScript = fs.readFileSync("branch_config.js", "utf8") + "\n" + html.match(/<script>([\s\S]*?)<\/script>/)[1];
 const elements = {
   targetText: { value: "" },
   logArea: { textContent: "" },
@@ -694,18 +682,54 @@ def test_translation_does_not_add_source_branch_when_branch_tag_is_translated():
     assert state["targetText"] == "zh tale"
 
 
-def test_required_source_options_are_visible():
-    html = INDEX_HTML.read_text(encoding="utf-8")
-    source_select = re.search(
-        r'<select id="sourceLang">(.*?)</select>',
-        html,
-        re.DOTALL,
+def test_browser_branch_config_is_generated_from_python_metadata():
+    assert BROWSER_CONFIG_PATH.read_text(encoding="utf-8") == render_browser_config()
+    assert '<script src="./branch_config.js"></script>' in INDEX_HTML.read_text(
+        encoding="utf-8"
     )
-    assert source_select is not None
 
-    options = set(re.findall(r'<option value="([^"]+)"', source_select.group(1)))
-    required = set(SUPPORTED_BRANCHES)
-    assert options == required
+
+def test_source_options_are_rendered_from_browser_branch_config():
+    expected = [
+        {
+            "value": config.branch,
+            "textContent": f"{config.label} — {config.site}",
+            "selected": config.branch == "en",
+        }
+        for config in SUPPORTED_BRANCH_CONFIGS
+    ]
+    script = f"""
+const vm = require("node:vm");
+const options = [];
+const sourceLang = {{
+  replaceChildren(...children) {{ options.push(...children); }},
+}};
+const context = {{
+  console,
+  document: {{
+    createElement() {{ return {{ value: "", textContent: "", selected: false }}; }},
+    getElementById(id) {{
+      if (id === "sourceLang") return sourceLang;
+      return {{ addEventListener() {{}}, style: {{}}, value: "", textContent: "" }};
+    }},
+  }},
+  window: {{ addEventListener() {{}} }},
+  navigator: {{}},
+}};
+vm.createContext(context);
+vm.runInContext({json.dumps(_frontend_script())}, context);
+context.renderSourceBranchOptions();
+console.log(JSON.stringify(options));
+"""
+    completed = subprocess.run(
+        [_node(), "-e", script],
+        check=True,
+        text=True,
+        capture_output=True,
+        cwd=ROOT,
+    )
+
+    assert json.loads(completed.stdout) == expected
 
 
 def test_branch_acceptance_examples_translate_with_committed_dictionaries():
@@ -750,7 +774,7 @@ def test_stale_dictionary_fetch_does_not_overwrite_newer_empty_input():
   const fs = require("node:fs");
   const vm = require("node:vm");
   const html = fs.readFileSync("index.html", "utf8");
-  const frontendScript = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+  const frontendScript = fs.readFileSync("branch_config.js", "utf8") + "\n" + html.match(/<script>([\s\S]*?)<\/script>/)[1];
   const elements = {
     sourceLang: { value: "en", addEventListener() {} },
     targetLang: { value: "jp", addEventListener() {} },
@@ -826,7 +850,7 @@ def test_copy_result_falls_back_when_clipboard_api_rejects():
   const fs = require("node:fs");
   const vm = require("node:vm");
   const html = fs.readFileSync("index.html", "utf8");
-  const frontendScript = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+  const frontendScript = fs.readFileSync("branch_config.js", "utf8") + "\n" + html.match(/<script>([\s\S]*?)<\/script>/)[1];
   let execCommandCalled = false;
   const textArea = {
     value: "en scp",
@@ -913,7 +937,7 @@ def test_copy_result_restores_readonly_when_fallback_copy_throws():
 const fs = require("node:fs");
 const vm = require("node:vm");
 const html = fs.readFileSync("index.html", "utf8");
-const frontendScript = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const frontendScript = fs.readFileSync("branch_config.js", "utf8") + "\n" + html.match(/<script>([\s\S]*?)<\/script>/)[1];
 const textArea = {
   value: "en scp",
   readonly: true,
@@ -985,7 +1009,7 @@ def test_copy_result_restores_readonly_when_selection_restore_throws():
 const fs = require("node:fs");
 const vm = require("node:vm");
 const html = fs.readFileSync("index.html", "utf8");
-const frontendScript = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const frontendScript = fs.readFileSync("branch_config.js", "utf8") + "\n" + html.match(/<script>([\s\S]*?)<\/script>/)[1];
 const textArea = {
   value: "en scp",
   readonly: true,

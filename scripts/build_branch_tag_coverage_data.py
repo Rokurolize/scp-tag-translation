@@ -491,23 +491,24 @@ def main() -> None:
 
     try:
         coverage = build_coverage(corpus_root, branches)
+        json_path = args.output_dir / "branch_tag_coverage.json"
+        tsv_path = args.output_dir / "branch_tag_coverage.tsv"
+        inventory = build_application_inventory(coverage)
+        inventory_json_path = args.output_dir / "tag_application_inventory.json"
+        inventory_tsv_path = args.output_dir / "tag_application_inventory.tsv"
+        publish_files_atomically({
+            json_path: lambda temporary: write_json(temporary, coverage),
+            tsv_path: lambda temporary: write_tsv(temporary, coverage),
+            inventory_json_path: (
+                lambda temporary: write_json(temporary, inventory)
+            ),
+            inventory_tsv_path: (
+                lambda temporary: write_application_tsv(temporary, inventory)
+            ),
+        })
     except (OSError, ValueError) as err:
         print(f"エラー: 可視化データ生成に失敗しました: {err}")
         sys.exit(1)
-
-    json_path = args.output_dir / "branch_tag_coverage.json"
-    tsv_path = args.output_dir / "branch_tag_coverage.tsv"
-    inventory = build_application_inventory(coverage)
-    inventory_json_path = args.output_dir / "tag_application_inventory.json"
-    inventory_tsv_path = args.output_dir / "tag_application_inventory.tsv"
-    publish_files_atomically({
-        json_path: lambda temporary: write_json(temporary, coverage),
-        tsv_path: lambda temporary: write_tsv(temporary, coverage),
-        inventory_json_path: lambda temporary: write_json(temporary, inventory),
-        inventory_tsv_path: (
-            lambda temporary: write_application_tsv(temporary, inventory)
-        ),
-    })
     total_tags = sum(branch["tag_count"] for branch in coverage["branches"])
     print(
         f"可視化データ生成完了: {len(coverage['branches'])}支部, "
