@@ -12,7 +12,6 @@ from scripts.atomic_output import FileWriter, publish_files_atomically
 
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_CORPUS = Path("/home/roku/src/Rokurolize/scp-wiki-translation/corpus")
 
 SOURCE_MAP = {
     "sources/en/tag-guide.txt": "05command/pages/tech-hub-tag/source.wikidot.txt",
@@ -55,7 +54,12 @@ def _copy_writer(source: Path) -> FileWriter:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--corpus-root", type=Path, default=DEFAULT_CORPUS)
+    parser.add_argument(
+        "--corpus-root",
+        required=True,
+        type=Path,
+        help="Path to scp-wiki-translation/corpus",
+    )
     parser.add_argument(
         "--write",
         action="store_true",

@@ -34,6 +34,18 @@ def _write_mapped_file(root: Path, relative_path: str, content: str) -> Path:
     return path
 
 
+def test_corpus_root_is_required(monkeypatch, capsys):
+    monkeypatch.setattr(sys, "argv", ["sync_tag_sources_from_corpus.py"])
+
+    with pytest.raises(SystemExit) as excinfo:
+        source_sync.main()
+
+    assert excinfo.value.code == 2
+    assert "the following arguments are required: --corpus-root" in (
+        capsys.readouterr().err
+    )
+
+
 def test_check_reports_all_sources_current(tmp_path, monkeypatch, capsys):
     repository_root, corpus_root, source_map = _configure_source_tree(
         tmp_path,
