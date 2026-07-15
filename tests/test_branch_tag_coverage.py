@@ -4,6 +4,7 @@ import pytest
 
 from scripts.commands import build_branch_tag_coverage_data as coverage_builder
 from scripts.domain import tag_policy
+from scripts.domain.tag_validation import validate_coverage
 
 
 def test_classify_tag_distinguishes_jp_list_and_override_states():
@@ -177,3 +178,98 @@ def test_coverage_main_reports_publication_failure(
         "エラー: 可視化データ生成に失敗しました: disk full\n"
     )
     assert not (tmp_path / "output").exists()
+
+
+def _minimal_coverage_tag():
+    return {
+        "tag": "scp",
+        "status": "jp_tag_name",
+        "recognized_by_jp_policy": True,
+        "jp_tag": "scp",
+        "replacement": None,
+        "translation_action": "copy",
+        "copy_allowed": True,
+        "display_tag": "scp",
+        "rank": 1,
+        "page_count": 1,
+        "sample_slugs": ["sample"],
+        "target_policy": {
+            "use_restricted": False,
+            "edit_restricted": False,
+            "translation_exempt": False,
+            "copy_allowed_for_translation": True,
+            "special_translation_action": None,
+        },
+    }
+
+
+def _minimal_coverage_document(tag):
+    return {
+        "schema_version": 1,
+        "source": {
+            "corpus_root": "corpus",
+            "jp_tag_source": "jp",
+            "jp_unused_source": "unused",
+            "override_source": "override",
+            "deprecated_override_source": "deprecated",
+            "crosswalk_source": "crosswalk",
+        },
+        "status_descriptions": {
+            "jp_unused_replacement": "",
+            "jp_unused_no_single_replacement": "",
+            "jp_translation_policy_omit": "",
+            "jp_tag_name": "",
+            "jp_tag_alias": "",
+            "curated_override_only": "",
+            "official_crosswalk": "",
+            "unhandled": "",
+        },
+        "action_descriptions": {
+            "copy": "",
+            "copy_replacement": "",
+            "omit_jp_policy": "",
+            "omit_jp_unused": "",
+            "omit_translation_policy": "",
+            "staff_permission_required": "",
+            "tag_application_required": "",
+        },
+        "branches": [{
+            "branch": "en",
+            "site": "EN",
+            "page_count": 1,
+            "tag_count": 1,
+            "status_counts": {
+                "jp_unused_replacement": 0,
+                "jp_unused_no_single_replacement": 0,
+                "jp_translation_policy_omit": 0,
+                "jp_tag_name": 1,
+                "jp_tag_alias": 0,
+                "curated_override_only": 0,
+                "official_crosswalk": 0,
+                "unhandled": 0,
+            },
+            "tags": [tag],
+        }],
+    }
+
+
+@pytest.mark.parametrize(
+    ("field_path", "message"),
+    [
+        (("status",), "status must be a string"),
+        (("translation_action",), "translation_action must be a string"),
+        (
+            ("target_policy", "special_translation_action"),
+            "special_translation_action must be a string or null",
+        ),
+    ],
+)
+def test_validate_coverage_rejects_unhashable_protocol_fields(field_path, message):
+    tag = _minimal_coverage_tag()
+    target = tag
+    for key in field_path[:-1]:
+        target = target[key]
+    target[field_path[-1]] = []
+
+    with pytest.raises(ValueError, match=message):
+        validate_coverage(_minimal_coverage_document(tag))

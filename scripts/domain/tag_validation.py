@@ -298,6 +298,10 @@ def _validate_jp_policy(value: object, context: str) -> None:
         f"{context}.target_policy",
     )
     action = value.get("special_translation_action")
+    if action is not None and not isinstance(action, str):
+        raise ValueError(
+            f"{context}.target_policy.special_translation_action must be a string or null"
+        )
     if action is not None and action not in SPECIAL_TRANSLATION_ACTIONS:
         raise ValueError(
             f"{context}.target_policy.special_translation_action is invalid"
@@ -314,9 +318,15 @@ def _validate_coverage_tag(value: object, context: str) -> None:
     )
     if not isinstance(value.get("tag"), str):
         raise ValueError(f"{context}.tag must be a string")
-    if value.get("status") not in CLASSIFICATION_STATUSES:
+    status = value.get("status")
+    if not isinstance(status, str):
+        raise ValueError(f"{context}.status must be a string")
+    if status not in CLASSIFICATION_STATUSES:
         raise ValueError(f"{context}.status is unknown")
-    if value.get("translation_action") not in COVERAGE_TRANSLATION_ACTIONS:
+    translation_action = value.get("translation_action")
+    if not isinstance(translation_action, str):
+        raise ValueError(f"{context}.translation_action must be a string")
+    if translation_action not in COVERAGE_TRANSLATION_ACTIONS:
         raise ValueError(f"{context}.translation_action is unknown")
     _validate_required_boolean_fields(
         value,
