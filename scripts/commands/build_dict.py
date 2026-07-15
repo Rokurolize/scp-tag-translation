@@ -85,7 +85,7 @@ def build(
     existing: dict[str, str | None] | None = None,
     deprecated_en_tags: set[str] | None = None,
 ) -> dict[str, str | None]:
-    """Treat existing mappings as compatibility overrides; deprecation still wins."""
+    """Preserve existing manual mappings only when JP source data has no mapping."""
     if existing is None:
         existing = {}
     if deprecated_en_tags is None:
@@ -103,6 +103,8 @@ def build(
         source_tag: target
         for source_tag, target in existing.items()
         if target is not None
+        and source_tag not in jp_names
+        and source_tag not in jp_source_map
     }
     policy = MappingPolicy(
         jp_names=jp_names,

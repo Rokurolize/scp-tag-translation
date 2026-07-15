@@ -50,6 +50,12 @@ def test_existing_manual_preserved():
     assert result["hub"] == "ハブ"
 
 
+def test_jp_source_mapping_overrides_existing_manual_value():
+    existing = {"tale": "scp"}
+    result = build(EN, JP, existing)
+    assert result["tale"] == "テイル"
+
+
 def test_jp_overrides_null_existing():
     existing = {"scp": None}
     result = build(EN, JP, existing)
