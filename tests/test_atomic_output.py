@@ -183,14 +183,11 @@ def test_cleanup_failure_is_chained_from_staging_error(tmp_path, monkeypatch):
 
     monkeypatch.setattr(Path, "unlink", fail_temporary_cleanup)
 
-    with pytest.raises(
-        atomic_output.AtomicPublicationError,
-        match="cleanup failed",
-    ) as caught:
+    with pytest.raises(OSError, match="primary staging failure") as caught:
         atomic_output.publish_files_atomically({destination: fail_staging})
 
-    assert isinstance(caught.value.__cause__, OSError)
-    assert "primary staging failure" in str(caught.value.__cause__)
+    assert any("cleanup failed" in note for note in caught.value.__notes__)
+    assert any("secondary cleanup failure" in note for note in caught.value.__notes__)
     assert destination.read_text(encoding="utf-8") == "old"
 
 

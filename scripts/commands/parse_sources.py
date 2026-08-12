@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import json
 import sys
 from collections.abc import Mapping
 from dataclasses import dataclass
@@ -12,6 +11,7 @@ from pathlib import Path
 from typing import Literal, cast
 
 from scripts.atomic_output import publish_files_atomically
+from scripts.json_io import load_json, write_json
 from scripts.data_paths import (
     DATA_BRANCH_GUIDE_CROSSWALK,
     DATA_DEPRECATED,
@@ -87,13 +87,13 @@ def _require_branch_guides() -> None:
 
 def _load_json_array(path: Path, label: str) -> list[object]:
     _require_file(path, label)
-    value = json.loads(path.read_text(encoding="utf-8"))
+    value = load_json(path)
     if not isinstance(value, list):
         raise ValueError(f"{label}はJSON配列である必要があります: {path}")
     return value
 
 
-def _resolver(
+def _build_crosswalk_resolver(
     jp_tags: list[JpTag],
     deprecated_tags: list[DeprecatedTag],
 ) -> CrosswalkResolver:
@@ -145,7 +145,7 @@ def collect_outputs(language: Language) -> ParseBatch:
                 _load_json_array(DATA_DEPRECATED, "JP非使用タグデータ"),
                 jp_tags,
             )
-        resolver = _resolver(jp_tags, deprecated_tags)
+        resolver = _build_crosswalk_resolver(jp_tags, deprecated_tags)
         _require_file(SOURCES_INT, "INTタグクロスウォーク")
         _require_file(SOURCES_KO, "KOタグクロスウォーク")
         _require_branch_guides()
@@ -199,25 +199,15 @@ def collect_outputs(language: Language) -> ParseBatch:
 
 
 def publish_outputs(outputs: Mapping[Path, object]) -> None:
-    serialized = {
-        destination: json.dumps(data, ensure_ascii=False, indent=2) + "\n"
-        for destination, data in outputs.items()
-    }
     publish_files_atomically(
         {
-            destination: (
-                lambda temporary, payload=payload: _write_payload(temporary, payload)
-            )
-            for destination, payload in serialized.items()
+            destination: lambda temporary, data=data: write_json(temporary, data)
+            for destination, data in outputs.items()
         }
     )
 
 
-def _write_payload(path: Path, payload: str) -> None:
-    path.write_text(payload, encoding="utf-8")
-
-
-def run(language: Language) -> ParseBatch:
+def parse_and_publish_sources(language: Language) -> ParseBatch:
     batch = collect_outputs(language)
     publish_outputs(batch.outputs)
     for message in batch.messages:
@@ -236,7 +226,7 @@ def main() -> None:
     args = parser.parse_args()
 
     try:
-        run(cast(Language, args.lang))
+        parse_and_publish_sources(cast(Language, args.lang))
     except (OSError, ValueError) as error:
         print(f"エラー: ソース解析に失敗しました: {error}")
         sys.exit(1)

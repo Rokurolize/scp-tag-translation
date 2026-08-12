@@ -3,11 +3,14 @@
 from __future__ import annotations
 
 import re
-from collections import defaultdict
 from collections.abc import Iterable
 from pathlib import Path
 
 from scripts.parsers.contracts import CrosswalkMappings, TargetResolver
+from scripts.parsers.crosswalk_candidates import (
+    CrosswalkCandidate,
+    resolve_crosswalk_candidates,
+)
 from scripts.parsers.crosswalk_table import (
     EMPTY_CELL_MARKERS,
     split_wikidot_table_row,
@@ -52,6 +55,12 @@ def _cell_tags(cell: str) -> list[str]:
     return values
 
 
+def _cell_for_column(cells: list[str], header: list[str], column: str) -> str:
+    """Return a header-selected cell while tolerating short rows."""
+    index = header.index(column)
+    return cells[index] if index < len(cells) else ""
+
+
 def _raw_target(
     en_values: Iterable[str],
     jp_values: Iterable[str],
@@ -61,10 +70,9 @@ def _raw_target(
     return values[0] if len(values) == 1 else None
 
 
-def _parse_with_resolver(
+def _iter_int_crosswalk_candidates(
     input_path: Path,
-    resolver: TargetResolver,
-) -> CrosswalkMappings:
+) -> Iterable[CrosswalkCandidate]:
     """Parse only unambiguous source-tag -> registered-name candidates.
 
     Rows may repeat and some branch cells intentionally use one local tag for
@@ -72,7 +80,6 @@ def _parse_with_resolver(
     points to the same JP cell.
     """
 
-    candidates: dict[str, dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
     header: list[str] | None = None
 
     with input_path.open(encoding="utf-8") as source:
@@ -91,37 +98,30 @@ def _parse_with_resolver(
             if header is None or len(cells) < len(header):
                 continue
 
-            row = dict(zip(header, cells, strict=False))
-            en_values = _cell_tags(row.get("EN", ""))
-            jp_values = _cell_tags(row.get("JP", ""))
-            jp_tag = resolver(en_values, jp_values)
-            if jp_tag is None:
-                continue
-
+            en_values = _cell_tags(_cell_for_column(cells, header, "EN"))
+            jp_values = _cell_tags(_cell_for_column(cells, header, "JP"))
             for column, branches in _SOURCE_COLUMNS.items():
-                for source_tag in _cell_tags(row.get(column, "")):
+                for source_tag in _cell_tags(
+                    _cell_for_column(cells, header, column)
+                    if column in header
+                    else ""
+                ):
                     for branch in branches:
-                        candidates[branch][source_tag].add(jp_tag)
-
-    mappings: dict[str, dict[str, str]] = {}
-    for branch, branch_candidates in candidates.items():
-        mappings[branch] = {
-            source_tag: next(iter(targets))
-            for source_tag, targets in branch_candidates.items()
-            if len(targets) == 1
-        }
-    return {
-        branch: dict(sorted(mapping.items()))
-        for branch, mapping in sorted(mappings.items())
-    }
+                        yield branch, source_tag, en_values, jp_values
 
 
 def parse_int_crosswalk_raw(input_path: Path) -> CrosswalkMappings:
-    return _parse_with_resolver(input_path, _raw_target)
+    return resolve_crosswalk_candidates(
+        _iter_int_crosswalk_candidates(input_path),
+        _raw_target,
+    )
 
 
 def parse_int_crosswalk(
     input_path: Path,
     resolver: TargetResolver,
 ) -> CrosswalkMappings:
-    return _parse_with_resolver(input_path, resolver)
+    return resolve_crosswalk_candidates(
+        _iter_int_crosswalk_candidates(input_path),
+        resolver,
+    )

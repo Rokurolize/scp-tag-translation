@@ -3,11 +3,14 @@
 from __future__ import annotations
 
 import re
-from collections import defaultdict
 from collections.abc import Iterable
 from pathlib import Path
 
 from scripts.parsers.contracts import CrosswalkMappings, TargetResolver
+from scripts.parsers.crosswalk_candidates import (
+    CrosswalkCandidate,
+    resolve_crosswalk_candidates,
+)
 from scripts.parsers.crosswalk_table import (
     EMPTY_CELL_MARKERS,
     split_wikidot_table_row,
@@ -32,11 +35,9 @@ def _raw_target(
     return jp_tag
 
 
-def _parse_with_resolver(
+def _iter_ko_crosswalk_candidates(
     input_path: Path,
-    resolver: TargetResolver,
-) -> CrosswalkMappings:
-    candidates: dict[str, set[str]] = defaultdict(set)
+) -> Iterable[CrosswalkCandidate]:
     with input_path.open(encoding="utf-8") as source:
         for raw_line in source:
             line = raw_line.strip()
@@ -50,27 +51,28 @@ def _parse_with_resolver(
             jp_tag = jp_tag.strip()
             if len(ko_tags) != 1:
                 continue
-            target = resolver(
+            yield (
+                "ko",
+                ko_tags[0],
                 [en_tag.strip()] if en_tag.strip() else [],
                 [jp_tag] if jp_tag else [],
             )
-            if target is not None:
-                candidates[ko_tags[0]].add(target)
-
-    mapping = {
-        source_tag: next(iter(targets))
-        for source_tag, targets in candidates.items()
-        if len(targets) == 1
-    }
-    return {"ko": dict(sorted(mapping.items()))}
 
 
 def parse_ko_crosswalk_raw(input_path: Path) -> CrosswalkMappings:
-    return _parse_with_resolver(input_path, _raw_target)
+    mappings = resolve_crosswalk_candidates(
+        _iter_ko_crosswalk_candidates(input_path),
+        _raw_target,
+    )
+    return {"ko": mappings.get("ko", {})}
 
 
 def parse_ko_crosswalk(
     input_path: Path,
     resolver: TargetResolver,
 ) -> CrosswalkMappings:
-    return _parse_with_resolver(input_path, resolver)
+    mappings = resolve_crosswalk_candidates(
+        _iter_ko_crosswalk_candidates(input_path),
+        resolver,
+    )
+    return {"ko": mappings.get("ko", {})}

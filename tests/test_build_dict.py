@@ -1,4 +1,4 @@
-"""辞書構築ロジック（build_dict.build）の単体テスト"""
+"""辞書構築ロジック（build_dict.build_en_dictionary）の単体テスト"""
 
 import subprocess
 import sys
@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.commands.build_dict import build
+from scripts.commands.build_dict import build_en_dictionary
 from scripts.domain.tag_policy import is_deprecated_for_en_source
 from scripts.domain.tag_validation import validate_tag_records
 
@@ -34,36 +34,36 @@ def test_direct_script_help_works_from_repository_root():
 
 
 def test_basic_mapping():
-    result = build(EN, JP)
+    result = build_en_dictionary(EN, JP)
     assert result["scp"] == "scp"
     assert result["tale"] == "テイル"
 
 
 def test_unmapped_en_is_null():
-    result = build(EN, JP)
+    result = build_en_dictionary(EN, JP)
     assert result["hub"] is None
 
 
 def test_existing_manual_preserved():
     existing = {"hub": "ハブ"}
-    result = build(EN, JP, existing)
+    result = build_en_dictionary(EN, JP, existing)
     assert result["hub"] == "ハブ"
 
 
 def test_jp_overrides_null_existing():
     existing = {"scp": None}
-    result = build(EN, JP, existing)
+    result = build_en_dictionary(EN, JP, existing)
     assert result["scp"] == "scp"
 
 
 def test_deprecated_overrides_jp_mapping():
-    result = build(EN, JP, deprecated_en_tags={"tale"})
+    result = build_en_dictionary(EN, JP, deprecated_en_tags={"tale"})
     assert result["tale"] is None
 
 
 def test_duplicate_en_names_fail_fast():
     with pytest.raises(ValueError, match="ENタグ名"):
-        build([{"name": "scp"}, {"name": "scp"}], JP)
+        build_en_dictionary([{"name": "scp"}, {"name": "scp"}], JP)
 
 
 def test_duplicate_jp_source_tags_fail_fast():
@@ -73,12 +73,12 @@ def test_duplicate_jp_source_tags_fail_fast():
     ]
 
     with pytest.raises(ValueError, match="JP側source_tags"):
-        build(EN, jp)
+        build_en_dictionary(EN, jp)
 
 
 def test_invalid_en_tag_data_fails_fast():
     with pytest.raises(ValueError, match="ENタグ名"):
-        build([{"name": " scp"}], JP)
+        build_en_dictionary([{"name": " scp"}], JP)
 
 
 @pytest.mark.parametrize(
@@ -92,22 +92,22 @@ def test_invalid_en_tag_data_fails_fast():
 )
 def test_invalid_optional_en_fields_fail_fast(field, value):
     with pytest.raises(ValueError, match=field):
-        build([{"name": "scp", field: value}], JP)
+        build_en_dictionary([{"name": "scp", field: value}], JP)
 
 
 def test_invalid_jp_tag_data_fails_fast():
     with pytest.raises(ValueError, match="JPタグ名"):
-        build(EN, [{"name": " テイル", "source_tags": ["tale"]}])
+        build_en_dictionary(EN, [{"name": " テイル", "source_tags": ["tale"]}])
 
 
 def test_invalid_jp_source_tag_data_fails_fast():
     with pytest.raises(ValueError, match="JP側source_tags"):
-        build(EN, [{"name": "テイル", "source_tags": [" tale"]}])
+        build_en_dictionary(EN, [{"name": "テイル", "source_tags": [" tale"]}])
 
 
 def test_missing_jp_source_tags_fail_fast():
     with pytest.raises(ValueError, match="JP側source_tags"):
-        build(EN, [{"name": "テイル"}])
+        build_en_dictionary(EN, [{"name": "テイル"}])
 
 
 @pytest.mark.parametrize(
@@ -123,11 +123,11 @@ def test_invalid_optional_jp_fields_fail_fast(key, value):
     entry = {"name": "テイル", "source_tags": ["tale"], key: value}
 
     with pytest.raises(ValueError, match=key):
-        build(EN, [entry])
+        build_en_dictionary(EN, [entry])
 
 
 def test_every_jp_source_alias_is_mapped():
-    result = build(
+    result = build_en_dictionary(
         [{"name": "primary"}, {"name": "secondary"}],
         [{"name": "対象", "source_tags": ["primary", "secondary"]}],
     )
@@ -201,34 +201,34 @@ def test_is_deprecated_for_en_source_uses_source_tag():
 
 def test_output_is_sorted():
     en = [{"name": "z-tag"}, {"name": "a-tag"}, {"name": "m-tag"}]
-    result = build(en, [])
+    result = build_en_dictionary(en, [])
     assert list(result.keys()) == sorted(result.keys())
 
 
 def test_all_en_tags_in_output():
-    result = build(EN, JP)
+    result = build_en_dictionary(EN, JP)
     for entry in EN:
         assert entry["name"] in result
 
 
 def test_extra_existing_keys_preserved():
     existing = {"manual-only": "手動エントリ"}
-    result = build(EN, JP, existing)
+    result = build_en_dictionary(EN, JP, existing)
     assert result["manual-only"] == "手動エントリ"
 
 
 def test_existing_dict_values_must_be_valid():
     with pytest.raises(ValueError, match="既存辞書の値"):
-        build(EN, JP, {"hub": "ハブ "})
+        build_en_dictionary(EN, JP, {"hub": "ハブ "})
 
 
 def test_existing_dict_keys_must_be_valid():
     with pytest.raises(ValueError, match="既存辞書のキー"):
-        build(EN, JP, {" hub": "ハブ"})
+        build_en_dictionary(EN, JP, {" hub": "ハブ"})
 
 
 def test_existing_dict_case_variant_of_source_key_fails_fast():
     en = [{"name": "amoni-ram"}]
 
     with pytest.raises(ValueError, match="大小文字違い"):
-        build(en, [], {"Amoni-Ram": None})
+        build_en_dictionary(en, [], {"Amoni-Ram": None})

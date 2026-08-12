@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import argparse
 import csv
-import json
 import sys
 from collections import Counter, defaultdict
 from collections.abc import Mapping
@@ -13,14 +12,14 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from scripts.atomic_output import publish_files_atomically
+from scripts.corpus import iter_corpus_page_tags
+from scripts.dictionary_inputs import load_mapping_policy_inputs
+from scripts.json_io import load_json, write_json
 from scripts.data_paths import (
     DATA_DEPRECATED,
     DATA_EN,
     DATA_JP,
     VISUALIZATION_DIR,
-    iter_corpus_page_tags,
-    load_json,
-    load_mapping_policy_inputs,
 )
 from scripts.domain.branch_config import BRANCH_CONFIG_BY_CODE, SUPPORTED_BRANCHES
 from scripts.domain.tag_models import (
@@ -69,13 +68,6 @@ ACTION_DESCRIPTIONS: dict[CoverageTranslationAction, str] = {
     "staff_permission_required": "Mapped JP restriction tag without translation exemption; do not copy without staff permission.",
     "tag_application_required": "No JP tag-list mapping; omit and request/confirm a JP tag before use.",
 }
-
-
-def write_json(path: Path, data: Mapping[str, object]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-        f.write("\n")
 
 
 def collect_branch_tag_stats(

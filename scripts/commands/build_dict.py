@@ -14,20 +14,18 @@ build_dict.py - data/ の解析済みタグ情報からEN辞書を生成する�
 from __future__ import annotations
 
 import argparse
-import json
 import sys
 from collections.abc import Iterable
-from pathlib import Path
 from typing import cast
 
 from scripts.atomic_output import publish_files_atomically
+from scripts.json_io import load_json, write_json
 from scripts.data_paths import (
     DATA_DEPRECATED,
     DATA_EN,
     DATA_JP,
     DEPRECATED_EN_DICTIONARY_PATH,
     EN_DICTIONARY_PATH,
-    load_json,
 )
 from scripts.domain.tag_dictionary import build_en_dicts
 from scripts.domain.tag_models import EnTag, JpTag
@@ -39,13 +37,6 @@ from scripts.domain.tag_policy import (
     MappingPolicy,
 )
 from scripts.domain.tag_validation import validate_tag_records
-
-
-def _write_json(path: Path, data: object) -> None:
-    path.write_text(
-        f"{json.dumps(data, ensure_ascii=False, indent=2)}\n",
-        encoding="utf-8",
-    )
 
 
 def _ensure_no_case_variant_keys(
@@ -79,7 +70,7 @@ def validate_existing_dict(raw: object) -> dict[str, str | None]:
     return cast(dict[str, str | None], existing)
 
 
-def build(
+def build_en_dictionary(
     en_tags: list[EnTag],
     jp_tags: list[JpTag],
     existing: dict[str, str | None] | None = None,
@@ -156,7 +147,12 @@ def _build_outputs(
     if not overwrite and EN_DICTIONARY_PATH.exists():
         existing = validate_existing_dict(load_json(EN_DICTIONARY_PATH))
 
-    sorted_dict = build(en_tags, jp_tags, existing, deprecated_en_tags)
+    sorted_dict = build_en_dictionary(
+        en_tags,
+        jp_tags,
+        existing,
+        deprecated_en_tags,
+    )
     deprecated_dict = {
         entry["source_tag"]: replacement
         for entry in deprecated_raw
@@ -181,10 +177,10 @@ def main() -> None:
         publish_files_atomically(
             {
                 EN_DICTIONARY_PATH: (
-                    lambda temporary: _write_json(temporary, sorted_dict)
+                    lambda temporary: write_json(temporary, sorted_dict)
                 ),
                 DEPRECATED_EN_DICTIONARY_PATH: (
-                    lambda temporary: _write_json(temporary, deprecated_dict)
+                    lambda temporary: write_json(temporary, deprecated_dict)
                 ),
             }
         )

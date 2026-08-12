@@ -4,13 +4,20 @@
 from __future__ import annotations
 
 import argparse
-import json
 import sys
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
 from scripts.atomic_output import publish_files_atomically
+from scripts.corpus import (
+    collect_corpus_tags_and_visible_sequences,
+)
+from scripts.dictionary_inputs import (
+    complete_hint_dictionaries,
+    load_mapping_policy_inputs,
+)
+from scripts.json_io import load_json, write_json
 from scripts.data_paths import (
     DATA_BRANCH_GUIDE_CROSSWALK,
     DATA_DEPRECATED,
@@ -20,10 +27,6 @@ from scripts.data_paths import (
     DATA_KO_CROSSWALK,
     DICTIONARIES_DIR,
     JP_POLICY_PATH,
-    collect_corpus_tags_and_visible_sequences,
-    complete_hint_dictionaries,
-    load_json,
-    load_mapping_policy_inputs,
 )
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.domain.concatenated_tags import (
@@ -38,13 +41,6 @@ from scripts.domain.tag_policy import (
     build_mapping_policy,
 )
 from scripts.domain.tag_validation import validate_tag_records
-
-def write_json(path: Path, data: Mapping[str, object]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8") as f:
-        json.dump(dict(sorted(data.items())), f, ensure_ascii=False, indent=2)
-        f.write("\n")
-
 
 @dataclass(frozen=True)
 class BranchBuildSummary:
@@ -236,7 +232,13 @@ def main() -> None:
             ),
         )
         publish_files_atomically({
-            path: (lambda temporary, data=data: write_json(temporary, data))
+            path: (
+                lambda temporary, data=data: write_json(
+                    temporary,
+                    data,
+                    sort_top_level=True,
+                )
+            )
             for path, data in artifacts.outputs.items()
         })
     except (OSError, ValueError) as err:

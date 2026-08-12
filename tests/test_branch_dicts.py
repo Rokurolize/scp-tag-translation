@@ -2,7 +2,8 @@ import csv
 import json
 from pathlib import Path
 
-from scripts import data_paths
+from scripts.corpus import corpus_tags_for_branch, discover_corpus_branches
+from scripts.dictionary_inputs import complete_hint_dictionaries
 from scripts.commands import build_branch_dicts_from_corpus as branch_builder
 from scripts.domain import tag_policy
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
@@ -123,7 +124,7 @@ def test_discover_branches_excludes_jp_and_internal_dirs(tmp_path):
             encoding="utf-8",
         )
 
-    assert data_paths.discover_corpus_branches(tmp_path) == ["en"]
+    assert discover_corpus_branches(tmp_path) == ["en"]
 
 def test_partial_hint_generation_reuses_other_committed_dictionaries(
     tmp_path,
@@ -132,7 +133,7 @@ def test_partial_hint_generation_reuses_other_committed_dictionaries(
         json.dumps({"scp": "scp", "sculpture": "彫像"}),
         encoding="utf-8",
     )
-    complete = data_paths.complete_hint_dictionaries(
+    complete = complete_hint_dictionaries(
         {"en": {"scp": "scp"}},
         dictionaries_dir=tmp_path,
         supported_branches=("en", "int"),
@@ -157,7 +158,7 @@ def test_every_current_corpus_tag_is_present_in_its_dictionary():
         return
 
     for branch in REQUIRED_BRANCHES:
-        corpus_tags = data_paths.corpus_tags_for_branch(corpus_root, branch)
+        corpus_tags = corpus_tags_for_branch(corpus_root, branch)
         dictionary = _load_json(DICTIONARIES / f"{branch}_to_jp.json")
         assert corpus_tags <= set(dictionary), branch
 

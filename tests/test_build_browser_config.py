@@ -9,8 +9,10 @@ from pathlib import Path
 import pytest
 
 from scripts.commands import build_browser_config as browser_config_command
-from scripts.commands.build_browser_config import publish_browser_config
-from scripts.domain.branch_config import render_browser_config
+from scripts.commands.build_browser_config import (
+    publish_browser_config,
+    render_browser_config,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 
