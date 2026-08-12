@@ -54,3 +54,17 @@ def test_extra_existing_keys_preserved():
     existing = {"manual-only": "手動エントリ"}
     result = build(EN, JP, existing)
     assert result["manual-only"] == "手動エントリ"
+
+
+def test_translated_duplicate_wins_over_raw_en_name():
+    en = [{"name": "orientation"}, {"name": "ghost"}]
+    jp = [
+        {"name": "orientation", "en_tag": "orientation"},
+        {"name": "オリエンテーション", "en_tag": "orientation"},
+        {"name": "霊体", "en_tag": "ghost"},
+        {"name": "幽霊", "en_tag": "ghost"},
+    ]
+
+    result = build(en, jp)
+
+    assert result == {"ghost": "幽霊", "orientation": "オリエンテーション"}

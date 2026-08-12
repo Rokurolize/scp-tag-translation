@@ -40,7 +40,8 @@ scp-tag-translation/
 │       ├── fragment-series.txt
 │       ├── fragment-universe.txt
 │       ├── fragment-event.txt
-│       └── fragment-unused.txt
+│       ├── fragment-unused.txt
+│       └── fragment-faq.txt
 ├── scripts/                # 辞書生成パイプライン
 │   ├── parse_sources.py    # sources/ を解析して data/ に出力
 │   ├── build_dict.py       # data/ から辞書を生成
@@ -110,7 +111,7 @@ Pull Request 大歓迎です。新タグ・新ペアを追加する際は、対�
 - Source: https://05command.wikidot.com/tech-hub-tag-list
 - License: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/legalcode.en
 
-**`sources/jp/` 配下のフラグメントファイル**（fragment-basic.txt / fragment-series.txt / fragment-universe.txt / fragment-event.txt / fragment-unused.txt）
+**`sources/jp/` 配下のフラグメントファイル**（fragment-basic.txt / fragment-series.txt / fragment-universe.txt / fragment-event.txt / fragment-unused.txt / fragment-faq.txt）
 - Title: タグリスト
 - Author: SCP財団
 - Source: https://scp-jp.wikidot.com/tag-list

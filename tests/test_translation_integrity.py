@@ -15,17 +15,22 @@ def test_en_to_jp_values_are_valid_jp_names(committed_dict, jp_tags_data):
 
 def test_jp_en_tag_consistent_with_dict(jp_tags_data, en_tag_names, committed_dict):
     """jp_tags[name=Y, en_tag=X] かつ X がENリストに存在するとき dict[X] == Y"""
-    failures = []
+    expected: dict[str, str] = {}
     for j in jp_tags_data:
         en_tag, jp_name = j.get("en_tag"), j["name"]
         if not en_tag or en_tag not in en_tag_names:
             continue  # JP固有タグはスキップ
-        if en_tag not in committed_dict:
-            failures.append(f"'{jp_name}'.en_tag='{en_tag}' missing from dict")
-        elif committed_dict[en_tag] != jp_name:
-            failures.append(
-                f"dict['{en_tag}']={committed_dict[en_tag]!r} ≠ '{jp_name}'"
-            )
+        # タグ制度の移行時には、旧タグ名そのもののエントリと、
+        # 新しい翻訳名のエントリが同じENタグを共有することがある。
+        # build_dict.py と同じ優先順位で正規の期待値を選ぶ。
+        if en_tag not in expected or jp_name != en_tag:
+            expected[en_tag] = jp_name
+
+    failures = [
+        f"dict['{en_tag}']={committed_dict.get(en_tag)!r} ≠ '{jp_name}'"
+        for en_tag, jp_name in expected.items()
+        if en_tag not in committed_dict or committed_dict[en_tag] != jp_name
+    ]
     assert not failures, "\n".join(failures)
 
 

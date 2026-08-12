@@ -63,11 +63,11 @@ class TestJpParser:
 
     def test_jp_known_tags_exist(self, jp_tags_data):
         jp_names = {e["name"] for e in jp_tags_data}
-        for tag in ("scp", "補足", "ハブ"):
+        for tag in ("scp", "補足", "ハブ", "アクション", "ホラー"):
             assert tag in jp_names, f"既知タグ '{tag}' が見つかりません"
 
     def test_jp_count_lower_bound(self, jp_tags_data):
-        assert len(jp_tags_data) >= 1500, f"JPタグ件数が少なすぎます: {len(jp_tags_data)}"
+        assert len(jp_tags_data) >= 1800, f"JPタグ件数が少なすぎます: {len(jp_tags_data)}"
 
     def test_jp_exhaustive_coverage(self, jp_tags_data):
         """ソース中でスラッグ非空のタグ行（重複除去後）が全てパース結果に含まれること。

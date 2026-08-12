@@ -114,6 +114,8 @@
 
 * **[[[/system:page-tags/tag/classiccon2025|classiccon2025]]]** //(classiccon2025)// - [[[classic-con|2025年クラシックコンテスト]]]。
 
+* **[[[/system:page-tags/tag/sportscon2026|sportscon2026]]]** //(sportscon2026)// - [[[sportscon|2026年スポーツコンテスト]]]。
+
 * **[[[/system:page-tags/tag/memecon2021-unofficial|memecon2021-unofficial]]]** //(memecon2021-unofficial)// - 非公式企画の[[[memecon-unofficial|2021年ミームコンテスト]]]。
 
 * **[[[/system:page-tags/tag/romcon2023-unofficial|romcon2023-unofficial]]]** //(romcon2023-unofficial)// - 非公式企画の[[[romcon|2023年ロマンスコンテスト]]]: SCPオリキャラトーナメント。
@@ -126,6 +128,8 @@
  * 本タグが付与される記事をENから翻訳する場合、関連するカノンタグ(カノンタグ-EN以外のもの)がENの翻訳元に付与されていなくてもJP独自で付与することが認められます。この場合、その旨をディスカッションに明示してください。
 
 * **[[[/system:page-tags/tag/dumbcon2026-unofficial|dumbcon2026-unofficial]]]** //(dumbcon2026-unofficial)// - 非公式企画の[[[dumbcon|2026年アホコンテスト]]]。
+
+* **[[[/system:page-tags/tag/timjc2026-unofficial|timjc2026-unofficial]]]** //(timjc2026-unofficial)// - 非公式企画の[[[timjc|2026年これが私の]]][[span class="ruby"]][[[timjc|推し曲]]][[span class="rt"]]ジャム[[/span]][[/span]][[[timjc|コンテスト]]]。
 
 以下のタグについては、特定の他支部の項を参照してください。
 
@@ -158,6 +162,8 @@
 * **[[[/system:page-tags/tag/spring-cleaning24|spring-cleaning24]]]** //(spring-cleaning24)// - [[[deer-college-spring-cleaning-event|2024年春の大掃除イベント]]]。
 
 * **[[[/system:page-tags/tag/pridefest2025|pridefest2025]]]** //(pridefest2025)// - 非公式企画の[[[pridefest-2025|2025年プライドフェスティバル]]]。
+
+* **[[[/system:page-tags/tag/pridefest2026|pridefest2026]]]** //(pridefest2026)// - 非公式企画の[[[pridefest-2026|2026年プライドフェスティバル]]]。
 
 [[/tab]][!--EN--]
 [[tab JP]]
@@ -252,6 +258,10 @@
 * **[[[/system:page-tags/tag/時コン25|時コン25]]]** - [[[tokicontest2025-hub|時のコンテスト2025]]]。
 
 * **[[[/system:page-tags/tag/4000jp|4000jp]]]** - [[[scp4000jp-contest-hub|SCP-4000-JPコンテスト]]]。
+
+* **[[[/system:page-tags/tag/ビギナーズコンテスト|ビギナーズコンテスト]]]** - [[[beginner-s-contest-2026|ビギナーズコンテスト2026]]]。
+
+* **[[[/system:page-tags/tag/夢コン26|夢コン26]]]** - [[[yumecontest2026-hub|夢のコンテスト2026]]]。
 @@ @@
 
 +++ キャンペーン-JP
@@ -308,6 +318,8 @@
 
 * **[[[/system:page-tags/tag/af2026|af2026]]]** - AF-2026-JP。
 
+* **[[[/system:page-tags/tag/お見合い2026|お見合い2026]]]** - [[[matchmaking2026|財団日本支部お見合い計画2026]]]。
+
 [[/tab]][!--JP--]
 [[tab RU]]
 
@@ -351,6 +363,8 @@
 * **[[[/system:page-tags/tag/2024-年末コンテスト-ko|2024-年末コンテスト-ko]]]** //(2024-연말경연-ko)// - [[[12thanniversarycontest|12周年の年末コンテスト「気候」]]]。
 
 * **[[[/system:page-tags/tag/2025-短編コンテスト|2025-短編コンテスト]]]** //(2025-단편경연-ko)// - [[[short-contest-2025|2025年短編コンテスト]]]。
+
+* **[[[/system:page-tags/tag/2025-即興コンテスト|2025-即興コンテスト]]]** //(2025-즉흥경연-ko)// - [[[2025-2weeks-writing-hub|2025即興コンテスト]]]。
 
 [!--★タグ内のハイフンを残すものと残さないものが混在しているので、いずれ修整したい。--]
 [!--
@@ -493,6 +507,8 @@
 
 * **[[[/system:page-tags/tag/2024霊異月間|2024霊異月間]]]** //(2024灵异月)// - [[[psychic-month-hub|2024年"魑魅浮光"月間テーマイベント]]]。
 
+* **[[[/system:page-tags/tag/2025幻想月間|2025幻想月間]]]** //(2025幻想月)// - [[[fantasy-month-hub|2025"幻兆預言"月間テーマイベント]]]。
+
 [!--
 ★未申請
 * **[[[/system:page-tags/tag/人类之后|人类之后]]]** //(人类之后)// - [[[halloween-event-2018|2018ハロウィンイベント"人类之后"]]]。
@@ -529,6 +545,8 @@
 
 * **[[[/system:page-tags/tag/c404fr|c404fr]]]** //(c404fr)// - [[[le-concours-des-404-ans|ERREUR(フランス支部404周年コンテスト)]]]。
 
+* **[[[/system:page-tags/tag/ch2022|ch2022]]]** //(ch2022)// - [[[concours-halloween-2022|]]]。
+
 * **[[[/system:page-tags/tag/chalete2024|chalete2024]]]** //(chalete2024)// - [[[chalete2024|]]]。
 
 [!--★タグリスト-FRに合わせて分類別にするか迷うが、ひとまずはJP版の開催年次順で行く。--]
@@ -539,9 +557,15 @@
 +++ コンテスト-PL
 * **[[[/system:page-tags/tag/pl200|pl200]]]** //(pl200)// - [[[konkurs-pl-200|SCP-PL-200コンテスト「責任」]]]。
 
+* **[[[/system:page-tags/tag/crackfic2022|crackfic2022]]]** //(crackfic2022)// - [[[haszyszofikcyjnokonkurs|クラックフィクションコンテスト]]]。
+
+* **[[[/system:page-tags/tag/goif2023|goif2023]]]** //(goif2023)// - [[[konkurs-formatow-goi-2023|第二回GoIFコンテスト]]]。
+
+* **[[[/system:page-tags/tag/goipl2021|goipl2021]]]** //(goipl2021)// - [[[konkurs-goi-pl-2021|GoI-PLコンテスト2021]]]。
+
 * **[[[/system:page-tags/tag/kw2021|kw2021]]]** //(kw2021)// - [[[konkurs-wakacyjny-2021|夏季コンテスト2021]]]。
 
-* **[[[/system:page-tags/tag/crackfic2022|crackfic2022]]]** //(crackfic2022)// - [[[haszyszofikcyjnokonkurs|クラックフィクションコンテスト]]]。
+* **[[[/system:page-tags/tag/syl2020|syl2020]]]** //(syl2020)// - [[[inicjatywy-sylwestrowe|2020年大晦日執筆チャレンジ]]]。
 
 * **[[[/system:page-tags/tag/syl2021|syl2021]]]** //(syl2021)// - [[[inicjatywy-sylwestrowe|2021年大晦日執筆チャレンジ]]]。
 
@@ -566,11 +590,19 @@
 
 * **[[[/system:page-tags/tag/halloween-2013|halloween-2013]]]** //(halloween-2013)// - [[[concurso-de-halloween|ハロウィンコンテスト]]]。
 
+* **[[[/system:page-tags/tag/concurso-historia-2014|concurso-historia-2014]]]** //(concurso-historia-2014)// - [[[concurso-historia-2014|2014年4月の歴史コンテスト]]]。
+
+* **[[[/system:page-tags/tag/concurso-relatos-2015|concurso-relatos-2015]]]** //(concurso-relatos-2015)// - [[[concurso-relatos-2015|2015年公式短編Taleコンテスト]]]。
+
 * **[[[/system:page-tags/tag/concurso-scp-2016|concurso-scp-2016]]]** //(concurso-scp-2016)// - [[[http://scp-es.com/forum/t-1721909/nuevo-concurso:creacion-de-un-scp-es|新コンテスト: SCP-ES執筆]]]。
 
 * **[[[/system:page-tags/tag/es100|es100]]]** //(#concurso100)// - [[[concurso-scp-es-100|SCP-ES-100コンテスト]]]。
 
+* **[[[/system:page-tags/tag/colaborativo2018|colaborativo2018]]]** //(colaborativo2018)// - [[[concurso-colaborativo-2018|2018年共著コンテスト]]]。
+
 * **[[[/system:page-tags/tag/exploracion2019|exploracion2019]]]** //(exploracion2019)// - [[[concurso-exploracion-2019|2019年探査コンテスト]]]。
+
+* **[[[/system:page-tags/tag/gdicon2020|gdicon2020]]]** //(gdicon2020)// - [[[concurso-gdi-2020|2020年GoIコンテスト]]]。
 
 * **[[[/system:page-tags/tag/es200|es200]]]** //(200con)// - [[[concurso-es-200|SCP-ES-200コンテスト]]]。
 
@@ -579,13 +611,13 @@
 [!--
 ★未申請。
 * **[[[/system:page-tags/tag/短編Taleコンテスト2013|短編Taleコンテスト2013]]]** //(concurso-relatos-cortos)// - [[[concurso-de-relatos-cortos|2013年クリスマスの短編Taleコンテスト]]]。
-* **[[[/system:page-tags/tag/歴史コンテスト2014|歴史コンテスト2014]]]** //(concurso-historia-2014)// - [[[concurso-historia-2014|2014年4月の歴史コンテスト]]]。
-* **[[[/system:page-tags/tag/短編Taleコンテスト2015|短編Taleコンテスト2015]]]** //(concurso-relatos-2015)// - [[[concurso-relatos-2015|2015年公式短編Taleコンテスト]]]。
+
+
 * **[[[/system:page-tags/tag/goi-es-2017コンテスト|goi-es-2017コンテスト]]]** //(concurso-gdi-es-2017)// - [[[concurso-gdi-es-2017|2017年GoI-ESコンテスト]]]。
 * **[[[/system:page-tags/tag/crc2018|crc2018]]]** //(crc2018)// - [[[concurso-de-relatos-cortos-2018|2018年短編Taleコンテスト]]]。
-* **[[[/system:page-tags/tag/colaborativo2018|colaborativo2018]]]** //(colaborativo2018)// - [[[concurso-colaborativo-2018|2018年共著コンテスト]]]。
+
 * **[[[/system:page-tags/tag/imagen2019|imagen2019]]]** //(imagen2019)// - [[[imagen-con-2019|2019年画像コンテスト]]]。
-* **[[[/system:page-tags/tag/gdicon2020|gdicon2020]]]** //(gdicon2020)// - [[[concurso-gdi-2020|2020年GoIコンテスト]]]。
+
 ★未申請。タグリスト未掲載。
 * **[[[/system:page-tags/tag/idea2018|idea2018]]]** //(idea2018)// - [[[idea2018|2018年アイデア提供コンテスト]]]。
 * **[[[/system:page-tags/tag/halloween-con-2020|halloween-con-2020]]]** //(halloween-con-2020)// - [[[halloween-con-2020|2020年ハロウィンコンテスト]]]。
@@ -671,9 +703,15 @@
 
 * **[[[/system:page-tags/tag/2020冬季コンテストzh|2020冬季コンテストzh]]]** //(2020冬季競賽)// - ZHの[[[lunar-new-year-2020|2020冬季コンテスト]]]。
 
-* **[[[/system:page-tags/tag/2021夏季コンテスト|2021夏季コンテスト]]]** //(2021夏季競賽)//  - [[[summer-contest-2021|2021夏季コンテスト]]]。
+* **[[[/system:page-tags/tag/2021夏季コンテストzh|2021夏季コンテストzh]]]** //(2021夏季競賽)//  - ZHの[[[summer-contest-2021|2021夏季コンテスト]]]。
 
-* **[[[/system:page-tags/tag/2024夏季コンテスト|2024夏季コンテスト]]]** //(2024夏季競賽)//  - [[[summer-contest-2024|2024夏季コンテスト]]]。
+* **[[[/system:page-tags/tag/2023紅藍合戦|2023紅藍合戦]]]** //(2023紅藍爭霸賽)//  - [[[honglam-battle|2023紅藍合戦]]]。
+
+* **[[[/system:page-tags/tag/2023冬季コンテストzh|2023冬季コンテストzh]]]** //(2023冬季競賽)// - ZHの[[[better-to-add-an-imaaage|2023冬季コンテスト]]]。
+
+* **[[[/system:page-tags/tag/2024夏季コンテストzh|2024夏季コンテストzh]]]** //(2024夏季競賽)//  - ZHの[[[summer-contest-2024|2024夏季コンテスト]]]。
+
+
 
 [!--
 ★未申請。
@@ -708,6 +746,8 @@
 
 * **[[[/system:page-tags/tag/collabcon-2022-vn|collabcon-2022-vn]]]** //(collabcon-2022-vn)// - [[[collabcon-2022-hub|共著コンテスト2022]]]。
 
+* **[[[/system:page-tags/tag/childhoodcon2023|childhoodcon2023]]]** //(childhoodcon2023)// - [[[childhoodcon2023|幼少期コンテスト2023]]]。
+
 * **[[[/system:page-tags/tag/trinitycon2023|trinitycon2023]]]** //(trinitycon2023)// - [[[trinitycon2023|トリニティコンテスト2023]]]。
 
 * **[[[/system:page-tags/tag/cupidcon24-vn|cupidcon24-vn]]]** //(cupidcon24-vn)// - [[[cupidcon2024|キューピッドコンテスト2024]]]。
@@ -715,6 +755,8 @@
 * **[[[/system:page-tags/tag/imgexcon25|imgexcon25]]]** //(imgexcon25)// - [[[imgexcon25|画像交換コンテスト2025]]]。
 
 * **[[[/system:page-tags/tag/vn-zh-xmas25|vn-zh-xmas25]]]** //(vn-zh-xmas25)// - [[[vn-zh-xmas25|VN-ZHプレゼント交換2025「降誕祭の館、終夜煌めく宴」]]]。
+
+* **[[[/system:page-tags/tag/goivncon26|goivncon26]]]** //(goivncon26)// - [[[goivncon2026|VN要注意団体コンテスト2026]]]。
 
 [[/tab]][!--VN--]
 [[tab Others]]

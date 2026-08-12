@@ -54,11 +54,17 @@ def build(
         deprecated_en_tags = set()
 
     # JP → EN マッピングを構築（en_tag フィールドが設定されているJPタグのみ）
+    #
+    # JPタグリストでは、タグ制度の移行に伴って同じENタグが複数の
+    # セクションに現れることがある。旧セクションに残るENタグ名そのもの
+    # のエントリより、実際に翻訳されたタグ名を優先する。
     jp_map: dict[str, str] = {}
     for entry in jp_tags:
         en_tag = entry.get("en_tag")
         if en_tag:
-            jp_map[en_tag] = entry["name"]
+            jp_name = entry["name"]
+            if en_tag not in jp_map or jp_name != en_tag:
+                jp_map[en_tag] = jp_name
 
     new_dict: dict[str, str | None] = {}
 
