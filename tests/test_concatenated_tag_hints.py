@@ -3,12 +3,12 @@ from pathlib import Path
 
 import pytest
 
-from scripts import data_paths
+from scripts.corpus import collect_corpus_tags_and_visible_sequences
 from scripts.domain import concatenated_tags
 
 
 def _visible_sequences(corpus_root: Path, branch: str):
-    return data_paths.collect_corpus_tags_and_visible_sequences(corpus_root, branch)[1]
+    return collect_corpus_tags_and_visible_sequences(corpus_root, branch)[1]
 
 
 def test_concatenated_tag_hints_restore_ambiguous_boundaries(tmp_path):

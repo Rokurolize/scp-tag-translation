@@ -136,5 +136,8 @@ def publish_files_atomically(writers: Mapping[Path, FileWriter]) -> None:
         if cleanup_failures:
             cleanup_error = _operation_error("cleanup", cleanup_failures)
             if active_error is not None:
-                raise cleanup_error from active_error
-            raise cleanup_error
+                active_error.add_note(str(cleanup_error))
+                for note in cleanup_error.__notes__:
+                    active_error.add_note(note)
+            else:
+                raise cleanup_error
