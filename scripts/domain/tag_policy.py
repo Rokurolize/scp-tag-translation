@@ -18,6 +18,13 @@ from scripts.domain.tag_models import (
 )
 
 EN_CATEGORIES_OMITTED_ON_JP = {"Genre", "Genre and Themes"}
+# A source tag can occur in more than one JP category while the JP tag system
+# is being migrated.  The published dictionary has one context-free value, so
+# these ambiguous aliases need an explicit canonical target.
+JP_SOURCE_TAG_MAPPING_OVERRIDES = {
+    "ghost": "幽霊",
+    "orientation": "オリエンテーション",
+}
 EN_ORIGIN_TAG_REPLACEMENTS = {
     "_int": "int",
     "_ru": "ru",
@@ -177,8 +184,6 @@ def resolve_source_tag(
             "jp_unused",
             replacement=branch_policy.replacements.get(source_tag),
         )
-    if source_tag in mapping_policy.jp_names:
-        return SourceTagResolution("jp_tag_name", target=source_tag)
     if source_tag in branch_policy.overrides:
         return SourceTagResolution(
             "curated_override",
@@ -190,9 +195,16 @@ def resolve_source_tag(
             target=branch_policy.official_crosswalk[source_tag],
         )
     if source_tag in mapping_policy.jp_source_map:
+        mapped_target = mapping_policy.jp_source_map[source_tag]
+        if source_tag not in mapping_policy.jp_names or mapped_target != source_tag:
+            return SourceTagResolution(
+                "jp_tag_alias",
+                target=mapped_target,
+            )
+    if source_tag in mapping_policy.jp_names:
         return SourceTagResolution(
-            "jp_tag_alias",
-            target=mapping_policy.jp_source_map[source_tag],
+            "jp_tag_name",
+            target=source_tag,
         )
     return SourceTagResolution("unhandled")
 
@@ -213,20 +225,48 @@ class MappingPolicyInputs:
     official_crosswalks: tuple[object, ...]
 
 
-def jp_maps(jp_tags: list[JpTag]) -> tuple[frozenset[str], dict[str, str]]:
+def jp_maps(
+    jp_tags: list[JpTag],
+    source_tag_overrides: Mapping[str, str] | None = None,
+) -> tuple[frozenset[str], dict[str, str]]:
     jp_names: set[str] = set()
-    source_to_jp: dict[str, str] = {}
+    source_candidates: dict[str, set[str]] = {}
     for entry in jp_tags:
         name = entry["name"]
         jp_names.add(name)
         for source_tag in jp_source_tags(entry):
-            existing = source_to_jp.get(source_tag)
-            if existing is not None and existing != name:
+            source_candidates.setdefault(source_tag, set()).add(name)
+
+    overrides = {
+        **JP_SOURCE_TAG_MAPPING_OVERRIDES,
+        **(source_tag_overrides or {}),
+    }
+    source_to_jp: dict[str, str] = {}
+    for source_tag, candidates in source_candidates.items():
+        override = overrides.get(source_tag)
+        if override is not None:
+            if override not in candidates:
                 raise ValueError(
-                    "source tag maps to multiple JP tags: "
-                    f"{source_tag!r}->{existing!r}/{name!r}"
+                    "source tag mapping override is not a candidate: "
+                    f"{source_tag!r}->{override!r}"
                 )
-            source_to_jp[source_tag] = name
+            source_to_jp[source_tag] = override
+            continue
+
+        if len(candidates) == 1:
+            source_to_jp[source_tag] = next(iter(candidates))
+            continue
+
+        translated_candidates = candidates - {source_tag}
+        if len(translated_candidates) == 1:
+            source_to_jp[source_tag] = next(iter(translated_candidates))
+            continue
+
+        formatted = ", ".join(sorted(candidates))
+        raise ValueError(
+            "source tag maps to multiple JP tags without an explicit policy: "
+            f"{source_tag!r} -> {formatted}"
+        )
     return frozenset(jp_names), source_to_jp
 
 

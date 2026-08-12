@@ -341,6 +341,7 @@
 * **[[[/system:page-tags/tag/d-is-not-for|d-is-not-for]]]** - [[[d-is-not-for-hub|D is NOT for...]]]。
 * **[[[/system:page-tags/tag/生典|生典]]]** - [[[seiten-hub|生典]]]。
 * **[[[/system:page-tags/tag/eve-aic-tales|eve-aic-tales]]]** - [[[eve-aic|Eve.aic]]]。
+* **[[[/system:page-tags/tag/霊実体研究部門|霊実体研究部門]]]** - [[[reijittai|霊実体研究部門]]]。
 
 +++ 合作連作-JP
 
@@ -371,6 +372,7 @@
 * **[[[/system:page-tags/tag/海鷗銜鑰|海鷗銜鑰]]]** //(海鸥衔钥)// - [[[seagull-hub|海鷗銜鑰]]]。
 [!--* **[[[/system:page-tags/tag/|]]]** //(奇妙夜之下)// - [[[before-wonder-night|]]]。--]
 * **[[[/system:page-tags/tag/万劫歴数|万劫歴数]]]** //(万劫历数)// - [[[the-kismet-ephemeris-of-kalpas-hub|万劫歴数]]]。
+* **[[[/system:page-tags/tag/我らこそ戦争|我らこそ戦争]]]** //(吾等即战争)// - [[[bellum-sumus-hub|我らこそ戦争]]]。
 
 [[/tab]][!--CN--]
 [[tab FR]]

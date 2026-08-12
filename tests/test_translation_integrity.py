@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 from scripts.parsers.int_parser import parse_int_crosswalk_raw
-from scripts.domain.tag_policy import EN_ORIGIN_TAG_REPLACEMENTS
+from scripts.domain.tag_policy import EN_ORIGIN_TAG_REPLACEMENTS, jp_maps
 
 
 ROOT = Path(__file__).parent.parent
@@ -37,6 +37,7 @@ def test_jp_source_tags_are_consistent_with_dict(
     committed_dict,
 ):
     """JP tag source aliases present in EN resolve to their JP record."""
+    _jp_names, expected = jp_maps(jp_tags_data)
     failures = []
     for entry in jp_tags_data:
         for source_tag in entry["source_tags"]:
@@ -46,12 +47,22 @@ def test_jp_source_tags_are_consistent_with_dict(
                 failures.append(
                     f"'{entry['name']}'.source_tags contains missing {source_tag!r}"
                 )
-            elif committed_dict[source_tag] != entry["name"]:
+            elif committed_dict[source_tag] != expected[source_tag]:
                 failures.append(
                     f"dict['{source_tag}']={committed_dict[source_tag]!r} "
-                    f"≠ '{entry['name']}'"
+                    f"≠ '{expected[source_tag]}'"
                 )
     assert not failures, "\n".join(failures)
+
+
+def test_genre_tags_are_published_as_translations(committed_dict):
+    expected = {
+        "horror": "ホラー",
+        "body-horror": "ボディホラー",
+        "cosmic-horror": "コズミックホラー",
+        "psychological-horror": "サイコホラー",
+    }
+    assert {tag: committed_dict.get(tag) for tag in expected} == expected
 
 
 def test_bidirectional_consistency(committed_dict, jp_tags_data, en_tag_names):

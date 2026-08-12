@@ -260,6 +260,8 @@
 * **[[[/system:page-tags/tag/4000jp|4000jp]]]** - [[[scp4000jp-contest-hub|SCP-4000-JPコンテスト]]]。
 
 * **[[[/system:page-tags/tag/ビギナーズコンテスト|ビギナーズコンテスト]]]** - [[[beginner-s-contest-2026|ビギナーズコンテスト2026]]]。
+
+* **[[[/system:page-tags/tag/夢コン26|夢コン26]]]** - [[[yumecontest2026-hub|夢のコンテスト2026]]]。
 @@ @@
 
 +++ キャンペーン-JP
@@ -504,6 +506,8 @@
 * **[[[/system:page-tags/tag/2020愚人コンテスト|2020愚人コンテスト]]]** //(2020愚人竞赛)// - [[[2020-waifu-contest|2020年WAIFUコンテスト]]]。
 
 * **[[[/system:page-tags/tag/2024霊異月間|2024霊異月間]]]** //(2024灵异月)// - [[[psychic-month-hub|2024年"魑魅浮光"月間テーマイベント]]]。
+
+* **[[[/system:page-tags/tag/2025幻想月間|2025幻想月間]]]** //(2025幻想月)// - [[[fantasy-month-hub|2025"幻兆預言"月間テーマイベント]]]。
 
 [!--
 ★未申請
@@ -751,6 +755,8 @@
 * **[[[/system:page-tags/tag/imgexcon25|imgexcon25]]]** //(imgexcon25)// - [[[imgexcon25|画像交換コンテスト2025]]]。
 
 * **[[[/system:page-tags/tag/vn-zh-xmas25|vn-zh-xmas25]]]** //(vn-zh-xmas25)// - [[[vn-zh-xmas25|VN-ZHプレゼント交換2025「降誕祭の館、終夜煌めく宴」]]]。
+
+* **[[[/system:page-tags/tag/goivncon26|goivncon26]]]** //(goivncon26)// - [[[goivncon2026|VN要注意団体コンテスト2026]]]。
 
 [[/tab]][!--VN--]
 [[tab Others]]

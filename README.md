@@ -56,7 +56,10 @@ python -m http.server 8000
 
 開発用スクリプトとテストにはPython 3.11以上が必要です。
 
-ローカルコーパスのページソースをWikidotから更新する場合は、HTTPSの出典URLだけを使用します。
+ローカルコーパスのページソースをWikidotから更新する場合は、リポジトリの
+`wikidot.py`フォークを通して公式ページソースを取得し、`AGENTS.md`の手順に従ってください。
+取得した原典を確認した後、次のコマンドでソースと辞書を再生成します。
+
 更新前に、次の`curl`コマンドでJPタグリストの取得経路を確認してください。
 このコマンドは初回URLとすべてのリダイレクト先でHTTPS以外を拒否し、応答時間とリダイレクト回数も制限します。
 
@@ -72,7 +75,12 @@ curl \
 
 `--proto`と`--proto-redir`はどちらも省略しないでください。前者は初回URL、後者はすべてのリダイレクト先でHTTPSのみを許可します。
 WikidotがHTTPへのリダイレクトを返した場合、このコマンドは意図どおり失敗します。HTTP URLに変更したり制約を緩めたりせず、HTTPSだけでページソースを取得できる経路が利用可能になるまで更新を見送ってください。
-コマンドが成功しても、保存されるHTMLは取得経路の確認用です。ページソースも同じHTTPS-only契約で取得し、内容を確認してからローカルコーパスへ反映します。
+
+```bash
+python -m scripts.commands.parse_sources --lang all
+python -m scripts.commands.build_branch_dicts_from_corpus \
+  --corpus-root /home/roku/src/Rokurolize/scp-wiki-translation/corpus
+```
 
 ## データ生成
 

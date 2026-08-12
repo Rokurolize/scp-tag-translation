@@ -8,6 +8,7 @@ from collections.abc import Iterable
 from pathlib import Path
 
 from scripts.domain.tag_models import DeprecatedTag, JpTag
+from scripts.domain.tag_policy import jp_maps
 from scripts.domain.tag_validation import validate_deprecated_tags, validate_jp_tags
 
 
@@ -49,18 +50,18 @@ class CrosswalkResolver:
             name = entry["name"]
             self.jp_names.add(name)
             self.normalized_jp_names.setdefault(normalize_tag(name), set()).add(name)
-            source_tags = entry["source_tags"]
-            for source_tag in source_tags:
-                normalized_source = normalize_tag(source_tag)
-                if not normalized_source:
-                    continue
-                existing = self.source_to_jp.get(normalized_source)
-                if existing is not None and existing != name:
-                    raise ValueError(
-                        "source tag maps to multiple current JP tags: "
-                        f"{normalized_source!r}->{existing!r}/{name!r}"
-                    )
-                self.source_to_jp[normalized_source] = name
+        _jp_names, source_map = jp_maps(validated_jp_tags)
+        for source_tag, name in source_map.items():
+            normalized_source = normalize_tag(source_tag)
+            if not normalized_source:
+                continue
+            existing = self.source_to_jp.get(normalized_source)
+            if existing is not None and existing != name:
+                raise ValueError(
+                    "source tag maps to multiple current JP tags: "
+                    f"{normalized_source!r}->{existing!r}/{name!r}"
+                )
+            self.source_to_jp[normalized_source] = name
 
         self.en_replacements: dict[str, str] = {}
         for entry in validated_deprecated_tags:

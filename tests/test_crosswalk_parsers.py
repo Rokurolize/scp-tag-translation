@@ -174,7 +174,7 @@ def test_int_crosswalk_uses_en_semantics_for_current_jp_targets(
     mappings = int_parser.parse_int_crosswalk(source, resolver.resolve)
 
     assert mappings["ko"]["감정이입"] == "精神感応"
-    assert mappings["int"]["resource"] == "世界観"
+    assert mappings["int"]["resource"] == "資料"
 
 
 def test_branch_guides_resolve_current_jp_tags_and_reject_ambiguous_rows(

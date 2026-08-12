@@ -66,13 +66,13 @@ def test_duplicate_en_names_fail_fast():
         build_en_dictionary([{"name": "scp"}, {"name": "scp"}], JP)
 
 
-def test_duplicate_jp_source_tags_fail_fast():
+def test_unresolved_duplicate_jp_source_tags_fail_fast():
     jp = [
-        {"name": "scp", "source_tags": ["scp"]},
-        {"name": "別名scp", "source_tags": ["scp"]},
+        {"name": "対象A", "source_tags": ["ambiguous"]},
+        {"name": "対象B", "source_tags": ["ambiguous"]},
     ]
 
-    with pytest.raises(ValueError, match="JP側source_tags"):
+    with pytest.raises(ValueError, match="multiple JP tags"):
         build_en_dictionary(EN, jp)
 
 
