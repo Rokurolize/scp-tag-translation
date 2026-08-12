@@ -207,7 +207,7 @@ def publish_outputs(outputs: Mapping[Path, object]) -> None:
     )
 
 
-def run(language: Language) -> ParseBatch:
+def parse_and_publish_sources(language: Language) -> ParseBatch:
     batch = collect_outputs(language)
     publish_outputs(batch.outputs)
     for message in batch.messages:
@@ -226,7 +226,7 @@ def main() -> None:
     args = parser.parse_args()
 
     try:
-        run(cast(Language, args.lang))
+        parse_and_publish_sources(cast(Language, args.lang))
     except (OSError, ValueError) as error:
         print(f"エラー: ソース解析に失敗しました: {error}")
         sys.exit(1)

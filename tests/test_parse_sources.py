@@ -92,7 +92,7 @@ def test_run_jp_clears_deprecated_data_when_unused_source_missing(
         encoding="utf-8",
     )
 
-    parse_sources.run("jp")
+    parse_sources.parse_and_publish_sources("jp")
 
     assert json.loads(outputs[1].read_text(encoding="utf-8"))[0]["name"] == "scp"
     assert json.loads(outputs[2].read_text(encoding="utf-8")) == []
@@ -135,7 +135,7 @@ def test_run_all_does_not_publish_when_last_parser_fails(tmp_path, monkeypatch):
     )
 
     with pytest.raises(ValueError, match="late parser failure"):
-        parse_sources.run("all")
+        parse_sources.parse_and_publish_sources("all")
 
     assert publish_calls == []
     assert {path: path.read_bytes() for path in outputs} == old_payloads
@@ -240,7 +240,7 @@ def test_run_all_publishes_six_outputs_in_one_atomic_batch(tmp_path, monkeypatch
 
     monkeypatch.setattr(parse_sources, "publish_files_atomically", publish_and_record)
 
-    batch = parse_sources.run("all")
+    batch = parse_sources.parse_and_publish_sources("all")
 
     assert len(calls) == 1
     assert set(calls[0]) == set(outputs) == set(batch.outputs)
@@ -280,7 +280,7 @@ def test_run_all_integrates_real_parsers_with_temporary_sources(
         encoding="utf-8",
     )
 
-    batch = parse_sources.run("all")
+    batch = parse_sources.parse_and_publish_sources("all")
 
     assert json.loads(outputs[0].read_text(encoding="utf-8"))[0]["name"] == "source"
     assert json.loads(outputs[1].read_text(encoding="utf-8"))[0]["name"] == "jp-target"
@@ -308,7 +308,7 @@ def test_main_reports_expected_input_failures(monkeypatch, capsys, error):
     monkeypatch.setattr(sys, "argv", ["parse_sources.py", "--lang", "all"])
     monkeypatch.setattr(
         parse_sources,
-        "run",
+        "parse_and_publish_sources",
         lambda _language: (_ for _ in ()).throw(error),
     )
 
@@ -323,7 +323,7 @@ def test_main_does_not_hide_programming_errors(monkeypatch):
     monkeypatch.setattr(sys, "argv", ["parse_sources.py", "--lang", "all"])
     monkeypatch.setattr(
         parse_sources,
-        "run",
+        "parse_and_publish_sources",
         lambda _language: (_ for _ in ()).throw(TypeError("bug")),
     )
 
