@@ -89,3 +89,30 @@ def test_branch_acceptance_examples_translate_with_committed_dictionaries():
         if branch == "zh-tr":
             assert "zh" in output_tags
             assert "zh-tr" not in output_tags
+
+
+def test_en_genre_tags_translate_in_browser():
+    dictionary = json.loads(
+        (ROOT / "dictionaries" / "en_to_jp.json").read_text(encoding="utf-8")
+    )
+    deprecated = json.loads(
+        (ROOT / "dictionaries" / "deprecated_en_to_jp.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    policy = json.loads(
+        (ROOT / "dictionaries" / "jp_tag_policy.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    state = translate_with_frontend(
+        dictionary,
+        "horror body-horror cosmic-horror psychological-horror",
+        "en",
+        deprecated,
+        policy,
+    )
+
+    assert state["targetText"] == "en ホラー ボディホラー コズミックホラー サイコホラー"
+    assert "非使用タグ" not in state["logArea"]

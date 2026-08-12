@@ -1873,10 +1873,6 @@
         "translation_action": "omit_jp_unused",
         "reason": "ページ内のコンテンツすべてが適切なライセンスの下使用されていることが確認されたことを表すタグです。ただし、この確認はEN側のスタッフによるものであるため、当タグが付いていてもJP側の基準に従い画像が差し止められる場合があります。詳しくは[[[image-use-policy|画像利用ポリシー]]]を参照してください。"
       },
-      "_genreless": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
       "_image": {
         "translation_action": "omit_jp_unused",
         "reason": "使用されている画像の出展情報・ライセンス情報が正確かどうか、EN側のスタッフが確認中のページであることを表すタグです。"
@@ -1893,121 +1889,9 @@
         "translation_action": "omit_jp_unused",
         "reason": "古い//コンポーネント//ページを//テーマ//ページに移行するにあたって設置されるタグです。"
       },
-      "absurdism": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "action": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "adventure": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "alien": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "alternate-history": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "apocalyptic": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "artificial-intelligence": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "bittersweet": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "black-comedy": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "bleak": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "body-horror": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "breakout": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "bureaucracy": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "chase": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "christmas": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "comedy": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "correspondence": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "cosmic-horror": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "crime-fiction": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
       "crosslink": {
         "translation_action": "omit_jp_unused",
         "reason": "EN側のスタッフがクロスリンク追加を提案中のページに使用されるタグです。"
-      },
-      "demon": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "dystopian": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "faerie": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "fantasy": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "first-person": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "foundation-format": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "halloween": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "heartwarming": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "horror": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
       },
       "in-deletion": {
         "translation_action": "omit_jp_unused",
@@ -2017,133 +1901,13 @@
         "translation_action": "omit_jp_unused",
         "reason": "ENの管理用タグであり、[[[https://scp-wiki.wikidot.com/rewrite-guide|改稿制度]]]に従って改稿されている途中のページに付与されます。このタグが付与されたページの翻訳は見合わせてください。"
       },
-      "journal": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "journalism": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "legal": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "lgbtq": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "metafiction": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "military-fiction": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
       "more-by": {
         "translation_action": "omit_jp_unused",
         "reason": "著者ごとに取得できる、簡易的な著作一覧のページに付与されるタグです。著者ページとは異なり、他のページから呼び出すかたちで読者に同著者の作品を紹介するために使用されます。なお、これらのページはJPでは使用されていません。"
       },
-      "murder-monster": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "mystery": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "mythological": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "no-dialogue": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "otherworldly": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "period-piece": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "political": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "post-apocalyptic": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "psychological-horror": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "religious-fiction": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
       "rewritable": {
         "translation_action": "omit_jp_unused",
         "reason": "ENの管理用タグで、[[[https://scp-wiki.wikidot.com/rewrite-guide|改稿制度]]]に従って使用されます。評価が低かったり、内容が古くなっていたりする以外の理由で、他のユーザーによる改稿が認められている記事に付与されます。"
-      },
-      "romance": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "school": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "science-fiction": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "second-person": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "slice-of-life": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "space-opera": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "spy-fiction": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "superhero": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "surrealism": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "time-travel": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "utopian": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "western": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "worldbuilding": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "xenofiction": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
       }
     },
     "es": {
@@ -2160,10 +1924,6 @@
       "_cc": {
         "translation_action": "omit_jp_unused",
         "reason": "ページ内のコンテンツすべてが適切なライセンスの下使用されていることが確認されたことを表すタグです。ただし、この確認はEN側のスタッフによるものであるため、当タグが付いていてもJP側の基準に従い画像が差し止められる場合があります。詳しくは[[[image-use-policy|画像利用ポリシー]]]を参照してください。"
-      },
-      "_genreless": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
       },
       "_image": {
         "translation_action": "omit_jp_unused",
@@ -2185,125 +1945,13 @@
         "translation_action": "omit_jp_unused",
         "reason": "古い//コンポーネント//ページを//テーマ//ページに移行するにあたって設置されるタグです。"
       },
-      "absurdism": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "action": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "adventure": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "alien": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "alternate-history": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "apocalyptic": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "artificial-intelligence": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "bittersweet": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "black-comedy": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "bleak": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "body-horror": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "breakout": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "bureaucracy": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "chase": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "christmas": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "comedy": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "correspondence": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "cosmic-horror": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "crime-fiction": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
       "crosslink": {
         "translation_action": "omit_jp_unused",
         "reason": "EN側のスタッフがクロスリンク追加を提案中のページに使用されるタグです。"
       },
-      "demon": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "dystopian": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "faerie": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "fantasy": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "first-person": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "foundation-format": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
       "goi-list": {
         "translation_action": "omit_jp_unused",
         "reason": "各支部の要注意団体一覧に付与されるタグです。"
-      },
-      "halloween": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "heartwarming": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "horror": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
       },
       "in-deletion": {
         "translation_action": "omit_jp_unused",
@@ -2313,49 +1961,9 @@
         "translation_action": "omit_jp_unused",
         "reason": "ENの管理用タグであり、[[[https://scp-wiki.wikidot.com/rewrite-guide|改稿制度]]]に従って改稿されている途中のページに付与されます。このタグが付与されたページの翻訳は見合わせてください。"
       },
-      "journal": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "journalism": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "legal": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "lgbtq": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "metafiction": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "military-fiction": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
       "more-by": {
         "translation_action": "omit_jp_unused",
         "reason": "著者ごとに取得できる、簡易的な著作一覧のページに付与されるタグです。著者ページとは異なり、他のページから呼び出すかたちで読者に同著者の作品を紹介するために使用されます。なお、これらのページはJPでは使用されていません。"
-      },
-      "murder-monster": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "mystery": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "mythological": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "no-dialogue": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
       },
       "o": {
         "translation_action": "omit_jp_unused",
@@ -2373,89 +1981,9 @@
         "translation_action": "omit_jp_unused",
         "reason": "記事の英文の精度に対するフィードバックの必要度合いを表すタグです。"
       },
-      "otherworldly": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "period-piece": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "political": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "post-apocalyptic": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "psychological-horror": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "religious-fiction": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
       "rewritable": {
         "translation_action": "omit_jp_unused",
         "reason": "ENの管理用タグで、[[[https://scp-wiki.wikidot.com/rewrite-guide|改稿制度]]]に従って使用されます。評価が低かったり、内容が古くなっていたりする以外の理由で、他のユーザーによる改稿が認められている記事に付与されます。"
-      },
-      "romance": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "school": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "science-fiction": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "second-person": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "slice-of-life": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "space-opera": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "spy-fiction": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "superhero": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "surrealism": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "time-travel": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "utopian": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "western": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "worldbuilding": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
-      },
-      "xenofiction": {
-        "translation_action": "omit_translation_policy",
-        "reason": "SCP-JPでは「ジャンルとテーマ」タグ群は制度未整備のため、翻訳の際は付与不要です。"
       }
     },
     "it": {
@@ -2504,10 +2032,6 @@
       "wanderers": {
         "translation_action": "omit_jp_unused",
         "reason": "外部の創作コミュニティ「Wanderers' Library」から翻訳されたページ、およびそれらのページに倣ってZH内で作成されたページに付与されるタグです。英語圏の元コミュニティから翻訳されたものに関しては外部ウィキアーカイブに置換されるため、JP支部への重訳投稿は基本的に認められません。"
-      },
-      "台灣原住民": {
-        "translation_action": "omit_jp_unused",
-        "reason": "実在する、あるいは歴史上の台湾原住民が登場する//zh//ページに付与されるタグです。"
       },
       "用戶解密": {
         "translation_action": "omit_jp_unused",
@@ -3006,6 +2530,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "2025幻想月間": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "2025新鋭コンテスト": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -3455,6 +2986,13 @@
       "copy_allowed_for_translation": true
     },
     "_シュトルヒ運輸": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "_ジャンルレス": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -4854,6 +4392,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "goivncon26": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "goiコンテスト": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -5183,6 +4728,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "lgbtq": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "linkage": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -5191,6 +4743,13 @@
       "copy_allowed_for_translation": true
     },
     "lorecon2023": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "lost-series": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -6219,6 +5778,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "ほろ苦": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "まずしいざいだん": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -6289,6 +5855,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "アクション": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "アクタス管理官": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -6311,6 +5884,13 @@
       "copy_allowed_for_translation": true
     },
     "アディトゥム": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "アドベンチャー": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -6367,6 +5947,13 @@
       "copy_allowed_for_translation": true
     },
     "アベル": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "アポカリプス": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -6626,6 +6213,13 @@
       "copy_allowed_for_translation": true
     },
     "エイモス・マーシャル": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "エイリアン": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -7045,6 +6639,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "オリエンテーション": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "オリヴィエ・ギネス": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -7262,6 +6863,20 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "クライムフィクション": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "クリスマス": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "クリス博士": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -7395,6 +7010,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "コズミックホラー": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "コトダマtale祭り": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -7403,6 +7025,13 @@
       "copy_allowed_for_translation": true
     },
     "コブウェブ・インターナショナル": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "コメディ": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -7501,6 +7130,20 @@
       "copy_allowed_for_translation": true
     },
     "サアルン": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "サイエンスフィクション": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "サイコホラー": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -7718,6 +7361,13 @@
       "copy_allowed_for_translation": true
     },
     "サイト-kybian": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "サイト-lamedh": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -7983,6 +7633,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "シュルレアリスム": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "ショパン・カルト": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -8067,6 +7724,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "ジャーナリズム": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "ジュディス・ロゥ博士": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -8144,6 +7808,20 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "スパイフィクション": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "スペースオペラ": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "スポーツ": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -8166,6 +7844,13 @@
       "copy_allowed_for_translation": true
     },
     "スリー・ポートランド": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "スーパーヒーロー": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -8215,6 +7900,13 @@
       "copy_allowed_for_translation": true
     },
     "ソーツ博士": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "タイムトラベル": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -8271,6 +7963,13 @@
       "copy_allowed_for_translation": true
     },
     "ダン博士": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "ダーク": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -8383,6 +8082,13 @@
       "copy_allowed_for_translation": true
     },
     "ディア大学": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "ディストピア": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -8620,6 +8326,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "ハロウィン": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "ハロウィン2017": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -8635,6 +8348,13 @@
       "copy_allowed_for_translation": true
     },
     "ハンター・インダストリーズ": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "ハートフル": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -8740,6 +8460,13 @@
       "copy_allowed_for_translation": true
     },
     "ファクトリー": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "ファンタジー": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -8859,6 +8586,13 @@
       "copy_allowed_for_translation": true
     },
     "ブラジル超常現象監督局": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "ブラックコメディ": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -9033,6 +8767,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "ホラー": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "ホラーな財団": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -9041,6 +8782,13 @@
       "copy_allowed_for_translation": true
     },
     "ホリィ・ライト": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "ボディホラー": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -9069,6 +8817,13 @@
       "copy_allowed_for_translation": true
     },
     "ボールド管理官": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "ポストアポカリプス": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -9222,6 +8977,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "ミステリー": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "ミッドナイト": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -9237,6 +8999,13 @@
       "copy_allowed_for_translation": true
     },
     "ミュータント協会": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "ミリタリーフィクション": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -9299,6 +9068,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "メタフィクション": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "モバイル-サイト-cn": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -9335,6 +9111,13 @@
       "copy_allowed_for_translation": true
     },
     "ユーテック": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "ユートピア": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -9649,6 +9432,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "ロマンス": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "ロンバルディ": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -9733,6 +9523,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "一人称": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "一般部門": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -9789,6 +9586,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "不条理劇": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "不死身の爬虫類": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -9831,10 +9635,10 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
-    "世界観": {
-      "use_restricted": true,
-      "edit_restricted": true,
-      "translation_exempt": true,
+    "世界観構築": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
@@ -9908,6 +9712,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "二人称": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "二重の故郷": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -9965,6 +9776,13 @@
       "copy_allowed_for_translation": true
     },
     "人工": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "人工知能": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -10146,6 +9964,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "別世界": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "制空権": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -10308,6 +10133,13 @@
       "copy_allowed_for_translation": true
     },
     "可視光": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "台湾原住民": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -10503,6 +10335,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "報告書形式": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "場所": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -10643,6 +10482,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "夢コン26": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "夢売り": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -10706,6 +10552,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "天文学部門": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "天王寺博士": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -10748,6 +10601,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "妖精": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "妙麗寺": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -10783,6 +10643,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": false
     },
+    "学校": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "宇喜田博士": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -10791,6 +10658,20 @@
       "copy_allowed_for_translation": true
     },
     "宗教": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "宗教フィクション": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "官僚主義": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -10980,6 +10861,13 @@
       "copy_allowed_for_translation": true
     },
     "幻覚": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "幽霊": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -11203,6 +11091,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "悪魔": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "情報災害": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -11232,6 +11127,13 @@
       "copy_allowed_for_translation": true
     },
     "懐中銃教会": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "我らこそ戦争": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -11371,6 +11273,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "政治": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "政治家": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -11469,7 +11378,21 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "日常系": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "日本生類創研": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "日記体": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -11532,6 +11455,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "時代物": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "時間": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -11547,6 +11477,13 @@
       "copy_allowed_for_translation": true
     },
     "晴明院": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "書簡体": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -11624,6 +11561,13 @@
       "copy_allowed_for_translation": true
     },
     "松明の子供達": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "架空史": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -11827,6 +11771,13 @@
       "copy_allowed_for_translation": true
     },
     "残された希望": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "殺人モンスター": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -12281,6 +12232,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "異種フィクション": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "白": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -12478,6 +12436,13 @@
       "copy_allowed_for_translation": true
     },
     "神経": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "神話": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -12771,6 +12736,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "脱走劇": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "腐ち乱れる神の霊峰": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -13003,6 +12975,13 @@
       "copy_allowed_for_translation": true
     },
     "西行": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "西部劇": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -13268,6 +13247,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "資料": {
+      "use_restricted": true,
+      "edit_restricted": true,
+      "translation_exempt": true,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "賞典-注目記事": {
       "use_restricted": true,
       "edit_restricted": false,
@@ -13360,6 +13346,13 @@
       "copy_allowed_for_translation": true
     },
     "追憶のアディトゥム": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "追走劇": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,
@@ -13618,6 +13611,13 @@
       "special_translation_action": null,
       "copy_allowed_for_translation": true
     },
+    "霊実体研究部門": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
     "霧津": {
       "use_restricted": false,
       "edit_restricted": false,
@@ -13675,6 +13675,13 @@
       "copy_allowed_for_translation": true
     },
     "非実体": {
+      "use_restricted": false,
+      "edit_restricted": false,
+      "translation_exempt": false,
+      "special_translation_action": null,
+      "copy_allowed_for_translation": true
+    },
+    "非対話": {
       "use_restricted": false,
       "edit_restricted": false,
       "translation_exempt": false,

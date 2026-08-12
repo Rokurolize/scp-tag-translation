@@ -3,6 +3,7 @@ from pathlib import Path
 from scripts.parsers import jp_parser
 from scripts.parsers.jp_parser import _PAIR_RE as _JP_PAIR_RE
 from scripts.parsers.jp_parser import _iter_uncommented_lines as _JP_UNCOMMENTED_LINES
+from scripts.domain.tag_policy import jp_maps
 
 _JP_SOURCE_DIR = Path(__file__).parent.parent / "sources" / "jp"
 
@@ -24,13 +25,17 @@ class TestJpParser:
         dups = [n for n in names if n in seen or seen.add(n)]
         assert not dups, f"重複するJPタグ名: {dups}"
 
-    def test_jp_no_duplicate_source_tags(self, jp_tags_data):
+    def test_jp_duplicate_source_tags_have_explicit_resolution(self, jp_tags_data):
         source_tags = [
             source_tag for entry in jp_tags_data for source_tag in entry["source_tags"]
         ]
         seen = set()
         duplicates = [tag for tag in source_tags if tag in seen or seen.add(tag)]
-        assert not duplicates, f"重複するJP側source tag対応: {duplicates}"
+        assert set(duplicates) == {"ghost", "orientation"}
+
+        _jp_names, source_map = jp_maps(jp_tags_data)
+        assert source_map["ghost"] == "幽霊"
+        assert source_map["orientation"] == "オリエンテーション"
 
     def test_jp_known_tags_exist(self, jp_tags_data):
         jp_names = {e["name"] for e in jp_tags_data}

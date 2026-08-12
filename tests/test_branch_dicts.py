@@ -192,9 +192,7 @@ def test_jp_policy_covers_every_registered_tag(jp_tags_data):
     assert policy["tags"]["テーマ"]["copy_allowed_for_translation"] is False
     assert policy["tags"]["エッセイ"]["copy_allowed_for_translation"] is True
     assert policy["tags"]["インターナショナル"]["special_translation_action"] == "omit"
-    assert policy["source_tags"]["en"]["absurdism"]["translation_action"] == (
-        "omit_translation_policy"
-    )
+    assert "absurdism" not in policy["source_tags"]["en"]
     assert policy["source_tags"]["en"]["more-by"]["translation_action"] == (
         "omit_jp_unused"
     )
@@ -202,9 +200,7 @@ def test_jp_policy_covers_every_registered_tag(jp_tags_data):
     assert policy["source_tags"]["int"]["_cc"]["translation_action"] == (
         "omit_jp_unused"
     )
-    assert policy["source_tags"]["int"]["_genreless"]["translation_action"] == (
-        "omit_translation_policy"
-    )
+    assert "_genreless" not in policy["source_tags"]["int"]
     assert set(policy["concatenated_tag_hints"]) == set(REQUIRED_BRANCHES)
     for branch, hints in policy["concatenated_tag_hints"].items():
         dictionary = _load_json(DICTIONARIES / f"{branch}_to_jp.json")
