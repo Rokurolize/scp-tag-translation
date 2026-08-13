@@ -17,6 +17,8 @@ from scripts.parsers.contracts import (
 )
 from scripts.parsers.crosswalk_resolver import normalize_tag
 
+__all__ = ["analyze_branch_guides"]
+
 
 _TAG_LINK_RE = re.compile(
     r"\[(?:\*)?"

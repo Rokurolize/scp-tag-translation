@@ -13,6 +13,8 @@ from scripts.parsers.crosswalk_candidates import (
 )
 from scripts.parsers.crosswalk_table import split_wikidot_table_row
 
+__all__ = ["parse_ko_crosswalk"]
+
 _KO_LINK_RE = re.compile(r"/system:page-tags/tag/([^\s\]]+)")
 
 

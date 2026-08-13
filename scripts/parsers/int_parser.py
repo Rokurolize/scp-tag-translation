@@ -16,6 +16,8 @@ from scripts.parsers.crosswalk_table import (
     split_wikidot_table_row,
 )
 
+__all__ = ["parse_int_crosswalk"]
+
 _TAG_LINK_RE = re.compile(r"/system:page-tags/tag/([^\s\]]+)")
 _HEADER_RE = re.compile(r"^\*\*([A-Z]+)\*\*$")
 _SOURCE_COLUMNS = {

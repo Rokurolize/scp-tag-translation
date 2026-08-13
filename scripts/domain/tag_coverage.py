@@ -31,6 +31,14 @@ from scripts.domain.tag_policy import (
     resolve_source_tag,
 )
 
+__all__ = [
+    "ACTION_DESCRIPTIONS",
+    "STATUS_DESCRIPTIONS",
+    "CoverageInputs",
+    "build_application_inventory",
+    "build_coverage",
+]
+
 STATUS_DESCRIPTIONS: dict[ClassificationStatus, str] = {
     "jp_unused_replacement": "Listed in the JP unused-tag page for this source branch with one replacement.",
     "jp_unused_no_single_replacement": "Listed in the JP unused-tag page for this source branch without one deterministic replacement.",

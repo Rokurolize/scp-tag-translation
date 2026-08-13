@@ -60,7 +60,7 @@ class CrosswalkResolver:
             name = entry["name"]
             self.jp_names.add(name)
             self.normalized_jp_names.setdefault(normalize_tag(name), set()).add(name)
-        _jp_names, source_map = build_jp_names_and_source_map(jp_tags)
+        _, source_map = build_jp_names_and_source_map(jp_tags)
         for source_tag, name in source_map.items():
             normalized_source = normalize_tag(source_tag)
             if not normalized_source:
