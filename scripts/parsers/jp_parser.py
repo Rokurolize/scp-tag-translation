@@ -132,6 +132,63 @@ def parse_unused(source_path: Path) -> list[DeprecatedTag]:
     return results
 
 
+def _registered_tag_entries(line: str) -> list[JpTag]:
+    matches = list(_PAIR_RE.finditer(line))
+    if not matches:
+        return []
+
+    prefix = line[: matches[0].start()]
+    edit_restricted = _EDIT_RESTRICTED_ICON in prefix
+    use_restricted = edit_restricted or _USE_RESTRICTED_ICON in prefix
+    translation_exempt = _TRANSLATION_EXEMPT_ICON in prefix
+
+    remaining = line[matches[-1].end() :]
+    desc_match = re.search(r"\s*-\s*(.+)", remaining)
+    description = desc_match.group(1).strip() if desc_match else ""
+
+    entries: list[JpTag] = []
+    for match in matches:
+        name = match.group(1).strip()
+        if not name:
+            continue
+
+        source_tag = match.group(3).strip() if match.group(3) else None
+        entries.append(
+            JpTag(
+                name=name,
+                source_tags=[source_tag] if source_tag else [],
+                description=description,
+                use_restricted=use_restricted,
+                edit_restricted=edit_restricted,
+                translation_exempt=translation_exempt,
+            )
+        )
+    return entries
+
+
+def _merge_jp_tag(tags_by_name: dict[str, JpTag], incoming: JpTag) -> None:
+    entry = tags_by_name.get(incoming["name"])
+    if entry is None:
+        tags_by_name[incoming["name"]] = incoming
+        return
+
+    if not entry.get("description") and incoming.get("description"):
+        entry["description"] = incoming["description"]
+    entry["use_restricted"] = entry.get("use_restricted", False) or incoming.get(
+        "use_restricted", False
+    )
+    entry["edit_restricted"] = entry.get("edit_restricted", False) or incoming.get(
+        "edit_restricted", False
+    )
+    entry["translation_exempt"] = entry.get(
+        "translation_exempt", False
+    ) or incoming.get("translation_exempt", False)
+
+    for source_tag in incoming["source_tags"]:
+        if source_tag not in entry["source_tags"]:
+            entry["source_tags"].append(source_tag)
+
+
 def parse_jp_tags(source_dir: Path) -> list[JpTag]:
     """Parse registered JP tag fragments into canonical tag records."""
 
@@ -149,55 +206,7 @@ def parse_jp_tags(source_dir: Path) -> list[JpTag]:
         for line in _iter_uncommented_lines(filepath):
             if "**[[[/system" not in line or "page-tags/tag/" not in line:
                 continue
-
-            matches = list(_PAIR_RE.finditer(line))
-            if not matches:
-                continue
-
-            # Restriction icons precede the first tag definition and apply to
-            # every tag definition on that list item.
-            prefix = line[: matches[0].start()]
-            edit_restricted = _EDIT_RESTRICTED_ICON in prefix
-            use_restricted = edit_restricted or _USE_RESTRICTED_ICON in prefix
-            translation_exempt = _TRANSLATION_EXEMPT_ICON in prefix
-
-            last_end = matches[-1].end()
-            remaining = line[last_end:]
-            desc_match = re.search(r"\s*-\s*(.+)", remaining)
-            description = desc_match.group(1).strip() if desc_match else ""
-
-            for m in matches:
-                slug = m.group(1).strip()
-                en_tag = m.group(3).strip() if m.group(3) else None
-
-                if not slug:
-                    continue
-
-                entry = tags_by_name.get(slug)
-                if entry is None:
-                    entry = JpTag(
-                        name=slug,
-                        source_tags=[],
-                        description=description,
-                        use_restricted=use_restricted,
-                        edit_restricted=edit_restricted,
-                        translation_exempt=translation_exempt,
-                    )
-                    tags_by_name[slug] = entry
-                else:
-                    if not entry.get("description") and description:
-                        entry["description"] = description
-                    entry["use_restricted"] = (
-                        entry.get("use_restricted", False) or use_restricted
-                    )
-                    entry["edit_restricted"] = (
-                        entry.get("edit_restricted", False) or edit_restricted
-                    )
-                    entry["translation_exempt"] = (
-                        entry.get("translation_exempt", False) or translation_exempt
-                    )
-
-                if en_tag and en_tag not in entry["source_tags"]:
-                    entry["source_tags"].append(en_tag)
+            for entry in _registered_tag_entries(line):
+                _merge_jp_tag(tags_by_name, entry)
 
     return list(tags_by_name.values())

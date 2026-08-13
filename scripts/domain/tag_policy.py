@@ -270,6 +270,26 @@ def jp_maps(
     return frozenset(jp_names), source_to_jp
 
 
+def _validated_override_target(
+    branch: str,
+    source_tag: str,
+    value: object,
+    jp_names: frozenset[str] | set[str],
+) -> str:
+    if isinstance(value, str):
+        jp_tag = value
+    elif isinstance(value, dict) and isinstance(value.get("jp_tag"), str):
+        jp_tag = value["jp_tag"]
+    else:
+        raise ValueError(f"invalid override value for {branch}:{source_tag}")
+    if jp_tag not in jp_names:
+        raise ValueError(
+            "override target is not a JP tag: "
+            f"{branch}:{source_tag}->{jp_tag}"
+        )
+    return jp_tag
+
+
 def parse_overrides(
     raw: object,
     jp_names: frozenset[str] | set[str],
@@ -287,18 +307,12 @@ def parse_overrides(
         for source_tag, value in branch_values.items():
             if not isinstance(source_tag, str) or not source_tag:
                 raise ValueError(f"invalid override source tag for {branch!r}")
-            if isinstance(value, str):
-                jp_tag = value
-            elif isinstance(value, dict) and isinstance(value.get("jp_tag"), str):
-                jp_tag = value["jp_tag"]
-            else:
-                raise ValueError(f"invalid override value for {branch}:{source_tag}")
-            if jp_tag not in jp_names:
-                raise ValueError(
-                    "override target is not a JP tag: "
-                    f"{branch}:{source_tag}->{jp_tag}"
-                )
-            overrides[branch][source_tag] = jp_tag
+            overrides[branch][source_tag] = _validated_override_target(
+                branch,
+                source_tag,
+                value,
+                jp_names,
+            )
     return overrides
 
 
@@ -413,9 +427,9 @@ def build_mapping_policy(
     )
 
 
-def build_jp_policy(inputs: JpPolicyInputs) -> JpPolicyDocument:
+def _build_jp_tag_policies(jp_tags: Sequence[JpTag]) -> dict[str, JpTagPolicy]:
     tags: dict[str, JpTagPolicy] = {}
-    for entry in inputs.jp_tags:
+    for entry in jp_tags:
         name = entry["name"]
         description = entry.get("description") or ""
         use_restricted = bool(entry.get("use_restricted"))
@@ -440,7 +454,12 @@ def build_jp_policy(inputs: JpPolicyInputs) -> JpPolicyDocument:
                 and special_translation_action is None
             ),
         }
+    return tags
 
+
+def _build_source_tag_policies(
+    inputs: JpPolicyInputs,
+) -> dict[str, dict[str, SourceTagPolicy]]:
     source_tags: dict[str, dict[str, SourceTagPolicy]] = {}
     for entry in inputs.deprecated_tags:
         source_lang = entry.get("source_lang") or "EN"
@@ -488,6 +507,12 @@ def build_jp_policy(inputs: JpPolicyInputs) -> JpPolicyDocument:
                         "翻訳の際は付与不要です。"
                     ),
                 }
+    return source_tags
+
+
+def build_jp_policy(inputs: JpPolicyInputs) -> JpPolicyDocument:
+    tags = _build_jp_tag_policies(inputs.jp_tags)
+    source_tags = _build_source_tag_policies(inputs)
 
     return {
         "schema_version": 2,

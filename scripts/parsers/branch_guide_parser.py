@@ -11,6 +11,7 @@ from urllib.parse import unquote
 
 from scripts.parsers.contracts import (
     BranchGuideAnalysis,
+    BranchGuideAudit,
     BranchGuideStats,
     TargetResolver,
 )
@@ -68,42 +69,57 @@ def _valid_en_tag(value: str) -> str | None:
     return value
 
 
+def _paths_matching_hosts(
+    links: Sequence[_TagLink],
+    host_fragments: Sequence[str],
+) -> list[str]:
+    return [
+        link["path"]
+        for link in links
+        if any(fragment in link["host"] for fragment in host_fragments)
+    ]
+
+
+def _parse_cn_line(line: str) -> tuple[str, list[str], list[str]] | None:
+    if not line.lstrip().startswith("*"):
+        return None
+    links = _tag_links(line)
+    local = next(
+        (
+            link
+            for link in links
+            if not link["host"] or "scp-wiki-cn" in link["host"]
+        ),
+        None,
+    )
+    if local is None:
+        return None
+    source = _valid_tag(local["path"])
+    if source is None:
+        return None
+    en_values = _paths_matching_hosts(
+        links,
+        ("scpwiki.com", "scp-wiki.wikidot.com"),
+    )
+    jp_values = _paths_matching_hosts(
+        links,
+        ("ja.scp-wiki.net", "scp-jp.wikidot.com"),
+    )
+    if not en_values and not jp_values:
+        tail = line[local["end"] :]
+        for raw in re.findall(r"\(\s*([^()]+?)\s*\)", tail):
+            if value := _valid_en_tag(raw.strip("/* ")):
+                en_values.append(value)
+                break
+    if en_values or jp_values:
+        return source, en_values, jp_values
+    return None
+
+
 def _parse_cn(lines: Iterable[str]) -> Iterable[tuple[str, list[str], list[str]]]:
-    for line in lines:
-        if not line.lstrip().startswith("*"):
-            continue
-        links = _tag_links(line)
-        local = next(
-            (
-                link
-                for link in links
-                if not link["host"] or "scp-wiki-cn" in link["host"]
-            ),
-            None,
-        )
-        if local is None:
-            continue
-        source = _valid_tag(local["path"])
-        if source is None:
-            continue
-        en_values = [
-            link["path"]
-            for link in links
-            if "scpwiki.com" in link["host"] or "scp-wiki.wikidot.com" in link["host"]
-        ]
-        jp_values = [
-            link["path"]
-            for link in links
-            if "ja.scp-wiki.net" in link["host"] or "scp-jp.wikidot.com" in link["host"]
-        ]
-        if not en_values and not jp_values:
-            tail = line[local["end"] :]
-            for raw in re.findall(r"\(\s*([^()]+?)\s*\)", tail):
-                if value := _valid_en_tag(raw.strip("/* ")):
-                    en_values.append(value)
-                    break
-        if en_values or jp_values:
-            yield source, en_values, jp_values
+    for row in map(_parse_cn_line, lines):
+        if row is not None:
+            yield row
 
 
 def _parse_de(lines: Iterable[str]) -> Iterable[tuple[str, list[str], list[str]]]:
@@ -265,14 +281,48 @@ def _parse_zh(
                     yield source, [en_tag], []
 
 
+def _analyze_branch_rows(
+    rows: Iterable[tuple[str, list[str], list[str]]],
+    resolver: TargetResolver,
+) -> tuple[dict[str, str], BranchGuideAudit]:
+    targets: dict[str, set[str]] = defaultdict(set)
+    unresolved_sources: set[str] = set()
+    parsed_rows = 0
+    resolved_rows = 0
+    for source_tag, en_values, jp_values in rows:
+        parsed_rows += 1
+        target = resolver(en_values, jp_values)
+        if target is None:
+            unresolved_sources.add(source_tag)
+            continue
+        resolved_rows += 1
+        targets[source_tag].add(target)
+
+    conflicts = sum(1 for values in targets.values() if len(values) > 1)
+    mappings = dict(
+        sorted(
+            (source_tag, next(iter(values)))
+            for source_tag, values in targets.items()
+            if len(values) == 1 and source_tag not in unresolved_sources
+        )
+    )
+    stats: BranchGuideAudit = {
+        "parsed_rows": parsed_rows,
+        "resolved_rows": resolved_rows,
+        "accepted_tags": len(mappings),
+        "conflicting_tags": conflicts,
+        "unresolved_source_tags": len(unresolved_sources),
+    }
+    return mappings, stats
+
+
 def analyze_branch_guides(
     source_paths: Mapping[str, Sequence[Path]],
     resolver: TargetResolver,
 ) -> BranchGuideAnalysis:
     """Return unique current-JP mappings and deterministic audit counts."""
 
-    targets: dict[str, dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
-    unresolved_sources: dict[str, set[str]] = defaultdict(set)
+    mappings_by_branch: dict[str, dict[str, str]] = {}
     stats: BranchGuideStats = {}
     for branch, paths in source_paths.items():
         rows = (
@@ -284,38 +334,7 @@ def analyze_branch_guides(
                 for line in path.read_text(encoding="utf-8").splitlines()
             )
         )
-        parsed_rows = 0
-        resolved_rows = 0
-        for source_tag, en_values, jp_values in rows:
-            parsed_rows += 1
-            target = resolver(en_values, jp_values)
-            if target is None:
-                unresolved_sources[branch].add(source_tag)
-                continue
-            resolved_rows += 1
-            targets[branch][source_tag].add(target)
-        conflicts = sum(1 for values in targets[branch].values() if len(values) > 1)
-        accepted = sum(
-            1
-            for source_tag, values in targets[branch].items()
-            if len(values) == 1 and source_tag not in unresolved_sources[branch]
-        )
-        stats[branch] = {
-            "parsed_rows": parsed_rows,
-            "resolved_rows": resolved_rows,
-            "accepted_tags": accepted,
-            "conflicting_tags": conflicts,
-            "unresolved_source_tags": len(unresolved_sources[branch]),
-        }
+        mappings_by_branch[branch], stats[branch] = _analyze_branch_rows(rows, resolver)
 
-    mappings = {
-        branch: dict(
-            sorted(
-                (source_tag, next(iter(values)))
-                for source_tag, values in branch_targets.items()
-                if len(values) == 1 and source_tag not in unresolved_sources[branch]
-            )
-        )
-        for branch, branch_targets in sorted(targets.items())
-    }
+    mappings = dict(sorted(mappings_by_branch.items()))
     return BranchGuideAnalysis(mappings=mappings, stats=stats)

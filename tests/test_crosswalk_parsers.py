@@ -88,6 +88,18 @@ def test_crosswalk_resolver_normalizes_index_keys_and_detects_collisions():
         )
 
 
+def test_crosswalk_resolver_rejects_normalized_replacement_collisions():
+    with pytest.raises(ValueError, match="deprecated source tag maps to multiple"):
+        CrosswalkResolver(
+            [
+                {"name": "対象A", "source_tags": []},
+                {"name": "対象B", "source_tags": []},
+            ],
+            [{"source_tag": "old", "replacement": "対象A"}],
+            {"ｏｌｄ": "対象B"},
+        )
+
+
 def test_en_resolution_prefers_declared_source_alias_over_coincident_jp_name():
     resolver = CrosswalkResolver(
         [

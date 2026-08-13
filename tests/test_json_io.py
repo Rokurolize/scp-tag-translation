@@ -1,6 +1,10 @@
 import json
+import os
 
-from scripts.json_io import json_text, write_json
+import pytest
+
+from scripts import json_io
+from scripts.json_io import json_text, write_json, write_text
 
 
 def test_json_text_sorts_only_the_top_level_mapping():
@@ -20,3 +24,33 @@ def test_write_json_uses_utf8_indentation_and_trailing_newline(tmp_path):
 
     assert path.read_text(encoding="utf-8").endswith("\n")
     assert json.loads(path.read_text(encoding="utf-8")) == {"タグ": "値"}
+
+
+def test_write_text_preserves_existing_output_if_publication_fails(
+    tmp_path,
+    monkeypatch,
+):
+    path = tmp_path / "output.txt"
+    path.write_text("previous", encoding="utf-8")
+
+    def fail_replace(_source, _destination):
+        raise OSError("replace failed")
+
+    monkeypatch.setattr(json_io.os, "replace", fail_replace)
+
+    with pytest.raises(OSError, match="replace failed"):
+        write_text(path, "next")
+
+    assert path.read_text(encoding="utf-8") == "previous"
+    assert list(tmp_path.iterdir()) == [path]
+
+
+def test_write_text_preserves_existing_permissions(tmp_path):
+    path = tmp_path / "output.txt"
+    path.write_text("previous", encoding="utf-8")
+    path.chmod(0o640)
+
+    write_text(path, "next")
+
+    assert path.read_text(encoding="utf-8") == "next"
+    assert os.stat(path).st_mode & 0o777 == 0o640

@@ -38,19 +38,31 @@ class CrosswalkResolver:
         deprecated_tags: list[DeprecatedTag] | None = None,
         origin_replacements: dict[str, str] | None = None,
     ) -> None:
-        self.jp_names: set[str] = set()
-        self.normalized_jp_names: dict[str, set[str]] = {}
-        self.source_to_jp: dict[str, str] = {}
         validated_jp_tags = validate_jp_tags(jp_tags)
         validated_deprecated_tags = validate_deprecated_tags(
             deprecated_tags or [],
             validated_jp_tags,
         )
-        for entry in validated_jp_tags:
+
+        self.jp_names: set[str] = set()
+        self.normalized_jp_names: dict[str, set[str]] = {}
+        self.source_to_jp: dict[str, str] = {}
+        self.en_replacements: dict[str, str] = {}
+
+        self._index_current_tags(validated_jp_tags)
+        self._index_en_replacements(
+            validated_deprecated_tags,
+            origin_replacements or {},
+        )
+
+    def _index_current_tags(self, jp_tags: list[JpTag]) -> None:
+        """Populate indexes derived from current JP tags."""
+
+        for entry in jp_tags:
             name = entry["name"]
             self.jp_names.add(name)
             self.normalized_jp_names.setdefault(normalize_tag(name), set()).add(name)
-        _jp_names, source_map = jp_maps(validated_jp_tags)
+        _jp_names, source_map = jp_maps(jp_tags)
         for source_tag, name in source_map.items():
             normalized_source = normalize_tag(source_tag)
             if not normalized_source:
@@ -63,8 +75,14 @@ class CrosswalkResolver:
                 )
             self.source_to_jp[normalized_source] = name
 
-        self.en_replacements: dict[str, str] = {}
-        for entry in validated_deprecated_tags:
+    def _index_en_replacements(
+        self,
+        deprecated_tags: list[DeprecatedTag],
+        origin_replacements: dict[str, str],
+    ) -> None:
+        """Populate deterministic EN replacement mappings."""
+
+        for entry in deprecated_tags:
             if (entry.get("source_lang") or "EN") != "EN":
                 continue
             source_tag = entry["source_tag"]
@@ -73,7 +91,7 @@ class CrosswalkResolver:
                 targets = self.normalized_jp_names.get(normalize_tag(replacement), set())
                 if len(targets) == 1:
                     self._add_en_replacement(source_tag, next(iter(targets)))
-        for source_tag, replacement in (origin_replacements or {}).items():
+        for source_tag, replacement in origin_replacements.items():
             targets = self.normalized_jp_names.get(normalize_tag(replacement), set())
             if len(targets) == 1:
                 self._add_en_replacement(source_tag, next(iter(targets)))

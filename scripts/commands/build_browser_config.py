@@ -11,13 +11,9 @@ from textwrap import indent
 from scripts.atomic_output import publish_files_atomically
 from scripts.data_paths import BROWSER_CONFIG_PATH
 from scripts.domain.branch_config import browser_config_records
+from scripts.json_io import write_text
 
 DEFAULT_OUTPUT = BROWSER_CONFIG_PATH
-
-
-def _write_text(path: Path, content: str) -> None:
-    path.write_text(content, encoding="utf-8")
-
 
 def render_browser_config() -> str:
     """Render the JavaScript artifact consumed by the static browser app."""
@@ -35,7 +31,7 @@ def publish_browser_config(output: Path = DEFAULT_OUTPUT) -> None:
     content = render_browser_config()
     publish_files_atomically(
         {
-            output: lambda temporary: _write_text(temporary, content),
+            output: lambda temporary: write_text(temporary, content),
         }
     )
 
