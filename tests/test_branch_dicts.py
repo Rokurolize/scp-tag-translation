@@ -91,7 +91,7 @@ def test_branch_dictionary_command_publishes_successful_build(
             crosswalks=(crosswalk,),
         ),
     )
-    monkeypatch.setattr(branch_command, "BranchBuildConfig", lambda: config)
+    monkeypatch.setattr(dictionary_workflow, "BranchBuildConfig", lambda: config)
     monkeypatch.setattr(
         sys,
         "argv",

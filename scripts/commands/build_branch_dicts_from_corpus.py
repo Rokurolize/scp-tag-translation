@@ -8,13 +8,7 @@ import sys
 from pathlib import Path
 
 from scripts.application.branch_selection import normalize_branch_selection
-from scripts.application.dictionary_build import (
-    BranchBuildConfig,
-    BranchBuildSummary,
-    BuildArtifacts,
-    build_and_publish_dictionaries,
-    build_artifacts,
-)
+from scripts.application import dictionary_build as _workflow
 
 
 def main() -> None:
@@ -44,8 +38,12 @@ def main() -> None:
         sys.exit(1)
     try:
         branches = normalize_branch_selection(args.branches)
-        config = BranchBuildConfig()
-        artifacts = build_and_publish_dictionaries(corpus_root, branches, config=config)
+        config = _workflow.BranchBuildConfig()
+        artifacts = _workflow.build_and_publish_dictionaries(
+            corpus_root,
+            branches,
+            config=config,
+        )
     except (FileNotFoundError, OSError, ValueError) as err:
         print(f"エラー: 辞書生成に失敗しました: {err}")
         sys.exit(1)
@@ -60,14 +58,7 @@ def main() -> None:
     print(f"concatenated tag hints: {artifacts.hint_count}")
 
 
-__all__ = [
-    "BranchBuildConfig",
-    "BranchBuildSummary",
-    "BuildArtifacts",
-    "build_and_publish_dictionaries",
-    "build_artifacts",
-    "main",
-]
+__all__ = ["main"]
 
 
 if __name__ == "__main__":
