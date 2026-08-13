@@ -73,7 +73,7 @@ def build_and_publish_coverage(
         for branch in branches
     }
     coverage = build_coverage(
-        str(corpus_root),
+        corpus_root,
         branches,
         inputs,
         branch_tag_stats,

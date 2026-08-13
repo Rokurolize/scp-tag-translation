@@ -5,6 +5,7 @@ import pytest
 
 from scripts.commands import build_dict
 from scripts.domain.policy.policy_builder import MappingPolicyInputs
+from scripts.pipeline import dictionary_inputs
 
 EN = [{"name": "scp"}, {"name": "tale"}, {"name": "hub"}]
 JP = [
@@ -58,6 +59,39 @@ def test_main_writes_empty_deprecated_dict_when_source_missing(
     _write_json(paths["data_jp"], JP)
     paths["dict_deprecated"].parent.mkdir()
     _write_json(paths["dict_deprecated"], {"stale": "古い置換"})
+
+    build_dict.main()
+
+    assert json.loads(paths["dict_out"].read_text(encoding="utf-8"))["scp"] == "scp"
+    assert json.loads(paths["dict_deprecated"].read_text(encoding="utf-8")) == {}
+
+
+def test_main_publishes_with_real_policy_file_loader(
+    redirected_build_dict_paths,
+    monkeypatch,
+):
+    paths = redirected_build_dict_paths
+    _write_json(paths["data_en"], EN)
+    _write_json(paths["data_jp"], JP)
+    _write_json(paths["data_deprecated"], [])
+    override_path = paths["data_en"].parent / "overrides.json"
+    replacement_path = paths["data_en"].parent / "replacement-overrides.json"
+    crosswalk_path = paths["data_en"].parent / "crosswalk.json"
+    for path in (override_path, replacement_path, crosswalk_path):
+        _write_json(path, {})
+    mapping_paths = dictionary_inputs.MappingInputPaths(
+        data_en=paths["data_en"],
+        data_jp=paths["data_jp"],
+        data_deprecated=paths["data_deprecated"],
+        overrides=override_path,
+        replacement_overrides=replacement_path,
+        crosswalks=(crosswalk_path,),
+    )
+    monkeypatch.setattr(
+        build_dict,
+        "load_mapping_policy_inputs",
+        lambda: dictionary_inputs.load_mapping_policy_inputs(mapping_paths),
+    )
 
     build_dict.main()
 

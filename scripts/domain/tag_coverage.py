@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections import Counter
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
+from pathlib import Path
 
 from scripts.domain.branch_config import BRANCH_CONFIG_BY_CODE
 from scripts.domain.tag_coverage_models import (
@@ -229,7 +230,7 @@ def _build_coverage_branch(
 
 
 def build_coverage(
-    corpus_root: str,
+    corpus_root: Path,
     branches: Sequence[str],
     inputs: CoverageInputs,
     branch_tag_stats: Mapping[str, BranchTagStats],

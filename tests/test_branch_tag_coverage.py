@@ -122,7 +122,7 @@ def test_build_coverage_classifies_corpus_tags_and_preserves_ordering(tmp_path):
     _write_page(corpus_root, "en", "b", ["copy"])
 
     coverage = tag_coverage.build_coverage(
-        str(corpus_root),
+        corpus_root,
         ["cn", "en"],
         _coverage_inputs(),
         {
