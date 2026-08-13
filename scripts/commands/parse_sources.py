@@ -214,7 +214,8 @@ def collect_outputs(language: Language) -> ParseBatch:
         batches.append(jp_batch)
     if language in {"crosswalks", "all"}:
         if language == "all":
-            assert jp_tags is not None and deprecated_tags is not None
+            if jp_tags is None or deprecated_tags is None:
+                raise ValueError("all解析にはJPタグデータが必要です")
             batches.append(_collect_crosswalk_outputs(jp_tags, deprecated_tags))
         else:
             batches.append(_collect_crosswalk_outputs_from_persisted_records())
