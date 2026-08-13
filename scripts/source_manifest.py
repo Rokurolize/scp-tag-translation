@@ -7,8 +7,6 @@ from pathlib import Path
 from types import MappingProxyType
 from typing import Literal
 
-from scripts.data_paths import ROOT
-
 ParserRole = Literal["en_tags", "jp_unused", "int_crosswalk", "ko_crosswalk", "branch_guide"]
 
 
@@ -83,22 +81,30 @@ BRANCH_GUIDE_SOURCE_KEYS = MappingProxyType({
 })
 
 
-def source_path(key: str, *, root: Path = ROOT) -> Path:
+def source_path(key: str, *, root: Path) -> Path:
     """Return a checked-in source path by manifest key."""
-    return root / SOURCE_BY_KEY[key].local_path
+    try:
+        artifact = SOURCE_BY_KEY[key]
+    except KeyError as exc:
+        raise ValueError(f"unknown source artifact: {key}") from exc
+    return root / artifact.local_path
 
 
-def source_directory(name: str, *, root: Path = ROOT) -> Path:
+def source_directory(name: str, *, root: Path) -> Path:
     """Return a checked-in source directory by name."""
     return root / "sources" / name
 
 
-def parser_source_path(name: str, *, root: Path = ROOT) -> Path:
+def parser_source_path(name: str, *, root: Path) -> Path:
     """Return the parser input path identified by its short name."""
-    return source_path(PARSER_SOURCE_KEYS[name], root=root)
+    try:
+        key = PARSER_SOURCE_KEYS[name]
+    except KeyError as exc:
+        raise ValueError(f"unknown parser source: {name}") from exc
+    return source_path(key, root=root)
 
 
-def branch_guide_sources(*, root: Path = ROOT) -> dict[str, tuple[Path, ...]]:
+def branch_guide_sources(*, root: Path) -> dict[str, tuple[Path, ...]]:
     """Return parser guide paths grouped by corpus branch."""
     return {
         branch: tuple(source_path(key, root=root) for key in keys)

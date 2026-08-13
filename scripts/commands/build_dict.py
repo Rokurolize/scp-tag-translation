@@ -38,6 +38,8 @@ from scripts.domain.tag_records import EnTag, JpTag
 from scripts.domain.policy_builder import MappingPolicyInputs, build_mapping_policy
 from scripts.domain.tag_validation import validate_tag_records
 
+__all__ = ["build_en_dictionary", "main"]
+
 
 def _ensure_no_case_variant_keys(
     existing_keys: Iterable[str],

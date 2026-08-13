@@ -15,6 +15,7 @@ from scripts.corpus import (
     collect_corpus_branch_data,
 )
 from scripts.dictionary_inputs import (
+    LoadedMappingInputs,
     MappingInputPaths,
     default_mapping_input_paths,
     load_existing_hint_dictionaries,
@@ -30,7 +31,6 @@ from scripts.domain.jp_policy import JpPolicyInputs, build_jp_policy
 from scripts.domain.tag_dictionary import build_branch_dict, build_en_dicts
 from scripts.domain.tag_records import DeprecatedTag, EnTag, JpTag
 from scripts.domain.tag_policy import MappingPolicy
-from scripts.domain.tag_validation import validate_tag_records
 
 @dataclass(frozen=True)
 class BranchBuildSummary:
@@ -152,7 +152,7 @@ def _merge_existing_hint_dictionaries(
 def build_artifacts(
     corpus_data: Mapping[str, CorpusBranchData],
     branches: Sequence[str],
-    inputs: BranchBuildInputs,
+    inputs: BranchBuildInputs | LoadedMappingInputs,
     *,
     config: BranchBuildConfig = BranchBuildConfig(),
     existing_dictionaries: Mapping[str, Mapping[str, str | None]] | None = None,
@@ -164,11 +164,20 @@ def build_artifacts(
             "corpus data missing required branches: "
             + ", ".join(missing_branches)
         )
-    validate_tag_records(
-        inputs.en_tags,
-        inputs.jp_tags,
-        inputs.deprecated_tags,
-    )
+    if isinstance(inputs, BranchBuildInputs):
+        from scripts.domain.tag_validation import validate_tag_records
+
+        en_tags, jp_tags, deprecated_tags = validate_tag_records(
+            inputs.en_tags,
+            inputs.jp_tags,
+            inputs.deprecated_tags,
+        )
+        inputs = BranchBuildInputs(
+            en_tags=en_tags,
+            jp_tags=jp_tags,
+            deprecated_tags=deprecated_tags,
+            policy=inputs.policy,
+        )
     (
         outputs,
         summaries,
@@ -226,10 +235,6 @@ def build_and_publish(
         )
 
     loaded = load_mapping_inputs(config.mapping_inputs)
-    en_tags = loaded.en_tags
-    jp_tags = loaded.jp_tags
-    deprecated_tags = loaded.deprecated_tags
-    policy = loaded.mapping_policy
     required_branches = set(branches) | set(config.supported_branches)
     corpus_data = {
         branch: collect_corpus_branch_data(corpus_root, branch)
@@ -248,12 +253,7 @@ def build_and_publish(
     artifacts = build_artifacts(
         corpus_data,
         branches,
-        BranchBuildInputs(
-            en_tags=en_tags,
-            jp_tags=jp_tags,
-            deprecated_tags=deprecated_tags,
-            policy=policy,
-        ),
+        loaded,
         config=config,
         existing_dictionaries=existing_dictionaries,
     )

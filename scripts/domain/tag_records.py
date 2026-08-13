@@ -6,17 +6,17 @@ from collections.abc import Mapping
 from typing import Required, TypeAlias, TypedDict
 
 
-class EnTag(TypedDict, total=False):
-    name: Required[str]
+class EnTag(TypedDict):
+    name: str
     category: str | None
     description: str
     meta: dict[str, list[str]]
 
 
-class JpTag(TypedDict, total=False):
-    name: Required[str]
+class JpTag(TypedDict):
+    name: str
     description: str
-    source_tags: Required[list[str]]
+    source_tags: list[str]
     use_restricted: bool
     edit_restricted: bool
     translation_exempt: bool

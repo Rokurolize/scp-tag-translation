@@ -143,6 +143,11 @@ class LoadedMappingInputs:
     deprecated_tags: list[DeprecatedTag]
     mapping_policy: MappingPolicy
 
+    @property
+    def policy(self) -> MappingPolicy:
+        """Compatibility name used by the branch artifact builder."""
+        return self.mapping_policy
+
 
 def load_mapping_inputs(
     paths: MappingInputPaths | None = None,

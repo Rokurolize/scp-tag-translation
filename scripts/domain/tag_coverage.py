@@ -23,7 +23,7 @@ from scripts.domain.tag_policy_models import (
     JpTagPolicy,
 )
 from scripts.domain.tag_records import DeprecatedTag, EnTag, JpTag
-from scripts.domain.jp_policy import JpPolicyInputs, build_jp_policy
+from scripts.domain.jp_policy import build_jp_tag_policies
 from scripts.domain.tag_policy import (
     BranchMappingPolicy,
     MappingPolicy,
@@ -194,15 +194,7 @@ def build_coverage(
         list(inputs.jp_tags),
         set(en_branch_policy.overrides),
     )
-    jp_policy = build_jp_policy(
-        JpPolicyInputs(
-            jp_tags=inputs.jp_tags,
-            deprecated_tags=inputs.deprecated_tags,
-            en_tags=inputs.en_tags,
-            mapping_policy=inputs.mapping_policy,
-            concatenated_tag_hints={},
-        )
-    )["tags"]
+    jp_policy = build_jp_tag_policies(inputs.jp_tags)
 
     branch_entries: list[CoverageBranch] = []
     for branch in branches:

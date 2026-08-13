@@ -10,7 +10,7 @@ from pathlib import Path
 
 from scripts.atomic_output import FileWriter, publish_files_atomically
 from scripts.data_paths import ROOT
-from scripts.domain.source_manifest import corpus_source_map
+from scripts.source_manifest import corpus_source_map
 
 SOURCE_MAP = corpus_source_map()
 

@@ -174,17 +174,11 @@ def _merge_jp_tag(tags_by_name: dict[str, JpTag], incoming: JpTag) -> None:
         tags_by_name[incoming["name"]] = incoming
         return
 
-    if not entry.get("description") and incoming.get("description"):
+    if not entry["description"] and incoming["description"]:
         entry["description"] = incoming["description"]
-    entry["use_restricted"] = entry.get("use_restricted", False) or incoming.get(
-        "use_restricted", False
-    )
-    entry["edit_restricted"] = entry.get("edit_restricted", False) or incoming.get(
-        "edit_restricted", False
-    )
-    entry["translation_exempt"] = entry.get(
-        "translation_exempt", False
-    ) or incoming.get("translation_exempt", False)
+    entry["use_restricted"] = entry["use_restricted"] or incoming["use_restricted"]
+    entry["edit_restricted"] = entry["edit_restricted"] or incoming["edit_restricted"]
+    entry["translation_exempt"] = entry["translation_exempt"] or incoming["translation_exempt"]
 
     for source_tag in incoming["source_tags"]:
         if source_tag not in entry["source_tags"]:

@@ -19,6 +19,7 @@ from scripts.data_paths import (
     DATA_INT_CROSSWALK,
     DATA_JP,
     DATA_KO_CROSSWALK,
+    ROOT,
 )
 from scripts.parsers import (
     branch_guide_parser,
@@ -31,7 +32,7 @@ from scripts.parsers.crosswalk_resolver import CrosswalkResolver
 from scripts.domain.tag_records import DeprecatedTag, JpTag
 from scripts.domain.tag_policy import EN_CROSSWALK_SEMANTIC_REPLACEMENTS
 from scripts.domain.tag_validation import validate_deprecated_tags, validate_jp_tags
-from scripts.domain.source_manifest import (
+from scripts.source_manifest import (
     branch_guide_sources,
     parser_source_path,
     source_directory,
@@ -40,12 +41,12 @@ from scripts.domain.source_manifest import (
 Language = Literal["en", "jp", "crosswalks", "all"]
 LANGUAGES: tuple[Language, ...] = ("en", "jp", "crosswalks", "all")
 
-SOURCES_EN = parser_source_path("en")
-SOURCES_JP = source_directory("jp")
-SOURCES_JP_UNUSED = parser_source_path("jp_unused")
-SOURCES_INT = parser_source_path("int")
-SOURCES_KO = parser_source_path("ko")
-BRANCH_GUIDE_SOURCES: Mapping[str, tuple[Path, ...]] = branch_guide_sources()
+SOURCES_EN = parser_source_path("en", root=ROOT)
+SOURCES_JP = source_directory("jp", root=ROOT)
+SOURCES_JP_UNUSED = parser_source_path("jp_unused", root=ROOT)
+SOURCES_INT = parser_source_path("int", root=ROOT)
+SOURCES_KO = parser_source_path("ko", root=ROOT)
+BRANCH_GUIDE_SOURCES: Mapping[str, tuple[Path, ...]] = branch_guide_sources(root=ROOT)
 
 
 @dataclass(frozen=True)

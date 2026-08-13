@@ -117,7 +117,35 @@ def _merge_summaries(branch_summaries: list[dict]) -> dict:
     return merged
 
 
-def test_every_corpus_tag_sequence_translates_when_spaces_are_lost():
+def _write_minimal_corpus_fixture(root: Path) -> Path:
+    policy = json.loads(
+        (ROOT / "dictionaries" / "jp_tag_policy.json").read_text(encoding="utf-8")
+    )
+    for branch in SUPPORTED_BRANCHES:
+        dictionary = json.loads(
+            (ROOT / "dictionaries" / f"{branch}_to_jp.json").read_text(encoding="utf-8")
+        )
+        hints = policy.get("concatenated_tag_hints", {}).get(branch, {})
+        tags = next(
+            (
+                values
+                for values in hints.values()
+                if isinstance(values, list)
+                and len(values) > 1
+                and all(tag in dictionary for tag in values)
+            ),
+            ["scp"],
+        )
+        page_dir = root / branch / "pages" / "fixture"
+        page_dir.mkdir(parents=True)
+        (page_dir / "meta.json").write_text(
+            json.dumps({"tags": tags}),
+            encoding="utf-8",
+        )
+    return root
+
+
+def test_every_corpus_tag_sequence_translates_when_spaces_are_lost(tmp_path):
     corpus_root = _corpus_root()
     if not corpus_root.is_dir():
         if os.environ.get("SCP_WIKI_CORPUS_ROOT"):
@@ -125,9 +153,7 @@ def test_every_corpus_tag_sequence_translates_when_spaces_are_lost():
                 "SCP_WIKI_CORPUS_ROOTで指定されたcorpusディレクトリがありません: "
                 f"{corpus_root}"
             )
-        pytest.skip(
-            "ローカルコーパスがありません。SCP_WIKI_CORPUS_ROOTでcorpusディレクトリを指定してください。"
-        )
+        corpus_root = _write_minimal_corpus_fixture(tmp_path / "corpus")
 
     node = shutil.which("node")
     if node is None:

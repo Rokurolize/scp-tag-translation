@@ -56,7 +56,16 @@ def validate_en_tags(raw: object) -> list[EnTag]:
     for index, entry in enumerate(raw):
         _validate_en_tag_entry(entry, index)
 
-    records = cast(list[EnTag], raw)
+    records = [
+        {
+            **entry,
+            "category": entry.get("category"),
+            "description": entry.get("description") or "",
+            "meta": entry.get("meta") or {},
+        }
+        for entry in raw
+    ]
+    records = cast(list[EnTag], records)
     _ensure_unique((entry["name"] for entry in records), "ENタグ名")
     return records
 
@@ -105,7 +114,17 @@ def validate_jp_tags(raw: object) -> list[JpTag]:
     for index, entry in enumerate(raw):
         _validate_jp_tag_entry(entry, index)
 
-    records = cast(list[JpTag], raw)
+    records = [
+        {
+            **entry,
+            "description": entry.get("description") or "",
+            "use_restricted": bool(entry.get("use_restricted")),
+            "edit_restricted": bool(entry.get("edit_restricted")),
+            "translation_exempt": bool(entry.get("translation_exempt")),
+        }
+        for entry in raw
+    ]
+    records = cast(list[JpTag], records)
     _ensure_unique((entry["name"] for entry in records), "JPタグ名")
     # A source alias may intentionally occur in multiple JP categories during
     # a tag-system migration.  build_jp_names_and_source_map() resolves those aliases using the

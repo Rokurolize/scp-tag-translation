@@ -22,6 +22,7 @@ from scripts.domain.tag_policy import (
     en_category_omitted_tags,
     source_languages_for_branch,
 )
+from scripts.domain.tag_validation import validate_jp_tags
 
 
 @dataclass(frozen=True)
@@ -37,10 +38,10 @@ def _build_jp_tag_policies(jp_tags: Sequence[JpTag]) -> dict[str, JpTagPolicy]:
     tags: dict[str, JpTagPolicy] = {}
     for entry in jp_tags:
         name = entry["name"]
-        description = entry.get("description") or ""
-        use_restricted = bool(entry.get("use_restricted"))
-        edit_restricted = bool(entry.get("edit_restricted"))
-        translation_exempt = bool(entry.get("translation_exempt"))
+        description = entry["description"]
+        use_restricted = entry["use_restricted"]
+        edit_restricted = entry["edit_restricted"]
+        translation_exempt = entry["translation_exempt"]
         special_translation_action: SpecialTranslationAction | None = None
         if (
             "新規作成は翻訳を含めて基本的に認められていません" in description
@@ -61,6 +62,11 @@ def _build_jp_tag_policies(jp_tags: Sequence[JpTag]) -> dict[str, JpTagPolicy]:
             ),
         }
     return tags
+
+
+def build_jp_tag_policies(jp_tags: Sequence[JpTag]) -> dict[str, JpTagPolicy]:
+    """Build only the per-tag policy subset needed by coverage consumers."""
+    return _build_jp_tag_policies(validate_jp_tags(list(jp_tags)))
 
 
 def _build_source_tag_policies(
@@ -109,7 +115,7 @@ def _build_source_tag_policies(
 
 
 def build_jp_policy(inputs: JpPolicyInputs) -> JpPolicyDocument:
-    tags = _build_jp_tag_policies(inputs.jp_tags)
+    tags = build_jp_tag_policies(inputs.jp_tags)
     source_tags = _build_source_tag_policies(inputs)
 
     return {
@@ -125,3 +131,6 @@ def build_jp_policy(inputs: JpPolicyInputs) -> JpPolicyDocument:
             for branch, entries in sorted(inputs.concatenated_tag_hints.items())
         },
     }
+
+
+__all__ = ["JpPolicyInputs", "build_jp_policy", "build_jp_tag_policies"]
