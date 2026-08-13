@@ -4,6 +4,7 @@ import sys
 import pytest
 
 from scripts.application import coverage_build as coverage_workflow
+from scripts.application.branch_selection import normalize_branch_selection
 from scripts.commands import build_branch_tag_coverage_data as coverage_builder
 from scripts.pipeline.corpus import collect_branch_tag_stats
 from scripts.pipeline.coverage_outputs import (
@@ -244,6 +245,12 @@ def test_application_coverage_workflow_validates_branch_selection(
 ):
     with pytest.raises(ValueError, match=message):
         coverage_workflow.build_and_publish_coverage(tmp_path, branches)
+
+
+def test_branch_command_selection_normalizes_once():
+    assert normalize_branch_selection(["en", "jp", "_private"]) == ("en",)
+    with pytest.raises(ValueError, match="対象支部"):
+        normalize_branch_selection([])
 
 
 def test_build_coverage_rejects_non_object_metadata(tmp_path):

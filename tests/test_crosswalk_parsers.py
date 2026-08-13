@@ -3,12 +3,12 @@ from pathlib import Path
 import pytest
 
 from scripts.application import source_parse as parse_workflow
+from scripts.domain.crosswalk_resolution import CrosswalkResolver, normalize_tag
 from scripts.domain.policy.tag_policy import (
     EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
     EN_ORIGIN_TAG_REPLACEMENTS,
 )
 from scripts.parsers import branch_guide_parser, int_parser, ko_parser
-from scripts.parsers.crosswalk_resolver import CrosswalkResolver, normalize_tag
 from scripts.parsers.crosswalk_table import (
     EMPTY_CELL_MARKERS,
     split_wikidot_table_row,

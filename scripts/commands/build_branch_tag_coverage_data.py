@@ -7,6 +7,7 @@ import argparse
 import sys
 from pathlib import Path
 
+from scripts.application.branch_selection import normalize_branch_selection
 from scripts.application.coverage_build import (
     CoverageBuildConfig,
     CoverageInputs,
@@ -46,18 +47,10 @@ def main() -> None:
         print(f"エラー: corpus rootが見つかりません: {corpus_root}")
         sys.exit(1)
 
-    branches = [
-        branch
-        for branch in (args.branches or _workflow.SUPPORTED_BRANCHES)
-        if branch != "jp" and not branch.startswith("_")
-    ]
-    if not branches:
-        print("エラー: 可視化対象の支部が見つかりません。")
-        sys.exit(1)
-
     output_dir = args.output_dir or _workflow.DEFAULT_OUTPUT_DIR
     config = default_coverage_build_config(output_dir=output_dir)
     try:
+        branches = normalize_branch_selection(args.branches)
         coverage, output_paths = build_and_publish_coverage(
             corpus_root,
             branches,

@@ -28,17 +28,27 @@ def redirected_build_dict_paths(tmp_path, monkeypatch):
         "dict_deprecated": tmp_path / "dictionaries" / "deprecated_en_to_jp.json",
     }
     for attribute, key in (
-        ("DATA_EN", "data_en"),
-        ("DATA_JP", "data_jp"),
-        ("DATA_DEPRECATED", "data_deprecated"),
         ("EN_DICTIONARY_PATH", "dict_out"),
         ("DEPRECATED_EN_DICTIONARY_PATH", "dict_deprecated"),
     ):
         monkeypatch.setattr(legacy_workflow, attribute, paths[key])
+    mapping_paths = dictionary_inputs.MappingInputPaths(
+        data_en=paths["data_en"],
+        data_jp=paths["data_jp"],
+        data_deprecated=paths["data_deprecated"],
+        overrides=data_dir / "overrides.json",
+        replacement_overrides=data_dir / "replacement-overrides.json",
+        crosswalks=(data_dir / "crosswalk.json",),
+    )
+    monkeypatch.setattr(
+        legacy_workflow,
+        "default_mapping_input_paths",
+        lambda: mapping_paths,
+    )
     monkeypatch.setattr(
         legacy_workflow,
         "load_mapping_policy_inputs",
-        lambda: MappingPolicyInputs(
+        lambda _paths: MappingPolicyInputs(
             overrides={},
             replacement_overrides={},
             official_crosswalks=(),
@@ -96,7 +106,7 @@ def test_main_publishes_with_real_policy_file_loader(
     monkeypatch.setattr(
         legacy_workflow,
         "load_mapping_policy_inputs",
-        lambda: dictionary_inputs.load_mapping_policy_inputs(mapping_paths),
+        lambda _paths: dictionary_inputs.load_mapping_policy_inputs(mapping_paths),
     )
 
     build_dict.main()

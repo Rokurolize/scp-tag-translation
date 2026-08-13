@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 
-from scripts.domain.branch_config import SUPPORTED_BRANCHES
+from scripts.domain.policy.branch_scope import SUPPORTED_BRANCHES
 from scripts.domain.policy.tag_policy_models import (
     JpPolicyDocument,
     JpTagPolicy,

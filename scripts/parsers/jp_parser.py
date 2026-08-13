@@ -237,13 +237,12 @@ def parse_jp_tags(
             matches = list(_PAIR_RE.finditer(line))
             if not matches:
                 if strict:
-                    if strict:
-                        report_source_issue(
-                            filepath,
-                            line_number,
-                            "invalid JP tag link",
-                            diagnostics,
-                        )
+                    report_source_issue(
+                        filepath,
+                        line_number,
+                        "invalid JP tag link",
+                        diagnostics,
+                    )
                 continue
             for entry in _registered_tag_entries(
                 line,

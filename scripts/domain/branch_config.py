@@ -8,6 +8,8 @@ from types import MappingProxyType
 from typing import TypedDict
 from collections.abc import Mapping
 
+from scripts.domain.policy.branch_scope import SUPPORTED_BRANCHES
+
 
 class BrowserBranchRecord(TypedDict):
     branch: str
@@ -41,9 +43,6 @@ SUPPORTED_BRANCH_CONFIGS = (
     BranchConfig("vn", "scp-vn", "Tiếng Việt", "vn"),
     BranchConfig("zh-tr", "scp-zh-tr", "繁體中文", "zh"),
 )
-
-
-SUPPORTED_BRANCHES = tuple(config.branch for config in SUPPORTED_BRANCH_CONFIGS)
 
 
 def validate_requested_branches(

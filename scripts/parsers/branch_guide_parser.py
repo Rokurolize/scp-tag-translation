@@ -15,7 +15,7 @@ from scripts.parsers.contracts import (
     BranchGuideStats,
     TargetResolver,
 )
-from scripts.parsers.crosswalk_resolver import normalize_tag
+from scripts.domain.crosswalk_resolution import normalize_tag
 from scripts.parsers.errors import report_source_issue
 
 __all__ = ["analyze_branch_guides"]

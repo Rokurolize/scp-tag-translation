@@ -7,7 +7,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from scripts.application import dictionary_build as _workflow
+from scripts.application.branch_selection import normalize_branch_selection
 from scripts.application.dictionary_build import (
     BranchBuildConfig,
     BranchBuildSummary,
@@ -42,17 +42,9 @@ def main() -> None:
     if not corpus_root.is_dir():
         print(f"エラー: corpus rootが見つかりません: {corpus_root}")
         sys.exit(1)
-    branches = [
-        branch
-        for branch in (args.branches or _workflow.SUPPORTED_BRANCHES)
-        if branch != "jp" and not branch.startswith("_")
-    ]
-    if not branches:
-        print("エラー: 生成対象の支部が見つかりません。")
-        sys.exit(1)
-
-    config = BranchBuildConfig()
     try:
+        branches = normalize_branch_selection(args.branches)
+        config = BranchBuildConfig()
         artifacts = build_and_publish_dictionaries(corpus_root, branches, config=config)
     except (FileNotFoundError, OSError, ValueError) as err:
         print(f"エラー: 辞書生成に失敗しました: {err}")

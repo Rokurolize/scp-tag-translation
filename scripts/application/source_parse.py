@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Literal, Protocol
 
 from scripts.domain.policy.tag_policy import EN_CROSSWALK_SEMANTIC_REPLACEMENTS
+from scripts.domain.crosswalk_resolution import CrosswalkResolver
 from scripts.domain.records.tag_records import DeprecatedTag, EnTag, JpTag
 from scripts.domain.records.tag_validation import validate_deprecated_tags, validate_jp_tags
 from scripts.infrastructure.atomic_output import publish_files_atomically
@@ -27,7 +28,6 @@ from scripts.parsers.contracts import (
     CrosswalkMappings,
     TargetResolver,
 )
-from scripts.parsers.crosswalk_resolver import CrosswalkResolver
 from scripts.pipeline.source_manifest import (
     branch_guide_sources,
     parser_source_path,
