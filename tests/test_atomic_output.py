@@ -212,3 +212,19 @@ def test_successful_publication_reports_cleanup_failure(tmp_path, monkeypatch):
     assert caught.value.__cause__ is None
     assert destination.read_text(encoding="utf-8") == "new"
     assert len(list(tmp_path.glob(".*.bak"))) == 1
+
+
+def test_backup_copy_failure_removes_created_backup(tmp_path, monkeypatch):
+    destination = tmp_path / "published.txt"
+    destination.write_text("old", encoding="utf-8")
+
+    def fail_copy(*_args):
+        raise OSError("backup copy failure")
+
+    monkeypatch.setattr(atomic_output.shutil, "copyfile", fail_copy)
+
+    with pytest.raises(OSError, match="backup copy failure"):
+        atomic_output.publish_files_atomically({destination: _write("new")})
+
+    assert destination.read_text(encoding="utf-8") == "old"
+    assert not list(tmp_path.glob(".*.bak"))

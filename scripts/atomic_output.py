@@ -96,9 +96,9 @@ def _prepare_backups(
             )
             os.close(descriptor)
             backup = Path(backup_name)
+            backups[destination] = backup
             shutil.copyfile(destination, backup)
             shutil.copymode(destination, backup)
-            backups[destination] = backup
         else:
             backups[destination] = None
 
