@@ -212,17 +212,17 @@ def test_build_artifacts_owns_complete_publication_set(
 ):
     _corpus_root, artifacts, output_dir, policy_path = controlled_branch_artifacts
 
-    assert set(artifacts.outputs) == {
+    assert set(artifacts.dictionary_outputs) | {artifacts.policy_path} == {
         output_dir / "en_to_jp.json",
         output_dir / "deprecated_en_to_jp.json",
         policy_path,
     }
-    assert artifacts.outputs[output_dir / "en_to_jp.json"] == {
+    assert artifacts.dictionary_outputs[output_dir / "en_to_jp.json"] == {
         "horror": "ホラー",
         "safe": "safe",
         "scp": "scp",
     }
-    assert artifacts.outputs[policy_path]["concatenated_tag_hints"] == {
+    assert artifacts.policy["concatenated_tag_hints"] == {
         "en": {}
     }
     assert artifacts.hint_count == 0
@@ -320,7 +320,7 @@ def test_build_and_publish_dictionaries_success_path_uses_real_inputs_and_output
         config=config,
     )
 
-    assert set(artifacts.outputs) == {
+    assert set(artifacts.dictionary_outputs) | {artifacts.policy_path} == {
         output_dir / "en_to_jp.json",
         output_dir / "deprecated_en_to_jp.json",
         output_dir / "jp_tag_policy.json",
@@ -374,7 +374,7 @@ def test_generated_dictionary_covers_every_tag_in_controlled_corpus(
 ):
     corpus_root, artifacts, output_dir, _policy_path = controlled_branch_artifacts
     corpus_tags = collect_corpus_branch_data(corpus_root, "en").source_tags
-    dictionary = artifacts.outputs[output_dir / "en_to_jp.json"]
+    dictionary = artifacts.dictionary_outputs[output_dir / "en_to_jp.json"]
 
     assert corpus_tags <= set(dictionary)
     assert dictionary["horror"] == "ホラー"

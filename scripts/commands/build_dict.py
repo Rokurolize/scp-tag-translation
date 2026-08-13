@@ -5,19 +5,9 @@ from __future__ import annotations
 import argparse
 import sys
 
-from scripts.compatibility.legacy_dictionary_build import (
-    LegacyDictionaryBuildConfig,
-    build_and_publish_legacy_dictionary,
-    build_legacy_en_dictionary as build_en_dictionary,
-    default_legacy_dictionary_build_config,
-)
+from scripts.compatibility import legacy_dictionary_build as _workflow
 
-__all__ = [
-    "LegacyDictionaryBuildConfig",
-    "build_en_dictionary",
-    "default_legacy_dictionary_build_config",
-    "main",
-]
+__all__ = ["main"]
 
 
 def main() -> None:
@@ -30,8 +20,8 @@ def main() -> None:
     args = parser.parse_args()
 
     try:
-        config = default_legacy_dictionary_build_config()
-        result = build_and_publish_legacy_dictionary(
+        config = _workflow.default_legacy_dictionary_build_config()
+        result = _workflow.build_and_publish_legacy_dictionary(
             overwrite=args.overwrite,
             config=config,
         )

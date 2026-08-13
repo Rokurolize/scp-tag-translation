@@ -12,6 +12,7 @@ from scripts.domain.records.tag_records import (
     OfficialCrosswalkFile,
     ReplacementOverrideFile,
 )
+from scripts.domain.errors import InvalidDomainInputError
 from scripts.domain.policy.tag_policy import (
     EN_ORIGIN_TAG_REPLACEMENTS,
     MappingPolicy,
@@ -51,9 +52,9 @@ def _validated_override_target(
     elif isinstance(value, dict) and isinstance(value.get("jp_tag"), str):
         jp_tag = value["jp_tag"]
     else:
-        raise ValueError(f"invalid override value for {branch}:{source_tag}")
+        raise InvalidDomainInputError(f"invalid override value for {branch}:{source_tag}")
     if jp_tag not in jp_names:
-        raise ValueError(
+        raise InvalidDomainInputError(
             "override target is not a JP tag: "
             f"{branch}:{source_tag}->{jp_tag}"
         )

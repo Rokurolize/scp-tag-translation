@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
+from scripts.domain.errors import InvalidDomainInputError
 from scripts.domain.records.tag_records import DeprecatedTag, EnTag, JpTag
 
 
@@ -15,7 +16,7 @@ def _ensure_unique(values: Iterable[str], label: str) -> None:
         seen.add(value)
     if duplicates:
         sample = ", ".join(sorted(duplicates)[:10])
-        raise ValueError(f"{label} が重複しています: {sample}")
+        raise InvalidDomainInputError(f"{label} が重複しています: {sample}")
 
 
 def _valid_trimmed_string(value: object) -> bool:

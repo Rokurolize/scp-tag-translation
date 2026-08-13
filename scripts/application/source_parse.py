@@ -34,6 +34,7 @@ from scripts.application.source_parsing import (
     JpParser,
     KoParser,
     ParseBatch,
+    ParserOutput,
     SourceParseDiagnosticsError,
     collect_crosswalk_parses,
     load_persisted_jp_records,
@@ -271,7 +272,7 @@ def collect_outputs(
 
 
 def publish_outputs(
-    outputs: Mapping[Path, object],
+    outputs: Mapping[Path, ParserOutput],
 ) -> None:
     """Publish all collected records in one atomic batch."""
     publish_files_atomically({

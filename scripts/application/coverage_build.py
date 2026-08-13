@@ -56,12 +56,7 @@ def default_coverage_build_config(
 
 def load_coverage_inputs(paths: MappingInputPaths) -> CoverageInputs:
     loaded = load_mapping_inputs(paths)
-    return CoverageInputs(
-        en_tags=loaded.en_tags,
-        jp_tags=loaded.jp_tags,
-        deprecated_tags=loaded.deprecated_tags,
-        mapping_policy=loaded.mapping_policy,
-    )
+    return loaded.for_coverage()
 
 
 def build_and_publish_coverage(

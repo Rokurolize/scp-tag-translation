@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections.abc import Iterable, Mapping
 
 from scripts.domain.policy.tag_policy import build_jp_names_and_source_map
+from scripts.domain.errors import MappingConflictError
 from scripts.domain.records.tag_records import DeprecatedTag, JpTag
 from scripts.domain.records.tag_validation import validate_deprecated_tags, validate_jp_tags
 from scripts.domain.tag_text import normalize_tag
@@ -50,7 +51,7 @@ class CrosswalkResolver:
                 continue
             existing = self.source_to_jp.get(normalized_source)
             if existing is not None and existing != name:
-                raise ValueError(
+                raise MappingConflictError(
                     "source tag maps to multiple current JP tags: "
                     f"{normalized_source!r}->{existing!r}/{name!r}"
                 )
@@ -83,7 +84,7 @@ class CrosswalkResolver:
             return
         existing = self.en_replacements.get(normalized_source)
         if existing is not None and existing != replacement:
-            raise ValueError(
+            raise MappingConflictError(
                 "deprecated source tag maps to multiple current JP tags: "
                 f"{normalized_source!r}->{existing!r}/{replacement!r}"
             )

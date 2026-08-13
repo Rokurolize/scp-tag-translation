@@ -27,8 +27,10 @@ from scripts.domain.records.tag_records import (
     ReplacementOverrideFile,
 )
 from scripts.domain.policy.tag_policy import MappingPolicy
+from scripts.domain.tag_coverage import CoverageInputs
 from scripts.domain.records.tag_validation import validate_tag_records
 from scripts.infrastructure.json_io import load_json
+from scripts.domain.errors import InvalidDomainInputError
 
 
 def _load_optional_json(path: Path) -> object:
@@ -38,7 +40,7 @@ def _load_optional_json(path: Path) -> object:
 def _load_json_object(path: Path, label: str) -> dict[object, object]:
     raw = _load_optional_json(path)
     if not isinstance(raw, dict):
-        raise ValueError(f"{label} must be a JSON object: {path}")
+        raise InvalidDomainInputError(f"{label} must be a JSON object: {path}")
     return raw
 
 
@@ -164,6 +166,15 @@ class LoadedMappingInputs:
     jp_tags: list[JpTag]
     deprecated_tags: list[DeprecatedTag]
     mapping_policy: MappingPolicy
+
+    def for_coverage(self) -> CoverageInputs:
+        """Project the shared loaded context into the coverage contract."""
+        return CoverageInputs(
+            en_tags=self.en_tags,
+            jp_tags=self.jp_tags,
+            deprecated_tags=self.deprecated_tags,
+            mapping_policy=self.mapping_policy,
+        )
 
 
 def load_mapping_inputs(

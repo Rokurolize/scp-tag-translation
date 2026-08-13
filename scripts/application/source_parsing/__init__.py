@@ -14,7 +14,7 @@ from .contracts import (
     KoParser,
 )
 from .crosswalks import CrosswalkParseResult, collect_crosswalk_parses
-from .models import ParseBatch
+from .models import ParseBatch, ParserOutput
 from .records import load_json_array, load_persisted_jp_records, require_file
 from .reporting import SourceParseDiagnosticsError, merge_batches, report_batch
 
@@ -27,6 +27,7 @@ __all__ = [
     "JpParser",
     "KoParser",
     "ParseBatch",
+    "ParserOutput",
     "SourceParseDiagnosticsError",
     "collect_crosswalk_parses",
     "load_json_array",

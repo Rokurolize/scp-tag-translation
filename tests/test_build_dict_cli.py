@@ -54,11 +54,6 @@ def redirected_build_dict_paths(tmp_path, monkeypatch):
             official_crosswalks=(),
         ),
     )
-    monkeypatch.setattr(
-        build_dict,
-        "default_legacy_dictionary_build_config",
-        legacy_workflow.default_legacy_dictionary_build_config,
-    )
     monkeypatch.setattr(sys, "argv", ["build_dict.py"])
     return paths
 

@@ -20,6 +20,7 @@ from scripts.infrastructure.data_paths import (
 from scripts.infrastructure.json_io import load_json
 from scripts.pipeline.dictionary_inputs import (
     default_mapping_input_paths,
+    LoadedMappingInputs,
     load_mapping_inputs,
 )
 
@@ -129,7 +130,8 @@ def build_legacy_outputs(
     *,
     overwrite: bool,
     config: LegacyDictionaryConfig = LegacyDictionaryConfig(),
-    policy_inputs: MappingPolicyInputs,
+    policy_inputs: MappingPolicyInputs | None = None,
+    loaded_inputs: LoadedMappingInputs | None = None,
 ) -> tuple[dict[str, str | None], dict[str, str]]:
     """Build legacy EN outputs while keeping loading and policy assembly centralized."""
     for path in (config.data_en, config.data_jp):
@@ -144,11 +146,16 @@ def build_legacy_outputs(
         data_jp=config.data_jp,
         data_deprecated=config.data_deprecated,
     )
-    loaded = load_mapping_inputs(
-        mapping_paths,
-        policy_inputs=policy_inputs,
-        include_origin_replacements=False,
-    )
+    if loaded_inputs is None:
+        if policy_inputs is None:
+            raise TypeError("policy_inputs or loaded_inputs is required")
+        loaded = load_mapping_inputs(
+            mapping_paths,
+            policy_inputs=policy_inputs,
+            include_origin_replacements=False,
+        )
+    else:
+        loaded = loaded_inputs
     existing: dict[str, str | None] = {}
     if not overwrite and config.dictionary_path.exists():
         existing = validate_existing_dict(load_json(config.dictionary_path))

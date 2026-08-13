@@ -12,8 +12,9 @@ from scripts.domain.branch_config import (
 )
 from scripts.domain.concatenated_tags import build_concatenated_tag_hints
 from scripts.domain.policy.jp_policy import JpPolicyInputs, build_jp_policy
+from scripts.domain.policy.tag_policy_models import JpPolicyDocument
 from scripts.domain.tag_dictionary import build_branch_dict, build_en_dicts
-from scripts.infrastructure.atomic_output import publish_files_atomically
+from scripts.infrastructure.atomic_output import FileWriter, publish_files_atomically
 from scripts.infrastructure.data_paths import DICTIONARIES_DIR
 from scripts.infrastructure.json_io import write_json
 from scripts.pipeline.corpus import CorpusBranchData, collect_corpus_branch_data
@@ -37,7 +38,9 @@ class BranchBuildSummary:
 
 @dataclass(frozen=True)
 class BuildArtifacts:
-    outputs: Mapping[Path, Mapping[str, object]]
+    dictionary_outputs: Mapping[Path, Mapping[str, str | None]]
+    policy_path: Path
+    policy: JpPolicyDocument
     branch_summaries: tuple[BranchBuildSummary, ...]
     jp_tag_count: int
     hint_count: int
@@ -73,11 +76,11 @@ def _build_branch_artifacts(
     inputs: LoadedMappingInputs,
     config: BranchBuildConfig,
 ) -> tuple[
-    dict[Path, Mapping[str, object]],
+    dict[Path, Mapping[str, str | None]],
     tuple[BranchBuildSummary, ...],
     dict[str, dict[str, str | None]],
 ]:
-    outputs: dict[Path, Mapping[str, object]] = {}
+    outputs: dict[Path, Mapping[str, str | None]] = {}
     summaries: list[BranchBuildSummary] = []
     branch_dictionaries: dict[str, dict[str, str | None]] = {}
     for branch in sorted(branches):
@@ -154,6 +157,25 @@ def build_artifacts(
     """Assemble dictionary and policy artifacts without publishing them."""
     config = config or BranchBuildConfig()
     branches, required_branches = _resolve_build_branch_scope(branches, config)
+    return _build_artifacts_for_scope(
+        corpus_data,
+        branches,
+        required_branches,
+        inputs,
+        config,
+        existing_dictionaries,
+    )
+
+
+def _build_artifacts_for_scope(
+    corpus_data: Mapping[str, CorpusBranchData],
+    branches: Sequence[str],
+    required_branches: set[str],
+    inputs: LoadedMappingInputs,
+    config: BranchBuildConfig,
+    existing_dictionaries: Mapping[str, Mapping[str, str | None]] | None,
+) -> BuildArtifacts:
+    """Assemble artifacts after the outer workflow resolved branch scope."""
     missing_branches = sorted(required_branches - set(corpus_data))
     if missing_branches:
         raise ValueError(
@@ -180,7 +202,7 @@ def build_artifacts(
         )
         for branch in config.supported_branches
     }
-    outputs[config.jp_policy_path] = build_jp_policy(
+    policy = build_jp_policy(
         JpPolicyInputs(
             jp_tags=inputs.jp_tags,
             deprecated_tags=inputs.deprecated_tags,
@@ -190,7 +212,9 @@ def build_artifacts(
         )
     )
     return BuildArtifacts(
-        outputs=outputs,
+        dictionary_outputs=outputs,
+        policy_path=config.jp_policy_path,
+        policy=policy,
         branch_summaries=summaries,
         jp_tag_count=len(inputs.jp_tags),
         hint_count=sum(len(entries) for entries in concatenated_tag_hints.values()),
@@ -224,23 +248,27 @@ def build_and_publish_dictionaries(
         dictionaries_dir=config.dictionaries_dir,
         supported_branches=omitted_branches,
     )
-    artifacts = build_artifacts(
+    artifacts = _build_artifacts_for_scope(
         corpus_data,
         branches,
+        required_branches,
         loaded,
-        config=config,
+        config,
         existing_dictionaries=existing_dictionaries,
     )
-    publish_files_atomically({
-        path: (
-            lambda temporary, data=data: write_json(
-                temporary,
-                data,
-                sort_top_level=True,
-            )
+    writers: dict[Path, FileWriter] = {}
+    for path, data in artifacts.dictionary_outputs.items():
+        writers[path] = lambda temporary, data=data: write_json(
+            temporary,
+            data,
+            sort_top_level=True,
         )
-        for path, data in artifacts.outputs.items()
-    })
+    writers[artifacts.policy_path] = lambda temporary: write_json(
+        temporary,
+        artifacts.policy,
+        sort_top_level=True,
+    )
+    publish_files_atomically(writers)
     return artifacts
 
 
