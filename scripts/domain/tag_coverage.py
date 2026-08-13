@@ -2,17 +2,16 @@
 
 from __future__ import annotations
 
-from collections import Counter, defaultdict
+from collections import Counter
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from pathlib import Path
 
-from scripts.corpus import iter_corpus_page_tags
 from scripts.domain.branch_config import BRANCH_CONFIG_BY_CODE
 from scripts.domain.tag_models import (
     ApplicationBranch,
     ApplicationInventory,
     ApplicationTag,
+    BranchTagStats,
     Classification,
     ClassificationStatus,
     Coverage,
@@ -23,7 +22,6 @@ from scripts.domain.tag_models import (
     EnTag,
     JpTag,
     JpTagPolicy,
-    TagStats,
 )
 from scripts.domain.jp_policy import JpPolicyInputs, build_jp_policy
 from scripts.domain.tag_policy import (
@@ -32,8 +30,6 @@ from scripts.domain.tag_policy import (
     en_category_omitted_tags,
     resolve_source_tag,
 )
-
-SAMPLE_LIMIT = 5
 
 STATUS_DESCRIPTIONS: dict[ClassificationStatus, str] = {
     "jp_unused_replacement": "Listed in the JP unused-tag page for this source branch with one replacement.",
@@ -80,29 +76,6 @@ class _BaseClassification:
     recognized_by_jp_policy: bool
     jp_tag: str | None = None
     replacement: str | None = None
-
-
-def _collect_branch_tag_stats(
-    corpus_root: Path,
-    branch: str,
-) -> tuple[int, dict[str, TagStats]]:
-    counts: Counter[str] = Counter()
-    samples: dict[str, list[str]] = defaultdict(list)
-    page_count = 0
-    for slug, tags in iter_corpus_page_tags(corpus_root, branch):
-        page_count += 1
-        for tag in set(tags):
-            counts[tag] += 1
-            if len(samples[tag]) < SAMPLE_LIMIT:
-                samples[tag].append(slug)
-
-    return page_count, {
-        tag: {
-            "page_count": count,
-            "sample_slugs": samples[tag],
-        }
-        for tag, count in counts.items()
-    }
 
 
 def _base_classification(
@@ -200,11 +173,12 @@ def _classify_tag(tag: str, context: _ClassificationContext) -> Classification:
 
 
 def build_coverage(
-    corpus_root: Path,
+    corpus_root: str,
     branches: list[str],
     inputs: CoverageInputs,
+    branch_tag_stats: Mapping[str, BranchTagStats],
 ) -> Coverage:
-    """Build complete coverage for the requested corpus branches."""
+    """Classify explicit corpus statistics for the requested branches."""
 
     en_branch_policy = inputs.mapping_policy.for_branch("en")
     en_translation_policy_omit = en_category_omitted_tags(
@@ -223,7 +197,9 @@ def build_coverage(
 
     branch_entries: list[CoverageBranch] = []
     for branch in branches:
-        page_count, tag_stats = _collect_branch_tag_stats(corpus_root, branch)
+        branch_stats = branch_tag_stats[branch]
+        page_count = branch_stats["page_count"]
+        tag_stats = branch_stats["tags"]
         status_counts: Counter[ClassificationStatus] = Counter()
         tags: list[CoverageTag] = []
         context = _ClassificationContext(

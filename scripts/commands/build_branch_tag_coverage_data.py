@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 
 from scripts.atomic_output import publish_files_atomically
+from scripts.corpus import collect_branch_tag_stats
 from scripts.dictionary_inputs import load_mapping_policy_inputs
 from scripts.json_io import load_json, write_json
 from scripts.data_paths import (
@@ -170,7 +171,16 @@ def main() -> None:
 
     try:
         inputs = load_coverage_inputs()
-        coverage = build_coverage(corpus_root, branches, inputs)
+        branch_tag_stats = {
+            branch: collect_branch_tag_stats(corpus_root, branch)
+            for branch in branches
+        }
+        coverage = build_coverage(
+            str(corpus_root),
+            branches,
+            inputs,
+            branch_tag_stats,
+        )
         json_path = args.output_dir / "branch_tag_coverage.json"
         tsv_path = args.output_dir / "branch_tag_coverage.tsv"
         inventory = build_application_inventory(coverage)

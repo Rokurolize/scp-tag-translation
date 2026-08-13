@@ -105,9 +105,11 @@ def controlled_branch_artifacts(tmp_path):
             deprecated_tags=[],
             policy=policy,
         ),
-        dictionaries_dir=output_dir,
-        jp_policy_path=policy_path,
-        supported_branches=("en",),
+        config=branch_builder.BranchBuildConfig(
+            dictionaries_dir=output_dir,
+            jp_policy_path=policy_path,
+            supported_branches=("en",),
+        ),
     )
     return corpus_root, artifacts, output_dir, policy_path
 

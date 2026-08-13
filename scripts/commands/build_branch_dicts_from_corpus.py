@@ -66,14 +66,21 @@ class BranchBuildInputs:
     policy: MappingPolicy
 
 
+@dataclass(frozen=True)
+class BranchBuildConfig:
+    """Output and branch settings for one dictionary build."""
+
+    dictionaries_dir: Path = DICTIONARIES_DIR
+    jp_policy_path: Path = JP_POLICY_PATH
+    supported_branches: tuple[str, ...] = SUPPORTED_BRANCHES
+
+
 def build_artifacts(
     corpus_root: Path,
     branches: Sequence[str],
     inputs: BranchBuildInputs,
     *,
-    dictionaries_dir: Path = DICTIONARIES_DIR,
-    jp_policy_path: Path = JP_POLICY_PATH,
-    supported_branches: Sequence[str] = SUPPORTED_BRANCHES,
+    config: BranchBuildConfig = BranchBuildConfig(),
 ) -> BuildArtifacts:
     validate_tag_records(
         inputs.en_tags,
@@ -108,8 +115,10 @@ def build_artifacts(
                 inputs.policy,
             )
 
-        dictionary_path = dictionaries_dir / f"{branch}_to_jp.json"
-        deprecated_path = dictionaries_dir / f"deprecated_{branch}_to_jp.json"
+        dictionary_path = config.dictionaries_dir / f"{branch}_to_jp.json"
+        deprecated_path = (
+            config.dictionaries_dir / f"deprecated_{branch}_to_jp.json"
+        )
         outputs[dictionary_path] = dictionary
         outputs[deprecated_path] = deprecated_dict
         branch_dictionaries[branch] = dictionary
@@ -128,10 +137,10 @@ def build_artifacts(
 
     hint_dictionaries = complete_hint_dictionaries(
         branch_dictionaries,
-        dictionaries_dir=dictionaries_dir,
-        supported_branches=supported_branches,
+        dictionaries_dir=config.dictionaries_dir,
+        supported_branches=config.supported_branches,
     )
-    for branch in supported_branches:
+    for branch in config.supported_branches:
         if branch not in visible_sequences_by_branch:
             _source_tags, visible_sequences_by_branch[branch] = (
                 collect_corpus_tags_and_visible_sequences(corpus_root, branch)
@@ -142,9 +151,9 @@ def build_artifacts(
             hint_dictionaries[branch],
             visible_sequences_by_branch[branch],
         )
-        for branch in supported_branches
+        for branch in config.supported_branches
     }
-    outputs[jp_policy_path] = build_jp_policy(
+    outputs[config.jp_policy_path] = build_jp_policy(
         JpPolicyInputs(
             jp_tags=inputs.jp_tags,
             deprecated_tags=inputs.deprecated_tags,
@@ -161,6 +170,60 @@ def build_artifacts(
             len(entries) for entries in concatenated_tag_hints.values()
         ),
     )
+
+
+def build_and_publish(
+    corpus_root: Path,
+    branches: Sequence[str],
+    *,
+    config: BranchBuildConfig = BranchBuildConfig(),
+) -> BuildArtifacts:
+    """Load validated inputs, build dictionaries, and publish them atomically."""
+    required_data = (
+        DATA_EN,
+        DATA_JP,
+        DATA_DEPRECATED,
+        DATA_INT_CROSSWALK,
+        DATA_KO_CROSSWALK,
+        DATA_BRANCH_GUIDE_CROSSWALK,
+    )
+    if any(not path.exists() for path in required_data):
+        raise FileNotFoundError(
+            "先に python -m scripts.commands.parse_sources を実行してください。"
+        )
+
+    en_tags, jp_tags, deprecated_tags = validate_tag_records(
+        load_json(DATA_EN),
+        load_json(DATA_JP),
+        load_json(DATA_DEPRECATED),
+    )
+    policy = build_mapping_policy(
+        jp_tags,
+        deprecated_tags,
+        load_mapping_policy_inputs(),
+    )
+    artifacts = build_artifacts(
+        corpus_root,
+        branches,
+        BranchBuildInputs(
+            en_tags=en_tags,
+            jp_tags=jp_tags,
+            deprecated_tags=deprecated_tags,
+            policy=policy,
+        ),
+        config=config,
+    )
+    publish_files_atomically({
+        path: (
+            lambda temporary, data=data: write_json(
+                temporary,
+                data,
+                sort_top_level=True,
+            )
+        )
+        for path, data in artifacts.outputs.items()
+    })
+    return artifacts
 
 
 def main() -> None:
@@ -188,18 +251,6 @@ def main() -> None:
     if not corpus_root.is_dir():
         print(f"エラー: corpus rootが見つかりません: {corpus_root}")
         sys.exit(1)
-    required_data = (
-        DATA_EN,
-        DATA_JP,
-        DATA_DEPRECATED,
-        DATA_INT_CROSSWALK,
-        DATA_KO_CROSSWALK,
-        DATA_BRANCH_GUIDE_CROSSWALK,
-    )
-    if any(not path.exists() for path in required_data):
-        print("エラー: 先に python -m scripts.commands.parse_sources を実行してください。")
-        sys.exit(1)
-
     branches = [
         branch
         for branch in (args.branches or SUPPORTED_BRANCHES)
@@ -210,37 +261,8 @@ def main() -> None:
         sys.exit(1)
 
     try:
-        en_tags, jp_tags, deprecated_tags = validate_tag_records(
-            load_json(DATA_EN),
-            load_json(DATA_JP),
-            load_json(DATA_DEPRECATED),
-        )
-        policy = build_mapping_policy(
-            jp_tags,
-            deprecated_tags,
-            load_mapping_policy_inputs(),
-        )
-        artifacts = build_artifacts(
-            corpus_root,
-            branches,
-            BranchBuildInputs(
-                en_tags=en_tags,
-                jp_tags=jp_tags,
-                deprecated_tags=deprecated_tags,
-                policy=policy,
-            ),
-        )
-        publish_files_atomically({
-            path: (
-                lambda temporary, data=data: write_json(
-                    temporary,
-                    data,
-                    sort_top_level=True,
-                )
-            )
-            for path, data in artifacts.outputs.items()
-        })
-    except (OSError, ValueError) as err:
+        artifacts = build_and_publish(corpus_root, branches)
+    except (FileNotFoundError, OSError, ValueError) as err:
         print(f"エラー: 辞書生成に失敗しました: {err}")
         sys.exit(1)
 

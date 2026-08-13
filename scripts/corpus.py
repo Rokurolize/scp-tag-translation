@@ -2,10 +2,14 @@
 
 from __future__ import annotations
 
+from collections import Counter, defaultdict
 from collections.abc import Iterator
 from pathlib import Path
 
 from scripts.json_io import load_json
+from scripts.domain.tag_models import BranchTagStats, TagStats
+
+SAMPLE_LIMIT = 5
 
 
 def discover_corpus_branches(corpus_root: Path) -> list[str]:
@@ -60,6 +64,33 @@ def collect_corpus_tags_and_visible_sequences(
         if visible:
             visible_sequences.append((slug, visible))
     return tags, visible_sequences
+
+
+def collect_branch_tag_stats(
+    corpus_root: Path,
+    branch: str,
+) -> BranchTagStats:
+    """Collect page counts and representative slugs for coverage reporting."""
+    counts: Counter[str] = Counter()
+    samples: dict[str, list[str]] = defaultdict(list)
+    page_count = 0
+    for slug, tags in iter_corpus_page_tags(corpus_root, branch):
+        page_count += 1
+        for tag in set(tags):
+            counts[tag] += 1
+            if len(samples[tag]) < SAMPLE_LIMIT:
+                samples[tag].append(slug)
+
+    return {
+        "page_count": page_count,
+        "tags": {
+            tag: TagStats(
+                page_count=count,
+                sample_slugs=samples[tag],
+            )
+            for tag, count in counts.items()
+        },
+    }
 
 
 def corpus_tags_for_branch(corpus_root: Path, branch: str) -> set[str]:

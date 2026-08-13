@@ -10,6 +10,9 @@ from scripts.domain.tag_models import (
     DeprecatedTag,
     EnTag,
     JpTag,
+    BranchOverrideFile,
+    OfficialCrosswalkFile,
+    ReplacementOverrideFile,
 )
 
 EN_CATEGORIES_OMITTED_ON_JP = {"Genre", "Genre and Themes"}
@@ -206,9 +209,9 @@ def resolve_source_tag(
 
 @dataclass(frozen=True)
 class MappingPolicyInputs:
-    overrides: object
-    replacement_overrides: object
-    official_crosswalks: tuple[object, ...]
+    overrides: BranchOverrideFile
+    replacement_overrides: ReplacementOverrideFile
+    official_crosswalks: tuple[OfficialCrosswalkFile, ...]
 
 
 def jp_maps(

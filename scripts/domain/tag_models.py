@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Literal, Required, TypedDict
+from typing import Literal, Required, TypeAlias, TypedDict
 
 
 ClassificationStatus = Literal[
@@ -76,6 +76,20 @@ class JpTag(TypedDict, total=False):
     translation_exempt: bool
 
 
+class BranchOverrideRecord(TypedDict, total=False):
+    jp_tag: Required[str]
+    note: str
+
+
+BranchOverrideValue: TypeAlias = str | BranchOverrideRecord
+BranchOverrideFile: TypeAlias = Mapping[
+    str,
+    Mapping[str, BranchOverrideValue],
+]
+ReplacementOverrideFile: TypeAlias = Mapping[str, Mapping[str, str]]
+OfficialCrosswalkFile: TypeAlias = Mapping[str, Mapping[str, str]]
+
+
 class DeprecatedTag(TypedDict, total=False):
     source_lang: str
     source_tag: Required[str]
@@ -107,6 +121,11 @@ class JpPolicyDocument(TypedDict):
 class TagStats(TypedDict):
     page_count: int
     sample_slugs: list[str]
+
+
+class BranchTagStats(TypedDict):
+    page_count: int
+    tags: dict[str, TagStats]
 
 
 class Classification(TypedDict):
@@ -172,3 +191,10 @@ class ApplicationInventory(TypedDict):
     schema_version: int
     rule: str
     branches: list[ApplicationBranch]
+
+
+class BrowserBranchRecord(TypedDict):
+    branch: str
+    site: str
+    label: str
+    jp_branch_tag: str

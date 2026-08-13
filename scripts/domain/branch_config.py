@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from scripts.domain.tag_models import BrowserBranchRecord
+
 
 @dataclass(frozen=True)
 class BranchConfig:
@@ -36,7 +38,7 @@ SUPPORTED_BRANCHES = tuple(config.branch for config in SUPPORTED_BRANCH_CONFIGS)
 BRANCH_CONFIG_BY_CODE = {config.branch: config for config in SUPPORTED_BRANCH_CONFIGS}
 
 
-def browser_config_records() -> list[dict[str, str]]:
+def browser_config_records() -> list[BrowserBranchRecord]:
     """Return the supported-branch fields consumed by the static browser app."""
 
     return [

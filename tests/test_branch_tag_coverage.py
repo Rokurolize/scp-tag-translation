@@ -4,7 +4,10 @@ import sys
 import pytest
 
 from scripts.commands import build_branch_tag_coverage_data as coverage_builder
+from scripts.corpus import collect_branch_tag_stats
+from scripts import dictionary_inputs
 from scripts.domain import tag_coverage
+from scripts.domain import tag_policy
 from scripts.domain.tag_policy import MappingPolicy
 
 
@@ -115,9 +118,13 @@ def test_build_coverage_classifies_corpus_tags_and_preserves_ordering(tmp_path):
     _write_page(corpus_root, "en", "b", ["copy"])
 
     coverage = tag_coverage.build_coverage(
-        corpus_root,
+        str(corpus_root),
         ["cn", "en"],
         _coverage_inputs(),
+        {
+            branch: collect_branch_tag_stats(corpus_root, branch)
+            for branch in ("cn", "en")
+        },
     )
 
     assert coverage["schema_version"] == 3
@@ -191,7 +198,12 @@ def test_build_coverage_rejects_missing_mapped_target_policy(tmp_path):
     )
 
     with pytest.raises(ValueError, match="JP policy missing"):
-        tag_coverage.build_coverage(corpus_root, ["en"], inputs)
+        tag_coverage.build_coverage(
+            str(corpus_root),
+            ["en"],
+            inputs,
+            {"en": collect_branch_tag_stats(corpus_root, "en")},
+        )
 
 
 def test_build_coverage_rejects_non_object_metadata(tmp_path):
@@ -214,7 +226,12 @@ def test_build_coverage_rejects_non_object_metadata(tmp_path):
     )
 
     with pytest.raises(ValueError, match="metadata root must be an object"):
-        tag_coverage.build_coverage(corpus_root, ["en"], inputs)
+        tag_coverage.build_coverage(
+            str(corpus_root),
+            ["en"],
+            inputs,
+            {"en": collect_branch_tag_stats(corpus_root, "en")},
+        )
 
 
 def test_coverage_main_reports_publication_failure(
@@ -233,8 +250,13 @@ def test_coverage_main_reports_publication_failure(
     monkeypatch.setattr(coverage_builder, "load_coverage_inputs", lambda: object())
     monkeypatch.setattr(
         coverage_builder,
+        "collect_branch_tag_stats",
+        lambda _corpus_root, _branch: {"page_count": 0, "tags": {}},
+    )
+    monkeypatch.setattr(
+        coverage_builder,
         "build_coverage",
-        lambda _corpus_root, _branches, _inputs: coverage,
+        lambda _corpus_root, _branches, _inputs, _branch_tag_stats: coverage,
     )
     monkeypatch.setattr(
         coverage_builder,
@@ -270,3 +292,84 @@ def test_coverage_main_reports_publication_failure(
         "エラー: 可視化データ生成に失敗しました: disk full\n"
     )
     assert not (tmp_path / "output").exists()
+
+
+def test_coverage_main_publishes_all_outputs_from_real_inputs(
+    tmp_path,
+    monkeypatch,
+    capsys,
+):
+    corpus_root = tmp_path / "corpus"
+    _write_page(corpus_root, "en", "sample", ["scp"])
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+    jp_names = {"scp", *tag_policy.EN_ORIGIN_TAG_REPLACEMENTS.values()}
+    data_paths = {
+        "DATA_EN": data_dir / "en_tags.json",
+        "DATA_JP": data_dir / "jp_tags.json",
+        "DATA_DEPRECATED": data_dir / "deprecated_tags.json",
+    }
+    data_paths["DATA_EN"].write_text(
+        json.dumps([{"name": "scp"}]),
+        encoding="utf-8",
+    )
+    data_paths["DATA_JP"].write_text(
+        json.dumps([
+            {"name": name, "source_tags": []}
+            for name in sorted(jp_names)
+        ], ensure_ascii=False),
+        encoding="utf-8",
+    )
+    data_paths["DATA_DEPRECATED"].write_text("[]", encoding="utf-8")
+    for name, path in data_paths.items():
+        monkeypatch.setattr(coverage_builder, name, path)
+
+    override_path = tmp_path / "overrides.json"
+    replacement_path = tmp_path / "replacement_overrides.json"
+    override_path.write_text("{}", encoding="utf-8")
+    replacement_path.write_text("{}", encoding="utf-8")
+    crosswalk_paths = []
+    for index in range(3):
+        path = tmp_path / f"crosswalk-{index}.json"
+        path.write_text("{}", encoding="utf-8")
+        crosswalk_paths.append(path)
+    monkeypatch.setattr(dictionary_inputs, "OVERRIDES_PATH", override_path)
+    monkeypatch.setattr(
+        dictionary_inputs,
+        "DEPRECATED_REPLACEMENT_OVERRIDES_PATH",
+        replacement_path,
+    )
+    monkeypatch.setattr(
+        dictionary_inputs,
+        "CROSSWALK_PATHS",
+        tuple(crosswalk_paths),
+    )
+
+    output_dir = tmp_path / "visualization"
+    monkeypatch.setattr(coverage_builder, "DEFAULT_OUTPUT_DIR", output_dir)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "build_branch_tag_coverage_data.py",
+            "--corpus-root",
+            str(corpus_root),
+            "--branches",
+            "en",
+        ],
+    )
+
+    coverage_builder.main()
+
+    assert "可視化データ生成完了: 1支部, 1タグ" in capsys.readouterr().out
+    expected_outputs = {
+        "branch_tag_coverage.json",
+        "branch_tag_coverage.tsv",
+        "tag_application_inventory.json",
+        "tag_application_inventory.tsv",
+    }
+    assert {path.name for path in output_dir.iterdir()} == expected_outputs
+    coverage = json.loads(
+        (output_dir / "branch_tag_coverage.json").read_text(encoding="utf-8")
+    )
+    assert coverage["branches"][0]["tags"][0]["tag"] == "scp"
