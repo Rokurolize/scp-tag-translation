@@ -146,6 +146,40 @@ def test_write_refuses_partial_source_set_without_publishing(
     assert f"  {destinations[1]}\n" in output
 
 
+def test_write_reports_zero_files_when_missing_source_blocks_publication(tmp_path):
+    repository_root = tmp_path / "repository"
+    corpus_root = tmp_path / "corpus"
+    source_map = {
+        "sources/en/tag-guide.txt": "en/pages/tag-guide/source.wikidot.txt",
+        "sources/jp/tag-guide.txt": "jp/pages/tag-guide/source.wikidot.txt",
+    }
+    available_source = _write_mapped_file(
+        corpus_root,
+        source_map["sources/en/tag-guide.txt"],
+        "new-en",
+    )
+    destination = _write_mapped_file(
+        repository_root,
+        "sources/en/tag-guide.txt",
+        "old-en",
+    )
+    result = source_workflow.sync_tag_sources(
+        corpus_root,
+        write=True,
+        config=source_workflow.SourceSyncConfig(
+            source_map=source_map,
+            repository_root=repository_root,
+        ),
+    )
+
+    assert available_source.read_text(encoding="utf-8") == "new-en"
+    assert destination.read_text(encoding="utf-8") == "old-en"
+    assert result.wrote_files == 0
+    assert result.missing_sources == (
+        corpus_root / source_map["sources/jp/tag-guide.txt"],
+    )
+
+
 def test_write_synchronizes_every_stale_destination(
     tmp_path,
     monkeypatch,

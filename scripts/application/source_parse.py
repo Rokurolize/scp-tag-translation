@@ -243,13 +243,10 @@ def collect_outputs(
     if language in {"jp", "all"}:
         jp_batch, jp_tags, deprecated_tags = _collect_jp_outputs(config)
         batches.append(jp_batch)
-    if language in {"crosswalks", "all"}:
         if language == "all":
-            if jp_tags is None or deprecated_tags is None:
-                raise InvalidDomainInputError("all解析にはJPタグデータが必要です")
             batches.append(_collect_crosswalk_outputs(config, jp_tags, deprecated_tags))
-        else:
-            batches.append(_collect_crosswalk_outputs_from_persisted_records(config))
+    elif language == "crosswalks":
+        batches.append(_collect_crosswalk_outputs_from_persisted_records(config))
     return merge_batches(batches)
 
 

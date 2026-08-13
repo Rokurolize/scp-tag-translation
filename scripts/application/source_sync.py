@@ -54,6 +54,7 @@ def sync_tag_sources(
     stale: list[str] = []
     missing_sources: list[Path] = []
     pending: dict[Path, Path] = {}
+    published_count = 0
     for destination_rel, source_rel in config.source_map.items():
         source = corpus_root / source_rel
         destination = config.repository_root / destination_rel
@@ -75,10 +76,11 @@ def sync_tag_sources(
             for destination, source in pending.items()
         })
         stale = []
+        published_count = len(pending)
     return SourceSyncResult(
         stale_paths=tuple(stale),
         missing_sources=tuple(missing_sources),
-        wrote_files=len(pending),
+        wrote_files=published_count,
     )
 
 
