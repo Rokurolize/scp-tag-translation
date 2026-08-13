@@ -65,15 +65,6 @@ def _cell_for_column(cells: list[str], header: list[str], column: str) -> str:
     return cells[index] if index < len(cells) else ""
 
 
-def _single_jp_target(
-    en_values: Iterable[str],
-    jp_values: Iterable[str],
-) -> str | None:
-    del en_values
-    values = list(jp_values)
-    return values[0] if len(values) == 1 else None
-
-
 def _iter_source_tag_branches(
     cells: list[str],
     header: list[str],
@@ -117,13 +108,6 @@ def _iter_int_crosswalk_candidates(
             jp_values = _cell_tags(_cell_for_column(cells, header, "JP"))
             for branch, source_tag in _iter_source_tag_branches(cells, header):
                 yield branch, source_tag, en_values, jp_values
-
-
-def parse_int_crosswalk_raw(input_path: Path) -> CrosswalkMappings:
-    return resolve_crosswalk_candidates(
-        _iter_int_crosswalk_candidates(input_path),
-        _single_jp_target,
-    )
 
 
 def parse_int_crosswalk(

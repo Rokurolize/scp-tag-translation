@@ -192,6 +192,7 @@ def build_coverage(
             deprecated_tags=inputs.deprecated_tags,
             en_tags=inputs.en_tags,
             mapping_policy=inputs.mapping_policy,
+            concatenated_tag_hints={},
         )
     )["tags"]
 

@@ -15,7 +15,7 @@ from scripts.domain.tag_records import (
 from scripts.domain.tag_policy import (
     EN_ORIGIN_TAG_REPLACEMENTS,
     MappingPolicy,
-    jp_maps,
+    build_jp_names_and_source_map,
 )
 
 
@@ -187,7 +187,7 @@ def build_mapping_policy(
     include_origin_replacements: bool = True,
 ) -> MappingPolicy:
     """Assemble parsed source policies into the runtime mapping contract."""
-    jp_names, jp_source_map = jp_maps(jp_tags)
+    jp_names, jp_source_map = build_jp_names_and_source_map(jp_tags)
     overrides = parse_overrides(inputs.overrides, jp_names)
     replacement_overrides = parse_overrides(
         inputs.replacement_overrides,

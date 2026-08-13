@@ -147,30 +147,18 @@ class LoadedMappingInputs:
 def load_mapping_inputs(
     paths: MappingInputPaths | None = None,
     *,
-    data_en: Path | None = None,
-    data_jp: Path | None = None,
-    data_deprecated: Path | None = None,
+    policy_inputs: MappingPolicyInputs | None = None,
+    include_origin_replacements: bool = True,
 ) -> LoadedMappingInputs:
     """Load and validate tag records, then assemble one mapping policy."""
     paths = paths or default_mapping_input_paths()
-    if any(path is not None for path in (data_en, data_jp, data_deprecated)):
-        if paths is not None and paths != default_mapping_input_paths():
-            raise ValueError("pass either paths or individual data paths, not both")
-        paths = MappingInputPaths(
-            data_en=data_en or paths.data_en,
-            data_jp=data_jp or paths.data_jp,
-            data_deprecated=data_deprecated or paths.data_deprecated,
-            overrides=paths.overrides,
-            replacement_overrides=paths.replacement_overrides,
-            crosswalks=paths.crosswalks,
-        )
-    required_data = (paths.data_en, paths.data_jp, paths.data_deprecated)
+    required_data = (paths.data_en, paths.data_jp)
     if any(not path.exists() for path in required_data):
         raise FileNotFoundError("Run python -m scripts.commands.parse_sources first.")
     en_tags, jp_tags, deprecated_tags = validate_tag_records(
         load_json(paths.data_en),
         load_json(paths.data_jp),
-        load_json(paths.data_deprecated),
+        (load_json(paths.data_deprecated) if paths.data_deprecated.exists() else []),
     )
     return LoadedMappingInputs(
         en_tags=en_tags,
@@ -179,7 +167,8 @@ def load_mapping_inputs(
         mapping_policy=build_mapping_policy(
             jp_tags,
             deprecated_tags,
-            load_mapping_policy_inputs(paths),
+            policy_inputs or load_mapping_policy_inputs(paths),
+            include_origin_replacements=include_origin_replacements,
         ),
     )
 

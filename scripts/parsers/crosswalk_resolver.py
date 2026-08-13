@@ -6,7 +6,7 @@ import unicodedata
 from collections.abc import Iterable, Mapping
 
 from scripts.domain.tag_records import DeprecatedTag, JpTag
-from scripts.domain.tag_policy import jp_maps
+from scripts.domain.tag_policy import build_jp_names_and_source_map
 from scripts.domain.tag_validation import validate_deprecated_tags, validate_jp_tags
 
 
@@ -60,7 +60,7 @@ class CrosswalkResolver:
             name = entry["name"]
             self.jp_names.add(name)
             self.normalized_jp_names.setdefault(normalize_tag(name), set()).add(name)
-        _jp_names, source_map = jp_maps(jp_tags)
+        _jp_names, source_map = build_jp_names_and_source_map(jp_tags)
         for source_tag, name in source_map.items():
             normalized_source = normalize_tag(source_tag)
             if not normalized_source:

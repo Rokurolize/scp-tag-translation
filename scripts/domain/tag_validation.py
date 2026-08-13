@@ -115,7 +115,7 @@ def validate_jp_tags(raw: object) -> list[JpTag]:
     records = cast(list[JpTag], raw)
     _ensure_unique((entry["name"] for entry in records), "JPタグ名")
     # A source alias may intentionally occur in multiple JP categories during
-    # a tag-system migration.  jp_maps() resolves those aliases using the
+    # a tag-system migration.  build_jp_names_and_source_map() resolves those aliases using the
     # explicit mapping policy and rejects unresolved conflicts.
     return records
 

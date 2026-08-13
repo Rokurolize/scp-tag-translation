@@ -15,9 +15,24 @@ from scripts.parsers.crosswalk_table import (
 )
 
 
+def _single_jp_target(_en_values, jp_values):
+    values = list(jp_values)
+    return values[0] if len(values) == 1 else None
+
+
+def _single_valid_jp_target(_en_values, jp_values):
+    values = list(jp_values)
+    if len(values) != 1:
+        return None
+    value = values[0]
+    if value.casefold() in EMPTY_CELL_MARKERS or any(char.isspace() for char in value):
+        return None
+    return value
+
+
 def test_int_crosswalk_parses_multibranch_vectors():
     source = Path(__file__).parent.parent / "sources" / "int" / "tag-guide.txt"
-    mappings = int_parser.parse_int_crosswalk_raw(source)
+    mappings = int_parser.parse_int_crosswalk(source, _single_jp_target)
     assert mappings["cn"]["认知危害"] == "認識災害"
     assert mappings["de"]["lebendig"] == "生命"
     assert mappings["int"]["cognitohazard"] == "認識災害"
@@ -25,7 +40,7 @@ def test_int_crosswalk_parses_multibranch_vectors():
 
 def test_ko_crosswalk_parses_direct_jp_vectors():
     source = Path(__file__).parent.parent / "sources" / "ko" / "translate-tags.txt"
-    mappings = ko_parser.parse_ko_crosswalk_raw(source)
+    mappings = ko_parser.parse_ko_crosswalk(source, _single_valid_jp_target)
     assert mappings["ko"]["생물"] == "生命"
     assert mappings["ko"]["정신조작"] == "精神影響"
 
@@ -152,8 +167,8 @@ def test_int_and_ko_crosswalks_ignore_placeholder_cells(tmp_path):
         encoding="utf-8",
     )
 
-    int_mappings = int_parser.parse_int_crosswalk_raw(int_source)
-    ko_mappings = ko_parser.parse_ko_crosswalk_raw(ko_source)
+    int_mappings = int_parser.parse_int_crosswalk(int_source, _single_jp_target)
+    ko_mappings = ko_parser.parse_ko_crosswalk(ko_source, _single_valid_jp_target)
 
     assert "-" not in int_mappings.get("cn", {})
     assert "N/A" not in int_mappings.get("cn", {})
@@ -169,7 +184,7 @@ def test_int_crosswalk_respects_reordered_columns_and_skips_short_rows(tmp_path)
         encoding="utf-8",
     )
 
-    mappings = int_parser.parse_int_crosswalk_raw(source)
+    mappings = int_parser.parse_int_crosswalk(source, _single_jp_target)
 
     assert mappings["en"] == {"source": "日本語"}
     assert mappings["int"] == {"source": "日本語"}
@@ -186,7 +201,7 @@ def test_int_crosswalk_omits_repeated_source_with_conflicting_targets(tmp_path):
         encoding="utf-8",
     )
 
-    mappings = int_parser.parse_int_crosswalk_raw(source)
+    mappings = int_parser.parse_int_crosswalk(source, _single_jp_target)
 
     assert "source" not in mappings.get("en", {})
     assert "source" not in mappings.get("int", {})
@@ -201,7 +216,7 @@ def test_int_crosswalk_duplicate_header_uses_last_column_like_dict_zip(tmp_path)
         encoding="utf-8",
     )
 
-    mappings = int_parser.parse_int_crosswalk_raw(source)
+    mappings = int_parser.parse_int_crosswalk(source, _single_jp_target)
 
     assert mappings["en"] == {"last": "対象"}
 

@@ -11,28 +11,9 @@ from scripts.parsers.crosswalk_candidates import (
     CrosswalkCandidate,
     resolve_crosswalk_candidates,
 )
-from scripts.parsers.crosswalk_table import (
-    EMPTY_CELL_MARKERS,
-    split_wikidot_table_row,
-)
+from scripts.parsers.crosswalk_table import split_wikidot_table_row
 
 _KO_LINK_RE = re.compile(r"/system:page-tags/tag/([^\s\]]+)")
-
-
-def _single_valid_jp_target(
-    en_values: Iterable[str],
-    jp_values: Iterable[str],
-) -> str | None:
-    del en_values
-    values = list(jp_values)
-    if len(values) != 1:
-        return None
-    jp_tag = values[0]
-    if jp_tag.casefold() in EMPTY_CELL_MARKERS or any(
-        character.isspace() for character in jp_tag
-    ):
-        return None
-    return jp_tag
 
 
 def _iter_ko_crosswalk_candidates(
@@ -57,14 +38,6 @@ def _iter_ko_crosswalk_candidates(
                 [en_tag.strip()] if en_tag.strip() else [],
                 [jp_tag] if jp_tag else [],
             )
-
-
-def parse_ko_crosswalk_raw(input_path: Path) -> CrosswalkMappings:
-    mappings = resolve_crosswalk_candidates(
-        _iter_ko_crosswalk_candidates(input_path),
-        _single_valid_jp_target,
-    )
-    return {"ko": mappings.get("ko", {})}
 
 
 def parse_ko_crosswalk(

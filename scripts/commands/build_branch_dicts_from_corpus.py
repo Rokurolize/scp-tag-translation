@@ -78,15 +78,10 @@ def _build_branch_artifacts(
     dict[Path, Mapping[str, object]],
     tuple[BranchBuildSummary, ...],
     dict[str, dict[str, str | None]],
-    dict[str, list[tuple[str, tuple[str, ...]]]],
 ]:
     outputs: dict[Path, Mapping[str, object]] = {}
     summaries: list[BranchBuildSummary] = []
     branch_dictionaries: dict[str, dict[str, str | None]] = {}
-    visible_sequences_by_branch: dict[
-        str,
-        list[tuple[str, tuple[str, ...]]],
-    ] = {}
     for branch in sorted(branches):
         branch_data = corpus_data[branch]
         if branch == "en":
@@ -109,7 +104,6 @@ def _build_branch_artifacts(
         outputs[dictionary_path] = dictionary
         outputs[deprecated_path] = deprecated_dict
         branch_dictionaries[branch] = dictionary
-        visible_sequences_by_branch[branch] = branch_data.visible_sequences
         summaries.append(
             BranchBuildSummary(
                 branch=branch,
@@ -123,7 +117,6 @@ def _build_branch_artifacts(
         outputs,
         tuple(summaries),
         branch_dictionaries,
-        visible_sequences_by_branch,
     )
 
 
@@ -180,7 +173,6 @@ def build_artifacts(
         outputs,
         summaries,
         branch_dictionaries,
-        visible_sequences_by_branch,
     ) = _build_branch_artifacts(corpus_data, branches, inputs, config)
     hint_dictionaries, visible_sequences_by_branch = _merge_existing_hint_dictionaries(
         branch_dictionaries,

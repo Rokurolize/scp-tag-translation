@@ -91,7 +91,7 @@ def controlled_branch_artifacts(tmp_path):
         {"name": "scp", "source_tags": []},
         {"name": "ホラー", "source_tags": ["horror"]},
     ]
-    jp_names, jp_source_map = tag_policy.jp_maps(jp_tags)
+    jp_names, jp_source_map = tag_policy.build_jp_names_and_source_map(jp_tags)
     policy = tag_policy.MappingPolicy(
         jp_names=jp_names,
         jp_source_map=jp_source_map,
@@ -256,10 +256,20 @@ def test_build_jp_policy_preserves_tag_and_source_policy_rules():
                     "use_restricted": True,
                 },
             ],
+            deprecated_tags=[],
             en_tags=[
                 {"name": "horror", "category": "Genre"},
                 {"name": "genreless", "category": "Genre"},
             ],
+            mapping_policy=tag_policy.MappingPolicy(
+                jp_names=frozenset({"ホラー", "restricted"}),
+                jp_source_map={"horror": "ホラー"},
+                deprecated_tags={},
+                replacements={},
+                overrides={},
+                official_crosswalk={},
+            ),
+            concatenated_tag_hints={},
         )
     )
 

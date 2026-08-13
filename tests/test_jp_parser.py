@@ -3,7 +3,7 @@ from pathlib import Path
 from scripts.parsers import jp_parser
 from scripts.parsers.jp_parser import _PAIR_RE as _JP_PAIR_RE
 from scripts.parsers.jp_parser import _iter_uncommented_lines as _JP_UNCOMMENTED_LINES
-from scripts.domain.tag_policy import jp_maps
+from scripts.domain.tag_policy import build_jp_names_and_source_map
 
 _JP_SOURCE_DIR = Path(__file__).parent.parent / "sources" / "jp"
 
@@ -33,7 +33,7 @@ class TestJpParser:
         duplicates = [tag for tag in source_tags if tag in seen or seen.add(tag)]
         assert set(duplicates) == {"ghost", "orientation"}
 
-        _jp_names, source_map = jp_maps(jp_tags_data)
+        _jp_names, source_map = build_jp_names_and_source_map(jp_tags_data)
         assert source_map["ghost"] == "幽霊"
         assert source_map["orientation"] == "オリエンテーション"
 

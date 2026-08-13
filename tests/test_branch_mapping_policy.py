@@ -6,7 +6,7 @@ from scripts.domain.policy_builder import deprecated_by_source_lang
 from scripts.domain.tag_dictionary import build_en_dicts
 
 def test_branch_builder_applies_expected_precedence(jp_tags_data):
-    jp_names, jp_source_map = tag_policy.jp_maps(jp_tags_data)
+    jp_names, jp_source_map = tag_policy.build_jp_names_and_source_map(jp_tags_data)
     jp_source_map["international"] = "インターナショナル"
     jp_source_map["alias-only"] = "tale"
     policy = tag_policy.MappingPolicy(
@@ -62,7 +62,7 @@ def test_branch_builder_applies_expected_precedence(jp_tags_data):
 
 
 def test_int_inherits_en_unused_tags_and_origin_replacements(jp_tags_data):
-    jp_names, jp_source_map = tag_policy.jp_maps(jp_tags_data)
+    jp_names, jp_source_map = tag_policy.build_jp_names_and_source_map(jp_tags_data)
     policy = tag_policy.MappingPolicy(
         jp_names=jp_names,
         jp_source_map=jp_source_map,

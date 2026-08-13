@@ -13,7 +13,7 @@ from scripts.domain.tag_records import (
     JpTag,
 )
 
-EN_CATEGORIES_OMITTED_ON_JP = {"Genre", "Genre and Themes"}
+EN_CATEGORIES_OMITTED_ON_JP = frozenset(("Genre", "Genre and Themes"))
 # A source tag can occur in more than one JP category while the JP tag system
 # is being migrated.  The published dictionary has one context-free value, so
 # these ambiguous aliases need an explicit canonical target.
@@ -205,7 +205,7 @@ def resolve_source_tag(
     return SourceTagResolution("unhandled")
 
 
-def jp_maps(
+def build_jp_names_and_source_map(
     jp_tags: list[JpTag],
     source_tag_overrides: Mapping[str, str] | None = None,
 ) -> tuple[frozenset[str], dict[str, str]]:

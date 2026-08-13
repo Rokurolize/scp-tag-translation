@@ -20,7 +20,11 @@ from dataclasses import replace
 from typing import cast
 
 from scripts.atomic_output import publish_files_atomically
-from scripts.dictionary_inputs import load_mapping_policy_inputs
+from scripts.dictionary_inputs import (
+    default_mapping_input_paths,
+    load_mapping_inputs,
+    load_mapping_policy_inputs,
+)
 from scripts.json_io import load_json, write_json
 from scripts.data_paths import (
     DATA_DEPRECATED,
@@ -31,10 +35,9 @@ from scripts.data_paths import (
 )
 from scripts.domain.tag_dictionary import build_en_dicts
 from scripts.domain.tag_records import EnTag, JpTag
-from scripts.domain.policy_builder import build_mapping_policy
 from scripts.domain.tag_policy import (
-    jp_maps,
     MappingPolicy,
+    build_jp_names_and_source_map,
 )
 from scripts.domain.tag_validation import validate_tag_records
 
@@ -89,7 +92,7 @@ def build_en_dictionary(
         "既存辞書キー",
     )
 
-    jp_names, jp_source_map = jp_maps(jp_tags)
+    jp_names, jp_source_map = build_jp_names_and_source_map(jp_tags)
     compatibility_overrides = {
         source_tag: target
         for source_tag, target in existing.items()
@@ -122,22 +125,26 @@ def _build_outputs(
                 f"{path} が見つかりません。先に parse_sources.py を実行してください。"
             )
 
-    en_tags, jp_tags, deprecated_raw = validate_tag_records(
-        load_json(DATA_EN),
-        load_json(DATA_JP),
-        (load_json(DATA_DEPRECATED) if DATA_DEPRECATED.exists() else []),
+    mapping_paths = replace(
+        default_mapping_input_paths(),
+        data_en=DATA_EN,
+        data_jp=DATA_JP,
+        data_deprecated=DATA_DEPRECATED,
     )
+    loaded = load_mapping_inputs(
+        mapping_paths,
+        policy_inputs=load_mapping_policy_inputs(),
+        include_origin_replacements=False,
+    )
+    en_tags = loaded.en_tags
+    jp_tags = loaded.jp_tags
+    deprecated_raw = loaded.deprecated_tags
 
     existing: dict[str, str | None] = {}
     if not overwrite and EN_DICTIONARY_PATH.exists():
         existing = validate_existing_dict(load_json(EN_DICTIONARY_PATH))
 
-    policy = build_mapping_policy(
-        jp_tags,
-        deprecated_raw,
-        load_mapping_policy_inputs(),
-        include_origin_replacements=False,
-    )
+    policy = loaded.mapping_policy
     if existing:
         policy = replace(
             policy,
