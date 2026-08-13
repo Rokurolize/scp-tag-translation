@@ -107,7 +107,7 @@ def _collect_jp_outputs() -> tuple[ParseBatch, list[JpTag], list[DeprecatedTag]]
         )
     jp_tags = jp_parser.parse_jp_tags(SOURCES_JP)
     deprecated_tags = (
-        jp_parser.parse_unused(SOURCES_JP_UNUSED)
+        jp_parser.parse_unused_tag_records(SOURCES_JP_UNUSED)
         if SOURCES_JP_UNUSED.is_file()
         else []
     )

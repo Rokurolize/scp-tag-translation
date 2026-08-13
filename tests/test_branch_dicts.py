@@ -338,6 +338,32 @@ def test_complete_mapping_inputs_report_missing_policy_files(tmp_path):
         )
 
 
+def test_partial_mapping_inputs_use_empty_optional_policy_files(tmp_path):
+    data_en = tmp_path / "en.json"
+    data_jp = tmp_path / "jp.json"
+    data_en.write_text(json.dumps([{"name": "scp"}]), encoding="utf-8")
+    data_jp.write_text(
+        json.dumps([{"name": "scp", "source_tags": ["scp"]}]),
+        encoding="utf-8",
+    )
+    paths = dictionary_inputs.MappingInputPaths(
+        data_en=data_en,
+        data_jp=data_jp,
+        data_deprecated=tmp_path / "deprecated.json",
+        overrides=tmp_path / "overrides.json",
+        replacement_overrides=tmp_path / "replacements.json",
+        crosswalks=(tmp_path / "crosswalk.json",),
+    )
+
+    loaded = dictionary_inputs.load_mapping_inputs(
+        paths,
+        include_origin_replacements=False,
+    )
+
+    assert loaded.en_tags[0]["name"] == "scp"
+    assert loaded.mapping_policy.overrides == {}
+
+
 def test_acceptance_fixture_mentions_every_required_branch():
     with ACCEPTANCE.open(encoding="utf-8", newline="") as f:
         branches = {row["branch"] for row in csv.DictReader(f, delimiter="\t")}

@@ -115,7 +115,11 @@ def test_run_all_does_not_publish_when_last_parser_fails(tmp_path, monkeypatch):
         "parse_jp_tags",
         lambda _path: [{"name": "target", "source_tags": ["source"]}],
     )
-    monkeypatch.setattr(parse_sources.jp_parser, "parse_unused", lambda _path: [])
+    monkeypatch.setattr(
+        parse_sources.jp_parser,
+        "parse_unused_tag_records",
+        lambda _path: [],
+    )
     monkeypatch.setattr(
         parse_sources.int_parser, "parse_int_crosswalk", lambda *_args: {"en": {}}
     )
@@ -151,7 +155,11 @@ def test_all_crosswalks_use_same_run_jp_records(tmp_path, monkeypatch):
         "parse_jp_tags",
         lambda _path: [{"name": "new-target", "source_tags": ["semantic"]}],
     )
-    monkeypatch.setattr(parse_sources.jp_parser, "parse_unused", lambda _path: [])
+    monkeypatch.setattr(
+        parse_sources.jp_parser,
+        "parse_unused_tag_records",
+        lambda _path: [],
+    )
 
     def parse_int(_path, resolver):
         return {"en": {"semantic": resolver(["semantic"], [])}}
@@ -219,7 +227,11 @@ def test_run_all_publishes_six_outputs_in_one_atomic_batch(tmp_path, monkeypatch
         "parse_jp_tags",
         lambda _path: [{"name": "target", "source_tags": ["source"]}],
     )
-    monkeypatch.setattr(parse_sources.jp_parser, "parse_unused", lambda _path: [])
+    monkeypatch.setattr(
+        parse_sources.jp_parser,
+        "parse_unused_tag_records",
+        lambda _path: [],
+    )
     monkeypatch.setattr(
         parse_sources.int_parser, "parse_int_crosswalk", lambda *_args: {"en": {}}
     )

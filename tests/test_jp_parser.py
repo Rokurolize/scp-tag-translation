@@ -76,7 +76,7 @@ class TestJpParser:
             "_occ",
         }
 
-    def test_parse_unused_covers_wikidot_tag_url_variants(self, tmp_path):
+    def test_parse_unused_tag_records_covers_wikidot_tag_url_variants(self, tmp_path):
         source = tmp_path / "fragment-unused.txt"
         source.write_text(
             "\n".join(
@@ -88,13 +88,13 @@ class TestJpParser:
             encoding="utf-8",
         )
 
-        parsed = jp_parser.parse_unused(source)
+        parsed = jp_parser.parse_unused_tag_records(source)
 
         assert [entry["source_lang"] for entry in parsed] == ["EN", "EN"]
         assert [entry["source_tag"] for entry in parsed] == ["resource", "_occ"]
         assert parsed[0]["replacement"] == "世界観"
 
-    def test_parse_unused_records_source_language_sections(self, tmp_path):
+    def test_parse_unused_tag_records_source_language_sections(self, tmp_path):
         source = tmp_path / "fragment-unused.txt"
         source.write_text(
             "\n".join(
@@ -108,7 +108,7 @@ class TestJpParser:
             encoding="utf-8",
         )
 
-        parsed = jp_parser.parse_unused(source)
+        parsed = jp_parser.parse_unused_tag_records(source)
         assert parsed == [
             {
                 "source_lang": "EN",
@@ -124,7 +124,7 @@ class TestJpParser:
             },
         ]
 
-    def test_parse_unused_does_not_pick_context_dependent_replacement(self, tmp_path):
+    def test_parse_unused_tag_records_does_not_pick_context_dependent_replacement(self, tmp_path):
         source = tmp_path / "fragment-unused.txt"
         source.write_text(
             "+++ EN\n"
@@ -132,10 +132,10 @@ class TestJpParser:
             encoding="utf-8",
         )
 
-        parsed = jp_parser.parse_unused(source)
+        parsed = jp_parser.parse_unused_tag_records(source)
         assert parsed[0]["replacement"] is None
 
-    def test_parse_unused_trims_replacement(self, tmp_path):
+    def test_parse_unused_tag_records_trims_replacement(self, tmp_path):
         source = tmp_path / "fragment-unused.txt"
         source.write_text(
             "+++ EN\n"
@@ -143,10 +143,10 @@ class TestJpParser:
             encoding="utf-8",
         )
 
-        parsed = jp_parser.parse_unused(source)
+        parsed = jp_parser.parse_unused_tag_records(source)
         assert parsed[0]["replacement"] == "世界観"
 
-    def test_parse_unused_deduplicates_per_source_language(self, tmp_path):
+    def test_parse_unused_tag_records_deduplicates_per_source_language(self, tmp_path):
         source = tmp_path / "fragment-unused.txt"
         source.write_text(
             "\n".join(
@@ -161,7 +161,7 @@ class TestJpParser:
             encoding="utf-8",
         )
 
-        parsed = jp_parser.parse_unused(source)
+        parsed = jp_parser.parse_unused_tag_records(source)
         assert [(entry["source_lang"], entry["source_tag"]) for entry in parsed] == [
             ("CN", "wanderers"),
             ("ZH", "wanderers"),

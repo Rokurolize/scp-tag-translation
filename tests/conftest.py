@@ -24,7 +24,7 @@ def jp_tags_data():
 
 @pytest.fixture(scope="session")
 def deprecated_tags_data():
-    return jp_parser.parse_unused(JP_SOURCE_DIR / "fragment-unused.txt")
+    return jp_parser.parse_unused_tag_records(JP_SOURCE_DIR / "fragment-unused.txt")
 
 
 @pytest.fixture(scope="session")

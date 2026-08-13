@@ -87,7 +87,7 @@ def _iter_uncommented_lines(path: Path) -> Iterator[str]:
                 yield uncommented
 
 
-def parse_unused(source_path: Path) -> list[DeprecatedTag]:
+def parse_unused_tag_records(source_path: Path) -> list[DeprecatedTag]:
     """Parse source-language unused tags and deterministic replacements."""
 
     results: list[DeprecatedTag] = []

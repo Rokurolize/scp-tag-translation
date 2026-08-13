@@ -5,7 +5,6 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import cast
 
 from scripts.infrastructure.data_paths import (
     CROSSWALK_PATHS,
@@ -19,6 +18,8 @@ from scripts.infrastructure.data_paths import (
 from scripts.domain.policy.policy_builder import MappingPolicyInputs, build_mapping_policy
 from scripts.domain.records.tag_records import (
     BranchOverrideFile,
+    BranchOverrideRecord,
+    BranchOverrideValue,
     DeprecatedTag,
     EnTag,
     OfficialCrosswalkFile,
@@ -43,32 +44,49 @@ def _load_json_object(path: Path, label: str) -> dict[object, object]:
 
 def _load_override_file(path: Path) -> BranchOverrideFile:
     raw = _load_json_object(path, "branch override file")
+    validated: dict[str, dict[str, BranchOverrideValue]] = {}
     for branch, branch_values in raw.items():
         if not isinstance(branch, str) or not isinstance(branch_values, dict):
             raise ValueError(f"invalid override branch in {path}: {branch!r}")
+        validated_branch: dict[str, BranchOverrideValue] = {}
         for source_tag, value in branch_values.items():
             if not isinstance(source_tag, str) or not source_tag:
                 raise ValueError(
                     f"invalid override source tag in {path}: {source_tag!r}"
                 )
             if isinstance(value, str):
+                validated_branch[source_tag] = value
                 continue
-            if not isinstance(value, dict) or not isinstance(
-                value.get("jp_tag"),
-                str,
-            ):
+            if not isinstance(value, dict):
                 raise ValueError(
                     f"invalid override value in {path}: {branch}:{source_tag}"
+                )
+            jp_tag = value.get("jp_tag")
+            if not isinstance(jp_tag, str):
+                raise ValueError(
+                    f"invalid override value in {path}: {branch}:{source_tag}"
+                )
+            unknown_keys = set(value) - {"jp_tag", "note"}
+            if unknown_keys:
+                raise ValueError(
+                    f"invalid override fields in {path}: "
+                    f"{branch}:{source_tag}: {sorted(unknown_keys)}"
                 )
             if "note" in value and not isinstance(value["note"], str):
                 raise ValueError(
                     f"invalid override note in {path}: {branch}:{source_tag}"
                 )
-    return cast(BranchOverrideFile, raw)
+            validated_record: BranchOverrideRecord = {"jp_tag": jp_tag}
+            if "note" in value:
+                validated_record["note"] = value["note"]
+            validated_branch[source_tag] = validated_record
+        validated[branch] = validated_branch
+    return validated
 
 
 def _load_replacement_overrides(path: Path) -> ReplacementOverrideFile:
     raw = _load_json_object(path, "replacement override file")
+    validated: dict[str, dict[str, str]] = {}
     for source_lang, mappings in raw.items():
         if not isinstance(source_lang, str) or not isinstance(mappings, dict):
             raise ValueError(
@@ -79,11 +97,13 @@ def _load_replacement_overrides(path: Path) -> ReplacementOverrideFile:
                 raise ValueError(
                     f"invalid replacement override in {path}: {source_lang}:{source_tag}"
                 )
-    return cast(ReplacementOverrideFile, raw)
+            validated.setdefault(source_lang, {})[source_tag] = replacement
+    return validated
 
 
 def _load_crosswalk(path: Path) -> OfficialCrosswalkFile:
     raw = _load_json_object(path, "official crosswalk")
+    validated: dict[str, dict[str, str]] = {}
     for branch, mappings in raw.items():
         if not isinstance(branch, str) or not isinstance(mappings, dict):
             raise ValueError(f"invalid crosswalk branch in {path}: {branch!r}")
@@ -92,7 +112,8 @@ def _load_crosswalk(path: Path) -> OfficialCrosswalkFile:
                 raise ValueError(
                     f"invalid crosswalk mapping in {path}: {branch}:{source_tag}"
                 )
-    return cast(OfficialCrosswalkFile, raw)
+            validated.setdefault(branch, {})[source_tag] = jp_tag
+    return validated
 
 
 @dataclass(frozen=True)
