@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import sys
 
-from scripts.application.legacy_dictionary_build import (
+from scripts.compatibility.legacy_dictionary_build import (
     LegacyDictionaryBuildConfig,
     build_and_publish_legacy_dictionary,
     build_legacy_en_dictionary as build_en_dictionary,

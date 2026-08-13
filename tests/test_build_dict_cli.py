@@ -3,7 +3,7 @@ import sys
 
 import pytest
 
-from scripts.application import legacy_dictionary_build as legacy_workflow
+from scripts.compatibility import legacy_dictionary_build as legacy_workflow
 from scripts.commands import build_dict
 from scripts.domain.policy.policy_builder import MappingPolicyInputs
 from scripts.pipeline import dictionary_inputs

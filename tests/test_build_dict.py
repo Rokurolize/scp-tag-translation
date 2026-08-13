@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.pipeline.legacy_dictionary import build_legacy_en_dictionary as build_en_dictionary
+from scripts.compatibility.legacy_dictionary import build_legacy_en_dictionary as build_en_dictionary
 from scripts.domain.policy.tag_policy import is_deprecated_for_en_source
 from scripts.domain.records.tag_validation import validate_tag_records
 

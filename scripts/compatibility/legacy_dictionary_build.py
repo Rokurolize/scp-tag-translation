@@ -16,7 +16,7 @@ from scripts.pipeline.dictionary_inputs import (
     MappingInputPaths,
     default_mapping_input_paths,
 )
-from scripts.pipeline.legacy_dictionary import (
+from scripts.compatibility.legacy_dictionary import (
     LegacyDictionaryConfig,
     build_legacy_en_dictionary,
     build_legacy_outputs,
