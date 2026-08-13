@@ -18,7 +18,7 @@ from scripts.infrastructure.data_paths import (
     EN_DICTIONARY_PATH,
 )
 from scripts.infrastructure.json_io import load_json
-from scripts.pipeline.dictionary_inputs import (
+from scripts.application.mapping_inputs import (
     default_mapping_input_paths,
     LoadedMappingInputs,
     load_mapping_inputs,

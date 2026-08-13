@@ -12,7 +12,7 @@ from scripts.infrastructure.data_paths import (
 )
 from scripts.infrastructure.json_io import write_json
 from scripts.pipeline.dictionary_inputs import load_mapping_policy_inputs
-from scripts.pipeline.dictionary_inputs import (
+from scripts.application.mapping_inputs import (
     MappingInputPaths,
     default_mapping_input_paths,
     load_mapping_inputs,

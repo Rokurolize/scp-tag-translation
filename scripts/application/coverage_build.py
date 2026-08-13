@@ -21,10 +21,11 @@ from scripts.pipeline.coverage_outputs import (
     write_application_inventory_tsv,
     write_coverage_tsv,
 )
-from scripts.pipeline.dictionary_inputs import (
+from scripts.application.mapping_inputs import (
     MappingInputPaths,
     default_mapping_input_paths,
     load_mapping_inputs,
+    to_coverage_inputs,
 )
 
 DEFAULT_OUTPUT_DIR = VISUALIZATION_DIR
@@ -56,7 +57,7 @@ def default_coverage_build_config(
 
 def load_coverage_inputs(paths: MappingInputPaths) -> CoverageInputs:
     loaded = load_mapping_inputs(paths)
-    return loaded.for_coverage()
+    return to_coverage_inputs(loaded)
 
 
 def build_and_publish_coverage(

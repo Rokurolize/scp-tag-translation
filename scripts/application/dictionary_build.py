@@ -18,7 +18,7 @@ from scripts.infrastructure.atomic_output import FileWriter, publish_files_atomi
 from scripts.infrastructure.data_paths import DICTIONARIES_DIR
 from scripts.infrastructure.json_io import write_json
 from scripts.pipeline.corpus import CorpusBranchData, collect_corpus_branch_data
-from scripts.pipeline.dictionary_inputs import (
+from scripts.application.mapping_inputs import (
     LoadedMappingInputs,
     MappingInputPaths,
     default_mapping_input_paths,

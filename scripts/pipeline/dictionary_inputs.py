@@ -15,7 +15,7 @@ from scripts.infrastructure.data_paths import (
     DICTIONARIES_DIR,
     OVERRIDES_PATH,
 )
-from scripts.domain.policy.policy_builder import MappingPolicyInputs, build_mapping_policy
+from scripts.domain.policy.policy_builder import MappingPolicyInputs
 from scripts.domain.records.tag_records import (
     BranchOverrideFile,
     BranchOverrideRecord,
@@ -27,7 +27,6 @@ from scripts.domain.records.tag_records import (
     ReplacementOverrideFile,
 )
 from scripts.domain.policy.tag_policy import MappingPolicy
-from scripts.domain.tag_coverage import CoverageInputs
 from scripts.domain.records.tag_validation import validate_tag_records
 from scripts.infrastructure.json_io import load_json
 from scripts.domain.errors import InvalidDomainInputError
@@ -160,31 +159,28 @@ def load_mapping_policy_inputs(
 
 @dataclass(frozen=True)
 class LoadedMappingInputs:
-    """Validated tag records and their assembled mapping policy."""
+    """Validated tag records and a composed runtime mapping policy."""
 
     en_tags: list[EnTag]
     jp_tags: list[JpTag]
     deprecated_tags: list[DeprecatedTag]
     mapping_policy: MappingPolicy
 
-    def for_coverage(self) -> CoverageInputs:
-        """Project the shared loaded context into the coverage contract."""
-        return CoverageInputs(
-            en_tags=self.en_tags,
-            jp_tags=self.jp_tags,
-            deprecated_tags=self.deprecated_tags,
-            mapping_policy=self.mapping_policy,
-        )
+@dataclass(frozen=True)
+class LoadedTagRecords:
+    """Validated tag records loaded before policy composition."""
+
+    en_tags: list[EnTag]
+    jp_tags: list[JpTag]
+    deprecated_tags: list[DeprecatedTag]
 
 
-def load_mapping_inputs(
+def load_tag_records(
     paths: MappingInputPaths | None = None,
     *,
-    policy_inputs: MappingPolicyInputs | None = None,
-    include_origin_replacements: bool = True,
     require_complete_inputs: bool = False,
-) -> LoadedMappingInputs:
-    """Load and validate tag records, then assemble one mapping policy."""
+) -> LoadedTagRecords:
+    """Load and validate persisted tag records without composing policy."""
     paths = paths or default_mapping_input_paths()
     required_paths = [paths.data_en, paths.data_jp]
     if require_complete_inputs:
@@ -205,16 +201,28 @@ def load_mapping_inputs(
         load_json(paths.data_jp),
         (load_json(paths.data_deprecated) if paths.data_deprecated.exists() else []),
     )
-    return LoadedMappingInputs(
+    return LoadedTagRecords(
         en_tags=en_tags,
         jp_tags=jp_tags,
         deprecated_tags=deprecated_tags,
-        mapping_policy=build_mapping_policy(
-            jp_tags,
-            deprecated_tags,
-            policy_inputs or load_mapping_policy_inputs(paths),
-            include_origin_replacements=include_origin_replacements,
-        ),
+    )
+
+
+def load_mapping_inputs(
+    paths: MappingInputPaths | None = None,
+    *,
+    policy_inputs: MappingPolicyInputs | None = None,
+    include_origin_replacements: bool = True,
+    require_complete_inputs: bool = False,
+) -> LoadedMappingInputs:
+    """Compatibility entry point for the application mapping composer."""
+    from scripts.application.mapping_inputs import load_mapping_inputs as compose
+
+    return compose(
+        paths,
+        policy_inputs=policy_inputs,
+        include_origin_replacements=include_origin_replacements,
+        require_complete_inputs=require_complete_inputs,
     )
 
 
