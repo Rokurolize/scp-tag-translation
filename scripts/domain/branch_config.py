@@ -10,6 +10,18 @@ from collections.abc import Mapping
 
 from scripts.domain.policy.branch_scope import SUPPORTED_BRANCHES
 
+__all__ = [
+    "BRANCH_CONFIG_BY_CODE",
+    "SUPPORTED_BRANCHES",
+    "SUPPORTED_BRANCH_CONFIGS",
+    "BrowserBranchRecord",
+    "BranchConfig",
+    "browser_config_records",
+    "jp_branch_tag_for_branch",
+    "source_site_for_branch",
+    "validate_requested_branches",
+]
+
 
 class BrowserBranchRecord(TypedDict):
     branch: str

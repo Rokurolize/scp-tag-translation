@@ -5,6 +5,8 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 
+__all__ = ["build_concatenated_tag_hints"]
+
 
 @dataclass(slots=True)
 class _TrieNode:

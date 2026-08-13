@@ -18,6 +18,15 @@ from scripts.domain.policy.tag_policy import (
     build_jp_names_and_source_map,
 )
 
+__all__ = [
+    "MappingPolicyInputs",
+    "build_mapping_policy",
+    "deprecated_by_source_lang",
+    "merge_official_crosswalks",
+    "parse_official_crosswalk",
+    "parse_overrides",
+]
+
 
 @dataclass(frozen=True)
 class MappingPolicyInputs:
