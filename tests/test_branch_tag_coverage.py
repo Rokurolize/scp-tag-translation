@@ -5,6 +5,10 @@ import pytest
 
 from scripts.commands import build_branch_tag_coverage_data as coverage_builder
 from scripts.corpus import collect_branch_tag_stats
+from scripts.coverage_outputs import (
+    write_application_inventory_tsv,
+    write_coverage_tsv,
+)
 from scripts import dictionary_inputs
 from scripts.domain import tag_coverage
 from scripts.domain import tag_policy
@@ -178,6 +182,17 @@ def test_build_coverage_classifies_corpus_tags_and_preserves_ordering(tmp_path):
         for branch in inventory["branches"]
         for entry in branch["tags"]
     ] == ["unknown", "unknown"]
+
+    coverage_tsv = tmp_path / "coverage.tsv"
+    inventory_tsv = tmp_path / "inventory.tsv"
+    write_coverage_tsv(coverage_tsv, coverage)
+    write_application_inventory_tsv(inventory_tsv, inventory)
+    assert coverage_tsv.read_text(encoding="utf-8").splitlines()[0].startswith(
+        "branch\ttag\trank"
+    )
+    assert inventory_tsv.read_text(encoding="utf-8").splitlines()[0] == (
+        "site\tbranch\tsource_tag\tdisplay_tag\tpage_count\tsample_slugs"
+    )
 
 
 def test_build_coverage_rejects_missing_mapped_target_policy(tmp_path):
