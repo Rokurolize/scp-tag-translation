@@ -17,6 +17,16 @@ def test_json_text_sorts_only_the_top_level_mapping():
     assert '"z": 1,\n    "a": 2' in json_text(payload, sort_top_level=True)
 
 
+def test_load_json_reports_the_input_path_for_malformed_json(tmp_path):
+    path = tmp_path / "broken.json"
+    path.write_text('{"broken": }', encoding="utf-8")
+
+    with pytest.raises(ValueError, match=rf"invalid JSON in {path}: Expecting value") as excinfo:
+        json_io.load_json(path)
+
+    assert isinstance(excinfo.value.__cause__, json.JSONDecodeError)
+
+
 def test_write_json_uses_utf8_indentation_and_trailing_newline(tmp_path):
     path = tmp_path / "nested" / "output.json"
 

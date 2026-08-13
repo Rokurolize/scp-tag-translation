@@ -11,7 +11,7 @@ from scripts.atomic_output import publish_files_atomically
 from scripts.data_paths import COVERAGE_HTML_PATH, COVERAGE_JSON_PATH, ROOT
 from scripts.domain.tag_coverage_models import Coverage
 from scripts.domain.tag_validation import validate_coverage
-from scripts.json_io import write_text
+from scripts.json_io import load_json, write_text
 
 
 DEFAULT_INPUT = COVERAGE_JSON_PATH
@@ -40,7 +40,7 @@ def main() -> None:
 
     try:
         data = validate_coverage(
-            json.loads(args.input.read_text(encoding="utf-8"))
+            load_json(args.input)
         )
         html = build_html(data)
         publish_files_atomically({

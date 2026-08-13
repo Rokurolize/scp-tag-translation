@@ -172,6 +172,34 @@ def test_coverage_html_main_reports_input_failure(
     assert not output.exists()
 
 
+def test_coverage_html_main_reports_malformed_input_path(
+    tmp_path,
+    monkeypatch,
+    capsys,
+):
+    invalid_input = tmp_path / "broken.json"
+    invalid_input.write_text('{"broken": }', encoding="utf-8")
+    output = tmp_path / "output" / "coverage.html"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "build_branch_tag_coverage_html.py",
+            "--input",
+            str(invalid_input),
+            "--output",
+            str(output),
+        ],
+    )
+
+    with pytest.raises(SystemExit) as excinfo:
+        coverage_html_builder.main()
+
+    assert excinfo.value.code == 1
+    assert str(invalid_input) in capsys.readouterr().out
+    assert not output.exists()
+
+
 def test_coverage_html_main_rejects_invalid_nested_schema(
     tmp_path,
     monkeypatch,

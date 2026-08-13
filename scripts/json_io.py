@@ -12,8 +12,14 @@ from scripts.file_modes import DEFAULT_NEW_FILE_MODE
 
 
 def load_json(path: Path) -> object:
-    with path.open("r", encoding="utf-8") as file:
-        return json.load(file)
+    try:
+        with path.open("r", encoding="utf-8") as file:
+            return json.load(file)
+    except json.JSONDecodeError as exc:
+        raise ValueError(
+            f"invalid JSON in {path}: {exc.msg} "
+            f"(line {exc.lineno}, column {exc.colno})"
+        ) from exc
 
 
 def json_text(data: object, *, sort_top_level: bool = False) -> str:
