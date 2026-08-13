@@ -36,7 +36,11 @@ def _validate_en_meta(value: object) -> None:
 
 
 def _validate_en_tag_entry(entry: object, index: int) -> None:
-    if not isinstance(entry, dict) or not isinstance(entry.get("name"), str):
+    if (
+        not isinstance(entry, dict)
+        or "name" not in entry
+        or not isinstance(entry["name"], str)
+    ):
         raise ValueError(f"ENタグデータの項目が不正です: index={index}")
     name = entry["name"]
     if not _valid_trimmed_string(name):
@@ -88,14 +92,20 @@ def _validate_optional_boolean_fields(
 
 
 def _validate_jp_tag_entry(entry: object, index: int) -> None:
-    if not isinstance(entry, dict) or not isinstance(entry.get("name"), str):
+    if (
+        not isinstance(entry, dict)
+        or "name" not in entry
+        or not isinstance(entry["name"], str)
+    ):
         raise ValueError(f"JPタグデータの項目が不正です: index={index}")
     name = entry["name"]
     if not _valid_trimmed_string(name):
         raise ValueError(f"JPタグ名が不正です: {name!r}")
     if "en_tag" in entry:
         raise ValueError(f"JPタグデータに旧en_tagがあります: index={index}")
-    source_tags = entry.get("source_tags")
+    if "source_tags" not in entry:
+        raise ValueError("JP側source_tagsが不正です: 欠落")
+    source_tags = entry["source_tags"]
     if not _valid_source_tags(source_tags):
         raise ValueError(f"JP側source_tagsが不正です: {source_tags!r}")
     description = entry.get("description")
@@ -162,7 +172,9 @@ def _validate_deprecated_tag_entry(
         raise ValueError(f"非使用タグデータの項目が不正です: index={index}")
     if "en_tag" in entry:
         raise ValueError(f"非使用タグデータに旧en_tagがあります: index={index}")
-    source_tag = entry.get("source_tag")
+    if "source_tag" not in entry:
+        raise ValueError("非使用タグのsource_tagが不正です: 欠落")
+    source_tag = entry["source_tag"]
     if not _valid_trimmed_string(source_tag):
         raise ValueError(f"非使用タグのsource_tagが不正です: {source_tag!r}")
     source_lang = entry.get("source_lang")

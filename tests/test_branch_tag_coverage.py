@@ -3,6 +3,7 @@ import sys
 
 import pytest
 
+from scripts.application import coverage_build as coverage_workflow
 from scripts.commands import build_branch_tag_coverage_data as coverage_builder
 from scripts.pipeline.corpus import collect_branch_tag_stats
 from scripts.pipeline.coverage_outputs import (
@@ -303,11 +304,11 @@ def _configure_real_coverage_build(tmp_path, monkeypatch):
     )
     output_dir = tmp_path / "visualization"
     monkeypatch.setattr(
-        coverage_builder,
+        coverage_workflow,
         "default_mapping_input_paths",
         lambda: mapping_inputs,
     )
-    monkeypatch.setattr(coverage_builder, "DEFAULT_OUTPUT_DIR", output_dir)
+    monkeypatch.setattr(coverage_workflow, "DEFAULT_OUTPUT_DIR", output_dir)
     return corpus_root, output_dir
 
 
@@ -325,7 +326,7 @@ def test_coverage_main_reports_publication_failure(
         raise OSError("disk full")
 
     monkeypatch.setattr(
-        coverage_builder,
+        coverage_workflow,
         "publish_files_atomically",
         fail_publication,
     )

@@ -4,6 +4,7 @@ import sys
 
 import pytest
 
+from scripts.application import coverage_html as coverage_html_workflow
 from scripts.commands import build_branch_tag_coverage_html as coverage_html_builder
 from scripts.infrastructure.data_paths import ROOT
 from scripts.domain.coverage_validation import validate_coverage
@@ -297,7 +298,7 @@ def test_coverage_html_main_preserves_output_on_publication_failure(
     output = tmp_path / "coverage.html"
     output.write_text("previous", encoding="utf-8")
     monkeypatch.setattr(
-        coverage_html_builder,
+        coverage_html_workflow,
         "validate_coverage",
         lambda raw: raw,
     )
@@ -306,7 +307,7 @@ def test_coverage_html_main_preserves_output_on_publication_failure(
         raise OSError("disk full")
 
     monkeypatch.setattr(
-        coverage_html_builder,
+        coverage_html_workflow,
         "publish_files_atomically",
         fail_publication,
     )

@@ -40,9 +40,15 @@ class CoverageBuildConfig:
     )
 
 
-def default_coverage_build_config() -> CoverageBuildConfig:
+def default_coverage_build_config(
+    *,
+    output_dir: Path = DEFAULT_OUTPUT_DIR,
+) -> CoverageBuildConfig:
     """Return the repository's default coverage build configuration."""
-    return CoverageBuildConfig()
+    return CoverageBuildConfig(
+        output_dir=output_dir,
+        mapping_inputs=default_mapping_input_paths(),
+    )
 
 
 def load_coverage_inputs(paths: MappingInputPaths) -> CoverageInputs:
@@ -60,7 +66,6 @@ def build_and_publish_coverage(
     branches: Sequence[str],
     *,
     config: CoverageBuildConfig | None = None,
-    publish=publish_files_atomically,
 ) -> tuple[Coverage, tuple[Path, Path, Path, Path]]:
     """Build coverage artifacts and publish all four outputs atomically."""
     config = config or default_coverage_build_config()
@@ -84,7 +89,7 @@ def build_and_publish_coverage(
     inventory = build_application_inventory(coverage)
     inventory_json_path = config.output_dir / "tag_application_inventory.json"
     inventory_tsv_path = config.output_dir / "tag_application_inventory.tsv"
-    publish({
+    publish_files_atomically({
         json_path: lambda temporary: write_json(temporary, coverage),
         tsv_path: lambda temporary: write_coverage_tsv(temporary, coverage),
         inventory_json_path: (

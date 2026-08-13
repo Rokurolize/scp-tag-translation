@@ -10,6 +10,7 @@ from pathlib import Path
 import pytest
 
 from scripts.commands import parse_sources
+from scripts.application.source_parse import ParseWorkflowConfig
 from scripts.parsers.contracts import BranchGuideAnalysis
 
 
@@ -75,6 +76,24 @@ def _redirect_pipeline_paths(monkeypatch, tmp_path: Path) -> tuple[Path, ...]:
     }
     for name, value in replacements.items():
         monkeypatch.setattr(parse_sources, name, value)
+    monkeypatch.setattr(
+        parse_sources,
+        "default_parse_workflow_config",
+        lambda: ParseWorkflowConfig(
+            sources_en=source_en,
+            sources_jp=jp_dir,
+            sources_jp_unused=jp_dir / "fragment-unused.txt",
+            sources_int=source_int,
+            sources_ko=source_ko,
+            branch_guide_sources={"ua": (source_guide,)},
+            data_en=outputs[0],
+            data_jp=outputs[1],
+            data_deprecated=outputs[2],
+            data_int_crosswalk=outputs[3],
+            data_ko_crosswalk=outputs[4],
+            data_branch_guide_crosswalk=outputs[5],
+        ),
+    )
     return outputs
 
 

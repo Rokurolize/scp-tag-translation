@@ -15,9 +15,8 @@ from scripts.application.coverage_build import (
     default_coverage_build_config,
     load_coverage_inputs,
 )
+from scripts.application import coverage_build as _workflow
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
-from scripts.infrastructure.atomic_output import publish_files_atomically
-from scripts.pipeline.dictionary_inputs import default_mapping_input_paths
 
 
 def main() -> None:
@@ -33,7 +32,7 @@ def main() -> None:
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=DEFAULT_OUTPUT_DIR,
+        default=None,
         help="Directory for branch_tag_coverage.{json,tsv}",
     )
     parser.add_argument(
@@ -58,16 +57,13 @@ def main() -> None:
         print("エラー: 可視化対象の支部が見つかりません。")
         sys.exit(1)
 
-    config = CoverageBuildConfig(
-        output_dir=args.output_dir,
-        mapping_inputs=default_mapping_input_paths(),
-    )
+    output_dir = args.output_dir or _workflow.DEFAULT_OUTPUT_DIR
+    config = default_coverage_build_config(output_dir=output_dir)
     try:
         coverage, output_paths = build_and_publish_coverage(
             corpus_root,
             branches,
             config=config,
-            publish=publish_files_atomically,
         )
     except (OSError, ValueError) as err:
         print(f"エラー: 可視化データ生成に失敗しました: {err}")

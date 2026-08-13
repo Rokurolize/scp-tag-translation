@@ -10,22 +10,20 @@ from pathlib import Path
 from scripts.application import coverage_html as _workflow
 from scripts.domain.coverage_validation import validate_coverage
 from scripts.domain.tag_coverage_models import Coverage
-from scripts.infrastructure.atomic_output import publish_files_atomically
 from scripts.infrastructure.data_paths import (
     COVERAGE_HTML_PATH,
     COVERAGE_JSON_PATH,
     ROOT,
 )
-from scripts.infrastructure.json_io import load_json
 
 DEFAULT_INPUT = COVERAGE_JSON_PATH
 DEFAULT_OUTPUT = COVERAGE_HTML_PATH
 TEMPLATE_PATH = ROOT / "scripts" / "assets" / "branch_tag_coverage.html"
 
 
-def build_html(data: Coverage) -> str:
+def build_html(coverage: Coverage) -> str:
     """Render coverage data through the application workflow template."""
-    return _workflow.build_html(data, template_path=TEMPLATE_PATH)
+    return _workflow.build_html(coverage)
 
 
 def build_and_publish_html(
@@ -33,14 +31,7 @@ def build_and_publish_html(
     output_path: Path = DEFAULT_OUTPUT,
 ) -> Path:
     """Delegate dashboard generation to the application workflow."""
-    return _workflow.build_and_publish_html(
-        input_path,
-        output_path,
-        template_path=TEMPLATE_PATH,
-        load=load_json,
-        validate=validate_coverage,
-        publish=publish_files_atomically,
-    )
+    return _workflow.build_and_publish_html(input_path, output_path)
 
 
 def main() -> None:

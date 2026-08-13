@@ -5,10 +5,10 @@ from __future__ import annotations
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Literal
+from typing import Literal, Protocol
 
 from scripts.domain.policy.tag_policy import EN_CROSSWALK_SEMANTIC_REPLACEMENTS
-from scripts.domain.records.tag_records import DeprecatedTag, JpTag
+from scripts.domain.records.tag_records import DeprecatedTag, EnTag, JpTag
 from scripts.domain.records.tag_validation import validate_deprecated_tags, validate_jp_tags
 from scripts.infrastructure.atomic_output import publish_files_atomically
 from scripts.infrastructure.data_paths import (
@@ -22,6 +22,11 @@ from scripts.infrastructure.data_paths import (
 )
 from scripts.infrastructure.json_io import load_json, write_json
 from scripts.parsers import branch_guide_parser, en_parser, int_parser, jp_parser, ko_parser
+from scripts.parsers.contracts import (
+    BranchGuideAnalysis,
+    CrosswalkMappings,
+    TargetResolver,
+)
 from scripts.parsers.crosswalk_resolver import CrosswalkResolver
 from scripts.pipeline.source_manifest import (
     branch_guide_sources,
@@ -31,6 +36,40 @@ from scripts.pipeline.source_manifest import (
 
 Language = Literal["en", "jp", "crosswalks", "all"]
 LANGUAGES: tuple[Language, ...] = ("en", "jp", "crosswalks", "all")
+
+
+class EnParser(Protocol):
+    def parse_en_tags(self, path: Path) -> list[EnTag]: ...
+
+
+class JpParser(Protocol):
+    def parse_jp_tags(self, path: Path) -> list[JpTag]: ...
+
+    def parse_unused_tag_records(self, path: Path) -> list[DeprecatedTag]: ...
+
+
+class IntParser(Protocol):
+    def parse_int_crosswalk(
+        self,
+        path: Path,
+        resolver: TargetResolver,
+    ) -> CrosswalkMappings: ...
+
+
+class KoParser(Protocol):
+    def parse_ko_crosswalk(
+        self,
+        path: Path,
+        resolver: TargetResolver,
+    ) -> CrosswalkMappings: ...
+
+
+class BranchGuideParser(Protocol):
+    def analyze_branch_guides(
+        self,
+        sources: Mapping[str, tuple[Path, ...]],
+        resolver: TargetResolver,
+    ) -> BranchGuideAnalysis: ...
 
 
 @dataclass(frozen=True)
@@ -57,11 +96,18 @@ class ParseWorkflowConfig:
     data_int_crosswalk: Path = DATA_INT_CROSSWALK
     data_ko_crosswalk: Path = DATA_KO_CROSSWALK
     data_branch_guide_crosswalk: Path = DATA_BRANCH_GUIDE_CROSSWALK
-    en_parser: Any = en_parser
-    jp_parser: Any = jp_parser
-    int_parser: Any = int_parser
-    ko_parser: Any = ko_parser
-    branch_guide_parser: Any = branch_guide_parser
+    en_parser: EnParser = field(default_factory=lambda: en_parser)
+    jp_parser: JpParser = field(default_factory=lambda: jp_parser)
+    int_parser: IntParser = field(default_factory=lambda: int_parser)
+    ko_parser: KoParser = field(default_factory=lambda: ko_parser)
+    branch_guide_parser: BranchGuideParser = field(
+        default_factory=lambda: branch_guide_parser,
+    )
+
+
+def default_parse_workflow_config() -> ParseWorkflowConfig:
+    """Return the repository-default source parsing configuration."""
+    return ParseWorkflowConfig()
 
 
 def _require_file(path: Path, label: str) -> None:
@@ -224,7 +270,7 @@ def collect_outputs(
     config: ParseWorkflowConfig | None = None,
 ) -> ParseBatch:
     """Collect parsed records for one supported language selection."""
-    config = config or ParseWorkflowConfig()
+    config = config or default_parse_workflow_config()
     if language not in LANGUAGES:
         raise ValueError(f"未対応の解析対象です: {language}")
 
@@ -281,6 +327,7 @@ __all__ = [
     "ParseBatch",
     "ParseWorkflowConfig",
     "collect_outputs",
+    "default_parse_workflow_config",
     "parse_and_publish_sources",
     "publish_outputs",
 ]

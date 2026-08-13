@@ -20,14 +20,14 @@ DEFAULT_OUTPUT = COVERAGE_HTML_PATH
 TEMPLATE_PATH = ROOT / "scripts" / "assets" / "branch_tag_coverage.html"
 
 
-def build_html(data: Coverage, *, template_path: Path = TEMPLATE_PATH) -> str:
+def build_html(coverage: Coverage, *, template_path: Path = TEMPLATE_PATH) -> str:
     """Render validated coverage data into the dashboard template."""
     template = template_path.read_text(encoding="utf-8")
     if template.count("__DATA_JSON__") != 1:
         raise ValueError(
             "coverage HTML template must contain one __DATA_JSON__ placeholder"
         )
-    embedded_json = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+    embedded_json = json.dumps(coverage, ensure_ascii=False, separators=(",", ":"))
     embedded_json = (
         embedded_json.replace("<", "\\u003c")
         .replace(">", "\\u003e")
@@ -41,16 +41,11 @@ def build_html(data: Coverage, *, template_path: Path = TEMPLATE_PATH) -> str:
 def build_and_publish_html(
     input_path: Path = DEFAULT_INPUT,
     output_path: Path = DEFAULT_OUTPUT,
-    *,
-    template_path: Path = TEMPLATE_PATH,
-    load=load_json,
-    validate=validate_coverage,
-    publish=publish_files_atomically,
 ) -> Path:
     """Load, validate, render, and atomically publish the coverage dashboard."""
-    data = validate(load(input_path))
-    html = build_html(data, template_path=template_path)
-    publish({
+    coverage = validate_coverage(load_json(input_path))
+    html = build_html(coverage)
+    publish_files_atomically({
         output_path: lambda temporary: write_text(temporary, html),
     })
     return output_path

@@ -54,9 +54,9 @@ def _validate_override_entry(
         return source_tag, value
     if not isinstance(branch, str) or not isinstance(value, dict):
         raise ValueError(f"invalid override value in {path}: {branch}:{source_tag}")
-    jp_tag = value.get("jp_tag")
-    if not isinstance(jp_tag, str):
+    if "jp_tag" not in value or not isinstance(value["jp_tag"], str):
         raise ValueError(f"invalid override value in {path}: {branch}:{source_tag}")
+    jp_tag = value["jp_tag"]
     unknown_keys = set(value) - {"jp_tag", "note"}
     if unknown_keys:
         raise ValueError(
