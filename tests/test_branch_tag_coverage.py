@@ -304,6 +304,8 @@ def test_branch_command_selection_normalizes_once():
     assert normalize_branch_selection(["en", "jp", "_private"]) == ("en",)
     with pytest.raises(ValueError, match="対象支部"):
         normalize_branch_selection([])
+    with pytest.raises(ValueError, match="unsupported branches: bogus"):
+        normalize_branch_selection(["bogus"])
 
 
 def test_build_coverage_rejects_non_object_metadata(tmp_path):

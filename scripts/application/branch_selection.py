@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 
-from scripts.domain.branch_config import SUPPORTED_BRANCHES
+from scripts.domain.branch_config import SUPPORTED_BRANCHES, validate_requested_branches
 
 
 def normalize_branch_selection(
@@ -19,7 +19,7 @@ def normalize_branch_selection(
     )
     if not normalized:
         raise ValueError("可視化または辞書生成の対象支部が見つかりません")
-    return normalized
+    return validate_requested_branches(normalized)
 
 
 __all__ = ["normalize_branch_selection"]

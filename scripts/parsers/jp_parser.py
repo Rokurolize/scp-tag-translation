@@ -10,6 +10,8 @@ from pathlib import Path
 from scripts.domain.records.tag_records import DeprecatedTag, JpTag
 from scripts.parsers.errors import report_source_issue
 
+__all__ = ["parse_jp_tags", "parse_unused_tag_records"]
+
 # タグリンクと任意のENタグ表記のペアにマッチ
 # 形式: **[[[/system:page-tags/tag/{slug}|{display}]]]** //(en-tag)//
 # 一部ソースには /system/page-tags/tag/ 形式も混在している。

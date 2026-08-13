@@ -39,6 +39,7 @@ def build_html(coverage: Coverage, *, template_path: Path = TEMPLATE_PATH) -> st
 
 
 def build_and_publish_html(
+    *,
     input_path: Path | None = None,
     output_path: Path | None = None,
 ) -> Path:

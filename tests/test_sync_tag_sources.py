@@ -9,6 +9,7 @@ import pytest
 
 from scripts.application import source_sync as source_workflow
 from scripts.commands import sync_tag_sources_from_corpus as source_sync
+from scripts.pipeline.source_manifest import corpus_source_map
 
 
 def _configure_source_tree(
@@ -175,6 +176,32 @@ def test_write_synchronizes_every_stale_destination(
             corpus_root / source
         ).read_bytes()
     assert capsys.readouterr().out == "tag sources synced: 2 files\n"
+
+
+def test_write_synchronizes_the_complete_source_manifest(tmp_path):
+    repository_root = tmp_path / "repository"
+    corpus_root = tmp_path / "corpus"
+    source_map = corpus_source_map()
+    config = source_workflow.SourceSyncConfig(
+        source_map=source_map,
+        repository_root=repository_root,
+    )
+    for index, source_rel in enumerate(source_map.values()):
+        _write_mapped_file(corpus_root, source_rel, f"source-{index}")
+
+    result = source_workflow.sync_tag_sources(
+        corpus_root,
+        write=True,
+        config=config,
+    )
+
+    assert result.stale_paths == ()
+    assert result.missing_sources == ()
+    assert result.wrote_files == len(source_map)
+    for index, destination_rel in enumerate(source_map):
+        assert (repository_root / destination_rel).read_text(encoding="utf-8") == (
+            f"source-{index}"
+        )
 
 
 def test_write_reports_publication_failure_without_traceback(

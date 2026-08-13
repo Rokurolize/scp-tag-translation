@@ -9,6 +9,8 @@ from pathlib import Path
 from scripts.domain.records.tag_records import EnTag
 from scripts.parsers.errors import report_source_issue
 
+__all__ = ["parse_en_tags"]
+
 _TAG_PATTERN = re.compile(
     r"^\s*\*\s*\*\*\[https?://[^ ]*/system:page-tags/tag/([^ \]]+)"
     r"(?:\s+[^\]]+)?\]\*\*"

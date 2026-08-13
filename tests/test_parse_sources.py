@@ -11,9 +11,11 @@ import pytest
 
 from scripts.commands import parse_sources
 from scripts.application import source_parse as parse_workflow
-from scripts.application.source_parse_crosswalks import collect_crosswalk_parses
-from scripts.application.source_parse_contracts import CrosswalkParsers
-from scripts.application import source_parse_models, source_parse_records, source_parse_reporting
+from scripts.application.source_parsing.crosswalks import collect_crosswalk_parses
+from scripts.application.source_parsing.contracts import CrosswalkParsers
+from scripts.application.source_parsing import models as source_parse_models
+from scripts.application.source_parsing import records as source_parse_records
+from scripts.application.source_parsing import reporting as source_parse_reporting
 from scripts.domain.crosswalk_resolution import CrosswalkResolver
 from scripts.parsers.contracts import BranchGuideAnalysis
 
