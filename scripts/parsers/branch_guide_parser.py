@@ -15,7 +15,7 @@ from scripts.parsers.contracts import (
     BranchGuideStats,
     TargetResolver,
 )
-from scripts.shared.tag_text import normalize_tag
+from scripts.domain.tag_text import normalize_tag
 from scripts.parsers.errors import report_source_issue
 
 __all__ = ["analyze_branch_guides"]
