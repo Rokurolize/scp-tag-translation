@@ -4,7 +4,7 @@ from collections import defaultdict
 import json
 from pathlib import Path
 
-from scripts.parsers.crosswalk_resolver import CrosswalkResolver
+from scripts.domain.crosswalk_resolution import CrosswalkResolver
 from scripts.parsers.int_parser import parse_int_crosswalk
 from scripts.domain.policy.tag_policy import (
     EN_ORIGIN_TAG_REPLACEMENTS,
