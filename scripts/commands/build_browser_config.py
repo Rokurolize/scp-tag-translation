@@ -8,10 +8,10 @@ import sys
 from pathlib import Path
 from textwrap import indent
 
-from scripts.atomic_output import publish_files_atomically
-from scripts.data_paths import BROWSER_CONFIG_PATH
+from scripts.infrastructure.atomic_output import publish_files_atomically
+from scripts.infrastructure.data_paths import BROWSER_CONFIG_PATH
 from scripts.domain.branch_config import browser_config_records
-from scripts.json_io import write_text
+from scripts.infrastructure.json_io import write_text
 
 DEFAULT_OUTPUT = BROWSER_CONFIG_PATH
 

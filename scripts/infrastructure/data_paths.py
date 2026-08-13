@@ -1,10 +1,10 @@
-"""Repository artifact locations and command-facing JSON loading."""
+"""Repository artifact locations used by commands and pipeline support."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "data"
 SOURCES_DIR = ROOT / "sources"
 DICTIONARIES_DIR = ROOT / "dictionaries"

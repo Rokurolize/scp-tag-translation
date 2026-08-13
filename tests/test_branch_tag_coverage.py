@@ -4,12 +4,12 @@ import sys
 import pytest
 
 from scripts.commands import build_branch_tag_coverage_data as coverage_builder
-from scripts.corpus import collect_branch_tag_stats
-from scripts.coverage_outputs import (
+from scripts.pipeline.corpus import collect_branch_tag_stats
+from scripts.pipeline.coverage_outputs import (
     write_application_inventory_tsv,
     write_coverage_tsv,
 )
-from scripts import dictionary_inputs
+from scripts.pipeline import dictionary_inputs
 from scripts.domain import tag_coverage
 from scripts.domain import tag_policy
 from scripts.domain.tag_policy import MappingPolicy

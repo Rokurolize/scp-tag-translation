@@ -8,9 +8,9 @@ import shutil
 import sys
 from pathlib import Path
 
-from scripts.atomic_output import FileWriter, publish_files_atomically
-from scripts.data_paths import ROOT
-from scripts.source_manifest import corpus_source_map
+from scripts.infrastructure.atomic_output import FileWriter, publish_files_atomically
+from scripts.infrastructure.data_paths import ROOT
+from scripts.pipeline.source_manifest import corpus_source_map
 
 SOURCE_MAP = corpus_source_map()
 

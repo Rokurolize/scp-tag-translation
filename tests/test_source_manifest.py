@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.source_manifest import (
+from scripts.pipeline.source_manifest import (
     BRANCH_GUIDE_SOURCE_KEYS,
     SOURCE_ARTIFACTS,
     branch_guide_sources,

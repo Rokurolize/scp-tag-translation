@@ -9,20 +9,20 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from scripts.atomic_output import publish_files_atomically
-from scripts.corpus import (
+from scripts.infrastructure.atomic_output import publish_files_atomically
+from scripts.pipeline.corpus import (
     CorpusBranchData,
     collect_corpus_branch_data,
 )
-from scripts.dictionary_inputs import (
+from scripts.pipeline.dictionary_inputs import (
     LoadedMappingInputs,
     MappingInputPaths,
     default_mapping_input_paths,
     load_existing_hint_dictionaries,
     load_mapping_inputs,
 )
-from scripts.json_io import write_json
-from scripts.data_paths import DICTIONARIES_DIR
+from scripts.infrastructure.json_io import write_json
+from scripts.infrastructure.data_paths import DICTIONARIES_DIR
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.domain.concatenated_tags import (
     build_concatenated_tag_hints,

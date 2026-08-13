@@ -9,19 +9,19 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
-from scripts.atomic_output import publish_files_atomically
-from scripts.corpus import collect_branch_tag_stats
-from scripts.coverage_outputs import (
+from scripts.infrastructure.atomic_output import publish_files_atomically
+from scripts.pipeline.corpus import collect_branch_tag_stats
+from scripts.pipeline.coverage_outputs import (
     write_application_inventory_tsv,
     write_coverage_tsv,
 )
-from scripts.dictionary_inputs import (
+from scripts.pipeline.dictionary_inputs import (
     MappingInputPaths,
     default_mapping_input_paths,
     load_mapping_inputs,
 )
-from scripts.json_io import write_json
-from scripts.data_paths import VISUALIZATION_DIR
+from scripts.infrastructure.json_io import write_json
+from scripts.infrastructure.data_paths import VISUALIZATION_DIR
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.domain.tag_coverage import (
     CoverageInputs,

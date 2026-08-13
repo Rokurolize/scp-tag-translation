@@ -3,8 +3,8 @@ import os
 
 import pytest
 
-from scripts import json_io
-from scripts.json_io import json_text, write_json, write_text
+from scripts.infrastructure import json_io
+from scripts.infrastructure.json_io import json_text, write_json, write_text
 
 
 def test_json_text_sorts_only_the_top_level_mapping():

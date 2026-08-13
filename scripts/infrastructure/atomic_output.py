@@ -9,7 +9,7 @@ import tempfile
 from collections.abc import Callable, Mapping
 from pathlib import Path
 
-from scripts.file_modes import DEFAULT_NEW_FILE_MODE
+from scripts.infrastructure.file_modes import DEFAULT_NEW_FILE_MODE
 
 FileWriter = Callable[[Path], None]
 

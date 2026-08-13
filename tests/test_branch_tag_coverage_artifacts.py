@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from scripts.data_paths import ROOT
+from scripts.infrastructure.data_paths import ROOT
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.domain.tag_coverage import ACTION_DESCRIPTIONS, STATUS_DESCRIPTIONS
 

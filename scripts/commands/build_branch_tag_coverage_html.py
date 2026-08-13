@@ -7,11 +7,11 @@ import json
 import sys
 from pathlib import Path
 
-from scripts.atomic_output import publish_files_atomically
-from scripts.data_paths import COVERAGE_HTML_PATH, COVERAGE_JSON_PATH, ROOT
+from scripts.infrastructure.atomic_output import publish_files_atomically
+from scripts.infrastructure.data_paths import COVERAGE_HTML_PATH, COVERAGE_JSON_PATH, ROOT
 from scripts.domain.tag_coverage_models import Coverage
 from scripts.domain.coverage_validation import validate_coverage
-from scripts.json_io import load_json, write_text
+from scripts.infrastructure.json_io import load_json, write_text
 
 
 DEFAULT_INPUT = COVERAGE_JSON_PATH

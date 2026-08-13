@@ -4,12 +4,12 @@ from pathlib import Path
 
 import pytest
 
-from scripts.corpus import (
+from scripts.pipeline.corpus import (
     collect_corpus_branch_data,
     discover_corpus_branches,
 )
-from scripts import dictionary_inputs
-from scripts.dictionary_inputs import LoadedMappingInputs, load_existing_hint_dictionaries
+from scripts.pipeline import dictionary_inputs
+from scripts.pipeline.dictionary_inputs import LoadedMappingInputs, load_existing_hint_dictionaries
 from scripts.commands import build_branch_dicts_from_corpus as branch_builder
 from scripts.domain import tag_policy
 from scripts.domain.branch_config import SUPPORTED_BRANCHES

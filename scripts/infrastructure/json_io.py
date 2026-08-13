@@ -8,7 +8,7 @@ import stat
 import tempfile
 from pathlib import Path
 
-from scripts.file_modes import DEFAULT_NEW_FILE_MODE
+from scripts.infrastructure.file_modes import DEFAULT_NEW_FILE_MODE
 
 
 def load_json(path: Path) -> object:

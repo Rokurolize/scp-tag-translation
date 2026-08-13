@@ -5,7 +5,7 @@ import sys
 import pytest
 
 from scripts.commands import build_branch_tag_coverage_html as coverage_html_builder
-from scripts.data_paths import ROOT
+from scripts.infrastructure.data_paths import ROOT
 from scripts.domain.coverage_validation import validate_coverage
 from scripts.domain.tag_coverage import ACTION_DESCRIPTIONS, STATUS_DESCRIPTIONS
 

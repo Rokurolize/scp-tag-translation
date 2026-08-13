@@ -155,12 +155,9 @@ scp-tag-translation/
 │   ├── assets/                               # 生成HTMLのソーステンプレート
 │   ├── commands/                             # 同期・解析・生成CLI
 │   ├── domain/                               # スキーマ・検証・変換規則・支部設定
+│   ├── infrastructure/                       # パス・JSON・原子的な成果物公開
+│   ├── pipeline/                             # コーパス走査・入力・ソース構成
 │   ├── parsers/                              # 公式タグソース解析
-│   ├── data_paths.py                         # 生成物パス定数（互換ラッパー含む）
-│   ├── corpus.py                             # コーパス走査
-│   ├── dictionary_inputs.py                  # 辞書生成ポリシー入力
-│   ├── json_io.py                            # JSON読込・生成物書込
-│   └── atomic_output.py                      # 関連成果物のトランザクション的公開
 ├── tests/
 └── visualization/
 ```

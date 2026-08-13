@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.corpus import collect_corpus_tags_and_visible_sequences
+from scripts.pipeline.corpus import collect_corpus_tags_and_visible_sequences
 from scripts.domain import concatenated_tags
 
 

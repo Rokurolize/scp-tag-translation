@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
 
-from scripts.data_paths import (
+from scripts.infrastructure.data_paths import (
     CROSSWALK_PATHS,
     DATA_DEPRECATED,
     DATA_EN,
@@ -27,7 +27,7 @@ from scripts.domain.tag_records import (
 )
 from scripts.domain.tag_policy import MappingPolicy
 from scripts.domain.tag_validation import validate_tag_records
-from scripts.json_io import load_json
+from scripts.infrastructure.json_io import load_json
 
 
 def _load_optional_json(path: Path) -> object:

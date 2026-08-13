@@ -7,7 +7,7 @@ from collections.abc import Iterator
 from dataclasses import dataclass
 from pathlib import Path
 
-from scripts.json_io import load_json
+from scripts.infrastructure.json_io import load_json
 from scripts.domain.tag_coverage_models import BranchTagStats, TagStats
 
 SAMPLE_LIMIT = 5

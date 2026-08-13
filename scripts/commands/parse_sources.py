@@ -10,9 +10,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal, cast
 
-from scripts.atomic_output import publish_files_atomically
-from scripts.json_io import load_json, write_json
-from scripts.data_paths import (
+from scripts.infrastructure.atomic_output import publish_files_atomically
+from scripts.infrastructure.json_io import load_json, write_json
+from scripts.infrastructure.data_paths import (
     DATA_BRANCH_GUIDE_CROSSWALK,
     DATA_DEPRECATED,
     DATA_EN,
@@ -32,7 +32,7 @@ from scripts.parsers.crosswalk_resolver import CrosswalkResolver
 from scripts.domain.tag_records import DeprecatedTag, JpTag
 from scripts.domain.tag_policy import EN_CROSSWALK_SEMANTIC_REPLACEMENTS
 from scripts.domain.tag_validation import validate_deprecated_tags, validate_jp_tags
-from scripts.source_manifest import (
+from scripts.pipeline.source_manifest import (
     branch_guide_sources,
     parser_source_path,
     source_directory,

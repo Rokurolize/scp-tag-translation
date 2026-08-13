@@ -6,7 +6,7 @@ import subprocess
 
 import pytest
 
-from scripts.data_paths import ROOT
+from scripts.infrastructure.data_paths import ROOT
 from scripts.domain.branch_config import BRANCH_CONFIG_BY_CODE
 
 INDEX_HTML = ROOT / "index.html"

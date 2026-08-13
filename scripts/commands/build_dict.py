@@ -19,14 +19,14 @@ from collections.abc import Iterable
 from dataclasses import replace
 from typing import cast
 
-from scripts.atomic_output import publish_files_atomically
-from scripts.dictionary_inputs import (
+from scripts.infrastructure.atomic_output import publish_files_atomically
+from scripts.pipeline.dictionary_inputs import (
     default_mapping_input_paths,
     load_mapping_inputs,
     load_mapping_policy_inputs,
 )
-from scripts.json_io import load_json, write_json
-from scripts.data_paths import (
+from scripts.infrastructure.json_io import load_json, write_json
+from scripts.infrastructure.data_paths import (
     DATA_DEPRECATED,
     DATA_EN,
     DATA_JP,

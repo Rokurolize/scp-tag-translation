@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts import atomic_output
+from scripts.infrastructure import atomic_output
 
 
 def _write(value: str):
