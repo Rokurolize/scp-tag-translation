@@ -102,6 +102,39 @@ def parse_official_crosswalk(
     return result
 
 
+def _validate_loaded_overrides(
+    inputs: BranchOverrideFile,
+    jp_names: frozenset[str] | set[str],
+) -> dict[str, dict[str, str]]:
+    """Normalize already-decoded branch overrides at the policy boundary."""
+    return {
+        branch: {
+            source_tag: _validated_override_target(
+                branch,
+                source_tag,
+                value,
+                jp_names,
+            )
+            for source_tag, value in branch_values.items()
+        }
+        for branch, branch_values in inputs.items()
+    }
+
+
+def _merge_loaded_crosswalks(
+    inputs: Sequence[OfficialCrosswalkFile],
+    jp_names: frozenset[str] | set[str],
+) -> dict[str, dict[str, str]]:
+    """Merge validated crosswalk maps while retaining only current JP tags."""
+    merged: dict[str, dict[str, str]] = {}
+    for current in inputs:
+        for branch, mappings in current.items():
+            for source_tag, jp_tag in mappings.items():
+                if jp_tag in jp_names:
+                    merged.setdefault(branch, {})[source_tag] = jp_tag
+    return merged
+
+
 def merge_official_crosswalks(
     raw_crosswalks: Sequence[object],
     jp_names: frozenset[str] | set[str],
@@ -191,12 +224,8 @@ def build_mapping_policy(
 ) -> MappingPolicy:
     """Assemble parsed source policies into the runtime mapping contract."""
     jp_names, jp_source_map = build_jp_names_and_source_map(jp_tags)
-    overrides = parse_overrides(inputs.overrides, jp_names)
-    replacement_overrides = parse_overrides(
-        inputs.replacement_overrides,
-        jp_names,
-    )
-    official_crosswalk = merge_official_crosswalks(
+    overrides = _validate_loaded_overrides(inputs.overrides, jp_names)
+    official_crosswalk = _merge_loaded_crosswalks(
         inputs.official_crosswalks,
         jp_names,
     )
@@ -205,7 +234,7 @@ def build_mapping_policy(
     deprecated_tags, replacements = deprecated_by_source_lang(
         deprecated_raw,
         jp_names,
-        replacement_overrides,
+        inputs.replacement_overrides,
         include_origin_replacements=include_origin_replacements,
     )
     return MappingPolicy(

@@ -59,7 +59,7 @@ def load_coverage_inputs(paths: MappingInputPaths) -> CoverageInputs:
     )
 
 
-def build_and_publish(
+def build_and_publish_coverage(
     corpus_root: Path,
     branches: Sequence[str],
     *,
@@ -148,7 +148,7 @@ def main() -> None:
         mapping_inputs=default_mapping_input_paths(),
     )
     try:
-        coverage, output_paths = build_and_publish(
+        coverage, output_paths = build_and_publish_coverage(
             corpus_root,
             branches,
             config=config,

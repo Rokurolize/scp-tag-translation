@@ -192,7 +192,7 @@ def build_artifacts(
     )
 
 
-def build_and_publish(
+def build_and_publish_dictionaries(
     corpus_root: Path,
     branches: Sequence[str],
     *,
@@ -274,7 +274,7 @@ def main() -> None:
 
     config = BranchBuildConfig()
     try:
-        artifacts = build_and_publish(corpus_root, branches, config=config)
+        artifacts = build_and_publish_dictionaries(corpus_root, branches, config=config)
     except (FileNotFoundError, OSError, ValueError) as err:
         print(f"エラー: 辞書生成に失敗しました: {err}")
         sys.exit(1)

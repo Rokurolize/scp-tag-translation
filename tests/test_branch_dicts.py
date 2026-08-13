@@ -146,7 +146,7 @@ def test_build_artifacts_owns_complete_publication_set(
     assert artifacts.hint_count == 0
 
 
-def test_build_and_publish_success_path_uses_real_inputs_and_outputs(
+def test_build_and_publish_dictionaries_success_path_uses_real_inputs_and_outputs(
     tmp_path,
     monkeypatch,
 ):
@@ -232,7 +232,7 @@ def test_build_and_publish_success_path_uses_real_inputs_and_outputs(
         ),
     )
 
-    artifacts = branch_builder.build_and_publish(
+    artifacts = branch_builder.build_and_publish_dictionaries(
         corpus_root,
         ["en"],
         config=config,
