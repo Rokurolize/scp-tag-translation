@@ -7,7 +7,10 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
-from scripts.domain.branch_config import BRANCH_CONFIG_BY_CODE
+from scripts.domain.branch_config import (
+    BRANCH_CONFIG_BY_CODE,
+    validate_requested_branches,
+)
 from scripts.domain.tag_coverage_models import (
     ApplicationBranch,
     ApplicationInventory,
@@ -236,6 +239,7 @@ def build_coverage(
     branch_tag_stats: Mapping[str, BranchTagStats],
 ) -> Coverage:
     """Classify explicit corpus statistics and retain the root as provenance metadata."""
+    branches = validate_requested_branches(branches)
 
     en_branch_policy = inputs.mapping_policy.for_branch("en")
     en_translation_policy_omit = en_category_omitted_tags(

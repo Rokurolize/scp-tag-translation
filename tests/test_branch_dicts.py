@@ -364,6 +364,11 @@ def test_partial_mapping_inputs_use_empty_optional_policy_files(tmp_path):
     assert loaded.mapping_policy.overrides == {}
 
 
+def test_dictionary_command_rejects_unsupported_branch_before_loading(tmp_path):
+    with pytest.raises(ValueError, match="unsupported branches"):
+        branch_builder.build_and_publish_dictionaries(tmp_path, ["unknown"])
+
+
 def test_acceptance_fixture_mentions_every_required_branch():
     with ACCEPTANCE.open(encoding="utf-8", newline="") as f:
         branches = {row["branch"] for row in csv.DictReader(f, delimiter="\t")}

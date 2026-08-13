@@ -22,7 +22,10 @@ from scripts.pipeline.dictionary_inputs import (
 )
 from scripts.infrastructure.json_io import write_json
 from scripts.infrastructure.data_paths import VISUALIZATION_DIR
-from scripts.domain.branch_config import SUPPORTED_BRANCHES
+from scripts.domain.branch_config import (
+    SUPPORTED_BRANCHES,
+    validate_requested_branches,
+)
 from scripts.domain.tag_coverage import (
     CoverageInputs,
     build_application_inventory,
@@ -66,6 +69,7 @@ def build_and_publish_coverage(
 ) -> tuple[Coverage, tuple[Path, Path, Path, Path]]:
     """Build coverage artifacts and publish all four outputs atomically."""
 
+    branches = validate_requested_branches(branches)
     config = config or default_coverage_build_config()
     inputs = load_coverage_inputs(config.mapping_inputs)
     branch_tag_stats = {

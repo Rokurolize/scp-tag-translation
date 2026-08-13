@@ -23,7 +23,10 @@ from scripts.pipeline.dictionary_inputs import (
 )
 from scripts.infrastructure.json_io import write_json
 from scripts.infrastructure.data_paths import DICTIONARIES_DIR
-from scripts.domain.branch_config import SUPPORTED_BRANCHES
+from scripts.domain.branch_config import (
+    SUPPORTED_BRANCHES,
+    validate_requested_branches,
+)
 from scripts.domain.concatenated_tags import (
     build_concatenated_tag_hints,
 )
@@ -147,6 +150,10 @@ def build_artifacts(
     config: BranchBuildConfig = BranchBuildConfig(),
     existing_dictionaries: Mapping[str, Mapping[str, str | None]] | None = None,
 ) -> BuildArtifacts:
+    branches = validate_requested_branches(
+        branches,
+        supported_branches=config.supported_branches,
+    )
     required_branches = set(branches) | set(config.supported_branches)
     missing_branches = sorted(required_branches - set(corpus_data))
     if missing_branches:
@@ -199,6 +206,10 @@ def build_and_publish_dictionaries(
     config: BranchBuildConfig = BranchBuildConfig(),
 ) -> BuildArtifacts:
     """Load validated inputs, build dictionaries, and publish them atomically."""
+    branches = validate_requested_branches(
+        branches,
+        supported_branches=config.supported_branches,
+    )
     loaded = load_mapping_inputs(
         config.mapping_inputs,
         require_complete_inputs=True,

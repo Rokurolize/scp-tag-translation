@@ -221,6 +221,17 @@ def test_build_coverage_rejects_missing_mapped_target_policy(tmp_path):
         )
 
 
+@pytest.mark.parametrize("branches", [("unknown",), ("en", "en")])
+def test_build_coverage_rejects_invalid_branch_selection(tmp_path, branches):
+    with pytest.raises(ValueError, match="branch"):
+        tag_coverage.build_coverage(
+            tmp_path,
+            branches,
+            _coverage_inputs(),
+            {},
+        )
+
+
 def test_build_coverage_rejects_non_object_metadata(tmp_path):
     corpus_root = tmp_path / "corpus"
     meta_path = corpus_root / "en" / "pages" / "sample" / "meta.json"

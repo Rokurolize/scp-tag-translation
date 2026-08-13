@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from collections.abc import Sequence
 from types import MappingProxyType
 from typing import TypedDict
 from collections.abc import Mapping
@@ -43,6 +44,28 @@ SUPPORTED_BRANCH_CONFIGS = (
 
 
 SUPPORTED_BRANCHES = tuple(config.branch for config in SUPPORTED_BRANCH_CONFIGS)
+
+
+def validate_requested_branches(
+    branches: Sequence[str],
+    *,
+    supported_branches: Sequence[str] = SUPPORTED_BRANCHES,
+) -> tuple[str, ...]:
+    """Validate a non-empty, duplicate-free subset of supported branches."""
+    requested = tuple(branches)
+    if any(not isinstance(branch, str) or not branch for branch in requested):
+        raise ValueError("branch names must be non-empty strings")
+    duplicates = sorted({
+        branch
+        for branch in requested
+        if requested.count(branch) > 1
+    })
+    if duplicates:
+        raise ValueError("duplicate branches: " + ", ".join(duplicates))
+    unsupported = sorted(set(requested) - set(supported_branches))
+    if unsupported:
+        raise ValueError("unsupported branches: " + ", ".join(unsupported))
+    return requested
 BRANCH_CONFIG_BY_CODE: Mapping[str, BranchConfig] = MappingProxyType({
     config.branch: config for config in SUPPORTED_BRANCH_CONFIGS
 })
