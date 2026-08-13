@@ -10,6 +10,8 @@ from pathlib import Path
 from scripts.application.branch_selection import normalize_branch_selection
 from scripts.application import coverage_build as _workflow
 
+__all__ = ["main"]
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(

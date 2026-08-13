@@ -69,20 +69,8 @@ class BranchGuideParser(Protocol):
     ) -> BranchGuideAnalysis: ...
 
 
-class CrosswalkParsers(Protocol):
-    @property
-    def int(self) -> IntParser: ...
-
-    @property
-    def ko(self) -> KoParser: ...
-
-    @property
-    def branch_guides(self) -> BranchGuideParser: ...
-
-
 __all__ = [
     "BranchGuideParser",
-    "CrosswalkParsers",
     "EnParser",
     "IntParser",
     "JpParser",

@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
+from types import MappingProxyType
 from typing import Literal
 
 from scripts.domain.policy.tag_policy import EN_CROSSWALK_SEMANTIC_REPLACEMENTS
@@ -47,7 +48,9 @@ SOURCES_JP = source_directory("jp", root=ROOT)
 SOURCES_JP_UNUSED = parser_source_path("jp_unused", root=ROOT)
 SOURCES_INT = parser_source_path("int", root=ROOT)
 SOURCES_KO = parser_source_path("ko", root=ROOT)
-BRANCH_GUIDE_SOURCES: Mapping[str, tuple[Path, ...]] = branch_guide_sources(root=ROOT)
+BRANCH_GUIDE_SOURCES: Mapping[str, tuple[Path, ...]] = MappingProxyType(
+    branch_guide_sources(root=ROOT)
+)
 
 
 @dataclass(frozen=True)
@@ -60,7 +63,7 @@ class ParseSourcePaths:
     int: Path = field(default_factory=lambda: SOURCES_INT)
     ko: Path = field(default_factory=lambda: SOURCES_KO)
     branch_guides: Mapping[str, tuple[Path, ...]] = field(
-        default_factory=lambda: BRANCH_GUIDE_SOURCES,
+        default_factory=lambda: dict(BRANCH_GUIDE_SOURCES),
     )
 
 

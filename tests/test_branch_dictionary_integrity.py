@@ -9,7 +9,7 @@ from scripts.application import mapping_inputs
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.pipeline import dictionary_inputs
 from scripts.pipeline.corpus import discover_corpus_branches
-from scripts.pipeline.dictionary_inputs import load_existing_hint_dictionaries
+from scripts.pipeline.dictionary_inputs import complete_hint_dictionaries_from_existing
 
 ROOT = Path(__file__).parent.parent
 DICTIONARIES = ROOT / "dictionaries"
@@ -40,7 +40,7 @@ def test_partial_hint_generation_reuses_other_committed_dictionaries(
         json.dumps({"scp": "scp", "sculpture": "彫像"}),
         encoding="utf-8",
     )
-    complete = load_existing_hint_dictionaries(
+    complete = complete_hint_dictionaries_from_existing(
         {"en": {"scp": "scp"}},
         dictionaries_dir=tmp_path,
         supported_branches=("en", "int"),

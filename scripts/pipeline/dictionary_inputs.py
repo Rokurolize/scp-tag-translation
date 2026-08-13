@@ -208,7 +208,7 @@ def load_tag_records(
     )
 
 
-def load_existing_hint_dictionaries(
+def complete_hint_dictionaries_from_existing(
     generated: Mapping[str, dict[str, str | None]],
     *,
     dictionaries_dir: Path = DICTIONARIES_DIR,

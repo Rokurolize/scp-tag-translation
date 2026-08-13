@@ -9,7 +9,9 @@ from scripts.pipeline import dictionary_inputs as pipeline_inputs
 MappingInputPaths = pipeline_inputs.MappingInputPaths
 LoadedMappingInputs = pipeline_inputs.LoadedMappingInputs
 default_mapping_input_paths = pipeline_inputs.default_mapping_input_paths
-load_existing_hint_dictionaries = pipeline_inputs.load_existing_hint_dictionaries
+complete_hint_dictionaries_from_existing = (
+    pipeline_inputs.complete_hint_dictionaries_from_existing
+)
 
 
 def load_mapping_inputs(
@@ -53,7 +55,7 @@ __all__ = [
     "LoadedMappingInputs",
     "MappingInputPaths",
     "default_mapping_input_paths",
-    "load_existing_hint_dictionaries",
+    "complete_hint_dictionaries_from_existing",
     "load_mapping_inputs",
     "to_coverage_inputs",
 ]

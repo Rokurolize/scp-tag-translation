@@ -8,14 +8,8 @@ from pathlib import Path
 
 from scripts.domain.crosswalk_resolution import CrosswalkResolver
 from scripts.parsers.contracts import BranchGuideAnalysis, CrosswalkMappings
-from scripts.parsers import branch_guide_parser, int_parser, ko_parser
 
-from .contracts import (
-    BranchGuideParser,
-    CrosswalkParsers,
-    IntParser,
-    KoParser,
-)
+from .contracts import BranchGuideParser, IntParser, KoParser
 from .records import require_file
 
 
@@ -46,33 +40,15 @@ def collect_crosswalk_parses(
     sources_int: Path,
     sources_ko: Path,
     branch_guide_sources: Mapping[str, Sequence[Path]],
-    parsers: CrosswalkParsers | None = None,
-    int_parser_impl: IntParser | None = None,
-    ko_parser_impl: KoParser | None = None,
-    branch_guide_parser_impl: BranchGuideParser | None = None,
+    int_parser_impl: IntParser,
+    ko_parser_impl: KoParser,
+    branch_guide_parser_impl: BranchGuideParser,
     resolver: CrosswalkResolver,
 ) -> CrosswalkParseResult:
     """Run all crosswalk parsers and return one typed stage result."""
     require_file(sources_int, "INTタグクロスウォーク")
     require_file(sources_ko, "KOタグクロスウォーク")
     _require_branch_guides(branch_guide_sources)
-    int_parser_impl = (
-        parsers.int
-        if parsers is not None
-        else int_parser if int_parser_impl is None else int_parser_impl
-    )
-    ko_parser_impl = (
-        parsers.ko
-        if parsers is not None
-        else ko_parser if ko_parser_impl is None else ko_parser_impl
-    )
-    branch_guide_parser_impl = (
-        parsers.branch_guides
-        if parsers is not None
-        else branch_guide_parser
-        if branch_guide_parser_impl is None
-        else branch_guide_parser_impl
-    )
     int_mappings = int_parser_impl.parse_int_crosswalk(
         sources_int,
         resolver.resolve,

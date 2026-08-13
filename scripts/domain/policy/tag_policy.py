@@ -54,11 +54,6 @@ def is_deprecated_for_en_source(entry: DeprecatedTag) -> bool:
     return source_lang == "EN" and bool(entry["source_tag"])
 
 
-def jp_source_tags(entry: JpTag) -> list[str]:
-    """Return every source-language alias recorded for a JP tag."""
-    return entry["source_tags"]
-
-
 def en_category_omitted_tags(
     en_tags: Sequence[EnTag],
     jp_tags: Sequence[JpTag],
@@ -68,7 +63,7 @@ def en_category_omitted_tags(
     mapped = {
         source_tag
         for entry in jp_tags
-        for source_tag in jp_source_tags(entry)
+        for source_tag in entry["source_tags"]
     }
     mapped.update(extra_mapped_tags or set())
     return {
@@ -215,7 +210,7 @@ def build_jp_names_and_source_map(
     for entry in jp_tags:
         name = entry["name"]
         jp_names.add(name)
-        for source_tag in jp_source_tags(entry):
+        for source_tag in entry["source_tags"]:
             source_candidates.setdefault(source_tag, set()).add(name)
 
     overrides = {
