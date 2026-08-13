@@ -91,98 +91,128 @@ def _build_crosswalk_resolver(
     )
 
 
+def _collect_en_outputs() -> ParseBatch:
+    _require_file(SOURCES_EN, "ENソースファイル")
+    en_tags = en_parser.parse_en_tags(SOURCES_EN)
+    return ParseBatch(
+        outputs={DATA_EN: en_tags},
+        messages=(f"EN: {len(en_tags)} タグを解析 → {DATA_EN}",),
+    )
+
+
+def _collect_jp_outputs() -> tuple[ParseBatch, list[JpTag], list[DeprecatedTag]]:
+    if not SOURCES_JP.is_dir():
+        raise FileNotFoundError(
+            f"JPソースディレクトリが見つかりません: {SOURCES_JP}"
+        )
+    jp_tags = jp_parser.parse_jp_tags(SOURCES_JP)
+    deprecated_tags = (
+        jp_parser.parse_unused(SOURCES_JP_UNUSED)
+        if SOURCES_JP_UNUSED.is_file()
+        else []
+    )
+    batch = ParseBatch(
+        outputs={DATA_JP: jp_tags, DATA_DEPRECATED: deprecated_tags},
+        messages=(
+            f"JP: {len(jp_tags)} タグを解析 → {DATA_JP}",
+            f"JP(未使用): {len(deprecated_tags)} タグを解析 → {DATA_DEPRECATED}",
+        ),
+    )
+    return batch, jp_tags, deprecated_tags
+
+
+def _load_persisted_jp_records() -> tuple[list[JpTag], list[DeprecatedTag]]:
+    jp_tags = validate_jp_tags(_load_json_array(DATA_JP, "JPタグデータ"))
+    deprecated_tags = validate_deprecated_tags(
+        _load_json_array(DATA_DEPRECATED, "JP非使用タグデータ"),
+        jp_tags,
+    )
+    return jp_tags, deprecated_tags
+
+
+def _collect_crosswalk_outputs(
+    jp_tags: list[JpTag] | None = None,
+    deprecated_tags: list[DeprecatedTag] | None = None,
+) -> ParseBatch:
+    if jp_tags is None or deprecated_tags is None:
+        jp_tags, deprecated_tags = _load_persisted_jp_records()
+
+    resolver = _build_crosswalk_resolver(jp_tags, deprecated_tags)
+    _require_file(SOURCES_INT, "INTタグクロスウォーク")
+    _require_file(SOURCES_KO, "KOタグクロスウォーク")
+    _require_branch_guides()
+    int_mappings = int_parser.parse_int_crosswalk(
+        SOURCES_INT,
+        resolver.resolve,
+    )
+    ko_mappings = ko_parser.parse_ko_crosswalk(
+        SOURCES_KO,
+        resolver.resolve,
+    )
+    branch_analysis = branch_guide_parser.analyze_branch_guides(
+        BRANCH_GUIDE_SOURCES,
+        resolver.resolve,
+    )
+    branch_mappings = branch_analysis.mappings
+    accepted_count = sum(
+        stats["accepted_tags"] for stats in branch_analysis.stats.values()
+    )
+    conflict_count = sum(
+        stats["conflicting_tags"] for stats in branch_analysis.stats.values()
+    )
+    unresolved_count = sum(
+        stats["unresolved_source_tags"] for stats in branch_analysis.stats.values()
+    )
+    outputs = {
+        DATA_INT_CROSSWALK: int_mappings,
+        DATA_KO_CROSSWALK: ko_mappings,
+        DATA_BRANCH_GUIDE_CROSSWALK: branch_mappings,
+    }
+    messages = (
+        (
+            "INT crosswalk: "
+            f"{sum(len(values) for values in int_mappings.values())} "
+            f"mappings -> {DATA_INT_CROSSWALK}"
+        ),
+        (
+            f"KO crosswalk: {len(ko_mappings.get('ko', {}))} mappings -> "
+            f"{DATA_KO_CROSSWALK}"
+        ),
+        (
+            "branch guide crosswalk: "
+            f"{sum(len(values) for values in branch_mappings.values())} "
+            "mappings "
+            f"(accepted={accepted_count}, conflicting={conflict_count}, "
+            f"unresolved={unresolved_count}) -> {DATA_BRANCH_GUIDE_CROSSWALK}"
+        ),
+    )
+    return ParseBatch(outputs=outputs, messages=messages)
+
+
+def _merge_batches(batches: list[ParseBatch]) -> ParseBatch:
+    outputs: dict[Path, object] = {}
+    messages: list[str] = []
+    for batch in batches:
+        outputs.update(batch.outputs)
+        messages.extend(batch.messages)
+    return ParseBatch(outputs=outputs, messages=tuple(messages))
+
+
 def collect_outputs(language: Language) -> ParseBatch:
     if language not in LANGUAGES:
         raise ValueError(f"未対応の解析対象です: {language}")
-    outputs: dict[Path, object] = {}
-    messages = []
+
+    batches: list[ParseBatch] = []
     jp_tags: list[JpTag] | None = None
     deprecated_tags: list[DeprecatedTag] | None = None
-
     if language in {"en", "all"}:
-        _require_file(SOURCES_EN, "ENソースファイル")
-        en_tags = en_parser.parse_en_tags(SOURCES_EN)
-        outputs[DATA_EN] = en_tags
-        messages.append(f"EN: {len(en_tags)} タグを解析 → {DATA_EN}")
-
+        batches.append(_collect_en_outputs())
     if language in {"jp", "all"}:
-        if not SOURCES_JP.is_dir():
-            raise FileNotFoundError(
-                f"JPソースディレクトリが見つかりません: {SOURCES_JP}"
-            )
-        jp_tags = jp_parser.parse_jp_tags(SOURCES_JP)
-        deprecated_tags = (
-            jp_parser.parse_unused(SOURCES_JP_UNUSED)
-            if SOURCES_JP_UNUSED.is_file()
-            else []
-        )
-        outputs[DATA_JP] = jp_tags
-        outputs[DATA_DEPRECATED] = deprecated_tags
-        messages.extend(
-            (
-                f"JP: {len(jp_tags)} タグを解析 → {DATA_JP}",
-                (f"JP(未使用): {len(deprecated_tags)} タグを解析 → {DATA_DEPRECATED}"),
-            )
-        )
-
+        jp_batch, jp_tags, deprecated_tags = _collect_jp_outputs()
+        batches.append(jp_batch)
     if language in {"crosswalks", "all"}:
-        if jp_tags is None or deprecated_tags is None:
-            jp_tags = validate_jp_tags(_load_json_array(DATA_JP, "JPタグデータ"))
-            deprecated_tags = validate_deprecated_tags(
-                _load_json_array(DATA_DEPRECATED, "JP非使用タグデータ"),
-                jp_tags,
-            )
-        resolver = _build_crosswalk_resolver(jp_tags, deprecated_tags)
-        _require_file(SOURCES_INT, "INTタグクロスウォーク")
-        _require_file(SOURCES_KO, "KOタグクロスウォーク")
-        _require_branch_guides()
-        int_mappings = int_parser.parse_int_crosswalk(
-            SOURCES_INT,
-            resolver.resolve,
-        )
-        ko_mappings = ko_parser.parse_ko_crosswalk(
-            SOURCES_KO,
-            resolver.resolve,
-        )
-        branch_analysis = branch_guide_parser.analyze_branch_guides(
-            BRANCH_GUIDE_SOURCES,
-            resolver.resolve,
-        )
-        branch_mappings = branch_analysis.mappings
-        accepted_count = sum(
-            stats["accepted_tags"] for stats in branch_analysis.stats.values()
-        )
-        conflict_count = sum(
-            stats["conflicting_tags"] for stats in branch_analysis.stats.values()
-        )
-        unresolved_count = sum(
-            stats["unresolved_source_tags"] for stats in branch_analysis.stats.values()
-        )
-        outputs[DATA_INT_CROSSWALK] = int_mappings
-        outputs[DATA_KO_CROSSWALK] = ko_mappings
-        outputs[DATA_BRANCH_GUIDE_CROSSWALK] = branch_mappings
-        messages.extend(
-            (
-                (
-                    "INT crosswalk: "
-                    f"{sum(len(values) for values in int_mappings.values())} "
-                    f"mappings -> {DATA_INT_CROSSWALK}"
-                ),
-                (
-                    f"KO crosswalk: {len(ko_mappings.get('ko', {}))} mappings -> "
-                    f"{DATA_KO_CROSSWALK}"
-                ),
-                (
-                    "branch guide crosswalk: "
-                    f"{sum(len(values) for values in branch_mappings.values())} "
-                    "mappings "
-                    f"(accepted={accepted_count}, conflicting={conflict_count}, "
-                    f"unresolved={unresolved_count}) -> {DATA_BRANCH_GUIDE_CROSSWALK}"
-                ),
-            )
-        )
-
-    return ParseBatch(outputs=outputs, messages=tuple(messages))
+        batches.append(_collect_crosswalk_outputs(jp_tags, deprecated_tags))
+    return _merge_batches(batches)
 
 
 def publish_outputs(outputs: Mapping[Path, object]) -> None:
