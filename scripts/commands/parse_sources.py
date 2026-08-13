@@ -131,12 +131,9 @@ def _load_persisted_jp_records() -> tuple[list[JpTag], list[DeprecatedTag]]:
 
 
 def _collect_crosswalk_outputs(
-    jp_tags: list[JpTag] | None = None,
-    deprecated_tags: list[DeprecatedTag] | None = None,
+    jp_tags: list[JpTag],
+    deprecated_tags: list[DeprecatedTag],
 ) -> ParseBatch:
-    if jp_tags is None or deprecated_tags is None:
-        jp_tags, deprecated_tags = _load_persisted_jp_records()
-
     resolver = _build_crosswalk_resolver(jp_tags, deprecated_tags)
     _require_file(SOURCES_INT, "INTタグクロスウォーク")
     _require_file(SOURCES_KO, "KOタグクロスウォーク")
@@ -189,6 +186,11 @@ def _collect_crosswalk_outputs(
     return ParseBatch(outputs=outputs, messages=messages)
 
 
+def _collect_crosswalk_outputs_from_persisted_records() -> ParseBatch:
+    jp_tags, deprecated_tags = _load_persisted_jp_records()
+    return _collect_crosswalk_outputs(jp_tags, deprecated_tags)
+
+
 def _merge_batches(batches: list[ParseBatch]) -> ParseBatch:
     outputs: dict[Path, object] = {}
     messages: list[str] = []
@@ -211,7 +213,11 @@ def collect_outputs(language: Language) -> ParseBatch:
         jp_batch, jp_tags, deprecated_tags = _collect_jp_outputs()
         batches.append(jp_batch)
     if language in {"crosswalks", "all"}:
-        batches.append(_collect_crosswalk_outputs(jp_tags, deprecated_tags))
+        if language == "all":
+            assert jp_tags is not None and deprecated_tags is not None
+            batches.append(_collect_crosswalk_outputs(jp_tags, deprecated_tags))
+        else:
+            batches.append(_collect_crosswalk_outputs_from_persisted_records())
     return _merge_batches(batches)
 
 
