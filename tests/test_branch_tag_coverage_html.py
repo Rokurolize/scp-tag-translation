@@ -47,7 +47,7 @@ def test_coverage_validator_rejects_unknown_protocol_values(
     coverage["branches"][0]["tags"][0][field] = value
 
     with pytest.raises(ValueError, match=message):
-        coverage_html_builder.validate_coverage(coverage)
+        coverage_html_workflow.validate_coverage(coverage)
 
 
 @pytest.mark.parametrize(
@@ -61,14 +61,14 @@ def test_coverage_validator_rejects_unknown_description_keys(mapping, message, c
     coverage[mapping]["misspelled"] = "invalid"
 
     with pytest.raises(ValueError, match=message):
-        coverage_html_builder.validate_coverage(coverage)
+        coverage_html_workflow.validate_coverage(coverage)
 
 
 def test_coverage_validator_rejects_unknown_status_count_key(coverage):
     coverage["branches"][0]["status_counts"]["misspelled"] = 1
 
     with pytest.raises(ValueError, match="status_counts is invalid"):
-        coverage_html_builder.validate_coverage(coverage)
+        coverage_html_workflow.validate_coverage(coverage)
 
 
 def test_coverage_validator_rejects_unknown_special_action(coverage):
@@ -81,7 +81,7 @@ def test_coverage_validator_rejects_unknown_special_action(coverage):
     }
 
     with pytest.raises(ValueError, match="special_translation_action"):
-        coverage_html_builder.validate_coverage(coverage)
+        coverage_html_workflow.validate_coverage(coverage)
 
 
 @pytest.mark.parametrize(
@@ -92,7 +92,7 @@ def test_coverage_validator_rejects_missing_nullable_required_field(field, cover
     coverage["branches"][0]["tags"][0].pop(field)
 
     with pytest.raises(ValueError, match=field):
-        coverage_html_builder.validate_coverage(coverage)
+        coverage_html_workflow.validate_coverage(coverage)
 
 
 def test_coverage_validator_rejects_missing_special_action_key(coverage):
@@ -104,7 +104,7 @@ def test_coverage_validator_rejects_missing_special_action_key(coverage):
     }
 
     with pytest.raises(ValueError, match="special_translation_action"):
-        coverage_html_builder.validate_coverage(coverage)
+        coverage_html_workflow.validate_coverage(coverage)
 
 
 def test_visualization_html_is_self_contained_and_embeds_current_data(coverage):
@@ -113,7 +113,7 @@ def test_visualization_html_is_self_contained_and_embeds_current_data(coverage):
     embedded, html = _load_embedded_html_coverage()
 
     assert embedded == coverage
-    assert html == coverage_html_builder.build_html(coverage)
+    assert html == coverage_html_workflow.build_html(coverage)
     assert "fetch(" not in html
     assert "http://" not in html
     assert "https://" not in html
@@ -130,7 +130,7 @@ def test_dashboard_template_has_one_data_placeholder():
 
 
 def test_visualization_html_escapes_embedded_json_script_boundaries():
-    html = coverage_html_builder.build_html(
+    html = coverage_html_workflow.build_html(
         {
             "schema_version": 1,
             "source": {},

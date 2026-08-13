@@ -8,14 +8,6 @@ import sys
 from pathlib import Path
 
 from scripts.application.branch_selection import normalize_branch_selection
-from scripts.application.coverage_build import (
-    CoverageBuildConfig,
-    CoverageInputs,
-    DEFAULT_OUTPUT_DIR,
-    build_and_publish_coverage,
-    default_coverage_build_config,
-    load_coverage_inputs,
-)
 from scripts.application import coverage_build as _workflow
 
 
@@ -48,10 +40,10 @@ def main() -> None:
         sys.exit(1)
 
     output_dir = args.output_dir or _workflow.DEFAULT_OUTPUT_DIR
-    config = default_coverage_build_config(output_dir=output_dir)
+    config = _workflow.default_coverage_build_config(output_dir=output_dir)
     try:
         branches = normalize_branch_selection(args.branches)
-        coverage, output_paths = build_and_publish_coverage(
+        coverage, output_paths = _workflow.build_and_publish_coverage(
             corpus_root,
             branches,
             config=config,
@@ -68,15 +60,7 @@ def main() -> None:
     )
 
 
-__all__ = [
-    "CoverageBuildConfig",
-    "CoverageInputs",
-    "DEFAULT_OUTPUT_DIR",
-    "build_and_publish_coverage",
-    "default_coverage_build_config",
-    "load_coverage_inputs",
-    "main",
-]
+__all__ = ["main"]
 
 
 if __name__ == "__main__":

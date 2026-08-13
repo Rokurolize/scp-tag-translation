@@ -11,6 +11,7 @@ import pytest
 
 from scripts.commands import parse_sources
 from scripts.application import source_parse as parse_workflow
+from scripts.application import source_parse_models, source_parse_records, source_parse_reporting
 from scripts.parsers.contracts import BranchGuideAnalysis
 
 
@@ -33,6 +34,21 @@ def _branch_analysis(
             }
         },
     )
+
+
+def test_source_parse_support_preserves_batch_diagnostics(tmp_path):
+    output = tmp_path / "records.json"
+    output.write_text("[]", encoding="utf-8")
+    batch = source_parse_models.ParseBatch(
+        outputs={output: []},
+        messages=("parsed",),
+        diagnostics=("warning",),
+    )
+
+    assert source_parse_records.load_json_array(output, "records") == []
+    merged = source_parse_reporting.merge_batches([batch])
+    assert merged.messages == ("parsed",)
+    assert merged.diagnostics == ("warning",)
 
 
 def _redirect_pipeline_paths(monkeypatch, tmp_path: Path) -> tuple[Path, ...]:
@@ -93,7 +109,7 @@ def test_run_jp_clears_deprecated_data_when_unused_source_missing(
         encoding="utf-8",
     )
 
-    parse_sources.parse_and_publish_sources("jp")
+    parse_workflow.parse_and_publish_sources("jp")
 
     assert json.loads(outputs[1].read_text(encoding="utf-8"))[0]["name"] == "scp"
     assert json.loads(outputs[2].read_text(encoding="utf-8")) == []
@@ -134,13 +150,13 @@ def test_run_all_does_not_publish_when_last_parser_fails(tmp_path, monkeypatch):
     )
     publish_calls = []
     monkeypatch.setattr(
-        parse_sources,
+        parse_workflow,
         "publish_outputs",
         lambda payloads: publish_calls.append(payloads),
     )
 
     with pytest.raises(ValueError, match="late parser failure"):
-        parse_sources.parse_and_publish_sources("all")
+        parse_workflow.parse_and_publish_sources("all")
 
     assert publish_calls == []
     assert {path: path.read_bytes() for path in outputs} == old_payloads
@@ -184,7 +200,7 @@ def test_all_crosswalks_use_same_run_jp_records(tmp_path, monkeypatch):
         ),
     )
 
-    batch = parse_sources.collect_outputs("all")
+    batch = parse_workflow.collect_outputs("all")
 
     assert batch.outputs[outputs[3]] == {"en": {"semantic": "new-target"}}
     assert batch.outputs[outputs[5]] == {"ua": {"local": "new-target"}}
@@ -219,7 +235,7 @@ def test_crosswalks_reject_noncanonical_persisted_schema(
     outputs[2].write_text(json.dumps(deprecated_payload), encoding="utf-8")
 
     with pytest.raises(ValueError, match=message):
-        parse_sources.collect_outputs("crosswalks")
+        parse_workflow.collect_outputs("crosswalks")
 
     assert not any(path.exists() for path in outputs[3:])
 
@@ -261,7 +277,7 @@ def test_run_all_publishes_six_outputs_in_one_atomic_batch(tmp_path, monkeypatch
 
     monkeypatch.setattr(parse_workflow, "publish_files_atomically", publish_and_record)
 
-    batch = parse_sources.parse_and_publish_sources("all")
+    batch = parse_workflow.parse_and_publish_sources("all")
 
     assert len(calls) == 1
     assert set(calls[0]) == set(outputs) == set(batch.outputs)
@@ -301,7 +317,7 @@ def test_run_all_integrates_real_parsers_with_temporary_sources(
         encoding="utf-8",
     )
 
-    batch = parse_sources.parse_and_publish_sources("all")
+    batch = parse_workflow.parse_and_publish_sources("all")
 
     assert json.loads(outputs[0].read_text(encoding="utf-8"))[0]["name"] == "source"
     assert json.loads(outputs[1].read_text(encoding="utf-8"))[0]["name"] == "jp-target"
@@ -321,14 +337,14 @@ def test_run_all_integrates_real_parsers_with_temporary_sources(
 
 def test_collect_outputs_rejects_unknown_language():
     with pytest.raises(ValueError, match="未対応"):
-        parse_sources.collect_outputs("typo")
+        parse_workflow.collect_outputs("typo")
 
 
 @pytest.mark.parametrize("error", [OSError("disk"), ValueError("schema")])
 def test_main_reports_expected_input_failures(monkeypatch, capsys, error):
     monkeypatch.setattr(sys, "argv", ["parse_sources.py", "--lang", "all"])
     monkeypatch.setattr(
-        parse_sources,
+        parse_workflow,
         "parse_and_publish_sources",
         lambda _language: (_ for _ in ()).throw(error),
     )
@@ -343,7 +359,7 @@ def test_main_reports_expected_input_failures(monkeypatch, capsys, error):
 def test_main_does_not_hide_programming_errors(monkeypatch):
     monkeypatch.setattr(sys, "argv", ["parse_sources.py", "--lang", "all"])
     monkeypatch.setattr(
-        parse_sources,
+        parse_workflow,
         "parse_and_publish_sources",
         lambda _language: (_ for _ in ()).throw(TypeError("bug")),
     )

@@ -55,11 +55,7 @@ def test_main_reports_expected_publication_errors(error, monkeypatch, capsys):
         raise error
 
     monkeypatch.setattr(sys, "argv", ["build_browser_config.py"])
-    monkeypatch.setattr(
-        browser_config_command,
-        "publish_browser_config",
-        fail_publication,
-    )
+    monkeypatch.setattr(browser_workflow, "publish_browser_config", fail_publication)
 
     with pytest.raises(SystemExit) as excinfo:
         browser_config_command.main()
