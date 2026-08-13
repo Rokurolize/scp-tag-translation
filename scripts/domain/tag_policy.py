@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence, Set
 from dataclasses import dataclass
 from typing import Literal
+from types import MappingProxyType
 
 from scripts.domain.tag_records import (
     DeprecatedTag,
@@ -16,11 +17,11 @@ EN_CATEGORIES_OMITTED_ON_JP = {"Genre", "Genre and Themes"}
 # A source tag can occur in more than one JP category while the JP tag system
 # is being migrated.  The published dictionary has one context-free value, so
 # these ambiguous aliases need an explicit canonical target.
-JP_SOURCE_TAG_MAPPING_OVERRIDES = {
+JP_SOURCE_TAG_MAPPING_OVERRIDES: Mapping[str, str] = MappingProxyType({
     "ghost": "幽霊",
     "orientation": "オリエンテーション",
-}
-EN_ORIGIN_TAG_REPLACEMENTS = {
+})
+EN_ORIGIN_TAG_REPLACEMENTS: Mapping[str, str] = MappingProxyType({
     "_int": "int",
     "_ru": "ru",
     "_ko": "ko",
@@ -40,11 +41,11 @@ EN_ORIGIN_TAG_REPLACEMENTS = {
     "_id": "id",
     "_hu": "hu",
     "_nd": "nd",
-}
-EN_CROSSWALK_SEMANTIC_REPLACEMENTS = {
+})
+EN_CROSSWALK_SEMANTIC_REPLACEMENTS: Mapping[str, str] = MappingProxyType({
     **EN_ORIGIN_TAG_REPLACEMENTS,
     "guide": "他支部公式",
-}
+})
 
 
 def is_deprecated_for_en_source(entry: DeprecatedTag) -> bool:

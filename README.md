@@ -60,21 +60,7 @@ python -m http.server 8000
 `wikidot.py`フォークを通して公式ページソースを取得し、`AGENTS.md`の手順に従ってください。
 取得した原典を確認した後、次のコマンドでソースと辞書を再生成します。
 
-更新前に、次の`curl`コマンドでJPタグリストの取得経路を確認してください。
-このコマンドは初回URLとすべてのリダイレクト先でHTTPS以外を拒否し、応答時間とリダイレクト回数も制限します。
-
-```bash
-curl \
-  --fail --silent --show-error --location \
-  --proto '=https' --proto-redir '=https' \
-  --max-redirs 5 --connect-timeout 10 --max-time 60 \
-  --remove-on-error \
-  --output scp-jp-tag-list.html \
-  'https://scp-jp.wikidot.com/tag-list'
-```
-
-`--proto`と`--proto-redir`はどちらも省略しないでください。前者は初回URL、後者はすべてのリダイレクト先でHTTPSのみを許可します。
-WikidotがHTTPへのリダイレクトを返した場合、このコマンドは意図どおり失敗します。HTTP URLに変更したり制約を緩めたりせず、HTTPSだけでページソースを取得できる経路が利用可能になるまで更新を見送ってください。
+更新前に、リポジトリの`wikidot.py`フォークで公式ページソースを取得し、JPタグリストのマニフェストに列挙されたフラグメントだけを更新対象にしてください。`curl`や検索結果を原典として使わず、取得・同期・検証の詳細は`AGENTS.md`の「Updating Wikidot source snapshots」に従ってください。
 
 ```bash
 python -m scripts.commands.parse_sources --lang all

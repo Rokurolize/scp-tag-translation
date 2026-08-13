@@ -63,10 +63,11 @@ def build_and_publish(
     corpus_root: Path,
     branches: Sequence[str],
     *,
-    config: CoverageBuildConfig,
+    config: CoverageBuildConfig | None = None,
 ) -> tuple[Coverage, tuple[Path, Path, Path, Path]]:
     """Build coverage artifacts and publish all four outputs atomically."""
 
+    config = config or default_coverage_build_config()
     inputs = load_coverage_inputs(config.mapping_inputs)
     branch_tag_stats = {
         branch: collect_branch_tag_stats(corpus_root, branch)

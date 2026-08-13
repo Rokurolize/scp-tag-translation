@@ -1,3 +1,5 @@
+"""Parse SCP-JP tag-list fragments and unused-tag records."""
+
 from __future__ import annotations
 
 import re

@@ -1,3 +1,5 @@
+"""Parse the English SCP tag-list source into validated tag records."""
+
 from __future__ import annotations
 
 import re

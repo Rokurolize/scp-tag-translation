@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from types import MappingProxyType
 from typing import TypedDict
+from collections.abc import Mapping
 
 
 class BrowserBranchRecord(TypedDict):
@@ -41,7 +43,9 @@ SUPPORTED_BRANCH_CONFIGS = (
 
 
 SUPPORTED_BRANCHES = tuple(config.branch for config in SUPPORTED_BRANCH_CONFIGS)
-BRANCH_CONFIG_BY_CODE = {config.branch: config for config in SUPPORTED_BRANCH_CONFIGS}
+BRANCH_CONFIG_BY_CODE: Mapping[str, BranchConfig] = MappingProxyType({
+    config.branch: config for config in SUPPORTED_BRANCH_CONFIGS
+})
 
 
 def browser_config_records() -> list[BrowserBranchRecord]:

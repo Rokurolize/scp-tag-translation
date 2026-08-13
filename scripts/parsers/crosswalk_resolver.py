@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import unicodedata
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping
 
 from scripts.domain.tag_records import DeprecatedTag, JpTag
 from scripts.domain.tag_policy import jp_maps
@@ -34,7 +34,7 @@ class CrosswalkResolver:
         self,
         jp_tags: list[JpTag],
         deprecated_tags: list[DeprecatedTag] | None = None,
-        origin_replacements: dict[str, str] | None = None,
+        origin_replacements: Mapping[str, str] | None = None,
     ) -> None:
         validated_jp_tags = validate_jp_tags(jp_tags)
         validated_deprecated_tags = validate_deprecated_tags(
@@ -76,7 +76,7 @@ class CrosswalkResolver:
     def _index_en_replacements(
         self,
         deprecated_tags: list[DeprecatedTag],
-        origin_replacements: dict[str, str],
+        origin_replacements: Mapping[str, str],
     ) -> None:
         """Populate deterministic EN replacement mappings."""
 
