@@ -12,12 +12,12 @@ from scripts.data_paths import (
     DICTIONARIES_DIR,
     OVERRIDES_PATH,
 )
-from scripts.domain.tag_policy import MappingPolicyInputs
 from scripts.domain.tag_models import (
     BranchOverrideFile,
     OfficialCrosswalkFile,
     ReplacementOverrideFile,
 )
+from scripts.domain.policy_builder import MappingPolicyInputs
 from scripts.json_io import load_json
 
 

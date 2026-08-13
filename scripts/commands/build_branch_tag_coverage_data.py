@@ -28,7 +28,7 @@ from scripts.domain.tag_models import (
     ApplicationInventory,
     Coverage,
 )
-from scripts.domain.tag_policy import build_mapping_policy
+from scripts.domain.policy_builder import build_mapping_policy
 from scripts.domain.tag_validation import validate_tag_records
 
 DEFAULT_OUTPUT_DIR = VISUALIZATION_DIR

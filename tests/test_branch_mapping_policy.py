@@ -2,6 +2,7 @@ import pytest
 
 from scripts.commands import build_branch_dicts_from_corpus as branch_builder
 from scripts.domain import tag_policy
+from scripts.domain.policy_builder import deprecated_by_source_lang
 from scripts.domain.tag_dictionary import build_en_dicts
 
 def test_branch_builder_applies_expected_precedence(jp_tags_data):
@@ -101,7 +102,7 @@ def test_deprecated_entries_reject_duplicate_source_keys():
     ]
 
     with pytest.raises(ValueError, match="duplicate deprecated entry"):
-        tag_policy.deprecated_by_source_lang(entries, {"対象A", "対象B"})
+        deprecated_by_source_lang(entries, {"対象A", "対象B"})
 
 
 def test_en_builder_includes_effective_replacement_overrides():
@@ -176,4 +177,3 @@ def test_en_builder_applies_shared_mapping_precedence():
         "same": "same",
         "unknown": None,
     }
-

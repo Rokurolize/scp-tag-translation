@@ -2,10 +2,8 @@
 
 from __future__ import annotations
 
-import json
 import unicodedata
 from collections.abc import Iterable
-from pathlib import Path
 
 from scripts.domain.tag_models import DeprecatedTag, JpTag
 from scripts.domain.tag_policy import jp_maps
@@ -157,15 +155,3 @@ class CrosswalkResolver:
         if len(targets) != 1:
             return None
         return next(iter(targets))
-
-
-def load_resolver(
-    jp_path: Path,
-    deprecated_path: Path,
-    origin_replacements: dict[str, str] | None = None,
-) -> CrosswalkResolver:
-    jp_tags = json.loads(jp_path.read_text(encoding="utf-8"))
-    deprecated_tags = json.loads(deprecated_path.read_text(encoding="utf-8"))
-    if not isinstance(jp_tags, list) or not isinstance(deprecated_tags, list):
-        raise ValueError("JP tag resolver inputs must be JSON arrays")
-    return CrosswalkResolver(jp_tags, deprecated_tags, origin_replacements)
