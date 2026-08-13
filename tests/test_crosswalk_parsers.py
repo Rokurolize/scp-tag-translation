@@ -160,6 +160,52 @@ def test_int_and_ko_crosswalks_ignore_placeholder_cells(tmp_path):
     assert ko_mappings == {"ko": {}}
 
 
+def test_int_crosswalk_respects_reordered_columns_and_skips_short_rows(tmp_path):
+    source = tmp_path / "int.txt"
+    source.write_text(
+        "|| **JP** || **CN** || **EN** ||\n"
+        "|| 日本語 || 本地 || source ||\n"
+        "|| 別対象 || short-only ||\n",
+        encoding="utf-8",
+    )
+
+    mappings = int_parser.parse_int_crosswalk_raw(source)
+
+    assert mappings["en"] == {"source": "日本語"}
+    assert mappings["int"] == {"source": "日本語"}
+    assert mappings["cn"] == {"本地": "日本語"}
+    assert "short-only" not in mappings["cn"]
+
+
+def test_int_crosswalk_omits_repeated_source_with_conflicting_targets(tmp_path):
+    source = tmp_path / "int.txt"
+    source.write_text(
+        "|| **EN** || **JP** || **CN** ||\n"
+        "|| source || 対象一 || 本地 ||\n"
+        "|| source || 対象二 || 本地 ||\n",
+        encoding="utf-8",
+    )
+
+    mappings = int_parser.parse_int_crosswalk_raw(source)
+
+    assert "source" not in mappings.get("en", {})
+    assert "source" not in mappings.get("int", {})
+    assert "本地" not in mappings.get("cn", {})
+
+
+def test_int_crosswalk_duplicate_header_uses_last_column_like_dict_zip(tmp_path):
+    source = tmp_path / "int.txt"
+    source.write_text(
+        "|| **EN** || **JP** || **EN** ||\n"
+        "|| first || 対象 || last ||\n",
+        encoding="utf-8",
+    )
+
+    mappings = int_parser.parse_int_crosswalk_raw(source)
+
+    assert mappings["en"] == {"last": "対象"}
+
+
 def test_crosswalk_semantic_replacement_overrides_stale_raw_jp_label(
     jp_tags_data,
     deprecated_tags_data,

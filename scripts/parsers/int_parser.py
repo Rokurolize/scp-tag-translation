@@ -56,8 +56,12 @@ def _cell_tags(cell: str) -> list[str]:
 
 
 def _cell_for_column(cells: list[str], header: list[str], column: str) -> str:
-    """Return a header-selected cell while tolerating short rows."""
-    index = header.index(column)
+    """Return the last matching header cell while tolerating short rows.
+
+    This matches the historical ``dict(zip(header, cells))`` behavior for
+    malformed rows with duplicate column names.
+    """
+    index = len(header) - 1 - header[::-1].index(column)
     return cells[index] if index < len(cells) else ""
 
 
@@ -68,6 +72,17 @@ def _raw_target(
     del en_values
     values = list(jp_values)
     return values[0] if len(values) == 1 else None
+
+
+def _iter_source_tag_branches(
+    cells: list[str],
+    header: list[str],
+) -> Iterable[tuple[str, str]]:
+    for column, branches in _SOURCE_COLUMNS.items():
+        cell = _cell_for_column(cells, header, column) if column in header else ""
+        for source_tag in _cell_tags(cell):
+            for branch in branches:
+                yield branch, source_tag
 
 
 def _iter_int_crosswalk_candidates(
@@ -100,14 +115,8 @@ def _iter_int_crosswalk_candidates(
 
             en_values = _cell_tags(_cell_for_column(cells, header, "EN"))
             jp_values = _cell_tags(_cell_for_column(cells, header, "JP"))
-            for column, branches in _SOURCE_COLUMNS.items():
-                for source_tag in _cell_tags(
-                    _cell_for_column(cells, header, column)
-                    if column in header
-                    else ""
-                ):
-                    for branch in branches:
-                        yield branch, source_tag, en_values, jp_values
+            for branch, source_tag in _iter_source_tag_branches(cells, header):
+                yield branch, source_tag, en_values, jp_values
 
 
 def parse_int_crosswalk_raw(input_path: Path) -> CrosswalkMappings:
