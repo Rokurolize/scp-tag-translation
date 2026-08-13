@@ -199,18 +199,10 @@ def build_and_publish(
     config: BranchBuildConfig = BranchBuildConfig(),
 ) -> BuildArtifacts:
     """Load validated inputs, build dictionaries, and publish them atomically."""
-    required_data = (
-        config.mapping_inputs.data_en,
-        config.mapping_inputs.data_jp,
-        config.mapping_inputs.data_deprecated,
-        *config.mapping_inputs.crosswalks,
+    loaded = load_mapping_inputs(
+        config.mapping_inputs,
+        require_complete_inputs=True,
     )
-    if any(not path.exists() for path in required_data):
-        raise FileNotFoundError(
-            "先に python -m scripts.commands.parse_sources を実行してください。"
-        )
-
-    loaded = load_mapping_inputs(config.mapping_inputs)
     required_branches = set(branches) | set(config.supported_branches)
     corpus_data = {
         branch: collect_corpus_branch_data(corpus_root, branch)

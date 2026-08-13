@@ -149,12 +149,24 @@ def load_mapping_inputs(
     *,
     policy_inputs: MappingPolicyInputs | None = None,
     include_origin_replacements: bool = True,
+    require_complete_inputs: bool = False,
 ) -> LoadedMappingInputs:
     """Load and validate tag records, then assemble one mapping policy."""
     paths = paths or default_mapping_input_paths()
-    required_data = (paths.data_en, paths.data_jp)
-    if any(not path.exists() for path in required_data):
-        raise FileNotFoundError("Run python -m scripts.commands.parse_sources first.")
+    required_paths = [paths.data_en, paths.data_jp]
+    if require_complete_inputs:
+        required_paths.extend(
+            [
+                paths.data_deprecated,
+                paths.overrides,
+                paths.replacement_overrides,
+                *paths.crosswalks,
+            ]
+        )
+    missing_paths = [path for path in required_paths if not path.exists()]
+    if missing_paths:
+        missing = ", ".join(str(path) for path in missing_paths)
+        raise FileNotFoundError(f"Required mapping inputs missing: {missing}")
     en_tags, jp_tags, deprecated_tags = validate_tag_records(
         load_json(paths.data_en),
         load_json(paths.data_jp),
