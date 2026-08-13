@@ -19,7 +19,6 @@ from scripts.data_paths import (
     DATA_INT_CROSSWALK,
     DATA_JP,
     DATA_KO_CROSSWALK,
-    ROOT,
 )
 from scripts.parsers import (
     branch_guide_parser,
@@ -32,34 +31,21 @@ from scripts.parsers.crosswalk_resolver import CrosswalkResolver
 from scripts.domain.tag_records import DeprecatedTag, JpTag
 from scripts.domain.tag_policy import EN_CROSSWALK_SEMANTIC_REPLACEMENTS
 from scripts.domain.tag_validation import validate_deprecated_tags, validate_jp_tags
+from scripts.domain.source_manifest import (
+    branch_guide_sources,
+    parser_source_path,
+    source_directory,
+)
 
 Language = Literal["en", "jp", "crosswalks", "all"]
 LANGUAGES: tuple[Language, ...] = ("en", "jp", "crosswalks", "all")
 
-SOURCES_EN = ROOT / "sources" / "en" / "tag-list.txt"
-SOURCES_JP = ROOT / "sources" / "jp"
-SOURCES_JP_UNUSED = SOURCES_JP / "fragment-unused.txt"
-SOURCES_INT = ROOT / "sources" / "int" / "tag-guide.txt"
-SOURCES_KO = ROOT / "sources" / "ko" / "translate-tags.txt"
-BRANCH_GUIDE_SOURCES: Mapping[str, tuple[Path, ...]] = {
-    "cn": (ROOT / "sources" / "cn" / "tag-guide.txt",),
-    "de": (ROOT / "sources" / "de" / "tag-guide.txt",),
-    "es": (ROOT / "sources" / "es" / "tag-guide.txt",),
-    "fr": (ROOT / "sources" / "fr" / "guide-des-tags.txt",),
-    "it": (ROOT / "sources" / "it" / "tag-guide.txt",),
-    "pl": (ROOT / "sources" / "pl" / "tag-list.txt",),
-    "pt-br": (ROOT / "sources" / "pt-br" / "fragment-lista-mestra.txt",),
-    "th": (ROOT / "sources" / "th" / "tag-list.txt",),
-    "ua": (ROOT / "sources" / "ua" / "tag-guide.txt",),
-    "vn": (ROOT / "sources" / "vn" / "fragment-tag-guide-for-translator.txt",),
-    "zh-tr": (
-        ROOT / "sources" / "zh-tr" / "fragment-base-tag.txt",
-        ROOT / "sources" / "zh-tr" / "fragment-characteristic-tag.txt",
-        ROOT / "sources" / "zh-tr" / "fragment-genre-and-theme-tag.txt",
-        ROOT / "sources" / "zh-tr" / "fragment-other-tag.txt",
-        ROOT / "sources" / "zh-tr" / "fragment-internationality-tag.txt",
-    ),
-}
+SOURCES_EN = parser_source_path("en")
+SOURCES_JP = source_directory("jp")
+SOURCES_JP_UNUSED = parser_source_path("jp_unused")
+SOURCES_INT = parser_source_path("int")
+SOURCES_KO = parser_source_path("ko")
+BRANCH_GUIDE_SOURCES: Mapping[str, tuple[Path, ...]] = branch_guide_sources()
 
 
 @dataclass(frozen=True)

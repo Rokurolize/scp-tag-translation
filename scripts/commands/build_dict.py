@@ -35,10 +35,7 @@ from scripts.data_paths import (
 )
 from scripts.domain.tag_dictionary import build_en_dicts
 from scripts.domain.tag_records import EnTag, JpTag
-from scripts.domain.tag_policy import (
-    MappingPolicy,
-    build_jp_names_and_source_map,
-)
+from scripts.domain.policy_builder import MappingPolicyInputs, build_mapping_policy
 from scripts.domain.tag_validation import validate_tag_records
 
 
@@ -84,7 +81,15 @@ def build_en_dictionary(
         existing = {}
     if deprecated_en_tags is None:
         deprecated_en_tags = set()
-    validate_tag_records(en_tags, jp_tags)
+    deprecated_raw = [
+        {"source_lang": "EN", "source_tag": source_tag}
+        for source_tag in deprecated_en_tags
+    ]
+    en_tags, jp_tags, deprecated_raw = validate_tag_records(
+        en_tags,
+        jp_tags,
+        deprecated_raw,
+    )
     validate_existing_dict(existing)
     _ensure_no_case_variant_keys(
         existing.keys(),
@@ -92,24 +97,26 @@ def build_en_dictionary(
         "既存辞書キー",
     )
 
-    jp_names, jp_source_map = build_jp_names_and_source_map(jp_tags)
     compatibility_overrides = {
         source_tag: target
         for source_tag, target in existing.items()
         if target is not None
     }
-    policy = MappingPolicy(
-        jp_names=jp_names,
-        jp_source_map=jp_source_map,
-        deprecated_tags={"EN": deprecated_en_tags},
-        replacements={},
-        overrides={"en": compatibility_overrides},
-        official_crosswalk={},
+    policy = build_mapping_policy(
+        jp_tags,
+        deprecated_raw,
+        MappingPolicyInputs(
+            overrides={},
+            replacement_overrides={},
+            official_crosswalks=(),
+            compatibility_overrides={"en": compatibility_overrides},
+        ),
+        include_origin_replacements=False,
     )
     dictionary, _replacements = build_en_dicts(
         en_tags,
         jp_tags,
-        [],
+        deprecated_raw,
         set(existing),
         policy,
     )

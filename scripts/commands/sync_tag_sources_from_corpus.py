@@ -10,37 +10,9 @@ from pathlib import Path
 
 from scripts.atomic_output import FileWriter, publish_files_atomically
 from scripts.data_paths import ROOT
+from scripts.domain.source_manifest import corpus_source_map
 
-SOURCE_MAP = {
-    "sources/en/tag-guide.txt": "05command/pages/tech-hub-tag/source.wikidot.txt",
-    "sources/en/tag-list.txt": "05command/pages/tech-hub-tag-list/source.wikidot.txt",
-    "sources/en/tag-list-manifest.txt": "05command/pages/tag-list-manifest/source.wikidot.txt",
-    "sources/jp/tag-guide.txt": "jp/pages/tag-guide/source.wikidot.txt",
-    "sources/jp/tag-list.txt": "jp/pages/tag-list/source.wikidot.txt",
-    "sources/jp/fragment-basic.txt": "jp/pages/fragment:tag-list-basic/source.wikidot.txt",
-    "sources/jp/fragment-series.txt": "jp/pages/fragment:tag-list-series/source.wikidot.txt",
-    "sources/jp/fragment-universe.txt": "jp/pages/fragment:tag-list-universe/source.wikidot.txt",
-    "sources/jp/fragment-event.txt": "jp/pages/fragment:tag-list-event/source.wikidot.txt",
-    "sources/jp/fragment-unused.txt": "jp/pages/fragment:tag-list-unused/source.wikidot.txt",
-    "sources/jp/fragment-faq.txt": "jp/pages/fragment:tag-list-faq/source.wikidot.txt",
-    "sources/int/tag-guide.txt": "int/pages/tag-guide/source.wikidot.txt",
-    "sources/ko/translate-tags.txt": "ko/pages/translate:tags/source.wikidot.txt",
-    "sources/cn/tag-guide.txt": "cn/pages/tag-guide/source.wikidot.txt",
-    "sources/de/tag-guide.txt": "de/pages/tag-guide/source.wikidot.txt",
-    "sources/es/tag-guide.txt": "es/pages/tag-guide/source.wikidot.txt",
-    "sources/fr/guide-des-tags.txt": "fr/pages/guide-des-tags/source.wikidot.txt",
-    "sources/it/tag-guide.txt": "it/pages/tag-guide/source.wikidot.txt",
-    "sources/pl/tag-list.txt": "pl/pages/tag-list/source.wikidot.txt",
-    "sources/pt-br/fragment-lista-mestra.txt": "pt-br/pages/fragment:lista-mestra/source.wikidot.txt",
-    "sources/th/tag-list.txt": "th/pages/tag-list/source.wikidot.txt",
-    "sources/ua/tag-guide.txt": "ua/pages/tag-guide/source.wikidot.txt",
-    "sources/vn/fragment-tag-guide-for-translator.txt": "vn/pages/fragment:tag-guide-for-translator/source.wikidot.txt",
-    "sources/zh-tr/fragment-base-tag.txt": "zh-tr/pages/fragment:base-tag/source.wikidot.txt",
-    "sources/zh-tr/fragment-characteristic-tag.txt": "zh-tr/pages/fragment:characteristic-tag/source.wikidot.txt",
-    "sources/zh-tr/fragment-genre-and-theme-tag.txt": "zh-tr/pages/fragment:genre-and-theme-tag/source.wikidot.txt",
-    "sources/zh-tr/fragment-other-tag.txt": "zh-tr/pages/fragment:other-tag/source.wikidot.txt",
-    "sources/zh-tr/fragment-internationality-tag.txt": "zh-tr/pages/fragment:internationality-tag/source.wikidot.txt",
-}
+SOURCE_MAP = corpus_source_map()
 
 
 def _copy_writer(source: Path) -> FileWriter:

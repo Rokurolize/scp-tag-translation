@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from scripts.domain.tag_records import (
     BranchOverrideFile,
@@ -26,6 +26,9 @@ class MappingPolicyInputs:
     overrides: BranchOverrideFile
     replacement_overrides: ReplacementOverrideFile
     official_crosswalks: tuple[OfficialCrosswalkFile, ...]
+    compatibility_overrides: Mapping[str, Mapping[str, str]] = field(
+        default_factory=dict,
+    )
 
 
 def _validated_override_target(
@@ -197,6 +200,8 @@ def build_mapping_policy(
         inputs.official_crosswalks,
         jp_names,
     )
+    for branch, mappings in inputs.compatibility_overrides.items():
+        overrides.setdefault(branch, {}).update(mappings)
     deprecated_tags, replacements = deprecated_by_source_lang(
         deprecated_raw,
         jp_names,
