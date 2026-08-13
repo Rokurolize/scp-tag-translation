@@ -4,6 +4,7 @@ import sys
 import pytest
 
 from scripts.commands import build_dict
+from scripts.domain.policy_builder import MappingPolicyInputs
 
 EN = [{"name": "scp"}, {"name": "tale"}, {"name": "hub"}]
 JP = [
@@ -32,6 +33,15 @@ def redirected_build_dict_paths(tmp_path, monkeypatch):
         ("DEPRECATED_EN_DICTIONARY_PATH", "dict_deprecated"),
     ):
         monkeypatch.setattr(build_dict, attribute, paths[key])
+    monkeypatch.setattr(
+        build_dict,
+        "load_mapping_policy_inputs",
+        lambda: MappingPolicyInputs(
+            overrides={},
+            replacement_overrides={},
+            official_crosswalks=(),
+        ),
+    )
     monkeypatch.setattr(sys, "argv", ["build_dict.py"])
     return paths
 

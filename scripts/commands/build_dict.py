@@ -16,9 +16,11 @@ from __future__ import annotations
 import argparse
 import sys
 from collections.abc import Iterable
+from dataclasses import replace
 from typing import cast
 
 from scripts.atomic_output import publish_files_atomically
+from scripts.dictionary_inputs import load_mapping_policy_inputs
 from scripts.json_io import load_json, write_json
 from scripts.data_paths import (
     DATA_DEPRECATED,
@@ -29,10 +31,8 @@ from scripts.data_paths import (
 )
 from scripts.domain.tag_dictionary import build_en_dicts
 from scripts.domain.tag_records import EnTag, JpTag
+from scripts.domain.policy_builder import build_mapping_policy
 from scripts.domain.tag_policy import (
-    EN_ORIGIN_TAG_REPLACEMENTS,
-    en_category_omitted_tags,
-    is_deprecated_for_en_source,
     jp_maps,
     MappingPolicy,
 )
@@ -128,38 +128,39 @@ def _build_outputs(
         (load_json(DATA_DEPRECATED) if DATA_DEPRECATED.exists() else []),
     )
 
-    deprecated_en_tags = {
-        entry["source_tag"]
-        for entry in deprecated_raw
-        if is_deprecated_for_en_source(entry)
-    }
-    category_omitted_tags = en_category_omitted_tags(en_tags, jp_tags)
-    en_tag_names = {entry["name"] for entry in en_tags}
-    origin_replacements = {
-        source_tag: replacement
-        for source_tag, replacement in EN_ORIGIN_TAG_REPLACEMENTS.items()
-        if source_tag in en_tag_names
-    }
-    deprecated_en_tags.update(category_omitted_tags)
-    deprecated_en_tags.update(origin_replacements)
-
     existing: dict[str, str | None] = {}
     if not overwrite and EN_DICTIONARY_PATH.exists():
         existing = validate_existing_dict(load_json(EN_DICTIONARY_PATH))
 
-    sorted_dict = build_en_dictionary(
+    policy = build_mapping_policy(
+        jp_tags,
+        deprecated_raw,
+        load_mapping_policy_inputs(),
+        include_origin_replacements=False,
+    )
+    if existing:
+        policy = replace(
+            policy,
+            overrides={
+                **policy.overrides,
+                "en": {
+                    **policy.overrides.get("en", {}),
+                    **{
+                        source_tag: target
+                        for source_tag, target in existing.items()
+                        if target is not None
+                    },
+                },
+            },
+        )
+
+    sorted_dict, deprecated_dict = build_en_dicts(
         en_tags,
         jp_tags,
-        existing,
-        deprecated_en_tags,
+        deprecated_raw,
+        set(existing),
+        policy,
     )
-    deprecated_dict = {
-        entry["source_tag"]: replacement
-        for entry in deprecated_raw
-        if is_deprecated_for_en_source(entry)
-        and isinstance(replacement := entry.get("replacement"), str)
-    }
-    deprecated_dict.update(origin_replacements)
     return sorted_dict, dict(sorted(deprecated_dict.items()))
 
 

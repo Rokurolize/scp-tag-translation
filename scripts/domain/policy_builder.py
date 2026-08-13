@@ -115,6 +115,8 @@ def deprecated_by_source_lang(
     deprecated_raw: list[DeprecatedTag],
     jp_names: frozenset[str] | set[str],
     replacement_overrides: Mapping[str, Mapping[str, str]] | None = None,
+    *,
+    include_origin_replacements: bool = True,
 ) -> tuple[dict[str, set[str]], dict[str, dict[str, str | None]]]:
     deprecated_tags: dict[str, set[str]] = {}
     replacements: dict[str, dict[str, str | None]] = {}
@@ -135,13 +137,14 @@ def deprecated_by_source_lang(
             )
         replacements.setdefault(source_lang, {})[source_tag] = replacement
 
-    for source_tag, replacement in EN_ORIGIN_TAG_REPLACEMENTS.items():
-        if replacement not in jp_names:
-            raise ValueError(
-                f"EN origin replacement is not a JP tag: {source_tag}->{replacement}"
-            )
-        deprecated_tags.setdefault("EN", set()).add(source_tag)
-        replacements.setdefault("EN", {})[source_tag] = replacement
+    if include_origin_replacements:
+        for source_tag, replacement in EN_ORIGIN_TAG_REPLACEMENTS.items():
+            if replacement not in jp_names:
+                raise ValueError(
+                    f"EN origin replacement is not a JP tag: {source_tag}->{replacement}"
+                )
+            deprecated_tags.setdefault("EN", set()).add(source_tag)
+            replacements.setdefault("EN", {})[source_tag] = replacement
 
     for source_lang, mappings in (replacement_overrides or {}).items():
         for source_tag, replacement in mappings.items():
@@ -159,6 +162,8 @@ def build_mapping_policy(
     jp_tags: list[JpTag],
     deprecated_raw: list[DeprecatedTag],
     inputs: MappingPolicyInputs,
+    *,
+    include_origin_replacements: bool = True,
 ) -> MappingPolicy:
     """Assemble parsed source policies into the runtime mapping contract."""
     jp_names, jp_source_map = jp_maps(jp_tags)
@@ -175,6 +180,7 @@ def build_mapping_policy(
         deprecated_raw,
         jp_names,
         replacement_overrides,
+        include_origin_replacements=include_origin_replacements,
     )
     return MappingPolicy(
         jp_names=jp_names,
