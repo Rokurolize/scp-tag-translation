@@ -6,7 +6,6 @@ import pytest
 
 from scripts.corpus import (
     collect_corpus_branch_data,
-    corpus_tags_for_branch,
     discover_corpus_branches,
 )
 from scripts import dictionary_inputs
@@ -310,7 +309,7 @@ def test_generated_dictionary_covers_every_tag_in_controlled_corpus(
     controlled_branch_artifacts,
 ):
     corpus_root, artifacts, output_dir, _policy_path = controlled_branch_artifacts
-    corpus_tags = corpus_tags_for_branch(corpus_root, "en")
+    corpus_tags = collect_corpus_branch_data(corpus_root, "en").source_tags
     dictionary = artifacts.outputs[output_dir / "en_to_jp.json"]
 
     assert corpus_tags <= set(dictionary)

@@ -115,10 +115,3 @@ def collect_branch_tag_stats(
             for tag, count in counts.items()
         },
     }
-
-
-def corpus_tags_for_branch(corpus_root: Path, branch: str) -> set[str]:
-    tags: set[str] = set()
-    for _slug, page_tags in iter_corpus_page_tags(corpus_root, branch):
-        tags.update(page_tags)
-    return tags
