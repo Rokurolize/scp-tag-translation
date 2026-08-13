@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.commands import parse_sources
+from scripts.application import source_parse as parse_workflow
 from scripts.domain.policy.tag_policy import (
     EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
     EN_ORIGIN_TAG_REPLACEMENTS,
@@ -260,7 +260,7 @@ def test_branch_guides_resolve_current_jp_tags_and_reject_ambiguous_rows(
         EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
     )
     analysis = branch_guide_parser.analyze_branch_guides(
-        parse_sources.BRANCH_GUIDE_SOURCES,
+        parse_workflow.BRANCH_GUIDE_SOURCES,
         resolver.resolve,
     )
     mappings = analysis.mappings

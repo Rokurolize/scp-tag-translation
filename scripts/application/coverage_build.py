@@ -63,14 +63,20 @@ def load_coverage_inputs(paths: MappingInputPaths) -> CoverageInputs:
 
 def build_and_publish_coverage(
     corpus_root: Path,
-    branches: Sequence[str],
+    branches: Sequence[str] | None,
     *,
     config: CoverageBuildConfig | None = None,
 ) -> tuple[Coverage, tuple[Path, Path, Path, Path]]:
     """Build coverage artifacts and publish all four outputs atomically."""
     config = config or default_coverage_build_config()
+    requested_branches = tuple(branches or SUPPORTED_BRANCHES)
+    requested_branches = tuple(
+        branch
+        for branch in requested_branches
+        if branch != "jp" and not branch.startswith("_")
+    )
     branches = validate_requested_branches(
-        branches,
+        requested_branches,
         supported_branches=SUPPORTED_BRANCHES,
     )
     inputs = load_coverage_inputs(config.mapping_inputs)

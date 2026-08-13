@@ -3,6 +3,7 @@ import sys
 
 import pytest
 
+from scripts.application import legacy_dictionary_build as legacy_workflow
 from scripts.commands import build_dict
 from scripts.domain.policy.policy_builder import MappingPolicyInputs
 from scripts.pipeline import dictionary_inputs
@@ -33,15 +34,20 @@ def redirected_build_dict_paths(tmp_path, monkeypatch):
         ("EN_DICTIONARY_PATH", "dict_out"),
         ("DEPRECATED_EN_DICTIONARY_PATH", "dict_deprecated"),
     ):
-        monkeypatch.setattr(build_dict, attribute, paths[key])
+        monkeypatch.setattr(legacy_workflow, attribute, paths[key])
     monkeypatch.setattr(
-        build_dict,
+        legacy_workflow,
         "load_mapping_policy_inputs",
         lambda: MappingPolicyInputs(
             overrides={},
             replacement_overrides={},
             official_crosswalks=(),
         ),
+    )
+    monkeypatch.setattr(
+        build_dict,
+        "default_legacy_dictionary_build_config",
+        legacy_workflow.default_legacy_dictionary_build_config,
     )
     monkeypatch.setattr(sys, "argv", ["build_dict.py"])
     return paths
@@ -88,7 +94,7 @@ def test_main_publishes_with_real_policy_file_loader(
         crosswalks=(crosswalk_path,),
     )
     monkeypatch.setattr(
-        build_dict,
+        legacy_workflow,
         "load_mapping_policy_inputs",
         lambda: dictionary_inputs.load_mapping_policy_inputs(mapping_paths),
     )
@@ -231,7 +237,11 @@ def test_main_reports_publication_failure_without_partial_outputs(
     def fail_publication(_writers):
         raise OSError("disk full")
 
-    monkeypatch.setattr(build_dict, "publish_files_atomically", fail_publication)
+    monkeypatch.setattr(
+        legacy_workflow,
+        "publish_files_atomically",
+        fail_publication,
+    )
 
     with pytest.raises(SystemExit) as excinfo:
         build_dict.main()

@@ -37,6 +37,13 @@ from scripts.pipeline.source_manifest import (
 Language = Literal["en", "jp", "crosswalks", "all"]
 LANGUAGES: tuple[Language, ...] = ("en", "jp", "crosswalks", "all")
 
+SOURCES_EN = parser_source_path("en", root=ROOT)
+SOURCES_JP = source_directory("jp", root=ROOT)
+SOURCES_JP_UNUSED = parser_source_path("jp_unused", root=ROOT)
+SOURCES_INT = parser_source_path("int", root=ROOT)
+SOURCES_KO = parser_source_path("ko", root=ROOT)
+BRANCH_GUIDE_SOURCES: Mapping[str, tuple[Path, ...]] = branch_guide_sources(root=ROOT)
+
 
 class EnParser(Protocol):
     def parse_en_tags(self, path: Path) -> list[EnTag]: ...
@@ -82,20 +89,22 @@ class ParseBatch:
 class ParseWorkflowConfig:
     """Paths and parser implementations used by one parse workflow."""
 
-    sources_en: Path = parser_source_path("en", root=ROOT)
-    sources_jp: Path = source_directory("jp", root=ROOT)
-    sources_jp_unused: Path = parser_source_path("jp_unused", root=ROOT)
-    sources_int: Path = parser_source_path("int", root=ROOT)
-    sources_ko: Path = parser_source_path("ko", root=ROOT)
+    sources_en: Path = field(default_factory=lambda: SOURCES_EN)
+    sources_jp: Path = field(default_factory=lambda: SOURCES_JP)
+    sources_jp_unused: Path = field(default_factory=lambda: SOURCES_JP_UNUSED)
+    sources_int: Path = field(default_factory=lambda: SOURCES_INT)
+    sources_ko: Path = field(default_factory=lambda: SOURCES_KO)
     branch_guide_sources: Mapping[str, tuple[Path, ...]] = field(
-        default_factory=lambda: branch_guide_sources(root=ROOT),
+        default_factory=lambda: BRANCH_GUIDE_SOURCES,
     )
-    data_en: Path = DATA_EN
-    data_jp: Path = DATA_JP
-    data_deprecated: Path = DATA_DEPRECATED
-    data_int_crosswalk: Path = DATA_INT_CROSSWALK
-    data_ko_crosswalk: Path = DATA_KO_CROSSWALK
-    data_branch_guide_crosswalk: Path = DATA_BRANCH_GUIDE_CROSSWALK
+    data_en: Path = field(default_factory=lambda: DATA_EN)
+    data_jp: Path = field(default_factory=lambda: DATA_JP)
+    data_deprecated: Path = field(default_factory=lambda: DATA_DEPRECATED)
+    data_int_crosswalk: Path = field(default_factory=lambda: DATA_INT_CROSSWALK)
+    data_ko_crosswalk: Path = field(default_factory=lambda: DATA_KO_CROSSWALK)
+    data_branch_guide_crosswalk: Path = field(
+        default_factory=lambda: DATA_BRANCH_GUIDE_CROSSWALK,
+    )
     en_parser: EnParser = field(default_factory=lambda: en_parser)
     jp_parser: JpParser = field(default_factory=lambda: jp_parser)
     int_parser: IntParser = field(default_factory=lambda: int_parser)
@@ -294,11 +303,9 @@ def collect_outputs(
 
 def publish_outputs(
     outputs: Mapping[Path, object],
-    *,
-    publish=publish_files_atomically,
 ) -> None:
     """Publish all collected records in one atomic batch."""
-    publish({
+    publish_files_atomically({
         destination: lambda temporary, data=data: write_json(temporary, data)
         for destination, data in outputs.items()
     })
@@ -308,20 +315,22 @@ def parse_and_publish_sources(
     language: Language,
     *,
     config: ParseWorkflowConfig | None = None,
-    publish_outputs_fn=None,
 ) -> ParseBatch:
     """Collect, atomically publish, and report one source parse workflow."""
     batch = collect_outputs(language, config=config)
-    if publish_outputs_fn is None:
-        publish_outputs(batch.outputs)
-    else:
-        publish_outputs_fn(batch.outputs)
+    publish_outputs(batch.outputs)
     for message in batch.messages:
         print(message)
     return batch
 
 
 __all__ = [
+    "BRANCH_GUIDE_SOURCES",
+    "SOURCES_EN",
+    "SOURCES_INT",
+    "SOURCES_JP",
+    "SOURCES_JP_UNUSED",
+    "SOURCES_KO",
     "LANGUAGES",
     "Language",
     "ParseBatch",

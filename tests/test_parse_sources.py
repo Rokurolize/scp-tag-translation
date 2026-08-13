@@ -10,7 +10,7 @@ from pathlib import Path
 import pytest
 
 from scripts.commands import parse_sources
-from scripts.application.source_parse import ParseWorkflowConfig
+from scripts.application import source_parse as parse_workflow
 from scripts.parsers.contracts import BranchGuideAnalysis
 
 
@@ -75,25 +75,7 @@ def _redirect_pipeline_paths(monkeypatch, tmp_path: Path) -> tuple[Path, ...]:
         "DATA_BRANCH_GUIDE_CROSSWALK": outputs[5],
     }
     for name, value in replacements.items():
-        monkeypatch.setattr(parse_sources, name, value)
-    monkeypatch.setattr(
-        parse_sources,
-        "default_parse_workflow_config",
-        lambda: ParseWorkflowConfig(
-            sources_en=source_en,
-            sources_jp=jp_dir,
-            sources_jp_unused=jp_dir / "fragment-unused.txt",
-            sources_int=source_int,
-            sources_ko=source_ko,
-            branch_guide_sources={"ua": (source_guide,)},
-            data_en=outputs[0],
-            data_jp=outputs[1],
-            data_deprecated=outputs[2],
-            data_int_crosswalk=outputs[3],
-            data_ko_crosswalk=outputs[4],
-            data_branch_guide_crosswalk=outputs[5],
-        ),
-    )
+        monkeypatch.setattr(parse_workflow, name, value)
     return outputs
 
 
@@ -102,7 +84,7 @@ def test_run_jp_clears_deprecated_data_when_unused_source_missing(
     monkeypatch,
 ):
     outputs = _redirect_pipeline_paths(monkeypatch, tmp_path)
-    (parse_sources.SOURCES_JP / "fragment-basic.txt").write_text(
+    (parse_workflow.SOURCES_JP / "fragment-basic.txt").write_text(
         "* **[[[/system:page-tags/tag/scp|scp]]]** //(scp)// - SCP。",
         encoding="utf-8",
     )
@@ -125,28 +107,28 @@ def test_run_all_does_not_publish_when_last_parser_fails(tmp_path, monkeypatch):
         output.write_bytes(old_payloads[output])
 
     monkeypatch.setattr(
-        parse_sources.en_parser,
+        parse_workflow.en_parser,
         "parse_en_tags",
         lambda _path: [{"name": "source", "category": None, "meta": {}}],
     )
     monkeypatch.setattr(
-        parse_sources.jp_parser,
+        parse_workflow.jp_parser,
         "parse_jp_tags",
         lambda _path: [{"name": "target", "source_tags": ["source"]}],
     )
     monkeypatch.setattr(
-        parse_sources.jp_parser,
+        parse_workflow.jp_parser,
         "parse_unused_tag_records",
         lambda _path: [],
     )
     monkeypatch.setattr(
-        parse_sources.int_parser, "parse_int_crosswalk", lambda *_args: {"en": {}}
+        parse_workflow.int_parser, "parse_int_crosswalk", lambda *_args: {"en": {}}
     )
     monkeypatch.setattr(
-        parse_sources.ko_parser, "parse_ko_crosswalk", lambda *_args: {"ko": {}}
+        parse_workflow.ko_parser, "parse_ko_crosswalk", lambda *_args: {"ko": {}}
     )
     monkeypatch.setattr(
-        parse_sources.branch_guide_parser,
+        parse_workflow.branch_guide_parser,
         "analyze_branch_guides",
         lambda *_args: (_ for _ in ()).throw(ValueError("late parser failure")),
     )
@@ -168,14 +150,14 @@ def test_all_crosswalks_use_same_run_jp_records(tmp_path, monkeypatch):
     outputs = _redirect_pipeline_paths(monkeypatch, tmp_path)
     outputs[1].write_text("not current JSON", encoding="utf-8")
     outputs[2].write_text("not current JSON", encoding="utf-8")
-    monkeypatch.setattr(parse_sources.en_parser, "parse_en_tags", lambda _path: [])
+    monkeypatch.setattr(parse_workflow.en_parser, "parse_en_tags", lambda _path: [])
     monkeypatch.setattr(
-        parse_sources.jp_parser,
+        parse_workflow.jp_parser,
         "parse_jp_tags",
         lambda _path: [{"name": "new-target", "source_tags": ["semantic"]}],
     )
     monkeypatch.setattr(
-        parse_sources.jp_parser,
+        parse_workflow.jp_parser,
         "parse_unused_tag_records",
         lambda _path: [],
     )
@@ -183,12 +165,12 @@ def test_all_crosswalks_use_same_run_jp_records(tmp_path, monkeypatch):
     def parse_int(_path, resolver):
         return {"en": {"semantic": resolver(["semantic"], [])}}
 
-    monkeypatch.setattr(parse_sources.int_parser, "parse_int_crosswalk", parse_int)
+    monkeypatch.setattr(parse_workflow.int_parser, "parse_int_crosswalk", parse_int)
     monkeypatch.setattr(
-        parse_sources.ko_parser, "parse_ko_crosswalk", lambda *_args: {"ko": {}}
+        parse_workflow.ko_parser, "parse_ko_crosswalk", lambda *_args: {"ko": {}}
     )
     monkeypatch.setattr(
-        parse_sources.branch_guide_parser,
+        parse_workflow.branch_guide_parser,
         "analyze_branch_guides",
         lambda *_args: _branch_analysis(
             {"ua": {"local": "new-target"}},
@@ -240,36 +222,36 @@ def test_crosswalks_reject_noncanonical_persisted_schema(
 
 def test_run_all_publishes_six_outputs_in_one_atomic_batch(tmp_path, monkeypatch):
     outputs = _redirect_pipeline_paths(monkeypatch, tmp_path)
-    monkeypatch.setattr(parse_sources.en_parser, "parse_en_tags", lambda _path: [])
+    monkeypatch.setattr(parse_workflow.en_parser, "parse_en_tags", lambda _path: [])
     monkeypatch.setattr(
-        parse_sources.jp_parser,
+        parse_workflow.jp_parser,
         "parse_jp_tags",
         lambda _path: [{"name": "target", "source_tags": ["source"]}],
     )
     monkeypatch.setattr(
-        parse_sources.jp_parser,
+        parse_workflow.jp_parser,
         "parse_unused_tag_records",
         lambda _path: [],
     )
     monkeypatch.setattr(
-        parse_sources.int_parser, "parse_int_crosswalk", lambda *_args: {"en": {}}
+        parse_workflow.int_parser, "parse_int_crosswalk", lambda *_args: {"en": {}}
     )
     monkeypatch.setattr(
-        parse_sources.ko_parser, "parse_ko_crosswalk", lambda *_args: {"ko": {}}
+        parse_workflow.ko_parser, "parse_ko_crosswalk", lambda *_args: {"ko": {}}
     )
     monkeypatch.setattr(
-        parse_sources.branch_guide_parser,
+        parse_workflow.branch_guide_parser,
         "analyze_branch_guides",
         lambda *_args: _branch_analysis(),
     )
     calls = []
-    real_publish = parse_sources.publish_files_atomically
+    real_publish = parse_workflow.publish_files_atomically
 
     def publish_and_record(writers):
         calls.append(writers)
         real_publish(writers)
 
-    monkeypatch.setattr(parse_sources, "publish_files_atomically", publish_and_record)
+    monkeypatch.setattr(parse_workflow, "publish_files_atomically", publish_and_record)
 
     batch = parse_sources.parse_and_publish_sources("all")
 
@@ -288,25 +270,25 @@ def test_run_all_integrates_real_parsers_with_temporary_sources(
     monkeypatch,
 ):
     outputs = _redirect_pipeline_paths(monkeypatch, tmp_path)
-    parse_sources.SOURCES_EN.write_text(
+    parse_workflow.SOURCES_EN.write_text(
         "* **[https://scp-wiki.wikidot.com/system:page-tags/tag/source source]**\n",
         encoding="utf-8",
     )
-    (parse_sources.SOURCES_JP / "fragment-basic.txt").write_text(
+    (parse_workflow.SOURCES_JP / "fragment-basic.txt").write_text(
         "**[[[/system:page-tags/tag/jp-target|jp-target]]]** //(source)//\n",
         encoding="utf-8",
     )
-    parse_sources.SOURCES_INT.write_text(
+    parse_workflow.SOURCES_INT.write_text(
         "|| **EN** || **JP** || **CN** ||\n"
         "|| source || jp-target || local ||\n",
         encoding="utf-8",
     )
-    parse_sources.SOURCES_KO.write_text(
+    parse_workflow.SOURCES_KO.write_text(
         "|| source || jp-target || "
         "[[[/system:page-tags/tag/ko-source]]] ||\n",
         encoding="utf-8",
     )
-    next(iter(parse_sources.BRANCH_GUIDE_SOURCES.values()))[0].write_text(
+    next(iter(parse_workflow.BRANCH_GUIDE_SOURCES.values()))[0].write_text(
         "**local** (source)\n",
         encoding="utf-8",
     )
