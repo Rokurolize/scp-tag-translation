@@ -29,11 +29,6 @@ from scripts.pipeline.source_manifest import (
     source_directory,
 )
 from scripts.application.source_parsing import (
-    BranchGuideParser,
-    EnParser,
-    IntParser,
-    JpParser,
-    KoParser,
     ParseBatch,
     ParserOutput,
     SourceParseDiagnosticsError,
@@ -84,27 +79,11 @@ class ParseOutputPaths:
 
 
 @dataclass(frozen=True)
-class ParseParserDependencies:
-    """Parser implementations injected at the application boundary."""
-
-    en: EnParser = field(default_factory=lambda: en_parser)
-    jp: JpParser = field(default_factory=lambda: jp_parser)
-    int: IntParser = field(default_factory=lambda: int_parser)
-    ko: KoParser = field(default_factory=lambda: ko_parser)
-    branch_guides: BranchGuideParser = field(
-        default_factory=lambda: branch_guide_parser,
-    )
-
-
-@dataclass(frozen=True)
 class ParseWorkflowConfig:
-    """Compose source paths, output paths, and parser dependencies."""
+    """Compose source and output paths for one parse workflow."""
 
     sources: ParseSourcePaths = field(default_factory=ParseSourcePaths)
     outputs: ParseOutputPaths = field(default_factory=ParseOutputPaths)
-    parsers: ParseParserDependencies = field(
-        default_factory=ParseParserDependencies,
-    )
 
 
 def default_parse_workflow_config() -> ParseWorkflowConfig:
@@ -126,7 +105,7 @@ def _build_crosswalk_resolver(
 def _collect_en_outputs(config: ParseWorkflowConfig) -> ParseBatch:
     require_file(config.sources.en, "ENソースファイル")
     diagnostics: list[str] = []
-    en_tags = config.parsers.en.parse_en_tags(
+    en_tags = en_parser.parse_en_tags(
         config.sources.en,
         strict=True,
         diagnostics=diagnostics,
@@ -146,13 +125,13 @@ def _collect_jp_outputs(
             f"JPソースディレクトリが見つかりません: {config.sources.jp}"
         )
     diagnostics: list[str] = []
-    jp_tags = config.parsers.jp.parse_jp_tags(
+    jp_tags = jp_parser.parse_jp_tags(
         config.sources.jp,
         strict=True,
         diagnostics=diagnostics,
     )
     deprecated_tags = (
-        config.parsers.jp.parse_unused_tag_records(
+        jp_parser.parse_unused_tag_records(
             config.sources.jp_unused,
             strict=True,
             diagnostics=diagnostics,
@@ -188,7 +167,9 @@ def _collect_crosswalk_outputs(
         sources_int=config.sources.int,
         sources_ko=config.sources.ko,
         branch_guide_sources=config.sources.branch_guides,
-        parsers=config.parsers,
+        int_parser_impl=int_parser,
+        ko_parser_impl=ko_parser,
+        branch_guide_parser_impl=branch_guide_parser,
         resolver=resolver,
     )
     int_mappings = parsed.int_mappings
@@ -307,7 +288,6 @@ __all__ = [
     "Language",
     "ParseBatch",
     "ParseOutputPaths",
-    "ParseParserDependencies",
     "ParseSourcePaths",
     "ParseWorkflowConfig",
     "collect_outputs",

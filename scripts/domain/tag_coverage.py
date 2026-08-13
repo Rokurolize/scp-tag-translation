@@ -223,11 +223,7 @@ def _build_coverage_branch(
 
     return {
         "branch": branch,
-        "site": (
-            BRANCH_CONFIG_BY_CODE[branch].site
-            if branch in BRANCH_CONFIG_BY_CODE
-            else branch
-        ),
+        "site": BRANCH_CONFIG_BY_CODE[branch].site,
         "page_count": branch_stats["page_count"],
         "tag_count": len(tags),
         "status_counts": dict(sorted(status_counts.items())),
