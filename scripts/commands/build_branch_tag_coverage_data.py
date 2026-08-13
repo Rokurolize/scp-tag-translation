@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import sys
 from collections.abc import Sequence
+from dataclasses import dataclass
 from pathlib import Path
 
 from scripts.atomic_output import publish_files_atomically
@@ -14,14 +15,13 @@ from scripts.coverage_outputs import (
     write_application_inventory_tsv,
     write_coverage_tsv,
 )
-from scripts.dictionary_inputs import load_mapping_inputs
-from scripts.json_io import write_json
-from scripts.data_paths import (
-    DATA_DEPRECATED,
-    DATA_EN,
-    DATA_JP,
-    VISUALIZATION_DIR,
+from scripts.dictionary_inputs import (
+    MappingInputPaths,
+    default_mapping_input_paths,
+    load_mapping_inputs,
 )
+from scripts.json_io import write_json
+from scripts.data_paths import VISUALIZATION_DIR
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.domain.tag_coverage import (
     CoverageInputs,
@@ -33,12 +33,24 @@ from scripts.domain.tag_coverage_models import Coverage
 DEFAULT_OUTPUT_DIR = VISUALIZATION_DIR
 
 
-def load_coverage_inputs() -> CoverageInputs:
-    loaded = load_mapping_inputs(
-        data_en=DATA_EN,
-        data_jp=DATA_JP,
-        data_deprecated=DATA_DEPRECATED,
+@dataclass(frozen=True)
+class CoverageBuildConfig:
+    """Input and output locations for one coverage build."""
+
+    output_dir: Path
+    mapping_inputs: MappingInputPaths
+
+
+def default_coverage_build_config() -> CoverageBuildConfig:
+    """Return the repository's default coverage build configuration."""
+    return CoverageBuildConfig(
+        output_dir=DEFAULT_OUTPUT_DIR,
+        mapping_inputs=default_mapping_input_paths(),
     )
+
+
+def load_coverage_inputs(paths: MappingInputPaths) -> CoverageInputs:
+    loaded = load_mapping_inputs(paths)
     return CoverageInputs(
         en_tags=loaded.en_tags,
         jp_tags=loaded.jp_tags,
@@ -49,12 +61,13 @@ def load_coverage_inputs() -> CoverageInputs:
 
 def build_and_publish(
     corpus_root: Path,
-    output_dir: Path,
     branches: Sequence[str],
+    *,
+    config: CoverageBuildConfig,
 ) -> tuple[Coverage, tuple[Path, Path, Path, Path]]:
     """Build coverage artifacts and publish all four outputs atomically."""
 
-    inputs = load_coverage_inputs()
+    inputs = load_coverage_inputs(config.mapping_inputs)
     branch_tag_stats = {
         branch: collect_branch_tag_stats(corpus_root, branch)
         for branch in branches
@@ -65,11 +78,11 @@ def build_and_publish(
         inputs,
         branch_tag_stats,
     )
-    json_path = output_dir / "branch_tag_coverage.json"
-    tsv_path = output_dir / "branch_tag_coverage.tsv"
+    json_path = config.output_dir / "branch_tag_coverage.json"
+    tsv_path = config.output_dir / "branch_tag_coverage.tsv"
     inventory = build_application_inventory(coverage)
-    inventory_json_path = output_dir / "tag_application_inventory.json"
-    inventory_tsv_path = output_dir / "tag_application_inventory.tsv"
+    inventory_json_path = config.output_dir / "tag_application_inventory.json"
+    inventory_tsv_path = config.output_dir / "tag_application_inventory.tsv"
     publish_files_atomically({
         json_path: lambda temporary: write_json(temporary, coverage),
         tsv_path: lambda temporary: write_coverage_tsv(temporary, coverage),
@@ -129,11 +142,15 @@ def main() -> None:
         print("エラー: 可視化対象の支部が見つかりません。")
         sys.exit(1)
 
+    config = CoverageBuildConfig(
+        output_dir=args.output_dir,
+        mapping_inputs=default_mapping_input_paths(),
+    )
     try:
         coverage, output_paths = build_and_publish(
             corpus_root,
-            args.output_dir,
             branches,
+            config=config,
         )
     except (OSError, ValueError) as err:
         print(f"エラー: 可視化データ生成に失敗しました: {err}")

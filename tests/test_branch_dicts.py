@@ -151,27 +151,22 @@ def test_build_and_publish_success_path_uses_real_inputs_and_outputs(
     source_dir.mkdir()
 
     data_paths = {
-        "DATA_EN": data_dir / "en_tags.json",
-        "DATA_JP": data_dir / "jp_tags.json",
-        "DATA_DEPRECATED": data_dir / "deprecated_tags.json",
-        "DATA_INT_CROSSWALK": data_dir / "int_tag_crosswalk.json",
-        "DATA_KO_CROSSWALK": data_dir / "ko_tag_crosswalk.json",
-        "DATA_BRANCH_GUIDE_CROSSWALK": data_dir / "branch_guide_crosswalk.json",
+        "data_en": data_dir / "en_tags.json",
+        "data_jp": data_dir / "jp_tags.json",
+        "data_deprecated": data_dir / "deprecated_tags.json",
+        "int_crosswalk": data_dir / "int_tag_crosswalk.json",
+        "ko_crosswalk": data_dir / "ko_tag_crosswalk.json",
+        "branch_guide_crosswalk": data_dir / "branch_guide_crosswalk.json",
     }
-    for name, path in data_paths.items():
-        monkeypatch.setattr(branch_builder, name, path)
 
     overrides_path = source_dir / "branch_to_jp_overrides.json"
     replacement_overrides_path = (
         source_dir / "deprecated_replacement_overrides.json"
     )
-    crosswalk_paths = tuple(
-        data_dir / filename
-        for filename in (
-            "int_tag_crosswalk.json",
-            "ko_tag_crosswalk.json",
-            "branch_guide_crosswalk.json",
-        )
+    crosswalk_paths = (
+        data_paths["int_crosswalk"],
+        data_paths["ko_crosswalk"],
+        data_paths["branch_guide_crosswalk"],
     )
     monkeypatch.setattr(dictionary_inputs, "OVERRIDES_PATH", overrides_path)
     monkeypatch.setattr(
@@ -200,9 +195,9 @@ def test_build_and_publish_success_path_uses_real_inputs_and_outputs(
         for name in sorted(jp_names)
     ]
     for path, value in (
-        (data_paths["DATA_EN"], en_tags),
-        (data_paths["DATA_JP"], jp_tags),
-        (data_paths["DATA_DEPRECATED"], []),
+        (data_paths["data_en"], en_tags),
+        (data_paths["data_jp"], jp_tags),
+        (data_paths["data_deprecated"], []),
         (overrides_path, {}),
         (replacement_overrides_path, {}),
     ):
@@ -221,6 +216,14 @@ def test_build_and_publish_success_path_uses_real_inputs_and_outputs(
         dictionaries_dir=output_dir,
         jp_policy_path=output_dir / "jp_tag_policy.json",
         supported_branches=("en",),
+        mapping_inputs=dictionary_inputs.MappingInputPaths(
+            data_en=data_paths["data_en"],
+            data_jp=data_paths["data_jp"],
+            data_deprecated=data_paths["data_deprecated"],
+            overrides=overrides_path,
+            replacement_overrides=replacement_overrides_path,
+            crosswalks=crosswalk_paths,
+        ),
     )
 
     artifacts = branch_builder.build_and_publish(

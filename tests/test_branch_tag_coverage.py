@@ -262,7 +262,11 @@ def test_coverage_main_reports_publication_failure(
         "status_descriptions": {},
         "branches": [],
     }
-    monkeypatch.setattr(coverage_builder, "load_coverage_inputs", lambda: object())
+    monkeypatch.setattr(
+        coverage_builder,
+        "load_coverage_inputs",
+        lambda _paths: object(),
+    )
     monkeypatch.setattr(
         coverage_builder,
         "collect_branch_tag_stats",
@@ -320,24 +324,22 @@ def test_coverage_main_publishes_all_outputs_from_real_inputs(
     data_dir.mkdir()
     jp_names = {"scp", *tag_policy.EN_ORIGIN_TAG_REPLACEMENTS.values()}
     data_paths = {
-        "DATA_EN": data_dir / "en_tags.json",
-        "DATA_JP": data_dir / "jp_tags.json",
-        "DATA_DEPRECATED": data_dir / "deprecated_tags.json",
+        "data_en": data_dir / "en_tags.json",
+        "data_jp": data_dir / "jp_tags.json",
+        "data_deprecated": data_dir / "deprecated_tags.json",
     }
-    data_paths["DATA_EN"].write_text(
+    data_paths["data_en"].write_text(
         json.dumps([{"name": "scp"}]),
         encoding="utf-8",
     )
-    data_paths["DATA_JP"].write_text(
+    data_paths["data_jp"].write_text(
         json.dumps([
             {"name": name, "source_tags": []}
             for name in sorted(jp_names)
         ], ensure_ascii=False),
         encoding="utf-8",
     )
-    data_paths["DATA_DEPRECATED"].write_text("[]", encoding="utf-8")
-    for name, path in data_paths.items():
-        monkeypatch.setattr(coverage_builder, name, path)
+    data_paths["data_deprecated"].write_text("[]", encoding="utf-8")
 
     override_path = tmp_path / "overrides.json"
     replacement_path = tmp_path / "replacement_overrides.json"
@@ -348,16 +350,18 @@ def test_coverage_main_publishes_all_outputs_from_real_inputs(
         path = tmp_path / f"crosswalk-{index}.json"
         path.write_text("{}", encoding="utf-8")
         crosswalk_paths.append(path)
-    monkeypatch.setattr(dictionary_inputs, "OVERRIDES_PATH", override_path)
-    monkeypatch.setattr(
-        dictionary_inputs,
-        "DEPRECATED_REPLACEMENT_OVERRIDES_PATH",
-        replacement_path,
+    mapping_inputs = dictionary_inputs.MappingInputPaths(
+        data_en=data_paths["data_en"],
+        data_jp=data_paths["data_jp"],
+        data_deprecated=data_paths["data_deprecated"],
+        overrides=override_path,
+        replacement_overrides=replacement_path,
+        crosswalks=tuple(crosswalk_paths),
     )
     monkeypatch.setattr(
-        dictionary_inputs,
-        "CROSSWALK_PATHS",
-        tuple(crosswalk_paths),
+        coverage_builder,
+        "default_mapping_input_paths",
+        lambda: mapping_inputs,
     )
 
     output_dir = tmp_path / "visualization"

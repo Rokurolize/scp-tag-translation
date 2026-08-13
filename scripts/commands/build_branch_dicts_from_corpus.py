@@ -6,7 +6,7 @@ from __future__ import annotations
 import argparse
 import sys
 from collections.abc import Mapping, Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 from scripts.atomic_output import publish_files_atomically
@@ -15,20 +15,13 @@ from scripts.corpus import (
     collect_corpus_branch_data,
 )
 from scripts.dictionary_inputs import (
+    MappingInputPaths,
+    default_mapping_input_paths,
     load_existing_hint_dictionaries,
     load_mapping_inputs,
 )
 from scripts.json_io import write_json
-from scripts.data_paths import (
-    DATA_BRANCH_GUIDE_CROSSWALK,
-    DATA_DEPRECATED,
-    DATA_EN,
-    DATA_INT_CROSSWALK,
-    DATA_JP,
-    DATA_KO_CROSSWALK,
-    DICTIONARIES_DIR,
-    JP_POLICY_PATH,
-)
+from scripts.data_paths import DICTIONARIES_DIR
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.domain.concatenated_tags import (
     build_concatenated_tag_hints,
@@ -66,11 +59,14 @@ class BranchBuildInputs:
 
 @dataclass(frozen=True)
 class BranchBuildConfig:
-    """Output and branch settings for one dictionary build."""
+    """Input, output, and branch settings for one dictionary build."""
 
     dictionaries_dir: Path = DICTIONARIES_DIR
-    jp_policy_path: Path = JP_POLICY_PATH
+    jp_policy_path: Path = DICTIONARIES_DIR / "jp_tag_policy.json"
     supported_branches: tuple[str, ...] = SUPPORTED_BRANCHES
+    mapping_inputs: MappingInputPaths = field(
+        default_factory=default_mapping_input_paths,
+    )
 
 
 def _build_branch_artifacts(
@@ -227,23 +223,17 @@ def build_and_publish(
 ) -> BuildArtifacts:
     """Load validated inputs, build dictionaries, and publish them atomically."""
     required_data = (
-        DATA_EN,
-        DATA_JP,
-        DATA_DEPRECATED,
-        DATA_INT_CROSSWALK,
-        DATA_KO_CROSSWALK,
-        DATA_BRANCH_GUIDE_CROSSWALK,
+        config.mapping_inputs.data_en,
+        config.mapping_inputs.data_jp,
+        config.mapping_inputs.data_deprecated,
+        *config.mapping_inputs.crosswalks,
     )
     if any(not path.exists() for path in required_data):
         raise FileNotFoundError(
             "先に python -m scripts.commands.parse_sources を実行してください。"
         )
 
-    loaded = load_mapping_inputs(
-        data_en=DATA_EN,
-        data_jp=DATA_JP,
-        data_deprecated=DATA_DEPRECATED,
-    )
+    loaded = load_mapping_inputs(config.mapping_inputs)
     en_tags = loaded.en_tags
     jp_tags = loaded.jp_tags
     deprecated_tags = loaded.deprecated_tags
@@ -322,8 +312,9 @@ def main() -> None:
         print("エラー: 生成対象の支部が見つかりません。")
         sys.exit(1)
 
+    config = BranchBuildConfig()
     try:
-        artifacts = build_and_publish(corpus_root, branches)
+        artifacts = build_and_publish(corpus_root, branches, config=config)
     except (FileNotFoundError, OSError, ValueError) as err:
         print(f"エラー: 辞書生成に失敗しました: {err}")
         sys.exit(1)
@@ -334,7 +325,7 @@ def main() -> None:
             f"{summary.replacement_count} replacements -> "
             f"{summary.dictionary_path}"
         )
-    print(f"jp policy: {artifacts.jp_tag_count} tags -> {JP_POLICY_PATH}")
+    print(f"jp policy: {artifacts.jp_tag_count} tags -> {config.jp_policy_path}")
     print(f"concatenated tag hints: {artifacts.hint_count}")
 
 

@@ -174,7 +174,7 @@ def _classify_tag(tag: str, context: _ClassificationContext) -> Classification:
 
 def build_coverage(
     corpus_root: str,
-    branches: list[str],
+    branches: Sequence[str],
     inputs: CoverageInputs,
     branch_tag_stats: Mapping[str, BranchTagStats],
 ) -> Coverage:

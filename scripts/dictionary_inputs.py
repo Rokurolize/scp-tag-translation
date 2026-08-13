@@ -95,14 +95,41 @@ def _load_crosswalk(path: Path) -> OfficialCrosswalkFile:
     return cast(OfficialCrosswalkFile, raw)
 
 
-def load_mapping_policy_inputs() -> MappingPolicyInputs:
+@dataclass(frozen=True)
+class MappingInputPaths:
+    """All source artifacts needed to assemble one mapping policy."""
+
+    data_en: Path
+    data_jp: Path
+    data_deprecated: Path
+    overrides: Path
+    replacement_overrides: Path
+    crosswalks: tuple[Path, ...]
+
+
+def default_mapping_input_paths() -> MappingInputPaths:
+    """Return the repository's default mapping input locations."""
+    return MappingInputPaths(
+        data_en=DATA_EN,
+        data_jp=DATA_JP,
+        data_deprecated=DATA_DEPRECATED,
+        overrides=OVERRIDES_PATH,
+        replacement_overrides=DEPRECATED_REPLACEMENT_OVERRIDES_PATH,
+        crosswalks=CROSSWALK_PATHS,
+    )
+
+
+def load_mapping_policy_inputs(
+    paths: MappingInputPaths | None = None,
+) -> MappingPolicyInputs:
+    paths = paths or default_mapping_input_paths()
     return MappingPolicyInputs(
-        overrides=_load_override_file(OVERRIDES_PATH),
+        overrides=_load_override_file(paths.overrides),
         replacement_overrides=_load_replacement_overrides(
-            DEPRECATED_REPLACEMENT_OVERRIDES_PATH,
+            paths.replacement_overrides,
         ),
         official_crosswalks=tuple(
-            _load_crosswalk(path) for path in CROSSWALK_PATHS
+            _load_crosswalk(path) for path in paths.crosswalks
         ),
     )
 
@@ -118,19 +145,32 @@ class LoadedMappingInputs:
 
 
 def load_mapping_inputs(
+    paths: MappingInputPaths | None = None,
     *,
-    data_en: Path = DATA_EN,
-    data_jp: Path = DATA_JP,
-    data_deprecated: Path = DATA_DEPRECATED,
+    data_en: Path | None = None,
+    data_jp: Path | None = None,
+    data_deprecated: Path | None = None,
 ) -> LoadedMappingInputs:
     """Load and validate tag records, then assemble one mapping policy."""
-    required_data = (data_en, data_jp, data_deprecated)
+    paths = paths or default_mapping_input_paths()
+    if any(path is not None for path in (data_en, data_jp, data_deprecated)):
+        if paths is not None and paths != default_mapping_input_paths():
+            raise ValueError("pass either paths or individual data paths, not both")
+        paths = MappingInputPaths(
+            data_en=data_en or paths.data_en,
+            data_jp=data_jp or paths.data_jp,
+            data_deprecated=data_deprecated or paths.data_deprecated,
+            overrides=paths.overrides,
+            replacement_overrides=paths.replacement_overrides,
+            crosswalks=paths.crosswalks,
+        )
+    required_data = (paths.data_en, paths.data_jp, paths.data_deprecated)
     if any(not path.exists() for path in required_data):
         raise FileNotFoundError("Run python -m scripts.commands.parse_sources first.")
     en_tags, jp_tags, deprecated_tags = validate_tag_records(
-        load_json(data_en),
-        load_json(data_jp),
-        load_json(data_deprecated),
+        load_json(paths.data_en),
+        load_json(paths.data_jp),
+        load_json(paths.data_deprecated),
     )
     return LoadedMappingInputs(
         en_tags=en_tags,
@@ -139,7 +179,7 @@ def load_mapping_inputs(
         mapping_policy=build_mapping_policy(
             jp_tags,
             deprecated_tags,
-            load_mapping_policy_inputs(),
+            load_mapping_policy_inputs(paths),
         ),
     )
 
