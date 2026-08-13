@@ -12,6 +12,7 @@ import pytest
 from scripts.commands import parse_sources
 from scripts.application import source_parse as parse_workflow
 from scripts.application.source_parse_crosswalks import collect_crosswalk_parses
+from scripts.application.source_parse_contracts import CrosswalkParsers
 from scripts.application import source_parse_models, source_parse_records, source_parse_reporting
 from scripts.domain.crosswalk_resolution import CrosswalkResolver
 from scripts.parsers.contracts import BranchGuideAnalysis
@@ -116,11 +117,13 @@ def test_crosswalk_stage_collects_parser_results_and_diagnostics(tmp_path):
         ko = KoParser()
         branch_guides = BranchGuideParser()
 
+    parsers: CrosswalkParsers = Parsers()
+
     result = collect_crosswalk_parses(
         sources_int=int_source,
         sources_ko=ko_source,
         branch_guide_sources={"ua": (guide_source,)},
-        parsers=Parsers(),
+        parsers=parsers,
         resolver=CrosswalkResolver([]),
     )
 
