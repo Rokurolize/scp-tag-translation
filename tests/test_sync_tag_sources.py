@@ -7,6 +7,7 @@ from pathlib import Path
 
 import pytest
 
+from scripts.application import source_sync as source_workflow
 from scripts.commands import sync_tag_sources_from_corpus as source_sync
 
 
@@ -22,8 +23,8 @@ def _configure_source_tree(
     }
     repository_root.mkdir()
     corpus_root.mkdir()
-    monkeypatch.setattr(source_sync, "ROOT", repository_root)
-    monkeypatch.setattr(source_sync, "SOURCE_MAP", source_map)
+    monkeypatch.setattr(source_workflow, "ROOT", repository_root)
+    monkeypatch.setattr(source_workflow, "SOURCE_MAP", source_map)
     return repository_root, corpus_root, source_map
 
 
@@ -193,7 +194,7 @@ def test_write_reports_publication_failure_without_traceback(
         raise OSError("disk full")
 
     monkeypatch.setattr(
-        source_sync,
+        source_workflow,
         "publish_files_atomically",
         fail_publication,
     )

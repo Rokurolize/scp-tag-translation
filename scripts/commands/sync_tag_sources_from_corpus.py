@@ -9,11 +9,6 @@ from pathlib import Path
 
 from scripts.application import source_sync as _workflow
 from scripts.application.source_sync import SourceSyncResult
-from scripts.infrastructure.atomic_output import publish_files_atomically
-from scripts.infrastructure.data_paths import ROOT
-from scripts.pipeline.source_manifest import corpus_source_map
-
-SOURCE_MAP = corpus_source_map()
 
 
 def sync_tag_sources(
@@ -22,13 +17,7 @@ def sync_tag_sources(
     write: bool = False,
 ) -> SourceSyncResult:
     """Delegate source synchronization to the application workflow."""
-    return _workflow.sync_tag_sources(
-        corpus_root,
-        write=write,
-        source_map=SOURCE_MAP,
-        repository_root=ROOT,
-        publish=publish_files_atomically,
-    )
+    return _workflow.sync_tag_sources(corpus_root, write=write)
 
 
 def main() -> None:
@@ -61,10 +50,10 @@ def main() -> None:
         sys.exit(1)
 
     action = "synced" if args.write else "current"
-    print(f"tag sources {action}: {len(SOURCE_MAP)} files")
+    print(f"tag sources {action}: {len(_workflow.SOURCE_MAP)} files")
 
 
-__all__ = ["ROOT", "SOURCE_MAP", "SourceSyncResult", "main", "sync_tag_sources"]
+__all__ = ["SourceSyncResult", "main", "sync_tag_sources"]
 
 
 if __name__ == "__main__":

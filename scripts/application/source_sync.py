@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import shutil
 from collections.abc import Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 from scripts.infrastructure.atomic_output import FileWriter, publish_files_atomically
@@ -23,6 +23,19 @@ class SourceSyncResult:
     wrote_files: int
 
 
+@dataclass(frozen=True)
+class SourceSyncConfig:
+    """Repository inputs used by one source synchronization workflow."""
+
+    source_map: Mapping[str, str] = field(default_factory=lambda: SOURCE_MAP)
+    repository_root: Path = field(default_factory=lambda: ROOT)
+
+
+def default_source_sync_config() -> SourceSyncConfig:
+    """Return the repository-default source synchronization configuration."""
+    return SourceSyncConfig()
+
+
 def _copy_writer(source: Path) -> FileWriter:
     def copy_to(temporary: Path) -> None:
         shutil.copyfile(source, temporary)
@@ -34,17 +47,16 @@ def sync_tag_sources(
     corpus_root: Path,
     *,
     write: bool = False,
-    source_map: Mapping[str, str] = SOURCE_MAP,
-    repository_root: Path = ROOT,
-    publish=publish_files_atomically,
+    config: SourceSyncConfig | None = None,
 ) -> SourceSyncResult:
     """Check snapshots and optionally publish current corpus sources atomically."""
+    config = config or default_source_sync_config()
     stale: list[str] = []
     missing_sources: list[Path] = []
     pending: dict[Path, Path] = {}
-    for destination_rel, source_rel in source_map.items():
+    for destination_rel, source_rel in config.source_map.items():
         source = corpus_root / source_rel
-        destination = repository_root / destination_rel
+        destination = config.repository_root / destination_rel
         if not source.is_file():
             missing_sources.append(source)
             stale.append(destination_rel)
@@ -58,7 +70,7 @@ def sync_tag_sources(
                 pending[destination] = source
 
     if write and not missing_sources:
-        publish({
+        publish_files_atomically({
             destination: _copy_writer(source)
             for destination, source in pending.items()
         })
@@ -70,4 +82,10 @@ def sync_tag_sources(
     )
 
 
-__all__ = ["SOURCE_MAP", "SourceSyncResult", "sync_tag_sources"]
+__all__ = [
+    "SOURCE_MAP",
+    "SourceSyncConfig",
+    "SourceSyncResult",
+    "default_source_sync_config",
+    "sync_tag_sources",
+]

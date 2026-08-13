@@ -8,27 +8,18 @@ import sys
 from pathlib import Path
 
 from scripts.application import coverage_html as _workflow
-from scripts.domain.coverage_validation import validate_coverage
-from scripts.domain.tag_coverage_models import Coverage
-from scripts.infrastructure.data_paths import (
-    COVERAGE_HTML_PATH,
-    COVERAGE_JSON_PATH,
-    ROOT,
-)
 
-DEFAULT_INPUT = COVERAGE_JSON_PATH
-DEFAULT_OUTPUT = COVERAGE_HTML_PATH
-TEMPLATE_PATH = ROOT / "scripts" / "assets" / "branch_tag_coverage.html"
+validate_coverage = _workflow.validate_coverage
 
 
-def build_html(coverage: Coverage) -> str:
+def build_html(coverage: _workflow.Coverage) -> str:
     """Render coverage data through the application workflow template."""
     return _workflow.build_html(coverage)
 
 
 def build_and_publish_html(
-    input_path: Path = DEFAULT_INPUT,
-    output_path: Path = DEFAULT_OUTPUT,
+    input_path: Path | None = None,
+    output_path: Path | None = None,
 ) -> Path:
     """Delegate dashboard generation to the application workflow."""
     return _workflow.build_and_publish_html(input_path, output_path)
@@ -36,8 +27,8 @@ def build_and_publish_html(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--input", type=Path, default=_workflow.DEFAULT_INPUT)
+    parser.add_argument("--output", type=Path, default=_workflow.DEFAULT_OUTPUT)
     args = parser.parse_args()
 
     try:
@@ -49,9 +40,6 @@ def main() -> None:
 
 
 __all__ = [
-    "DEFAULT_INPUT",
-    "DEFAULT_OUTPUT",
-    "TEMPLATE_PATH",
     "build_and_publish_html",
     "build_html",
     "main",

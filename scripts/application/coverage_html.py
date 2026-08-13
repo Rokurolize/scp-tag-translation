@@ -39,10 +39,12 @@ def build_html(coverage: Coverage, *, template_path: Path = TEMPLATE_PATH) -> st
 
 
 def build_and_publish_html(
-    input_path: Path = DEFAULT_INPUT,
-    output_path: Path = DEFAULT_OUTPUT,
+    input_path: Path | None = None,
+    output_path: Path | None = None,
 ) -> Path:
     """Load, validate, render, and atomically publish the coverage dashboard."""
+    input_path = input_path or DEFAULT_INPUT
+    output_path = output_path or DEFAULT_OUTPUT
     coverage = validate_coverage(load_json(input_path))
     html = build_html(coverage)
     publish_files_atomically({

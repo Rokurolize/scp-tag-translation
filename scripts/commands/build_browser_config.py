@@ -7,10 +7,6 @@ import sys
 from pathlib import Path
 
 from scripts.application import browser_config as _workflow
-from scripts.infrastructure.atomic_output import publish_files_atomically
-from scripts.infrastructure.data_paths import BROWSER_CONFIG_PATH
-
-DEFAULT_OUTPUT = BROWSER_CONFIG_PATH
 
 
 def render_browser_config() -> str:
@@ -18,9 +14,9 @@ def render_browser_config() -> str:
     return _workflow.render_browser_config()
 
 
-def publish_browser_config(output: Path = DEFAULT_OUTPUT) -> None:
+def publish_browser_config(output: Path | None = None) -> None:
     """Delegate browser configuration publication to the application workflow."""
-    _workflow.publish_browser_config(output, publish=publish_files_atomically)
+    _workflow.publish_browser_config(output)
 
 
 def main() -> None:
@@ -30,8 +26,8 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=DEFAULT_OUTPUT,
-        help=f"出力先（デフォルト: {DEFAULT_OUTPUT}）",
+        default=_workflow.DEFAULT_OUTPUT,
+        help=f"出力先（デフォルト: {_workflow.DEFAULT_OUTPUT}）",
     )
     args = parser.parse_args()
 
@@ -43,7 +39,7 @@ def main() -> None:
     print(f"browser config: {args.output}")
 
 
-__all__ = ["DEFAULT_OUTPUT", "main", "publish_browser_config", "render_browser_config"]
+__all__ = ["main", "publish_browser_config", "render_browser_config"]
 
 
 if __name__ == "__main__":

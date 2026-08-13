@@ -27,14 +27,12 @@ def render_browser_config() -> str:
 
 
 def publish_browser_config(
-    output: Path = DEFAULT_OUTPUT,
-    *,
-    publish=publish_files_atomically,
+    output: Path | None = None,
 ) -> None:
     """Render and atomically publish the browser configuration artifact."""
     content = render_browser_config()
-    publish({
-        output: lambda temporary: write_text(temporary, content),
+    publish_files_atomically({
+        output or DEFAULT_OUTPUT: lambda temporary: write_text(temporary, content),
     })
 
 
