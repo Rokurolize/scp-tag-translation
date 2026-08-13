@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping
+from collections.abc import Mapping, MutableSequence
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Literal, Protocol
@@ -46,13 +46,31 @@ BRANCH_GUIDE_SOURCES: Mapping[str, tuple[Path, ...]] = branch_guide_sources(root
 
 
 class EnParser(Protocol):
-    def parse_en_tags(self, path: Path) -> list[EnTag]: ...
+    def parse_en_tags(
+        self,
+        path: Path,
+        *,
+        strict: bool = False,
+        diagnostics: MutableSequence[str] | None = None,
+    ) -> list[EnTag]: ...
 
 
 class JpParser(Protocol):
-    def parse_jp_tags(self, path: Path) -> list[JpTag]: ...
+    def parse_jp_tags(
+        self,
+        path: Path,
+        *,
+        strict: bool = False,
+        diagnostics: MutableSequence[str] | None = None,
+    ) -> list[JpTag]: ...
 
-    def parse_unused_tag_records(self, path: Path) -> list[DeprecatedTag]: ...
+    def parse_unused_tag_records(
+        self,
+        path: Path,
+        *,
+        strict: bool = False,
+        diagnostics: MutableSequence[str] | None = None,
+    ) -> list[DeprecatedTag]: ...
 
 
 class IntParser(Protocol):
@@ -76,6 +94,9 @@ class BranchGuideParser(Protocol):
         self,
         sources: Mapping[str, tuple[Path, ...]],
         resolver: TargetResolver,
+        *,
+        strict: bool = False,
+        diagnostics: MutableSequence[str] | None = None,
     ) -> BranchGuideAnalysis: ...
 
 
@@ -83,6 +104,7 @@ class BranchGuideParser(Protocol):
 class ParseBatch:
     outputs: Mapping[Path, object]
     messages: tuple[str, ...]
+    diagnostics: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -157,10 +179,16 @@ def _build_crosswalk_resolver(
 
 def _collect_en_outputs(config: ParseWorkflowConfig) -> ParseBatch:
     _require_file(config.sources_en, "ENソースファイル")
-    en_tags = config.en_parser.parse_en_tags(config.sources_en)
+    diagnostics: list[str] = []
+    en_tags = config.en_parser.parse_en_tags(
+        config.sources_en,
+        strict=True,
+        diagnostics=diagnostics,
+    )
     return ParseBatch(
         outputs={config.data_en: en_tags},
         messages=(f"EN: {len(en_tags)} タグを解析 → {config.data_en}",),
+        diagnostics=tuple(diagnostics),
     )
 
 
@@ -171,9 +199,18 @@ def _collect_jp_outputs(
         raise FileNotFoundError(
             f"JPソースディレクトリが見つかりません: {config.sources_jp}"
         )
-    jp_tags = config.jp_parser.parse_jp_tags(config.sources_jp)
+    diagnostics: list[str] = []
+    jp_tags = config.jp_parser.parse_jp_tags(
+        config.sources_jp,
+        strict=True,
+        diagnostics=diagnostics,
+    )
     deprecated_tags = (
-        config.jp_parser.parse_unused_tag_records(config.sources_jp_unused)
+        config.jp_parser.parse_unused_tag_records(
+            config.sources_jp_unused,
+            strict=True,
+            diagnostics=diagnostics,
+        )
         if config.sources_jp_unused.is_file()
         else []
     )
@@ -187,7 +224,15 @@ def _collect_jp_outputs(
             f"JP(未使用): {len(deprecated_tags)} タグを解析 → {config.data_deprecated}",
         ),
     )
-    return batch, jp_tags, deprecated_tags
+    return (
+        ParseBatch(
+            outputs=batch.outputs,
+            messages=batch.messages,
+            diagnostics=tuple(diagnostics),
+        ),
+        jp_tags,
+        deprecated_tags,
+    )
 
 
 def _load_persisted_jp_records(
@@ -218,9 +263,12 @@ def _collect_crosswalk_outputs(
         config.sources_ko,
         resolver.resolve,
     )
+    diagnostics: list[str] = []
     branch_analysis = config.branch_guide_parser.analyze_branch_guides(
         config.branch_guide_sources,
         resolver.resolve,
+        strict=True,
+        diagnostics=diagnostics,
     )
     branch_mappings = branch_analysis.mappings
     accepted_count = sum(
@@ -254,7 +302,11 @@ def _collect_crosswalk_outputs(
             f"unresolved={unresolved_count}) -> {config.data_branch_guide_crosswalk}"
         ),
     )
-    return ParseBatch(outputs=outputs, messages=messages)
+    return ParseBatch(
+        outputs=outputs,
+        messages=messages,
+        diagnostics=tuple(diagnostics),
+    )
 
 
 def _collect_crosswalk_outputs_from_persisted_records(
@@ -267,10 +319,16 @@ def _collect_crosswalk_outputs_from_persisted_records(
 def _merge_batches(batches: list[ParseBatch]) -> ParseBatch:
     outputs: dict[Path, object] = {}
     messages: list[str] = []
+    diagnostics: list[str] = []
     for batch in batches:
         outputs.update(batch.outputs)
         messages.extend(batch.messages)
-    return ParseBatch(outputs=outputs, messages=tuple(messages))
+        diagnostics.extend(batch.diagnostics)
+    return ParseBatch(
+        outputs=outputs,
+        messages=tuple(messages),
+        diagnostics=tuple(diagnostics),
+    )
 
 
 def collect_outputs(
@@ -321,6 +379,8 @@ def parse_and_publish_sources(
     publish_outputs(batch.outputs)
     for message in batch.messages:
         print(message)
+    for diagnostic in batch.diagnostics:
+        print(f"警告: {diagnostic}")
     return batch
 
 

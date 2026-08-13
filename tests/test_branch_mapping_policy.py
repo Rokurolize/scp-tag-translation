@@ -1,9 +1,9 @@
 import pytest
 
-from scripts.commands import build_branch_dicts_from_corpus as branch_builder
 from scripts.domain.policy import tag_policy
 from scripts.domain.policy.policy_builder import deprecated_by_source_lang
 from scripts.domain.tag_dictionary import build_en_dicts
+from scripts.domain.tag_dictionary import build_branch_dict
 
 def test_branch_builder_applies_expected_precedence(jp_tags_data):
     jp_names, jp_source_map = tag_policy.build_jp_names_and_source_map(jp_tags_data)
@@ -17,7 +17,7 @@ def test_branch_builder_applies_expected_precedence(jp_tags_data):
         overrides={"cn": {"原创": "cn", "故事": "tale"}},
         official_crosswalk={"cn": {"international": "int"}},
     )
-    dictionary, deprecated = branch_builder.build_branch_dict(
+    dictionary, deprecated = build_branch_dict(
         "cn",
         {
             "原创",
@@ -77,7 +77,7 @@ def test_int_inherits_en_unused_tags_and_origin_replacements(jp_tags_data):
         overrides={},
         official_crosswalk={},
     )
-    dictionary, deprecated = branch_builder.build_branch_dict(
+    dictionary, deprecated = build_branch_dict(
         "int",
         {"scp", "_cc", "_vn", "resource", "translator"},
         policy,
@@ -122,7 +122,7 @@ def test_en_builder_includes_effective_replacement_overrides():
         overrides={},
         official_crosswalk={},
     )
-    dictionary, deprecated = branch_builder.build_en_dicts(
+    dictionary, deprecated = build_en_dicts(
         [{"name": "current"}],
         jp_tags,
         deprecated_tags,

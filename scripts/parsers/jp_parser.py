@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 import re
-from collections.abc import Iterator
+from collections.abc import Iterator, MutableSequence
 from pathlib import Path
 
 from scripts.domain.records.tag_records import DeprecatedTag, JpTag
+from scripts.parsers.errors import report_source_issue
 
 # タグリンクと任意のENタグ表記のペアにマッチ
 # 形式: **[[[/system:page-tags/tag/{slug}|{display}]]]** //(en-tag)//
@@ -52,11 +53,11 @@ def _extract_single_replacement(description: str) -> str | None:
     return replacement or None
 
 
-def _iter_uncommented_lines(path: Path) -> Iterator[str]:
+def _iter_uncommented_lines(path: Path) -> Iterator[tuple[int, str]]:
     """Wikidotコメント [!-- ... --] を除外して行を返す。"""
     in_comment = False
     with path.open("r", encoding="utf-8") as source:
-        for raw_line in source:
+        for line_number, raw_line in enumerate(source, 1):
             line_parts: list[str] = []
             cursor = 0
 
@@ -84,17 +85,22 @@ def _iter_uncommented_lines(path: Path) -> Iterator[str]:
 
             uncommented = "".join(line_parts)
             if uncommented.strip():
-                yield uncommented
+                yield line_number, uncommented
 
 
-def parse_unused_tag_records(source_path: Path) -> list[DeprecatedTag]:
+def parse_unused_tag_records(
+    source_path: Path,
+    *,
+    strict: bool = False,
+    diagnostics: MutableSequence[str] | None = None,
+) -> list[DeprecatedTag]:
     """Parse source-language unused tags and deterministic replacements."""
 
     results: list[DeprecatedTag] = []
     seen_source_tags: set[tuple[str, str]] = set()
     source_lang = "EN"
 
-    for line in _iter_uncommented_lines(source_path):
+    for line_number, line in _iter_uncommented_lines(source_path):
         section_match = _SECTION_RE.match(line.strip())
         if section_match:
             source_lang = section_match.group(1)
@@ -104,6 +110,13 @@ def parse_unused_tag_records(source_path: Path) -> list[DeprecatedTag]:
             continue
         matches = list(_PAIR_RE.finditer(line))
         if not matches:
+            if strict:
+                report_source_issue(
+                    source_path,
+                    line_number,
+                    "invalid JP tag link",
+                    diagnostics,
+                )
             continue
 
         last_end = matches[-1].end()
@@ -134,7 +147,14 @@ def parse_unused_tag_records(source_path: Path) -> list[DeprecatedTag]:
     return results
 
 
-def _registered_tag_entries(line: str) -> list[JpTag]:
+def _registered_tag_entries(
+    line: str,
+    *,
+    path: Path | None = None,
+    line_number: int | None = None,
+    strict: bool = False,
+    diagnostics: MutableSequence[str] | None = None,
+) -> list[JpTag]:
     matches = list(_PAIR_RE.finditer(line))
     if not matches:
         return []
@@ -152,6 +172,13 @@ def _registered_tag_entries(line: str) -> list[JpTag]:
     for match in matches:
         name = match.group(1).strip()
         if not name:
+            if strict and path is not None and line_number is not None:
+                report_source_issue(
+                    path,
+                    line_number,
+                    "empty JP tag name",
+                    diagnostics,
+                )
             continue
 
         source_tag = match.group(3).strip() if match.group(3) else None
@@ -185,7 +212,12 @@ def _merge_jp_tag(tags_by_name: dict[str, JpTag], incoming: JpTag) -> None:
             entry["source_tags"].append(source_tag)
 
 
-def parse_jp_tags(source_dir: Path) -> list[JpTag]:
+def parse_jp_tags(
+    source_dir: Path,
+    *,
+    strict: bool = False,
+    diagnostics: MutableSequence[str] | None = None,
+) -> list[JpTag]:
     """Parse registered JP tag fragments into canonical tag records."""
 
     tags_by_name: dict[str, JpTag] = {}
@@ -199,10 +231,27 @@ def parse_jp_tags(source_dir: Path) -> list[JpTag]:
         raise ValueError(f"JPフラグメントファイルが見つかりません: {source_dir}")
 
     for filepath in fragment_files:
-        for line in _iter_uncommented_lines(filepath):
+        for line_number, line in _iter_uncommented_lines(filepath):
             if "**[[[/system" not in line or "page-tags/tag/" not in line:
                 continue
-            for entry in _registered_tag_entries(line):
+            matches = list(_PAIR_RE.finditer(line))
+            if not matches:
+                if strict:
+                    if strict:
+                        report_source_issue(
+                            filepath,
+                            line_number,
+                            "invalid JP tag link",
+                            diagnostics,
+                        )
+                continue
+            for entry in _registered_tag_entries(
+                line,
+                path=filepath,
+                line_number=line_number,
+                strict=strict,
+                diagnostics=diagnostics,
+            ):
                 _merge_jp_tag(tags_by_name, entry)
 
     return list(tags_by_name.values())

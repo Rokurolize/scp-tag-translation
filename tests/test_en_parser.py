@@ -1,6 +1,9 @@
 from pathlib import Path
 
+import pytest
+
 from scripts.parsers import en_parser
+from scripts.parsers.errors import SourceParseError
 
 _EN_SOURCE = Path(__file__).parent.parent / "sources" / "en" / "tag-list.txt"
 
@@ -66,6 +69,21 @@ class TestEnParser:
 
         assert parsed[0]["name"] == "foo--bar"
         assert parsed[0]["description"] == "Real description"
+
+    def test_strict_mode_reports_malformed_tag_records(self, tmp_path):
+        source = tmp_path / "tag-list.txt"
+        source.write_text(
+            "* **[https://example.test/system:page-tags/tag/ broken]**\n",
+            encoding="utf-8",
+        )
+        diagnostics = []
+
+        assert en_parser.parse_en_tags(source, strict=True, diagnostics=diagnostics) == []
+        assert diagnostics == [
+            f"{source}:1: malformed source record (invalid EN tag link)"
+        ]
+        with pytest.raises(SourceParseError, match="invalid EN tag link"):
+            en_parser.parse_en_tags(source, strict=True)
 
     def test_en_tag_outside_tab_has_none_category(self, tmp_path):
         source = tmp_path / "tag-list.txt"

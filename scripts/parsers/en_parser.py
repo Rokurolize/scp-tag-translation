@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import re
+from collections.abc import MutableSequence
 from pathlib import Path
 
 from scripts.domain.records.tag_records import EnTag
+from scripts.parsers.errors import report_source_issue
 
 _TAG_PATTERN = re.compile(
     r"^\s*\*\s*\*\*\[https?://[^ ]*/system:page-tags/tag/([^ \]]+)"
@@ -51,15 +53,24 @@ def _parse_meta_line(line: str) -> tuple[str, list[str]] | None:
     return meta_key, meta_values
 
 
-def parse_en_tags(input_path: Path) -> list[EnTag]:
-    """Parse the Wikidot EN tag list into typed records."""
+def parse_en_tags(
+    input_path: Path,
+    *,
+    strict: bool = False,
+    diagnostics: MutableSequence[str] | None = None,
+) -> list[EnTag]:
+    """Parse the Wikidot EN tag list into typed records.
+
+    Strict mode reports tag-shaped lines that cannot be parsed, preserving the
+    source location instead of silently publishing an incomplete artifact.
+    """
 
     tags_data: list[EnTag] = []
     current_tag: EnTag | None = None
     current_category: str | None = None
 
     with input_path.open("r", encoding="utf-8") as source:
-        for line in source:
+        for line_number, line in enumerate(source, 1):
             line = line.strip()
 
             tab_match = _TAB_PATTERN.match(line)
@@ -87,12 +98,27 @@ def parse_en_tags(input_path: Path) -> list[EnTag]:
                 }
                 continue
 
+            if strict and line.startswith("* **[") and "system:page-tags/tag/" in line:
+                report_source_issue(
+                    input_path,
+                    line_number,
+                    "invalid EN tag link",
+                    diagnostics,
+                )
+
             if current_tag:
                 meta_data = _parse_meta_line(line)
                 if meta_data:
                     meta_key, meta_values = meta_data
                     metadata = current_tag["meta"]
                     metadata.setdefault(meta_key, []).extend(meta_values)
+                elif strict and line.startswith("* //"):
+                    report_source_issue(
+                        input_path,
+                        line_number,
+                        "invalid EN metadata",
+                        diagnostics,
+                    )
 
         if current_tag:
             tags_data.append(current_tag)

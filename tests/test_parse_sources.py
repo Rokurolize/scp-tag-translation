@@ -109,17 +109,17 @@ def test_run_all_does_not_publish_when_last_parser_fails(tmp_path, monkeypatch):
     monkeypatch.setattr(
         parse_workflow.en_parser,
         "parse_en_tags",
-        lambda _path: [{"name": "source", "category": None, "meta": {}}],
+        lambda _path, **_kwargs: [{"name": "source", "category": None, "meta": {}}],
     )
     monkeypatch.setattr(
         parse_workflow.jp_parser,
         "parse_jp_tags",
-        lambda _path: [{"name": "target", "source_tags": ["source"]}],
+        lambda _path, **_kwargs: [{"name": "target", "source_tags": ["source"]}],
     )
     monkeypatch.setattr(
         parse_workflow.jp_parser,
         "parse_unused_tag_records",
-        lambda _path: [],
+        lambda _path, **_kwargs: [],
     )
     monkeypatch.setattr(
         parse_workflow.int_parser, "parse_int_crosswalk", lambda *_args: {"en": {}}
@@ -130,7 +130,7 @@ def test_run_all_does_not_publish_when_last_parser_fails(tmp_path, monkeypatch):
     monkeypatch.setattr(
         parse_workflow.branch_guide_parser,
         "analyze_branch_guides",
-        lambda *_args: (_ for _ in ()).throw(ValueError("late parser failure")),
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(ValueError("late parser failure")),
     )
     publish_calls = []
     monkeypatch.setattr(
@@ -150,16 +150,20 @@ def test_all_crosswalks_use_same_run_jp_records(tmp_path, monkeypatch):
     outputs = _redirect_pipeline_paths(monkeypatch, tmp_path)
     outputs[1].write_text("not current JSON", encoding="utf-8")
     outputs[2].write_text("not current JSON", encoding="utf-8")
-    monkeypatch.setattr(parse_workflow.en_parser, "parse_en_tags", lambda _path: [])
+    monkeypatch.setattr(
+        parse_workflow.en_parser,
+        "parse_en_tags",
+        lambda _path, **_kwargs: [],
+    )
     monkeypatch.setattr(
         parse_workflow.jp_parser,
         "parse_jp_tags",
-        lambda _path: [{"name": "new-target", "source_tags": ["semantic"]}],
+        lambda _path, **_kwargs: [{"name": "new-target", "source_tags": ["semantic"]}],
     )
     monkeypatch.setattr(
         parse_workflow.jp_parser,
         "parse_unused_tag_records",
-        lambda _path: [],
+        lambda _path, **_kwargs: [],
     )
 
     def parse_int(_path, resolver):
@@ -172,7 +176,7 @@ def test_all_crosswalks_use_same_run_jp_records(tmp_path, monkeypatch):
     monkeypatch.setattr(
         parse_workflow.branch_guide_parser,
         "analyze_branch_guides",
-        lambda *_args: _branch_analysis(
+        lambda *_args, **_kwargs: _branch_analysis(
             {"ua": {"local": "new-target"}},
             accepted=1,
             conflicting=2,
@@ -222,16 +226,20 @@ def test_crosswalks_reject_noncanonical_persisted_schema(
 
 def test_run_all_publishes_six_outputs_in_one_atomic_batch(tmp_path, monkeypatch):
     outputs = _redirect_pipeline_paths(monkeypatch, tmp_path)
-    monkeypatch.setattr(parse_workflow.en_parser, "parse_en_tags", lambda _path: [])
+    monkeypatch.setattr(
+        parse_workflow.en_parser,
+        "parse_en_tags",
+        lambda _path, **_kwargs: [],
+    )
     monkeypatch.setattr(
         parse_workflow.jp_parser,
         "parse_jp_tags",
-        lambda _path: [{"name": "target", "source_tags": ["source"]}],
+        lambda _path, **_kwargs: [{"name": "target", "source_tags": ["source"]}],
     )
     monkeypatch.setattr(
         parse_workflow.jp_parser,
         "parse_unused_tag_records",
-        lambda _path: [],
+        lambda _path, **_kwargs: [],
     )
     monkeypatch.setattr(
         parse_workflow.int_parser, "parse_int_crosswalk", lambda *_args: {"en": {}}
@@ -242,7 +250,7 @@ def test_run_all_publishes_six_outputs_in_one_atomic_batch(tmp_path, monkeypatch
     monkeypatch.setattr(
         parse_workflow.branch_guide_parser,
         "analyze_branch_guides",
-        lambda *_args: _branch_analysis(),
+        lambda *_args, **_kwargs: _branch_analysis(),
     )
     calls = []
     real_publish = parse_workflow.publish_files_atomically

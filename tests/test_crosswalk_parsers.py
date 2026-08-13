@@ -13,6 +13,7 @@ from scripts.parsers.crosswalk_table import (
     EMPTY_CELL_MARKERS,
     split_wikidot_table_row,
 )
+from scripts.parsers.errors import SourceParseError
 
 
 def _single_jp_target(_en_values, jp_values):
@@ -329,3 +330,30 @@ def test_branch_guide_analysis_accepts_callable_and_reports_exact_audit(tmp_path
         (["unknown"], []),
         (["ok"], []),
     ]
+
+
+def test_strict_branch_guides_report_malformed_tag_records(tmp_path):
+    source = tmp_path / "ua.txt"
+    source.write_text(
+        "* **[/system:page-tags/tag/ broken]**\n",
+        encoding="utf-8",
+    )
+    diagnostics = []
+
+    analysis = branch_guide_parser.analyze_branch_guides(
+        {"ua": (source,)},
+        lambda _en_values, _jp_values: None,
+        strict=True,
+        diagnostics=diagnostics,
+    )
+
+    assert analysis.mappings == {"ua": {}}
+    assert diagnostics == [
+        f"{source}:1: malformed source record (invalid branch tag link)"
+    ]
+    with pytest.raises(SourceParseError, match="invalid branch tag link"):
+        branch_guide_parser.analyze_branch_guides(
+            {"ua": (source,)},
+            lambda _en_values, _jp_values: None,
+            strict=True,
+        )

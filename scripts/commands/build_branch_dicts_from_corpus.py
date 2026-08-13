@@ -7,6 +7,7 @@ import argparse
 import sys
 from pathlib import Path
 
+from scripts.application import dictionary_build as _workflow
 from scripts.application.dictionary_build import (
     BranchBuildConfig,
     BranchBuildSummary,
@@ -14,8 +15,6 @@ from scripts.application.dictionary_build import (
     build_and_publish_dictionaries,
     build_artifacts,
 )
-from scripts.domain.branch_config import SUPPORTED_BRANCHES
-from scripts.domain.tag_dictionary import build_branch_dict, build_en_dicts
 
 
 def main() -> None:
@@ -45,7 +44,7 @@ def main() -> None:
         sys.exit(1)
     branches = [
         branch
-        for branch in (args.branches or SUPPORTED_BRANCHES)
+        for branch in (args.branches or _workflow.SUPPORTED_BRANCHES)
         if branch != "jp" and not branch.startswith("_")
     ]
     if not branches:
@@ -75,8 +74,6 @@ __all__ = [
     "BuildArtifacts",
     "build_and_publish_dictionaries",
     "build_artifacts",
-    "build_branch_dict",
-    "build_en_dicts",
     "main",
 ]
 

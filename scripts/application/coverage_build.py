@@ -69,12 +69,7 @@ def build_and_publish_coverage(
 ) -> tuple[Coverage, tuple[Path, Path, Path, Path]]:
     """Build coverage artifacts and publish all four outputs atomically."""
     config = config or default_coverage_build_config()
-    requested_branches = tuple(branches or SUPPORTED_BRANCHES)
-    requested_branches = tuple(
-        branch
-        for branch in requested_branches
-        if branch != "jp" and not branch.startswith("_")
-    )
+    requested_branches = tuple(SUPPORTED_BRANCHES if branches is None else branches)
     branches = validate_requested_branches(
         requested_branches,
         supported_branches=SUPPORTED_BRANCHES,

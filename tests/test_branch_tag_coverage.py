@@ -233,6 +233,19 @@ def test_build_coverage_rejects_invalid_branch_selection(tmp_path, branches):
         )
 
 
+@pytest.mark.parametrize(
+    ("branches", "message"),
+    [([], "at least one branch"), (["en", "jp"], "unsupported branches")],
+)
+def test_application_coverage_workflow_validates_branch_selection(
+    tmp_path,
+    branches,
+    message,
+):
+    with pytest.raises(ValueError, match=message):
+        coverage_workflow.build_and_publish_coverage(tmp_path, branches)
+
+
 def test_build_coverage_rejects_non_object_metadata(tmp_path):
     corpus_root = tmp_path / "corpus"
     meta_path = corpus_root / "en" / "pages" / "sample" / "meta.json"

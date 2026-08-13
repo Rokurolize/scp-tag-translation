@@ -46,12 +46,21 @@ def main() -> None:
         print(f"エラー: corpus rootが見つかりません: {corpus_root}")
         sys.exit(1)
 
+    branches = [
+        branch
+        for branch in (args.branches or _workflow.SUPPORTED_BRANCHES)
+        if branch != "jp" and not branch.startswith("_")
+    ]
+    if not branches:
+        print("エラー: 可視化対象の支部が見つかりません。")
+        sys.exit(1)
+
     output_dir = args.output_dir or _workflow.DEFAULT_OUTPUT_DIR
     config = default_coverage_build_config(output_dir=output_dir)
     try:
         coverage, output_paths = build_and_publish_coverage(
             corpus_root,
-            args.branches,
+            branches,
             config=config,
         )
     except (OSError, ValueError) as err:

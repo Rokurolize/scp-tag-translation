@@ -1,7 +1,10 @@
 from pathlib import Path
 
+import pytest
+
 from scripts.parsers import jp_parser
 from scripts.domain.policy.tag_policy import build_jp_names_and_source_map
+from scripts.parsers.errors import SourceParseError
 
 _JP_SOURCE_DIR = Path(__file__).parent.parent / "sources" / "jp"
 
@@ -75,6 +78,27 @@ class TestJpParser:
             "resource",
             "_occ",
         }
+
+    def test_strict_mode_reports_malformed_tag_records(self, tmp_path):
+        source_dir = tmp_path / "jp"
+        source_dir.mkdir()
+        source = source_dir / "fragment-basic.txt"
+        source.write_text(
+            "* **[[[/system:page-tags/tag/ broken]]]**\n",
+            encoding="utf-8",
+        )
+        diagnostics = []
+
+        assert jp_parser.parse_jp_tags(
+            source_dir,
+            strict=True,
+            diagnostics=diagnostics,
+        ) == []
+        assert diagnostics == [
+            f"{source}:1: malformed source record (invalid JP tag link)"
+        ]
+        with pytest.raises(SourceParseError, match="invalid JP tag link"):
+            jp_parser.parse_jp_tags(source_dir, strict=True)
 
     def test_parse_unused_tag_records_covers_wikidot_tag_url_variants(self, tmp_path):
         source = tmp_path / "fragment-unused.txt"

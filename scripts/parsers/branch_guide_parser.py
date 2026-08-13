@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 from collections import defaultdict
-from collections.abc import Iterable, Mapping, Sequence
+from collections.abc import Iterable, Mapping, MutableSequence, Sequence
 from pathlib import Path
 from typing import TypedDict
 from urllib.parse import unquote
@@ -16,6 +16,7 @@ from scripts.parsers.contracts import (
     TargetResolver,
 )
 from scripts.parsers.crosswalk_resolver import normalize_tag
+from scripts.parsers.errors import report_source_issue
 
 __all__ = ["analyze_branch_guides"]
 
@@ -23,7 +24,7 @@ __all__ = ["analyze_branch_guides"]
 _TAG_LINK_RE = re.compile(
     r"\[(?:\*)?"
     r"(?:(?P<scheme>https?://)(?P<host>[^/\]\s]+))?"
-    r"/system:page-tags/tag/(?P<path>[^\s\]#?]+)"
+    r"/system(?::|/)page-tags/tag/(?P<path>[^\s\]#?]+)"
     r"(?:[#?][^\s\]]*)?"
     r"(?:\s+(?P<label>[^\]]+))?\]",
     re.IGNORECASE,
@@ -329,15 +330,49 @@ def _analyze_branch_rows(
     return mappings, stats
 
 
+def _validate_source_links(
+    source_paths: Sequence[Path],
+    diagnostics: MutableSequence[str] | None = None,
+) -> None:
+    """Reject tag-shaped lines that cannot produce a valid link record."""
+    for path in source_paths:
+        for line_number, line in enumerate(
+            path.read_text(encoding="utf-8").splitlines(),
+            1,
+        ):
+            if "page-tags/tag/" not in line:
+                continue
+            links = _tag_links(line)
+            if not links:
+                report_source_issue(
+                    path,
+                    line_number,
+                    "invalid branch tag link",
+                    diagnostics,
+                )
+            if any(_valid_tag(link["path"]) is None for link in links):
+                report_source_issue(
+                    path,
+                    line_number,
+                    "invalid branch tag name",
+                    diagnostics,
+                )
+
+
 def analyze_branch_guides(
     source_paths: Mapping[str, Sequence[Path]],
     resolver: TargetResolver,
+    *,
+    strict: bool = False,
+    diagnostics: MutableSequence[str] | None = None,
 ) -> BranchGuideAnalysis:
     """Return unique current-JP mappings and deterministic audit counts."""
 
     mappings_by_branch: dict[str, dict[str, str]] = {}
     stats: BranchGuideStats = {}
     for branch, paths in source_paths.items():
+        if strict:
+            _validate_source_links(paths, diagnostics)
         rows = (
             _parse_zh(paths)
             if branch == "zh-tr"
