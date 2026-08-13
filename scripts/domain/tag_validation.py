@@ -5,15 +5,13 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import cast
 
-from scripts.domain.tag_models import (
+from scripts.domain.tag_coverage_models import Coverage
+from scripts.domain.tag_policy_models import (
     CLASSIFICATION_STATUSES,
     COVERAGE_TRANSLATION_ACTIONS,
     SPECIAL_TRANSLATION_ACTIONS,
-    Coverage,
-    DeprecatedTag,
-    EnTag,
-    JpTag,
 )
+from scripts.domain.tag_records import DeprecatedTag, EnTag, JpTag
 
 
 def _ensure_unique(values: Iterable[str], label: str) -> None:

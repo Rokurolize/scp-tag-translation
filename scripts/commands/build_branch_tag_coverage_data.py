@@ -28,7 +28,7 @@ from scripts.domain.tag_coverage import (
     build_application_inventory,
     build_coverage,
 )
-from scripts.domain.tag_models import Coverage
+from scripts.domain.tag_coverage_models import Coverage
 from scripts.domain.policy_builder import build_mapping_policy
 from scripts.domain.tag_validation import validate_tag_records
 

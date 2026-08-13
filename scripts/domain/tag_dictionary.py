@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from scripts.domain.tag_models import DeprecatedTag, EnTag, JpTag
+from scripts.domain.tag_records import DeprecatedTag, EnTag, JpTag
 from scripts.domain.tag_policy import (
     EN_ORIGIN_TAG_REPLACEMENTS,
     MappingPolicy,

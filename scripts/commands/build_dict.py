@@ -28,7 +28,7 @@ from scripts.data_paths import (
     EN_DICTIONARY_PATH,
 )
 from scripts.domain.tag_dictionary import build_en_dicts
-from scripts.domain.tag_models import EnTag, JpTag
+from scripts.domain.tag_records import EnTag, JpTag
 from scripts.domain.tag_policy import (
     EN_ORIGIN_TAG_REPLACEMENTS,
     en_category_omitted_tags,

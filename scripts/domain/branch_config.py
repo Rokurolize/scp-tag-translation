@@ -3,8 +3,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import TypedDict
 
-from scripts.domain.tag_models import BrowserBranchRecord
+
+class BrowserBranchRecord(TypedDict):
+    branch: str
+    site: str
+    label: str
+    jp_branch_tag: str
 
 
 @dataclass(frozen=True)

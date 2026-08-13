@@ -1,200 +1,73 @@
-"""Typed records shared by tag dictionary and coverage generators."""
+"""Compatibility exports for the split domain model modules.
 
-from __future__ import annotations
+New code should import records from ``tag_records``, policy vocabulary from
+``tag_policy_models``, and generated artifacts from ``tag_coverage_models``.
+"""
 
-from collections.abc import Mapping
-from typing import Literal, Required, TypeAlias, TypedDict
+from scripts.domain.tag_coverage_models import (
+    ApplicationBranch,
+    ApplicationInventory,
+    ApplicationTag,
+    BranchTagStats,
+    Classification,
+    Coverage,
+    CoverageBranch,
+    CoverageSource,
+    CoverageTag,
+    TagStats,
+)
+from scripts.domain.tag_policy_models import (
+    CLASSIFICATION_STATUSES,
+    COVERAGE_TRANSLATION_ACTIONS,
+    SOURCE_TRANSLATION_ACTIONS,
+    SPECIAL_TRANSLATION_ACTIONS,
+    ClassificationStatus,
+    CoverageTranslationAction,
+    JpPolicyDocument,
+    JpTagPolicy,
+    SourceTagPolicy,
+    SourceTranslationAction,
+    SpecialTranslationAction,
+)
+from scripts.domain.tag_records import (
+    BranchOverrideFile,
+    BranchOverrideRecord,
+    BranchOverrideValue,
+    DeprecatedTag,
+    EnTag,
+    JpTag,
+    OfficialCrosswalkFile,
+    ReplacementOverrideFile,
+)
 
-
-ClassificationStatus = Literal[
-    "jp_unused_replacement",
-    "jp_unused_no_single_replacement",
-    "jp_translation_policy_omit",
-    "jp_tag_name",
-    "jp_tag_alias",
-    "curated_override_only",
-    "official_crosswalk",
-    "unhandled",
+__all__ = [
+    "ApplicationBranch",
+    "ApplicationInventory",
+    "ApplicationTag",
+    "BranchOverrideFile",
+    "BranchOverrideRecord",
+    "BranchOverrideValue",
+    "BranchTagStats",
+    "CLASSIFICATION_STATUSES",
+    "Classification",
+    "ClassificationStatus",
+    "COVERAGE_TRANSLATION_ACTIONS",
+    "Coverage",
+    "CoverageBranch",
+    "CoverageSource",
+    "CoverageTag",
+    "CoverageTranslationAction",
+    "DeprecatedTag",
+    "EnTag",
+    "JpPolicyDocument",
+    "JpTag",
+    "JpTagPolicy",
+    "OfficialCrosswalkFile",
+    "ReplacementOverrideFile",
+    "SOURCE_TRANSLATION_ACTIONS",
+    "SPECIAL_TRANSLATION_ACTIONS",
+    "SourceTagPolicy",
+    "SourceTranslationAction",
+    "SpecialTranslationAction",
+    "TagStats",
 ]
-SourceTranslationAction = Literal[
-    "omit_jp_unused",
-    "omit_translation_policy",
-]
-CoverageTranslationAction = Literal[
-    "copy",
-    "copy_replacement",
-    "omit_jp_policy",
-    "omit_jp_unused",
-    "omit_translation_policy",
-    "staff_permission_required",
-    "tag_application_required",
-]
-SpecialTranslationAction = Literal["staff_permission_required", "omit"]
-
-CLASSIFICATION_STATUSES: frozenset[ClassificationStatus] = frozenset({
-    "jp_unused_replacement",
-    "jp_unused_no_single_replacement",
-    "jp_translation_policy_omit",
-    "jp_tag_name",
-    "jp_tag_alias",
-    "curated_override_only",
-    "official_crosswalk",
-    "unhandled",
-})
-SOURCE_TRANSLATION_ACTIONS: frozenset[SourceTranslationAction] = frozenset({
-    "omit_jp_unused",
-    "omit_translation_policy",
-})
-COVERAGE_TRANSLATION_ACTIONS: frozenset[CoverageTranslationAction] = frozenset({
-    "copy",
-    "copy_replacement",
-    "omit_jp_policy",
-    "omit_jp_unused",
-    "omit_translation_policy",
-    "staff_permission_required",
-    "tag_application_required",
-})
-SPECIAL_TRANSLATION_ACTIONS: frozenset[SpecialTranslationAction] = frozenset({
-    "staff_permission_required",
-    "omit",
-})
-
-
-class EnTag(TypedDict, total=False):
-    name: Required[str]
-    category: str | None
-    description: str
-    meta: dict[str, list[str]]
-
-
-class JpTag(TypedDict, total=False):
-    name: Required[str]
-    description: str
-    source_tags: Required[list[str]]
-    use_restricted: bool
-    edit_restricted: bool
-    translation_exempt: bool
-
-
-class BranchOverrideRecord(TypedDict, total=False):
-    jp_tag: Required[str]
-    note: str
-
-
-BranchOverrideValue: TypeAlias = str | BranchOverrideRecord
-BranchOverrideFile: TypeAlias = Mapping[
-    str,
-    Mapping[str, BranchOverrideValue],
-]
-ReplacementOverrideFile: TypeAlias = Mapping[str, Mapping[str, str]]
-OfficialCrosswalkFile: TypeAlias = Mapping[str, Mapping[str, str]]
-
-
-class DeprecatedTag(TypedDict, total=False):
-    source_lang: str
-    source_tag: Required[str]
-    replacement: str | None
-    description: str
-
-
-class JpTagPolicy(TypedDict):
-    use_restricted: bool
-    edit_restricted: bool
-    translation_exempt: bool
-    special_translation_action: SpecialTranslationAction | None
-    copy_allowed_for_translation: bool
-
-
-class SourceTagPolicy(TypedDict):
-    translation_action: SourceTranslationAction
-    reason: str
-
-
-class JpPolicyDocument(TypedDict):
-    schema_version: int
-    source: str
-    tags: dict[str, JpTagPolicy]
-    source_tags: dict[str, dict[str, SourceTagPolicy]]
-    concatenated_tag_hints: dict[str, dict[str, list[str]]]
-
-
-class TagStats(TypedDict):
-    page_count: int
-    sample_slugs: list[str]
-
-
-class BranchTagStats(TypedDict):
-    page_count: int
-    tags: dict[str, TagStats]
-
-
-class Classification(TypedDict):
-    status: ClassificationStatus
-    recognized_by_jp_policy: bool
-    jp_tag: str | None
-    replacement: str | None
-    translation_action: CoverageTranslationAction
-    copy_allowed: bool
-    display_tag: str | None
-    target_policy: JpTagPolicy | None
-
-
-class CoverageTag(Classification):
-    tag: str
-    rank: int
-    page_count: int
-    sample_slugs: list[str]
-
-
-class CoverageBranch(TypedDict):
-    branch: str
-    site: str
-    page_count: int
-    tag_count: int
-    status_counts: dict[ClassificationStatus, int]
-    tags: list[CoverageTag]
-
-
-class CoverageSource(TypedDict):
-    corpus_root: str
-    jp_tag_source: str
-    jp_unused_source: str
-    override_source: str
-    deprecated_override_source: str
-    crosswalk_source: str
-
-
-class Coverage(TypedDict):
-    schema_version: int
-    source: CoverageSource
-    status_descriptions: Mapping[ClassificationStatus, str]
-    action_descriptions: Mapping[CoverageTranslationAction, str]
-    branches: list[CoverageBranch]
-
-
-class ApplicationTag(TypedDict):
-    tag: str
-    display_tag: str | None
-    page_count: int
-    sample_slugs: list[str]
-
-
-class ApplicationBranch(TypedDict):
-    branch: str
-    site: str
-    scanned_page_count: int
-    tag_count: int
-    tags: list[ApplicationTag]
-
-
-class ApplicationInventory(TypedDict):
-    schema_version: int
-    rule: str
-    branches: list[ApplicationBranch]
-
-
-class BrowserBranchRecord(TypedDict):
-    branch: str
-    site: str
-    label: str
-    jp_branch_tag: str

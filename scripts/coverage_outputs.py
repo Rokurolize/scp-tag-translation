@@ -5,7 +5,7 @@ from __future__ import annotations
 import csv
 from pathlib import Path
 
-from scripts.domain.tag_models import ApplicationInventory, Coverage
+from scripts.domain.tag_coverage_models import ApplicationInventory, Coverage
 
 
 def write_coverage_tsv(path: Path, coverage: Coverage) -> None:

@@ -6,7 +6,7 @@ from collections.abc import Mapping, Sequence, Set
 from dataclasses import dataclass
 from typing import Literal
 
-from scripts.domain.tag_models import (
+from scripts.domain.tag_records import (
     DeprecatedTag,
     EnTag,
     JpTag,

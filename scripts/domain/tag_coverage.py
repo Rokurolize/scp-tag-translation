@@ -7,22 +7,22 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 
 from scripts.domain.branch_config import BRANCH_CONFIG_BY_CODE
-from scripts.domain.tag_models import (
+from scripts.domain.tag_coverage_models import (
     ApplicationBranch,
     ApplicationInventory,
     ApplicationTag,
     BranchTagStats,
     Classification,
-    ClassificationStatus,
     Coverage,
     CoverageBranch,
     CoverageTag,
+)
+from scripts.domain.tag_policy_models import (
+    ClassificationStatus,
     CoverageTranslationAction,
-    DeprecatedTag,
-    EnTag,
-    JpTag,
     JpTagPolicy,
 )
+from scripts.domain.tag_records import DeprecatedTag, EnTag, JpTag
 from scripts.domain.jp_policy import JpPolicyInputs, build_jp_policy
 from scripts.domain.tag_policy import (
     BranchMappingPolicy,

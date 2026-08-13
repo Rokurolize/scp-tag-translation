@@ -12,7 +12,7 @@ from scripts.data_paths import (
     DICTIONARIES_DIR,
     OVERRIDES_PATH,
 )
-from scripts.domain.tag_models import (
+from scripts.domain.tag_records import (
     BranchOverrideFile,
     OfficialCrosswalkFile,
     ReplacementOverrideFile,

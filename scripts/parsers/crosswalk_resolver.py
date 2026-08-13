@@ -5,7 +5,7 @@ from __future__ import annotations
 import unicodedata
 from collections.abc import Iterable
 
-from scripts.domain.tag_models import DeprecatedTag, JpTag
+from scripts.domain.tag_records import DeprecatedTag, JpTag
 from scripts.domain.tag_policy import jp_maps
 from scripts.domain.tag_validation import validate_deprecated_tags, validate_jp_tags
 

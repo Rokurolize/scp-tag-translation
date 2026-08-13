@@ -9,7 +9,7 @@ from pathlib import Path
 
 from scripts.atomic_output import publish_files_atomically
 from scripts.data_paths import COVERAGE_HTML_PATH, COVERAGE_JSON_PATH, ROOT
-from scripts.domain.tag_models import Coverage
+from scripts.domain.tag_coverage_models import Coverage
 from scripts.domain.tag_validation import validate_coverage
 from scripts.json_io import write_text
 

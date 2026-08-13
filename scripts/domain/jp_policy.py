@@ -6,14 +6,16 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
-from scripts.domain.tag_models import (
-    DeprecatedTag,
-    EnTag,
+from scripts.domain.tag_policy_models import (
     JpPolicyDocument,
-    JpTag,
     JpTagPolicy,
     SourceTagPolicy,
     SpecialTranslationAction,
+)
+from scripts.domain.tag_records import (
+    DeprecatedTag,
+    EnTag,
+    JpTag,
 )
 from scripts.domain.tag_policy import (
     MappingPolicy,

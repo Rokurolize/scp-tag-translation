@@ -36,7 +36,7 @@ from scripts.domain.concatenated_tags import (
 from scripts.domain.jp_policy import JpPolicyInputs, build_jp_policy
 from scripts.domain.policy_builder import build_mapping_policy
 from scripts.domain.tag_dictionary import build_branch_dict, build_en_dicts
-from scripts.domain.tag_models import DeprecatedTag, EnTag, JpTag
+from scripts.domain.tag_records import DeprecatedTag, EnTag, JpTag
 from scripts.domain.tag_policy import (
     MappingPolicy,
 )
