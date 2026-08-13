@@ -73,14 +73,17 @@ def _report_malformed_line(
             "invalid EN tag link",
             diagnostics,
         )
-    elif current_tag is not None and line.startswith("* //"):
-        if _parse_meta_line(line) is None:
-            report_source_issue(
-                input_path,
-                line_number,
-                "invalid EN metadata",
-                diagnostics,
-            )
+    elif (
+        current_tag is not None
+        and line.startswith("* //")
+        and _parse_meta_line(line) is None
+    ):
+        report_source_issue(
+            input_path,
+            line_number,
+            "invalid EN metadata",
+            diagnostics,
+        )
 
 
 def parse_en_tags(
