@@ -1,10 +1,10 @@
 ---
 name: desloppify
-description: Multi-language codebase health scanner and technical-debt workflow. Use when the user asks to run Desloppify, scan or review a codebase for technical debt, inspect a health score or cleanup plan, or diagnose/fix a Desloppify detector, CLI, launcher, or skill-document bug. Do NOT trigger for unrelated application code review, ordinary refactoring, renaming, or application bug fixes.
+description: Use for Desloppify codebase scans, health scores, cleanup plans, and diagnosing or fixing Desloppify's detectors, CLI, launcher, or skill-document bugs. Do NOT trigger for unrelated application code review, ordinary refactoring, renaming, or application bug fixes.
 ---
 
 <!-- desloppify-begin -->
-<!-- desloppify-skill-version: 13 -->
+<!-- desloppify-skill-version: 14 -->
 
 # Desloppify
 
