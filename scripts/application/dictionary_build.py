@@ -55,7 +55,7 @@ class BranchBuildConfig:
     )
 
 
-def _resolve_build_branches(
+def _resolve_build_branch_scope(
     branches: Sequence[str] | None,
     config: BranchBuildConfig,
 ) -> tuple[tuple[str, ...], set[str]]:
@@ -114,7 +114,7 @@ def _build_branch_artifacts(
     return outputs, tuple(summaries), branch_dictionaries
 
 
-def _merge_existing_hint_dictionaries(
+def _merge_hint_dictionaries_and_sequences(
     branch_dictionaries: Mapping[str, Mapping[str, str | None]],
     corpus_data: Mapping[str, CorpusBranchData],
     config: BranchBuildConfig,
@@ -153,7 +153,7 @@ def build_artifacts(
 ) -> BuildArtifacts:
     """Assemble dictionary and policy artifacts without publishing them."""
     config = config or BranchBuildConfig()
-    branches, required_branches = _resolve_build_branches(branches, config)
+    branches, required_branches = _resolve_build_branch_scope(branches, config)
     missing_branches = sorted(required_branches - set(corpus_data))
     if missing_branches:
         raise ValueError(
@@ -166,7 +166,7 @@ def build_artifacts(
         inputs,
         config,
     )
-    hint_dictionaries, visible_sequences_by_branch = _merge_existing_hint_dictionaries(
+    hint_dictionaries, visible_sequences_by_branch = _merge_hint_dictionaries_and_sequences(
         branch_dictionaries,
         corpus_data,
         config,
@@ -205,7 +205,7 @@ def build_and_publish_dictionaries(
 ) -> BuildArtifacts:
     """Load validated inputs, build dictionaries, and publish them atomically."""
     config = config or BranchBuildConfig()
-    branches, required_branches = _resolve_build_branches(branches, config)
+    branches, required_branches = _resolve_build_branch_scope(branches, config)
     loaded = load_mapping_inputs(
         config.mapping_inputs,
         require_complete_inputs=True,

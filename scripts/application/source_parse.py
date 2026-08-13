@@ -22,27 +22,23 @@ from scripts.infrastructure.data_paths import (
 )
 from scripts.infrastructure.json_io import write_json
 from scripts.parsers import branch_guide_parser, en_parser, int_parser, jp_parser, ko_parser
-from scripts.application.source_parse_contracts import (
-    BranchGuideParser,
-    EnParser,
-    IntParser,
-    JpParser,
-    KoParser,
-)
 from scripts.pipeline.source_manifest import (
     branch_guide_sources,
     parser_source_path,
     source_directory,
 )
-from scripts.application.source_parse_models import ParseBatch
-from scripts.application.source_parse_crosswalks import collect_crosswalk_parses
-from scripts.application.source_parse_records import (
-    load_persisted_jp_records,
-    require_file,
-)
-from scripts.application.source_parse_reporting import (
+from scripts.application.source_parsing import (
+    BranchGuideParser,
+    EnParser,
+    IntParser,
+    JpParser,
+    KoParser,
+    ParseBatch,
     SourceParseDiagnosticsError,
+    collect_crosswalk_parses,
+    load_persisted_jp_records,
     merge_batches,
+    require_file,
     report_batch,
 )
 

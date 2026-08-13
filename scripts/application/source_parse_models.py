@@ -1,17 +1,5 @@
-"""Value objects shared by source parsing workflow collaborators."""
+"""Compatibility imports for source parsing value objects."""
 
-from __future__ import annotations
-
-from collections.abc import Mapping
-from dataclasses import dataclass
-from pathlib import Path
-
-
-@dataclass(frozen=True)
-class ParseBatch:
-    outputs: Mapping[Path, object]
-    messages: tuple[str, ...]
-    diagnostics: tuple[str, ...] = ()
-
+from scripts.application.source_parsing.models import ParseBatch
 
 __all__ = ["ParseBatch"]
