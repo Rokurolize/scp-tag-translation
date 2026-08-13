@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from collections.abc import Sequence
 from pathlib import Path
 
 from scripts.atomic_output import publish_files_atomically
@@ -59,7 +60,7 @@ def load_coverage_inputs() -> CoverageInputs:
 def build_and_publish(
     corpus_root: Path,
     output_dir: Path,
-    branches: list[str],
+    branches: Sequence[str],
 ) -> tuple[Coverage, tuple[Path, Path, Path, Path]]:
     """Build coverage artifacts and publish all four outputs atomically."""
 
