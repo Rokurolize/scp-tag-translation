@@ -7,8 +7,8 @@ from pathlib import Path
 import pytest
 
 from scripts.commands.build_dict import build_en_dictionary
-from scripts.domain.tag_policy import is_deprecated_for_en_source
-from scripts.domain.tag_validation import validate_tag_records
+from scripts.domain.policy.tag_policy import is_deprecated_for_en_source
+from scripts.domain.records.tag_validation import validate_tag_records
 
 
 EN = [{"name": "scp"}, {"name": "tale"}, {"name": "hub"}]

@@ -27,7 +27,7 @@ from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.domain.concatenated_tags import (
     build_concatenated_tag_hints,
 )
-from scripts.domain.jp_policy import JpPolicyInputs, build_jp_policy
+from scripts.domain.policy.jp_policy import JpPolicyInputs, build_jp_policy
 from scripts.domain.tag_dictionary import build_branch_dict, build_en_dicts
 
 @dataclass(frozen=True)

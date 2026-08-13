@@ -4,7 +4,7 @@ import sys
 import pytest
 
 from scripts.commands import build_dict
-from scripts.domain.policy_builder import MappingPolicyInputs
+from scripts.domain.policy.policy_builder import MappingPolicyInputs
 
 EN = [{"name": "scp"}, {"name": "tale"}, {"name": "hub"}]
 JP = [

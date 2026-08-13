@@ -6,7 +6,7 @@ from pathlib import Path
 
 from scripts.parsers.crosswalk_resolver import CrosswalkResolver
 from scripts.parsers.int_parser import parse_int_crosswalk
-from scripts.domain.tag_policy import (
+from scripts.domain.policy.tag_policy import (
     EN_ORIGIN_TAG_REPLACEMENTS,
     build_jp_names_and_source_map,
 )

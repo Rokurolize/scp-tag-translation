@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import TypedDict
 
-from scripts.domain.tag_policy_models import (
+from scripts.domain.policy.tag_policy_models import (
     ClassificationStatus,
     CoverageTranslationAction,
     JpTagPolicy,

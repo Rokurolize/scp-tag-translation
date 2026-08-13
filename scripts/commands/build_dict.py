@@ -34,9 +34,9 @@ from scripts.infrastructure.data_paths import (
     EN_DICTIONARY_PATH,
 )
 from scripts.domain.tag_dictionary import build_en_dicts
-from scripts.domain.tag_records import EnTag, JpTag
-from scripts.domain.policy_builder import MappingPolicyInputs, build_mapping_policy
-from scripts.domain.tag_validation import validate_tag_records
+from scripts.domain.records.tag_records import EnTag, JpTag
+from scripts.domain.policy.policy_builder import MappingPolicyInputs, build_mapping_policy
+from scripts.domain.records.tag_validation import validate_tag_records
 
 __all__ = ["build_en_dictionary", "main"]
 

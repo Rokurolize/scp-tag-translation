@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from typing import Literal
 from types import MappingProxyType
 
-from scripts.domain.tag_records import (
+from scripts.domain.records.tag_records import (
     DeprecatedTag,
     EnTag,
     JpTag,

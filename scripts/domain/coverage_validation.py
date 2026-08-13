@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import cast
 
 from scripts.domain.tag_coverage_models import Coverage
-from scripts.domain.tag_policy_models import (
+from scripts.domain.policy.tag_policy_models import (
     CLASSIFICATION_STATUSES,
     COVERAGE_TRANSLATION_ACTIONS,
     SPECIAL_TRANSLATION_ACTIONS,

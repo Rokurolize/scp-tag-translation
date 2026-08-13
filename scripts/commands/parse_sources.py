@@ -29,9 +29,9 @@ from scripts.parsers import (
     ko_parser,
 )
 from scripts.parsers.crosswalk_resolver import CrosswalkResolver
-from scripts.domain.tag_records import DeprecatedTag, JpTag
-from scripts.domain.tag_policy import EN_CROSSWALK_SEMANTIC_REPLACEMENTS
-from scripts.domain.tag_validation import validate_deprecated_tags, validate_jp_tags
+from scripts.domain.records.tag_records import DeprecatedTag, JpTag
+from scripts.domain.policy.tag_policy import EN_CROSSWALK_SEMANTIC_REPLACEMENTS
+from scripts.domain.records.tag_validation import validate_deprecated_tags, validate_jp_tags
 from scripts.pipeline.source_manifest import (
     branch_guide_sources,
     parser_source_path,

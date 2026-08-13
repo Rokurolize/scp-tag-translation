@@ -11,11 +11,11 @@ from scripts.pipeline.corpus import (
 from scripts.pipeline import dictionary_inputs
 from scripts.pipeline.dictionary_inputs import LoadedMappingInputs, load_existing_hint_dictionaries
 from scripts.commands import build_branch_dicts_from_corpus as branch_builder
-from scripts.domain import tag_policy
+from scripts.domain.policy import tag_policy
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
-from scripts.domain.jp_policy import JpPolicyInputs, build_jp_policy
-from scripts.domain.tag_policy import EN_ORIGIN_TAG_REPLACEMENTS
-from scripts.domain.tag_validation import validate_tag_records
+from scripts.domain.policy.jp_policy import JpPolicyInputs, build_jp_policy
+from scripts.domain.policy.tag_policy import EN_ORIGIN_TAG_REPLACEMENTS
+from scripts.domain.records.tag_validation import validate_tag_records
 
 ROOT = Path(__file__).parent.parent
 DICTIONARIES = ROOT / "dictionaries"

@@ -17,14 +17,14 @@ from scripts.domain.tag_coverage_models import (
     CoverageBranch,
     CoverageTag,
 )
-from scripts.domain.tag_policy_models import (
+from scripts.domain.policy.tag_policy_models import (
     ClassificationStatus,
     CoverageTranslationAction,
     JpTagPolicy,
 )
-from scripts.domain.tag_records import DeprecatedTag, EnTag, JpTag
-from scripts.domain.jp_policy import build_jp_tag_policies
-from scripts.domain.tag_policy import (
+from scripts.domain.records.tag_records import DeprecatedTag, EnTag, JpTag
+from scripts.domain.policy.jp_policy import build_jp_tag_policies
+from scripts.domain.policy.tag_policy import (
     BranchMappingPolicy,
     MappingPolicy,
     en_category_omitted_tags,

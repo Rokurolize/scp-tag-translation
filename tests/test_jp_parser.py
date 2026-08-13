@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from scripts.parsers import jp_parser
-from scripts.domain.tag_policy import build_jp_names_and_source_map
+from scripts.domain.policy.tag_policy import build_jp_names_and_source_map
 
 _JP_SOURCE_DIR = Path(__file__).parent.parent / "sources" / "jp"
 

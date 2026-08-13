@@ -11,8 +11,8 @@ from scripts.pipeline.coverage_outputs import (
 )
 from scripts.pipeline import dictionary_inputs
 from scripts.domain import tag_coverage
-from scripts.domain import tag_policy
-from scripts.domain.tag_policy import MappingPolicy
+from scripts.domain.policy import tag_policy
+from scripts.domain.policy.tag_policy import MappingPolicy
 
 
 def _write_page(corpus_root, branch, slug, tags):

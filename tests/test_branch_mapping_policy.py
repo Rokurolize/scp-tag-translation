@@ -1,8 +1,8 @@
 import pytest
 
 from scripts.commands import build_branch_dicts_from_corpus as branch_builder
-from scripts.domain import tag_policy
-from scripts.domain.policy_builder import deprecated_by_source_lang
+from scripts.domain.policy import tag_policy
+from scripts.domain.policy.policy_builder import deprecated_by_source_lang
 from scripts.domain.tag_dictionary import build_en_dicts
 
 def test_branch_builder_applies_expected_precedence(jp_tags_data):

@@ -6,23 +6,23 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
-from scripts.domain.tag_policy_models import (
+from scripts.domain.policy.tag_policy_models import (
     JpPolicyDocument,
     JpTagPolicy,
     SourceTagPolicy,
     SpecialTranslationAction,
 )
-from scripts.domain.tag_records import (
+from scripts.domain.records.tag_records import (
     DeprecatedTag,
     EnTag,
     JpTag,
 )
-from scripts.domain.tag_policy import (
+from scripts.domain.policy.tag_policy import (
     MappingPolicy,
     en_category_omitted_tags,
     source_languages_for_branch,
 )
-from scripts.domain.tag_validation import validate_jp_tags
+from scripts.domain.records.tag_validation import validate_jp_tags
 
 
 @dataclass(frozen=True)

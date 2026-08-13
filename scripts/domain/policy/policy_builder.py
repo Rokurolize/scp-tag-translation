@@ -5,14 +5,14 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 
-from scripts.domain.tag_records import (
+from scripts.domain.records.tag_records import (
     BranchOverrideFile,
     DeprecatedTag,
     JpTag,
     OfficialCrosswalkFile,
     ReplacementOverrideFile,
 )
-from scripts.domain.tag_policy import (
+from scripts.domain.policy.tag_policy import (
     EN_ORIGIN_TAG_REPLACEMENTS,
     MappingPolicy,
     build_jp_names_and_source_map,

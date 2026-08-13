@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 from typing import cast
-from scripts.domain.tag_records import DeprecatedTag, EnTag, JpTag
+from scripts.domain.records.tag_records import DeprecatedTag, EnTag, JpTag
 
 
 def _ensure_unique(values: Iterable[str], label: str) -> None:

@@ -16,8 +16,8 @@ from scripts.infrastructure.data_paths import (
     DICTIONARIES_DIR,
     OVERRIDES_PATH,
 )
-from scripts.domain.policy_builder import MappingPolicyInputs, build_mapping_policy
-from scripts.domain.tag_records import (
+from scripts.domain.policy.policy_builder import MappingPolicyInputs, build_mapping_policy
+from scripts.domain.records.tag_records import (
     BranchOverrideFile,
     DeprecatedTag,
     EnTag,
@@ -25,8 +25,8 @@ from scripts.domain.tag_records import (
     JpTag,
     ReplacementOverrideFile,
 )
-from scripts.domain.tag_policy import MappingPolicy
-from scripts.domain.tag_validation import validate_tag_records
+from scripts.domain.policy.tag_policy import MappingPolicy
+from scripts.domain.records.tag_validation import validate_tag_records
 from scripts.infrastructure.json_io import load_json
 
 

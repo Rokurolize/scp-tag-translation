@@ -5,9 +5,9 @@ from __future__ import annotations
 import unicodedata
 from collections.abc import Iterable, Mapping
 
-from scripts.domain.tag_records import DeprecatedTag, JpTag
-from scripts.domain.tag_policy import build_jp_names_and_source_map
-from scripts.domain.tag_validation import validate_deprecated_tags, validate_jp_tags
+from scripts.domain.records.tag_records import DeprecatedTag, JpTag
+from scripts.domain.policy.tag_policy import build_jp_names_and_source_map
+from scripts.domain.records.tag_validation import validate_deprecated_tags, validate_jp_tags
 
 
 def normalize_tag(value: str) -> str:
