@@ -4,12 +4,21 @@ from __future__ import annotations
 
 from collections import Counter, defaultdict
 from collections.abc import Iterator
+from dataclasses import dataclass
 from pathlib import Path
 
 from scripts.json_io import load_json
 from scripts.domain.tag_models import BranchTagStats, TagStats
 
 SAMPLE_LIMIT = 5
+
+
+@dataclass(frozen=True)
+class CorpusBranchData:
+    """Corpus facts consumed by branch dictionary and hint assembly."""
+
+    source_tags: set[str]
+    visible_sequences: list[tuple[str, tuple[str, ...]]]
 
 
 def discover_corpus_branches(corpus_root: Path) -> list[str]:
@@ -64,6 +73,21 @@ def collect_corpus_tags_and_visible_sequences(
         if visible:
             visible_sequences.append((slug, visible))
     return tags, visible_sequences
+
+
+def collect_corpus_branch_data(
+    corpus_root: Path,
+    branch: str,
+) -> CorpusBranchData:
+    """Collect all corpus facts needed for one branch build."""
+    source_tags, visible_sequences = collect_corpus_tags_and_visible_sequences(
+        corpus_root,
+        branch,
+    )
+    return CorpusBranchData(
+        source_tags=source_tags,
+        visible_sequences=visible_sequences,
+    )
 
 
 def collect_branch_tag_stats(

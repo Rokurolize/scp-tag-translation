@@ -11,7 +11,8 @@ from pathlib import Path
 
 from scripts.atomic_output import publish_files_atomically
 from scripts.corpus import (
-    collect_corpus_tags_and_visible_sequences,
+    CorpusBranchData,
+    collect_corpus_branch_data,
 )
 from scripts.dictionary_inputs import (
     complete_hint_dictionaries,
@@ -76,12 +77,19 @@ class BranchBuildConfig:
 
 
 def build_artifacts(
-    corpus_root: Path,
+    corpus_data: Mapping[str, CorpusBranchData],
     branches: Sequence[str],
     inputs: BranchBuildInputs,
     *,
     config: BranchBuildConfig = BranchBuildConfig(),
 ) -> BuildArtifacts:
+    required_branches = set(branches) | set(config.supported_branches)
+    missing_branches = sorted(required_branches - set(corpus_data))
+    if missing_branches:
+        raise ValueError(
+            "corpus data missing required branches: "
+            + ", ".join(missing_branches)
+        )
     validate_tag_records(
         inputs.en_tags,
         inputs.jp_tags,
@@ -96,10 +104,9 @@ def build_artifacts(
     ] = {}
 
     for branch in sorted(branches):
-        source_tags, visible_sequences = collect_corpus_tags_and_visible_sequences(
-            corpus_root,
-            branch,
-        )
+        branch_data = corpus_data[branch]
+        source_tags = branch_data.source_tags
+        visible_sequences = branch_data.visible_sequences
         if branch == "en":
             dictionary, deprecated_dict = build_en_dicts(
                 inputs.en_tags,
@@ -142,9 +149,7 @@ def build_artifacts(
     )
     for branch in config.supported_branches:
         if branch not in visible_sequences_by_branch:
-            _source_tags, visible_sequences_by_branch[branch] = (
-                collect_corpus_tags_and_visible_sequences(corpus_root, branch)
-            )
+            visible_sequences_by_branch[branch] = corpus_data[branch].visible_sequences
     concatenated_tag_hints = {
         branch: build_concatenated_tag_hints(
             branch,
@@ -202,8 +207,13 @@ def build_and_publish(
         deprecated_tags,
         load_mapping_policy_inputs(),
     )
+    required_branches = set(branches) | set(config.supported_branches)
+    corpus_data = {
+        branch: collect_corpus_branch_data(corpus_root, branch)
+        for branch in sorted(required_branches)
+    }
     artifacts = build_artifacts(
-        corpus_root,
+        corpus_data,
         branches,
         BranchBuildInputs(
             en_tags=en_tags,

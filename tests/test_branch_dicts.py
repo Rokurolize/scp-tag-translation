@@ -4,12 +4,18 @@ from pathlib import Path
 
 import pytest
 
-from scripts.corpus import corpus_tags_for_branch, discover_corpus_branches
+from scripts.corpus import (
+    collect_corpus_branch_data,
+    corpus_tags_for_branch,
+    discover_corpus_branches,
+)
+from scripts import dictionary_inputs
 from scripts.dictionary_inputs import complete_hint_dictionaries
 from scripts.commands import build_branch_dicts_from_corpus as branch_builder
 from scripts.domain import tag_policy
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.domain.jp_policy import JpPolicyInputs, build_jp_policy
+from scripts.domain.tag_policy import EN_ORIGIN_TAG_REPLACEMENTS
 
 ROOT = Path(__file__).parent.parent
 DICTIONARIES = ROOT / "dictionaries"
@@ -97,7 +103,7 @@ def controlled_branch_artifacts(tmp_path):
     )
 
     artifacts = branch_builder.build_artifacts(
-        corpus_root,
+        {"en": collect_corpus_branch_data(corpus_root, "en")},
         ["en"],
         branch_builder.BranchBuildInputs(
             en_tags=en_tags,
@@ -133,6 +139,104 @@ def test_build_artifacts_owns_complete_publication_set(
         "en": {}
     }
     assert artifacts.hint_count == 0
+
+
+def test_build_and_publish_success_path_uses_real_inputs_and_outputs(
+    tmp_path,
+    monkeypatch,
+):
+    data_dir = tmp_path / "data"
+    source_dir = tmp_path / "sources"
+    output_dir = tmp_path / "dictionaries"
+    data_dir.mkdir()
+    source_dir.mkdir()
+
+    data_paths = {
+        "DATA_EN": data_dir / "en_tags.json",
+        "DATA_JP": data_dir / "jp_tags.json",
+        "DATA_DEPRECATED": data_dir / "deprecated_tags.json",
+        "DATA_INT_CROSSWALK": data_dir / "int_tag_crosswalk.json",
+        "DATA_KO_CROSSWALK": data_dir / "ko_tag_crosswalk.json",
+        "DATA_BRANCH_GUIDE_CROSSWALK": data_dir / "branch_guide_crosswalk.json",
+    }
+    for name, path in data_paths.items():
+        monkeypatch.setattr(branch_builder, name, path)
+
+    overrides_path = source_dir / "branch_to_jp_overrides.json"
+    replacement_overrides_path = (
+        source_dir / "deprecated_replacement_overrides.json"
+    )
+    crosswalk_paths = tuple(
+        data_dir / filename
+        for filename in (
+            "int_tag_crosswalk.json",
+            "ko_tag_crosswalk.json",
+            "branch_guide_crosswalk.json",
+        )
+    )
+    monkeypatch.setattr(dictionary_inputs, "OVERRIDES_PATH", overrides_path)
+    monkeypatch.setattr(
+        dictionary_inputs,
+        "DEPRECATED_REPLACEMENT_OVERRIDES_PATH",
+        replacement_overrides_path,
+    )
+    monkeypatch.setattr(dictionary_inputs, "CROSSWALK_PATHS", crosswalk_paths)
+
+    en_tags = [
+        {"name": "safe"},
+        {"name": "scp"},
+        {"name": "horror", "category": "Genre"},
+    ]
+    jp_names = {
+        "safe",
+        "scp",
+        "ホラー",
+        *EN_ORIGIN_TAG_REPLACEMENTS.values(),
+    }
+    jp_tags = [
+        {
+            "name": name,
+            "source_tags": ["horror"] if name == "ホラー" else [],
+        }
+        for name in sorted(jp_names)
+    ]
+    for path, value in (
+        (data_paths["DATA_EN"], en_tags),
+        (data_paths["DATA_JP"], jp_tags),
+        (data_paths["DATA_DEPRECATED"], []),
+        (overrides_path, {}),
+        (replacement_overrides_path, {}),
+    ):
+        path.write_text(json.dumps(value), encoding="utf-8")
+    for path in crosswalk_paths:
+        path.write_text("{}", encoding="utf-8")
+
+    corpus_root = tmp_path / "corpus"
+    page_dir = corpus_root / "en" / "pages" / "sample"
+    page_dir.mkdir(parents=True)
+    (page_dir / "meta.json").write_text(
+        json.dumps({"tags": ["safe", "scp", "horror"]}),
+        encoding="utf-8",
+    )
+    config = branch_builder.BranchBuildConfig(
+        dictionaries_dir=output_dir,
+        jp_policy_path=output_dir / "jp_tag_policy.json",
+        supported_branches=("en",),
+    )
+
+    artifacts = branch_builder.build_and_publish(
+        corpus_root,
+        ["en"],
+        config=config,
+    )
+
+    assert set(artifacts.outputs) == {
+        output_dir / "en_to_jp.json",
+        output_dir / "deprecated_en_to_jp.json",
+        output_dir / "jp_tag_policy.json",
+    }
+    assert _load_json(output_dir / "en_to_jp.json")["horror"] == "ホラー"
+    assert _load_json(output_dir / "jp_tag_policy.json")["schema_version"] == 2
 
 
 def test_build_jp_policy_preserves_tag_and_source_policy_rules():

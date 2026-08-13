@@ -80,6 +80,51 @@ def _paths_matching_hosts(
     ]
 
 
+def _iter_branch_link_tails(
+    line: str,
+    branch_host: str,
+) -> Iterable[tuple[_TagLink, str]]:
+    """Yield each local branch link and the text before the next link."""
+    links = [
+        link
+        for link in _tag_links(line)
+        if not link["host"] or branch_host in link["host"]
+    ]
+    for index, link in enumerate(links):
+        tail_end = (
+            links[index + 1]["start"] if index + 1 < len(links) else len(line)
+        )
+        yield link, line[link["end"] : tail_end]
+
+
+def _validated_source_en(
+    source_raw: str,
+    en_raw: str,
+) -> tuple[str, list[str], list[str]] | None:
+    source = _valid_tag(source_raw)
+    en_tag = _valid_en_tag(en_raw)
+    if source is None or en_tag is None:
+        return None
+    return source, [en_tag], []
+
+
+def _parse_table_source_en(
+    line: str,
+    *,
+    strip_en_decorations: bool,
+) -> tuple[str, list[str], list[str]] | None:
+    if not line.startswith("||"):
+        return None
+    cells = line.split("||")[1:]
+    if len(cells) < 2:
+        return None
+    links = _tag_links(cells[1])
+    if len(links) != 1:
+        return None
+    en_raw = cells[0].strip(" {}*~") if strip_en_decorations else cells[0]
+    return _validated_source_en(links[0]["path"], en_raw)
+
+
 def _parse_cn_line(line: str) -> tuple[str, list[str], list[str]] | None:
     if not line.lstrip().startswith("*"):
         return None
@@ -132,17 +177,11 @@ def _parse_de(lines: Iterable[str]) -> Iterable[tuple[str, list[str], list[str]]
             continue
         if line.startswith("[[/collapsible]]"):
             break
-        if not line.startswith("||"):
-            continue
-        cells = line.split("||")[1:]
-        if len(cells) < 2:
-            continue
-        en_tag = _valid_en_tag(cells[0].strip(" {}*~"))
-        links = _tag_links(cells[1])
-        if en_tag is None or len(links) != 1:
-            continue
-        if source := _valid_tag(links[0]["path"]):
-            yield source, [en_tag], []
+        if row := _parse_table_source_en(
+            line,
+            strip_en_decorations=True,
+        ):
+            yield row
 
 
 def _parse_link_followed_by_en(
@@ -151,21 +190,10 @@ def _parse_link_followed_by_en(
     en_pattern: re.Pattern[str],
 ) -> Iterable[tuple[str, list[str], list[str]]]:
     for line in lines:
-        links = [
-            link
-            for link in _tag_links(line)
-            if not link["host"] or branch_host in link["host"]
-        ]
-        for index, link in enumerate(links):
-            tail_end = (
-                links[index + 1]["start"] if index + 1 < len(links) else len(line)
-            )
-            tail = line[link["end"] : tail_end]
+        for link, tail in _iter_branch_link_tails(line, branch_host):
             match = en_pattern.search(tail)
-            source = _valid_tag(link["path"])
-            en_tag = _valid_en_tag(match.group(1)) if match else None
-            if source is not None and en_tag is not None:
-                yield source, [en_tag], []
+            if match and (row := _validated_source_en(link["path"], match.group(1))):
+                yield row
 
 
 def _parse_label_parenthetical(
@@ -173,14 +201,10 @@ def _parse_label_parenthetical(
     branch_host: str,
 ) -> Iterable[tuple[str, list[str], list[str]]]:
     for line in lines:
-        for link in _tag_links(line):
-            if link["host"] and branch_host not in link["host"]:
-                continue
-            source = _valid_tag(link["path"])
+        for link, _tail in _iter_branch_link_tails(line, branch_host):
             match = re.search(r"\(([^()]+)\)\s*$", link["label"])
-            en_tag = _valid_en_tag(match.group(1)) if match else None
-            if source is not None and en_tag is not None:
-                yield source, [en_tag], []
+            if match and (row := _validated_source_en(link["path"], match.group(1))):
+                yield row
 
 
 def _parse_ua(lines: Iterable[str]) -> Iterable[tuple[str, list[str], list[str]]]:
@@ -213,17 +237,11 @@ def _parse_pt(lines: Iterable[str]) -> Iterable[tuple[str, list[str], list[str]]
 
 def _parse_vn(lines: Iterable[str]) -> Iterable[tuple[str, list[str], list[str]]]:
     for line in lines:
-        if not line.startswith("||"):
-            continue
-        cells = line.split("||")[1:]
-        if len(cells) < 2:
-            continue
-        en_tag = _valid_en_tag(cells[0])
-        links = _tag_links(cells[1])
-        if en_tag is None or len(links) != 1:
-            continue
-        if source := _valid_tag(links[0]["path"]):
-            yield source, [en_tag], []
+        if row := _parse_table_source_en(
+            line,
+            strip_en_decorations=False,
+        ):
+            yield row
 
 
 _PARSERS = {
@@ -260,25 +278,18 @@ def _parse_zh(
         is_internationality = path.name.startswith("fragment-internationality")
         lines = path.read_text(encoding="utf-8").splitlines()
         for line in lines:
-            links = [
-                link
-                for link in _tag_links(line)
-                if not link["host"] or "scp-zh-tr" in link["host"]
-            ]
-            for index, link in enumerate(links):
+            for link, tail in _iter_branch_link_tails(line, "scp-zh-tr"):
                 source = _valid_tag(link["path"])
                 if source is None:
                     continue
                 if is_internationality:
                     yield source, [], [source]
                     continue
-                tail_end = (
-                    links[index + 1]["start"] if index + 1 < len(links) else len(line)
-                )
-                match = pattern.search(line[link["end"] : tail_end])
-                en_tag = _valid_en_tag(match.group(1)) if match else None
-                if en_tag is not None:
-                    yield source, [en_tag], []
+                match = pattern.search(tail)
+                if match and (
+                    row := _validated_source_en(link["path"], match.group(1))
+                ):
+                    yield row
 
 
 def _analyze_branch_rows(
