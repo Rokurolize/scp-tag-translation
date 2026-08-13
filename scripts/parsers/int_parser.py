@@ -65,7 +65,7 @@ def _cell_for_column(cells: list[str], header: list[str], column: str) -> str:
     return cells[index] if index < len(cells) else ""
 
 
-def _raw_target(
+def _single_jp_target(
     en_values: Iterable[str],
     jp_values: Iterable[str],
 ) -> str | None:
@@ -122,7 +122,7 @@ def _iter_int_crosswalk_candidates(
 def parse_int_crosswalk_raw(input_path: Path) -> CrosswalkMappings:
     return resolve_crosswalk_candidates(
         _iter_int_crosswalk_candidates(input_path),
-        _raw_target,
+        _single_jp_target,
     )
 
 

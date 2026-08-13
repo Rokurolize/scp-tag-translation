@@ -19,7 +19,7 @@ from scripts.parsers.crosswalk_table import (
 _KO_LINK_RE = re.compile(r"/system:page-tags/tag/([^\s\]]+)")
 
 
-def _raw_target(
+def _single_valid_jp_target(
     en_values: Iterable[str],
     jp_values: Iterable[str],
 ) -> str | None:
@@ -62,7 +62,7 @@ def _iter_ko_crosswalk_candidates(
 def parse_ko_crosswalk_raw(input_path: Path) -> CrosswalkMappings:
     mappings = resolve_crosswalk_candidates(
         _iter_ko_crosswalk_candidates(input_path),
-        _raw_target,
+        _single_valid_jp_target,
     )
     return {"ko": mappings.get("ko", {})}
 
