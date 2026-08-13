@@ -10,7 +10,7 @@ from scripts.pipeline.corpus import (
 )
 from scripts.pipeline import dictionary_inputs
 from scripts.pipeline.dictionary_inputs import LoadedMappingInputs, load_existing_hint_dictionaries
-from scripts.commands import build_branch_dicts_from_corpus as branch_builder
+from scripts.application import dictionary_build as dictionary_workflow
 from scripts.domain.policy import tag_policy
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.domain.policy.jp_policy import JpPolicyInputs, build_jp_policy
@@ -107,7 +107,7 @@ def controlled_branch_artifacts(tmp_path):
         [],
     )
 
-    artifacts = branch_builder.build_artifacts(
+    artifacts = dictionary_workflow.build_artifacts(
         {"en": collect_corpus_branch_data(corpus_root, "en")},
         ["en"],
         LoadedMappingInputs(
@@ -116,7 +116,7 @@ def controlled_branch_artifacts(tmp_path):
             deprecated_tags=deprecated_tags,
             mapping_policy=policy,
         ),
-        config=branch_builder.BranchBuildConfig(
+        config=dictionary_workflow.BranchBuildConfig(
             dictionaries_dir=output_dir,
             jp_policy_path=policy_path,
             supported_branches=("en",),
@@ -218,7 +218,7 @@ def test_build_and_publish_dictionaries_success_path_uses_real_inputs_and_output
         json.dumps({"tags": ["safe", "scp", "horror"]}),
         encoding="utf-8",
     )
-    config = branch_builder.BranchBuildConfig(
+    config = dictionary_workflow.BranchBuildConfig(
         dictionaries_dir=output_dir,
         jp_policy_path=output_dir / "jp_tag_policy.json",
         supported_branches=("en",),
@@ -232,7 +232,7 @@ def test_build_and_publish_dictionaries_success_path_uses_real_inputs_and_output
         ),
     )
 
-    artifacts = branch_builder.build_and_publish_dictionaries(
+    artifacts = dictionary_workflow.build_and_publish_dictionaries(
         corpus_root,
         ["en"],
         config=config,
@@ -366,7 +366,7 @@ def test_partial_mapping_inputs_use_empty_optional_policy_files(tmp_path):
 
 def test_dictionary_command_rejects_unsupported_branch_before_loading(tmp_path):
     with pytest.raises(ValueError, match="unsupported branches"):
-        branch_builder.build_and_publish_dictionaries(tmp_path, ["unknown"])
+        dictionary_workflow.build_and_publish_dictionaries(tmp_path, ["unknown"])
 
 
 def test_acceptance_fixture_mentions_every_required_branch():

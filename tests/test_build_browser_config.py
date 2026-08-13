@@ -8,11 +8,8 @@ from pathlib import Path
 
 import pytest
 
+from scripts.application import browser_config as browser_workflow
 from scripts.commands import build_browser_config as browser_config_command
-from scripts.commands.build_browser_config import (
-    publish_browser_config,
-    render_browser_config,
-)
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -20,9 +17,9 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_publish_browser_config_writes_rendered_artifact(tmp_path):
     output = tmp_path / "nested" / "branch_config.js"
 
-    publish_browser_config(output)
+    browser_workflow.publish_browser_config(output)
 
-    assert output.read_text(encoding="utf-8") == render_browser_config()
+    assert output.read_text(encoding="utf-8") == browser_workflow.render_browser_config()
 
 
 def test_build_browser_config_help_works_as_module():
@@ -48,7 +45,7 @@ def test_main_publishes_requested_output(tmp_path, monkeypatch, capsys):
 
     browser_config_command.main()
 
-    assert output.read_text(encoding="utf-8") == render_browser_config()
+    assert output.read_text(encoding="utf-8") == browser_workflow.render_browser_config()
     assert capsys.readouterr().out == f"browser config: {output}\n"
 
 
