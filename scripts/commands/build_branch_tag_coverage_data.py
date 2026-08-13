@@ -6,7 +6,7 @@ from __future__ import annotations
 import argparse
 import sys
 from collections.abc import Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 from scripts.infrastructure.atomic_output import publish_files_atomically
@@ -37,16 +37,15 @@ DEFAULT_OUTPUT_DIR = VISUALIZATION_DIR
 class CoverageBuildConfig:
     """Input and output locations for one coverage build."""
 
-    output_dir: Path
-    mapping_inputs: MappingInputPaths
+    output_dir: Path = DEFAULT_OUTPUT_DIR
+    mapping_inputs: MappingInputPaths = field(
+        default_factory=default_mapping_input_paths,
+    )
 
 
 def default_coverage_build_config() -> CoverageBuildConfig:
     """Return the repository's default coverage build configuration."""
-    return CoverageBuildConfig(
-        output_dir=DEFAULT_OUTPUT_DIR,
-        mapping_inputs=default_mapping_input_paths(),
-    )
+    return CoverageBuildConfig()
 
 
 def load_coverage_inputs(paths: MappingInputPaths) -> CoverageInputs:

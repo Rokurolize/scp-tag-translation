@@ -249,75 +249,7 @@ def test_build_coverage_rejects_non_object_metadata(tmp_path):
         )
 
 
-def test_coverage_main_reports_publication_failure(
-    tmp_path,
-    monkeypatch,
-    capsys,
-):
-    corpus_root = tmp_path / "corpus"
-    corpus_root.mkdir()
-    coverage = {
-        "schema_version": 1,
-        "source": {},
-        "status_descriptions": {},
-        "branches": [],
-    }
-    monkeypatch.setattr(
-        coverage_builder,
-        "load_coverage_inputs",
-        lambda _paths: object(),
-    )
-    monkeypatch.setattr(
-        coverage_builder,
-        "collect_branch_tag_stats",
-        lambda _corpus_root, _branch: {"page_count": 0, "tags": {}},
-    )
-    monkeypatch.setattr(
-        coverage_builder,
-        "build_coverage",
-        lambda _corpus_root, _branches, _inputs, _branch_tag_stats: coverage,
-    )
-    monkeypatch.setattr(
-        coverage_builder,
-        "build_application_inventory",
-        lambda _coverage: {"branches": []},
-    )
-
-    def fail_publication(_writers):
-        raise OSError("disk full")
-
-    monkeypatch.setattr(
-        coverage_builder,
-        "publish_files_atomically",
-        fail_publication,
-    )
-    monkeypatch.setattr(
-        sys,
-        "argv",
-        [
-            "build_branch_tag_coverage_data.py",
-            "--corpus-root",
-            str(corpus_root),
-            "--output-dir",
-            str(tmp_path / "output"),
-        ],
-    )
-
-    with pytest.raises(SystemExit) as excinfo:
-        coverage_builder.main()
-
-    assert excinfo.value.code == 1
-    assert capsys.readouterr().out == (
-        "エラー: 可視化データ生成に失敗しました: disk full\n"
-    )
-    assert not (tmp_path / "output").exists()
-
-
-def test_coverage_main_publishes_all_outputs_from_real_inputs(
-    tmp_path,
-    monkeypatch,
-    capsys,
-):
+def _configure_real_coverage_build(tmp_path, monkeypatch):
     corpus_root = tmp_path / "corpus"
     _write_page(corpus_root, "en", "sample", ["scp"])
     data_dir = tmp_path / "data"
@@ -358,14 +290,67 @@ def test_coverage_main_publishes_all_outputs_from_real_inputs(
         replacement_overrides=replacement_path,
         crosswalks=tuple(crosswalk_paths),
     )
+    output_dir = tmp_path / "visualization"
     monkeypatch.setattr(
         coverage_builder,
         "default_mapping_input_paths",
         lambda: mapping_inputs,
     )
-
-    output_dir = tmp_path / "visualization"
     monkeypatch.setattr(coverage_builder, "DEFAULT_OUTPUT_DIR", output_dir)
+    return corpus_root, output_dir
+
+
+def test_coverage_main_reports_publication_failure(
+    tmp_path,
+    monkeypatch,
+    capsys,
+):
+    corpus_root, output_dir = _configure_real_coverage_build(
+        tmp_path,
+        monkeypatch,
+    )
+
+    def fail_publication(_writers):
+        raise OSError("disk full")
+
+    monkeypatch.setattr(
+        coverage_builder,
+        "publish_files_atomically",
+        fail_publication,
+    )
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "build_branch_tag_coverage_data.py",
+            "--corpus-root",
+            str(corpus_root),
+            "--output-dir",
+            str(output_dir),
+            "--branches",
+            "en",
+        ],
+    )
+
+    with pytest.raises(SystemExit) as excinfo:
+        coverage_builder.main()
+
+    assert excinfo.value.code == 1
+    assert capsys.readouterr().out == (
+        "エラー: 可視化データ生成に失敗しました: disk full\n"
+    )
+    assert not output_dir.exists()
+
+
+def test_coverage_main_publishes_all_outputs_from_real_inputs(
+    tmp_path,
+    monkeypatch,
+    capsys,
+):
+    corpus_root, output_dir = _configure_real_coverage_build(
+        tmp_path,
+        monkeypatch,
+    )
     monkeypatch.setattr(
         sys,
         "argv",
