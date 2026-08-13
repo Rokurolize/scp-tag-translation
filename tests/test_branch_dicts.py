@@ -9,6 +9,7 @@ from scripts.dictionary_inputs import complete_hint_dictionaries
 from scripts.commands import build_branch_dicts_from_corpus as branch_builder
 from scripts.domain import tag_policy
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
+from scripts.domain.jp_policy import JpPolicyInputs, build_jp_policy
 
 ROOT = Path(__file__).parent.parent
 DICTIONARIES = ROOT / "dictionaries"
@@ -130,6 +131,36 @@ def test_build_artifacts_owns_complete_publication_set(
         "en": {}
     }
     assert artifacts.hint_count == 0
+
+
+def test_build_jp_policy_preserves_tag_and_source_policy_rules():
+    policy = build_jp_policy(
+        JpPolicyInputs(
+            jp_tags=[
+                {
+                    "name": "ホラー",
+                    "source_tags": ["horror"],
+                    "description": "",
+                },
+                {
+                    "name": "restricted",
+                    "source_tags": [],
+                    "use_restricted": True,
+                },
+            ],
+            en_tags=[
+                {"name": "horror", "category": "Genre"},
+                {"name": "genreless", "category": "Genre"},
+            ],
+        )
+    )
+
+    assert policy["tags"]["ホラー"]["copy_allowed_for_translation"] is True
+    assert policy["tags"]["restricted"]["copy_allowed_for_translation"] is False
+    assert "horror" not in policy["source_tags"].get("en", {})
+    assert policy["source_tags"]["en"]["genreless"]["translation_action"] == (
+        "omit_translation_policy"
+    )
 
 
 def test_discover_branches_excludes_jp_and_internal_dirs(tmp_path):
