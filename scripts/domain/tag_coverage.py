@@ -180,6 +180,54 @@ def _classify_tag(tag: str, context: _ClassificationContext) -> Classification:
     }
 
 
+def _build_coverage_branch(
+    branch: str,
+    branch_stats: BranchTagStats,
+    context: _ClassificationContext,
+) -> CoverageBranch:
+    """Build one branch's ranked classifications and status totals."""
+
+    status_counts: Counter[ClassificationStatus] = Counter()
+    tags: list[CoverageTag] = []
+    tag_stats = branch_stats["tags"]
+    sorted_tags = sorted(
+        tag_stats,
+        key=lambda tag: (-tag_stats[tag]["page_count"], tag),
+    )
+    for rank, tag in enumerate(sorted_tags, start=1):
+        classification = _classify_tag(tag, context)
+        status_counts[classification["status"]] += 1
+        tags.append({
+            "tag": tag,
+            "rank": rank,
+            "page_count": tag_stats[tag]["page_count"],
+            "status": classification["status"],
+            "recognized_by_jp_policy": classification[
+                "recognized_by_jp_policy"
+            ],
+            "jp_tag": classification["jp_tag"],
+            "replacement": classification["replacement"],
+            "translation_action": classification["translation_action"],
+            "copy_allowed": classification["copy_allowed"],
+            "display_tag": classification["display_tag"],
+            "target_policy": classification["target_policy"],
+            "sample_slugs": tag_stats[tag]["sample_slugs"],
+        })
+
+    return {
+        "branch": branch,
+        "site": (
+            BRANCH_CONFIG_BY_CODE[branch].site
+            if branch in BRANCH_CONFIG_BY_CODE
+            else branch
+        ),
+        "page_count": branch_stats["page_count"],
+        "tag_count": len(tags),
+        "status_counts": dict(sorted(status_counts.items())),
+        "tags": tags,
+    }
+
+
 def build_coverage(
     corpus_root: str,
     branches: Sequence[str],
@@ -199,10 +247,6 @@ def build_coverage(
     branch_entries: list[CoverageBranch] = []
     for branch in branches:
         branch_stats = branch_tag_stats[branch]
-        page_count = branch_stats["page_count"]
-        tag_stats = branch_stats["tags"]
-        status_counts: Counter[ClassificationStatus] = Counter()
-        tags: list[CoverageTag] = []
         context = _ClassificationContext(
             mapping_policy=inputs.mapping_policy,
             branch_policy=inputs.mapping_policy.for_branch(branch),
@@ -213,42 +257,11 @@ def build_coverage(
                 else set()
             ),
         )
-        sorted_tags = sorted(
-            tag_stats,
-            key=lambda tag: (-tag_stats[tag]["page_count"], tag),
-        )
-        for rank, tag in enumerate(sorted_tags, start=1):
-            classification = _classify_tag(tag, context)
-            status_counts[classification["status"]] += 1
-            tags.append({
-                "tag": tag,
-                "rank": rank,
-                "page_count": tag_stats[tag]["page_count"],
-                "status": classification["status"],
-                "recognized_by_jp_policy": classification[
-                    "recognized_by_jp_policy"
-                ],
-                "jp_tag": classification["jp_tag"],
-                "replacement": classification["replacement"],
-                "translation_action": classification["translation_action"],
-                "copy_allowed": classification["copy_allowed"],
-                "display_tag": classification["display_tag"],
-                "target_policy": classification["target_policy"],
-                "sample_slugs": tag_stats[tag]["sample_slugs"],
-            })
-
-        branch_entries.append({
-            "branch": branch,
-            "site": (
-                BRANCH_CONFIG_BY_CODE[branch].site
-                if branch in BRANCH_CONFIG_BY_CODE
-                else branch
-            ),
-            "page_count": page_count,
-            "tag_count": len(tags),
-            "status_counts": dict(sorted(status_counts.items())),
-            "tags": tags,
-        })
+        branch_entries.append(_build_coverage_branch(
+            branch,
+            branch_stats,
+            context,
+        ))
 
     return {
         "schema_version": 3,
