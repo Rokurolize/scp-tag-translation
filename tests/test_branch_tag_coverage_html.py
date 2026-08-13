@@ -6,6 +6,7 @@ import pytest
 
 from scripts.commands import build_branch_tag_coverage_html as coverage_html_builder
 from scripts.data_paths import ROOT
+from scripts.domain.coverage_validation import validate_coverage
 from scripts.domain.tag_coverage import ACTION_DESCRIPTIONS, STATUS_DESCRIPTIONS
 
 COVERAGE_JSON = ROOT / "visualization" / "branch_tag_coverage.json"
@@ -23,6 +24,10 @@ def _load_embedded_html_coverage():
     match = re.search(r'<script type="application/json" id="coverage-data">(.*?)</script>', html, re.DOTALL)
     assert match
     return json.loads(match.group(1)), html
+
+
+def test_coverage_validator_accepts_generated_document(coverage):
+    assert validate_coverage(coverage) == coverage
 
 
 @pytest.mark.parametrize(
