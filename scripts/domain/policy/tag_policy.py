@@ -12,6 +12,7 @@ from scripts.domain.records.tag_records import (
     EnTag,
     JpTag,
 )
+from scripts.domain.errors import InvalidDomainInputError, MappingConflictError
 
 EN_CATEGORIES_OMITTED_ON_JP = frozenset(("Genre", "Genre and Themes"))
 # A source tag can occur in more than one JP category while the JP tag system
@@ -126,7 +127,7 @@ class MappingPolicy:
                     and replacement is not None
                     and existing != replacement
                 ):
-                    raise ValueError(
+                    raise MappingConflictError(
                         "conflicting inherited replacements: "
                         f"{branch}:{source_tag}->{existing}/{replacement}"
                     )
@@ -226,7 +227,7 @@ def build_jp_names_and_source_map(
         override = overrides.get(source_tag)
         if override is not None:
             if override not in candidates:
-                raise ValueError(
+                raise InvalidDomainInputError(
                     "source tag mapping override is not a candidate: "
                     f"{source_tag!r}->{override!r}"
                 )
@@ -243,7 +244,7 @@ def build_jp_names_and_source_map(
             continue
 
         formatted = ", ".join(sorted(candidates))
-        raise ValueError(
+        raise MappingConflictError(
             "source tag maps to multiple JP tags without an explicit policy: "
             f"{source_tag!r} -> {formatted}"
         )

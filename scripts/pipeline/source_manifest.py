@@ -7,6 +7,8 @@ from pathlib import Path
 from types import MappingProxyType
 from typing import Literal
 
+from scripts.domain.errors import InvalidDomainInputError
+
 __all__ = [
     "BRANCH_GUIDE_SOURCE_KEYS",
     "PARSER_SOURCE_KEYS",
@@ -100,7 +102,7 @@ def source_path(key: str, *, root: Path) -> Path:
     try:
         artifact = SOURCE_BY_KEY[key]
     except KeyError as exc:
-        raise ValueError(f"unknown source artifact: {key}") from exc
+        raise InvalidDomainInputError(f"unknown source artifact: {key}") from exc
     return root / artifact.local_path
 
 
@@ -114,7 +116,7 @@ def parser_source_path(name: str, *, root: Path) -> Path:
     try:
         key = PARSER_SOURCE_KEYS[name]
     except KeyError as exc:
-        raise ValueError(f"unknown parser source: {name}") from exc
+        raise InvalidDomainInputError(f"unknown parser source: {name}") from exc
     return source_path(key, root=root)
 
 

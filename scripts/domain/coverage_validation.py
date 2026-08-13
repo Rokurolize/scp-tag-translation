@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import TypeGuard
 
+from scripts.domain.errors import InvalidDomainInputError
 from scripts.domain.policy.tag_policy_models import (
     CLASSIFICATION_STATUSES,
     COVERAGE_TRANSLATION_ACTIONS,
@@ -46,10 +47,10 @@ def _validate_description_map(
         not isinstance(key, str) or not isinstance(item, str)
         for key, item in value.items()
     ):
-        raise ValueError(f"{context} must map strings to strings")
+        raise InvalidDomainInputError(f"{context} must map strings to strings")
     actual_keys = set(value)
     if actual_keys != expected_keys:
-        raise ValueError(f"{context} keys do not match the protocol")
+        raise InvalidDomainInputError(f"{context} keys do not match the protocol")
     return dict(value)
 
 
@@ -64,13 +65,13 @@ def _require_keys(
 ) -> None:
     missing = [key for key in required if key not in value]
     if missing:
-        raise ValueError(f"{context} missing required keys: {', '.join(missing)}")
+        raise InvalidDomainInputError(f"{context} missing required keys: {', '.join(missing)}")
 
 
 def _string_field(value: dict[object, object], key: str, context: str) -> str:
     item = value.get(key)
     if not isinstance(item, str):
-        raise ValueError(f"{context}.{key} must be a string")
+        raise InvalidDomainInputError(f"{context}.{key} must be a string")
     return item
 
 
@@ -81,7 +82,7 @@ def _required_bool(
 ) -> bool:
     item = value.get(key)
     if not isinstance(item, bool):
-        raise ValueError(f"{context}.{key} must be boolean")
+        raise InvalidDomainInputError(f"{context}.{key} must be boolean")
     return item
 
 
@@ -92,7 +93,7 @@ def _nullable_string(
 ) -> str | None:
     item = value.get(key)
     if item is not None and not isinstance(item, str):
-        raise ValueError(f"{context}.{key} must be a string or null")
+        raise InvalidDomainInputError(f"{context}.{key} must be a string or null")
     return item
 
 
@@ -103,7 +104,7 @@ def _nonnegative_integer(
 ) -> int:
     item = value.get(key)
     if not _valid_nonnegative_int(item):
-        raise ValueError(f"{context}.{key} must be a non-negative integer")
+        raise InvalidDomainInputError(f"{context}.{key} must be a non-negative integer")
     return item
 
 
@@ -111,12 +112,12 @@ def _validate_jp_policy(value: object, context: str) -> JpTagPolicy | None:
     if value is None:
         return None
     if not isinstance(value, dict):
-        raise ValueError(f"{context}.target_policy must be an object or null")
+        raise InvalidDomainInputError(f"{context}.target_policy must be an object or null")
     policy_context = f"{context}.target_policy"
     _require_keys(value, ("special_translation_action",), policy_context)
     action = value.get("special_translation_action")
     if action is not None and not _is_special_translation_action(action):
-        raise ValueError(
+        raise InvalidDomainInputError(
             f"{context}.target_policy.special_translation_action is invalid"
         )
     return {
@@ -138,7 +139,7 @@ def _validate_jp_policy(value: object, context: str) -> JpTagPolicy | None:
 
 def _validate_coverage_tag(value: object, context: str) -> CoverageTag:
     if not isinstance(value, dict):
-        raise ValueError(f"{context} must be an object")
+        raise InvalidDomainInputError(f"{context} must be an object")
     _require_keys(
         value,
         ("jp_tag", "replacement", "display_tag", "target_policy"),
@@ -147,15 +148,15 @@ def _validate_coverage_tag(value: object, context: str) -> CoverageTag:
     tag = _string_field(value, "tag", context)
     status = value.get("status")
     if not _is_classification_status(status):
-        raise ValueError(f"{context}.status is unknown")
+        raise InvalidDomainInputError(f"{context}.status is unknown")
     translation_action = value.get("translation_action")
     if not _is_coverage_translation_action(translation_action):
-        raise ValueError(f"{context}.translation_action is unknown")
+        raise InvalidDomainInputError(f"{context}.translation_action is unknown")
     sample_slugs = value.get("sample_slugs")
     if not isinstance(sample_slugs, list) or any(
         not isinstance(slug, str) for slug in sample_slugs
     ):
-        raise ValueError(f"{context}.sample_slugs must be a string array")
+        raise InvalidDomainInputError(f"{context}.sample_slugs must be a string array")
     return {
         "tag": tag,
         "rank": _nonnegative_integer(value, "rank", context),
@@ -178,7 +179,7 @@ def _validate_coverage_tag(value: object, context: str) -> CoverageTag:
 
 def _validate_coverage_source(value: object) -> CoverageSource:
     if not isinstance(value, dict):
-        raise ValueError("coverage.source must be an object")
+        raise InvalidDomainInputError("coverage.source must be an object")
     return {
         "corpus_root": _string_field(value, "corpus_root", "coverage.source"),
         "jp_tag_source": _string_field(value, "jp_tag_source", "coverage.source"),
@@ -213,7 +214,7 @@ def _validate_status_counts(
         not _is_classification_status(key) or not _valid_nonnegative_int(count)
         for key, count in value.items()
     ):
-        raise ValueError(f"{context}.status_counts is invalid")
+        raise InvalidDomainInputError(f"{context}.status_counts is invalid")
     return {
         key: _nonnegative_integer(value, key, f"{context}.status_counts")
         for key in value
@@ -223,7 +224,7 @@ def _validate_status_counts(
 
 def _validate_coverage_branch(value: object, context: str) -> CoverageBranch:
     if not isinstance(value, dict):
-        raise ValueError(f"{context} must be an object")
+        raise InvalidDomainInputError(f"{context} must be an object")
     branch = _string_field(value, "branch", context)
     site = _string_field(value, "site", context)
     page_count = _nonnegative_integer(value, "page_count", context)
@@ -231,13 +232,13 @@ def _validate_coverage_branch(value: object, context: str) -> CoverageBranch:
     status_counts = _validate_status_counts(value.get("status_counts"), context)
     tags = value.get("tags")
     if not isinstance(tags, list):
-        raise ValueError(f"{context}.tags must be an array")
+        raise InvalidDomainInputError(f"{context}.tags must be an array")
     validated_tags = [
         _validate_coverage_tag(tag, f"{context}.tags[{tag_index}]")
         for tag_index, tag in enumerate(tags)
     ]
     if tag_count != len(validated_tags):
-        raise ValueError(f"{context}.tag_count does not match tags")
+        raise InvalidDomainInputError(f"{context}.tag_count does not match tags")
     return {
         "branch": branch,
         "site": site,
@@ -251,10 +252,10 @@ def _validate_coverage_branch(value: object, context: str) -> CoverageBranch:
 def validate_coverage(raw: object) -> Coverage:
     """Validate one generated coverage document before HTML publication."""
     if not isinstance(raw, dict):
-        raise ValueError("coverage root must be an object")
+        raise InvalidDomainInputError("coverage root must be an object")
     schema_version = raw.get("schema_version")
     if not _valid_nonnegative_int(schema_version):
-        raise ValueError("coverage.schema_version must be a non-negative integer")
+        raise InvalidDomainInputError("coverage.schema_version must be a non-negative integer")
     source = _validate_coverage_source(raw.get("source"))
     raw_status_descriptions = _validate_description_map(
         raw.get("status_descriptions"),
@@ -268,7 +269,7 @@ def validate_coverage(raw: object) -> Coverage:
     )
     branches = raw.get("branches")
     if not isinstance(branches, list):
-        raise ValueError("coverage.branches must be an array")
+        raise InvalidDomainInputError("coverage.branches must be an array")
     status_descriptions: dict[ClassificationStatus, str] = {
         key: raw_status_descriptions[key]
         for key in raw_status_descriptions

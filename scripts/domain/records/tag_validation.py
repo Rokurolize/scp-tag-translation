@@ -30,7 +30,7 @@ def _required_string(
 ) -> str:
     value = entry.get(key)
     if not isinstance(value, str):
-        raise ValueError(f"{context}{key}が不正です: {value!r}")
+        raise InvalidDomainInputError(f"{context}{key}が不正です: {value!r}")
     return value
 
 
@@ -44,7 +44,7 @@ def _optional_string(
     if value is None:
         return default
     if not isinstance(value, str):
-        raise ValueError(f"{context}{key}が不正です: {value!r}")
+        raise InvalidDomainInputError(f"{context}{key}が不正です: {value!r}")
     return value
 
 
@@ -57,7 +57,7 @@ def _optional_boolean(
     if value is None:
         return False
     if not isinstance(value, bool):
-        raise ValueError(f"{context}{key}が不正です: {value!r}")
+        raise InvalidDomainInputError(f"{context}{key}が不正です: {value!r}")
     return value
 
 
@@ -66,7 +66,7 @@ def _validated_meta(entry: dict[object, object]) -> dict[str, list[str]]:
     if value is None:
         return {}
     if not isinstance(value, dict):
-        raise ValueError(f"ENタグのmetaが不正です: {value!r}")
+        raise InvalidDomainInputError(f"ENタグのmetaが不正です: {value!r}")
     return {
         key: list(values)
         for key, values in value.items()
@@ -81,7 +81,7 @@ def _validated_source_tags(entry: dict[object, object]) -> list[str]:
     if not isinstance(value, list) or not all(
         isinstance(item, str) for item in value
     ):
-        raise ValueError(f"JP側source_tagsが不正です: {value!r}")
+        raise InvalidDomainInputError(f"JP側source_tagsが不正です: {value!r}")
     return list(value)
 
 
@@ -94,7 +94,7 @@ def _validate_en_meta(value: object) -> None:
         or any(not isinstance(item, str) for item in values)
         for key, values in value.items()
     ):
-        raise ValueError(f"ENタグのmetaが不正です: {value!r}")
+        raise InvalidDomainInputError(f"ENタグのmetaが不正です: {value!r}")
 
 
 def _validate_en_tag_entry(entry: object, index: int) -> None:
@@ -103,32 +103,32 @@ def _validate_en_tag_entry(entry: object, index: int) -> None:
         or "name" not in entry
         or not isinstance(entry["name"], str)
     ):
-        raise ValueError(f"ENタグデータの項目が不正です: index={index}")
+        raise InvalidDomainInputError(f"ENタグデータの項目が不正です: index={index}")
     name = entry["name"]
     if not _valid_trimmed_string(name):
-        raise ValueError(f"ENタグ名が不正です: {name!r}")
+        raise InvalidDomainInputError(f"ENタグ名が不正です: {name!r}")
     category = entry.get("category")
     if category is not None and not isinstance(category, str):
-        raise ValueError(f"ENタグのcategoryが不正です: {category!r}")
+        raise InvalidDomainInputError(f"ENタグのcategoryが不正です: {category!r}")
     description = entry.get("description")
     if description is not None and not isinstance(description, str):
-        raise ValueError(f"ENタグのdescriptionが不正です: {description!r}")
+        raise InvalidDomainInputError(f"ENタグのdescriptionが不正です: {description!r}")
     _validate_en_meta(entry.get("meta"))
 
 
 def validate_en_tags(raw: object) -> list[EnTag]:
     if not isinstance(raw, list):
-        raise ValueError("ENタグデータは配列である必要があります")
+        raise InvalidDomainInputError("ENタグデータは配列である必要があります")
     for index, entry in enumerate(raw):
         _validate_en_tag_entry(entry, index)
 
     records: list[EnTag] = []
     for item in raw:
         if not isinstance(item, dict):
-            raise ValueError("ENタグデータの項目が不正です")
+            raise InvalidDomainInputError("ENタグデータの項目が不正です")
         category = item.get("category")
         if category is not None and not isinstance(category, str):
-            raise ValueError(f"ENタグのcategoryが不正です: {category!r}")
+            raise InvalidDomainInputError(f"ENタグのcategoryが不正です: {category!r}")
         records.append({
             "name": _required_string(item, "name", "ENタグの"),
             "category": category,
@@ -158,7 +158,7 @@ def _validate_optional_boolean_fields(
     for key in keys:
         value = entry.get(key)
         if value is not None and not isinstance(value, bool):
-            raise ValueError(f"{context}{key}が不正です: {value!r}")
+            raise InvalidDomainInputError(f"{context}{key}が不正です: {value!r}")
 
 
 def _validate_jp_tag_entry(entry: object, index: int) -> None:
@@ -167,20 +167,20 @@ def _validate_jp_tag_entry(entry: object, index: int) -> None:
         or "name" not in entry
         or not isinstance(entry["name"], str)
     ):
-        raise ValueError(f"JPタグデータの項目が不正です: index={index}")
+        raise InvalidDomainInputError(f"JPタグデータの項目が不正です: index={index}")
     name = entry["name"]
     if not _valid_trimmed_string(name):
-        raise ValueError(f"JPタグ名が不正です: {name!r}")
+        raise InvalidDomainInputError(f"JPタグ名が不正です: {name!r}")
     if "en_tag" in entry:
-        raise ValueError(f"JPタグデータに旧en_tagがあります: index={index}")
+        raise InvalidDomainInputError(f"JPタグデータに旧en_tagがあります: index={index}")
     if "source_tags" not in entry:
-        raise ValueError("JP側source_tagsが不正です: 欠落")
+        raise InvalidDomainInputError("JP側source_tagsが不正です: 欠落")
     source_tags = entry["source_tags"]
     if not _valid_source_tags(source_tags):
-        raise ValueError(f"JP側source_tagsが不正です: {source_tags!r}")
+        raise InvalidDomainInputError(f"JP側source_tagsが不正です: {source_tags!r}")
     description = entry.get("description")
     if description is not None and not isinstance(description, str):
-        raise ValueError(f"JPタグのdescriptionが不正です: {description!r}")
+        raise InvalidDomainInputError(f"JPタグのdescriptionが不正です: {description!r}")
     _validate_optional_boolean_fields(
         entry,
         ("use_restricted", "edit_restricted", "translation_exempt"),
@@ -190,14 +190,14 @@ def _validate_jp_tag_entry(entry: object, index: int) -> None:
 
 def validate_jp_tags(raw: object) -> list[JpTag]:
     if not isinstance(raw, list):
-        raise ValueError("JPタグデータは配列である必要があります")
+        raise InvalidDomainInputError("JPタグデータは配列である必要があります")
     for index, entry in enumerate(raw):
         _validate_jp_tag_entry(entry, index)
 
     records: list[JpTag] = []
     for item in raw:
         if not isinstance(item, dict):
-            raise ValueError("JPタグデータの項目が不正です")
+            raise InvalidDomainInputError("JPタグデータの項目が不正です")
         records.append({
             "name": _required_string(item, "name", "JPタグの"),
             "description": _optional_string(
@@ -237,7 +237,7 @@ def _validate_deprecated_replacement(
 ) -> None:
     replacement = entry.get("replacement")
     if replacement is not None and not _valid_trimmed_string(replacement):
-        raise ValueError(f"非使用タグのreplacementが不正です: {replacement!r}")
+        raise InvalidDomainInputError(f"非使用タグのreplacementが不正です: {replacement!r}")
     source_lang = entry.get("source_lang")
     if (
         replacement is not None
@@ -245,7 +245,7 @@ def _validate_deprecated_replacement(
         and require_registered_replacement
         and replacement not in jp_names
     ):
-        raise ValueError(
+        raise InvalidDomainInputError(
             f"非使用タグのreplacementがJPタグに存在しません: {replacement!r}"
         )
 
@@ -257,17 +257,17 @@ def _validate_deprecated_tag_entry(
     require_registered_replacement: bool,
 ) -> None:
     if not isinstance(entry, dict):
-        raise ValueError(f"非使用タグデータの項目が不正です: index={index}")
+        raise InvalidDomainInputError(f"非使用タグデータの項目が不正です: index={index}")
     if "en_tag" in entry:
-        raise ValueError(f"非使用タグデータに旧en_tagがあります: index={index}")
+        raise InvalidDomainInputError(f"非使用タグデータに旧en_tagがあります: index={index}")
     if "source_tag" not in entry:
-        raise ValueError("非使用タグのsource_tagが不正です: 欠落")
+        raise InvalidDomainInputError("非使用タグのsource_tagが不正です: 欠落")
     source_tag = entry["source_tag"]
     if not _valid_trimmed_string(source_tag):
-        raise ValueError(f"非使用タグのsource_tagが不正です: {source_tag!r}")
+        raise InvalidDomainInputError(f"非使用タグのsource_tagが不正です: {source_tag!r}")
     source_lang = entry.get("source_lang")
     if "source_lang" in entry and not _valid_trimmed_string(source_lang):
-        raise ValueError(f"非使用タグのsource_langが不正です: {source_lang!r}")
+        raise InvalidDomainInputError(f"非使用タグのsource_langが不正です: {source_lang!r}")
     _validate_deprecated_replacement(
         entry,
         jp_names,
@@ -275,7 +275,7 @@ def _validate_deprecated_tag_entry(
     )
     description = entry.get("description")
     if description is not None and not isinstance(description, str):
-        raise ValueError(f"非使用タグのdescriptionが不正です: {description!r}")
+        raise InvalidDomainInputError(f"非使用タグのdescriptionが不正です: {description!r}")
 
 
 def validate_deprecated_tags(
@@ -283,7 +283,7 @@ def validate_deprecated_tags(
     jp_tags: list[JpTag] | None = None,
 ) -> list[DeprecatedTag]:
     if not isinstance(raw, list):
-        raise ValueError("非使用タグデータは配列である必要があります")
+        raise InvalidDomainInputError("非使用タグデータは配列である必要があります")
     jp_names = {entry["name"] for entry in jp_tags or []}
     for index, entry in enumerate(raw):
         _validate_deprecated_tag_entry(
@@ -296,7 +296,7 @@ def validate_deprecated_tags(
     records: list[DeprecatedTag] = []
     for entry in raw:
         if not isinstance(entry, dict):
-            raise ValueError("非使用タグデータの項目が不正です")
+            raise InvalidDomainInputError("非使用タグデータの項目が不正です")
         record: DeprecatedTag = {"source_tag": entry["source_tag"]}
         for key in ("source_lang", "replacement", "description"):
             if key in entry:

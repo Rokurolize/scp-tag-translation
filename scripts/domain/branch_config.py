@@ -7,6 +7,8 @@ from collections.abc import Sequence
 from types import MappingProxyType
 from collections.abc import Mapping
 
+from scripts.domain.errors import InvalidDomainInputError
+
 __all__ = [
     "BRANCH_CONFIG_BY_CODE",
     "SUPPORTED_BRANCHES",
@@ -71,19 +73,19 @@ def validate_requested_branches(
     """Validate a non-empty, duplicate-free subset of supported branches."""
     requested = tuple(branches)
     if not requested:
-        raise ValueError("at least one branch is required")
+        raise InvalidDomainInputError("at least one branch is required")
     if any(not isinstance(branch, str) or not branch for branch in requested):
-        raise ValueError("branch names must be non-empty strings")
+        raise InvalidDomainInputError("branch names must be non-empty strings")
     duplicates = sorted({
         branch
         for branch in requested
         if requested.count(branch) > 1
     })
     if duplicates:
-        raise ValueError("duplicate branches: " + ", ".join(duplicates))
+        raise InvalidDomainInputError("duplicate branches: " + ", ".join(duplicates))
     unsupported = sorted(set(requested) - set(supported_branches))
     if unsupported:
-        raise ValueError("unsupported branches: " + ", ".join(unsupported))
+        raise InvalidDomainInputError("unsupported branches: " + ", ".join(unsupported))
     return requested
 BRANCH_CONFIG_BY_CODE: Mapping[str, BranchConfig] = MappingProxyType({
     config.branch: config for config in SUPPORTED_BRANCH_CONFIGS
@@ -94,11 +96,11 @@ def source_site_for_branch(branch: str) -> str:
     try:
         return BRANCH_CONFIG_BY_CODE[branch].site
     except KeyError as exc:
-        raise ValueError(f"unsupported corpus branch: {branch}") from exc
+        raise InvalidDomainInputError(f"unsupported corpus branch: {branch}") from exc
 
 
 def jp_branch_tag_for_branch(branch: str) -> str:
     try:
         return BRANCH_CONFIG_BY_CODE[branch].jp_branch_tag
     except KeyError as exc:
-        raise ValueError(f"unsupported corpus branch: {branch}") from exc
+        raise InvalidDomainInputError(f"unsupported corpus branch: {branch}") from exc

@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections.abc import Sequence
 
 from scripts.domain.branch_config import SUPPORTED_BRANCHES, validate_requested_branches
+from scripts.domain.errors import InvalidDomainInputError
 
 
 def normalize_branch_selection(
@@ -18,7 +19,7 @@ def normalize_branch_selection(
         if branch != "jp" and not branch.startswith("_")
     )
     if not normalized:
-        raise ValueError("可視化または辞書生成の対象支部が見つかりません")
+        raise InvalidDomainInputError("可視化または辞書生成の対象支部が見つかりません")
     return validate_requested_branches(normalized)
 
 

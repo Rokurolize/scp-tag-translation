@@ -66,18 +66,18 @@ def parse_overrides(
     jp_names: frozenset[str] | set[str],
 ) -> dict[str, dict[str, str]]:
     if not isinstance(raw, dict):
-        raise ValueError("branch override file must be a JSON object")
+        raise InvalidDomainInputError("branch override file must be a JSON object")
 
     overrides: dict[str, dict[str, str]] = {}
     for branch, branch_values in raw.items():
         if not isinstance(branch, str) or not branch:
-            raise ValueError(f"invalid override branch: {branch!r}")
+            raise InvalidDomainInputError(f"invalid override branch: {branch!r}")
         if not isinstance(branch_values, dict):
-            raise ValueError(f"override branch must map tags: {branch!r}")
+            raise InvalidDomainInputError(f"override branch must map tags: {branch!r}")
         overrides[branch] = {}
         for source_tag, value in branch_values.items():
             if not isinstance(source_tag, str) or not source_tag:
-                raise ValueError(f"invalid override source tag for {branch!r}")
+                raise InvalidDomainInputError(f"invalid override source tag for {branch!r}")
             overrides[branch][source_tag] = _validated_override_target(
                 branch,
                 source_tag,
@@ -92,19 +92,19 @@ def parse_official_crosswalk(
     jp_names: frozenset[str] | set[str],
 ) -> dict[str, dict[str, str]]:
     if not isinstance(raw, dict):
-        raise ValueError("official crosswalk must be a JSON object")
+        raise InvalidDomainInputError("official crosswalk must be a JSON object")
     result: dict[str, dict[str, str]] = {}
     for branch, mappings in raw.items():
         if not isinstance(branch, str) or not isinstance(mappings, dict):
-            raise ValueError(f"invalid official crosswalk branch: {branch!r}")
+            raise InvalidDomainInputError(f"invalid official crosswalk branch: {branch!r}")
         result[branch] = {}
         for source_tag, jp_tag in mappings.items():
             if not isinstance(source_tag, str) or not source_tag:
-                raise ValueError(
+                raise InvalidDomainInputError(
                     f"invalid crosswalk source tag: {branch}:{source_tag!r}"
                 )
             if not isinstance(jp_tag, str):
-                raise ValueError(
+                raise InvalidDomainInputError(
                     f"invalid crosswalk target: {branch}:{source_tag}->{jp_tag!r}"
                 )
             if jp_tag in jp_names:
@@ -164,7 +164,7 @@ def _add_origin_replacements(
 ) -> None:
     for source_tag, replacement in EN_ORIGIN_TAG_REPLACEMENTS.items():
         if replacement not in jp_names:
-            raise ValueError(
+            raise InvalidDomainInputError(
                 f"EN origin replacement is not a JP tag: {source_tag}->{replacement}"
             )
         deprecated_tags.setdefault("EN", set()).add(source_tag)
@@ -180,7 +180,7 @@ def _add_replacement_overrides(
     for source_lang, mappings in replacement_overrides.items():
         for source_tag, replacement in mappings.items():
             if replacement not in jp_names:
-                raise ValueError(
+                raise InvalidDomainInputError(
                     "deprecated override target is not a JP tag: "
                     f"{source_lang}:{source_tag}->{replacement}"
                 )
@@ -203,12 +203,12 @@ def deprecated_by_source_lang(
         source_tag = entry["source_tag"]
         key = (source_lang, source_tag)
         if key in seen:
-            raise ValueError(f"duplicate deprecated entry: {source_lang}:{source_tag}")
+            raise InvalidDomainInputError(f"duplicate deprecated entry: {source_lang}:{source_tag}")
         seen.add(key)
         deprecated_tags.setdefault(source_lang, set()).add(source_tag)
         replacement = entry.get("replacement")
         if replacement is not None and replacement not in jp_names:
-            raise ValueError(
+            raise InvalidDomainInputError(
                 "deprecated replacement is not a JP tag: "
                 f"{source_lang}:{source_tag}->{replacement}"
             )

@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from scripts.application import dictionary_build as dictionary_workflow
+from scripts.application import mapping_inputs
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.pipeline import dictionary_inputs
 from scripts.pipeline.corpus import discover_corpus_branches
@@ -66,7 +67,7 @@ def test_complete_mapping_inputs_report_missing_policy_files(tmp_path):
     )
 
     with pytest.raises(FileNotFoundError, match="Required mapping inputs missing"):
-        dictionary_inputs.load_mapping_inputs(
+        mapping_inputs.load_mapping_inputs(
             paths,
             require_complete_inputs=True,
         )
@@ -89,7 +90,7 @@ def test_partial_mapping_inputs_use_empty_optional_policy_files(tmp_path):
         crosswalks=(tmp_path / "crosswalk.json",),
     )
 
-    loaded = dictionary_inputs.load_mapping_inputs(
+    loaded = mapping_inputs.load_mapping_inputs(
         paths,
         include_origin_replacements=False,
     )

@@ -11,6 +11,7 @@ from scripts.domain.branch_config import (
     validate_requested_branches,
 )
 from scripts.domain.concatenated_tags import build_concatenated_tag_hints
+from scripts.domain.errors import InvalidDomainInputError
 from scripts.domain.policy.jp_policy import JpPolicyInputs, build_jp_policy
 from scripts.domain.policy.tag_policy_models import JpPolicyDocument
 from scripts.domain.tag_dictionary import build_branch_dict, build_en_dicts
@@ -134,7 +135,7 @@ def _merge_hint_dictionaries_and_sequences(
         if branch in hint_dictionaries:
             continue
         if existing_dictionaries is None or branch not in existing_dictionaries:
-            raise ValueError(
+            raise InvalidDomainInputError(
                 "explicit existing dictionary required for partial hint generation: "
                 f"{branch}"
             )
@@ -178,7 +179,7 @@ def _build_artifacts_for_scope(
     """Assemble artifacts after the outer workflow resolved branch scope."""
     missing_branches = sorted(required_branches - set(corpus_data))
     if missing_branches:
-        raise ValueError(
+        raise InvalidDomainInputError(
             "corpus data missing required branches: "
             + ", ".join(missing_branches)
         )

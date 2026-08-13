@@ -7,6 +7,7 @@ from dataclasses import replace
 from dataclasses import dataclass
 from pathlib import Path
 
+from scripts.domain.errors import InvalidDomainInputError
 from scripts.domain.policy.policy_builder import MappingPolicyInputs, build_mapping_policy
 from scripts.domain.records.tag_records import EnTag, JpTag
 from scripts.domain.records.tag_validation import validate_tag_records
@@ -56,19 +57,23 @@ def _ensure_no_case_variant_keys(
 
     if collisions:
         sample = ", ".join(sorted(collisions)[:10])
-        raise ValueError(f"{label} に大小文字違いの重複があります: {sample}")
+        raise InvalidDomainInputError(
+            f"{label} に大小文字違いの重複があります: {sample}"
+        )
 
 
 def validate_existing_dict(raw: object) -> dict[str, str | None]:
     if not isinstance(raw, dict):
-        raise ValueError("既存辞書はオブジェクトである必要があります")
+        raise InvalidDomainInputError("既存辞書はオブジェクトである必要があります")
     for en_name, jp_name in raw.items():
         if not isinstance(en_name, str) or not en_name or en_name != en_name.strip():
-            raise ValueError(f"既存辞書のキーが不正です: {en_name!r}")
+            raise InvalidDomainInputError(f"既存辞書のキーが不正です: {en_name!r}")
         if jp_name is not None and (
             not isinstance(jp_name, str) or not jp_name or jp_name != jp_name.strip()
         ):
-            raise ValueError(f"既存辞書の値が不正です: {en_name!r} -> {jp_name!r}")
+            raise InvalidDomainInputError(
+                f"既存辞書の値が不正です: {en_name!r} -> {jp_name!r}"
+            )
     return {
         en_name: jp_name
         for en_name, jp_name in raw.items()

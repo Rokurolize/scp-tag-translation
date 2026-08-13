@@ -9,6 +9,7 @@ from typing import Literal
 
 from scripts.domain.policy.tag_policy import EN_CROSSWALK_SEMANTIC_REPLACEMENTS
 from scripts.domain.crosswalk_resolution import CrosswalkResolver
+from scripts.domain.errors import InvalidDomainInputError
 from scripts.domain.records.tag_records import DeprecatedTag, JpTag
 from scripts.infrastructure.atomic_output import publish_files_atomically
 from scripts.infrastructure.data_paths import (
@@ -251,7 +252,7 @@ def collect_outputs(
     """Collect parsed records for one supported language selection."""
     config = config or default_parse_workflow_config()
     if language not in LANGUAGES:
-        raise ValueError(f"未対応の解析対象です: {language}")
+        raise InvalidDomainInputError(f"未対応の解析対象です: {language}")
 
     batches: list[ParseBatch] = []
     jp_tags: list[JpTag] | None = None
@@ -264,7 +265,7 @@ def collect_outputs(
     if language in {"crosswalks", "all"}:
         if language == "all":
             if jp_tags is None or deprecated_tags is None:
-                raise ValueError("all解析にはJPタグデータが必要です")
+                raise InvalidDomainInputError("all解析にはJPタグデータが必要です")
             batches.append(_collect_crosswalk_outputs(config, jp_tags, deprecated_tags))
         else:
             batches.append(_collect_crosswalk_outputs_from_persisted_records(config))

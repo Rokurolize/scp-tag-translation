@@ -7,6 +7,7 @@ from collections.abc import Iterator, MutableSequence
 from dataclasses import dataclass
 from pathlib import Path
 
+from scripts.domain.errors import InvalidDomainInputError
 from scripts.domain.records.tag_records import DeprecatedTag, JpTag
 from scripts.parsers.errors import report_source_issue
 
@@ -235,7 +236,9 @@ def parse_jp_tags(
         if (source_dir / name).exists()
     ]
     if not fragment_files:
-        raise ValueError(f"JPフラグメントファイルが見つかりません: {source_dir}")
+        raise InvalidDomainInputError(
+            f"JPフラグメントファイルが見つかりません: {source_dir}"
+        )
 
     for filepath in fragment_files:
         for line_number, line in _iter_uncommented_lines(filepath):

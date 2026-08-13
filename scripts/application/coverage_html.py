@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from scripts.domain.errors import InvalidDomainInputError
 from scripts.domain.coverage_validation import validate_coverage
 from scripts.domain.tag_coverage_models import Coverage
 from scripts.infrastructure.atomic_output import publish_files_atomically
@@ -24,7 +25,7 @@ def build_html(coverage: Coverage, *, template_path: Path = TEMPLATE_PATH) -> st
     """Render validated coverage data into the dashboard template."""
     template = template_path.read_text(encoding="utf-8")
     if template.count("__DATA_JSON__") != 1:
-        raise ValueError(
+        raise InvalidDomainInputError(
             "coverage HTML template must contain one __DATA_JSON__ placeholder"
         )
     embedded_json = json.dumps(coverage, ensure_ascii=False, separators=(",", ":"))

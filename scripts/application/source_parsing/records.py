@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from scripts.domain.errors import InvalidDomainInputError
 from scripts.domain.records.tag_records import DeprecatedTag, JpTag
 from scripts.domain.records.tag_validation import validate_deprecated_tags, validate_jp_tags
 from scripts.infrastructure.json_io import load_json
@@ -20,7 +21,7 @@ def load_json_array(path: Path, label: str) -> list[object]:
     require_file(path, label)
     value = load_json(path)
     if not isinstance(value, list):
-        raise ValueError(f"{label}はJSON配列である必要があります: {path}")
+        raise InvalidDomainInputError(f"{label}はJSON配列である必要があります: {path}")
     return value
 
 

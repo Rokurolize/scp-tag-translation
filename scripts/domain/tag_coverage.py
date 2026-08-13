@@ -11,6 +11,7 @@ from scripts.domain.branch_config import (
     BRANCH_CONFIG_BY_CODE,
     validate_requested_branches,
 )
+from scripts.domain.errors import InvalidDomainInputError
 from scripts.domain.tag_coverage_models import (
     ApplicationBranch,
     ApplicationInventory,
@@ -161,7 +162,9 @@ def _classify_tag(tag: str, context: _ClassificationContext) -> Classification:
     else:
         target_policy = context.target_policies.get(target)
         if target_policy is None:
-            raise ValueError(f"JP policy missing for mapped target: {tag}->{target}")
+            raise InvalidDomainInputError(
+                f"JP policy missing for mapped target: {tag}->{target}"
+            )
         copy_allowed = target_policy["copy_allowed_for_translation"]
         if target_policy["special_translation_action"] == "omit":
             action = "omit_jp_policy"
