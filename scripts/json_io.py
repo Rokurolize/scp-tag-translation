@@ -8,8 +8,7 @@ import stat
 import tempfile
 from pathlib import Path
 
-
-DEFAULT_NEW_FILE_MODE = 0o644
+from scripts.file_modes import DEFAULT_NEW_FILE_MODE
 
 
 def load_json(path: Path) -> object:

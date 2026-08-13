@@ -25,11 +25,10 @@ from scripts.domain.tag_models import (
     JpTagPolicy,
     TagStats,
 )
+from scripts.domain.jp_policy import JpPolicyInputs, build_jp_policy
 from scripts.domain.tag_policy import (
     BranchMappingPolicy,
-    JpPolicyInputs,
     MappingPolicy,
-    build_jp_policy,
     en_category_omitted_tags,
     resolve_source_tag,
 )

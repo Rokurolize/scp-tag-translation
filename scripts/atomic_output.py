@@ -9,9 +9,9 @@ import tempfile
 from collections.abc import Callable, Mapping
 from pathlib import Path
 
+from scripts.file_modes import DEFAULT_NEW_FILE_MODE
 
 FileWriter = Callable[[Path], None]
-DEFAULT_NEW_FILE_MODE = 0o644
 
 
 class AtomicPublicationError(OSError):
@@ -60,6 +60,73 @@ def _cleanup_paths(paths: list[Path]) -> list[tuple[Path, OSError]]:
     return failures
 
 
+def _stage_outputs(
+    writers: Mapping[Path, FileWriter],
+    staged: dict[Path, Path],
+) -> None:
+    for destination, writer in writers.items():
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        descriptor, temporary_name = tempfile.mkstemp(
+            prefix=f".{destination.name}.",
+            suffix=".tmp",
+            dir=destination.parent,
+        )
+        os.close(descriptor)
+        temporary = Path(temporary_name)
+        staged[destination] = temporary
+        writer(temporary)
+        mode = (
+            stat.S_IMODE(destination.stat().st_mode)
+            if destination.exists()
+            else DEFAULT_NEW_FILE_MODE
+        )
+        temporary.chmod(mode)
+
+
+def _prepare_backups(
+    destinations: Mapping[Path, Path],
+    backups: dict[Path, Path | None],
+) -> None:
+    for destination in destinations:
+        if destination.exists():
+            descriptor, backup_name = tempfile.mkstemp(
+                prefix=f".{destination.name}.",
+                suffix=".bak",
+                dir=destination.parent,
+            )
+            os.close(descriptor)
+            backup = Path(backup_name)
+            shutil.copyfile(destination, backup)
+            shutil.copymode(destination, backup)
+            backups[destination] = backup
+        else:
+            backups[destination] = None
+
+
+def _replace_staged(
+    staged: Mapping[Path, Path],
+    backups: Mapping[Path, Path | None],
+    retained_backups: set[Path],
+) -> None:
+    replaced: list[Path] = []
+    for destination, temporary in staged.items():
+        try:
+            os.replace(temporary, destination)
+        except BaseException as publication_error:
+            rollback_failures, retained = _rollback_replaced(
+                replaced,
+                backups,
+            )
+            retained_backups.update(retained)
+            if rollback_failures:
+                raise _operation_error(
+                    "rollback",
+                    rollback_failures,
+                ) from publication_error
+            raise
+        replaced.append(destination)
+
+
 def publish_files_atomically(writers: Mapping[Path, FileWriter]) -> None:
     """Fully write every output before replacing any published file.
 
@@ -70,58 +137,12 @@ def publish_files_atomically(writers: Mapping[Path, FileWriter]) -> None:
 
     staged: dict[Path, Path] = {}
     backups: dict[Path, Path | None] = {}
-    replaced: list[Path] = []
     retained_backups: set[Path] = set()
     active_error: BaseException | None = None
     try:
-        for destination, writer in writers.items():
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            descriptor, temporary_name = tempfile.mkstemp(
-                prefix=f".{destination.name}.",
-                suffix=".tmp",
-                dir=destination.parent,
-            )
-            os.close(descriptor)
-            temporary = Path(temporary_name)
-            staged[destination] = temporary
-            writer(temporary)
-            mode = (
-                stat.S_IMODE(destination.stat().st_mode)
-                if destination.exists()
-                else DEFAULT_NEW_FILE_MODE
-            )
-            temporary.chmod(mode)
-
-        for destination in writers:
-            if destination.exists():
-                descriptor, backup_name = tempfile.mkstemp(
-                    prefix=f".{destination.name}.",
-                    suffix=".bak",
-                    dir=destination.parent,
-                )
-                os.close(descriptor)
-                backup = Path(backup_name)
-                shutil.copyfile(destination, backup)
-                shutil.copymode(destination, backup)
-                backups[destination] = backup
-            else:
-                backups[destination] = None
-
-        for destination, temporary in staged.items():
-            try:
-                os.replace(temporary, destination)
-            except BaseException as publication_error:
-                rollback_failures, retained_backups = _rollback_replaced(
-                    replaced,
-                    backups,
-                )
-                if rollback_failures:
-                    raise _operation_error(
-                        "rollback",
-                        rollback_failures,
-                    ) from publication_error
-                raise
-            replaced.append(destination)
+        _stage_outputs(writers, staged)
+        _prepare_backups(staged, backups)
+        _replace_staged(staged, backups, retained_backups)
     except BaseException as error:
         active_error = error
         raise
