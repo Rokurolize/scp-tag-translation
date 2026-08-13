@@ -35,6 +35,7 @@ class CoverageBuildConfig:
     """Input and output locations for one coverage build."""
 
     output_dir: Path = DEFAULT_OUTPUT_DIR
+    supported_branches: tuple[str, ...] = SUPPORTED_BRANCHES
     mapping_inputs: MappingInputPaths = field(
         default_factory=default_mapping_input_paths,
     )
@@ -43,10 +44,12 @@ class CoverageBuildConfig:
 def default_coverage_build_config(
     *,
     output_dir: Path = DEFAULT_OUTPUT_DIR,
+    supported_branches: Sequence[str] = SUPPORTED_BRANCHES,
 ) -> CoverageBuildConfig:
     """Return the repository's default coverage build configuration."""
     return CoverageBuildConfig(
         output_dir=output_dir,
+        supported_branches=tuple(supported_branches),
         mapping_inputs=default_mapping_input_paths(),
     )
 
@@ -69,10 +72,12 @@ def build_and_publish_coverage(
 ) -> tuple[Coverage, tuple[Path, Path, Path, Path]]:
     """Build coverage artifacts and publish all four outputs atomically."""
     config = config or default_coverage_build_config()
-    requested_branches = tuple(SUPPORTED_BRANCHES if branches is None else branches)
+    requested_branches = tuple(
+        config.supported_branches if branches is None else branches
+    )
     branches = validate_requested_branches(
         requested_branches,
-        supported_branches=SUPPORTED_BRANCHES,
+        supported_branches=config.supported_branches,
     )
     inputs = load_coverage_inputs(config.mapping_inputs)
     branch_tag_stats = {

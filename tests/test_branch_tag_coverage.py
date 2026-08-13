@@ -247,6 +247,59 @@ def test_application_coverage_workflow_validates_branch_selection(
         coverage_workflow.build_and_publish_coverage(tmp_path, branches)
 
 
+def test_application_coverage_workflow_uses_configured_branch_scope(
+    tmp_path,
+    monkeypatch,
+):
+    selected = []
+    config = coverage_workflow.CoverageBuildConfig(
+        output_dir=tmp_path,
+        supported_branches=("en",),
+        mapping_inputs=object(),
+    )
+    monkeypatch.setattr(
+        coverage_workflow,
+        "load_coverage_inputs",
+        lambda _paths: object(),
+    )
+    monkeypatch.setattr(
+        coverage_workflow,
+        "collect_branch_tag_stats",
+        lambda _root, branch: selected.append(branch) or {},
+    )
+    monkeypatch.setattr(
+        coverage_workflow,
+        "build_coverage",
+        lambda _root, branches, _inputs, _stats: (
+            selected.extend(branches) or {"branches": []}
+        ),
+    )
+    monkeypatch.setattr(
+        coverage_workflow,
+        "build_application_inventory",
+        lambda _coverage: {},
+    )
+    monkeypatch.setattr(
+        coverage_workflow,
+        "publish_files_atomically",
+        lambda _writers: None,
+    )
+
+    coverage_workflow.build_and_publish_coverage(
+        tmp_path,
+        None,
+        config=config,
+    )
+
+    assert selected == ["en", "en"]
+    with pytest.raises(ValueError, match="unsupported branches: cn"):
+        coverage_workflow.build_and_publish_coverage(
+            tmp_path,
+            ["cn"],
+            config=config,
+        )
+
+
 def test_branch_command_selection_normalizes_once():
     assert normalize_branch_selection(["en", "jp", "_private"]) == ("en",)
     with pytest.raises(ValueError, match="対象支部"):
