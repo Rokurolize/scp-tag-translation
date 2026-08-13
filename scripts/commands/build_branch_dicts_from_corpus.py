@@ -31,6 +31,7 @@ from scripts.domain.jp_policy import JpPolicyInputs, build_jp_policy
 from scripts.domain.tag_dictionary import build_branch_dict, build_en_dicts
 from scripts.domain.tag_records import DeprecatedTag, EnTag, JpTag
 from scripts.domain.tag_policy import MappingPolicy
+from scripts.domain.tag_validation import validate_tag_records
 
 @dataclass(frozen=True)
 class BranchBuildSummary:
@@ -165,8 +166,6 @@ def build_artifacts(
             + ", ".join(missing_branches)
         )
     if isinstance(inputs, BranchBuildInputs):
-        from scripts.domain.tag_validation import validate_tag_records
-
         en_tags, jp_tags, deprecated_tags = validate_tag_records(
             inputs.en_tags,
             inputs.jp_tags,
