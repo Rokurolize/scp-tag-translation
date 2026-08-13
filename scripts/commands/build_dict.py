@@ -29,6 +29,7 @@ from scripts.infrastructure.data_paths import (
     EN_DICTIONARY_PATH,
 )
 from scripts.pipeline.legacy_dictionary import (
+    LegacyDictionaryConfig,
     build_legacy_en_dictionary as build_en_dictionary,
     build_legacy_outputs,
 )
@@ -41,10 +42,12 @@ def _build_outputs(
 ) -> tuple[dict[str, str | None], dict[str, str]]:
     return build_legacy_outputs(
         overwrite,
-        data_en=DATA_EN,
-        data_jp=DATA_JP,
-        data_deprecated=DATA_DEPRECATED,
-        dictionary_path=EN_DICTIONARY_PATH,
+        config=LegacyDictionaryConfig(
+            data_en=DATA_EN,
+            data_jp=DATA_JP,
+            data_deprecated=DATA_DEPRECATED,
+            dictionary_path=EN_DICTIONARY_PATH,
+        ),
         policy_inputs=load_mapping_policy_inputs(),
     )
 

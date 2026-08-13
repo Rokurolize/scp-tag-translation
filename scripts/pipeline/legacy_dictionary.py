@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 from dataclasses import replace
+from dataclasses import dataclass
+from pathlib import Path
 from typing import cast
 
 from scripts.domain.policy.policy_builder import MappingPolicyInputs, build_mapping_policy
@@ -23,10 +25,21 @@ from scripts.pipeline.dictionary_inputs import (
 )
 
 __all__ = [
+    "LegacyDictionaryConfig",
     "build_legacy_en_dictionary",
     "build_legacy_outputs",
     "validate_existing_dict",
 ]
+
+
+@dataclass(frozen=True)
+class LegacyDictionaryConfig:
+    """Locations used by the legacy EN dictionary compatibility workflow."""
+
+    data_en: Path = DATA_EN
+    data_jp: Path = DATA_JP
+    data_deprecated: Path = DATA_DEPRECATED
+    dictionary_path: Path = EN_DICTIONARY_PATH
 
 
 def _ensure_no_case_variant_keys(
@@ -114,14 +127,11 @@ def build_legacy_en_dictionary(
 def build_legacy_outputs(
     overwrite: bool,
     *,
-    data_en=DATA_EN,
-    data_jp=DATA_JP,
-    data_deprecated=DATA_DEPRECATED,
-    dictionary_path=EN_DICTIONARY_PATH,
+    config: LegacyDictionaryConfig = LegacyDictionaryConfig(),
     policy_inputs: MappingPolicyInputs,
 ) -> tuple[dict[str, str | None], dict[str, str]]:
     """Build legacy EN outputs while keeping loading and policy assembly centralized."""
-    for path in (data_en, data_jp):
+    for path in (config.data_en, config.data_jp):
         if not path.exists():
             raise FileNotFoundError(
                 f"{path} が見つかりません。先に parse_sources.py を実行してください。"
@@ -129,9 +139,9 @@ def build_legacy_outputs(
 
     mapping_paths = replace(
         default_mapping_input_paths(),
-        data_en=data_en,
-        data_jp=data_jp,
-        data_deprecated=data_deprecated,
+        data_en=config.data_en,
+        data_jp=config.data_jp,
+        data_deprecated=config.data_deprecated,
     )
     loaded = load_mapping_inputs(
         mapping_paths,
@@ -139,8 +149,8 @@ def build_legacy_outputs(
         include_origin_replacements=False,
     )
     existing: dict[str, str | None] = {}
-    if not overwrite and dictionary_path.exists():
-        existing = validate_existing_dict(load_json(dictionary_path))
+    if not overwrite and config.dictionary_path.exists():
+        existing = validate_existing_dict(load_json(config.dictionary_path))
 
     policy = loaded.mapping_policy
     if existing:

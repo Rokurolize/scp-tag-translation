@@ -42,45 +42,46 @@ def _load_json_object(path: Path, label: str) -> dict[object, object]:
     return raw
 
 
+def _validate_override_entry(
+    path: Path,
+    branch: object,
+    source_tag: object,
+    value: object,
+) -> tuple[str, BranchOverrideValue]:
+    if not isinstance(source_tag, str) or not source_tag:
+        raise ValueError(f"invalid override source tag in {path}: {source_tag!r}")
+    if isinstance(value, str):
+        return source_tag, value
+    if not isinstance(branch, str) or not isinstance(value, dict):
+        raise ValueError(f"invalid override value in {path}: {branch}:{source_tag}")
+    jp_tag = value.get("jp_tag")
+    if not isinstance(jp_tag, str):
+        raise ValueError(f"invalid override value in {path}: {branch}:{source_tag}")
+    unknown_keys = set(value) - {"jp_tag", "note"}
+    if unknown_keys:
+        raise ValueError(
+            f"invalid override fields in {path}: "
+            f"{branch}:{source_tag}: {sorted(unknown_keys, key=repr)}"
+        )
+    note = value.get("note")
+    if note is not None and not isinstance(note, str):
+        raise ValueError(f"invalid override note in {path}: {branch}:{source_tag}")
+    record: BranchOverrideRecord = {"jp_tag": jp_tag}
+    if note is not None:
+        record["note"] = note
+    return source_tag, record
+
+
 def _load_override_file(path: Path) -> BranchOverrideFile:
     raw = _load_json_object(path, "branch override file")
     validated: dict[str, dict[str, BranchOverrideValue]] = {}
     for branch, branch_values in raw.items():
         if not isinstance(branch, str) or not isinstance(branch_values, dict):
             raise ValueError(f"invalid override branch in {path}: {branch!r}")
-        validated_branch: dict[str, BranchOverrideValue] = {}
-        for source_tag, value in branch_values.items():
-            if not isinstance(source_tag, str) or not source_tag:
-                raise ValueError(
-                    f"invalid override source tag in {path}: {source_tag!r}"
-                )
-            if isinstance(value, str):
-                validated_branch[source_tag] = value
-                continue
-            if not isinstance(value, dict):
-                raise ValueError(
-                    f"invalid override value in {path}: {branch}:{source_tag}"
-                )
-            jp_tag = value.get("jp_tag")
-            if not isinstance(jp_tag, str):
-                raise ValueError(
-                    f"invalid override value in {path}: {branch}:{source_tag}"
-                )
-            unknown_keys = set(value) - {"jp_tag", "note"}
-            if unknown_keys:
-                raise ValueError(
-                    f"invalid override fields in {path}: "
-                    f"{branch}:{source_tag}: {sorted(unknown_keys)}"
-                )
-            if "note" in value and not isinstance(value["note"], str):
-                raise ValueError(
-                    f"invalid override note in {path}: {branch}:{source_tag}"
-                )
-            validated_record: BranchOverrideRecord = {"jp_tag": jp_tag}
-            if "note" in value:
-                validated_record["note"] = value["note"]
-            validated_branch[source_tag] = validated_record
-        validated[branch] = validated_branch
+        validated[branch] = dict(
+            _validate_override_entry(path, branch, source_tag, value)
+            for source_tag, value in branch_values.items()
+        )
     return validated
 
 
