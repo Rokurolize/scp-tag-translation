@@ -73,6 +73,93 @@ class BranchBuildConfig:
     supported_branches: tuple[str, ...] = SUPPORTED_BRANCHES
 
 
+def _build_branch_outputs(
+    corpus_data: Mapping[str, CorpusBranchData],
+    branches: Sequence[str],
+    inputs: BranchBuildInputs,
+    config: BranchBuildConfig,
+) -> tuple[
+    dict[Path, Mapping[str, object]],
+    tuple[BranchBuildSummary, ...],
+    dict[str, dict[str, str | None]],
+    dict[str, list[tuple[str, tuple[str, ...]]]],
+]:
+    outputs: dict[Path, Mapping[str, object]] = {}
+    summaries: list[BranchBuildSummary] = []
+    branch_dictionaries: dict[str, dict[str, str | None]] = {}
+    visible_sequences_by_branch: dict[
+        str,
+        list[tuple[str, tuple[str, ...]]],
+    ] = {}
+    for branch in sorted(branches):
+        branch_data = corpus_data[branch]
+        if branch == "en":
+            dictionary, deprecated_dict = build_en_dicts(
+                inputs.en_tags,
+                inputs.jp_tags,
+                inputs.deprecated_tags,
+                branch_data.source_tags,
+                inputs.policy,
+            )
+        else:
+            dictionary, deprecated_dict = build_branch_dict(
+                branch,
+                branch_data.source_tags,
+                inputs.policy,
+            )
+
+        dictionary_path = config.dictionaries_dir / f"{branch}_to_jp.json"
+        deprecated_path = config.dictionaries_dir / f"deprecated_{branch}_to_jp.json"
+        outputs[dictionary_path] = dictionary
+        outputs[deprecated_path] = deprecated_dict
+        branch_dictionaries[branch] = dictionary
+        visible_sequences_by_branch[branch] = branch_data.visible_sequences
+        summaries.append(
+            BranchBuildSummary(
+                branch=branch,
+                mapped_count=sum(value is not None for value in dictionary.values()),
+                tag_count=len(dictionary),
+                replacement_count=len(deprecated_dict),
+                dictionary_path=dictionary_path,
+            )
+        )
+    return (
+        outputs,
+        tuple(summaries),
+        branch_dictionaries,
+        visible_sequences_by_branch,
+    )
+
+
+def _complete_hint_dictionaries(
+    branch_dictionaries: Mapping[str, Mapping[str, str | None]],
+    corpus_data: Mapping[str, CorpusBranchData],
+    config: BranchBuildConfig,
+    existing_dictionaries: Mapping[str, Mapping[str, str | None]] | None,
+) -> tuple[
+    dict[str, dict[str, str | None]],
+    dict[str, list[tuple[str, tuple[str, ...]]]],
+]:
+    hint_dictionaries = {
+        branch: dict(dictionary)
+        for branch, dictionary in branch_dictionaries.items()
+    }
+    for branch in config.supported_branches:
+        if branch in hint_dictionaries:
+            continue
+        if existing_dictionaries is None or branch not in existing_dictionaries:
+            raise ValueError(
+                "explicit existing dictionary required for partial hint generation: "
+                f"{branch}"
+            )
+        hint_dictionaries[branch] = dict(existing_dictionaries[branch])
+    visible_sequences_by_branch = {
+        branch: corpus_data[branch].visible_sequences
+        for branch in config.supported_branches
+    }
+    return hint_dictionaries, visible_sequences_by_branch
+
+
 def build_artifacts(
     corpus_data: Mapping[str, CorpusBranchData],
     branches: Sequence[str],
@@ -93,66 +180,18 @@ def build_artifacts(
         inputs.jp_tags,
         inputs.deprecated_tags,
     )
-    outputs: dict[Path, Mapping[str, object]] = {}
-    summaries = []
-    branch_dictionaries: dict[str, dict[str, str | None]] = {}
-    visible_sequences_by_branch: dict[
-        str,
-        list[tuple[str, tuple[str, ...]]],
-    ] = {}
-
-    for branch in sorted(branches):
-        branch_data = corpus_data[branch]
-        source_tags = branch_data.source_tags
-        visible_sequences = branch_data.visible_sequences
-        if branch == "en":
-            dictionary, deprecated_dict = build_en_dicts(
-                inputs.en_tags,
-                inputs.jp_tags,
-                inputs.deprecated_tags,
-                source_tags,
-                inputs.policy,
-            )
-        else:
-            dictionary, deprecated_dict = build_branch_dict(
-                branch,
-                source_tags,
-                inputs.policy,
-            )
-
-        dictionary_path = config.dictionaries_dir / f"{branch}_to_jp.json"
-        deprecated_path = (
-            config.dictionaries_dir / f"deprecated_{branch}_to_jp.json"
-        )
-        outputs[dictionary_path] = dictionary
-        outputs[deprecated_path] = deprecated_dict
-        branch_dictionaries[branch] = dictionary
-        visible_sequences_by_branch[branch] = visible_sequences
-        summaries.append(
-            BranchBuildSummary(
-                branch=branch,
-                mapped_count=sum(
-                    value is not None for value in dictionary.values()
-                ),
-                tag_count=len(dictionary),
-                replacement_count=len(deprecated_dict),
-                dictionary_path=dictionary_path,
-            )
-        )
-
-    hint_dictionaries = dict(branch_dictionaries)
-    for branch in config.supported_branches:
-        if branch in hint_dictionaries:
-            continue
-        if existing_dictionaries is None or branch not in existing_dictionaries:
-            raise ValueError(
-                "explicit existing dictionary required for partial hint generation: "
-                f"{branch}"
-            )
-        hint_dictionaries[branch] = dict(existing_dictionaries[branch])
-    for branch in config.supported_branches:
-        if branch not in visible_sequences_by_branch:
-            visible_sequences_by_branch[branch] = corpus_data[branch].visible_sequences
+    (
+        outputs,
+        summaries,
+        branch_dictionaries,
+        visible_sequences_by_branch,
+    ) = _build_branch_outputs(corpus_data, branches, inputs, config)
+    hint_dictionaries, visible_sequences_by_branch = _complete_hint_dictionaries(
+        branch_dictionaries,
+        corpus_data,
+        config,
+        existing_dictionaries,
+    )
     concatenated_tag_hints = {
         branch: build_concatenated_tag_hints(
             branch,
@@ -172,7 +211,7 @@ def build_artifacts(
     )
     return BuildArtifacts(
         outputs=outputs,
-        branch_summaries=tuple(summaries),
+        branch_summaries=summaries,
         jp_tag_count=len(inputs.jp_tags),
         hint_count=sum(
             len(entries) for entries in concatenated_tag_hints.values()
