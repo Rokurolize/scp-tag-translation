@@ -1,5 +1,6 @@
 import csv
 import json
+import sys
 from pathlib import Path
 
 import pytest
@@ -10,6 +11,7 @@ from scripts.pipeline.corpus import (
 )
 from scripts.pipeline import dictionary_inputs
 from scripts.pipeline.dictionary_inputs import LoadedMappingInputs, load_existing_hint_dictionaries
+from scripts.commands import build_branch_dicts_from_corpus as branch_command
 from scripts.application import dictionary_build as dictionary_workflow
 from scripts.domain.policy import tag_policy
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
@@ -23,6 +25,20 @@ OVERRIDES = ROOT / "sources" / "branch_to_jp_overrides.json"
 ACCEPTANCE = ROOT / "tests" / "fixtures" / "branch_acceptance_examples.tsv"
 
 REQUIRED_BRANCHES = list(SUPPORTED_BRANCHES)
+
+
+def test_branch_dictionary_command_reports_missing_corpus(monkeypatch, capsys, tmp_path):
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["build_branch_dicts_from_corpus.py", "--corpus-root", str(tmp_path / "missing")],
+    )
+
+    with pytest.raises(SystemExit) as excinfo:
+        branch_command.main()
+
+    assert excinfo.value.code == 1
+    assert "corpus rootが見つかりません" in capsys.readouterr().out
 
 
 def _load_json(path: Path):

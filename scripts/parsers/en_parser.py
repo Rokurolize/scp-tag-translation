@@ -53,6 +53,34 @@ def _parse_meta_line(line: str) -> tuple[str, list[str]] | None:
     return meta_key, meta_values
 
 
+def _report_malformed_line(
+    input_path: Path,
+    line_number: int,
+    line: str,
+    *,
+    current_tag: EnTag | None,
+    strict: bool,
+    diagnostics: MutableSequence[str] | None,
+) -> None:
+    if not strict:
+        return
+    if line.startswith("* **[") and "system:page-tags/tag/" in line:
+        report_source_issue(
+            input_path,
+            line_number,
+            "invalid EN tag link",
+            diagnostics,
+        )
+    elif current_tag is not None and line.startswith("* //"):
+        if _parse_meta_line(line) is None:
+            report_source_issue(
+                input_path,
+                line_number,
+                "invalid EN metadata",
+                diagnostics,
+            )
+
+
 def parse_en_tags(
     input_path: Path,
     *,
@@ -98,13 +126,14 @@ def parse_en_tags(
                 }
                 continue
 
-            if strict and line.startswith("* **[") and "system:page-tags/tag/" in line:
-                report_source_issue(
-                    input_path,
-                    line_number,
-                    "invalid EN tag link",
-                    diagnostics,
-                )
+            _report_malformed_line(
+                input_path,
+                line_number,
+                line,
+                current_tag=current_tag,
+                strict=strict,
+                diagnostics=diagnostics,
+            )
 
             if current_tag:
                 meta_data = _parse_meta_line(line)
@@ -112,13 +141,6 @@ def parse_en_tags(
                     meta_key, meta_values = meta_data
                     metadata = current_tag["meta"]
                     metadata.setdefault(meta_key, []).extend(meta_values)
-                elif strict and line.startswith("* //"):
-                    report_source_issue(
-                        input_path,
-                        line_number,
-                        "invalid EN metadata",
-                        diagnostics,
-                    )
 
         if current_tag:
             tags_data.append(current_tag)

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 from collections.abc import Iterator, MutableSequence
+from dataclasses import dataclass
 from pathlib import Path
 
 from scripts.domain.records.tag_records import DeprecatedTag, JpTag
@@ -40,6 +41,14 @@ _REGISTERED_FRAGMENT_NAMES = (
     "fragment-universe.txt",
     "fragment-event.txt",
 )
+
+
+@dataclass(frozen=True)
+class _TagParseContext:
+    path: Path
+    line_number: int
+    strict: bool
+    diagnostics: MutableSequence[str] | None
 
 
 def _extract_single_replacement(description: str) -> str | None:
@@ -149,11 +158,7 @@ def parse_unused_tag_records(
 
 def _registered_tag_entries(
     line: str,
-    *,
-    path: Path | None = None,
-    line_number: int | None = None,
-    strict: bool = False,
-    diagnostics: MutableSequence[str] | None = None,
+    context: _TagParseContext,
 ) -> list[JpTag]:
     matches = list(_PAIR_RE.finditer(line))
     if not matches:
@@ -172,12 +177,12 @@ def _registered_tag_entries(
     for match in matches:
         name = match.group(1).strip()
         if not name:
-            if strict and path is not None and line_number is not None:
+            if context.strict:
                 report_source_issue(
-                    path,
-                    line_number,
+                    context.path,
+                    context.line_number,
                     "empty JP tag name",
-                    diagnostics,
+                    context.diagnostics,
                 )
             continue
 
@@ -246,10 +251,12 @@ def parse_jp_tags(
                 continue
             for entry in _registered_tag_entries(
                 line,
-                path=filepath,
-                line_number=line_number,
-                strict=strict,
-                diagnostics=diagnostics,
+                _TagParseContext(
+                    path=filepath,
+                    line_number=line_number,
+                    strict=strict,
+                    diagnostics=diagnostics,
+                ),
             ):
                 _merge_jp_tag(tags_by_name, entry)
 
