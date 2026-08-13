@@ -9,7 +9,7 @@ from scripts.corpus import (
     discover_corpus_branches,
 )
 from scripts import dictionary_inputs
-from scripts.dictionary_inputs import complete_hint_dictionaries
+from scripts.dictionary_inputs import load_existing_hint_dictionaries
 from scripts.commands import build_branch_dicts_from_corpus as branch_builder
 from scripts.domain import tag_policy
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
@@ -286,7 +286,7 @@ def test_partial_hint_generation_reuses_other_committed_dictionaries(
         json.dumps({"scp": "scp", "sculpture": "彫像"}),
         encoding="utf-8",
     )
-    complete = complete_hint_dictionaries(
+    complete = load_existing_hint_dictionaries(
         {"en": {"scp": "scp"}},
         dictionaries_dir=tmp_path,
         supported_branches=("en", "int"),

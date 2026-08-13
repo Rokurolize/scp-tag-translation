@@ -178,7 +178,7 @@ def build_coverage(
     inputs: CoverageInputs,
     branch_tag_stats: Mapping[str, BranchTagStats],
 ) -> Coverage:
-    """Classify explicit corpus statistics for the requested branches."""
+    """Classify explicit corpus statistics and retain the root as provenance metadata."""
 
     en_branch_policy = inputs.mapping_policy.for_branch("en")
     en_translation_policy_omit = en_category_omitted_tags(

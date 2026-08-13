@@ -15,7 +15,7 @@ from scripts.corpus import (
     collect_corpus_branch_data,
 )
 from scripts.dictionary_inputs import (
-    complete_hint_dictionaries,
+    load_existing_hint_dictionaries,
     load_mapping_inputs,
 )
 from scripts.json_io import write_json
@@ -73,7 +73,7 @@ class BranchBuildConfig:
     supported_branches: tuple[str, ...] = SUPPORTED_BRANCHES
 
 
-def _build_branch_outputs(
+def _build_branch_artifacts(
     corpus_data: Mapping[str, CorpusBranchData],
     branches: Sequence[str],
     inputs: BranchBuildInputs,
@@ -131,7 +131,7 @@ def _build_branch_outputs(
     )
 
 
-def _complete_hint_dictionaries(
+def _merge_existing_hint_dictionaries(
     branch_dictionaries: Mapping[str, Mapping[str, str | None]],
     corpus_data: Mapping[str, CorpusBranchData],
     config: BranchBuildConfig,
@@ -185,8 +185,8 @@ def build_artifacts(
         summaries,
         branch_dictionaries,
         visible_sequences_by_branch,
-    ) = _build_branch_outputs(corpus_data, branches, inputs, config)
-    hint_dictionaries, visible_sequences_by_branch = _complete_hint_dictionaries(
+    ) = _build_branch_artifacts(corpus_data, branches, inputs, config)
+    hint_dictionaries, visible_sequences_by_branch = _merge_existing_hint_dictionaries(
         branch_dictionaries,
         corpus_data,
         config,
@@ -258,7 +258,7 @@ def build_and_publish(
         for branch in config.supported_branches
         if branch not in branches
     )
-    existing_dictionaries = complete_hint_dictionaries(
+    existing_dictionaries = load_existing_hint_dictionaries(
         {},
         dictionaries_dir=config.dictionaries_dir,
         supported_branches=omitted_branches,

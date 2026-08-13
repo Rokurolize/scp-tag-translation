@@ -6,6 +6,7 @@ import pytest
 
 from scripts.commands import build_branch_tag_coverage_html as coverage_html_builder
 from scripts.data_paths import ROOT
+from scripts.domain.tag_coverage import ACTION_DESCRIPTIONS, STATUS_DESCRIPTIONS
 
 COVERAGE_JSON = ROOT / "visualization" / "branch_tag_coverage.json"
 COVERAGE_HTML = ROOT / "visualization" / "branch_tag_coverage.html"
@@ -170,6 +171,50 @@ def test_coverage_html_main_reports_input_failure(
         "エラー: HTML可視化生成に失敗しました: "
     )
     assert not output.exists()
+
+
+def test_coverage_html_main_publishes_valid_input(
+    tmp_path,
+    monkeypatch,
+    capsys,
+):
+    input_path = tmp_path / "coverage.json"
+    input_path.write_text(
+        json.dumps({
+            "schema_version": 3,
+            "source": {
+                "corpus_root": "/tmp/corpus",
+                "jp_tag_source": "jp",
+                "jp_unused_source": "unused",
+                "override_source": "overrides",
+                "deprecated_override_source": "deprecated",
+                "crosswalk_source": "crosswalk",
+            },
+            "status_descriptions": STATUS_DESCRIPTIONS,
+            "action_descriptions": ACTION_DESCRIPTIONS,
+            "branches": [],
+        }),
+        encoding="utf-8",
+    )
+    output = tmp_path / "output" / "coverage.html"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "build_branch_tag_coverage_html.py",
+            "--input",
+            str(input_path),
+            "--output",
+            str(output),
+        ],
+    )
+
+    coverage_html_builder.main()
+
+    assert '"schema_version":3' in output.read_text(encoding="utf-8")
+    assert capsys.readouterr().out == (
+        f"HTML可視化を生成しました: {output}\n"
+    )
 
 
 def test_coverage_html_main_reports_malformed_input_path(

@@ -144,7 +144,7 @@ def load_mapping_inputs(
     )
 
 
-def complete_hint_dictionaries(
+def load_existing_hint_dictionaries(
     generated: Mapping[str, dict[str, str | None]],
     *,
     dictionaries_dir: Path = DICTIONARIES_DIR,
