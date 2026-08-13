@@ -6,13 +6,11 @@ import shutil
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
+from types import MappingProxyType
 
 from scripts.infrastructure.atomic_output import FileWriter, publish_files_atomically
 from scripts.infrastructure.data_paths import ROOT
 from scripts.pipeline.source_manifest import corpus_source_map
-
-SOURCE_MAP = corpus_source_map()
-
 
 @dataclass(frozen=True)
 class SourceSyncResult:
@@ -27,7 +25,9 @@ class SourceSyncResult:
 class SourceSyncConfig:
     """Repository inputs used by one source synchronization workflow."""
 
-    source_map: Mapping[str, str] = field(default_factory=lambda: SOURCE_MAP)
+    source_map: Mapping[str, str] = field(
+        default_factory=lambda: MappingProxyType(corpus_source_map()),
+    )
     repository_root: Path = field(default_factory=lambda: ROOT)
 
 
@@ -83,7 +83,6 @@ def sync_tag_sources(
 
 
 __all__ = [
-    "SOURCE_MAP",
     "SourceSyncConfig",
     "SourceSyncResult",
     "default_source_sync_config",

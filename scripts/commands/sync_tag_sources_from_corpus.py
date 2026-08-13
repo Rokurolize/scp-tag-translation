@@ -8,16 +8,6 @@ import sys
 from pathlib import Path
 
 from scripts.application import source_sync as _workflow
-from scripts.application.source_sync import SourceSyncResult
-
-
-def sync_tag_sources(
-    corpus_root: Path,
-    *,
-    write: bool = False,
-) -> SourceSyncResult:
-    """Delegate source synchronization to the application workflow."""
-    return _workflow.sync_tag_sources(corpus_root, write=write)
 
 
 def main() -> None:
@@ -36,7 +26,7 @@ def main() -> None:
     args = parser.parse_args()
 
     try:
-        result = sync_tag_sources(args.corpus_root, write=args.write)
+        result = _workflow.sync_tag_sources(args.corpus_root, write=args.write)
     except (OSError, ValueError) as err:
         print(f"エラー: タグソース同期に失敗しました: {err}")
         sys.exit(1)
@@ -50,10 +40,13 @@ def main() -> None:
         sys.exit(1)
 
     action = "synced" if args.write else "current"
-    print(f"tag sources {action}: {len(_workflow.SOURCE_MAP)} files")
+    print(
+        f"tag sources {action}: "
+        f"{len(_workflow.default_source_sync_config().source_map)} files"
+    )
 
 
-__all__ = ["SourceSyncResult", "main", "sync_tag_sources"]
+__all__ = ["main"]
 
 
 if __name__ == "__main__":

@@ -41,6 +41,78 @@ def test_branch_dictionary_command_reports_missing_corpus(monkeypatch, capsys, t
     assert "corpus rootが見つかりません" in capsys.readouterr().out
 
 
+def test_branch_dictionary_command_publishes_successful_build(
+    tmp_path,
+    monkeypatch,
+    capsys,
+):
+    corpus_root = tmp_path / "corpus"
+    page_dir = corpus_root / "en" / "pages" / "sample"
+    page_dir.mkdir(parents=True)
+    (page_dir / "meta.json").write_text(
+        json.dumps({"tags": ["safe"]}),
+        encoding="utf-8",
+    )
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+    data_en = data_dir / "en.json"
+    data_jp = data_dir / "jp.json"
+    data_deprecated = data_dir / "deprecated.json"
+    data_en.write_text(json.dumps([{"name": "safe"}]), encoding="utf-8")
+    data_jp.write_text(
+        json.dumps(
+            [
+                {"name": "safe", "source_tags": []},
+                *[
+                    {"name": name, "source_tags": []}
+                    for name in EN_ORIGIN_TAG_REPLACEMENTS.values()
+                ],
+            ]
+        ),
+        encoding="utf-8",
+    )
+    data_deprecated.write_text("[]", encoding="utf-8")
+    overrides = data_dir / "overrides.json"
+    replacements = data_dir / "replacements.json"
+    crosswalk = data_dir / "crosswalk.json"
+    for path in (overrides, replacements, crosswalk):
+        path.write_text("{}", encoding="utf-8")
+    output_dir = tmp_path / "dictionaries"
+    config = dictionary_workflow.BranchBuildConfig(
+        dictionaries_dir=output_dir,
+        jp_policy_path=output_dir / "jp_tag_policy.json",
+        supported_branches=("en",),
+        mapping_inputs=dictionary_inputs.MappingInputPaths(
+            data_en=data_en,
+            data_jp=data_jp,
+            data_deprecated=data_deprecated,
+            overrides=overrides,
+            replacement_overrides=replacements,
+            crosswalks=(crosswalk,),
+        ),
+    )
+    monkeypatch.setattr(branch_command, "BranchBuildConfig", lambda: config)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "build_branch_dicts_from_corpus.py",
+            "--corpus-root",
+            str(corpus_root),
+            "--branches",
+            "en",
+        ],
+    )
+
+    branch_command.main()
+
+    dictionary = json.loads(
+        (output_dir / "en_to_jp.json").read_text(encoding="utf-8")
+    )
+    assert dictionary["safe"] == "safe"
+    assert "en: 1/20 mapped" in capsys.readouterr().out
+
+
 def _load_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
 

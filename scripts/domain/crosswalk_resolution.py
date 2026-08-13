@@ -2,23 +2,12 @@
 
 from __future__ import annotations
 
-import unicodedata
 from collections.abc import Iterable, Mapping
 
 from scripts.domain.policy.tag_policy import build_jp_names_and_source_map
 from scripts.domain.records.tag_records import DeprecatedTag, JpTag
 from scripts.domain.records.tag_validation import validate_deprecated_tags, validate_jp_tags
-
-
-def normalize_tag(value: str) -> str:
-    """Normalize compatibility glyphs and discard invisible format controls."""
-
-    normalized = unicodedata.normalize("NFKC", value).strip()
-    return "".join(
-        character
-        for character in normalized
-        if unicodedata.category(character) != "Cf"
-    ).strip()
+from scripts.shared.tag_text import normalize_tag
 
 
 class CrosswalkResolver:

@@ -107,11 +107,18 @@ class BranchGuideParser(Protocol):
 
 @dataclass(frozen=True)
 class ParseWorkflowConfig:
-    """Paths and parser implementations used by one parse workflow."""
+    """Paths and parser implementations used by one parse workflow.
+
+    ``sources_jp_unused`` is intentionally optional because the official JP
+    snapshot can be generated without its supplemental unused-tag fragment;
+    the workflow then publishes an empty deprecated-tag record set.
+    """
 
     sources_en: Path = field(default_factory=lambda: SOURCES_EN)
     sources_jp: Path = field(default_factory=lambda: SOURCES_JP)
-    sources_jp_unused: Path = field(default_factory=lambda: SOURCES_JP_UNUSED)
+    sources_jp_unused: Path | None = field(
+        default_factory=lambda: SOURCES_JP_UNUSED,
+    )
     sources_int: Path = field(default_factory=lambda: SOURCES_INT)
     sources_ko: Path = field(default_factory=lambda: SOURCES_KO)
     branch_guide_sources: Mapping[str, tuple[Path, ...]] = field(
@@ -196,7 +203,8 @@ def _collect_jp_outputs(
             strict=True,
             diagnostics=diagnostics,
         )
-        if config.sources_jp_unused.is_file()
+        if config.sources_jp_unused is not None
+        and config.sources_jp_unused.is_file()
         else []
     )
     batch = ParseBatch(

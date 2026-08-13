@@ -55,6 +55,18 @@ class BranchBuildConfig:
     )
 
 
+def _resolve_build_branches(
+    branches: Sequence[str] | None,
+    config: BranchBuildConfig,
+) -> tuple[tuple[str, ...], set[str]]:
+    requested = tuple(config.supported_branches if branches is None else branches)
+    selected = validate_requested_branches(
+        requested,
+        supported_branches=config.supported_branches,
+    )
+    return selected, set(selected) | set(config.supported_branches)
+
+
 def _build_branch_artifacts(
     corpus_data: Mapping[str, CorpusBranchData],
     branches: Sequence[str],
@@ -141,11 +153,7 @@ def build_artifacts(
 ) -> BuildArtifacts:
     """Assemble dictionary and policy artifacts without publishing them."""
     config = config or BranchBuildConfig()
-    branches = validate_requested_branches(
-        branches,
-        supported_branches=config.supported_branches,
-    )
-    required_branches = set(branches) | set(config.supported_branches)
+    branches, required_branches = _resolve_build_branches(branches, config)
     missing_branches = sorted(required_branches - set(corpus_data))
     if missing_branches:
         raise ValueError(
@@ -191,21 +199,17 @@ def build_artifacts(
 
 def build_and_publish_dictionaries(
     corpus_root: Path,
-    branches: Sequence[str],
+    branches: Sequence[str] | None,
     *,
     config: BranchBuildConfig | None = None,
 ) -> BuildArtifacts:
     """Load validated inputs, build dictionaries, and publish them atomically."""
     config = config or BranchBuildConfig()
-    branches = validate_requested_branches(
-        branches,
-        supported_branches=config.supported_branches,
-    )
+    branches, required_branches = _resolve_build_branches(branches, config)
     loaded = load_mapping_inputs(
         config.mapping_inputs,
         require_complete_inputs=True,
     )
-    required_branches = set(branches) | set(config.supported_branches)
     corpus_data = {
         branch: collect_corpus_branch_data(corpus_root, branch)
         for branch in sorted(required_branches)

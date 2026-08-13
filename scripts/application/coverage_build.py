@@ -114,7 +114,6 @@ def build_and_publish_coverage(
 __all__ = [
     "CoverageBuildConfig",
     "CoverageInputs",
-    "CoverageBuildConfig",
     "DEFAULT_OUTPUT_DIR",
     "build_and_publish_coverage",
     "default_coverage_build_config",

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
-from typing import cast
 from scripts.domain.records.tag_records import DeprecatedTag, EnTag, JpTag
 
 
@@ -60,7 +59,7 @@ def validate_en_tags(raw: object) -> list[EnTag]:
     for index, entry in enumerate(raw):
         _validate_en_tag_entry(entry, index)
 
-    records = [
+    records: list[EnTag] = [
         {
             **entry,
             "category": entry.get("category"),
@@ -69,7 +68,6 @@ def validate_en_tags(raw: object) -> list[EnTag]:
         }
         for entry in raw
     ]
-    records = cast(list[EnTag], records)
     _ensure_unique((entry["name"] for entry in records), "ENタグ名")
     return records
 
@@ -124,7 +122,7 @@ def validate_jp_tags(raw: object) -> list[JpTag]:
     for index, entry in enumerate(raw):
         _validate_jp_tag_entry(entry, index)
 
-    records = [
+    records: list[JpTag] = [
         {
             **entry,
             "description": entry.get("description") or "",
@@ -134,7 +132,6 @@ def validate_jp_tags(raw: object) -> list[JpTag]:
         }
         for entry in raw
     ]
-    records = cast(list[JpTag], records)
     _ensure_unique((entry["name"] for entry in records), "JPタグ名")
     # A source alias may intentionally occur in multiple JP categories during
     # a tag-system migration.  build_jp_names_and_source_map() resolves those aliases using the
@@ -205,7 +202,15 @@ def validate_deprecated_tags(
             jp_tags is not None,
         )
 
-    records = cast(list[DeprecatedTag], raw)
+    records: list[DeprecatedTag] = []
+    for entry in raw:
+        if not isinstance(entry, dict):
+            raise ValueError("非使用タグデータの項目が不正です")
+        record: DeprecatedTag = {"source_tag": entry["source_tag"]}
+        for key in ("source_lang", "replacement", "description"):
+            if key in entry:
+                record[key] = entry[key]
+        records.append(record)
     _ensure_unique(
         (
             entry["source_tag"]

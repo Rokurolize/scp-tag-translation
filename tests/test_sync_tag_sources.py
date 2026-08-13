@@ -24,7 +24,7 @@ def _configure_source_tree(
     repository_root.mkdir()
     corpus_root.mkdir()
     monkeypatch.setattr(source_workflow, "ROOT", repository_root)
-    monkeypatch.setattr(source_workflow, "SOURCE_MAP", source_map)
+    monkeypatch.setattr(source_workflow, "corpus_source_map", lambda: source_map)
     return repository_root, corpus_root, source_map
 
 

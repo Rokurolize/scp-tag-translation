@@ -6,7 +6,6 @@ from collections.abc import Iterable
 from dataclasses import replace
 from dataclasses import dataclass
 from pathlib import Path
-from typing import cast
 
 from scripts.domain.policy.policy_builder import MappingPolicyInputs, build_mapping_policy
 from scripts.domain.records.tag_records import EnTag, JpTag
@@ -60,17 +59,19 @@ def _ensure_no_case_variant_keys(
 
 
 def validate_existing_dict(raw: object) -> dict[str, str | None]:
-    existing = cast(dict[object, object], raw) if isinstance(raw, dict) else None
-    if not isinstance(existing, dict):
+    if not isinstance(raw, dict):
         raise ValueError("既存辞書はオブジェクトである必要があります")
-    for en_name, jp_name in existing.items():
+    for en_name, jp_name in raw.items():
         if not isinstance(en_name, str) or not en_name or en_name != en_name.strip():
             raise ValueError(f"既存辞書のキーが不正です: {en_name!r}")
         if jp_name is not None and (
             not isinstance(jp_name, str) or not jp_name or jp_name != jp_name.strip()
         ):
             raise ValueError(f"既存辞書の値が不正です: {en_name!r} -> {jp_name!r}")
-    return cast(dict[str, str | None], existing)
+    return {
+        en_name: jp_name
+        for en_name, jp_name in raw.items()
+    }
 
 
 def build_legacy_en_dictionary(
