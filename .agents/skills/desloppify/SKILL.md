@@ -4,7 +4,7 @@ description: Multi-language codebase health scanner and technical-debt workflow.
 ---
 
 <!-- desloppify-begin -->
-<!-- desloppify-skill-version: 11 -->
+<!-- desloppify-skill-version: 12 -->
 
 # Desloppify
 
@@ -123,7 +123,7 @@ Overall score = **25% mechanical** + **75% subjective**.
 
 Four paths to get subjective scores:
 
-- **Local runner (Codex)**: `desloppify review --run-batches --runner codex --parallel --scan-after-import` — automated end-to-end.
+- **Local runner (Codex)**: `desloppify review --run-batches --runner codex --parallel --scan-after-import` — automated end-to-end; without an explicit `--dimensions`, it reuses the prepared scope from `query.json`.
 - **Local runner (Claude)**: `desloppify review --prepare` → launch parallel subagents → `desloppify review --import merged.json` — see skill doc overlay for details.
 - **Local runner (Rovo Dev)**: `desloppify review --run-batches --runner rovodev --parallel --scan-after-import` — automated end-to-end via `acli rovodev run` subprocesses.
 - **Cloud/external**: `desloppify review --external-start --external-runner claude` → follow session template → `--external-submit`.
@@ -313,6 +313,7 @@ This is the Codex-specific overlay appended by `desloppify update-skill codex`.
 3. Keep reviewer input scoped to the immutable packet and the source files named in each batch.
 4. If a batch fails, retry only that slice with `desloppify review --run-batches --packet <packet.json> --only-batches <idxs>`.
 5. Manual override is safety-scoped: you cannot combine it with `--allow-partial`, and provisional manual scores expire on the next `scan` unless replaced by trusted internal or attested-external imports.
+6. If `--prepare --dimensions ...` is followed by `--run-batches` without `--dimensions`, the runner reuses the prepared dimension scope from `query.json`; pass `--dimensions` again to choose a different scope.
 
 ### Subprocess policy
 
