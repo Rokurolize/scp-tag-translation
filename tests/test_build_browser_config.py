@@ -38,6 +38,20 @@ def test_build_browser_config_help_works_as_module():
     assert "--output" in completed.stdout
 
 
+def test_main_publishes_requested_output(tmp_path, monkeypatch, capsys):
+    output = tmp_path / "nested" / "branch_config.js"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["build_browser_config.py", "--output", str(output)],
+    )
+
+    browser_config_command.main()
+
+    assert output.read_text(encoding="utf-8") == render_browser_config()
+    assert capsys.readouterr().out == f"browser config: {output}\n"
+
+
 @pytest.mark.parametrize("error", [OSError("disk full"), ValueError("invalid config")])
 def test_main_reports_expected_publication_errors(error, monkeypatch, capsys):
     def fail_publication(_output):
