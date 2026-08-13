@@ -5,7 +5,7 @@ description: >
 ---
 
 <!-- desloppify-begin -->
-<!-- desloppify-skill-version: 9 -->
+<!-- desloppify-skill-version: 10 -->
 
 # Desloppify
 
@@ -130,7 +130,7 @@ Four paths to get subjective scores:
 - **Cloud/external**: `desloppify review --external-start --external-runner claude` → follow session template → `--external-submit`.
 - **Manual path**: `desloppify review --prepare` → review per dimension → `desloppify review --import file.json`.
 
-Use the runner that is actually installed and available on `PATH`. The Codex batch runner is a Desloppify subprocess workflow; it is not a request for the reviewing model to invent a second layer of agents. If a batch fails, retry only that batch from its immutable packet rather than regenerating the whole review.
+Use the runner that is actually installed and available on `PATH`. The Codex batch runner is a Desloppify subprocess workflow; it is not a request for the reviewing model to invent a second layer of agents. If a batch fails, retry only that batch from its immutable packet; the runner reuses successful outputs from earlier runs of that packet rather than regenerating the whole review.
 
 **Batch output vs import filenames:** Individual batch outputs from subagents must be named `batch-N.raw.txt` (plain text/JSON content, `.raw.txt` extension). The `.json` filenames in `--import merged.json` or `--import findings.json` refer to the final merged import file, not individual batch outputs. Do not name batch outputs with a `.json` extension.
 
