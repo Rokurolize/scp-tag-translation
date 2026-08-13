@@ -1,4 +1,5 @@
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -22,7 +23,14 @@ const frontendScript = fs.readFileSync("branch_config.js", "utf8") + "\n" + html
 def node() -> str:
     executable = shutil.which("node")
     if executable is None:
-        pytest.skip("node が見つからないため frontend JS テストをスキップ")
+        if os.environ.get("SCP_ALLOW_MISSING_NODE") == "1":
+            pytest.skip(
+                "node が見つからないため frontend JS テストを明示的にスキップ"
+            )
+        pytest.fail(
+            "frontend JS tests require Node.js; set SCP_ALLOW_MISSING_NODE=1 "
+            "only when intentionally running a Python-only test subset"
+        )
     return executable
 
 

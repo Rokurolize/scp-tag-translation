@@ -29,9 +29,6 @@ from scripts.domain.concatenated_tags import (
 )
 from scripts.domain.jp_policy import JpPolicyInputs, build_jp_policy
 from scripts.domain.tag_dictionary import build_branch_dict, build_en_dicts
-from scripts.domain.tag_records import DeprecatedTag, EnTag, JpTag
-from scripts.domain.tag_policy import MappingPolicy
-from scripts.domain.tag_validation import validate_tag_records
 
 @dataclass(frozen=True)
 class BranchBuildSummary:
@@ -51,14 +48,6 @@ class BuildArtifacts:
 
 
 @dataclass(frozen=True)
-class BranchBuildInputs:
-    en_tags: list[EnTag]
-    jp_tags: list[JpTag]
-    deprecated_tags: list[DeprecatedTag]
-    policy: MappingPolicy
-
-
-@dataclass(frozen=True)
 class BranchBuildConfig:
     """Input, output, and branch settings for one dictionary build."""
 
@@ -73,7 +62,7 @@ class BranchBuildConfig:
 def _build_branch_artifacts(
     corpus_data: Mapping[str, CorpusBranchData],
     branches: Sequence[str],
-    inputs: BranchBuildInputs,
+    inputs: LoadedMappingInputs,
     config: BranchBuildConfig,
 ) -> tuple[
     dict[Path, Mapping[str, object]],
@@ -91,13 +80,13 @@ def _build_branch_artifacts(
                 inputs.jp_tags,
                 inputs.deprecated_tags,
                 branch_data.source_tags,
-                inputs.policy,
+                inputs.mapping_policy,
             )
         else:
             dictionary, deprecated_dict = build_branch_dict(
                 branch,
                 branch_data.source_tags,
-                inputs.policy,
+                inputs.mapping_policy,
             )
 
         dictionary_path = config.dictionaries_dir / f"{branch}_to_jp.json"
@@ -153,7 +142,7 @@ def _merge_existing_hint_dictionaries(
 def build_artifacts(
     corpus_data: Mapping[str, CorpusBranchData],
     branches: Sequence[str],
-    inputs: BranchBuildInputs | LoadedMappingInputs,
+    inputs: LoadedMappingInputs,
     *,
     config: BranchBuildConfig = BranchBuildConfig(),
     existing_dictionaries: Mapping[str, Mapping[str, str | None]] | None = None,
@@ -164,18 +153,6 @@ def build_artifacts(
         raise ValueError(
             "corpus data missing required branches: "
             + ", ".join(missing_branches)
-        )
-    if isinstance(inputs, BranchBuildInputs):
-        en_tags, jp_tags, deprecated_tags = validate_tag_records(
-            inputs.en_tags,
-            inputs.jp_tags,
-            inputs.deprecated_tags,
-        )
-        inputs = BranchBuildInputs(
-            en_tags=en_tags,
-            jp_tags=jp_tags,
-            deprecated_tags=deprecated_tags,
-            policy=inputs.policy,
         )
     (
         outputs,
@@ -201,7 +178,7 @@ def build_artifacts(
             jp_tags=inputs.jp_tags,
             deprecated_tags=inputs.deprecated_tags,
             en_tags=inputs.en_tags,
-            mapping_policy=inputs.policy,
+            mapping_policy=inputs.mapping_policy,
             concatenated_tag_hints=concatenated_tag_hints,
         )
     )

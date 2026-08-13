@@ -9,12 +9,13 @@ from scripts.corpus import (
     discover_corpus_branches,
 )
 from scripts import dictionary_inputs
-from scripts.dictionary_inputs import load_existing_hint_dictionaries
+from scripts.dictionary_inputs import LoadedMappingInputs, load_existing_hint_dictionaries
 from scripts.commands import build_branch_dicts_from_corpus as branch_builder
 from scripts.domain import tag_policy
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.domain.jp_policy import JpPolicyInputs, build_jp_policy
 from scripts.domain.tag_policy import EN_ORIGIN_TAG_REPLACEMENTS
+from scripts.domain.tag_validation import validate_tag_records
 
 ROOT = Path(__file__).parent.parent
 DICTIONARIES = ROOT / "dictionaries"
@@ -100,15 +101,20 @@ def controlled_branch_artifacts(tmp_path):
         overrides={},
         official_crosswalk={},
     )
+    en_tags, jp_tags, deprecated_tags = validate_tag_records(
+        en_tags,
+        jp_tags,
+        [],
+    )
 
     artifacts = branch_builder.build_artifacts(
         {"en": collect_corpus_branch_data(corpus_root, "en")},
         ["en"],
-        branch_builder.BranchBuildInputs(
+        LoadedMappingInputs(
             en_tags=en_tags,
             jp_tags=jp_tags,
-            deprecated_tags=[],
-            policy=policy,
+            deprecated_tags=deprecated_tags,
+            mapping_policy=policy,
         ),
         config=branch_builder.BranchBuildConfig(
             dictionaries_dir=output_dir,

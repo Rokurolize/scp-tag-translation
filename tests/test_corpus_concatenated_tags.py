@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import os
-import shutil
 import subprocess
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -13,6 +12,7 @@ from pathlib import Path
 import pytest
 
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
+from tests.frontend_harness import node
 
 ROOT = Path(__file__).parent.parent
 DEFAULT_CORPUS_ROOT = Path(
@@ -155,16 +155,14 @@ def test_every_corpus_tag_sequence_translates_when_spaces_are_lost(tmp_path):
             )
         corpus_root = _write_minimal_corpus_fixture(tmp_path / "corpus")
 
-    node = shutil.which("node")
-    if node is None:
-        pytest.skip("nodeが見つからないためフロントエンド回帰テストをスキップします。")
+    node_executable = node()
 
     started = time.perf_counter()
     worker_count = min(4, len(SUPPORTED_BRANCHES))
     with ThreadPoolExecutor(max_workers=worker_count) as executor:
         branch_summaries = list(
             executor.map(
-                lambda branch: _run_branch(node, corpus_root, branch),
+                lambda branch: _run_branch(node_executable, corpus_root, branch),
                 SUPPORTED_BRANCHES,
             )
         )
