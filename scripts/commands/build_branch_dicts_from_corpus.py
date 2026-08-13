@@ -203,9 +203,10 @@ def build_and_publish_dictionaries(
     corpus_root: Path,
     branches: Sequence[str],
     *,
-    config: BranchBuildConfig = BranchBuildConfig(),
+    config: BranchBuildConfig | None = None,
 ) -> BuildArtifacts:
     """Load validated inputs, build dictionaries, and publish them atomically."""
+    config = config or BranchBuildConfig()
     branches = validate_requested_branches(
         branches,
         supported_branches=config.supported_branches,
