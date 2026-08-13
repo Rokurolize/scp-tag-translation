@@ -53,6 +53,8 @@ def validate_requested_branches(
 ) -> tuple[str, ...]:
     """Validate a non-empty, duplicate-free subset of supported branches."""
     requested = tuple(branches)
+    if not requested:
+        raise ValueError("at least one branch is required")
     if any(not isinstance(branch, str) or not branch for branch in requested):
         raise ValueError("branch names must be non-empty strings")
     duplicates = sorted({
