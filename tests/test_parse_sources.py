@@ -11,7 +11,9 @@ import pytest
 
 from scripts.commands import parse_sources
 from scripts.application import source_parse as parse_workflow
+from scripts.application.source_parse_crosswalks import collect_crosswalk_parses
 from scripts.application import source_parse_models, source_parse_records, source_parse_reporting
+from scripts.domain.crosswalk_resolution import CrosswalkResolver
 from scripts.parsers.contracts import BranchGuideAnalysis
 
 
@@ -73,6 +75,59 @@ def test_parse_workflow_rejects_diagnostics_before_publication(monkeypatch):
         parse_workflow.parse_and_publish_sources("en")
 
     assert publish_calls == []
+
+
+def test_crosswalk_stage_collects_parser_results_and_diagnostics(tmp_path):
+    int_source = tmp_path / "int.txt"
+    ko_source = tmp_path / "ko.txt"
+    guide_source = tmp_path / "guide.txt"
+    for source in (int_source, ko_source, guide_source):
+        source.write_text("fixture\n", encoding="utf-8")
+
+    class IntParser:
+        def parse_int_crosswalk(self, input_path, resolver):
+            assert input_path == int_source
+            assert resolver(["unknown"], []) is None
+            return {"int": {"source": "対象"}}
+
+    class KoParser:
+        def parse_ko_crosswalk(self, input_path, resolver):
+            assert input_path == ko_source
+            assert resolver(["unknown"], []) is None
+            return {"ko": {"한국어": "対象"}}
+
+    class BranchGuideParser:
+        def analyze_branch_guides(
+            self,
+            source_paths,
+            resolver,
+            *,
+            strict,
+            diagnostics,
+        ):
+            assert source_paths == {"ua": (guide_source,)}
+            assert strict is True
+            assert resolver(["unknown"], []) is None
+            diagnostics.append("ua:1: unresolved")
+            return _branch_analysis(accepted=1, unresolved=1)
+
+    class Parsers:
+        int = IntParser()
+        ko = KoParser()
+        branch_guides = BranchGuideParser()
+
+    result = collect_crosswalk_parses(
+        sources_int=int_source,
+        sources_ko=ko_source,
+        branch_guide_sources={"ua": (guide_source,)},
+        parsers=Parsers(),
+        resolver=CrosswalkResolver([]),
+    )
+
+    assert result.int_mappings == {"int": {"source": "対象"}}
+    assert result.ko_mappings == {"ko": {"한국어": "対象"}}
+    assert result.branch_analysis.stats["ua"]["accepted_tags"] == 1
+    assert result.diagnostics == ("ua:1: unresolved",)
 
 
 def _redirect_pipeline_paths(monkeypatch, tmp_path: Path) -> tuple[Path, ...]:
