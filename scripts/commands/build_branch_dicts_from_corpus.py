@@ -79,6 +79,7 @@ def build_artifacts(
     inputs: BranchBuildInputs,
     *,
     config: BranchBuildConfig = BranchBuildConfig(),
+    existing_dictionaries: Mapping[str, Mapping[str, str | None]] | None = None,
 ) -> BuildArtifacts:
     required_branches = set(branches) | set(config.supported_branches)
     missing_branches = sorted(required_branches - set(corpus_data))
@@ -139,11 +140,16 @@ def build_artifacts(
             )
         )
 
-    hint_dictionaries = complete_hint_dictionaries(
-        branch_dictionaries,
-        dictionaries_dir=config.dictionaries_dir,
-        supported_branches=config.supported_branches,
-    )
+    hint_dictionaries = dict(branch_dictionaries)
+    for branch in config.supported_branches:
+        if branch in hint_dictionaries:
+            continue
+        if existing_dictionaries is None or branch not in existing_dictionaries:
+            raise ValueError(
+                "explicit existing dictionary required for partial hint generation: "
+                f"{branch}"
+            )
+        hint_dictionaries[branch] = dict(existing_dictionaries[branch])
     for branch in config.supported_branches:
         if branch not in visible_sequences_by_branch:
             visible_sequences_by_branch[branch] = corpus_data[branch].visible_sequences
@@ -208,6 +214,16 @@ def build_and_publish(
         branch: collect_corpus_branch_data(corpus_root, branch)
         for branch in sorted(required_branches)
     }
+    omitted_branches = tuple(
+        branch
+        for branch in config.supported_branches
+        if branch not in branches
+    )
+    existing_dictionaries = complete_hint_dictionaries(
+        {},
+        dictionaries_dir=config.dictionaries_dir,
+        supported_branches=omitted_branches,
+    )
     artifacts = build_artifacts(
         corpus_data,
         branches,
@@ -218,6 +234,7 @@ def build_and_publish(
             policy=policy,
         ),
         config=config,
+        existing_dictionaries=existing_dictionaries,
     )
     publish_files_atomically({
         path: (
