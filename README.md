@@ -154,6 +154,7 @@ scp-tag-translation/
 ├── scripts/
 │   ├── assets/                               # 生成HTMLのソーステンプレート
 │   ├── commands/                             # 同期・解析・生成CLI
+│   ├── application/                          # CLIから呼び出す生成・同期ワークフロー
 │   ├── domain/                               # スキーマ・検証・変換規則・支部設定
 │   │   ├── policy/                            # ソースからJPへのマッピング規則
 │   │   └── records/                           # 入力レコードと境界検証

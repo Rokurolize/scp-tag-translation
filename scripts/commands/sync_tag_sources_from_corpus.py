@@ -4,22 +4,31 @@
 from __future__ import annotations
 
 import argparse
-import shutil
 import sys
 from pathlib import Path
 
-from scripts.infrastructure.atomic_output import FileWriter, publish_files_atomically
+from scripts.application import source_sync as _workflow
+from scripts.application.source_sync import SourceSyncResult
+from scripts.infrastructure.atomic_output import publish_files_atomically
 from scripts.infrastructure.data_paths import ROOT
 from scripts.pipeline.source_manifest import corpus_source_map
 
 SOURCE_MAP = corpus_source_map()
 
 
-def _copy_writer(source: Path) -> FileWriter:
-    def copy_to(temporary: Path) -> None:
-        shutil.copyfile(source, temporary)
-
-    return copy_to
+def sync_tag_sources(
+    corpus_root: Path,
+    *,
+    write: bool = False,
+) -> SourceSyncResult:
+    """Delegate source synchronization to the application workflow."""
+    return _workflow.sync_tag_sources(
+        corpus_root,
+        write=write,
+        source_map=SOURCE_MAP,
+        repository_root=ROOT,
+        publish=publish_files_atomically,
+    )
 
 
 def main() -> None:
@@ -38,44 +47,24 @@ def main() -> None:
     args = parser.parse_args()
 
     try:
-        stale: list[str] = []
-        pending: dict[Path, Path] = {}
-        for destination_rel, source_rel in SOURCE_MAP.items():
-            source = args.corpus_root / source_rel
-            destination = ROOT / destination_rel
-            if not source.is_file():
-                print(f"missing corpus source: {source}")
-                stale.append(destination_rel)
-                continue
-            if (
-                not destination.is_file()
-                or destination.read_bytes() != source.read_bytes()
-            ):
-                stale.append(destination_rel)
-                if args.write:
-                    pending[destination] = source
-
-        if args.write and not any(
-            not (args.corpus_root / source_rel).is_file()
-            for source_rel in SOURCE_MAP.values()
-        ):
-            publish_files_atomically({
-                destination: _copy_writer(source)
-                for destination, source in pending.items()
-            })
-            stale = []
+        result = sync_tag_sources(args.corpus_root, write=args.write)
     except (OSError, ValueError) as err:
         print(f"エラー: タグソース同期に失敗しました: {err}")
         sys.exit(1)
 
-    if stale:
+    for source in result.missing_sources:
+        print(f"missing corpus source: {source}")
+    if result.stale_paths:
         print("tag sources are stale or missing:")
-        for path in stale:
+        for path in result.stale_paths:
             print(f"  {path}")
         sys.exit(1)
 
     action = "synced" if args.write else "current"
     print(f"tag sources {action}: {len(SOURCE_MAP)} files")
+
+
+__all__ = ["ROOT", "SOURCE_MAP", "SourceSyncResult", "main", "sync_tag_sources"]
 
 
 if __name__ == "__main__":
