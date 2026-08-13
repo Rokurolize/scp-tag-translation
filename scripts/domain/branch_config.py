@@ -8,8 +8,6 @@ from types import MappingProxyType
 from typing import TypedDict
 from collections.abc import Mapping
 
-from scripts.domain.policy.branch_scope import SUPPORTED_BRANCHES
-
 __all__ = [
     "BRANCH_CONFIG_BY_CODE",
     "SUPPORTED_BRANCHES",
@@ -21,6 +19,24 @@ __all__ = [
     "source_site_for_branch",
     "validate_requested_branches",
 ]
+
+SUPPORTED_BRANCHES = (
+    "cn",
+    "cs",
+    "de",
+    "en",
+    "es",
+    "fr",
+    "int",
+    "it",
+    "ko",
+    "pl",
+    "pt-br",
+    "th",
+    "ua",
+    "vn",
+    "zh-tr",
+)
 
 
 class BrowserBranchRecord(TypedDict):

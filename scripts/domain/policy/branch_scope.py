@@ -1,23 +1,7 @@
-"""Branch codes shared by policy documents and branch configuration."""
+"""Compatibility import for the canonical branch registry."""
 
 from __future__ import annotations
 
-SUPPORTED_BRANCHES = (
-    "cn",
-    "cs",
-    "de",
-    "en",
-    "es",
-    "fr",
-    "int",
-    "it",
-    "ko",
-    "pl",
-    "pt-br",
-    "th",
-    "ua",
-    "vn",
-    "zh-tr",
-)
+from scripts.domain.branch_config import SUPPORTED_BRANCHES
 
 __all__ = ["SUPPORTED_BRANCHES"]
