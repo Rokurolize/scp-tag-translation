@@ -2,56 +2,17 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping, MutableSequence, Sequence
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Protocol
 
+from scripts.application.source_parse_contracts import CrosswalkParsers
 from scripts.domain.crosswalk_resolution import CrosswalkResolver
 from scripts.parsers.contracts import (
     BranchGuideAnalysis,
     CrosswalkMappings,
-    TargetResolver,
 )
 from scripts.application.source_parse_records import require_file
-
-
-class _IntParser(Protocol):
-    def parse_int_crosswalk(
-        self,
-        input_path: Path,
-        resolver: TargetResolver,
-    ) -> CrosswalkMappings: ...
-
-
-class _KoParser(Protocol):
-    def parse_ko_crosswalk(
-        self,
-        input_path: Path,
-        resolver: TargetResolver,
-    ) -> CrosswalkMappings: ...
-
-
-class _BranchGuideParser(Protocol):
-    def analyze_branch_guides(
-        self,
-        source_paths: Mapping[str, Sequence[Path]],
-        resolver: TargetResolver,
-        *,
-        strict: bool = False,
-        diagnostics: MutableSequence[str] | None = None,
-    ) -> BranchGuideAnalysis: ...
-
-
-class CrosswalkParsers(Protocol):
-    @property
-    def int(self) -> _IntParser: ...
-
-    @property
-    def ko(self) -> _KoParser: ...
-
-    @property
-    def branch_guides(self) -> _BranchGuideParser: ...
 
 
 @dataclass(frozen=True)

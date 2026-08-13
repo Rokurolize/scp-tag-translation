@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping, MutableSequence, Sequence
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Literal, Protocol
+from typing import Literal
 
 from scripts.domain.policy.tag_policy import EN_CROSSWALK_SEMANTIC_REPLACEMENTS
 from scripts.domain.crosswalk_resolution import CrosswalkResolver
-from scripts.domain.records.tag_records import DeprecatedTag, EnTag, JpTag
+from scripts.domain.records.tag_records import DeprecatedTag, JpTag
 from scripts.infrastructure.atomic_output import publish_files_atomically
 from scripts.infrastructure.data_paths import (
     DATA_BRANCH_GUIDE_CROSSWALK,
@@ -22,10 +22,12 @@ from scripts.infrastructure.data_paths import (
 )
 from scripts.infrastructure.json_io import write_json
 from scripts.parsers import branch_guide_parser, en_parser, int_parser, jp_parser, ko_parser
-from scripts.parsers.contracts import (
-    BranchGuideAnalysis,
-    CrosswalkMappings,
-    TargetResolver,
+from scripts.application.source_parse_contracts import (
+    BranchGuideParser,
+    EnParser,
+    IntParser,
+    JpParser,
+    KoParser,
 )
 from scripts.pipeline.source_manifest import (
     branch_guide_sources,
@@ -53,61 +55,6 @@ SOURCES_JP_UNUSED = parser_source_path("jp_unused", root=ROOT)
 SOURCES_INT = parser_source_path("int", root=ROOT)
 SOURCES_KO = parser_source_path("ko", root=ROOT)
 BRANCH_GUIDE_SOURCES: Mapping[str, tuple[Path, ...]] = branch_guide_sources(root=ROOT)
-
-
-class EnParser(Protocol):
-    def parse_en_tags(
-        self,
-        input_path: Path,
-        *,
-        strict: bool = False,
-        diagnostics: MutableSequence[str] | None = None,
-    ) -> list[EnTag]: ...
-
-
-class JpParser(Protocol):
-    def parse_jp_tags(
-        self,
-        source_dir: Path,
-        *,
-        strict: bool = False,
-        diagnostics: MutableSequence[str] | None = None,
-    ) -> list[JpTag]: ...
-
-    def parse_unused_tag_records(
-        self,
-        source_path: Path,
-        *,
-        strict: bool = False,
-        diagnostics: MutableSequence[str] | None = None,
-    ) -> list[DeprecatedTag]: ...
-
-
-class IntParser(Protocol):
-    def parse_int_crosswalk(
-        self,
-        input_path: Path,
-        resolver: TargetResolver,
-    ) -> CrosswalkMappings: ...
-
-
-class KoParser(Protocol):
-    def parse_ko_crosswalk(
-        self,
-        input_path: Path,
-        resolver: TargetResolver,
-    ) -> CrosswalkMappings: ...
-
-
-class BranchGuideParser(Protocol):
-    def analyze_branch_guides(
-        self,
-        source_paths: Mapping[str, Sequence[Path]],
-        resolver: TargetResolver,
-        *,
-        strict: bool = False,
-        diagnostics: MutableSequence[str] | None = None,
-    ) -> BranchGuideAnalysis: ...
 
 
 @dataclass(frozen=True)
