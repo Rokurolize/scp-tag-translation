@@ -5,16 +5,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 from collections.abc import Sequence
 from types import MappingProxyType
-from typing import TypedDict
 from collections.abc import Mapping
 
 __all__ = [
     "BRANCH_CONFIG_BY_CODE",
     "SUPPORTED_BRANCHES",
     "SUPPORTED_BRANCH_CONFIGS",
-    "BrowserBranchRecord",
     "BranchConfig",
-    "browser_config_records",
     "jp_branch_tag_for_branch",
     "source_site_for_branch",
     "validate_requested_branches",
@@ -37,13 +34,6 @@ SUPPORTED_BRANCHES = (
     "vn",
     "zh-tr",
 )
-
-
-class BrowserBranchRecord(TypedDict):
-    branch: str
-    site: str
-    label: str
-    jp_branch_tag: str
 
 
 @dataclass(frozen=True)
@@ -98,20 +88,6 @@ def validate_requested_branches(
 BRANCH_CONFIG_BY_CODE: Mapping[str, BranchConfig] = MappingProxyType({
     config.branch: config for config in SUPPORTED_BRANCH_CONFIGS
 })
-
-
-def browser_config_records() -> list[BrowserBranchRecord]:
-    """Return the supported-branch fields consumed by the static browser app."""
-
-    return [
-        {
-            "branch": config.branch,
-            "site": config.site,
-            "label": config.label,
-            "jp_branch_tag": config.jp_branch_tag,
-        }
-        for config in SUPPORTED_BRANCH_CONFIGS
-    ]
 
 
 def source_site_for_branch(branch: str) -> str:

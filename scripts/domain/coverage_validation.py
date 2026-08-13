@@ -53,7 +53,7 @@ def _validate_description_map(
     return dict(value)
 
 
-def _valid_nonnegative_int(value: object) -> bool:
+def _valid_nonnegative_int(value: object) -> TypeGuard[int]:
     return isinstance(value, int) and not isinstance(value, bool) and value >= 0
 
 
@@ -179,17 +179,29 @@ def _validate_coverage_tag(value: object, context: str) -> CoverageTag:
 def _validate_coverage_source(value: object) -> CoverageSource:
     if not isinstance(value, dict):
         raise ValueError("coverage.source must be an object")
-    fields = (
-        "corpus_root",
-        "jp_tag_source",
-        "jp_unused_source",
-        "override_source",
-        "deprecated_override_source",
-        "crosswalk_source",
-    )
     return {
-        field: _string_field(value, field, "coverage.source")
-        for field in fields
+        "corpus_root": _string_field(value, "corpus_root", "coverage.source"),
+        "jp_tag_source": _string_field(value, "jp_tag_source", "coverage.source"),
+        "jp_unused_source": _string_field(
+            value,
+            "jp_unused_source",
+            "coverage.source",
+        ),
+        "override_source": _string_field(
+            value,
+            "override_source",
+            "coverage.source",
+        ),
+        "deprecated_override_source": _string_field(
+            value,
+            "deprecated_override_source",
+            "coverage.source",
+        ),
+        "crosswalk_source": _string_field(
+            value,
+            "crosswalk_source",
+            "coverage.source",
+        ),
     }
 
 
@@ -244,12 +256,12 @@ def validate_coverage(raw: object) -> Coverage:
     if not _valid_nonnegative_int(schema_version):
         raise ValueError("coverage.schema_version must be a non-negative integer")
     source = _validate_coverage_source(raw.get("source"))
-    status_descriptions = _validate_description_map(
+    raw_status_descriptions = _validate_description_map(
         raw.get("status_descriptions"),
         CLASSIFICATION_STATUSES,
         "coverage.status_descriptions",
     )
-    action_descriptions = _validate_description_map(
+    raw_action_descriptions = _validate_description_map(
         raw.get("action_descriptions"),
         COVERAGE_TRANSLATION_ACTIONS,
         "coverage.action_descriptions",
@@ -257,24 +269,27 @@ def validate_coverage(raw: object) -> Coverage:
     branches = raw.get("branches")
     if not isinstance(branches, list):
         raise ValueError("coverage.branches must be an array")
-    return {
+    status_descriptions: dict[ClassificationStatus, str] = {
+        key: raw_status_descriptions[key]
+        for key in raw_status_descriptions
+        if _is_classification_status(key)
+    }
+    action_descriptions: dict[CoverageTranslationAction, str] = {
+        key: raw_action_descriptions[key]
+        for key in raw_action_descriptions
+        if _is_coverage_translation_action(key)
+    }
+    coverage: Coverage = {
         "schema_version": schema_version,
         "source": source,
-        "status_descriptions": {
-            key: status_descriptions[key]
-            for key in status_descriptions
-            if _is_classification_status(key)
-        },
-        "action_descriptions": {
-            key: action_descriptions[key]
-            for key in action_descriptions
-            if _is_coverage_translation_action(key)
-        },
+        "status_descriptions": status_descriptions,
+        "action_descriptions": action_descriptions,
         "branches": [
             _validate_coverage_branch(branch, f"coverage.branches[{branch_index}]")
             for branch_index, branch in enumerate(branches)
         ],
     }
+    return coverage
 
 
 __all__ = ["validate_coverage"]

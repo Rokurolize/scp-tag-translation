@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping, MutableSequence
+from collections.abc import Mapping, MutableSequence, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Literal, Protocol
@@ -33,11 +33,16 @@ from scripts.pipeline.source_manifest import (
     source_directory,
 )
 from scripts.application.source_parse_models import ParseBatch
+from scripts.application.source_parse_crosswalks import collect_crosswalk_parses
 from scripts.application.source_parse_records import (
     load_persisted_jp_records,
     require_file,
 )
-from scripts.application.source_parse_reporting import merge_batches, report_batch
+from scripts.application.source_parse_reporting import (
+    SourceParseDiagnosticsError,
+    merge_batches,
+    report_batch,
+)
 
 Language = Literal["en", "jp", "crosswalks", "all"]
 LANGUAGES: tuple[Language, ...] = ("en", "jp", "crosswalks", "all")
@@ -53,7 +58,7 @@ BRANCH_GUIDE_SOURCES: Mapping[str, tuple[Path, ...]] = branch_guide_sources(root
 class EnParser(Protocol):
     def parse_en_tags(
         self,
-        path: Path,
+        input_path: Path,
         *,
         strict: bool = False,
         diagnostics: MutableSequence[str] | None = None,
@@ -63,7 +68,7 @@ class EnParser(Protocol):
 class JpParser(Protocol):
     def parse_jp_tags(
         self,
-        path: Path,
+        source_dir: Path,
         *,
         strict: bool = False,
         diagnostics: MutableSequence[str] | None = None,
@@ -71,7 +76,7 @@ class JpParser(Protocol):
 
     def parse_unused_tag_records(
         self,
-        path: Path,
+        source_path: Path,
         *,
         strict: bool = False,
         diagnostics: MutableSequence[str] | None = None,
@@ -81,7 +86,7 @@ class JpParser(Protocol):
 class IntParser(Protocol):
     def parse_int_crosswalk(
         self,
-        path: Path,
+        input_path: Path,
         resolver: TargetResolver,
     ) -> CrosswalkMappings: ...
 
@@ -89,7 +94,7 @@ class IntParser(Protocol):
 class KoParser(Protocol):
     def parse_ko_crosswalk(
         self,
-        path: Path,
+        input_path: Path,
         resolver: TargetResolver,
     ) -> CrosswalkMappings: ...
 
@@ -97,7 +102,7 @@ class KoParser(Protocol):
 class BranchGuideParser(Protocol):
     def analyze_branch_guides(
         self,
-        sources: Mapping[str, tuple[Path, ...]],
+        source_paths: Mapping[str, Sequence[Path]],
         resolver: TargetResolver,
         *,
         strict: bool = False,
@@ -106,56 +111,60 @@ class BranchGuideParser(Protocol):
 
 
 @dataclass(frozen=True)
-class ParseWorkflowConfig:
-    """Paths and parser implementations used by one parse workflow.
+class ParseSourcePaths:
+    """Official source locations consumed by one parse workflow."""
 
-    ``sources_jp_unused`` is intentionally optional because the official JP
-    snapshot can be generated without its supplemental unused-tag fragment;
-    the workflow then publishes an empty deprecated-tag record set.
-    """
-
-    sources_en: Path = field(default_factory=lambda: SOURCES_EN)
-    sources_jp: Path = field(default_factory=lambda: SOURCES_JP)
-    sources_jp_unused: Path | None = field(
-        default_factory=lambda: SOURCES_JP_UNUSED,
-    )
-    sources_int: Path = field(default_factory=lambda: SOURCES_INT)
-    sources_ko: Path = field(default_factory=lambda: SOURCES_KO)
-    branch_guide_sources: Mapping[str, tuple[Path, ...]] = field(
+    en: Path = field(default_factory=lambda: SOURCES_EN)
+    jp: Path = field(default_factory=lambda: SOURCES_JP)
+    jp_unused: Path | None = field(default_factory=lambda: SOURCES_JP_UNUSED)
+    int: Path = field(default_factory=lambda: SOURCES_INT)
+    ko: Path = field(default_factory=lambda: SOURCES_KO)
+    branch_guides: Mapping[str, tuple[Path, ...]] = field(
         default_factory=lambda: BRANCH_GUIDE_SOURCES,
     )
-    data_en: Path = field(default_factory=lambda: DATA_EN)
-    data_jp: Path = field(default_factory=lambda: DATA_JP)
-    data_deprecated: Path = field(default_factory=lambda: DATA_DEPRECATED)
-    data_int_crosswalk: Path = field(default_factory=lambda: DATA_INT_CROSSWALK)
-    data_ko_crosswalk: Path = field(default_factory=lambda: DATA_KO_CROSSWALK)
-    data_branch_guide_crosswalk: Path = field(
+
+
+@dataclass(frozen=True)
+class ParseOutputPaths:
+    """Generated JSON destinations for one parse workflow."""
+
+    en: Path = field(default_factory=lambda: DATA_EN)
+    jp: Path = field(default_factory=lambda: DATA_JP)
+    deprecated: Path = field(default_factory=lambda: DATA_DEPRECATED)
+    int_crosswalk: Path = field(default_factory=lambda: DATA_INT_CROSSWALK)
+    ko_crosswalk: Path = field(default_factory=lambda: DATA_KO_CROSSWALK)
+    branch_guide_crosswalk: Path = field(
         default_factory=lambda: DATA_BRANCH_GUIDE_CROSSWALK,
     )
-    en_parser: EnParser = field(default_factory=lambda: en_parser)
-    jp_parser: JpParser = field(default_factory=lambda: jp_parser)
-    int_parser: IntParser = field(default_factory=lambda: int_parser)
-    ko_parser: KoParser = field(default_factory=lambda: ko_parser)
-    branch_guide_parser: BranchGuideParser = field(
+
+
+@dataclass(frozen=True)
+class ParseParserDependencies:
+    """Parser implementations injected at the application boundary."""
+
+    en: EnParser = field(default_factory=lambda: en_parser)
+    jp: JpParser = field(default_factory=lambda: jp_parser)
+    int: IntParser = field(default_factory=lambda: int_parser)
+    ko: KoParser = field(default_factory=lambda: ko_parser)
+    branch_guides: BranchGuideParser = field(
         default_factory=lambda: branch_guide_parser,
+    )
+
+
+@dataclass(frozen=True)
+class ParseWorkflowConfig:
+    """Compose source paths, output paths, and parser dependencies."""
+
+    sources: ParseSourcePaths = field(default_factory=ParseSourcePaths)
+    outputs: ParseOutputPaths = field(default_factory=ParseOutputPaths)
+    parsers: ParseParserDependencies = field(
+        default_factory=ParseParserDependencies,
     )
 
 
 def default_parse_workflow_config() -> ParseWorkflowConfig:
     """Return the repository-default source parsing configuration."""
     return ParseWorkflowConfig()
-
-
-def _require_branch_guides(config: ParseWorkflowConfig) -> None:
-    missing = [
-        path
-        for paths in config.branch_guide_sources.values()
-        for path in paths
-        if not path.is_file()
-    ]
-    if missing:
-        formatted = "\n".join(f"  {path}" for path in missing)
-        raise FileNotFoundError(f"支部公式タグガイドが見つかりません:\n{formatted}")
 
 
 def _build_crosswalk_resolver(
@@ -170,16 +179,16 @@ def _build_crosswalk_resolver(
 
 
 def _collect_en_outputs(config: ParseWorkflowConfig) -> ParseBatch:
-    require_file(config.sources_en, "ENソースファイル")
+    require_file(config.sources.en, "ENソースファイル")
     diagnostics: list[str] = []
-    en_tags = config.en_parser.parse_en_tags(
-        config.sources_en,
+    en_tags = config.parsers.en.parse_en_tags(
+        config.sources.en,
         strict=True,
         diagnostics=diagnostics,
     )
     return ParseBatch(
-        outputs={config.data_en: en_tags},
-        messages=(f"EN: {len(en_tags)} タグを解析 → {config.data_en}",),
+        outputs={config.outputs.en: en_tags},
+        messages=(f"EN: {len(en_tags)} タグを解析 → {config.outputs.en}",),
         diagnostics=tuple(diagnostics),
     )
 
@@ -187,40 +196,36 @@ def _collect_en_outputs(config: ParseWorkflowConfig) -> ParseBatch:
 def _collect_jp_outputs(
     config: ParseWorkflowConfig,
 ) -> tuple[ParseBatch, list[JpTag], list[DeprecatedTag]]:
-    if not config.sources_jp.is_dir():
+    if not config.sources.jp.is_dir():
         raise FileNotFoundError(
-            f"JPソースディレクトリが見つかりません: {config.sources_jp}"
+            f"JPソースディレクトリが見つかりません: {config.sources.jp}"
         )
     diagnostics: list[str] = []
-    jp_tags = config.jp_parser.parse_jp_tags(
-        config.sources_jp,
+    jp_tags = config.parsers.jp.parse_jp_tags(
+        config.sources.jp,
         strict=True,
         diagnostics=diagnostics,
     )
     deprecated_tags = (
-        config.jp_parser.parse_unused_tag_records(
-            config.sources_jp_unused,
+        config.parsers.jp.parse_unused_tag_records(
+            config.sources.jp_unused,
             strict=True,
             diagnostics=diagnostics,
         )
-        if config.sources_jp_unused is not None
-        and config.sources_jp_unused.is_file()
+        if config.sources.jp_unused is not None
+        and config.sources.jp_unused.is_file()
         else []
-    )
-    batch = ParseBatch(
-        outputs={
-            config.data_jp: jp_tags,
-            config.data_deprecated: deprecated_tags,
-        },
-        messages=(
-            f"JP: {len(jp_tags)} タグを解析 → {config.data_jp}",
-            f"JP(未使用): {len(deprecated_tags)} タグを解析 → {config.data_deprecated}",
-        ),
     )
     return (
         ParseBatch(
-            outputs=batch.outputs,
-            messages=batch.messages,
+            outputs={
+                config.outputs.jp: jp_tags,
+                config.outputs.deprecated: deprecated_tags,
+            },
+            messages=(
+                f"JP: {len(jp_tags)} タグを解析 → {config.outputs.jp}",
+                f"JP(未使用): {len(deprecated_tags)} タグを解析 → {config.outputs.deprecated}",
+            ),
             diagnostics=tuple(diagnostics),
         ),
         jp_tags,
@@ -234,24 +239,17 @@ def _collect_crosswalk_outputs(
     deprecated_tags: list[DeprecatedTag],
 ) -> ParseBatch:
     resolver = _build_crosswalk_resolver(jp_tags, deprecated_tags)
-    require_file(config.sources_int, "INTタグクロスウォーク")
-    require_file(config.sources_ko, "KOタグクロスウォーク")
-    _require_branch_guides(config)
-    int_mappings = config.int_parser.parse_int_crosswalk(
-        config.sources_int,
-        resolver.resolve,
+    parsed = collect_crosswalk_parses(
+        sources_int=config.sources.int,
+        sources_ko=config.sources.ko,
+        branch_guide_sources=config.sources.branch_guides,
+        parsers=config.parsers,
+        resolver=resolver,
     )
-    ko_mappings = config.ko_parser.parse_ko_crosswalk(
-        config.sources_ko,
-        resolver.resolve,
-    )
-    diagnostics: list[str] = []
-    branch_analysis = config.branch_guide_parser.analyze_branch_guides(
-        config.branch_guide_sources,
-        resolver.resolve,
-        strict=True,
-        diagnostics=diagnostics,
-    )
+    int_mappings = parsed.int_mappings
+    ko_mappings = parsed.ko_mappings
+    branch_analysis = parsed.branch_analysis
+    diagnostics = parsed.diagnostics
     branch_mappings = branch_analysis.mappings
     accepted_count = sum(
         stats["accepted_tags"] for stats in branch_analysis.stats.values()
@@ -263,25 +261,25 @@ def _collect_crosswalk_outputs(
         stats["unresolved_source_tags"] for stats in branch_analysis.stats.values()
     )
     outputs = {
-        config.data_int_crosswalk: int_mappings,
-        config.data_ko_crosswalk: ko_mappings,
-        config.data_branch_guide_crosswalk: branch_mappings,
+        config.outputs.int_crosswalk: int_mappings,
+        config.outputs.ko_crosswalk: ko_mappings,
+        config.outputs.branch_guide_crosswalk: branch_mappings,
     }
     messages = (
         (
             "INT crosswalk: "
             f"{sum(len(values) for values in int_mappings.values())} "
-            f"mappings -> {config.data_int_crosswalk}"
+            f"mappings -> {config.outputs.int_crosswalk}"
         ),
         (
             f"KO crosswalk: {len(ko_mappings.get('ko', {}))} mappings -> "
-            f"{config.data_ko_crosswalk}"
+            f"{config.outputs.ko_crosswalk}"
         ),
         (
             "branch guide crosswalk: "
             f"{sum(len(values) for values in branch_mappings.values())} mappings "
             f"(accepted={accepted_count}, conflicting={conflict_count}, "
-            f"unresolved={unresolved_count}) -> {config.data_branch_guide_crosswalk}"
+            f"unresolved={unresolved_count}) -> {config.outputs.branch_guide_crosswalk}"
         ),
     )
     return ParseBatch(
@@ -295,8 +293,8 @@ def _collect_crosswalk_outputs_from_persisted_records(
     config: ParseWorkflowConfig,
 ) -> ParseBatch:
     jp_tags, deprecated_tags = load_persisted_jp_records(
-        config.data_jp,
-        config.data_deprecated,
+        config.outputs.jp,
+        config.outputs.deprecated,
     )
     return _collect_crosswalk_outputs(config, jp_tags, deprecated_tags)
 
@@ -346,6 +344,8 @@ def parse_and_publish_sources(
 ) -> ParseBatch:
     """Collect, atomically publish, and report one source parse workflow."""
     batch = collect_outputs(language, config=config)
+    if batch.diagnostics:
+        raise SourceParseDiagnosticsError(batch.diagnostics)
     publish_outputs(batch.outputs)
     report_batch(batch)
     return batch
@@ -361,6 +361,9 @@ __all__ = [
     "LANGUAGES",
     "Language",
     "ParseBatch",
+    "ParseOutputPaths",
+    "ParseParserDependencies",
+    "ParseSourcePaths",
     "ParseWorkflowConfig",
     "collect_outputs",
     "default_parse_workflow_config",

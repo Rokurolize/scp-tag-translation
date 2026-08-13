@@ -3,7 +3,8 @@ from pathlib import Path
 import pytest
 
 from scripts.application import source_parse as parse_workflow
-from scripts.domain.crosswalk_resolution import CrosswalkResolver, normalize_tag
+from scripts.domain.crosswalk_resolution import CrosswalkResolver
+from scripts.domain.tag_text import normalize_tag
 from scripts.domain.policy.tag_policy import (
     EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
     EN_ORIGIN_TAG_REPLACEMENTS,

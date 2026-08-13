@@ -52,14 +52,14 @@ def default_legacy_dictionary_build_config() -> LegacyDictionaryBuildConfig:
 
 
 def build_and_publish_legacy_dictionary(
-    overwrite: bool,
     *,
+    overwrite: bool,
     config: LegacyDictionaryBuildConfig | None = None,
 ) -> LegacyDictionaryBuildResult:
     """Build legacy outputs and publish both files atomically."""
     config = config or default_legacy_dictionary_build_config()
     dictionary, deprecated_dictionary = build_legacy_outputs(
-        overwrite,
+        overwrite=overwrite,
         config=LegacyDictionaryConfig(
             data_en=config.mapping_inputs.data_en,
             data_jp=config.mapping_inputs.data_jp,

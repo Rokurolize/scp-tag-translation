@@ -7,6 +7,17 @@ from collections.abc import Sequence
 from scripts.application.source_parse_models import ParseBatch
 
 
+class SourceParseDiagnosticsError(ValueError):
+    """Identify strict parser diagnostics that block publication."""
+
+    def __init__(self, diagnostics: Sequence[str]) -> None:
+        super().__init__(
+            "ソース解析で不完全なレコードがあります:\n"
+            + "\n".join(diagnostics)
+        )
+        self.diagnostics = tuple(diagnostics)
+
+
 def merge_batches(batches: Sequence[ParseBatch]) -> ParseBatch:
     """Combine output files, messages, and diagnostics in phase order."""
     outputs = {}
@@ -31,4 +42,4 @@ def report_batch(batch: ParseBatch) -> None:
         print(f"警告: {diagnostic}")
 
 
-__all__ = ["merge_batches", "report_batch"]
+__all__ = ["SourceParseDiagnosticsError", "merge_batches", "report_batch"]

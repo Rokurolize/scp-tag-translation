@@ -22,6 +22,68 @@ def _valid_trimmed_string(value: object) -> bool:
     return isinstance(value, str) and bool(value) and value == value.strip()
 
 
+def _required_string(
+    entry: dict[object, object],
+    key: str,
+    context: str,
+) -> str:
+    value = entry.get(key)
+    if not isinstance(value, str):
+        raise ValueError(f"{context}{key}が不正です: {value!r}")
+    return value
+
+
+def _optional_string(
+    entry: dict[object, object],
+    key: str,
+    default: str,
+    context: str,
+) -> str:
+    value = entry.get(key)
+    if value is None:
+        return default
+    if not isinstance(value, str):
+        raise ValueError(f"{context}{key}が不正です: {value!r}")
+    return value
+
+
+def _optional_boolean(
+    entry: dict[object, object],
+    key: str,
+    context: str,
+) -> bool:
+    value = entry.get(key)
+    if value is None:
+        return False
+    if not isinstance(value, bool):
+        raise ValueError(f"{context}{key}が不正です: {value!r}")
+    return value
+
+
+def _validated_meta(entry: dict[object, object]) -> dict[str, list[str]]:
+    value = entry.get("meta")
+    if value is None:
+        return {}
+    if not isinstance(value, dict):
+        raise ValueError(f"ENタグのmetaが不正です: {value!r}")
+    return {
+        key: list(values)
+        for key, values in value.items()
+        if isinstance(key, str)
+        and isinstance(values, list)
+        and all(isinstance(item, str) for item in values)
+    }
+
+
+def _validated_source_tags(entry: dict[object, object]) -> list[str]:
+    value = entry.get("source_tags")
+    if not isinstance(value, list) or not all(
+        isinstance(item, str) for item in value
+    ):
+        raise ValueError(f"JP側source_tagsが不正です: {value!r}")
+    return list(value)
+
+
 def _validate_en_meta(value: object) -> None:
     if value is None:
         return
@@ -59,15 +121,24 @@ def validate_en_tags(raw: object) -> list[EnTag]:
     for index, entry in enumerate(raw):
         _validate_en_tag_entry(entry, index)
 
-    records: list[EnTag] = [
-        {
-            **entry,
-            "category": entry.get("category"),
-            "description": entry.get("description") or "",
-            "meta": entry.get("meta") or {},
-        }
-        for entry in raw
-    ]
+    records: list[EnTag] = []
+    for item in raw:
+        if not isinstance(item, dict):
+            raise ValueError("ENタグデータの項目が不正です")
+        category = item.get("category")
+        if category is not None and not isinstance(category, str):
+            raise ValueError(f"ENタグのcategoryが不正です: {category!r}")
+        records.append({
+            "name": _required_string(item, "name", "ENタグの"),
+            "category": category,
+            "description": _optional_string(
+                item,
+                "description",
+                "",
+                "ENタグの",
+            ),
+            "meta": _validated_meta(item),
+        })
     _ensure_unique((entry["name"] for entry in records), "ENタグ名")
     return records
 
@@ -122,16 +193,35 @@ def validate_jp_tags(raw: object) -> list[JpTag]:
     for index, entry in enumerate(raw):
         _validate_jp_tag_entry(entry, index)
 
-    records: list[JpTag] = [
-        {
-            **entry,
-            "description": entry.get("description") or "",
-            "use_restricted": bool(entry.get("use_restricted")),
-            "edit_restricted": bool(entry.get("edit_restricted")),
-            "translation_exempt": bool(entry.get("translation_exempt")),
-        }
-        for entry in raw
-    ]
+    records: list[JpTag] = []
+    for item in raw:
+        if not isinstance(item, dict):
+            raise ValueError("JPタグデータの項目が不正です")
+        records.append({
+            "name": _required_string(item, "name", "JPタグの"),
+            "description": _optional_string(
+                item,
+                "description",
+                "",
+                "JPタグの",
+            ),
+            "source_tags": _validated_source_tags(item),
+            "use_restricted": _optional_boolean(
+                item,
+                "use_restricted",
+                "JPタグの",
+            ),
+            "edit_restricted": _optional_boolean(
+                item,
+                "edit_restricted",
+                "JPタグの",
+            ),
+            "translation_exempt": _optional_boolean(
+                item,
+                "translation_exempt",
+                "JPタグの",
+            ),
+        })
     _ensure_unique((entry["name"] for entry in records), "JPタグ名")
     # A source alias may intentionally occur in multiple JP categories during
     # a tag-system migration.  build_jp_names_and_source_map() resolves those aliases using the

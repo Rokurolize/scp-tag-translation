@@ -126,8 +126,8 @@ def build_legacy_en_dictionary(
 
 
 def build_legacy_outputs(
-    overwrite: bool,
     *,
+    overwrite: bool,
     config: LegacyDictionaryConfig = LegacyDictionaryConfig(),
     policy_inputs: MappingPolicyInputs,
 ) -> tuple[dict[str, str | None], dict[str, str]]:

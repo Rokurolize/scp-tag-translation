@@ -51,6 +51,30 @@ def test_source_parse_support_preserves_batch_diagnostics(tmp_path):
     assert merged.diagnostics == ("warning",)
 
 
+def test_parse_workflow_rejects_diagnostics_before_publication(monkeypatch):
+    batch = source_parse_models.ParseBatch(
+        outputs={},
+        messages=("parsed",),
+        diagnostics=("source:1: malformed",),
+    )
+    publish_calls = []
+    monkeypatch.setattr(
+        parse_workflow,
+        "collect_outputs",
+        lambda _language, *, config=None: batch,
+    )
+    monkeypatch.setattr(
+        parse_workflow,
+        "publish_outputs",
+        lambda outputs: publish_calls.append(outputs),
+    )
+
+    with pytest.raises(ValueError, match="不完全なレコード"):
+        parse_workflow.parse_and_publish_sources("en")
+
+    assert publish_calls == []
+
+
 def _redirect_pipeline_paths(monkeypatch, tmp_path: Path) -> tuple[Path, ...]:
     sources = tmp_path / "sources"
     data = tmp_path / "data"

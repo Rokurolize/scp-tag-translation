@@ -32,7 +32,7 @@ def main() -> None:
     try:
         config = default_legacy_dictionary_build_config()
         result = build_and_publish_legacy_dictionary(
-            args.overwrite,
+            overwrite=args.overwrite,
             config=config,
         )
     except (OSError, ValueError) as err:

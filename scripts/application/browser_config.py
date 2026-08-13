@@ -5,13 +5,35 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from textwrap import indent
+from typing import TypedDict
 
-from scripts.domain.branch_config import browser_config_records
+from scripts.domain.branch_config import SUPPORTED_BRANCH_CONFIGS
 from scripts.infrastructure.atomic_output import publish_files_atomically
 from scripts.infrastructure.data_paths import BROWSER_CONFIG_PATH
 from scripts.infrastructure.json_io import write_text
 
 DEFAULT_OUTPUT = BROWSER_CONFIG_PATH
+
+
+class BrowserBranchRecord(TypedDict):
+    branch: str
+    site: str
+    label: str
+    jp_branch_tag: str
+
+
+def browser_config_records() -> list[BrowserBranchRecord]:
+    """Return the browser-specific projection of the branch registry."""
+
+    return [
+        {
+            "branch": config.branch,
+            "site": config.site,
+            "label": config.label,
+            "jp_branch_tag": config.jp_branch_tag,
+        }
+        for config in SUPPORTED_BRANCH_CONFIGS
+    ]
 
 
 def render_browser_config() -> str:
@@ -36,4 +58,10 @@ def publish_browser_config(
     })
 
 
-__all__ = ["DEFAULT_OUTPUT", "publish_browser_config", "render_browser_config"]
+__all__ = [
+    "DEFAULT_OUTPUT",
+    "BrowserBranchRecord",
+    "browser_config_records",
+    "publish_browser_config",
+    "render_browser_config",
+]

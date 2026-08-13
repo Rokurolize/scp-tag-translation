@@ -137,4 +137,4 @@ class CrosswalkResolver:
         return next(iter(targets))
 
 
-__all__ = ["CrosswalkResolver", "normalize_tag"]
+__all__ = ["CrosswalkResolver"]
