@@ -3,17 +3,17 @@ import json
 
 import pytest
 
-from scripts.commands import build_branch_tag_coverage_data as coverage_builder
 from scripts.data_paths import ROOT
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
+from scripts.domain.tag_coverage import ACTION_DESCRIPTIONS, STATUS_DESCRIPTIONS
 
 COVERAGE_JSON = ROOT / "visualization" / "branch_tag_coverage.json"
 COVERAGE_TSV = ROOT / "visualization" / "branch_tag_coverage.tsv"
 APPLICATION_JSON = ROOT / "visualization" / "tag_application_inventory.json"
 APPLICATION_TSV = ROOT / "visualization" / "tag_application_inventory.tsv"
 REQUIRED_BRANCHES = list(SUPPORTED_BRANCHES)
-KNOWN_STATUSES = set(coverage_builder.STATUS_DESCRIPTIONS)
-KNOWN_ACTIONS = set(coverage_builder.ACTION_DESCRIPTIONS)
+KNOWN_STATUSES = set(STATUS_DESCRIPTIONS)
+KNOWN_ACTIONS = set(ACTION_DESCRIPTIONS)
 
 
 @pytest.fixture

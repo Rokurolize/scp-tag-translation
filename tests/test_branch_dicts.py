@@ -2,6 +2,8 @@ import csv
 import json
 from pathlib import Path
 
+import pytest
+
 from scripts.corpus import corpus_tags_for_branch, discover_corpus_branches
 from scripts.dictionary_inputs import complete_hint_dictionaries
 from scripts.commands import build_branch_dicts_from_corpus as branch_builder
@@ -62,24 +64,31 @@ def test_override_targets_are_valid_jp_tags(jp_tags_data):
     assert not failures
 
 
-
-def test_build_artifacts_owns_complete_publication_set(tmp_path):
-    page_dir = tmp_path / "corpus" / "en" / "pages" / "sample"
+@pytest.fixture
+def controlled_branch_artifacts(tmp_path):
+    corpus_root = tmp_path / "corpus"
+    page_dir = corpus_root / "en" / "pages" / "sample"
     page_dir.mkdir(parents=True)
     (page_dir / "meta.json").write_text(
-        json.dumps({"tags": ["safe", "scp"]}),
+        json.dumps({"tags": ["safe", "scp", "horror"]}),
         encoding="utf-8",
     )
     output_dir = tmp_path / "dictionaries"
     policy_path = output_dir / "jp_tag_policy.json"
-    en_tags = [{"name": "safe"}, {"name": "scp"}]
+    en_tags = [
+        {"name": "safe"},
+        {"name": "scp"},
+        {"name": "horror", "category": "Genre"},
+    ]
     jp_tags = [
         {"name": "safe", "source_tags": []},
         {"name": "scp", "source_tags": []},
+        {"name": "ホラー", "source_tags": ["horror"]},
     ]
+    jp_names, jp_source_map = tag_policy.jp_maps(jp_tags)
     policy = tag_policy.MappingPolicy(
-        jp_names=frozenset({"safe", "scp"}),
-        jp_source_map={},
+        jp_names=jp_names,
+        jp_source_map=jp_source_map,
         deprecated_tags={},
         replacements={},
         overrides={},
@@ -87,7 +96,7 @@ def test_build_artifacts_owns_complete_publication_set(tmp_path):
     )
 
     artifacts = branch_builder.build_artifacts(
-        tmp_path / "corpus",
+        corpus_root,
         ["en"],
         branch_builder.BranchBuildInputs(
             en_tags=en_tags,
@@ -99,6 +108,13 @@ def test_build_artifacts_owns_complete_publication_set(tmp_path):
         jp_policy_path=policy_path,
         supported_branches=("en",),
     )
+    return corpus_root, artifacts, output_dir, policy_path
+
+
+def test_build_artifacts_owns_complete_publication_set(
+    controlled_branch_artifacts,
+):
+    _corpus_root, artifacts, output_dir, policy_path = controlled_branch_artifacts
 
     assert set(artifacts.outputs) == {
         output_dir / "en_to_jp.json",
@@ -106,6 +122,7 @@ def test_build_artifacts_owns_complete_publication_set(tmp_path):
         policy_path,
     }
     assert artifacts.outputs[output_dir / "en_to_jp.json"] == {
+        "horror": "ホラー",
         "safe": "safe",
         "scp": "scp",
     }
@@ -152,15 +169,15 @@ def test_acceptance_fixture_mentions_every_required_branch():
     assert branches == set(REQUIRED_BRANCHES)
 
 
-def test_every_current_corpus_tag_is_present_in_its_dictionary():
-    corpus_root = Path("/home/roku/src/Rokurolize/scp-wiki-translation/corpus")
-    if not corpus_root.is_dir():
-        return
+def test_generated_dictionary_covers_every_tag_in_controlled_corpus(
+    controlled_branch_artifacts,
+):
+    corpus_root, artifacts, output_dir, _policy_path = controlled_branch_artifacts
+    corpus_tags = corpus_tags_for_branch(corpus_root, "en")
+    dictionary = artifacts.outputs[output_dir / "en_to_jp.json"]
 
-    for branch in REQUIRED_BRANCHES:
-        corpus_tags = corpus_tags_for_branch(corpus_root, branch)
-        dictionary = _load_json(DICTIONARIES / f"{branch}_to_jp.json")
-        assert corpus_tags <= set(dictionary), branch
+    assert corpus_tags <= set(dictionary)
+    assert dictionary["horror"] == "ホラー"
 
 
 def test_official_crosswalk_and_faq_overrides_are_applied():
