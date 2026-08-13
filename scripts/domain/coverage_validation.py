@@ -2,21 +2,46 @@
 
 from __future__ import annotations
 
-from typing import cast
+from typing import TypeGuard
 
-from scripts.domain.tag_coverage_models import Coverage
 from scripts.domain.policy.tag_policy_models import (
     CLASSIFICATION_STATUSES,
     COVERAGE_TRANSLATION_ACTIONS,
     SPECIAL_TRANSLATION_ACTIONS,
+    ClassificationStatus,
+    CoverageTranslationAction,
+    JpTagPolicy,
+    SpecialTranslationAction,
 )
+from scripts.domain.tag_coverage_models import (
+    Coverage,
+    CoverageBranch,
+    CoverageSource,
+    CoverageTag,
+)
+
+
+def _is_classification_status(value: object) -> TypeGuard[ClassificationStatus]:
+    return isinstance(value, str) and value in CLASSIFICATION_STATUSES
+
+
+def _is_coverage_translation_action(
+    value: object,
+) -> TypeGuard[CoverageTranslationAction]:
+    return isinstance(value, str) and value in COVERAGE_TRANSLATION_ACTIONS
+
+
+def _is_special_translation_action(
+    value: object,
+) -> TypeGuard[SpecialTranslationAction]:
+    return isinstance(value, str) and value in SPECIAL_TRANSLATION_ACTIONS
 
 
 def _validate_description_map(
     value: object,
     expected_keys: frozenset[str],
     context: str,
-) -> None:
+) -> dict[str, str]:
     if not isinstance(value, dict) or any(
         not isinstance(key, str) or not isinstance(item, str)
         for key, item in value.items()
@@ -25,6 +50,7 @@ def _validate_description_map(
     actual_keys = set(value)
     if actual_keys != expected_keys:
         raise ValueError(f"{context} keys do not match the protocol")
+    return dict(value)
 
 
 def _valid_nonnegative_int(value: object) -> bool:
@@ -41,71 +67,76 @@ def _require_keys(
         raise ValueError(f"{context} missing required keys: {', '.join(missing)}")
 
 
-def _validate_required_string_fields(
+def _string_field(value: dict[object, object], key: str, context: str) -> str:
+    item = value.get(key)
+    if not isinstance(item, str):
+        raise ValueError(f"{context}.{key} must be a string")
+    return item
+
+
+def _required_bool(
     value: dict[object, object],
-    keys: tuple[str, ...],
+    key: str,
     context: str,
-) -> None:
-    for key in keys:
-        if not isinstance(value.get(key), str):
-            raise ValueError(f"{context}.{key} must be a string")
+) -> bool:
+    item = value.get(key)
+    if not isinstance(item, bool):
+        raise ValueError(f"{context}.{key} must be boolean")
+    return item
 
 
-def _validate_required_boolean_fields(
+def _nullable_string(
     value: dict[object, object],
-    keys: tuple[str, ...],
+    key: str,
     context: str,
-) -> None:
-    for key in keys:
-        if not isinstance(value.get(key), bool):
-            raise ValueError(f"{context}.{key} must be boolean")
+) -> str | None:
+    item = value.get(key)
+    if item is not None and not isinstance(item, str):
+        raise ValueError(f"{context}.{key} must be a string or null")
+    return item
 
 
-def _validate_nullable_string_fields(
+def _nonnegative_integer(
     value: dict[object, object],
-    keys: tuple[str, ...],
+    key: str,
     context: str,
-) -> None:
-    for key in keys:
-        item = value.get(key)
-        if item is not None and not isinstance(item, str):
-            raise ValueError(f"{context}.{key} must be a string or null")
+) -> int:
+    item = value.get(key)
+    if not _valid_nonnegative_int(item):
+        raise ValueError(f"{context}.{key} must be a non-negative integer")
+    return item
 
 
-def _validate_nonnegative_integer_fields(
-    value: dict[object, object],
-    keys: tuple[str, ...],
-    context: str,
-) -> None:
-    for key in keys:
-        if not _valid_nonnegative_int(value.get(key)):
-            raise ValueError(f"{context}.{key} must be a non-negative integer")
-
-
-def _validate_jp_policy(value: object, context: str) -> None:
+def _validate_jp_policy(value: object, context: str) -> JpTagPolicy | None:
     if value is None:
-        return
+        return None
     if not isinstance(value, dict):
         raise ValueError(f"{context}.target_policy must be an object or null")
-    _require_keys(value, ("special_translation_action",), f"{context}.target_policy")
-    _validate_required_boolean_fields(
-        value,
-        (
-            "use_restricted",
-            "edit_restricted",
-            "translation_exempt",
-            "copy_allowed_for_translation",
-        ),
-        f"{context}.target_policy",
-    )
+    policy_context = f"{context}.target_policy"
+    _require_keys(value, ("special_translation_action",), policy_context)
     action = value.get("special_translation_action")
-    if action is not None and action not in SPECIAL_TRANSLATION_ACTIONS:
+    if action is not None and not _is_special_translation_action(action):
         raise ValueError(
             f"{context}.target_policy.special_translation_action is invalid"
         )
+    return {
+        "use_restricted": _required_bool(value, "use_restricted", policy_context),
+        "edit_restricted": _required_bool(value, "edit_restricted", policy_context),
+        "translation_exempt": _required_bool(
+            value,
+            "translation_exempt",
+            policy_context,
+        ),
+        "special_translation_action": action,
+        "copy_allowed_for_translation": _required_bool(
+            value,
+            "copy_allowed_for_translation",
+            policy_context,
+        ),
+    }
 
 
-def _validate_coverage_tag(value: object, context: str) -> None:
+def _validate_coverage_tag(value: object, context: str) -> CoverageTag:
     if not isinstance(value, dict):
         raise ValueError(f"{context} must be an object")
     _require_keys(
@@ -113,92 +144,112 @@ def _validate_coverage_tag(value: object, context: str) -> None:
         ("jp_tag", "replacement", "display_tag", "target_policy"),
         context,
     )
-    if not isinstance(value.get("tag"), str):
-        raise ValueError(f"{context}.tag must be a string")
-    if value.get("status") not in CLASSIFICATION_STATUSES:
+    tag = _string_field(value, "tag", context)
+    status = value.get("status")
+    if not _is_classification_status(status):
         raise ValueError(f"{context}.status is unknown")
-    if value.get("translation_action") not in COVERAGE_TRANSLATION_ACTIONS:
+    translation_action = value.get("translation_action")
+    if not _is_coverage_translation_action(translation_action):
         raise ValueError(f"{context}.translation_action is unknown")
-    _validate_required_boolean_fields(
-        value,
-        ("recognized_by_jp_policy", "copy_allowed"),
-        context,
-    )
-    _validate_nullable_string_fields(
-        value,
-        ("jp_tag", "replacement", "display_tag"),
-        context,
-    )
-    _validate_nonnegative_integer_fields(
-        value,
-        ("rank", "page_count"),
-        context,
-    )
     sample_slugs = value.get("sample_slugs")
     if not isinstance(sample_slugs, list) or any(
         not isinstance(slug, str) for slug in sample_slugs
     ):
         raise ValueError(f"{context}.sample_slugs must be a string array")
-    _validate_jp_policy(value.get("target_policy"), context)
+    return {
+        "tag": tag,
+        "rank": _nonnegative_integer(value, "rank", context),
+        "page_count": _nonnegative_integer(value, "page_count", context),
+        "status": status,
+        "recognized_by_jp_policy": _required_bool(
+            value,
+            "recognized_by_jp_policy",
+            context,
+        ),
+        "jp_tag": _nullable_string(value, "jp_tag", context),
+        "replacement": _nullable_string(value, "replacement", context),
+        "translation_action": translation_action,
+        "copy_allowed": _required_bool(value, "copy_allowed", context),
+        "display_tag": _nullable_string(value, "display_tag", context),
+        "target_policy": _validate_jp_policy(value.get("target_policy"), context),
+        "sample_slugs": list(sample_slugs),
+    }
 
 
-def _validate_coverage_source(value: object) -> None:
+def _validate_coverage_source(value: object) -> CoverageSource:
     if not isinstance(value, dict):
         raise ValueError("coverage.source must be an object")
-    _validate_required_string_fields(
-        value,
-        (
-            "corpus_root",
-            "jp_tag_source",
-            "jp_unused_source",
-            "override_source",
-            "deprecated_override_source",
-            "crosswalk_source",
-        ),
-        "coverage.source",
+    fields = (
+        "corpus_root",
+        "jp_tag_source",
+        "jp_unused_source",
+        "override_source",
+        "deprecated_override_source",
+        "crosswalk_source",
     )
+    return {
+        field: _string_field(value, field, "coverage.source")
+        for field in fields
+    }
 
 
-def _validate_status_counts(value: object, context: str) -> None:
+def _validate_status_counts(
+    value: object,
+    context: str,
+) -> dict[ClassificationStatus, int]:
     if not isinstance(value, dict) or any(
-        key not in CLASSIFICATION_STATUSES or not _valid_nonnegative_int(count)
+        not _is_classification_status(key) or not _valid_nonnegative_int(count)
         for key, count in value.items()
     ):
         raise ValueError(f"{context}.status_counts is invalid")
+    return {
+        key: _nonnegative_integer(value, key, f"{context}.status_counts")
+        for key in value
+        if _is_classification_status(key)
+    }
 
 
-def _validate_coverage_branch(value: object, context: str) -> None:
+def _validate_coverage_branch(value: object, context: str) -> CoverageBranch:
     if not isinstance(value, dict):
         raise ValueError(f"{context} must be an object")
-    _validate_required_string_fields(value, ("branch", "site"), context)
-    _validate_nonnegative_integer_fields(
-        value,
-        ("page_count", "tag_count"),
-        context,
-    )
-    _validate_status_counts(value.get("status_counts"), context)
+    branch = _string_field(value, "branch", context)
+    site = _string_field(value, "site", context)
+    page_count = _nonnegative_integer(value, "page_count", context)
+    tag_count = _nonnegative_integer(value, "tag_count", context)
+    status_counts = _validate_status_counts(value.get("status_counts"), context)
     tags = value.get("tags")
     if not isinstance(tags, list):
         raise ValueError(f"{context}.tags must be an array")
-    for tag_index, tag in enumerate(tags):
+    validated_tags = [
         _validate_coverage_tag(tag, f"{context}.tags[{tag_index}]")
-    if value.get("tag_count") != len(tags):
+        for tag_index, tag in enumerate(tags)
+    ]
+    if tag_count != len(validated_tags):
         raise ValueError(f"{context}.tag_count does not match tags")
+    return {
+        "branch": branch,
+        "site": site,
+        "page_count": page_count,
+        "tag_count": tag_count,
+        "status_counts": status_counts,
+        "tags": validated_tags,
+    }
 
 
 def validate_coverage(raw: object) -> Coverage:
     """Validate one generated coverage document before HTML publication."""
     if not isinstance(raw, dict):
         raise ValueError("coverage root must be an object")
-    if not _valid_nonnegative_int(raw.get("schema_version")):
+    schema_version = raw.get("schema_version")
+    if not _valid_nonnegative_int(schema_version):
         raise ValueError("coverage.schema_version must be a non-negative integer")
-    _validate_coverage_source(raw.get("source"))
-    _validate_description_map(
+    source = _validate_coverage_source(raw.get("source"))
+    status_descriptions = _validate_description_map(
         raw.get("status_descriptions"),
         CLASSIFICATION_STATUSES,
         "coverage.status_descriptions",
     )
-    _validate_description_map(
+    action_descriptions = _validate_description_map(
         raw.get("action_descriptions"),
         COVERAGE_TRANSLATION_ACTIONS,
         "coverage.action_descriptions",
@@ -206,9 +257,24 @@ def validate_coverage(raw: object) -> Coverage:
     branches = raw.get("branches")
     if not isinstance(branches, list):
         raise ValueError("coverage.branches must be an array")
-    for branch_index, branch in enumerate(branches):
-        _validate_coverage_branch(branch, f"coverage.branches[{branch_index}]")
-    return cast(Coverage, raw)
+    return {
+        "schema_version": schema_version,
+        "source": source,
+        "status_descriptions": {
+            key: status_descriptions[key]
+            for key in status_descriptions
+            if _is_classification_status(key)
+        },
+        "action_descriptions": {
+            key: action_descriptions[key]
+            for key in action_descriptions
+            if _is_coverage_translation_action(key)
+        },
+        "branches": [
+            _validate_coverage_branch(branch, f"coverage.branches[{branch_index}]")
+            for branch_index, branch in enumerate(branches)
+        ],
+    }
 
 
 __all__ = ["validate_coverage"]
