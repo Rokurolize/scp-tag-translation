@@ -111,6 +111,37 @@ def merge_official_crosswalks(
     return merged
 
 
+def _add_origin_replacements(
+    deprecated_tags: dict[str, set[str]],
+    replacements: dict[str, dict[str, str | None]],
+    jp_names: frozenset[str] | set[str],
+) -> None:
+    for source_tag, replacement in EN_ORIGIN_TAG_REPLACEMENTS.items():
+        if replacement not in jp_names:
+            raise ValueError(
+                f"EN origin replacement is not a JP tag: {source_tag}->{replacement}"
+            )
+        deprecated_tags.setdefault("EN", set()).add(source_tag)
+        replacements.setdefault("EN", {})[source_tag] = replacement
+
+
+def _add_replacement_overrides(
+    deprecated_tags: dict[str, set[str]],
+    replacements: dict[str, dict[str, str | None]],
+    replacement_overrides: Mapping[str, Mapping[str, str]],
+    jp_names: frozenset[str] | set[str],
+) -> None:
+    for source_lang, mappings in replacement_overrides.items():
+        for source_tag, replacement in mappings.items():
+            if replacement not in jp_names:
+                raise ValueError(
+                    "deprecated override target is not a JP tag: "
+                    f"{source_lang}:{source_tag}->{replacement}"
+                )
+            deprecated_tags.setdefault(source_lang, set()).add(source_tag)
+            replacements.setdefault(source_lang, {})[source_tag] = replacement
+
+
 def deprecated_by_source_lang(
     deprecated_raw: list[DeprecatedTag],
     jp_names: frozenset[str] | set[str],
@@ -138,23 +169,13 @@ def deprecated_by_source_lang(
         replacements.setdefault(source_lang, {})[source_tag] = replacement
 
     if include_origin_replacements:
-        for source_tag, replacement in EN_ORIGIN_TAG_REPLACEMENTS.items():
-            if replacement not in jp_names:
-                raise ValueError(
-                    f"EN origin replacement is not a JP tag: {source_tag}->{replacement}"
-                )
-            deprecated_tags.setdefault("EN", set()).add(source_tag)
-            replacements.setdefault("EN", {})[source_tag] = replacement
-
-    for source_lang, mappings in (replacement_overrides or {}).items():
-        for source_tag, replacement in mappings.items():
-            if replacement not in jp_names:
-                raise ValueError(
-                    "deprecated override target is not a JP tag: "
-                    f"{source_lang}:{source_tag}->{replacement}"
-                )
-            deprecated_tags.setdefault(source_lang, set()).add(source_tag)
-            replacements.setdefault(source_lang, {})[source_tag] = replacement
+        _add_origin_replacements(deprecated_tags, replacements, jp_names)
+    _add_replacement_overrides(
+        deprecated_tags,
+        replacements,
+        replacement_overrides or {},
+        jp_names,
+    )
     return deprecated_tags, replacements
 
 
