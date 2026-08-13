@@ -16,9 +16,9 @@ from scripts.corpus import (
 )
 from scripts.dictionary_inputs import (
     complete_hint_dictionaries,
-    load_mapping_policy_inputs,
+    load_mapping_inputs,
 )
-from scripts.json_io import load_json, write_json
+from scripts.json_io import write_json
 from scripts.data_paths import (
     DATA_BRANCH_GUIDE_CROSSWALK,
     DATA_DEPRECATED,
@@ -34,12 +34,9 @@ from scripts.domain.concatenated_tags import (
     build_concatenated_tag_hints,
 )
 from scripts.domain.jp_policy import JpPolicyInputs, build_jp_policy
-from scripts.domain.policy_builder import build_mapping_policy
 from scripts.domain.tag_dictionary import build_branch_dict, build_en_dicts
 from scripts.domain.tag_records import DeprecatedTag, EnTag, JpTag
-from scripts.domain.tag_policy import (
-    MappingPolicy,
-)
+from scripts.domain.tag_policy import MappingPolicy
 from scripts.domain.tag_validation import validate_tag_records
 
 @dataclass(frozen=True)
@@ -197,16 +194,15 @@ def build_and_publish(
             "先に python -m scripts.commands.parse_sources を実行してください。"
         )
 
-    en_tags, jp_tags, deprecated_tags = validate_tag_records(
-        load_json(DATA_EN),
-        load_json(DATA_JP),
-        load_json(DATA_DEPRECATED),
+    loaded = load_mapping_inputs(
+        data_en=DATA_EN,
+        data_jp=DATA_JP,
+        data_deprecated=DATA_DEPRECATED,
     )
-    policy = build_mapping_policy(
-        jp_tags,
-        deprecated_tags,
-        load_mapping_policy_inputs(),
-    )
+    en_tags = loaded.en_tags
+    jp_tags = loaded.jp_tags
+    deprecated_tags = loaded.deprecated_tags
+    policy = loaded.mapping_policy
     required_branches = set(branches) | set(config.supported_branches)
     corpus_data = {
         branch: collect_corpus_branch_data(corpus_root, branch)

@@ -14,8 +14,8 @@ from scripts.coverage_outputs import (
     write_application_inventory_tsv,
     write_coverage_tsv,
 )
-from scripts.dictionary_inputs import load_mapping_policy_inputs
-from scripts.json_io import load_json, write_json
+from scripts.dictionary_inputs import load_mapping_inputs
+from scripts.json_io import write_json
 from scripts.data_paths import (
     DATA_DEPRECATED,
     DATA_EN,
@@ -29,31 +29,21 @@ from scripts.domain.tag_coverage import (
     build_coverage,
 )
 from scripts.domain.tag_coverage_models import Coverage
-from scripts.domain.policy_builder import build_mapping_policy
-from scripts.domain.tag_validation import validate_tag_records
 
 DEFAULT_OUTPUT_DIR = VISUALIZATION_DIR
 
 
 def load_coverage_inputs() -> CoverageInputs:
-    if not DATA_JP.exists() or not DATA_DEPRECATED.exists():
-        raise FileNotFoundError("Run python -m scripts.commands.parse_sources first.")
-
-    en_tags, jp_tags, deprecated_tags = validate_tag_records(
-        load_json(DATA_EN),
-        load_json(DATA_JP),
-        load_json(DATA_DEPRECATED),
-    )
-    mapping_policy = build_mapping_policy(
-        jp_tags,
-        deprecated_tags,
-        load_mapping_policy_inputs(),
+    loaded = load_mapping_inputs(
+        data_en=DATA_EN,
+        data_jp=DATA_JP,
+        data_deprecated=DATA_DEPRECATED,
     )
     return CoverageInputs(
-        en_tags=en_tags,
-        jp_tags=jp_tags,
-        deprecated_tags=deprecated_tags,
-        mapping_policy=mapping_policy,
+        en_tags=loaded.en_tags,
+        jp_tags=loaded.jp_tags,
+        deprecated_tags=loaded.deprecated_tags,
+        mapping_policy=loaded.mapping_policy,
     )
 
 

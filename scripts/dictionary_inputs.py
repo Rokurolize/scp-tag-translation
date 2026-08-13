@@ -3,21 +3,30 @@
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
+from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
 
 from scripts.data_paths import (
     CROSSWALK_PATHS,
+    DATA_DEPRECATED,
+    DATA_EN,
+    DATA_JP,
     DEPRECATED_REPLACEMENT_OVERRIDES_PATH,
     DICTIONARIES_DIR,
     OVERRIDES_PATH,
 )
+from scripts.domain.policy_builder import MappingPolicyInputs, build_mapping_policy
 from scripts.domain.tag_records import (
     BranchOverrideFile,
+    DeprecatedTag,
+    EnTag,
     OfficialCrosswalkFile,
+    JpTag,
     ReplacementOverrideFile,
 )
-from scripts.domain.policy_builder import MappingPolicyInputs
+from scripts.domain.tag_policy import MappingPolicy
+from scripts.domain.tag_validation import validate_tag_records
 from scripts.json_io import load_json
 
 
@@ -94,6 +103,43 @@ def load_mapping_policy_inputs() -> MappingPolicyInputs:
         ),
         official_crosswalks=tuple(
             _load_crosswalk(path) for path in CROSSWALK_PATHS
+        ),
+    )
+
+
+@dataclass(frozen=True)
+class LoadedMappingInputs:
+    """Validated tag records and their assembled mapping policy."""
+
+    en_tags: list[EnTag]
+    jp_tags: list[JpTag]
+    deprecated_tags: list[DeprecatedTag]
+    mapping_policy: MappingPolicy
+
+
+def load_mapping_inputs(
+    *,
+    data_en: Path = DATA_EN,
+    data_jp: Path = DATA_JP,
+    data_deprecated: Path = DATA_DEPRECATED,
+) -> LoadedMappingInputs:
+    """Load and validate tag records, then assemble one mapping policy."""
+    required_data = (data_en, data_jp, data_deprecated)
+    if any(not path.exists() for path in required_data):
+        raise FileNotFoundError("Run python -m scripts.commands.parse_sources first.")
+    en_tags, jp_tags, deprecated_tags = validate_tag_records(
+        load_json(data_en),
+        load_json(data_jp),
+        load_json(data_deprecated),
+    )
+    return LoadedMappingInputs(
+        en_tags=en_tags,
+        jp_tags=jp_tags,
+        deprecated_tags=deprecated_tags,
+        mapping_policy=build_mapping_policy(
+            jp_tags,
+            deprecated_tags,
+            load_mapping_policy_inputs(),
         ),
     )
 
