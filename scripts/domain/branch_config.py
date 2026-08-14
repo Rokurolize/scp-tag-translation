@@ -93,6 +93,7 @@ BRANCH_CONFIG_BY_CODE: Mapping[str, BranchConfig] = MappingProxyType({
 
 
 def source_site_for_branch(branch: str) -> str:
+    """Return the Wikidot site for ``branch`` or raise InvalidDomainInputError."""
     try:
         return BRANCH_CONFIG_BY_CODE[branch].site
     except KeyError as exc:
@@ -100,6 +101,7 @@ def source_site_for_branch(branch: str) -> str:
 
 
 def jp_branch_tag_for_branch(branch: str) -> str:
+    """Return the JP tag for ``branch`` or raise InvalidDomainInputError."""
     try:
         return BRANCH_CONFIG_BY_CODE[branch].jp_branch_tag
     except KeyError as exc:
