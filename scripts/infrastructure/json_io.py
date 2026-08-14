@@ -15,6 +15,7 @@ __all__ = ["json_text", "load_json", "write_json", "write_text"]
 
 
 def load_json(path: Path) -> object:
+    """Load JSON data, translating malformed content to InvalidDomainInputError."""
     try:
         with path.open("r", encoding="utf-8") as file:
             return json.load(file)

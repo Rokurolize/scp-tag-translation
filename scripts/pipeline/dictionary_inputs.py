@@ -155,6 +155,7 @@ def default_mapping_input_paths() -> MappingInputPaths:
 def load_mapping_policy_inputs(
     paths: MappingInputPaths | None = None,
 ) -> MappingPolicyInputs:
+    """Load policy inputs, raising InvalidDomainInputError or filesystem errors on failure."""
     paths = paths or default_mapping_input_paths()
     return MappingPolicyInputs(
         overrides=_load_override_file(paths.overrides),

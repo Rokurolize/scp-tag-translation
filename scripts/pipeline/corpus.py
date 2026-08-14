@@ -49,6 +49,7 @@ def iter_corpus_page_tags(
     corpus_root: Path,
     branch: str,
 ) -> Iterator[tuple[str, list[str]]]:
+    """Yield page slugs and tags, raising InvalidDomainInputError for invalid metadata."""
     pages_dir = corpus_root / branch / "pages"
     if not pages_dir.is_dir():
         raise InvalidDomainInputError(
