@@ -44,7 +44,7 @@ def sync_tag_sources(
     write: bool = False,
     config: SourceSyncConfig | None = None,
 ) -> SourceSyncResult:
-    """Check snapshots and optionally publish current corpus sources atomically."""
+    """Check and optionally publish snapshots, returning stale/missing paths; filesystem errors propagate."""
     config = config or SourceSyncConfig()
     stale: list[str] = []
     missing_sources: list[Path] = []

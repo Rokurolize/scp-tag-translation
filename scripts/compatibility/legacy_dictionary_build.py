@@ -48,7 +48,7 @@ def build_and_publish_legacy_dictionary(
     overwrite: bool,
     config: LegacyDictionaryBuildConfig | None = None,
 ) -> LegacyDictionaryBuildResult:
-    """Build legacy outputs and publish both files atomically."""
+    """Build and publish legacy outputs, raising input, filesystem, or publication errors on failure."""
     config = config or LegacyDictionaryBuildConfig()
     loaded_inputs = load_mapping_inputs(
         config.mapping_inputs,
