@@ -66,6 +66,6 @@ def test_layered_packages_keep_dependency_direction_explicit():
         for module in pipeline_imports
     )
     assert infrastructure_imports <= {
-        "scripts.domain.errors",
+        "scripts.contracts.errors",
         "scripts.infrastructure.file_modes",
     }

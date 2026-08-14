@@ -8,7 +8,7 @@ import stat
 import tempfile
 from pathlib import Path
 
-from scripts.domain.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError
 from scripts.infrastructure.file_modes import DEFAULT_NEW_FILE_MODE
 
 __all__ = ["json_text", "load_json", "write_json", "write_text"]
