@@ -122,7 +122,7 @@ def test_visualization_html_is_self_contained_and_embeds_current_data(coverage):
     embedded, html = _load_embedded_html_coverage()
 
     assert embedded == coverage
-    assert html == coverage_html_workflow.build_html(coverage)
+    assert html == coverage_html_workflow.render_coverage_html(coverage)
     assert "fetch(" not in html
     assert "http://" not in html
     assert "https://" not in html
@@ -139,7 +139,7 @@ def test_dashboard_template_has_one_data_placeholder():
 
 
 def test_visualization_html_escapes_embedded_json_script_boundaries():
-    html = coverage_html_workflow.build_html(
+    html = coverage_html_workflow.render_coverage_html(
         {
             "schema_version": 1,
             "source": {},

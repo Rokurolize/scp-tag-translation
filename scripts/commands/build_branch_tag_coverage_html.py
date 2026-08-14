@@ -18,7 +18,10 @@ def main() -> None:
     args = parser.parse_args()
 
     try:
-        workflow.build_and_publish_html(input_path=args.input, output_path=args.output)
+        workflow.build_and_publish_coverage_html(
+            input_path=args.input,
+            output_path=args.output,
+        )
     except (OSError, ValueError) as err:
         print(f"エラー: HTML可視化生成に失敗しました: {err}")
         sys.exit(1)

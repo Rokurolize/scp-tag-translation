@@ -21,7 +21,11 @@ DEFAULT_OUTPUT = COVERAGE_HTML_PATH
 TEMPLATE_PATH = ROOT / "scripts" / "assets" / "branch_tag_coverage.html"
 
 
-def build_html(coverage: Coverage, *, template_path: Path = TEMPLATE_PATH) -> str:
+def render_coverage_html(
+    coverage: Coverage,
+    *,
+    template_path: Path = TEMPLATE_PATH,
+) -> str:
     """Render validated coverage data into the dashboard template.
 
     Raises:
@@ -45,7 +49,7 @@ def build_html(coverage: Coverage, *, template_path: Path = TEMPLATE_PATH) -> st
     return template.replace("__DATA_JSON__", embedded_json)
 
 
-def build_and_publish_html(
+def build_and_publish_coverage_html(
     *,
     input_path: Path | None = None,
     output_path: Path | None = None,
@@ -54,7 +58,7 @@ def build_and_publish_html(
     input_path = input_path or DEFAULT_INPUT
     output_path = output_path or DEFAULT_OUTPUT
     coverage = validate_coverage(load_json(input_path))
-    html = build_html(coverage)
+    html = render_coverage_html(coverage)
     publish_files_atomically({
         output_path: lambda temporary: write_text(temporary, html),
     })
@@ -65,6 +69,6 @@ __all__ = [
     "DEFAULT_INPUT",
     "DEFAULT_OUTPUT",
     "TEMPLATE_PATH",
-    "build_and_publish_html",
-    "build_html",
+    "build_and_publish_coverage_html",
+    "render_coverage_html",
 ]
