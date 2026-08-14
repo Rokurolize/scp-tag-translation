@@ -160,7 +160,7 @@ def build_dictionary_artifacts(
     """Assemble artifacts without publishing; invalid branch or missing-corpus errors propagate."""
     config = config or BranchBuildConfig()
     branches, required_branches = _resolve_build_branch_scope(branches, config)
-    return _build_artifacts_for_scope(
+    return _build_dictionary_artifacts_for_scope(
         corpus_data,
         branches,
         required_branches,
@@ -170,7 +170,7 @@ def build_dictionary_artifacts(
     )
 
 
-def _build_artifacts_for_scope(
+def _build_dictionary_artifacts_for_scope(
     corpus_data: Mapping[str, CorpusBranchData],
     branches: Sequence[str],
     required_branches: set[str],
@@ -258,7 +258,7 @@ def build_and_publish_dictionaries(
         dictionaries_dir=config.dictionaries_dir,
         supported_branches=omitted_branches,
     )
-    artifacts = _build_artifacts_for_scope(
+    artifacts = _build_dictionary_artifacts_for_scope(
         corpus_data,
         branches,
         required_branches,
