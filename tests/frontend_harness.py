@@ -1,11 +1,12 @@
 import json
+import os
 import re
 import shutil
 import subprocess
 
 import pytest
 
-from scripts.data_paths import ROOT
+from scripts.infrastructure.data_paths import ROOT
 from scripts.domain.branch_config import BRANCH_CONFIG_BY_CODE
 
 INDEX_HTML = ROOT / "index.html"
@@ -15,20 +16,27 @@ _FRONTEND_VM_PREAMBLE = r"""
 const fs = require("node:fs");
 const vm = require("node:vm");
 const html = fs.readFileSync("index.html", "utf8");
-const frontendScript = fs.readFileSync("branch_config.js", "utf8") + "\n" + html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const frontendScript = fs.readFileSync("branch_config.js", "utf8") + "\n" + html.match(/<script id="app-script">([\s\S]*?)<\/script>/)[1];
 """
 
 
 def node() -> str:
     executable = shutil.which("node")
     if executable is None:
-        pytest.skip("node が見つからないため frontend JS テストをスキップ")
+        if os.environ.get("SCP_ALLOW_MISSING_NODE") == "1":
+            pytest.skip(
+                "node が見つからないため frontend JS テストを明示的にスキップ"
+            )
+        pytest.fail(
+            "frontend JS tests require Node.js; set SCP_ALLOW_MISSING_NODE=1 "
+            "only when intentionally running a Python-only test subset"
+        )
     return executable
 
 
 def frontend_script() -> str:
     html = INDEX_HTML.read_text(encoding="utf-8")
-    match = re.search(r"<script>(.*?)</script>", html, re.DOTALL)
+    match = re.search(r'<script id="app-script">(.*?)</script>', html, re.DOTALL)
     assert match is not None, "script ブロックが見つかりません"
     return f"{BROWSER_CONFIG_PATH.read_text(encoding='utf-8')}\n{match.group(1)}"
 

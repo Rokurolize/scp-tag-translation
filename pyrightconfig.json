@@ -1,0 +1,6 @@
+{
+  "include": ["scripts"],
+  "exclude": ["data", "dictionaries", "sources", "visualization"],
+  "pythonVersion": "3.11",
+  "typeCheckingMode": "standard"
+}

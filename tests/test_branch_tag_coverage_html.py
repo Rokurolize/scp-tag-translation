@@ -4,8 +4,11 @@ import sys
 
 import pytest
 
+from scripts.application import coverage_html as coverage_html_workflow
 from scripts.commands import build_branch_tag_coverage_html as coverage_html_builder
-from scripts.data_paths import ROOT
+from scripts.infrastructure.data_paths import ROOT
+from scripts.domain.coverage_validation import validate_coverage
+from scripts.domain.tag_coverage import ACTION_DESCRIPTIONS, STATUS_DESCRIPTIONS
 
 COVERAGE_JSON = ROOT / "visualization" / "branch_tag_coverage.json"
 COVERAGE_HTML = ROOT / "visualization" / "branch_tag_coverage.html"
@@ -24,6 +27,10 @@ def _load_embedded_html_coverage():
     return json.loads(match.group(1)), html
 
 
+def test_coverage_validator_accepts_generated_document(coverage):
+    assert validate_coverage(coverage) == coverage
+
+
 @pytest.mark.parametrize(
     ("field", "value", "message"),
     [
@@ -40,7 +47,7 @@ def test_coverage_validator_rejects_unknown_protocol_values(
     coverage["branches"][0]["tags"][0][field] = value
 
     with pytest.raises(ValueError, match=message):
-        coverage_html_builder.validate_coverage(coverage)
+        coverage_html_workflow.validate_coverage(coverage)
 
 
 @pytest.mark.parametrize(
@@ -54,14 +61,23 @@ def test_coverage_validator_rejects_unknown_description_keys(mapping, message, c
     coverage[mapping]["misspelled"] = "invalid"
 
     with pytest.raises(ValueError, match=message):
-        coverage_html_builder.validate_coverage(coverage)
+        coverage_html_workflow.validate_coverage(coverage)
 
 
 def test_coverage_validator_rejects_unknown_status_count_key(coverage):
     coverage["branches"][0]["status_counts"]["misspelled"] = 1
 
     with pytest.raises(ValueError, match="status_counts is invalid"):
-        coverage_html_builder.validate_coverage(coverage)
+        coverage_html_workflow.validate_coverage(coverage)
+
+
+def test_coverage_validator_rejects_status_counts_that_do_not_match_tags(coverage):
+    branch = coverage["branches"][0]
+    status = branch["tags"][0]["status"]
+    branch["status_counts"][status] -= 1
+
+    with pytest.raises(ValueError, match="status_counts does not match tags"):
+        coverage_html_workflow.validate_coverage(coverage)
 
 
 def test_coverage_validator_rejects_unknown_special_action(coverage):
@@ -74,7 +90,7 @@ def test_coverage_validator_rejects_unknown_special_action(coverage):
     }
 
     with pytest.raises(ValueError, match="special_translation_action"):
-        coverage_html_builder.validate_coverage(coverage)
+        coverage_html_workflow.validate_coverage(coverage)
 
 
 @pytest.mark.parametrize(
@@ -85,7 +101,7 @@ def test_coverage_validator_rejects_missing_nullable_required_field(field, cover
     coverage["branches"][0]["tags"][0].pop(field)
 
     with pytest.raises(ValueError, match=field):
-        coverage_html_builder.validate_coverage(coverage)
+        coverage_html_workflow.validate_coverage(coverage)
 
 
 def test_coverage_validator_rejects_missing_special_action_key(coverage):
@@ -97,7 +113,7 @@ def test_coverage_validator_rejects_missing_special_action_key(coverage):
     }
 
     with pytest.raises(ValueError, match="special_translation_action"):
-        coverage_html_builder.validate_coverage(coverage)
+        coverage_html_workflow.validate_coverage(coverage)
 
 
 def test_visualization_html_is_self_contained_and_embeds_current_data(coverage):
@@ -106,7 +122,7 @@ def test_visualization_html_is_self_contained_and_embeds_current_data(coverage):
     embedded, html = _load_embedded_html_coverage()
 
     assert embedded == coverage
-    assert html == coverage_html_builder.build_html(coverage)
+    assert html == coverage_html_workflow.render_coverage_html(coverage)
     assert "fetch(" not in html
     assert "http://" not in html
     assert "https://" not in html
@@ -123,7 +139,7 @@ def test_dashboard_template_has_one_data_placeholder():
 
 
 def test_visualization_html_escapes_embedded_json_script_boundaries():
-    html = coverage_html_builder.build_html(
+    html = coverage_html_workflow.render_coverage_html(
         {
             "schema_version": 1,
             "source": {},
@@ -169,6 +185,78 @@ def test_coverage_html_main_reports_input_failure(
     assert capsys.readouterr().out.startswith(
         "エラー: HTML可視化生成に失敗しました: "
     )
+    assert not output.exists()
+
+
+def test_coverage_html_main_publishes_valid_input(
+    tmp_path,
+    monkeypatch,
+    capsys,
+):
+    input_path = tmp_path / "coverage.json"
+    input_path.write_text(
+        json.dumps({
+            "schema_version": 3,
+            "source": {
+                "corpus_root": "/tmp/corpus",
+                "jp_tag_source": "jp",
+                "jp_unused_source": "unused",
+                "override_source": "overrides",
+                "deprecated_override_source": "deprecated",
+                "crosswalk_source": "crosswalk",
+            },
+            "status_descriptions": dict(STATUS_DESCRIPTIONS),
+            "action_descriptions": dict(ACTION_DESCRIPTIONS),
+            "branches": [],
+        }),
+        encoding="utf-8",
+    )
+    output = tmp_path / "output" / "coverage.html"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "build_branch_tag_coverage_html.py",
+            "--input",
+            str(input_path),
+            "--output",
+            str(output),
+        ],
+    )
+
+    coverage_html_builder.main()
+
+    assert '"schema_version":3' in output.read_text(encoding="utf-8")
+    assert capsys.readouterr().out == (
+        f"HTML可視化を生成しました: {output}\n"
+    )
+
+
+def test_coverage_html_main_reports_malformed_input_path(
+    tmp_path,
+    monkeypatch,
+    capsys,
+):
+    invalid_input = tmp_path / "broken.json"
+    invalid_input.write_text('{"broken": }', encoding="utf-8")
+    output = tmp_path / "output" / "coverage.html"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "build_branch_tag_coverage_html.py",
+            "--input",
+            str(invalid_input),
+            "--output",
+            str(output),
+        ],
+    )
+
+    with pytest.raises(SystemExit) as excinfo:
+        coverage_html_builder.main()
+
+    assert excinfo.value.code == 1
+    assert str(invalid_input) in capsys.readouterr().out
     assert not output.exists()
 
 
@@ -219,7 +307,7 @@ def test_coverage_html_main_preserves_output_on_publication_failure(
     output = tmp_path / "coverage.html"
     output.write_text("previous", encoding="utf-8")
     monkeypatch.setattr(
-        coverage_html_builder,
+        coverage_html_workflow,
         "validate_coverage",
         lambda raw: raw,
     )
@@ -228,7 +316,7 @@ def test_coverage_html_main_preserves_output_on_publication_failure(
         raise OSError("disk full")
 
     monkeypatch.setattr(
-        coverage_html_builder,
+        coverage_html_workflow,
         "publish_files_atomically",
         fail_publication,
     )

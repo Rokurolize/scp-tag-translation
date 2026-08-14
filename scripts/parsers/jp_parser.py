@@ -1,10 +1,17 @@
+"""Parse SCP-JP tag-list fragments and unused-tag records."""
+
 from __future__ import annotations
 
 import re
-from collections.abc import Iterator
+from collections.abc import Iterator, MutableSequence
+from dataclasses import dataclass
 from pathlib import Path
 
-from scripts.domain.tag_models import DeprecatedTag, JpTag
+from scripts.contracts.errors import InvalidDomainInputError
+from scripts.domain.records.tag_records import DeprecatedTag, JpTag
+from scripts.parsers.errors import report_source_issue
+
+__all__ = ["parse_jp_tags", "parse_unused_tag_records"]
 
 # タグリンクと任意のENタグ表記のペアにマッチ
 # 形式: **[[[/system:page-tags/tag/{slug}|{display}]]]** //(en-tag)//
@@ -39,6 +46,14 @@ _REGISTERED_FRAGMENT_NAMES = (
 )
 
 
+@dataclass(frozen=True)
+class _TagParseContext:
+    path: Path
+    line_number: int
+    strict: bool
+    diagnostics: MutableSequence[str] | None
+
+
 def _extract_single_replacement(description: str) -> str | None:
     replacements = [value.strip() for value in _REPLACE_RE.findall(description)]
     tag_refs = [value.strip() for value in _TAG_REF_RE.findall(description)]
@@ -50,11 +65,11 @@ def _extract_single_replacement(description: str) -> str | None:
     return replacement or None
 
 
-def _iter_uncommented_lines(path: Path) -> Iterator[str]:
+def _iter_uncommented_lines(path: Path) -> Iterator[tuple[int, str]]:
     """Wikidotコメント [!-- ... --] を除外して行を返す。"""
     in_comment = False
     with path.open("r", encoding="utf-8") as source:
-        for raw_line in source:
+        for line_number, raw_line in enumerate(source, 1):
             line_parts: list[str] = []
             cursor = 0
 
@@ -82,17 +97,26 @@ def _iter_uncommented_lines(path: Path) -> Iterator[str]:
 
             uncommented = "".join(line_parts)
             if uncommented.strip():
-                yield uncommented
+                yield line_number, uncommented
 
 
-def parse_unused(source_path: Path) -> list[DeprecatedTag]:
-    """Parse source-language unused tags and deterministic replacements."""
+def parse_unused_tag_records(
+    source_path: Path,
+    *,
+    strict: bool = False,
+    diagnostics: MutableSequence[str] | None = None,
+) -> list[DeprecatedTag]:
+    """Parse source-language unused tags and deterministic replacements.
+
+    In strict mode, malformed tag links are reported through ``diagnostics``
+    when supplied; without a sink, the parser raises the source parse error.
+    """
 
     results: list[DeprecatedTag] = []
     seen_source_tags: set[tuple[str, str]] = set()
     source_lang = "EN"
 
-    for line in _iter_uncommented_lines(source_path):
+    for line_number, line in _iter_uncommented_lines(source_path):
         section_match = _SECTION_RE.match(line.strip())
         if section_match:
             source_lang = section_match.group(1)
@@ -102,6 +126,13 @@ def parse_unused(source_path: Path) -> list[DeprecatedTag]:
             continue
         matches = list(_PAIR_RE.finditer(line))
         if not matches:
+            if strict:
+                report_source_issue(
+                    source_path,
+                    line_number,
+                    "invalid JP tag link",
+                    diagnostics,
+                )
             continue
 
         last_end = matches[-1].end()
@@ -132,8 +163,76 @@ def parse_unused(source_path: Path) -> list[DeprecatedTag]:
     return results
 
 
-def parse_jp_tags(source_dir: Path) -> list[JpTag]:
-    """Parse registered JP tag fragments into canonical tag records."""
+def _registered_tag_entries(
+    line: str,
+    context: _TagParseContext,
+    matches: list[re.Match[str]],
+) -> list[JpTag]:
+    prefix = line[: matches[0].start()]
+    edit_restricted = _EDIT_RESTRICTED_ICON in prefix
+    use_restricted = edit_restricted or _USE_RESTRICTED_ICON in prefix
+    translation_exempt = _TRANSLATION_EXEMPT_ICON in prefix
+
+    remaining = line[matches[-1].end() :]
+    desc_match = re.search(r"\s*-\s*(.+)", remaining)
+    description = desc_match.group(1).strip() if desc_match else ""
+
+    entries: list[JpTag] = []
+    for match in matches:
+        name = match.group(1).strip()
+        if not name:
+            if context.strict:
+                report_source_issue(
+                    context.path,
+                    context.line_number,
+                    "empty JP tag name",
+                    context.diagnostics,
+                )
+            continue
+
+        source_tag = match.group(3).strip() if match.group(3) else None
+        entries.append(
+            JpTag(
+                name=name,
+                source_tags=[source_tag] if source_tag else [],
+                description=description,
+                use_restricted=use_restricted,
+                edit_restricted=edit_restricted,
+                translation_exempt=translation_exempt,
+            )
+        )
+    return entries
+
+
+def _merge_jp_tag(tags_by_name: dict[str, JpTag], incoming: JpTag) -> None:
+    entry = tags_by_name.get(incoming["name"])
+    if entry is None:
+        tags_by_name[incoming["name"]] = incoming
+        return
+
+    if not entry["description"] and incoming["description"]:
+        entry["description"] = incoming["description"]
+    entry["use_restricted"] = entry["use_restricted"] or incoming["use_restricted"]
+    entry["edit_restricted"] = entry["edit_restricted"] or incoming["edit_restricted"]
+    entry["translation_exempt"] = entry["translation_exempt"] or incoming["translation_exempt"]
+
+    for source_tag in incoming["source_tags"]:
+        if source_tag not in entry["source_tags"]:
+            entry["source_tags"].append(source_tag)
+
+
+def parse_jp_tags(
+    source_dir: Path,
+    *,
+    strict: bool = False,
+    diagnostics: MutableSequence[str] | None = None,
+) -> list[JpTag]:
+    """Parse registered JP tag fragments into canonical tag records.
+
+    In strict mode, malformed links or empty names are reported through
+    ``diagnostics`` when supplied; without a sink, the parser raises the source
+    parse error. Missing registered fragments raise InvalidDomainInputError.
+    """
 
     tags_by_name: dict[str, JpTag] = {}
 
@@ -143,61 +242,34 @@ def parse_jp_tags(source_dir: Path) -> list[JpTag]:
         if (source_dir / name).exists()
     ]
     if not fragment_files:
-        raise ValueError(f"JPフラグメントファイルが見つかりません: {source_dir}")
+        raise InvalidDomainInputError(
+            f"JPフラグメントファイルが見つかりません: {source_dir}"
+        )
 
     for filepath in fragment_files:
-        for line in _iter_uncommented_lines(filepath):
+        for line_number, line in _iter_uncommented_lines(filepath):
             if "**[[[/system" not in line or "page-tags/tag/" not in line:
                 continue
-
             matches = list(_PAIR_RE.finditer(line))
             if not matches:
+                if strict:
+                    report_source_issue(
+                        filepath,
+                        line_number,
+                        "invalid JP tag link",
+                        diagnostics,
+                    )
                 continue
-
-            # Restriction icons precede the first tag definition and apply to
-            # every tag definition on that list item.
-            prefix = line[: matches[0].start()]
-            edit_restricted = _EDIT_RESTRICTED_ICON in prefix
-            use_restricted = edit_restricted or _USE_RESTRICTED_ICON in prefix
-            translation_exempt = _TRANSLATION_EXEMPT_ICON in prefix
-
-            last_end = matches[-1].end()
-            remaining = line[last_end:]
-            desc_match = re.search(r"\s*-\s*(.+)", remaining)
-            description = desc_match.group(1).strip() if desc_match else ""
-
-            for m in matches:
-                slug = m.group(1).strip()
-                en_tag = m.group(3).strip() if m.group(3) else None
-
-                if not slug:
-                    continue
-
-                entry = tags_by_name.get(slug)
-                if entry is None:
-                    entry = JpTag(
-                        name=slug,
-                        source_tags=[],
-                        description=description,
-                        use_restricted=use_restricted,
-                        edit_restricted=edit_restricted,
-                        translation_exempt=translation_exempt,
-                    )
-                    tags_by_name[slug] = entry
-                else:
-                    if not entry.get("description") and description:
-                        entry["description"] = description
-                    entry["use_restricted"] = (
-                        entry.get("use_restricted", False) or use_restricted
-                    )
-                    entry["edit_restricted"] = (
-                        entry.get("edit_restricted", False) or edit_restricted
-                    )
-                    entry["translation_exempt"] = (
-                        entry.get("translation_exempt", False) or translation_exempt
-                    )
-
-                if en_tag and en_tag not in entry["source_tags"]:
-                    entry["source_tags"].append(en_tag)
+            for entry in _registered_tag_entries(
+                line,
+                _TagParseContext(
+                    path=filepath,
+                    line_number=line_number,
+                    strict=strict,
+                    diagnostics=diagnostics,
+                ),
+                matches,
+            ):
+                _merge_jp_tag(tags_by_name, entry)
 
     return list(tags_by_name.values())

@@ -3,6 +3,39 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from collections.abc import Sequence
+from types import MappingProxyType
+from collections.abc import Mapping
+
+from scripts.contracts.errors import InvalidDomainInputError
+
+__all__ = [
+    "BRANCH_CONFIG_BY_CODE",
+    "SUPPORTED_BRANCHES",
+    "SUPPORTED_BRANCH_CONFIGS",
+    "BranchConfig",
+    "jp_branch_tag_for_branch",
+    "source_site_for_branch",
+    "validate_requested_branches",
+]
+
+SUPPORTED_BRANCHES = (
+    "cn",
+    "cs",
+    "de",
+    "en",
+    "es",
+    "fr",
+    "int",
+    "it",
+    "ko",
+    "pl",
+    "pt-br",
+    "th",
+    "ua",
+    "vn",
+    "zh-tr",
+)
 
 
 @dataclass(frozen=True)
@@ -32,33 +65,44 @@ SUPPORTED_BRANCH_CONFIGS = (
 )
 
 
-SUPPORTED_BRANCHES = tuple(config.branch for config in SUPPORTED_BRANCH_CONFIGS)
-BRANCH_CONFIG_BY_CODE = {config.branch: config for config in SUPPORTED_BRANCH_CONFIGS}
-
-
-def browser_config_records() -> list[dict[str, str]]:
-    """Return the supported-branch fields consumed by the static browser app."""
-
-    return [
-        {
-            "branch": config.branch,
-            "site": config.site,
-            "label": config.label,
-            "jp_branch_tag": config.jp_branch_tag,
-        }
-        for config in SUPPORTED_BRANCH_CONFIGS
-    ]
+def validate_requested_branches(
+    branches: Sequence[str],
+    *,
+    supported_branches: Sequence[str] = SUPPORTED_BRANCHES,
+) -> tuple[str, ...]:
+    """Validate a non-empty, duplicate-free subset of supported branches."""
+    requested = tuple(branches)
+    if not requested:
+        raise InvalidDomainInputError("at least one branch is required")
+    if any(not isinstance(branch, str) or not branch for branch in requested):
+        raise InvalidDomainInputError("branch names must be non-empty strings")
+    duplicates = sorted({
+        branch
+        for branch in requested
+        if requested.count(branch) > 1
+    })
+    if duplicates:
+        raise InvalidDomainInputError("duplicate branches: " + ", ".join(duplicates))
+    unsupported = sorted(set(requested) - set(supported_branches))
+    if unsupported:
+        raise InvalidDomainInputError("unsupported branches: " + ", ".join(unsupported))
+    return requested
+BRANCH_CONFIG_BY_CODE: Mapping[str, BranchConfig] = MappingProxyType({
+    config.branch: config for config in SUPPORTED_BRANCH_CONFIGS
+})
 
 
 def source_site_for_branch(branch: str) -> str:
+    """Return the Wikidot site for ``branch`` or raise InvalidDomainInputError."""
     try:
         return BRANCH_CONFIG_BY_CODE[branch].site
     except KeyError as exc:
-        raise ValueError(f"unsupported corpus branch: {branch}") from exc
+        raise InvalidDomainInputError(f"unsupported corpus branch: {branch}") from exc
 
 
 def jp_branch_tag_for_branch(branch: str) -> str:
+    """Return the JP tag for ``branch`` or raise InvalidDomainInputError."""
     try:
         return BRANCH_CONFIG_BY_CODE[branch].jp_branch_tag
     except KeyError as exc:
-        raise ValueError(f"unsupported corpus branch: {branch}") from exc
+        raise InvalidDomainInputError(f"unsupported corpus branch: {branch}") from exc

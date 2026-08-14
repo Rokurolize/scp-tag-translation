@@ -15,11 +15,14 @@ CrosswalkCandidate: TypeAlias = tuple[
     Iterable[str],
 ]
 
+__all__ = ["CrosswalkCandidate", "resolve_crosswalk_candidates"]
+
 
 def resolve_crosswalk_candidates(
     candidates: Iterable[CrosswalkCandidate],
     resolver: TargetResolver,
 ) -> CrosswalkMappings:
+    """Resolve candidates into mappings, omitting unresolved and conflicting targets."""
     targets: dict[str, dict[str, set[str]]] = defaultdict(
         lambda: defaultdict(set)
     )

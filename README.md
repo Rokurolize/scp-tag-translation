@@ -60,21 +60,7 @@ python -m http.server 8000
 `wikidot.py`フォークを通して公式ページソースを取得し、`AGENTS.md`の手順に従ってください。
 取得した原典を確認した後、次のコマンドでソースと辞書を再生成します。
 
-更新前に、次の`curl`コマンドでJPタグリストの取得経路を確認してください。
-このコマンドは初回URLとすべてのリダイレクト先でHTTPS以外を拒否し、応答時間とリダイレクト回数も制限します。
-
-```bash
-curl \
-  --fail --silent --show-error --location \
-  --proto '=https' --proto-redir '=https' \
-  --max-redirs 5 --connect-timeout 10 --max-time 60 \
-  --remove-on-error \
-  --output scp-jp-tag-list.html \
-  'https://scp-jp.wikidot.com/tag-list'
-```
-
-`--proto`と`--proto-redir`はどちらも省略しないでください。前者は初回URL、後者はすべてのリダイレクト先でHTTPSのみを許可します。
-WikidotがHTTPへのリダイレクトを返した場合、このコマンドは意図どおり失敗します。HTTP URLに変更したり制約を緩めたりせず、HTTPSだけでページソースを取得できる経路が利用可能になるまで更新を見送ってください。
+更新前に、リポジトリの`wikidot.py`フォークで公式ページソースを取得し、JPタグリストのマニフェストに列挙されたフラグメントだけを更新対象にしてください。`curl`や検索結果を原典として使わず、取得・同期・検証の詳細は`AGENTS.md`の「Updating Wikidot source snapshots」に従ってください。
 
 ```bash
 python -m scripts.commands.parse_sources --lang all
@@ -143,15 +129,21 @@ python -m scripts.commands.build_branch_tag_coverage_html
 `null`は単なる変換失敗を意味しません。
 UIは置換辞書とSCP-JP利用ポリシーを参照し、省略、スタッフ許可、申請または確認のいずれに当たるかを区別します。
 
-`scripts/commands/build_dict.py`はコーパスを渡せない既存自動化向けの互換CLIです。正規の生成経路は`build_branch_dicts_from_corpus`だけであり、互換CLIも同じ`scripts/domain/tag_dictionary.py`へ委譲します。引数なしの互換動作に依存する外部自動化がなくなった時点で、このCLIを削除します。複数成果物の公開は`scripts/atomic_output.py`が一括ステージングと失敗時のロールバックを担います。
+`scripts/commands/build_dict.py`はコーパスを渡せない既存自動化向けの互換CLIです。正規の生成経路は`build_branch_dicts_from_corpus`だけであり、互換CLIも同じ`scripts/domain/tag_dictionary.py`へ委譲します。互換CLIの所有者はリポジトリメンテナで、外部自動化の参照を確認する作業を毎年1月の依存更新時に行います。引数なしの互換動作に依存する外部自動化がなくなった時点で、このCLIを削除します。複数成果物の公開は`scripts/infrastructure/atomic_output.py`が一括ステージングと失敗時のロールバックを担います。
 
 ## テスト
 
 ```bash
 python -m pytest
+pyright
 ```
 
 テストは、公式ソースの解析、対訳表の曖昧行除外、15支部の辞書整合性、SCP-JP利用ポリシー、申請対象一覧、ブラウザ内の翻訳処理を検証します。
+`pyright`は`scripts/`の型注釈を検査します。開発環境の依存関係は`requirements-dev.txt`からインストールしてください。
+ブラウザ内の翻訳処理を検証するテストにはNode.jsが必要です。Python部分だけを意図的に実行する場合は`SCP_ALLOW_MISSING_NODE=1`を指定すると、Node.js依存テストが明示的にスキップされます。
+
+Pythonモジュールの公開面は、コマンド入口では`main`、直接利用するライブラリでは`__all__`に列挙し、その他の実装ヘルパーはアンダースコアで始める規則です。新しい直接利用モジュールを追加するときは、公開関数・型・定数を`__all__`に明示してください。
+実コーパスの連結タグ回帰は外部コーパスを必要とするため、GitHub Actionsの`Corpus regression` workflowを手動実行し、`scp-wiki-translation`のブランチ別Release assetを指定してください。ローカルでは`SCP_WIKI_CORPUS_ROOT=/path/to/corpus python -m pytest -m corpus_integration`を実行し、変数が未設定の通常実行では合成コーパスのスモークテストを維持します。
 
 ## ディレクトリ構成
 
@@ -167,16 +159,23 @@ scp-tag-translation/
 ├── scripts/
 │   ├── assets/                               # 生成HTMLのソーステンプレート
 │   ├── commands/                             # 同期・解析・生成CLI
+│   ├── application/                          # CLIから呼び出す生成・同期ワークフロー
+│   │   └── source_parsing/                    # ソース解析のレコード・交差表・診断調整
+│   ├── compatibility/                        # 外部自動化向けの旧互換ワークフロー
+│   ├── contracts/                             # 層をまたぐ共有エラー
 │   ├── domain/                               # スキーマ・検証・変換規則・支部設定
+│   │   ├── policy/                            # ソースからJPへのマッピング規則
+│   │   └── records/                           # 入力レコードと境界検証
+│   ├── infrastructure/                       # パス・JSON・原子的な成果物公開
+│   ├── pipeline/                             # コーパス走査・入力・ソース構成
 │   ├── parsers/                              # 公式タグソース解析
-│   ├── data_paths.py                         # 生成物パス定数（互換ラッパー含む）
-│   ├── corpus.py                             # コーパス走査
-│   ├── dictionary_inputs.py                  # 辞書生成ポリシー入力
-│   ├── json_io.py                            # JSON読込・生成物書込
-│   └── atomic_output.py                      # 関連成果物のトランザクション的公開
 ├── tests/
 └── visualization/
 ```
+
+### パッケージの依存方向
+
+パッケージ間の依存方向は、コマンド入口からアプリケーション、パイプライン、ドメイン、パーサー、インフラストラクチャへ一方向に保ちます。コマンドはドメイン・パーサー・パイプライン・インフラストラクチャを直接インポートせず、ドメインはアプリケーション・パイプライン・パーサーを参照しません。許可された依存関係は`tests/test_architecture_boundaries.py`で実行可能な契約として検証します。
 
 ## ライセンス
 

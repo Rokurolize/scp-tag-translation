@@ -1,6 +1,16 @@
 import json
+import os
 
-from scripts.json_io import json_text, write_json
+import pytest
+
+from scripts.infrastructure import json_io
+from scripts.infrastructure.json_io import (
+    json_text,
+    write_json,
+    write_staged_json,
+    write_staged_text,
+    write_text,
+)
 
 
 def test_json_text_sorts_only_the_top_level_mapping():
@@ -13,6 +23,16 @@ def test_json_text_sorts_only_the_top_level_mapping():
     assert '"z": 1,\n    "a": 2' in json_text(payload, sort_top_level=True)
 
 
+def test_load_json_reports_the_input_path_for_malformed_json(tmp_path):
+    path = tmp_path / "broken.json"
+    path.write_text('{"broken": }', encoding="utf-8")
+
+    with pytest.raises(ValueError, match=rf"invalid JSON in {path}: Expecting value") as excinfo:
+        json_io.load_json(path)
+
+    assert isinstance(excinfo.value.__cause__, json.JSONDecodeError)
+
+
 def test_write_json_uses_utf8_indentation_and_trailing_newline(tmp_path):
     path = tmp_path / "nested" / "output.json"
 
@@ -20,3 +40,44 @@ def test_write_json_uses_utf8_indentation_and_trailing_newline(tmp_path):
 
     assert path.read_text(encoding="utf-8").endswith("\n")
     assert json.loads(path.read_text(encoding="utf-8")) == {"タグ": "値"}
+
+
+def test_staged_writers_write_directly_to_batch_paths(tmp_path):
+    text_path = tmp_path / "staged.txt"
+    json_path = tmp_path / "staged.json"
+
+    write_staged_text(text_path, "内容")
+    write_staged_json(json_path, {"タグ": "値"})
+
+    assert text_path.read_text(encoding="utf-8") == "内容"
+    assert json.loads(json_path.read_text(encoding="utf-8")) == {"タグ": "値"}
+
+
+def test_write_text_preserves_existing_output_if_publication_fails(
+    tmp_path,
+    monkeypatch,
+):
+    path = tmp_path / "output.txt"
+    path.write_text("previous", encoding="utf-8")
+
+    def fail_replace(_source, _destination):
+        raise OSError("replace failed")
+
+    monkeypatch.setattr(json_io.os, "replace", fail_replace)
+
+    with pytest.raises(OSError, match="replace failed"):
+        write_text(path, "next")
+
+    assert path.read_text(encoding="utf-8") == "previous"
+    assert list(tmp_path.iterdir()) == [path]
+
+
+def test_write_text_preserves_existing_permissions(tmp_path):
+    path = tmp_path / "output.txt"
+    path.write_text("previous", encoding="utf-8")
+    path.chmod(0o640)
+
+    write_text(path, "next")
+
+    assert path.read_text(encoding="utf-8") == "next"
+    assert os.stat(path).st_mode & 0o777 == 0o640

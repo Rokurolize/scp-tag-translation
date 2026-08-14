@@ -1,9 +1,15 @@
+"""Parse the English SCP tag-list source into validated tag records."""
+
 from __future__ import annotations
 
 import re
+from collections.abc import MutableSequence
 from pathlib import Path
 
-from scripts.domain.tag_models import EnTag
+from scripts.domain.records.tag_records import EnTag
+from scripts.parsers.errors import report_source_issue
+
+__all__ = ["parse_en_tags"]
 
 _TAG_PATTERN = re.compile(
     r"^\s*\*\s*\*\*\[https?://[^ ]*/system:page-tags/tag/([^ \]]+)"
@@ -49,15 +55,55 @@ def _parse_meta_line(line: str) -> tuple[str, list[str]] | None:
     return meta_key, meta_values
 
 
-def parse_en_tags(input_path: Path) -> list[EnTag]:
-    """Parse the Wikidot EN tag list into typed records."""
+def _report_malformed_line(
+    input_path: Path,
+    line_number: int,
+    line: str,
+    *,
+    current_tag: EnTag | None,
+    strict: bool,
+    diagnostics: MutableSequence[str] | None,
+) -> None:
+    if not strict:
+        return
+    if line.startswith("* **[") and "system:page-tags/tag/" in line:
+        report_source_issue(
+            input_path,
+            line_number,
+            "invalid EN tag link",
+            diagnostics,
+        )
+    elif (
+        current_tag is not None
+        and line.startswith("* //")
+        and _parse_meta_line(line) is None
+    ):
+        report_source_issue(
+            input_path,
+            line_number,
+            "invalid EN metadata",
+            diagnostics,
+        )
+
+
+def parse_en_tags(
+    input_path: Path,
+    *,
+    strict: bool = False,
+    diagnostics: MutableSequence[str] | None = None,
+) -> list[EnTag]:
+    """Parse the Wikidot EN tag list into typed records.
+
+    In strict mode, malformed tag-shaped lines are appended to ``diagnostics``
+    when provided; otherwise the parser raises ``SourceParseError``.
+    """
 
     tags_data: list[EnTag] = []
     current_tag: EnTag | None = None
     current_category: str | None = None
 
     with input_path.open("r", encoding="utf-8") as source:
-        for line in source:
+        for line_number, line in enumerate(source, 1):
             line = line.strip()
 
             tab_match = _TAB_PATTERN.match(line)
@@ -84,6 +130,15 @@ def parse_en_tags(input_path: Path) -> list[EnTag]:
                     "meta": {},
                 }
                 continue
+
+            _report_malformed_line(
+                input_path,
+                line_number,
+                line,
+                current_tag=current_tag,
+                strict=strict,
+                diagnostics=diagnostics,
+            )
 
             if current_tag:
                 meta_data = _parse_meta_line(line)

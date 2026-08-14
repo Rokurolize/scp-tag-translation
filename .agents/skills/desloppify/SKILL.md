@@ -1,14 +1,10 @@
 ---
 name: desloppify
-description: >
-  Multi-language codebase health scanner. Use when the user explicitly asks
-  to run desloppify, scan for technical debt, get a health score, or create
-  a cleanup plan. Do NOT trigger for general code review, renaming, or
-  fixing individual bugs.
+description: Use for Desloppify codebase scans, health scores, cleanup plans, and diagnosing or fixing Desloppify's detectors, CLI, launcher, or skill-document bugs. Do NOT trigger for unrelated application code review, ordinary refactoring, renaming, or application bug fixes.
 ---
 
 <!-- desloppify-begin -->
-<!-- desloppify-skill-version: 7 -->
+<!-- desloppify-skill-version: 15 -->
 
 # Desloppify
 
@@ -127,11 +123,13 @@ Overall score = **25% mechanical** + **75% subjective**.
 
 Four paths to get subjective scores:
 
-- **Local runner (Codex)**: `desloppify review --run-batches --runner codex --parallel --scan-after-import` — automated end-to-end.
+- **Local runner (Codex)**: `desloppify review --run-batches --runner codex --parallel --scan-after-import` — automated end-to-end; without an explicit `--dimensions`, it reuses the prepared scope from `query.json`.
 - **Local runner (Claude)**: `desloppify review --prepare` → launch parallel subagents → `desloppify review --import merged.json` — see skill doc overlay for details.
 - **Local runner (Rovo Dev)**: `desloppify review --run-batches --runner rovodev --parallel --scan-after-import` — automated end-to-end via `acli rovodev run` subprocesses.
 - **Cloud/external**: `desloppify review --external-start --external-runner claude` → follow session template → `--external-submit`.
 - **Manual path**: `desloppify review --prepare` → review per dimension → `desloppify review --import file.json`.
+
+Use the runner that is actually installed and available on `PATH`. The Codex batch runner is a Desloppify subprocess workflow; it is not a request for the reviewing model to invent a second layer of agents. If a batch fails, retry only that batch from its immutable packet; the runner reuses successful outputs from earlier runs of that packet rather than regenerating the whole review.
 
 **Batch output vs import filenames:** Individual batch outputs from subagents must be named `batch-N.raw.txt` (plain text/JSON content, `.raw.txt` extension). The `.json` filenames in `--import merged.json` or `--import findings.json` refer to the final merged import file, not individual batch outputs. Do not name batch outputs with a `.json` extension.
 
@@ -247,18 +245,20 @@ desloppify config show                            # show all config including ex
 desloppify scan --path . --reset-subjective       # reset subjective baseline to 0
 ```
 
-## 4. Fix Tool Issues Upstream
+## 4. Fix Tool Issues In The Installed Fork
 
 When desloppify itself appears wrong or inconsistent — a bug, a bad detection, a crash, confusing output — **fix it and open a PR**. If you can't confidently fix it, file an issue instead.
 
 ### Fix and PR (preferred)
 
-Clone the tool repo to a temp directory, make the fix there, and verify it works against the project you're scanning before pushing.
+Use the configured local `Rokurolize/desloppify` checkout, normally `${DESLOPPIFY_REPO:-$HOME/src/Rokurolize/desloppify}`, and verify the fix against the project you're scanning before pushing. Do not clone `peteromallet/desloppify`, use `uvx` to fetch it, or install the PyPI package.
 
 ```bash
-git clone https://github.com/peteromallet/desloppify.git /tmp/desloppify-fix
-cd /tmp/desloppify-fix
-git checkout -b fix/<short-description>
+DESLOPPIFY_REPO="${DESLOPPIFY_REPO:-$HOME/src/Rokurolize/desloppify}"
+DESLOPPIFY_WORKTREE="${DESLOPPIFY_REPO}-worktrees/fix-<short-description>"
+git -C "$DESLOPPIFY_REPO" fetch origin main
+git -C "$DESLOPPIFY_REPO" worktree add -b fix/<short-description> "$DESLOPPIFY_WORKTREE" origin/main
+cd "$DESLOPPIFY_WORKTREE"
 ```
 
 Make your changes, then run the test suite and verify the fix against the original project:
@@ -283,33 +283,42 @@ EOF
 )"
 ```
 
-Clean up after: `rm -rf /tmp/desloppify-fix`
+After the PR merges, remove the worktree with `git -C "$DESLOPPIFY_REPO" worktree remove "$DESLOPPIFY_WORKTREE"`.
 
 ### File an issue (fallback)
 
-If the fix is unclear or the change needs discussion, open an issue at `https://github.com/peteromallet/desloppify/issues` with a minimal repro: command, path, expected output, actual output.
+If the fix is unclear or the change needs discussion, open an issue at `https://github.com/Rokurolize/desloppify/issues` with a minimal repro: command, path, expected output, actual output.
 
 ## Prerequisite
 
-`command -v desloppify >/dev/null 2>&1 && echo "desloppify: installed" || echo "NOT INSTALLED — run: uvx --from git+https://github.com/peteromallet/desloppify.git desloppify"`
+The expected checkout is `${DESLOPPIFY_REPO:-$HOME/src/Rokurolize/desloppify}`. Check the launcher and the module imported by that same uv-managed environment:
 
-If `uvx` is not available: `pip install desloppify[full] && desloppify setup`
+```bash
+desloppify --version
+DESLOPPIFY_PYTHON="$(sed -n '1s/^#!//p' "$(command -v desloppify)")"
+"$DESLOPPIFY_PYTHON" -c 'import desloppify; print(desloppify.__file__)'
+```
+
+If those resolve different installations, repair the editable uv tool before scanning; do not rely on a bare system `python` or a global `PYTHONPATH` override.
+
+If the launcher or environment is missing or stale, repair it with `uv tool install --editable --force "${DESLOPPIFY_REPO:-$HOME/src/Rokurolize/desloppify}[full]"`. Do not install `desloppify` from PyPI.
 
 <!-- desloppify-end -->
 
 ## Codex Overlay
 
-This is the canonical Codex overlay used by the README install command.
+This is the Codex-specific overlay appended by `desloppify update-skill codex`.
 
-1. Prefer first-class batch runs: `desloppify review --run-batches --runner codex --parallel --scan-after-import`.
+1. Prefer first-class batch runs: `desloppify review --run-batches --runner codex --parallel --scan-after-import`. The command launches one isolated Codex subprocess per selected batch; its default concurrency is three (`--max-parallel-batches 3`).
 2. The command writes immutable packet snapshots under `.desloppify/review_packets/holistic_packet_*.json`; use those for reproducible retries.
 3. Keep reviewer input scoped to the immutable packet and the source files named in each batch.
 4. If a batch fails, retry only that slice with `desloppify review --run-batches --packet <packet.json> --only-batches <idxs>`.
 5. Manual override is safety-scoped: you cannot combine it with `--allow-partial`, and provisional manual scores expire on the next `scan` unless replaced by trusted internal or attested-external imports.
+6. If `--prepare --dimensions ...` is followed by `--run-batches` without `--dimensions`, the runner reuses the prepared dimension scope from `query.json`; pass `--dimensions` again to choose a different scope.
 
-### Subagent policy
+### Subprocess policy
 
-Do not ask Codex review or triage prompts to spawn their own child agents. The supported Codex path is the first-class batch runner above: it already isolates packet slices, supports parallel subprocess execution, preserves retry artifacts, and keeps execution guardrails outside the model prompt. Revisit this only after Codex exposes a stable non-interactive subagent contract that can cap concurrency, preserve blind-packet isolation, and retry failed child tasks without increasing cost or weakening guardrails.
+Do not add nested agent instructions to review or triage prompts. The first-class batch runner above already isolates packet slices, supports bounded parallel subprocess execution, preserves retry artifacts, and keeps execution guardrails outside the model prompt. If a batch fails, retry the failed batch from its immutable packet; do not regroup batches or launch an unbounded wave of subprocesses.
 
 ### Sandbox
 

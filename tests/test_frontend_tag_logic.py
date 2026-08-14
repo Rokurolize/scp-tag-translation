@@ -1,38 +1,36 @@
 import json
-import re
 import subprocess
 
 from tests.frontend_harness import (
-    INDEX_HTML,
     ROOT,
     frontend_script,
     node,
-    run_node,
+    run_frontend_script,
     translate_with_frontend,
 )
 
 
 def split_with_frontend(token: str, dictionary: dict[str, str | None]) -> list[str]:
-    match = re.search(
-        r"function splitConcatenatedTags\(token, dictionary\) \{.*?\n      /\*\*\n"
-        r"       \* コピー機能",
-        INDEX_HTML.read_text(encoding="utf-8"),
-        re.DOTALL,
-    )
-    assert match is not None, "splitConcatenatedTags 関数が見つかりません"
-    function_source = match.group(0).rsplit("/**", 1)[0]
-    script = "\n".join(
-        [
-            "const splitDictionaryIndexCache = new WeakMap();",
-            function_source,
-            (
-                "console.log(JSON.stringify(splitConcatenatedTags("
-                f"{json.dumps(token)}, {json.dumps(dictionary, ensure_ascii=False)}"
-                ")));"
-            ),
-        ]
-    )
-    return json.loads(run_node(script))
+    script = f"""
+const elements = {{}};
+const context = {{
+  console,
+  document: {{
+    getElementById(id) {{
+      return elements[id] ||= {{ style: {{}}, addEventListener() {{}} }};
+    }},
+    createElement() {{ return {{}}; }},
+  }},
+  window: {{ addEventListener() {{}}, location: {{ protocol: "http:" }} }},
+  navigator: {{}},
+}};
+vm.createContext(context);
+vm.runInContext(frontendScript, context);
+console.log(JSON.stringify(context.splitConcatenatedTags(
+  {json.dumps(token)}, {json.dumps(dictionary, ensure_ascii=False)}
+)));
+"""
+    return json.loads(run_frontend_script(script))
 
 
 def test_index_script_has_valid_javascript_syntax(tmp_path):
@@ -78,23 +76,24 @@ def test_split_concatenated_tags_handles_empty_dictionary():
 
 
 def test_split_concatenated_tags_handles_long_input_without_recursion_overflow():
-    match = re.search(
-        r"function splitConcatenatedTags\(token, dictionary\) \{.*?\n      /\*\*\n"
-        r"       \* コピー機能",
-        INDEX_HTML.read_text(encoding="utf-8"),
-        re.DOTALL,
-    )
-    assert match is not None, "splitConcatenatedTags 関数が見つかりません"
-    function_source = match.group(0).rsplit("/**", 1)[0]
-
-    script = "\n".join(
-        [
-            "const splitDictionaryIndexCache = new WeakMap();",
-            function_source,
-            "console.log(splitConcatenatedTags('a'.repeat(12000), { a: 'A' }).length);",
-        ]
-    )
-    assert run_node(script).strip() == "12000"
+    script = """
+const elements = {};
+const context = {
+  console,
+  document: {
+    getElementById(id) {
+      return elements[id] ||= { style: {}, addEventListener() {} };
+    },
+    createElement() { return {}; },
+  },
+  window: { addEventListener() {}, location: { protocol: "http:" } },
+  navigator: {},
+};
+vm.createContext(context);
+vm.runInContext(frontendScript, context);
+console.log(context.splitConcatenatedTags('a'.repeat(12000), { a: 'A' }).length);
+"""
+    assert run_frontend_script(script).strip() == "12000"
 
 
 def test_scp_3352_copied_tag_string_translates_like_spaced_tags():
@@ -209,4 +208,3 @@ def test_translation_prefers_exact_dictionary_key_over_boundary_hint():
     )
 
     assert translated == {"targetText": "en 完全一致", "logArea": ""}
-

@@ -8,7 +8,7 @@ from tests.frontend_harness import (
     run_frontend_script,
     translate_with_frontend,
 )
-from scripts.commands.build_browser_config import render_browser_config
+from scripts.application.browser_config import render_browser_config
 from scripts.domain.branch_config import SUPPORTED_BRANCH_CONFIGS
 
 ACCEPTANCE = ROOT / "tests" / "fixtures" / "branch_acceptance_examples.tsv"

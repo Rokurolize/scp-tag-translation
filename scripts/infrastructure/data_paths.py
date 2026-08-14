@@ -1,10 +1,34 @@
-"""Repository artifact locations and command-facing JSON loading."""
+"""Repository artifact locations used by commands and pipeline support."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+__all__ = [
+    "BROWSER_CONFIG_PATH",
+    "COVERAGE_HTML_PATH",
+    "COVERAGE_JSON_PATH",
+    "CROSSWALK_PATHS",
+    "DATA_BRANCH_GUIDE_CROSSWALK",
+    "DATA_DEPRECATED",
+    "DATA_DIR",
+    "DATA_EN",
+    "DATA_INT_CROSSWALK",
+    "DATA_JP",
+    "DATA_KO_CROSSWALK",
+    "DEPRECATED_EN_DICTIONARY_PATH",
+    "DEPRECATED_REPLACEMENT_OVERRIDES_PATH",
+    "DICTIONARIES_DIR",
+    "EN_DICTIONARY_PATH",
+    "JP_POLICY_PATH",
+    "OVERRIDES_PATH",
+    "ROOT",
+    "SOURCES_DIR",
+    "VISUALIZATION_DIR",
+]
+
+
+ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "data"
 SOURCES_DIR = ROOT / "sources"
 DICTIONARIES_DIR = ROOT / "dictionaries"

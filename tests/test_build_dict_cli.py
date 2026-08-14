@@ -3,7 +3,9 @@ import sys
 
 import pytest
 
+from scripts.compatibility import legacy_dictionary_build as legacy_workflow
 from scripts.commands import build_dict
+from scripts.pipeline import dictionary_inputs
 
 EN = [{"name": "scp"}, {"name": "tale"}, {"name": "hub"}]
 JP = [
@@ -25,13 +27,24 @@ def redirected_build_dict_paths(tmp_path, monkeypatch):
         "dict_deprecated": tmp_path / "dictionaries" / "deprecated_en_to_jp.json",
     }
     for attribute, key in (
-        ("DATA_EN", "data_en"),
-        ("DATA_JP", "data_jp"),
-        ("DATA_DEPRECATED", "data_deprecated"),
         ("EN_DICTIONARY_PATH", "dict_out"),
         ("DEPRECATED_EN_DICTIONARY_PATH", "dict_deprecated"),
     ):
-        monkeypatch.setattr(build_dict, attribute, paths[key])
+        monkeypatch.setattr(legacy_workflow, attribute, paths[key])
+    mapping_paths = dictionary_inputs.MappingInputPaths(
+        data_en=paths["data_en"],
+        data_jp=paths["data_jp"],
+        data_deprecated=paths["data_deprecated"],
+        overrides=data_dir / "overrides.json",
+        replacement_overrides=data_dir / "replacement-overrides.json",
+        crosswalks=(data_dir / "crosswalk.json",),
+    )
+    config_type = legacy_workflow.LegacyDictionaryBuildConfig
+    monkeypatch.setattr(
+        legacy_workflow,
+        "LegacyDictionaryBuildConfig",
+        lambda: config_type(mapping_inputs=mapping_paths),
+    )
     monkeypatch.setattr(sys, "argv", ["build_dict.py"])
     return paths
 
@@ -49,6 +62,25 @@ def test_main_writes_empty_deprecated_dict_when_source_missing(
     paths["dict_deprecated"].parent.mkdir()
     _write_json(paths["dict_deprecated"], {"stale": "古い置換"})
 
+    build_dict.main()
+
+    assert json.loads(paths["dict_out"].read_text(encoding="utf-8"))["scp"] == "scp"
+    assert json.loads(paths["dict_deprecated"].read_text(encoding="utf-8")) == {}
+
+
+def test_main_publishes_with_real_policy_file_loader(
+    redirected_build_dict_paths,
+    monkeypatch,
+):
+    paths = redirected_build_dict_paths
+    _write_json(paths["data_en"], EN)
+    _write_json(paths["data_jp"], JP)
+    _write_json(paths["data_deprecated"], [])
+    override_path = paths["data_en"].parent / "overrides.json"
+    replacement_path = paths["data_en"].parent / "replacement-overrides.json"
+    crosswalk_path = paths["data_en"].parent / "crosswalk.json"
+    for path in (override_path, replacement_path, crosswalk_path):
+        _write_json(path, {})
     build_dict.main()
 
     assert json.loads(paths["dict_out"].read_text(encoding="utf-8"))["scp"] == "scp"
@@ -187,7 +219,11 @@ def test_main_reports_publication_failure_without_partial_outputs(
     def fail_publication(_writers):
         raise OSError("disk full")
 
-    monkeypatch.setattr(build_dict, "publish_files_atomically", fail_publication)
+    monkeypatch.setattr(
+        legacy_workflow,
+        "publish_files_atomically",
+        fail_publication,
+    )
 
     with pytest.raises(SystemExit) as excinfo:
         build_dict.main()

@@ -1,9 +1,10 @@
 from pathlib import Path
 
+import pytest
+
 from scripts.parsers import jp_parser
-from scripts.parsers.jp_parser import _PAIR_RE as _JP_PAIR_RE
-from scripts.parsers.jp_parser import _iter_uncommented_lines as _JP_UNCOMMENTED_LINES
-from scripts.domain.tag_policy import jp_maps
+from scripts.domain.policy.tag_policy import build_jp_names_and_source_map
+from scripts.parsers.errors import SourceParseError
 
 _JP_SOURCE_DIR = Path(__file__).parent.parent / "sources" / "jp"
 
@@ -33,7 +34,7 @@ class TestJpParser:
         duplicates = [tag for tag in source_tags if tag in seen or seen.add(tag)]
         assert set(duplicates) == {"ghost", "orientation"}
 
-        _jp_names, source_map = jp_maps(jp_tags_data)
+        _jp_names, source_map = build_jp_names_and_source_map(jp_tags_data)
         assert source_map["ghost"] == "幽霊"
         assert source_map["orientation"] == "オリエンテーション"
 
@@ -56,44 +57,50 @@ class TestJpParser:
             f"JPタグ件数が少なすぎます: {len(jp_tags_data)}"
         )
 
-    def test_jp_exhaustive_coverage(self, jp_tags_data):
-        """ソース中でスラッグ非空のタグ行（重複除去後）が全てパース結果に含まれること。
-        fragment-unused.txt は parse_unused() で別途処理するため除外する。"""
-        source_slugs: set[str] = set()
-        for name in jp_parser._REGISTERED_FRAGMENT_NAMES:
-            fp = _JP_SOURCE_DIR / name
-            if not fp.exists():
-                continue
-            for line in _JP_UNCOMMENTED_LINES(fp):
-                if "**[[[/system" not in line or "page-tags/tag/" not in line:
-                    continue
-                for m in _JP_PAIR_RE.finditer(line):
-                    slug = m.group(1).strip()
-                    if slug:
-                        source_slugs.add(slug)
-
-        parsed_slugs = {e["name"] for e in jp_tags_data}
-        missing = source_slugs - parsed_slugs
-        assert not missing, (
-            f"JPパーサーの取りこぼし ({len(missing)}件): {sorted(missing)[:10]}"
+    def test_jp_parser_accepts_wikidot_tag_url_variants(self, tmp_path):
+        """system:page-tags と system/page-tags の両形式をタグリンクとして扱う。"""
+        source_dir = tmp_path / "jp"
+        source_dir.mkdir()
+        (source_dir / "fragment-basic.txt").write_text(
+            "\n".join(
+                [
+                    "* **[[[/system:page-tags/tag/世界観|世界観]]]** //(resource)//",
+                    "* **[[[/system/page-tags/tag/_occ|_occ]]]** //(_occ)//",
+                ]
+            ),
+            encoding="utf-8",
         )
 
-    def test_jp_pair_pattern_accepts_wikidot_tag_url_variants(self):
-        """system:page-tags と system/page-tags の両形式をタグリンクとして扱う。"""
-        colon_line = "* **[[[/system:page-tags/tag/世界観|世界観]]]** //(resource)//"
-        slash_line = "* **[[[/system/page-tags/tag/_occ|_occ]]]** //(_occ)//"
+        parsed = jp_parser.parse_jp_tags(source_dir)
 
-        colon_match = _JP_PAIR_RE.search(colon_line)
-        slash_match = _JP_PAIR_RE.search(slash_line)
+        assert {entry["name"] for entry in parsed} == {"世界観", "_occ"}
+        assert {tag for entry in parsed for tag in entry["source_tags"]} == {
+            "resource",
+            "_occ",
+        }
 
-        assert colon_match is not None
-        assert colon_match.group(1) == "世界観"
-        assert colon_match.group(3) == "resource"
-        assert slash_match is not None
-        assert slash_match.group(1) == "_occ"
-        assert slash_match.group(3) == "_occ"
+    def test_strict_mode_reports_malformed_tag_records(self, tmp_path):
+        source_dir = tmp_path / "jp"
+        source_dir.mkdir()
+        source = source_dir / "fragment-basic.txt"
+        source.write_text(
+            "* **[[[/system:page-tags/tag/ broken]]]**\n",
+            encoding="utf-8",
+        )
+        diagnostics = []
 
-    def test_parse_unused_covers_wikidot_tag_url_variants(self, tmp_path):
+        assert jp_parser.parse_jp_tags(
+            source_dir,
+            strict=True,
+            diagnostics=diagnostics,
+        ) == []
+        assert diagnostics == [
+            f"{source}:1: malformed source record (invalid JP tag link)"
+        ]
+        with pytest.raises(SourceParseError, match="invalid JP tag link"):
+            jp_parser.parse_jp_tags(source_dir, strict=True)
+
+    def test_parse_unused_tag_records_covers_wikidot_tag_url_variants(self, tmp_path):
         source = tmp_path / "fragment-unused.txt"
         source.write_text(
             "\n".join(
@@ -105,13 +112,13 @@ class TestJpParser:
             encoding="utf-8",
         )
 
-        parsed = jp_parser.parse_unused(source)
+        parsed = jp_parser.parse_unused_tag_records(source)
 
         assert [entry["source_lang"] for entry in parsed] == ["EN", "EN"]
         assert [entry["source_tag"] for entry in parsed] == ["resource", "_occ"]
         assert parsed[0]["replacement"] == "世界観"
 
-    def test_parse_unused_records_source_language_sections(self, tmp_path):
+    def test_parse_unused_tag_records_source_language_sections(self, tmp_path):
         source = tmp_path / "fragment-unused.txt"
         source.write_text(
             "\n".join(
@@ -125,7 +132,7 @@ class TestJpParser:
             encoding="utf-8",
         )
 
-        parsed = jp_parser.parse_unused(source)
+        parsed = jp_parser.parse_unused_tag_records(source)
         assert parsed == [
             {
                 "source_lang": "EN",
@@ -141,7 +148,7 @@ class TestJpParser:
             },
         ]
 
-    def test_parse_unused_does_not_pick_context_dependent_replacement(self, tmp_path):
+    def test_parse_unused_tag_records_does_not_pick_context_dependent_replacement(self, tmp_path):
         source = tmp_path / "fragment-unused.txt"
         source.write_text(
             "+++ EN\n"
@@ -149,10 +156,10 @@ class TestJpParser:
             encoding="utf-8",
         )
 
-        parsed = jp_parser.parse_unused(source)
+        parsed = jp_parser.parse_unused_tag_records(source)
         assert parsed[0]["replacement"] is None
 
-    def test_parse_unused_trims_replacement(self, tmp_path):
+    def test_parse_unused_tag_records_trims_replacement(self, tmp_path):
         source = tmp_path / "fragment-unused.txt"
         source.write_text(
             "+++ EN\n"
@@ -160,10 +167,10 @@ class TestJpParser:
             encoding="utf-8",
         )
 
-        parsed = jp_parser.parse_unused(source)
+        parsed = jp_parser.parse_unused_tag_records(source)
         assert parsed[0]["replacement"] == "世界観"
 
-    def test_parse_unused_deduplicates_per_source_language(self, tmp_path):
+    def test_parse_unused_tag_records_deduplicates_per_source_language(self, tmp_path):
         source = tmp_path / "fragment-unused.txt"
         source.write_text(
             "\n".join(
@@ -178,32 +185,11 @@ class TestJpParser:
             encoding="utf-8",
         )
 
-        parsed = jp_parser.parse_unused(source)
+        parsed = jp_parser.parse_unused_tag_records(source)
         assert [(entry["source_lang"], entry["source_tag"]) for entry in parsed] == [
             ("CN", "wanderers"),
             ("ZH", "wanderers"),
         ]
-
-    def test_parse_unused_covers_all_uncommented_source_pairs(self, tmp_path):
-        source = _JP_SOURCE_DIR / "fragment-unused.txt"
-        expected = set()
-        source_lang = "EN"
-
-        for line in _JP_UNCOMMENTED_LINES(source):
-            section_match = jp_parser._SECTION_RE.match(line.strip())
-            if section_match:
-                source_lang = section_match.group(1)
-                continue
-            if "**[[[/system" not in line or "page-tags/tag/" not in line:
-                continue
-            for match in _JP_PAIR_RE.finditer(line):
-                en_tag = match.group(3)
-                if en_tag:
-                    expected.add((source_lang, en_tag))
-
-        parsed = jp_parser.parse_unused(source)
-        parsed_pairs = {(entry["source_lang"], entry["source_tag"]) for entry in parsed}
-        assert parsed_pairs == expected
 
     def test_jp_parser_ignores_wikidot_comments(self, tmp_path):
         source_dir = tmp_path / "jp"

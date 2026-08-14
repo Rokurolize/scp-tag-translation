@@ -1,11 +1,39 @@
 import pytest
 
-from scripts.commands import build_branch_dicts_from_corpus as branch_builder
-from scripts.domain import tag_policy
+from scripts.domain.policy import tag_policy
+from scripts.domain.records import tag_validation
+from scripts.contracts.errors import MappingConflictError
+from scripts.domain.policy.policy_builder import deprecated_by_source_lang
 from scripts.domain.tag_dictionary import build_en_dicts
+from scripts.domain.tag_dictionary import build_branch_dict
+
+
+def test_shared_domain_modules_declare_exact_public_exports():
+    assert tag_policy.__all__ == [
+        "BranchMappingPolicy",
+        "EN_CATEGORIES_OMITTED_ON_JP",
+        "EN_CROSSWALK_SEMANTIC_REPLACEMENTS",
+        "EN_ORIGIN_TAG_REPLACEMENTS",
+        "JP_SOURCE_TAG_MAPPING_OVERRIDES",
+        "MappingOrigin",
+        "MappingPolicy",
+        "SourceTagResolution",
+        "branch_to_source_lang",
+        "build_jp_names_and_source_map",
+        "en_category_omitted_tags",
+        "is_deprecated_for_en_source",
+        "resolve_source_tag",
+        "source_languages_for_branch",
+    ]
+    assert tag_validation.__all__ == [
+        "validate_deprecated_tags",
+        "validate_en_tags",
+        "validate_jp_tags",
+        "validate_tag_records",
+    ]
 
 def test_branch_builder_applies_expected_precedence(jp_tags_data):
-    jp_names, jp_source_map = tag_policy.jp_maps(jp_tags_data)
+    jp_names, jp_source_map = tag_policy.build_jp_names_and_source_map(jp_tags_data)
     jp_source_map["international"] = "インターナショナル"
     jp_source_map["alias-only"] = "tale"
     policy = tag_policy.MappingPolicy(
@@ -16,7 +44,7 @@ def test_branch_builder_applies_expected_precedence(jp_tags_data):
         overrides={"cn": {"原创": "cn", "故事": "tale"}},
         official_crosswalk={"cn": {"international": "int"}},
     )
-    dictionary, deprecated = branch_builder.build_branch_dict(
+    dictionary, deprecated = build_branch_dict(
         "cn",
         {
             "原创",
@@ -61,7 +89,7 @@ def test_branch_builder_applies_expected_precedence(jp_tags_data):
 
 
 def test_int_inherits_en_unused_tags_and_origin_replacements(jp_tags_data):
-    jp_names, jp_source_map = tag_policy.jp_maps(jp_tags_data)
+    jp_names, jp_source_map = tag_policy.build_jp_names_and_source_map(jp_tags_data)
     policy = tag_policy.MappingPolicy(
         jp_names=jp_names,
         jp_source_map=jp_source_map,
@@ -76,7 +104,7 @@ def test_int_inherits_en_unused_tags_and_origin_replacements(jp_tags_data):
         overrides={},
         official_crosswalk={},
     )
-    dictionary, deprecated = branch_builder.build_branch_dict(
+    dictionary, deprecated = build_branch_dict(
         "int",
         {"scp", "_cc", "_vn", "resource", "translator"},
         policy,
@@ -94,6 +122,32 @@ def test_int_inherits_en_unused_tags_and_origin_replacements(jp_tags_data):
     }
 
 
+@pytest.mark.parametrize(
+    ("en_replacement", "int_replacement"),
+    [(None, "対象"), ("対象", None)],
+)
+def test_int_rejects_conflicting_inherited_none_replacements(
+    jp_tags_data,
+    en_replacement,
+    int_replacement,
+):
+    jp_names, jp_source_map = tag_policy.build_jp_names_and_source_map(jp_tags_data)
+    policy = tag_policy.MappingPolicy(
+        jp_names=jp_names,
+        jp_source_map=jp_source_map,
+        deprecated_tags={"EN": {"legacy"}, "INT": {"legacy"}},
+        replacements={
+            "EN": {"legacy": en_replacement},
+            "INT": {"legacy": int_replacement},
+        },
+        overrides={},
+        official_crosswalk={},
+    )
+
+    with pytest.raises(MappingConflictError, match="conflicting inherited replacements"):
+        policy.for_branch("int")
+
+
 def test_deprecated_entries_reject_duplicate_source_keys():
     entries = [
         {"source_lang": "EN", "source_tag": "old", "replacement": "対象A"},
@@ -101,7 +155,7 @@ def test_deprecated_entries_reject_duplicate_source_keys():
     ]
 
     with pytest.raises(ValueError, match="duplicate deprecated entry"):
-        tag_policy.deprecated_by_source_lang(entries, {"対象A", "対象B"})
+        deprecated_by_source_lang(entries, {"対象A", "対象B"})
 
 
 def test_en_builder_includes_effective_replacement_overrides():
@@ -121,8 +175,8 @@ def test_en_builder_includes_effective_replacement_overrides():
         overrides={},
         official_crosswalk={},
     )
-    dictionary, deprecated = branch_builder.build_en_dicts(
-        [{"name": "current"}],
+    dictionary, deprecated = build_en_dicts(
+        [{"name": "current", "category": None}],
         jp_tags,
         deprecated_tags,
         {"current", "legacy-tag"},
@@ -155,12 +209,12 @@ def test_en_builder_applies_shared_mapping_precedence():
 
     dictionary, _deprecated = build_en_dicts(
         [
-            {"name": "same"},
-            {"name": "override"},
-            {"name": "official"},
-            {"name": "alias"},
-            {"name": "deprecated"},
-            {"name": "unknown"},
+            {"name": "same", "category": None},
+            {"name": "override", "category": None},
+            {"name": "official", "category": None},
+            {"name": "alias", "category": None},
+            {"name": "deprecated", "category": None},
+            {"name": "unknown", "category": None},
         ],
         jp_tags,
         [],
@@ -176,4 +230,3 @@ def test_en_builder_applies_shared_mapping_precedence():
         "same": "same",
         "unknown": None,
     }
-

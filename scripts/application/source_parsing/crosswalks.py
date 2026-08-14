@@ -1,0 +1,87 @@
+"""Coordinate the crosswalk parser stage of source generation."""
+
+from __future__ import annotations
+
+from collections.abc import Mapping, Sequence
+from dataclasses import dataclass
+from pathlib import Path
+
+from scripts.domain.crosswalk_resolution import CrosswalkResolver
+from scripts.parsers import branch_guide_parser, int_parser, ko_parser
+from scripts.parsers.contracts import BranchGuideAnalysis, CrosswalkMappings
+
+from .records import require_file
+
+
+@dataclass(frozen=True)
+class CrosswalkParseResult:
+    int_mappings: CrosswalkMappings
+    ko_mappings: CrosswalkMappings
+    branch_analysis: BranchGuideAnalysis
+    diagnostics: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class CrosswalkParseInputs:
+    """Source files consumed by one crosswalk parsing stage."""
+
+    int_source: Path
+    ko_source: Path
+    branch_guide_sources: Mapping[str, Sequence[Path]]
+
+
+def _require_branch_guides(
+    sources: Mapping[str, Sequence[Path]],
+) -> None:
+    missing = [
+        path
+        for paths in sources.values()
+        for path in paths
+        if not path.is_file()
+    ]
+    if missing:
+        formatted = "\n".join(f"  {path}" for path in missing)
+        raise FileNotFoundError(f"支部公式タグガイドが見つかりません:\n{formatted}")
+
+
+def collect_crosswalk_parses(
+    *,
+    inputs: CrosswalkParseInputs,
+    resolver: CrosswalkResolver,
+) -> CrosswalkParseResult:
+    """Run strict crosswalk parsers, returning mappings plus diagnostics or raising file errors."""
+    require_file(inputs.int_source, "INTタグクロスウォーク")
+    require_file(inputs.ko_source, "KOタグクロスウォーク")
+    _require_branch_guides(inputs.branch_guide_sources)
+    diagnostics: list[str] = []
+    int_mappings = int_parser.parse_int_crosswalk(
+        inputs.int_source,
+        resolver.resolve,
+        strict=True,
+        diagnostics=diagnostics,
+    )
+    ko_mappings = ko_parser.parse_ko_crosswalk(
+        inputs.ko_source,
+        resolver.resolve,
+        strict=True,
+        diagnostics=diagnostics,
+    )
+    branch_analysis = branch_guide_parser.analyze_branch_guides(
+        inputs.branch_guide_sources,
+        resolver.resolve,
+        strict=True,
+        diagnostics=diagnostics,
+    )
+    return CrosswalkParseResult(
+        int_mappings=int_mappings,
+        ko_mappings=ko_mappings,
+        branch_analysis=branch_analysis,
+        diagnostics=tuple(diagnostics),
+    )
+
+
+__all__ = [
+    "CrosswalkParseInputs",
+    "CrosswalkParseResult",
+    "collect_crosswalk_parses",
+]

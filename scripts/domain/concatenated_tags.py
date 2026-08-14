@@ -5,6 +5,10 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 
+from scripts.contracts.errors import InvalidDomainInputError
+
+__all__ = ["build_concatenated_tag_hints"]
+
 
 @dataclass(slots=True)
 class _TrieNode:
@@ -90,21 +94,21 @@ def build_concatenated_tag_hints(
 
         missing_tags = sorted(set(expected).difference(dictionary))
         if missing_tags:
-            raise ValueError(
+            raise InvalidDomainInputError(
                 "corpus tags missing from dictionary during hint generation: "
                 f"{branch}:{slug}:{missing_tags!r}"
             )
 
         existing = owners.get(concatenated)
         if existing is not None and existing != expected:
-            raise ValueError(
+            raise InvalidDomainInputError(
                 "concatenated tag input has multiple corpus boundaries: "
                 f"{branch}:{concatenated!r}->{existing!r}/{expected!r}"
             )
         owners[concatenated] = expected
 
         if concatenated in dictionary and expected != (concatenated,):
-            raise ValueError(
+            raise InvalidDomainInputError(
                 "concatenated tag input conflicts with an exact dictionary key: "
                 f"{branch}:{slug}:{concatenated!r}->{expected!r}"
             )
@@ -113,7 +117,7 @@ def build_concatenated_tag_hints(
         if recovered == expected:
             continue
         if len(concatenated.split()) != 1:
-            raise ValueError(
+            raise InvalidDomainInputError(
                 "cannot encode a boundary hint containing whitespace: "
                 f"{branch}:{concatenated!r}"
             )

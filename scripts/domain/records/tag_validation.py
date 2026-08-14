@@ -1,0 +1,249 @@
+"""Runtime validation for parsed tag-record boundaries."""
+
+from __future__ import annotations
+
+from collections.abc import Iterable
+from scripts.contracts.errors import InvalidDomainInputError
+from scripts.domain.records.tag_records import DeprecatedTag, EnTag, JpTag
+
+__all__ = [
+    "validate_deprecated_tags",
+    "validate_en_tags",
+    "validate_jp_tags",
+    "validate_tag_records",
+]
+
+
+def _ensure_unique(values: Iterable[str], label: str) -> None:
+    seen: set[str] = set()
+    duplicates: set[str] = set()
+    for value in values:
+        if value in seen:
+            duplicates.add(value)
+        seen.add(value)
+    if duplicates:
+        sample = ", ".join(sorted(duplicates)[:10])
+        raise InvalidDomainInputError(f"{label} が重複しています: {sample}")
+
+
+def _is_trimmed_nonempty_string(value: object) -> bool:
+    return isinstance(value, str) and bool(value) and value == value.strip()
+
+
+def _optional_boolean(
+    entry: dict[object, object],
+    key: str,
+    context: str,
+) -> bool:
+    value = entry.get(key)
+    if value is None:
+        return False
+    if not isinstance(value, bool):
+        raise InvalidDomainInputError(f"{context}{key}が不正です: {value!r}")
+    return value
+
+
+def _validate_en_meta(value: object) -> dict[str, list[str]]:
+    if value is None:
+        return {}
+    if not isinstance(value, dict):
+        raise InvalidDomainInputError(f"ENタグのmetaが不正です: {value!r}")
+    normalized: dict[str, list[str]] = {}
+    for key, values in value.items():
+        if (
+            not isinstance(key, str)
+            or not isinstance(values, list)
+            or any(not isinstance(item, str) for item in values)
+        ):
+            raise InvalidDomainInputError(f"ENタグのmetaが不正です: {value!r}")
+        normalized[key] = list(values)
+    return normalized
+
+
+def _validated_source_tags(value: object) -> list[str]:
+    if not isinstance(value, list) or not all(
+        _is_trimmed_nonempty_string(item) for item in value
+    ):
+        raise InvalidDomainInputError(f"JP側source_tagsが不正です: {value!r}")
+    return list(value)
+
+
+def _validate_en_tag_entry(entry: object, index: int) -> EnTag:
+    if (
+        not isinstance(entry, dict)
+        or "name" not in entry
+        or not isinstance(entry["name"], str)
+    ):
+        raise InvalidDomainInputError(f"ENタグデータの項目が不正です: index={index}")
+    name = entry["name"]
+    if not _is_trimmed_nonempty_string(name):
+        raise InvalidDomainInputError(f"ENタグ名が不正です: {name!r}")
+    category = entry.get("category")
+    if category is not None and not isinstance(category, str):
+        raise InvalidDomainInputError(f"ENタグのcategoryが不正です: {category!r}")
+    description = entry.get("description")
+    if description is not None and not isinstance(description, str):
+        raise InvalidDomainInputError(f"ENタグのdescriptionが不正です: {description!r}")
+    meta = _validate_en_meta(entry.get("meta"))
+    return {
+        "name": name,
+        "category": category,
+        "description": description or "",
+        "meta": meta,
+    }
+
+
+def validate_en_tags(raw: object) -> list[EnTag]:
+    """Validate a raw EN record list and return normalized tags or raise InvalidDomainInputError."""
+    if not isinstance(raw, list):
+        raise InvalidDomainInputError("ENタグデータは配列である必要があります")
+    records = [
+        _validate_en_tag_entry(entry, index)
+        for index, entry in enumerate(raw)
+    ]
+    _ensure_unique((entry["name"] for entry in records), "ENタグ名")
+    return records
+
+
+def _validate_jp_tag_entry(entry: object, index: int) -> JpTag:
+    if (
+        not isinstance(entry, dict)
+        or "name" not in entry
+        or not isinstance(entry["name"], str)
+    ):
+        raise InvalidDomainInputError(f"JPタグデータの項目が不正です: index={index}")
+    name = entry["name"]
+    if not _is_trimmed_nonempty_string(name):
+        raise InvalidDomainInputError(f"JPタグ名が不正です: {name!r}")
+    if "en_tag" in entry:
+        raise InvalidDomainInputError(f"JPタグデータに旧en_tagがあります: index={index}")
+    if "source_tags" not in entry:
+        raise InvalidDomainInputError("JP側source_tagsが不正です: 欠落")
+    source_tags = _validated_source_tags(entry["source_tags"])
+    description = entry.get("description")
+    if description is not None and not isinstance(description, str):
+        raise InvalidDomainInputError(f"JPタグのdescriptionが不正です: {description!r}")
+    return {
+        "name": name,
+        "description": description or "",
+        "source_tags": source_tags,
+        "use_restricted": _optional_boolean(entry, "use_restricted", "JPタグの"),
+        "edit_restricted": _optional_boolean(entry, "edit_restricted", "JPタグの"),
+        "translation_exempt": _optional_boolean(
+            entry,
+            "translation_exempt",
+            "JPタグの",
+        ),
+    }
+
+
+def validate_jp_tags(raw: object) -> list[JpTag]:
+    """Validate a raw JP record list and return normalized tags or raise InvalidDomainInputError."""
+    if not isinstance(raw, list):
+        raise InvalidDomainInputError("JPタグデータは配列である必要があります")
+    records = [
+        _validate_jp_tag_entry(entry, index)
+        for index, entry in enumerate(raw)
+    ]
+    _ensure_unique((entry["name"] for entry in records), "JPタグ名")
+    # Source aliases can occur in multiple JP categories in the published data;
+    # build_jp_names_and_source_map() resolves them through explicit policy and
+    # rejects unresolved conflicts.
+    return records
+
+
+def _validate_deprecated_replacement(
+    entry: dict[object, object],
+    jp_names: set[str],
+    require_registered_replacement: bool,
+) -> None:
+    replacement = entry.get("replacement")
+    if replacement is not None and not _is_trimmed_nonempty_string(replacement):
+        raise InvalidDomainInputError(f"非使用タグのreplacementが不正です: {replacement!r}")
+    source_lang = entry.get("source_lang")
+    if (
+        replacement is not None
+        and (source_lang or "EN") == "EN"
+        and require_registered_replacement
+        and replacement not in jp_names
+    ):
+        raise InvalidDomainInputError(
+            f"非使用タグのreplacementがJPタグに存在しません: {replacement!r}"
+        )
+
+
+def _validate_deprecated_tag_entry(
+    entry: object,
+    index: int,
+    jp_names: set[str],
+    require_registered_replacement: bool,
+) -> DeprecatedTag:
+    if not isinstance(entry, dict):
+        raise InvalidDomainInputError(f"非使用タグデータの項目が不正です: index={index}")
+    if "en_tag" in entry:
+        raise InvalidDomainInputError(f"非使用タグデータに旧en_tagがあります: index={index}")
+    if "source_tag" not in entry:
+        raise InvalidDomainInputError("非使用タグのsource_tagが不正です: 欠落")
+    source_tag = entry["source_tag"]
+    if not _is_trimmed_nonempty_string(source_tag):
+        raise InvalidDomainInputError(f"非使用タグのsource_tagが不正です: {source_tag!r}")
+    source_lang = entry.get("source_lang")
+    if "source_lang" in entry and not _is_trimmed_nonempty_string(source_lang):
+        raise InvalidDomainInputError(f"非使用タグのsource_langが不正です: {source_lang!r}")
+    _validate_deprecated_replacement(
+        entry,
+        jp_names,
+        require_registered_replacement,
+    )
+    description = entry.get("description")
+    if description is not None and not isinstance(description, str):
+        raise InvalidDomainInputError(f"非使用タグのdescriptionが不正です: {description!r}")
+    record: DeprecatedTag = {"source_tag": source_tag}
+    for key in ("source_lang", "replacement", "description"):
+        if key in entry:
+            record[key] = entry[key]
+    return record
+
+
+def validate_deprecated_tags(
+    raw: object,
+    jp_tags: list[JpTag] | None = None,
+) -> list[DeprecatedTag]:
+    """Validate deprecated records, optionally checking replacements against JP tags."""
+    if not isinstance(raw, list):
+        raise InvalidDomainInputError("非使用タグデータは配列である必要があります")
+    jp_names = {entry["name"] for entry in jp_tags or []}
+    records = [
+        _validate_deprecated_tag_entry(
+            entry,
+            index,
+            jp_names,
+            jp_tags is not None,
+        )
+        for index, entry in enumerate(raw)
+    ]
+    _ensure_unique(
+        (
+            entry["source_tag"]
+            for entry in records
+            if (entry.get("source_lang") or "EN") == "EN"
+        ),
+        "EN非使用タグ",
+    )
+    return records
+
+
+def validate_tag_records(
+    en_raw: object,
+    jp_raw: object,
+    deprecated_raw: object | None = None,
+) -> tuple[list[EnTag], list[JpTag], list[DeprecatedTag]]:
+    """Validate EN, JP, and optional deprecated records and return their typed lists."""
+    en_tags = validate_en_tags(en_raw)
+    jp_tags = validate_jp_tags(jp_raw)
+    deprecated_tags = (
+        validate_deprecated_tags(deprecated_raw, jp_tags)
+        if deprecated_raw is not None
+        else []
+    )
+    return en_tags, jp_tags, deprecated_tags

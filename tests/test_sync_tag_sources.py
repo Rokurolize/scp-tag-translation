@@ -7,7 +7,9 @@ from pathlib import Path
 
 import pytest
 
+from scripts.application import source_sync as source_workflow
 from scripts.commands import sync_tag_sources_from_corpus as source_sync
+from scripts.pipeline.source_manifest import corpus_source_map
 
 
 def _configure_source_tree(
@@ -22,8 +24,8 @@ def _configure_source_tree(
     }
     repository_root.mkdir()
     corpus_root.mkdir()
-    monkeypatch.setattr(source_sync, "ROOT", repository_root)
-    monkeypatch.setattr(source_sync, "SOURCE_MAP", source_map)
+    monkeypatch.setattr(source_workflow, "ROOT", repository_root)
+    monkeypatch.setattr(source_workflow, "corpus_source_map", lambda: source_map)
     return repository_root, corpus_root, source_map
 
 
@@ -144,6 +146,39 @@ def test_write_refuses_partial_source_set_without_publishing(
     assert f"  {destinations[1]}\n" in output
 
 
+def test_write_reports_zero_files_when_missing_source_blocks_publication(tmp_path):
+    repository_root = tmp_path / "repository"
+    corpus_root = tmp_path / "corpus"
+    source_map = {
+        "sources/en/tag-guide.txt": "en/pages/tag-guide/source.wikidot.txt",
+        "sources/jp/tag-guide.txt": "jp/pages/tag-guide/source.wikidot.txt",
+    }
+    available_source = _write_mapped_file(
+        corpus_root,
+        source_map["sources/en/tag-guide.txt"],
+        "new-en",
+    )
+    destination = _write_mapped_file(
+        repository_root,
+        "sources/en/tag-guide.txt",
+        "old-en",
+    )
+    result = source_workflow.sync_tag_sources(
+        corpus_root,
+        config=source_workflow.SourceSyncConfig(
+            source_map=source_map,
+            repository_root=repository_root,
+        ),
+    )
+
+    assert available_source.read_text(encoding="utf-8") == "new-en"
+    assert destination.read_text(encoding="utf-8") == "old-en"
+    assert result.written_file_count == 0
+    assert result.missing_sources == (
+        corpus_root / source_map["sources/jp/tag-guide.txt"],
+    )
+
+
 def test_write_synchronizes_every_stale_destination(
     tmp_path,
     monkeypatch,
@@ -176,6 +211,31 @@ def test_write_synchronizes_every_stale_destination(
     assert capsys.readouterr().out == "tag sources synced: 2 files\n"
 
 
+def test_write_synchronizes_the_complete_source_manifest(tmp_path):
+    repository_root = tmp_path / "repository"
+    corpus_root = tmp_path / "corpus"
+    source_map = corpus_source_map()
+    config = source_workflow.SourceSyncConfig(
+        source_map=source_map,
+        repository_root=repository_root,
+    )
+    for index, source_rel in enumerate(source_map.values()):
+        _write_mapped_file(corpus_root, source_rel, f"source-{index}")
+
+    result = source_workflow.sync_tag_sources(
+        corpus_root,
+        config=config,
+    )
+
+    assert result.stale_paths == ()
+    assert result.missing_sources == ()
+    assert result.written_file_count == len(source_map)
+    for index, destination_rel in enumerate(source_map):
+        assert (repository_root / destination_rel).read_text(encoding="utf-8") == (
+            f"source-{index}"
+        )
+
+
 def test_write_reports_publication_failure_without_traceback(
     tmp_path,
     monkeypatch,
@@ -193,7 +253,7 @@ def test_write_reports_publication_failure_without_traceback(
         raise OSError("disk full")
 
     monkeypatch.setattr(
-        source_sync,
+        source_workflow,
         "publish_files_atomically",
         fail_publication,
     )

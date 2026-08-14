@@ -3,17 +3,21 @@ import json
 
 import pytest
 
-from scripts.commands import build_branch_tag_coverage_data as coverage_builder
-from scripts.data_paths import ROOT
+from scripts.infrastructure.data_paths import ROOT
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
+from scripts.domain.tag_coverage import ACTION_DESCRIPTIONS, STATUS_DESCRIPTIONS
+from scripts.application.coverage_outputs import (
+    write_application_inventory_tsv,
+    write_coverage_tsv,
+)
 
 COVERAGE_JSON = ROOT / "visualization" / "branch_tag_coverage.json"
 COVERAGE_TSV = ROOT / "visualization" / "branch_tag_coverage.tsv"
 APPLICATION_JSON = ROOT / "visualization" / "tag_application_inventory.json"
 APPLICATION_TSV = ROOT / "visualization" / "tag_application_inventory.tsv"
 REQUIRED_BRANCHES = list(SUPPORTED_BRANCHES)
-KNOWN_STATUSES = set(coverage_builder.STATUS_DESCRIPTIONS)
-KNOWN_ACTIONS = set(coverage_builder.ACTION_DESCRIPTIONS)
+KNOWN_STATUSES = set(STATUS_DESCRIPTIONS)
+KNOWN_ACTIONS = set(ACTION_DESCRIPTIONS)
 
 
 @pytest.fixture
@@ -119,3 +123,82 @@ def test_application_inventory_exactly_matches_unhandled_coverage(coverage):
         for entry in branch["tags"]
     ]
     assert rows == expected_rows
+
+
+def test_coverage_serializers_preserve_nullable_and_delimited_fields(tmp_path):
+    coverage = {
+        "schema_version": 3,
+        "source": {},
+        "status_descriptions": {},
+        "action_descriptions": {},
+        "branches": [{
+            "branch": "en",
+            "site": "site",
+            "page_count": 1,
+            "tag_count": 1,
+            "status_counts": {},
+            "tags": [{
+                "tag": "tag\twith",
+                "rank": 1,
+                "page_count": 1,
+                "sample_slugs": ["slug,one", "line\nslug"],
+                "status": "unhandled",
+                "recognized_by_jp_policy": False,
+                "jp_tag": None,
+                "replacement": None,
+                "translation_action": "tag_application_required",
+                "copy_allowed": True,
+                "display_tag": "display\tvalue",
+                "target_policy": None,
+            }],
+        }],
+    }
+    inventory = {
+        "schema_version": 1,
+        "rule": "unhandled",
+        "branches": [{
+            "branch": "en",
+            "site": "site\tname",
+            "scanned_page_count": 1,
+            "tag_count": 1,
+            "tags": [{
+                "tag": "tag\twith",
+                "display_tag": "display, value",
+                "page_count": 1,
+                "sample_slugs": ["slug,one", "line\nslug"],
+            }],
+        }],
+    }
+
+    coverage_path = tmp_path / "coverage.tsv"
+    inventory_path = tmp_path / "inventory.tsv"
+    write_coverage_tsv(coverage_path, coverage)
+    write_application_inventory_tsv(inventory_path, inventory)
+
+    with coverage_path.open(encoding="utf-8", newline="") as file:
+        coverage_rows = list(csv.DictReader(file, delimiter="\t"))
+    with inventory_path.open(encoding="utf-8", newline="") as file:
+        inventory_rows = list(csv.DictReader(file, delimiter="\t"))
+
+    assert coverage_rows == [{
+        "branch": "en",
+        "tag": "tag\twith",
+        "rank": "1",
+        "page_count": "1",
+        "status": "unhandled",
+        "recognized_by_jp_policy": "false",
+        "jp_tag": "",
+        "replacement": "",
+        "translation_action": "tag_application_required",
+        "copy_allowed": "true",
+        "display_tag": "display\tvalue",
+        "sample_slugs": "slug,one,line\nslug",
+    }]
+    assert inventory_rows == [{
+        "site": "site\tname",
+        "branch": "en",
+        "source_tag": "tag\twith",
+        "display_tag": "display, value",
+        "page_count": "1",
+        "sample_slugs": "slug,one,line\nslug",
+    }]

@@ -2,69 +2,70 @@
 
 from __future__ import annotations
 
-import json
-import unicodedata
-from collections.abc import Iterable
-from pathlib import Path
+from collections.abc import Iterable, Mapping
 
-from scripts.domain.tag_models import DeprecatedTag, JpTag
-from scripts.domain.tag_policy import jp_maps
-from scripts.domain.tag_validation import validate_deprecated_tags, validate_jp_tags
-
-
-def normalize_tag(value: str) -> str:
-    """Normalize compatibility glyphs and discard invisible format controls."""
-
-    normalized = unicodedata.normalize("NFKC", value).strip()
-    return "".join(
-        character
-        for character in normalized
-        if unicodedata.category(character) != "Cf"
-    ).strip()
+from scripts.domain.policy.tag_policy import build_jp_names_and_source_map
+from scripts.contracts.errors import MappingConflictError
+from scripts.domain.records.tag_records import DeprecatedTag, JpTag
+from scripts.domain.records.tag_validation import validate_deprecated_tags, validate_jp_tags
+from scripts.domain.tag_text import normalize_tag
 
 
 class CrosswalkResolver:
-    """Resolve EN semantic anchors and JP labels to one current JP tag.
-
-    Official tables sometimes retain old JP spellings.  EN semantic anchors
-    are therefore resolved against the current JP ``source_tags`` first, while
-    a current JP label remains independent corroborating evidence.  Conflicting
-    current targets are rejected instead of choosing one silently.
-    """
+    """Resolve EN semantic anchors and JP labels to one current JP tag."""
 
     def __init__(
         self,
         jp_tags: list[JpTag],
         deprecated_tags: list[DeprecatedTag] | None = None,
-        origin_replacements: dict[str, str] | None = None,
+        origin_replacements: Mapping[str, str] | None = None,
     ) -> None:
-        self.jp_names: set[str] = set()
-        self.normalized_jp_names: dict[str, set[str]] = {}
-        self.source_to_jp: dict[str, str] = {}
+        """Index validated JP data; invalid records or mapping conflicts raise domain errors."""
         validated_jp_tags = validate_jp_tags(jp_tags)
         validated_deprecated_tags = validate_deprecated_tags(
             deprecated_tags or [],
             validated_jp_tags,
         )
-        for entry in validated_jp_tags:
+
+        self.jp_names: set[str] = set()
+        self.normalized_jp_names: dict[str, set[str]] = {}
+        self.source_to_jp: dict[str, str] = {}
+        self.en_replacements: dict[str, str] = {}
+
+        self._index_current_tags(validated_jp_tags)
+        self._index_en_replacements(
+            validated_deprecated_tags,
+            origin_replacements or {},
+        )
+
+    def _index_current_tags(self, jp_tags: list[JpTag]) -> None:
+        """Populate indexes derived from current JP tags."""
+
+        for entry in jp_tags:
             name = entry["name"]
             self.jp_names.add(name)
             self.normalized_jp_names.setdefault(normalize_tag(name), set()).add(name)
-        _jp_names, source_map = jp_maps(validated_jp_tags)
+        _, source_map = build_jp_names_and_source_map(jp_tags)
         for source_tag, name in source_map.items():
             normalized_source = normalize_tag(source_tag)
             if not normalized_source:
                 continue
             existing = self.source_to_jp.get(normalized_source)
             if existing is not None and existing != name:
-                raise ValueError(
+                raise MappingConflictError(
                     "source tag maps to multiple current JP tags: "
                     f"{normalized_source!r}->{existing!r}/{name!r}"
                 )
             self.source_to_jp[normalized_source] = name
 
-        self.en_replacements: dict[str, str] = {}
-        for entry in validated_deprecated_tags:
+    def _index_en_replacements(
+        self,
+        deprecated_tags: list[DeprecatedTag],
+        origin_replacements: Mapping[str, str],
+    ) -> None:
+        """Populate deterministic EN replacement mappings."""
+
+        for entry in deprecated_tags:
             if (entry.get("source_lang") or "EN") != "EN":
                 continue
             source_tag = entry["source_tag"]
@@ -73,7 +74,7 @@ class CrosswalkResolver:
                 targets = self.normalized_jp_names.get(normalize_tag(replacement), set())
                 if len(targets) == 1:
                     self._add_en_replacement(source_tag, next(iter(targets)))
-        for source_tag, replacement in (origin_replacements or {}).items():
+        for source_tag, replacement in origin_replacements.items():
             targets = self.normalized_jp_names.get(normalize_tag(replacement), set())
             if len(targets) == 1:
                 self._add_en_replacement(source_tag, next(iter(targets)))
@@ -84,14 +85,13 @@ class CrosswalkResolver:
             return
         existing = self.en_replacements.get(normalized_source)
         if existing is not None and existing != replacement:
-            raise ValueError(
+            raise MappingConflictError(
                 "deprecated source tag maps to multiple current JP tags: "
                 f"{normalized_source!r}->{existing!r}/{replacement!r}"
             )
         self.en_replacements[normalized_source] = replacement
 
-    def _resolve_en(self, value: str) -> str | None:
-        normalized = normalize_tag(value)
+    def _resolve_normalized_en(self, normalized: str) -> str | None:
         if normalized in self.en_replacements:
             return self.en_replacements[normalized]
         mapped = self.source_to_jp.get(normalized)
@@ -125,11 +125,8 @@ class CrosswalkResolver:
         targets = {
             target
             for value in normalized_en_values
-            if (target := self._resolve_en(value)) is not None
+            if (target := self._resolve_normalized_en(value)) is not None
         }
-        # A deprecated EN semantic replacement intentionally overrides the raw
-        # JP cell because official tables often retain an obsolete JP label.
-        # Other EN anchors remain independent evidence and can still conflict.
         if not semantic_replacements:
             targets.update(
                 target
@@ -141,13 +138,4 @@ class CrosswalkResolver:
         return next(iter(targets))
 
 
-def load_resolver(
-    jp_path: Path,
-    deprecated_path: Path,
-    origin_replacements: dict[str, str] | None = None,
-) -> CrosswalkResolver:
-    jp_tags = json.loads(jp_path.read_text(encoding="utf-8"))
-    deprecated_tags = json.loads(deprecated_path.read_text(encoding="utf-8"))
-    if not isinstance(jp_tags, list) or not isinstance(deprecated_tags, list):
-        raise ValueError("JP tag resolver inputs must be JSON arrays")
-    return CrosswalkResolver(jp_tags, deprecated_tags, origin_replacements)
+__all__ = ["CrosswalkResolver"]

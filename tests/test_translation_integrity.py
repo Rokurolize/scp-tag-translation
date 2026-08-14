@@ -4,8 +4,12 @@ from collections import defaultdict
 import json
 from pathlib import Path
 
-from scripts.parsers.int_parser import parse_int_crosswalk_raw
-from scripts.domain.tag_policy import EN_ORIGIN_TAG_REPLACEMENTS, jp_maps
+from scripts.domain.crosswalk_resolution import CrosswalkResolver
+from scripts.parsers.int_parser import parse_int_crosswalk
+from scripts.domain.policy.tag_policy import (
+    EN_ORIGIN_TAG_REPLACEMENTS,
+    build_jp_names_and_source_map,
+)
 
 
 ROOT = Path(__file__).parent.parent
@@ -37,7 +41,7 @@ def test_jp_source_tags_are_consistent_with_dict(
     committed_dict,
 ):
     """JP tag source aliases present in EN resolve to their JP record."""
-    _jp_names, expected = jp_maps(jp_tags_data)
+    _jp_names, expected = build_jp_names_and_source_map(jp_tags_data)
     failures = []
     for entry in jp_tags_data:
         for source_tag in entry["source_tags"]:
@@ -65,7 +69,12 @@ def test_genre_tags_are_published_as_translations(committed_dict):
     assert {tag: committed_dict.get(tag) for tag in expected} == expected
 
 
-def test_bidirectional_consistency(committed_dict, jp_tags_data, en_tag_names):
+def test_bidirectional_consistency(
+    committed_dict,
+    jp_tags_data,
+    deprecated_tags_data,
+    en_tag_names,
+):
     """EN辞書の値にJPリスト・FAQ・公式対応表の根拠がある。"""
     jp_pairs = {
         (source_tag, j["name"])
@@ -84,7 +93,15 @@ def test_bidirectional_consistency(committed_dict, jp_tags_data, en_tag_names):
             target = value["jp_tag"] if isinstance(value, dict) else value
             jp_pairs.add((source_tag, target))
 
-    official = parse_int_crosswalk_raw(ROOT / "sources" / "int" / "tag-guide.txt")
+    resolver = CrosswalkResolver(
+        jp_tags_data,
+        deprecated_tags_data,
+        EN_ORIGIN_TAG_REPLACEMENTS,
+    )
+    official = parse_int_crosswalk(
+        ROOT / "sources" / "int" / "tag-guide.txt",
+        resolver.resolve,
+    )
     jp_pairs.update(official.get("en", {}).items())
     failures = [
         f"dict['{en}']={jp!r} but JP source_tags has no ({en!r}, {jp!r}) pair"

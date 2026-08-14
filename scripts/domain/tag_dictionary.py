@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from scripts.domain.tag_models import DeprecatedTag, EnTag, JpTag
-from scripts.domain.tag_policy import (
+from scripts.domain.records.tag_records import DeprecatedTag, EnTag, JpTag
+from scripts.domain.policy.tag_policy import (
     EN_ORIGIN_TAG_REPLACEMENTS,
     MappingPolicy,
     en_category_omitted_tags,
@@ -11,12 +11,19 @@ from scripts.domain.tag_policy import (
     resolve_source_tag,
 )
 
+__all__ = ["build_branch_dict", "build_en_dicts"]
+
 
 def build_branch_dict(
     branch: str,
     source_tags: set[str],
     policy: MappingPolicy,
 ) -> tuple[dict[str, str | None], dict[str, str]]:
+    """Build branch dictionaries from source tags and policy.
+
+    Raises:
+        MappingConflictError: If inherited policy replacements conflict.
+    """
     branch_policy = policy.for_branch(branch)
     all_source_tags = (
         set(source_tags)
@@ -47,6 +54,11 @@ def build_en_dicts(
     corpus_tags: set[str],
     policy: MappingPolicy,
 ) -> tuple[dict[str, str | None], dict[str, str]]:
+    """Build EN dictionaries from records and policy.
+
+    Raises:
+        MappingConflictError: If inherited policy replacements conflict.
+    """
     branch_policy = policy.for_branch("en")
     deprecated_en_tags = {
         entry["source_tag"]

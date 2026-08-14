@@ -39,7 +39,7 @@ python -m pytest
 - `ko_tag_crosswalk.json`：SCP-KOの公式対訳表
 - `branch_guide_crosswalk.json`：各支部の公式タグガイド
 
-`scripts/parsers/crosswalk_resolver.py`は、ENの意味タグと公式表のJP表記を現行JPタグへ正規化します。
+`scripts/domain/crosswalk_resolution.py`は、ENの意味タグと公式表のJP表記を現行JPタグへ正規化します。
 複数の現行JPタグへ分かれる行は採用しません。
 `scripts/parsers/branch_guide_parser.py`は、同じ翻訳元タグに未解決行が併記されている場合も採用しません。
 

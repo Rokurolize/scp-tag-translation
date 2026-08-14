@@ -24,7 +24,7 @@ const branchConfig = fs.readFileSync(
   path.join(repoRoot, "branch_config.js"),
   "utf8"
 );
-const scriptMatch = indexHtml.match(/<script>([\s\S]*?)<\/script>/);
+const scriptMatch = indexHtml.match(/<script id="app-script">([\s\S]*?)<\/script>/);
 if (!scriptMatch) {
   throw new Error("index.htmlのscriptブロックが見つかりません");
 }
