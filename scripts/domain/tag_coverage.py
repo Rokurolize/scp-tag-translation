@@ -5,7 +5,6 @@ from __future__ import annotations
 from collections import Counter
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from pathlib import Path
 
 from scripts.domain.branch_config import (
     BRANCH_CONFIG_BY_CODE,
@@ -232,7 +231,7 @@ def _build_coverage_branch(
 
 
 def build_coverage(
-    corpus_root: Path,
+    corpus_root_label: str,
     branches: Sequence[str],
     inputs: CoverageInputs,
     branch_tag_stats: Mapping[str, BranchTagStats],
@@ -275,7 +274,7 @@ def build_coverage(
     return {
         "schema_version": 3,
         "source": {
-            "corpus_root": str(corpus_root),
+            "corpus_root": corpus_root_label,
             "jp_tag_source": "sources/jp/tag-list.txt + registered fragments",
             "jp_unused_source": "sources/jp/fragment-unused.txt",
             "override_source": "sources/branch_to_jp_overrides.json",

@@ -124,7 +124,7 @@ def test_build_coverage_classifies_corpus_tags_and_preserves_ordering(tmp_path):
     _write_page(corpus_root, "en", "b", ["copy"])
 
     coverage = tag_coverage.build_coverage(
-        corpus_root,
+        str(corpus_root),
         ["cn", "en"],
         _coverage_inputs(),
         {
@@ -226,7 +226,7 @@ def test_build_coverage_rejects_missing_mapped_target_policy(tmp_path):
 def test_build_coverage_rejects_missing_branch_statistics(tmp_path):
     with pytest.raises(ValueError, match="statistics missing for: en"):
         tag_coverage.build_coverage(
-            tmp_path,
+            str(tmp_path),
             ["en"],
             _coverage_inputs(),
             {},
@@ -237,7 +237,7 @@ def test_build_coverage_rejects_missing_branch_statistics(tmp_path):
 def test_build_coverage_rejects_invalid_branch_selection(tmp_path, branches):
     with pytest.raises(ValueError, match="branch"):
         tag_coverage.build_coverage(
-            tmp_path,
+            str(tmp_path),
             branches,
             _coverage_inputs(),
             {},
