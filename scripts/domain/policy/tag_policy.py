@@ -33,9 +33,9 @@ __all__ = [
 
 
 EN_CATEGORIES_OMITTED_ON_JP = frozenset(("Genre", "Genre and Themes"))
-# A source tag can occur in more than one JP category while the JP tag system
-# is being migrated.  The published dictionary has one context-free value, so
-# these ambiguous aliases need an explicit canonical target.
+# A source tag can occur in more than one JP category in the published data.
+# The dictionary has one context-free value, so ambiguous aliases need an
+# explicit canonical target.
 JP_SOURCE_TAG_MAPPING_OVERRIDES: Mapping[str, str] = MappingProxyType({
     "ghost": "幽霊",
     "orientation": "オリエンテーション",

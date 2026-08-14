@@ -105,17 +105,6 @@ def validate_en_tags(raw: object) -> list[EnTag]:
     return records
 
 
-def _validate_optional_boolean_fields(
-    entry: dict[object, object],
-    keys: tuple[str, ...],
-    context: str,
-) -> None:
-    for key in keys:
-        value = entry.get(key)
-        if value is not None and not isinstance(value, bool):
-            raise InvalidDomainInputError(f"{context}{key}が不正です: {value!r}")
-
-
 def _validate_jp_tag_entry(entry: object, index: int) -> JpTag:
     if (
         not isinstance(entry, dict)
@@ -134,11 +123,6 @@ def _validate_jp_tag_entry(entry: object, index: int) -> JpTag:
     description = entry.get("description")
     if description is not None and not isinstance(description, str):
         raise InvalidDomainInputError(f"JPタグのdescriptionが不正です: {description!r}")
-    _validate_optional_boolean_fields(
-        entry,
-        ("use_restricted", "edit_restricted", "translation_exempt"),
-        "JPタグの",
-    )
     return {
         "name": name,
         "description": description or "",
@@ -162,9 +146,9 @@ def validate_jp_tags(raw: object) -> list[JpTag]:
         for index, entry in enumerate(raw)
     ]
     _ensure_unique((entry["name"] for entry in records), "JPタグ名")
-    # A source alias may intentionally occur in multiple JP categories during
-    # a tag-system migration.  build_jp_names_and_source_map() resolves those aliases using the
-    # explicit mapping policy and rejects unresolved conflicts.
+    # Source aliases can occur in multiple JP categories in the published data;
+    # build_jp_names_and_source_map() resolves them through explicit policy and
+    # rejects unresolved conflicts.
     return records
 
 

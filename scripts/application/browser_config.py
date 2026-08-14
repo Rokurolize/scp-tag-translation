@@ -51,7 +51,12 @@ def render_browser_config() -> str:
 def publish_browser_config(
     output: Path | None = None,
 ) -> None:
-    """Render and atomically publish the browser configuration artifact."""
+    """Render and atomically publish the browser configuration artifact.
+
+    Raises:
+        OSError: If staging, replacement, rollback, or cleanup cannot access
+            the configured output path.
+    """
     content = render_browser_config()
     publish_files_atomically({
         output or DEFAULT_OUTPUT: lambda temporary: write_text(temporary, content),
