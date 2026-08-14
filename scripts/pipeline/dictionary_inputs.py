@@ -41,7 +41,7 @@ __all__ = [
     "complete_hint_dictionaries_from_existing",
     "default_mapping_input_paths",
     "load_mapping_inputs",
-    "load_mapping_policy_inputs",
+    "load_mapping_policy_documents",
     "load_tag_records",
 ]
 
@@ -156,10 +156,10 @@ def default_mapping_input_paths() -> MappingInputPaths:
     )
 
 
-def load_mapping_policy_inputs(
+def load_mapping_policy_documents(
     paths: MappingInputPaths | None = None,
 ) -> MappingPolicyInputs:
-    """Load policy inputs.
+    """Load source documents used to compose a mapping policy.
 
     Raises:
         InvalidDomainInputError: If an override or crosswalk JSON object is invalid.
@@ -206,7 +206,7 @@ def load_mapping_inputs(
         paths,
         require_complete_inputs=require_complete_inputs,
     )
-    policy = policy_inputs or load_mapping_policy_inputs(paths)
+    policy = policy_inputs or load_mapping_policy_documents(paths)
     return LoadedMappingInputs(
         en_tags=records.en_tags,
         jp_tags=records.jp_tags,

@@ -11,7 +11,6 @@ from scripts.application import coverage_html as workflow
 
 
 def main() -> None:
-    """Run the CLI from ``sys.argv``; invalid inputs exit with status 1."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=workflow.DEFAULT_INPUT)
     parser.add_argument("--output", type=Path, default=workflow.DEFAULT_OUTPUT)

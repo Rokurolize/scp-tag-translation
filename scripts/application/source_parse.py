@@ -258,6 +258,7 @@ def parse_and_publish_sources(
         FileNotFoundError: If a required source file or directory is missing.
         OSError: If source reads or publication filesystem operations fail.
         AtomicPublicationError: If publication rollback or cleanup fails.
+        TypeError: If a parsed output cannot be JSON serialized.
     """
     batch = collect_parsed_source_outputs(language, config=config)
     if batch.diagnostics:

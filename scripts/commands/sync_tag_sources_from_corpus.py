@@ -11,7 +11,6 @@ from scripts.application import source_sync as workflow
 
 
 def main() -> None:
-    """Run the CLI from ``sys.argv``; invalid inputs exit with status 1."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--corpus-root",
