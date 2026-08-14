@@ -634,9 +634,6 @@
         }
       }
 
-      /**
-       * 連結タグの最長一致分割
-       */
       function splitConcatenatedTags(token, dictionary) {
         // 同じ辞書を使うたびに索引を作り直さないよう、prefix trieをキャッシュする
         let trieRoot = splitDictionaryIndexCache.get(dictionary);
@@ -696,9 +693,6 @@
         return result;
       }
 
-      /**
-       * コピー機能（フォールバック付き）
-       */
       function copyResult() {
         const textArea = document.getElementById("targetText");
         const text = textArea.value;
@@ -719,9 +713,6 @@
         }
       }
 
-      /**
-       * execCommand('copy') フォールバック処理
-       */
       function fallbackCopyText(textAreaElement) {
         let selection = null;
         let range = null;
