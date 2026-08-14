@@ -6,6 +6,13 @@ from collections.abc import Iterable
 from scripts.domain.errors import InvalidDomainInputError
 from scripts.domain.records.tag_records import DeprecatedTag, EnTag, JpTag
 
+__all__ = [
+    "validate_deprecated_tags",
+    "validate_en_tags",
+    "validate_jp_tags",
+    "validate_tag_records",
+]
+
 
 def _ensure_unique(values: Iterable[str], label: str) -> None:
     seen: set[str] = set()

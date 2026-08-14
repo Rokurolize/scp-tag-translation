@@ -1,9 +1,35 @@
 import pytest
 
 from scripts.domain.policy import tag_policy
+from scripts.domain.records import tag_validation
 from scripts.domain.policy.policy_builder import deprecated_by_source_lang
 from scripts.domain.tag_dictionary import build_en_dicts
 from scripts.domain.tag_dictionary import build_branch_dict
+
+
+def test_shared_domain_modules_declare_exact_public_exports():
+    assert tag_policy.__all__ == [
+        "BranchMappingPolicy",
+        "EN_CATEGORIES_OMITTED_ON_JP",
+        "EN_CROSSWALK_SEMANTIC_REPLACEMENTS",
+        "EN_ORIGIN_TAG_REPLACEMENTS",
+        "JP_SOURCE_TAG_MAPPING_OVERRIDES",
+        "MappingOrigin",
+        "MappingPolicy",
+        "SourceTagResolution",
+        "branch_to_source_lang",
+        "build_jp_names_and_source_map",
+        "en_category_omitted_tags",
+        "is_deprecated_for_en_source",
+        "resolve_source_tag",
+        "source_languages_for_branch",
+    ]
+    assert tag_validation.__all__ == [
+        "validate_deprecated_tags",
+        "validate_en_tags",
+        "validate_jp_tags",
+        "validate_tag_records",
+    ]
 
 def test_branch_builder_applies_expected_precedence(jp_tags_data):
     jp_names, jp_source_map = tag_policy.build_jp_names_and_source_map(jp_tags_data)

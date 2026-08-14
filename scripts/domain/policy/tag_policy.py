@@ -14,6 +14,24 @@ from scripts.domain.records.tag_records import (
 )
 from scripts.domain.errors import InvalidDomainInputError, MappingConflictError
 
+__all__ = [
+    "BranchMappingPolicy",
+    "EN_CATEGORIES_OMITTED_ON_JP",
+    "EN_CROSSWALK_SEMANTIC_REPLACEMENTS",
+    "EN_ORIGIN_TAG_REPLACEMENTS",
+    "JP_SOURCE_TAG_MAPPING_OVERRIDES",
+    "MappingOrigin",
+    "MappingPolicy",
+    "SourceTagResolution",
+    "branch_to_source_lang",
+    "build_jp_names_and_source_map",
+    "en_category_omitted_tags",
+    "is_deprecated_for_en_source",
+    "resolve_source_tag",
+    "source_languages_for_branch",
+]
+
+
 EN_CATEGORIES_OMITTED_ON_JP = frozenset(("Genre", "Genre and Themes"))
 # A source tag can occur in more than one JP category while the JP tag system
 # is being migrated.  The published dictionary has one context-free value, so
