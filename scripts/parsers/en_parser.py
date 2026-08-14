@@ -94,8 +94,8 @@ def parse_en_tags(
 ) -> list[EnTag]:
     """Parse the Wikidot EN tag list into typed records.
 
-    Strict mode reports tag-shaped lines that cannot be parsed, preserving the
-    source location instead of silently publishing an incomplete artifact.
+    In strict mode, malformed tag-shaped lines are appended to ``diagnostics``
+    when provided; otherwise the parser raises ``SourceParseError``.
     """
 
     tags_data: list[EnTag] = []
