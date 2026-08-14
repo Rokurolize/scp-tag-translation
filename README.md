@@ -143,7 +143,7 @@ pyright
 ブラウザ内の翻訳処理を検証するテストにはNode.jsが必要です。Python部分だけを意図的に実行する場合は`SCP_ALLOW_MISSING_NODE=1`を指定すると、Node.js依存テストが明示的にスキップされます。
 
 Pythonモジュールの公開面は、コマンド入口では`main`、直接利用するライブラリでは`__all__`に列挙し、その他の実装ヘルパーはアンダースコアで始める規則です。新しい直接利用モジュールを追加するときは、公開関数・型・定数を`__all__`に明示してください。
-実コーパスの連結タグ回帰は外部コーパスを必要とするため、CIでは`SCP_WIKI_CORPUS_ROOT`を provision してから`SCP_WIKI_CORPUS_ROOT=/path/to/corpus python -m pytest -m corpus_integration`を実行してください。CI環境で変数が未設定の場合はテストを失敗させ、ローカルの通常実行では合成コーパスのスモークテストを維持します。
+実コーパスの連結タグ回帰は外部コーパスを必要とするため、GitHub Actionsの`Corpus regression` workflowを手動実行し、`scp-wiki-translation`のブランチ別Release assetを指定してください。ローカルでは`SCP_WIKI_CORPUS_ROOT=/path/to/corpus python -m pytest -m corpus_integration`を実行し、変数が未設定の通常実行では合成コーパスのスモークテストを維持します。
 
 ## ディレクトリ構成
 

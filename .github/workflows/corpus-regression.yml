@@ -1,0 +1,54 @@
+name: Corpus regression
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: GitHub Release tag in Rokurolize/scp-wiki-translation containing the corpus assets
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  corpus-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the translation project
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install test dependencies
+        run: python -m pip install -r requirements-dev.txt
+      - name: Download the requested corpus release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.release_tag }}
+        run: |
+          set -euo pipefail
+          assets_dir="$RUNNER_TEMP/scp-corpus-assets"
+          corpus_root="$RUNNER_TEMP/scp-corpus"
+          mkdir -p "$assets_dir" "$corpus_root"
+          for branch in cn cs de en es fr int it ko pl pt-br th ua vn zh-tr; do
+            gh release download "$RELEASE_TAG" \
+              --repo Rokurolize/scp-wiki-translation \
+              --pattern "corpus-${branch}-*.tar.gz" \
+              --dir "$assets_dir" \
+              --clobber
+            mapfile -t archives < <(find "$assets_dir" -maxdepth 1 -type f -name "corpus-${branch}-*.tar.gz" -print)
+            if [[ "${#archives[@]}" -ne 1 ]]; then
+              echo "Expected exactly one corpus asset for ${branch}, found ${#archives[@]}" >&2
+              exit 1
+            fi
+            tar -xzf "${archives[0]}" -C "$corpus_root"
+          done
+          echo "SCP_WIKI_CORPUS_ROOT=$corpus_root" >> "$GITHUB_ENV"
+      - name: Run the real-corpus regression
+        run: python -m pytest -m corpus_integration

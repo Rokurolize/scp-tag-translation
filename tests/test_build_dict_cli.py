@@ -39,10 +39,11 @@ def redirected_build_dict_paths(tmp_path, monkeypatch):
         replacement_overrides=data_dir / "replacement-overrides.json",
         crosswalks=(data_dir / "crosswalk.json",),
     )
+    config_type = legacy_workflow.LegacyDictionaryBuildConfig
     monkeypatch.setattr(
         legacy_workflow,
-        "default_mapping_input_paths",
-        lambda: mapping_paths,
+        "LegacyDictionaryBuildConfig",
+        lambda: config_type(mapping_inputs=mapping_paths),
     )
     monkeypatch.setattr(sys, "argv", ["build_dict.py"])
     return paths

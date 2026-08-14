@@ -26,9 +26,7 @@ from scripts.compatibility.legacy_dictionary import (
 class LegacyDictionaryBuildConfig:
     """Repository paths and policy inputs for one compatibility build."""
 
-    mapping_inputs: MappingInputPaths = field(
-        default_factory=lambda: default_mapping_input_paths(),
-    )
+    mapping_inputs: MappingInputPaths = field(default_factory=default_mapping_input_paths)
     dictionary_path: Path = field(default_factory=lambda: EN_DICTIONARY_PATH)
     deprecated_dictionary_path: Path = field(
         default_factory=lambda: DEPRECATED_EN_DICTIONARY_PATH,

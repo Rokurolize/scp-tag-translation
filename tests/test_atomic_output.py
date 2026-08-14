@@ -1,9 +1,20 @@
+import multiprocessing
 from pathlib import Path
 from threading import Event, Thread
 
 import pytest
 
 from scripts.infrastructure import atomic_output
+
+
+def _hold_publication_lock(
+    destinations: list[str],
+    entered,
+    release,
+) -> None:
+    with atomic_output._publication_lock({Path(path): None for path in destinations}):
+        entered.set()
+        release.wait(5)
 
 
 def _write(value: str):
@@ -274,3 +285,41 @@ def test_concurrent_publishers_serialize_backup_and_replacement(tmp_path, monkey
     assert not second.is_alive()
     assert errors == []
     assert destination.read_text(encoding="utf-8") == "second"
+
+
+def test_overlapping_destination_batches_lock_each_shared_path(tmp_path):
+    context = multiprocessing.get_context("fork")
+    first = tmp_path / "first.txt"
+    second = tmp_path / "second.txt"
+    first_entered = context.Event()
+    first_release = context.Event()
+    second_entered = context.Event()
+    second_release = context.Event()
+    first_process = context.Process(
+        target=_hold_publication_lock,
+        args=([str(first), str(second)], first_entered, first_release),
+    )
+    second_process = context.Process(
+        target=_hold_publication_lock,
+        args=([str(first)], second_entered, second_release),
+    )
+    first_process.start()
+    second_process.start()
+    try:
+        assert first_entered.wait(5)
+        assert not second_entered.wait(0.2)
+        first_release.set()
+        first_process.join(5)
+        assert first_process.exitcode == 0
+        assert second_entered.wait(5)
+        second_release.set()
+        second_process.join(5)
+        assert second_process.exitcode == 0
+    finally:
+        first_release.set()
+        second_release.set()
+        for process in (first_process, second_process):
+            process.join(5)
+            if process.is_alive():
+                process.terminate()
+                process.join(5)

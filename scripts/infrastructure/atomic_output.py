@@ -29,20 +29,32 @@ class AtomicPublicationError(OSError):
 
 @contextmanager
 def _publication_lock(destinations: Mapping[Path, object]):
-    """Serialize one destination set across threads and cooperating processes."""
-    identity = "\0".join(
-        str(destination.resolve())
+    """Serialize overlapping destination batches in stable path order."""
+    lock_paths = [
+        Path(tempfile.gettempdir())
+        / (
+            "scp-tag-translation-"
+            + hashlib.sha256(str(destination.resolve()).encode()).hexdigest()[:32]
+            + ".lock"
+        )
         for destination in sorted(destinations, key=lambda path: str(path.resolve()))
-    )
-    lock_digest = hashlib.sha256(identity.encode()).hexdigest()[:32]
-    lock_name = f"scp-tag-translation-{lock_digest}.lock"
-    lock_path = Path(tempfile.gettempdir()) / lock_name
-    with _PROCESS_PUBLICATION_LOCK, lock_path.open("a+") as lock_file:
-        fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
+    ]
+    with _PROCESS_PUBLICATION_LOCK:
+        lock_files = []
         try:
+            for lock_path in lock_paths:
+                lock_file = lock_path.open("a+")
+                try:
+                    fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
+                except BaseException:
+                    lock_file.close()
+                    raise
+                lock_files.append(lock_file)
             yield
         finally:
-            fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
+            for lock_file in reversed(lock_files):
+                fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
+                lock_file.close()
 
 
 def _operation_error(
