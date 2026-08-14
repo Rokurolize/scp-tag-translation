@@ -18,6 +18,9 @@ class IntParser(Protocol):
         self,
         input_path: Path,
         resolver: TargetResolver,
+        *,
+        strict: bool = False,
+        diagnostics: MutableSequence[str] | None = None,
     ) -> CrosswalkMappings: ...
 
 
@@ -26,6 +29,9 @@ class KoParser(Protocol):
         self,
         input_path: Path,
         resolver: TargetResolver,
+        *,
+        strict: bool = False,
+        diagnostics: MutableSequence[str] | None = None,
     ) -> CrosswalkMappings: ...
 
 

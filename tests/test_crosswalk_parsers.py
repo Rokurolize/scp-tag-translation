@@ -47,6 +47,66 @@ def test_ko_crosswalk_parses_direct_jp_vectors():
     assert mappings["ko"]["정신조작"] == "精神影響"
 
 
+def test_official_crosswalk_snapshots_are_strict_and_diagnostic_free():
+    int_diagnostics = []
+    int_source = Path(__file__).parent.parent / "sources" / "int" / "tag-guide.txt"
+    int_mappings = int_parser.parse_int_crosswalk(
+        int_source,
+        _single_jp_target,
+        strict=True,
+        diagnostics=int_diagnostics,
+    )
+
+    ko_diagnostics = []
+    ko_source = Path(__file__).parent.parent / "sources" / "ko" / "translate-tags.txt"
+    ko_mappings = ko_parser.parse_ko_crosswalk(
+        ko_source,
+        _single_valid_jp_target,
+        strict=True,
+        diagnostics=ko_diagnostics,
+    )
+
+    assert int_diagnostics == []
+    assert ko_diagnostics == []
+    assert int_mappings["int"]["cognitohazard"] == "認識災害"
+    assert ko_mappings["ko"]["생물"] == "生命"
+
+
+def test_strict_crosswalk_reports_malformed_tag_links(tmp_path):
+    int_source = tmp_path / "int.txt"
+    int_source.write_text(
+        "|| **EN** || **JP** || **CN** ||\n"
+        "|| [/system:page-tags/tag/ broken || 対象 || ||\n",
+        encoding="utf-8",
+    )
+    int_diagnostics = []
+    int_parser.parse_int_crosswalk(
+        int_source,
+        _single_jp_target,
+        strict=True,
+        diagnostics=int_diagnostics,
+    )
+
+    ko_source = tmp_path / "ko.txt"
+    ko_source.write_text(
+        "||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||\n"
+        "|| source || 対象 || [*/system:page-tags/tag/ broken] ||\n",
+        encoding="utf-8",
+    )
+    ko_diagnostics = []
+    ko_parser.parse_ko_crosswalk(
+        ko_source,
+        _single_valid_jp_target,
+        strict=True,
+        diagnostics=ko_diagnostics,
+    )
+
+    assert len(int_diagnostics) == 1
+    assert "invalid INT EN tag link" in int_diagnostics[0]
+    assert len(ko_diagnostics) == 1
+    assert "invalid KO tag link" in ko_diagnostics[0]
+
+
 def test_crosswalk_resolver_normalizes_stale_ko_jp_labels(
     jp_tags_data,
     deprecated_tags_data,

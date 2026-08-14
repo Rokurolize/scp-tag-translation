@@ -56,15 +56,19 @@ def collect_crosswalk_parses(
     require_file(inputs.sources_int, "INTタグクロスウォーク")
     require_file(inputs.sources_ko, "KOタグクロスウォーク")
     _require_branch_guides(inputs.branch_guide_sources)
+    diagnostics: list[str] = []
     int_mappings = int_parser_impl.parse_int_crosswalk(
         inputs.sources_int,
         resolver.resolve,
+        strict=True,
+        diagnostics=diagnostics,
     )
     ko_mappings = ko_parser_impl.parse_ko_crosswalk(
         inputs.sources_ko,
         resolver.resolve,
+        strict=True,
+        diagnostics=diagnostics,
     )
-    diagnostics: list[str] = []
     branch_analysis = branch_guide_parser_impl.analyze_branch_guides(
         inputs.branch_guide_sources,
         resolver.resolve,

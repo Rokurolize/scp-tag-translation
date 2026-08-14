@@ -146,14 +146,31 @@ def test_invalid_jp_tag_data_fails_fast():
         build_domain_dictionary(EN, [{"name": " テイル", "source_tags": ["tale"]}])
 
 
-def test_invalid_jp_source_tag_data_fails_fast():
+@pytest.mark.parametrize(
+    "source_tags",
+    ["tale", [""], [" tale"], ["tale "]],
+)
+def test_invalid_jp_source_tag_data_fails_fast(source_tags):
     with pytest.raises(ValueError, match="JP側source_tags"):
-        build_domain_dictionary(EN, [{"name": "テイル", "source_tags": [" tale"]}])
+        build_domain_dictionary(EN, [{"name": "テイル", "source_tags": source_tags}])
 
 
 def test_missing_jp_source_tags_fail_fast():
     with pytest.raises(ValueError, match="JP側source_tags"):
         build_domain_dictionary(EN, [{"name": "テイル"}])
+
+
+def test_jp_source_tags_are_copied_during_validation():
+    source_tags = ["tale"]
+    records = validate_tag_records(
+        EN,
+        [{"name": "テイル", "source_tags": source_tags}],
+        [],
+    )[1]
+
+    source_tags.append("mutated")
+
+    assert records[0]["source_tags"] == ["tale"]
 
 
 @pytest.mark.parametrize(

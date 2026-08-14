@@ -53,10 +53,9 @@ def _validate_en_meta(value: object) -> dict[str, list[str]]:
     return normalized
 
 
-def _validated_source_tags(entry: dict[object, object]) -> list[str]:
-    value = entry.get("source_tags")
+def _validated_source_tags(value: object) -> list[str]:
     if not isinstance(value, list) or not all(
-        isinstance(item, str) for item in value
+        _valid_trimmed_string(item) for item in value
     ):
         raise InvalidDomainInputError(f"JP側source_tagsが不正です: {value!r}")
     return list(value)
@@ -98,12 +97,6 @@ def validate_en_tags(raw: object) -> list[EnTag]:
     return records
 
 
-def _valid_source_tags(value: object) -> bool:
-    return isinstance(value, list) and all(
-        _valid_trimmed_string(item) for item in value
-    )
-
-
 def _validate_optional_boolean_fields(
     entry: dict[object, object],
     keys: tuple[str, ...],
@@ -129,9 +122,7 @@ def _validate_jp_tag_entry(entry: object, index: int) -> JpTag:
         raise InvalidDomainInputError(f"JPタグデータに旧en_tagがあります: index={index}")
     if "source_tags" not in entry:
         raise InvalidDomainInputError("JP側source_tagsが不正です: 欠落")
-    source_tags = entry["source_tags"]
-    if not _valid_source_tags(source_tags):
-        raise InvalidDomainInputError(f"JP側source_tagsが不正です: {source_tags!r}")
+    source_tags = _validated_source_tags(entry["source_tags"])
     description = entry.get("description")
     if description is not None and not isinstance(description, str):
         raise InvalidDomainInputError(f"JPタグのdescriptionが不正です: {description!r}")
@@ -143,7 +134,7 @@ def _validate_jp_tag_entry(entry: object, index: int) -> JpTag:
     return {
         "name": name,
         "description": description or "",
-        "source_tags": _validated_source_tags(entry),
+        "source_tags": source_tags,
         "use_restricted": _optional_boolean(entry, "use_restricted", "JPタグの"),
         "edit_restricted": _optional_boolean(entry, "edit_restricted", "JPタグの"),
         "translation_exempt": _optional_boolean(
