@@ -27,11 +27,6 @@ class BranchOverrideRecord(TypedDict, total=False):
     note: str
 
 
-class RawBranchOverrideRecord(TypedDict, total=False):
-    jp_tag: str
-    note: str
-
-
 BranchOverrideValue: TypeAlias = str | BranchOverrideRecord
 BranchOverrideFile: TypeAlias = Mapping[str, Mapping[str, BranchOverrideValue]]
 ReplacementOverrideFile: TypeAlias = Mapping[str, Mapping[str, str]]
@@ -41,12 +36,5 @@ OfficialCrosswalkFile: TypeAlias = Mapping[str, Mapping[str, str]]
 class DeprecatedTag(TypedDict, total=False):
     source_lang: str
     source_tag: Required[str]
-    replacement: str | None
-    description: str
-
-
-class RawDeprecatedTag(TypedDict, total=False):
-    source_lang: str
-    source_tag: str
     replacement: str | None
     description: str

@@ -2,15 +2,12 @@
 
 from __future__ import annotations
 
-from collections.abc import Iterable
 from dataclasses import replace
 from dataclasses import dataclass
 from pathlib import Path
 
 from scripts.domain.errors import InvalidDomainInputError
-from scripts.domain.policy.policy_builder import MappingPolicyInputs, build_mapping_policy
-from scripts.domain.records.tag_records import EnTag, JpTag
-from scripts.domain.records.tag_validation import validate_tag_records
+from scripts.domain.policy.policy_builder import MappingPolicyInputs
 from scripts.domain.tag_dictionary import build_en_dicts
 from scripts.infrastructure.data_paths import (
     DATA_DEPRECATED,
@@ -27,7 +24,6 @@ from scripts.application.mapping_inputs import (
 
 __all__ = [
     "LegacyDictionaryConfig",
-    "build_legacy_en_dictionary",
     "build_legacy_outputs",
     "validate_existing_dict",
 ]
@@ -41,25 +37,6 @@ class LegacyDictionaryConfig:
     data_jp: Path = DATA_JP
     data_deprecated: Path = DATA_DEPRECATED
     dictionary_path: Path = EN_DICTIONARY_PATH
-
-
-def _ensure_no_case_variant_keys(
-    existing_keys: Iterable[str],
-    source_keys: Iterable[str],
-    label: str,
-) -> None:
-    lower_to_source = {key.lower(): key for key in source_keys}
-    collisions = []
-    for key in existing_keys:
-        source_key = lower_to_source.get(key.lower())
-        if source_key is not None and key != source_key:
-            collisions.append(f"{key} -> {source_key}")
-
-    if collisions:
-        sample = ", ".join(sorted(collisions)[:10])
-        raise InvalidDomainInputError(
-            f"{label} に大小文字違いの重複があります: {sample}"
-        )
 
 
 def validate_existing_dict(raw: object) -> dict[str, str | None]:
@@ -78,57 +55,6 @@ def validate_existing_dict(raw: object) -> dict[str, str | None]:
         en_name: jp_name
         for en_name, jp_name in raw.items()
     }
-
-
-def build_legacy_en_dictionary(
-    en_tags: list[EnTag],
-    jp_tags: list[JpTag],
-    existing: dict[str, str | None] | None = None,
-    deprecated_en_tags: set[str] | None = None,
-) -> dict[str, str | None]:
-    """Build one EN dictionary for callers of the legacy compatibility API."""
-    existing = existing or {}
-    deprecated_en_tags = deprecated_en_tags or set()
-    deprecated_raw = [
-        {"source_lang": "EN", "source_tag": source_tag}
-        for source_tag in deprecated_en_tags
-    ]
-    en_tags, jp_tags, deprecated_raw = validate_tag_records(
-        en_tags,
-        jp_tags,
-        deprecated_raw,
-    )
-    validate_existing_dict(existing)
-    _ensure_no_case_variant_keys(
-        existing.keys(),
-        (entry["name"] for entry in en_tags),
-        "既存辞書キー",
-    )
-    policy = build_mapping_policy(
-        jp_tags,
-        deprecated_raw,
-        MappingPolicyInputs(
-            overrides={},
-            replacement_overrides={},
-            official_crosswalks=(),
-            compatibility_overrides={
-                "en": {
-                    source_tag: target
-                    for source_tag, target in existing.items()
-                    if target is not None
-                }
-            },
-        ),
-        include_origin_replacements=False,
-    )
-    dictionary, _replacements = build_en_dicts(
-        en_tags,
-        jp_tags,
-        deprecated_raw,
-        set(existing),
-        policy,
-    )
-    return dictionary
 
 
 def build_legacy_outputs(

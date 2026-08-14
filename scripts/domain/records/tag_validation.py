@@ -36,19 +36,21 @@ def _optional_boolean(
     return value
 
 
-def _validated_meta(entry: dict[object, object]) -> dict[str, list[str]]:
-    value = entry.get("meta")
+def _validate_en_meta(value: object) -> dict[str, list[str]]:
     if value is None:
         return {}
     if not isinstance(value, dict):
         raise InvalidDomainInputError(f"ENタグのmetaが不正です: {value!r}")
-    return {
-        key: list(values)
-        for key, values in value.items()
-        if isinstance(key, str)
-        and isinstance(values, list)
-        and all(isinstance(item, str) for item in values)
-    }
+    normalized: dict[str, list[str]] = {}
+    for key, values in value.items():
+        if (
+            not isinstance(key, str)
+            or not isinstance(values, list)
+            or any(not isinstance(item, str) for item in values)
+        ):
+            raise InvalidDomainInputError(f"ENタグのmetaが不正です: {value!r}")
+        normalized[key] = list(values)
+    return normalized
 
 
 def _validated_source_tags(entry: dict[object, object]) -> list[str]:
@@ -58,18 +60,6 @@ def _validated_source_tags(entry: dict[object, object]) -> list[str]:
     ):
         raise InvalidDomainInputError(f"JP側source_tagsが不正です: {value!r}")
     return list(value)
-
-
-def _validate_en_meta(value: object) -> None:
-    if value is None:
-        return
-    if not isinstance(value, dict) or any(
-        not isinstance(key, str)
-        or not isinstance(values, list)
-        or any(not isinstance(item, str) for item in values)
-        for key, values in value.items()
-    ):
-        raise InvalidDomainInputError(f"ENタグのmetaが不正です: {value!r}")
 
 
 def _validate_en_tag_entry(entry: object, index: int) -> EnTag:
@@ -88,12 +78,12 @@ def _validate_en_tag_entry(entry: object, index: int) -> EnTag:
     description = entry.get("description")
     if description is not None and not isinstance(description, str):
         raise InvalidDomainInputError(f"ENタグのdescriptionが不正です: {description!r}")
-    _validate_en_meta(entry.get("meta"))
+    meta = _validate_en_meta(entry.get("meta"))
     return {
         "name": name,
         "category": category,
         "description": description or "",
-        "meta": _validated_meta(entry),
+        "meta": meta,
     }
 
 
