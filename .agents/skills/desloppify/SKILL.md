@@ -4,7 +4,7 @@ description: Use for Desloppify codebase scans, health scores, cleanup plans, an
 ---
 
 <!-- desloppify-begin -->
-<!-- desloppify-skill-version: 14 -->
+<!-- desloppify-skill-version: 15 -->
 
 # Desloppify
 
@@ -291,14 +291,15 @@ If the fix is unclear or the change needs discussion, open an issue at `https://
 
 ## Prerequisite
 
-The expected checkout is `${DESLOPPIFY_REPO:-$HOME/src/Rokurolize/desloppify}`. Check both the launcher (`command -v desloppify`) and the imported module:
+The expected checkout is `${DESLOPPIFY_REPO:-$HOME/src/Rokurolize/desloppify}`. Check the launcher and the module imported by that same uv-managed environment:
 
 ```bash
 desloppify --version
-python -c 'import desloppify; print(desloppify.__file__)'
+DESLOPPIFY_PYTHON="$(sed -n '1s/^#!//p' "$(command -v desloppify)")"
+"$DESLOPPIFY_PYTHON" -c 'import desloppify; print(desloppify.__file__)'
 ```
 
-If those resolve different installations, use the launcher after repairing it or set `PYTHONPATH` to the local checkout for a one-off source verification; otherwise you may scan with an unfixed Desloppify copy.
+If those resolve different installations, repair the editable uv tool before scanning; do not rely on a bare system `python` or a global `PYTHONPATH` override.
 
 If the launcher or environment is missing or stale, repair it with `uv tool install --editable --force "${DESLOPPIFY_REPO:-$HOME/src/Rokurolize/desloppify}[full]"`. Do not install `desloppify` from PyPI.
 
