@@ -23,7 +23,6 @@ from scripts.domain.policy.tag_policy import (
     source_languages_for_branch,
 )
 from scripts.domain.records.tag_validation import validate_jp_tags
-from scripts.contracts.errors import InvalidDomainInputError
 
 
 @dataclass(frozen=True)

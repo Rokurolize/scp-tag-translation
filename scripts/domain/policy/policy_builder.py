@@ -12,7 +12,7 @@ from scripts.domain.records.tag_records import (
     OfficialCrosswalkFile,
     ReplacementOverrideFile,
 )
-from scripts.contracts.errors import InvalidDomainInputError, MappingConflictError
+from scripts.contracts.errors import InvalidDomainInputError
 from scripts.domain.policy.tag_policy import (
     EN_ORIGIN_TAG_REPLACEMENTS,
     MappingPolicy,

@@ -30,6 +30,10 @@ class AtomicPublicationError(OSError):
 @contextmanager
 def _publication_lock(destinations: Mapping[Path, object]):
     """Serialize overlapping destination batches in stable path order."""
+    resolved_destinations = sorted({
+        destination.resolve()
+        for destination in destinations
+    }, key=str)
     lock_paths = [
         Path(tempfile.gettempdir())
         / (
@@ -37,7 +41,7 @@ def _publication_lock(destinations: Mapping[Path, object]):
             + hashlib.sha256(str(destination.resolve()).encode()).hexdigest()[:32]
             + ".lock"
         )
-        for destination in sorted(destinations, key=lambda path: str(path.resolve()))
+        for destination in resolved_destinations
     ]
     with _PROCESS_PUBLICATION_LOCK:
         lock_files = []
@@ -174,11 +178,22 @@ def publish_files_atomically(writers: Mapping[Path, FileWriter]) -> None:
     Existing permissions are preserved; new generated files use mode 0644.
 
     Raises:
+        ValueError: If multiple writer keys resolve to the same destination.
         OSError: If a filesystem operation fails.
         AtomicPublicationError: If rollback or cleanup also fails.
         BaseException: Any exception raised by a writer callback propagates
             unchanged.
     """
+
+    resolved_destinations: dict[Path, Path] = {}
+    for destination in writers:
+        resolved = destination.resolve()
+        previous = resolved_destinations.setdefault(resolved, destination)
+        if previous != destination:
+            raise ValueError(
+                "publication contains equivalent destination paths: "
+                f"{previous} and {destination}"
+            )
 
     staged: dict[Path, Path] = {}
     backups: dict[Path, Path | None] = {}
