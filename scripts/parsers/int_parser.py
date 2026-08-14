@@ -154,6 +154,12 @@ def parse_int_crosswalk(
     strict: bool = False,
     diagnostics: MutableSequence[str] | None = None,
 ) -> CrosswalkMappings:
+    """Parse the official INT table into branch mappings via ``resolver``.
+
+    Lenient parsing ignores malformed rows. With ``strict=True``, malformed
+    source records are appended to ``diagnostics`` when supplied, or raise
+    ``SourceParseError`` when no diagnostics sink is supplied.
+    """
     return resolve_crosswalk_candidates(
         _iter_int_crosswalk_candidates(
             input_path,

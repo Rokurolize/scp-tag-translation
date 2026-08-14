@@ -101,6 +101,12 @@ def parse_ko_crosswalk(
     strict: bool = False,
     diagnostics: MutableSequence[str] | None = None,
 ) -> CrosswalkMappings:
+    """Parse the official KO table into mappings resolved by ``resolver``.
+
+    Lenient parsing ignores malformed rows. With ``strict=True``, malformed
+    source records are appended to ``diagnostics`` when supplied, or raise
+    ``SourceParseError`` when no diagnostics sink is supplied.
+    """
     mappings = resolve_crosswalk_candidates(
         _iter_ko_crosswalk_candidates(
             input_path,
