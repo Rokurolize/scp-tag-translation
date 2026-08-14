@@ -241,8 +241,10 @@ def publish_parsed_source_outputs(
     """Publish parsed source records in one atomic batch.
 
     Raises:
-        OSError: If a writer or filesystem operation fails.
+        TypeError: If a parsed output cannot be JSON serialized.
+        OSError: If a filesystem operation fails.
         AtomicPublicationError: If rollback or cleanup also fails.
+        BaseException: Other exceptions raised by a writer propagate unchanged.
     """
     publish_files_atomically({
         destination: lambda temporary, data=data: write_json(temporary, data)

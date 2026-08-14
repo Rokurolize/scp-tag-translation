@@ -274,7 +274,7 @@ _PARSERS = {
 }
 
 
-def _parse_zh(
+def _parse_zh_tr_branch_guides(
     paths: Sequence[Path],
 ) -> Iterable[tuple[str, list[str], list[str]]]:
     pattern = re.compile(r"[（(]\s*([^（）()]+?)\s*[）)]")
@@ -383,7 +383,7 @@ def analyze_branch_guides(
         if strict:
             _validate_source_links(paths, diagnostics)
         rows = (
-            _parse_zh(paths)
+            _parse_zh_tr_branch_guides(paths)
             if branch == "zh-tr"
             else _PARSERS[branch](
                 line
