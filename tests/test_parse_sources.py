@@ -394,6 +394,26 @@ def test_main_reports_expected_input_failures(monkeypatch, capsys, error):
     assert capsys.readouterr().out == (f"エラー: ソース解析に失敗しました: {error}\n")
 
 
+def test_main_reports_successful_batch_in_command_adapter(monkeypatch):
+    monkeypatch.setattr(sys, "argv", ["parse_sources.py", "--lang", "all"])
+    batch = source_parse_models.ParseBatch(
+        outputs={},
+        messages=("published",),
+        diagnostics=(),
+    )
+    reported = []
+    monkeypatch.setattr(
+        parse_workflow,
+        "parse_and_publish_sources",
+        lambda _language: batch,
+    )
+    monkeypatch.setattr(parse_sources, "report_batch", reported.append)
+
+    parse_sources.main()
+
+    assert reported == [batch]
+
+
 def test_main_does_not_hide_programming_errors(monkeypatch):
     monkeypatch.setattr(sys, "argv", ["parse_sources.py", "--lang", "all"])
     monkeypatch.setattr(

@@ -39,7 +39,6 @@ from scripts.application.source_parsing.records import (
 from scripts.application.source_parsing.reporting import (
     SourceParseDiagnosticsError,
     merge_batches,
-    report_batch,
 )
 
 Language = Literal["en", "jp", "crosswalks", "all"]
@@ -247,12 +246,11 @@ def parse_and_publish_sources(
     *,
     config: ParseWorkflowConfig | None = None,
 ) -> ParseBatch:
-    """Collect, publish, and report one workflow; raises diagnostics or I/O errors on failure."""
+    """Collect and publish one workflow; raises diagnostics or I/O errors on failure."""
     batch = collect_parsed_source_outputs(language, config=config)
     if batch.diagnostics:
         raise SourceParseDiagnosticsError(batch.diagnostics)
     publish_parsed_source_outputs(batch.outputs)
-    report_batch(batch)
     return batch
 
 
