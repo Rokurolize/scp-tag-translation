@@ -137,6 +137,11 @@ def test_build_coverage_classifies_corpus_tags_and_preserves_ordering(tmp_path):
     assert coverage["source"]["corpus_root"] == str(corpus_root)
     assert coverage["status_descriptions"] == tag_coverage.STATUS_DESCRIPTIONS
     assert coverage["action_descriptions"] == tag_coverage.ACTION_DESCRIPTIONS
+    assert coverage["status_descriptions"] is not tag_coverage.STATUS_DESCRIPTIONS
+    coverage["status_descriptions"]["unhandled"] = "mutated"
+    assert tag_coverage.STATUS_DESCRIPTIONS["unhandled"] == (
+        "No current JP tag-list mapping, reviewed override, or official crosswalk."
+    )
     assert [branch["branch"] for branch in coverage["branches"]] == ["cn", "en"]
 
     cn_entries = {

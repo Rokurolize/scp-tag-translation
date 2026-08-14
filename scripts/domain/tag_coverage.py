@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections import Counter
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
+from types import MappingProxyType
 
 from scripts.domain.branch_config import (
     BRANCH_CONFIG_BY_CODE,
@@ -43,7 +44,7 @@ __all__ = [
     "build_coverage",
 ]
 
-STATUS_DESCRIPTIONS: dict[ClassificationStatus, str] = {
+STATUS_DESCRIPTIONS: Mapping[ClassificationStatus, str] = MappingProxyType({
     "jp_unused_replacement": "Listed in the JP unused-tag page for this source branch with one replacement.",
     "jp_unused_no_single_replacement": "Listed in the JP unused-tag page for this source branch without one deterministic replacement.",
     "jp_translation_policy_omit": "Not copied because the JP tag-list FAQ says to omit this source category on translations.",
@@ -52,8 +53,8 @@ STATUS_DESCRIPTIONS: dict[ClassificationStatus, str] = {
     "curated_override_only": "Not recorded in the JP tag list, but mapped by local reviewed override data.",
     "official_crosswalk": "Mapped by an official SCP-INT or branch-local tag crosswalk to a current registered JP tag.",
     "unhandled": "No current JP tag-list mapping, reviewed override, or official crosswalk.",
-}
-ACTION_DESCRIPTIONS: dict[CoverageTranslationAction, str] = {
+})
+ACTION_DESCRIPTIONS: Mapping[CoverageTranslationAction, str] = MappingProxyType({
     "copy": "Registered JP tag; copyable for a translated page.",
     "copy_replacement": "JP unused source tag replaced by one registered copyable JP tag.",
     "omit_jp_unused": "JP explicitly does not use this source tag; omit it.",
@@ -61,7 +62,7 @@ ACTION_DESCRIPTIONS: dict[CoverageTranslationAction, str] = {
     "omit_jp_policy": "Registered JP tag whose own definition says not to apply it to this translation.",
     "staff_permission_required": "Mapped JP restriction tag without translation exemption; do not copy without staff permission.",
     "tag_application_required": "No JP tag-list mapping; omit and request/confirm a JP tag before use.",
-}
+})
 
 
 @dataclass(frozen=True)
@@ -281,8 +282,8 @@ def build_coverage(
             "deprecated_override_source": "sources/deprecated_replacement_overrides.json",
             "crosswalk_source": "SCP-INT, SCP-KO, and synced branch-local official tag guides",
         },
-        "status_descriptions": STATUS_DESCRIPTIONS,
-        "action_descriptions": ACTION_DESCRIPTIONS,
+            "status_descriptions": dict(STATUS_DESCRIPTIONS),
+            "action_descriptions": dict(ACTION_DESCRIPTIONS),
         "branches": branch_entries,
     }
 
