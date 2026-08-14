@@ -7,9 +7,9 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from scripts.domain.crosswalk_resolution import CrosswalkResolver
+from scripts.parsers import branch_guide_parser, int_parser, ko_parser
 from scripts.parsers.contracts import BranchGuideAnalysis, CrosswalkMappings
 
-from .contracts import BranchGuideParser, IntParser, KoParser
 from .records import require_file
 
 
@@ -47,9 +47,6 @@ def _require_branch_guides(
 def collect_crosswalk_parses(
     *,
     inputs: CrosswalkParseInputs,
-    int_parser_impl: IntParser,
-    ko_parser_impl: KoParser,
-    branch_guide_parser_impl: BranchGuideParser,
     resolver: CrosswalkResolver,
 ) -> CrosswalkParseResult:
     """Run all crosswalk parsers and return one typed stage result."""
@@ -57,19 +54,19 @@ def collect_crosswalk_parses(
     require_file(inputs.sources_ko, "KOタグクロスウォーク")
     _require_branch_guides(inputs.branch_guide_sources)
     diagnostics: list[str] = []
-    int_mappings = int_parser_impl.parse_int_crosswalk(
+    int_mappings = int_parser.parse_int_crosswalk(
         inputs.sources_int,
         resolver.resolve,
         strict=True,
         diagnostics=diagnostics,
     )
-    ko_mappings = ko_parser_impl.parse_ko_crosswalk(
+    ko_mappings = ko_parser.parse_ko_crosswalk(
         inputs.sources_ko,
         resolver.resolve,
         strict=True,
         diagnostics=diagnostics,
     )
-    branch_analysis = branch_guide_parser_impl.analyze_branch_guides(
+    branch_analysis = branch_guide_parser.analyze_branch_guides(
         inputs.branch_guide_sources,
         resolver.resolve,
         strict=True,

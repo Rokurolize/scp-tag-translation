@@ -15,6 +15,7 @@ from scripts.application.source_parsing.crosswalks import (
     CrosswalkParseInputs,
     collect_crosswalk_parses,
 )
+from scripts.application.source_parsing import crosswalks as crosswalk_stage
 from scripts.application.source_parsing import models as source_parse_models
 from scripts.application.source_parsing import records as source_parse_records
 from scripts.application.source_parsing import reporting as source_parse_reporting
@@ -86,53 +87,17 @@ def test_crosswalk_stage_collects_parser_results_and_diagnostics(tmp_path):
     int_source = tmp_path / "int.txt"
     ko_source = tmp_path / "ko.txt"
     guide_source = tmp_path / "guide.txt"
-    for source in (int_source, ko_source, guide_source):
-        source.write_text("fixture\n", encoding="utf-8")
-
-    class IntParser:
-        def parse_int_crosswalk(
-            self,
-            input_path,
-            resolver,
-            *,
-            strict=False,
-            diagnostics=None,
-        ):
-            assert input_path == int_source
-            assert strict is True
-            assert diagnostics == []
-            assert resolver(["unknown"], []) is None
-            return {"int": {"source": "対象"}}
-
-    class KoParser:
-        def parse_ko_crosswalk(
-            self,
-            input_path,
-            resolver,
-            *,
-            strict=False,
-            diagnostics=None,
-        ):
-            assert input_path == ko_source
-            assert strict is True
-            assert diagnostics == []
-            assert resolver(["unknown"], []) is None
-            return {"ko": {"한국어": "対象"}}
-
-    class BranchGuideParser:
-        def analyze_branch_guides(
-            self,
-            source_paths,
-            resolver,
-            *,
-            strict,
-            diagnostics,
-        ):
-            assert source_paths == {"ua": (guide_source,)}
-            assert strict is True
-            assert resolver(["unknown"], []) is None
-            diagnostics.append("ua:1: unresolved")
-            return _branch_analysis(accepted=1, unresolved=1)
+    int_source.write_text(
+        "|| **EN** || **JP** || **CN** ||\n"
+        "|| source || target || ||\n",
+        encoding="utf-8",
+    )
+    ko_source.write_text(
+        "||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||\n"
+        "|| source || target || [*/system:page-tags/tag/ko-tag] ||\n",
+        encoding="utf-8",
+    )
+    guide_source.write_text("**source** (source)\n", encoding="utf-8")
 
     result = collect_crosswalk_parses(
         inputs=CrosswalkParseInputs(
@@ -140,16 +105,15 @@ def test_crosswalk_stage_collects_parser_results_and_diagnostics(tmp_path):
             sources_ko=ko_source,
             branch_guide_sources={"ua": (guide_source,)},
         ),
-        int_parser_impl=IntParser(),
-        ko_parser_impl=KoParser(),
-        branch_guide_parser_impl=BranchGuideParser(),
-        resolver=CrosswalkResolver([]),
+        resolver=CrosswalkResolver(
+            [{"name": "target", "source_tags": ["source"]}]
+        ),
     )
 
-    assert result.int_mappings == {"int": {"source": "対象"}}
-    assert result.ko_mappings == {"ko": {"한국어": "対象"}}
-    assert result.branch_analysis.stats["ua"]["accepted_tags"] == 1
-    assert result.diagnostics == ("ua:1: unresolved",)
+    assert result.int_mappings["en"] == {"source": "target"}
+    assert result.ko_mappings == {"ko": {"ko-tag": "target"}}
+    assert result.branch_analysis.mappings == {"ua": {"source": "target"}}
+    assert result.diagnostics == ()
 
 
 def _redirect_pipeline_paths(monkeypatch, tmp_path: Path) -> tuple[Path, ...]:
@@ -239,17 +203,17 @@ def test_run_all_does_not_publish_when_last_parser_fails(tmp_path, monkeypatch):
         lambda _path, **_kwargs: [],
     )
     monkeypatch.setattr(
-        parse_workflow.int_parser,
+        crosswalk_stage.int_parser,
         "parse_int_crosswalk",
         lambda *_args, **_kwargs: {"en": {}},
     )
     monkeypatch.setattr(
-        parse_workflow.ko_parser,
+        crosswalk_stage.ko_parser,
         "parse_ko_crosswalk",
         lambda *_args, **_kwargs: {"ko": {}},
     )
     monkeypatch.setattr(
-        parse_workflow.branch_guide_parser,
+        crosswalk_stage.branch_guide_parser,
         "analyze_branch_guides",
         lambda *_args, **_kwargs: (_ for _ in ()).throw(ValueError("late parser failure")),
     )
@@ -290,14 +254,14 @@ def test_all_crosswalks_use_same_run_jp_records(tmp_path, monkeypatch):
     def parse_int(_path, resolver, **_kwargs):
         return {"en": {"semantic": resolver(["semantic"], [])}}
 
-    monkeypatch.setattr(parse_workflow.int_parser, "parse_int_crosswalk", parse_int)
+    monkeypatch.setattr(crosswalk_stage.int_parser, "parse_int_crosswalk", parse_int)
     monkeypatch.setattr(
-        parse_workflow.ko_parser,
+        crosswalk_stage.ko_parser,
         "parse_ko_crosswalk",
         lambda *_args, **_kwargs: {"ko": {}},
     )
     monkeypatch.setattr(
-        parse_workflow.branch_guide_parser,
+        crosswalk_stage.branch_guide_parser,
         "analyze_branch_guides",
         lambda *_args, **_kwargs: _branch_analysis(
             {"ua": {"local": "new-target"}},
@@ -365,17 +329,17 @@ def test_run_all_publishes_six_outputs_in_one_atomic_batch(tmp_path, monkeypatch
         lambda _path, **_kwargs: [],
     )
     monkeypatch.setattr(
-        parse_workflow.int_parser,
+        crosswalk_stage.int_parser,
         "parse_int_crosswalk",
         lambda *_args, **_kwargs: {"en": {}},
     )
     monkeypatch.setattr(
-        parse_workflow.ko_parser,
+        crosswalk_stage.ko_parser,
         "parse_ko_crosswalk",
         lambda *_args, **_kwargs: {"ko": {}},
     )
     monkeypatch.setattr(
-        parse_workflow.branch_guide_parser,
+        crosswalk_stage.branch_guide_parser,
         "analyze_branch_guides",
         lambda *_args, **_kwargs: _branch_analysis(),
     )

@@ -23,7 +23,7 @@ from scripts.infrastructure.data_paths import (
     ROOT,
 )
 from scripts.infrastructure.json_io import write_json
-from scripts.parsers import branch_guide_parser, en_parser, int_parser, jp_parser, ko_parser
+from scripts.parsers import en_parser, jp_parser
 from scripts.pipeline.source_manifest import (
     branch_guide_sources,
     parser_source_path,
@@ -90,17 +90,6 @@ class ParseWorkflowConfig:
     outputs: ParseOutputPaths = field(default_factory=ParseOutputPaths)
 
 
-def _build_crosswalk_resolver(
-    jp_tags: list[JpTag],
-    deprecated_tags: list[DeprecatedTag],
-) -> CrosswalkResolver:
-    return CrosswalkResolver(
-        jp_tags,
-        deprecated_tags,
-        EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
-    )
-
-
 def _collect_en_outputs(config: ParseWorkflowConfig) -> ParseBatch:
     require_file(config.sources.en, "ENソースファイル")
     diagnostics: list[str] = []
@@ -161,17 +150,17 @@ def _collect_crosswalk_outputs(
     jp_tags: list[JpTag],
     deprecated_tags: list[DeprecatedTag],
 ) -> ParseBatch:
-    resolver = _build_crosswalk_resolver(jp_tags, deprecated_tags)
     parsed = collect_crosswalk_parses(
         inputs=CrosswalkParseInputs(
             sources_int=config.sources.int,
             sources_ko=config.sources.ko,
             branch_guide_sources=config.sources.branch_guides,
         ),
-        int_parser_impl=int_parser,
-        ko_parser_impl=ko_parser,
-        branch_guide_parser_impl=branch_guide_parser,
-        resolver=resolver,
+        resolver=CrosswalkResolver(
+            jp_tags,
+            deprecated_tags,
+            EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
+        ),
     )
     int_mappings = parsed.int_mappings
     ko_mappings = parsed.ko_mappings
