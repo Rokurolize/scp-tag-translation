@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 
 from scripts.contracts.errors import InvalidDomainInputError
@@ -24,7 +24,7 @@ __all__ = [
 class LegacyDictionaryConfig:
     """Output and existing-dictionary settings for the legacy workflow."""
 
-    dictionary_path: Path = EN_DICTIONARY_PATH
+    dictionary_path: Path = field(default_factory=lambda: EN_DICTIONARY_PATH)
 
 
 def validate_existing_dict(raw: object) -> dict[str, str | None]:
@@ -49,10 +49,11 @@ def validate_existing_dict(raw: object) -> dict[str, str | None]:
 def build_legacy_outputs(
     *,
     overwrite: bool,
-    config: LegacyDictionaryConfig = LegacyDictionaryConfig(),
+    config: LegacyDictionaryConfig | None = None,
     loaded_inputs: LoadedMappingInputs,
 ) -> tuple[dict[str, str | None], dict[str, str]]:
     """Build legacy EN outputs, raising existing-file validation, policy, or filesystem errors."""
+    config = config or LegacyDictionaryConfig()
     loaded = loaded_inputs
     existing: dict[str, str | None] = {}
     if not overwrite and config.dictionary_path.exists():
