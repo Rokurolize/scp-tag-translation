@@ -300,6 +300,17 @@ def test_application_coverage_workflow_uses_configured_branch_scope(
         )
 
 
+def test_default_coverage_config_resolves_current_output_default(
+    tmp_path,
+    monkeypatch,
+):
+    monkeypatch.setattr(coverage_workflow, "DEFAULT_OUTPUT_DIR", tmp_path)
+
+    config = coverage_workflow.default_coverage_build_config()
+
+    assert config.output_dir == tmp_path
+
+
 def test_branch_command_selection_normalizes_once():
     assert normalize_branch_selection(["en", "jp", "_private"]) == ("en",)
     with pytest.raises(ValueError, match="対象支部"):

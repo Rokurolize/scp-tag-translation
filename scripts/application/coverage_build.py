@@ -35,7 +35,7 @@ DEFAULT_OUTPUT_DIR = VISUALIZATION_DIR
 class CoverageBuildConfig:
     """Input and output locations for one coverage build."""
 
-    output_dir: Path = DEFAULT_OUTPUT_DIR
+    output_dir: Path = field(default_factory=lambda: DEFAULT_OUTPUT_DIR)
     supported_branches: tuple[str, ...] = SUPPORTED_BRANCHES
     mapping_inputs: MappingInputPaths = field(
         default_factory=default_mapping_input_paths,
@@ -44,12 +44,12 @@ class CoverageBuildConfig:
 
 def default_coverage_build_config(
     *,
-    output_dir: Path = DEFAULT_OUTPUT_DIR,
+    output_dir: Path | None = None,
     supported_branches: Sequence[str] = SUPPORTED_BRANCHES,
 ) -> CoverageBuildConfig:
     """Return the repository's default coverage build configuration."""
     return CoverageBuildConfig(
-        output_dir=output_dir,
+        output_dir=DEFAULT_OUTPUT_DIR if output_dir is None else output_dir,
         supported_branches=tuple(supported_branches),
         mapping_inputs=default_mapping_input_paths(),
     )

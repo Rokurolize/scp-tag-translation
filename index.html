@@ -307,9 +307,6 @@
           .addEventListener("click", copyResult);
       }
 
-      /**
-       * メインの翻訳処理
-       */
       function doTranslate() {
         const requestId = ++translationRequestId;
         clearLog();
@@ -321,7 +318,6 @@
         const inputStr = document.getElementById("sourceText").value.trim();
 
         if (!inputStr) {
-          // 入力が空のときは翻訳結果をクリアし、ローディング非表示
           document.getElementById("targetText").value = "";
           showLoading(false);
           return;
@@ -592,10 +588,8 @@
           appendTranslatedTag(srcLang, sourceBranchTag, true);
         }
 
-        // 結果をテキストエリアに表示
         document.getElementById("targetText").value = translatedList.join(" ");
 
-        // ログ表示
         const logParts = [];
         if (replacedList.length > 0) {
           logParts.push(
@@ -688,7 +682,6 @@
           }
         }
 
-        // 分割できない場合は元のトークンをそのまま返す
         if (!canSplit[0]) {
           return [token];
         }
@@ -779,23 +772,14 @@
         }
       }
 
-      /**
-       * ローディング表示の制御
-       */
       function showLoading(isLoading) {
         loadingIndicator.style.display = isLoading ? "flex" : "none";
       }
 
-      /**
-       * ログをクリア
-       */
       function clearLog() {
         document.getElementById("logArea").textContent = "";
       }
 
-      /**
-       * ログにメッセージを追記
-       */
       function setLog(message) {
         const logArea = document.getElementById("logArea");
         if (logArea.textContent) {
