@@ -33,11 +33,26 @@ def _imports_from(package: str) -> set[str]:
 
 
 def test_layered_packages_keep_dependency_direction_explicit():
+    command_imports = _imports_from("commands")
+    compatibility_imports = _imports_from("compatibility")
     domain_imports = _imports_from("domain")
     parser_imports = _imports_from("parsers")
     pipeline_imports = _imports_from("pipeline")
     infrastructure_imports = _imports_from("infrastructure")
 
+    assert not any(
+        module.startswith((
+            "scripts.domain",
+            "scripts.infrastructure",
+            "scripts.parsers",
+            "scripts.pipeline",
+        ))
+        for module in command_imports
+    )
+    assert not any(
+        module.startswith("scripts.parsers")
+        for module in compatibility_imports
+    )
     assert not any(
         module.startswith(("scripts.application", "scripts.pipeline", "scripts.parsers"))
         for module in domain_imports

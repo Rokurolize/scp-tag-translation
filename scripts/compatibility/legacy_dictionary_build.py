@@ -11,9 +11,11 @@ from scripts.infrastructure.data_paths import (
     EN_DICTIONARY_PATH,
 )
 from scripts.infrastructure.json_io import write_json
-from scripts.application.mapping_inputs import (
+from scripts.pipeline.dictionary_inputs import (
     MappingInputPaths,
     default_mapping_input_paths,
+)
+from scripts.application.mapping_inputs import (
     load_mapping_inputs,
 )
 from scripts.compatibility.legacy_dictionary import (

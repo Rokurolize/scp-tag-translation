@@ -11,7 +11,7 @@ from scripts.infrastructure.data_paths import (
     EN_DICTIONARY_PATH,
 )
 from scripts.infrastructure.json_io import load_json
-from scripts.application.mapping_inputs import LoadedMappingInputs
+from scripts.pipeline.dictionary_inputs import LoadedMappingInputs
 
 __all__ = [
     "LegacyDictionaryConfig",

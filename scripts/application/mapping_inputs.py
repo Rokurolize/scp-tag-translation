@@ -4,15 +4,12 @@ from __future__ import annotations
 
 from scripts.domain.policy.policy_builder import MappingPolicyInputs, build_mapping_policy
 from scripts.domain.tag_coverage import CoverageInputs
-from scripts.pipeline import dictionary_inputs as pipeline_inputs
-
-MappingInputPaths = pipeline_inputs.MappingInputPaths
-LoadedMappingInputs = pipeline_inputs.LoadedMappingInputs
-default_mapping_input_paths = pipeline_inputs.default_mapping_input_paths
-complete_hint_dictionaries_from_existing = (
-    pipeline_inputs.complete_hint_dictionaries_from_existing
+from scripts.pipeline.dictionary_inputs import (
+    LoadedMappingInputs,
+    MappingInputPaths,
+    default_mapping_input_paths,
 )
-
+from scripts.pipeline import dictionary_inputs as pipeline_inputs
 
 def load_mapping_inputs(
     paths: MappingInputPaths | None = None,
@@ -52,10 +49,6 @@ def to_coverage_inputs(loaded: LoadedMappingInputs) -> CoverageInputs:
 
 
 __all__ = [
-    "LoadedMappingInputs",
-    "MappingInputPaths",
-    "default_mapping_input_paths",
-    "complete_hint_dictionaries_from_existing",
     "load_mapping_inputs",
     "to_coverage_inputs",
 ]

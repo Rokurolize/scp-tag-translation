@@ -4,10 +4,12 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 
+from scripts.domain.errors import InvalidDomainInputError
+
 from .models import ParseBatch
 
 
-class SourceParseDiagnosticsError(ValueError):
+class SourceParseDiagnosticsError(InvalidDomainInputError):
     """Identify strict parser diagnostics that block publication."""
 
     def __init__(self, diagnostics: Sequence[str]) -> None:

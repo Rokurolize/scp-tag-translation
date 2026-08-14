@@ -129,7 +129,7 @@ python -m scripts.commands.build_branch_tag_coverage_html
 `null`は単なる変換失敗を意味しません。
 UIは置換辞書とSCP-JP利用ポリシーを参照し、省略、スタッフ許可、申請または確認のいずれに当たるかを区別します。
 
-`scripts/commands/build_dict.py`はコーパスを渡せない既存自動化向けの互換CLIです。正規の生成経路は`build_branch_dicts_from_corpus`だけであり、互換CLIも同じ`scripts/domain/tag_dictionary.py`へ委譲します。引数なしの互換動作に依存する外部自動化がなくなった時点で、このCLIを削除します。複数成果物の公開は`scripts/infrastructure/atomic_output.py`が一括ステージングと失敗時のロールバックを担います。
+`scripts/commands/build_dict.py`はコーパスを渡せない既存自動化向けの互換CLIです。正規の生成経路は`build_branch_dicts_from_corpus`だけであり、互換CLIも同じ`scripts/domain/tag_dictionary.py`へ委譲します。互換CLIの所有者はリポジトリメンテナで、外部自動化の参照を確認する作業を毎年1月の依存更新時に行います。引数なしの互換動作に依存する外部自動化がなくなった時点で、このCLIを削除します。複数成果物の公開は`scripts/infrastructure/atomic_output.py`が一括ステージングと失敗時のロールバックを担います。
 
 ## テスト
 

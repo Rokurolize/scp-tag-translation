@@ -21,8 +21,8 @@ from scripts.pipeline.coverage_outputs import (
     write_application_inventory_tsv,
     write_coverage_tsv,
 )
+from scripts.pipeline.dictionary_inputs import MappingInputPaths
 from scripts.application.mapping_inputs import (
-    MappingInputPaths,
     default_mapping_input_paths,
     load_mapping_inputs,
     to_coverage_inputs,

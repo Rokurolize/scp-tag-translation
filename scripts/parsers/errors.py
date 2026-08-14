@@ -5,8 +5,10 @@ from __future__ import annotations
 from collections.abc import MutableSequence
 from pathlib import Path
 
+from scripts.domain.errors import InvalidDomainInputError
 
-class SourceParseError(ValueError):
+
+class SourceParseError(InvalidDomainInputError):
     """Identify a malformed source record with its file and line number."""
 
     def __init__(self, path: Path, line_number: int, detail: str) -> None:

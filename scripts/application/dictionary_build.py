@@ -19,11 +19,13 @@ from scripts.infrastructure.atomic_output import FileWriter, publish_files_atomi
 from scripts.infrastructure.data_paths import DICTIONARIES_DIR
 from scripts.infrastructure.json_io import write_json
 from scripts.pipeline.corpus import CorpusBranchData, collect_corpus_branch_data
-from scripts.application.mapping_inputs import (
+from scripts.pipeline.dictionary_inputs import (
     LoadedMappingInputs,
     MappingInputPaths,
-    default_mapping_input_paths,
     complete_hint_dictionaries_from_existing,
+)
+from scripts.application.mapping_inputs import (
+    default_mapping_input_paths,
     load_mapping_inputs,
 )
 
@@ -51,8 +53,10 @@ class BuildArtifacts:
 class BranchBuildConfig:
     """Input, output, and branch settings for one dictionary build."""
 
-    dictionaries_dir: Path = DICTIONARIES_DIR
-    jp_policy_path: Path = DICTIONARIES_DIR / "jp_tag_policy.json"
+    dictionaries_dir: Path = field(default_factory=lambda: DICTIONARIES_DIR)
+    jp_policy_path: Path = field(
+        default_factory=lambda: DICTIONARIES_DIR / "jp_tag_policy.json",
+    )
     supported_branches: tuple[str, ...] = SUPPORTED_BRANCHES
     mapping_inputs: MappingInputPaths = field(
         default_factory=default_mapping_input_paths,
