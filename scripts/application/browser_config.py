@@ -49,6 +49,7 @@ def render_browser_config() -> str:
 
 
 def publish_browser_config(
+    *,
     output: Path | None = None,
 ) -> None:
     """Render and atomically publish the browser configuration artifact.

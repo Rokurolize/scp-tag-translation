@@ -22,7 +22,7 @@ def main() -> None:
     args = parser.parse_args()
 
     try:
-        workflow.publish_browser_config(args.output)
+        workflow.publish_browser_config(output=args.output)
     except (OSError, ValueError) as error:
         print(f"エラー: ブラウザ設定の生成に失敗しました: {error}")
         sys.exit(1)

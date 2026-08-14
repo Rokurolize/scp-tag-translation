@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_publish_browser_config_writes_rendered_artifact(tmp_path):
     output = tmp_path / "nested" / "branch_config.js"
 
-    browser_workflow.publish_browser_config(output)
+    browser_workflow.publish_browser_config(output=output)
 
     assert output.read_text(encoding="utf-8") == browser_workflow.render_browser_config()
 
@@ -51,7 +51,8 @@ def test_main_publishes_requested_output(tmp_path, monkeypatch, capsys):
 
 @pytest.mark.parametrize("error", [OSError("disk full"), ValueError("invalid config")])
 def test_main_reports_expected_publication_errors(error, monkeypatch, capsys):
-    def fail_publication(_output):
+    def fail_publication(*, output):
+        del output
         raise error
 
     monkeypatch.setattr(sys, "argv", ["build_browser_config.py"])
