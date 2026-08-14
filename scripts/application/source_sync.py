@@ -18,7 +18,7 @@ class SourceSyncResult:
 
     stale_paths: tuple[str, ...]
     missing_sources: tuple[Path, ...]
-    wrote_files: int
+    written_file_count: int
 
 
 @dataclass(frozen=True)
@@ -80,7 +80,7 @@ def check_tag_sources(
     return SourceSyncResult(
         stale_paths=tuple(stale),
         missing_sources=tuple(missing_sources),
-        wrote_files=0,
+        written_file_count=0,
     )
 
 
@@ -104,7 +104,7 @@ def sync_tag_sources(
         return SourceSyncResult(
             stale_paths=tuple(stale),
             missing_sources=tuple(missing_sources),
-            wrote_files=0,
+            written_file_count=0,
         )
     published_count = 0
     if pending:
@@ -117,7 +117,7 @@ def sync_tag_sources(
     return SourceSyncResult(
         stale_paths=tuple(stale),
         missing_sources=tuple(missing_sources),
-        wrote_files=published_count,
+        written_file_count=published_count,
     )
 
 

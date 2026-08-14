@@ -36,7 +36,7 @@ class MappingPolicyInputs:
     overrides: BranchOverrideFile
     replacement_overrides: ReplacementOverrideFile
     official_crosswalks: tuple[OfficialCrosswalkFile, ...]
-    compatibility_overrides: Mapping[str, Mapping[str, str]] = field(
+    compatibility_overrides: BranchOverrideFile = field(
         default_factory=dict,
     )
 
@@ -127,18 +127,27 @@ def _validate_loaded_overrides(
     jp_names: frozenset[str] | set[str],
 ) -> dict[str, dict[str, str]]:
     """Normalize already-decoded branch overrides at the policy boundary."""
-    return {
-        branch: {
-            source_tag: _validated_override_target(
+    if not isinstance(inputs, Mapping):
+        raise InvalidDomainInputError("branch overrides must be a mapping")
+    normalized: dict[str, dict[str, str]] = {}
+    for branch, branch_values in inputs.items():
+        if not isinstance(branch, str) or not branch:
+            raise InvalidDomainInputError(f"invalid override branch: {branch!r}")
+        if not isinstance(branch_values, Mapping):
+            raise InvalidDomainInputError(f"override branch must map tags: {branch!r}")
+        normalized[branch] = {}
+        for source_tag, value in branch_values.items():
+            if not isinstance(source_tag, str) or not source_tag:
+                raise InvalidDomainInputError(
+                    f"invalid override source tag for {branch!r}"
+                )
+            normalized[branch][source_tag] = _validated_override_target(
                 branch,
                 source_tag,
                 value,
                 jp_names,
             )
-            for source_tag, value in branch_values.items()
-        }
-        for branch, branch_values in inputs.items()
-    }
+    return normalized
 
 
 def _merge_loaded_crosswalks(
@@ -265,7 +274,11 @@ def build_mapping_policy(
         inputs.official_crosswalks,
         jp_names,
     )
-    for branch, mappings in inputs.compatibility_overrides.items():
+    compatibility_overrides = _validate_loaded_overrides(
+        inputs.compatibility_overrides,
+        jp_names,
+    )
+    for branch, mappings in compatibility_overrides.items():
         overrides.setdefault(branch, {}).update(mappings)
     deprecated_tags, replacements = deprecated_by_source_lang(
         deprecated_raw,

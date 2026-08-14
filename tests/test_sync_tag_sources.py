@@ -173,7 +173,7 @@ def test_write_reports_zero_files_when_missing_source_blocks_publication(tmp_pat
 
     assert available_source.read_text(encoding="utf-8") == "new-en"
     assert destination.read_text(encoding="utf-8") == "old-en"
-    assert result.wrote_files == 0
+    assert result.written_file_count == 0
     assert result.missing_sources == (
         corpus_root / source_map["sources/jp/tag-guide.txt"],
     )
@@ -229,7 +229,7 @@ def test_write_synchronizes_the_complete_source_manifest(tmp_path):
 
     assert result.stale_paths == ()
     assert result.missing_sources == ()
-    assert result.wrote_files == len(source_map)
+    assert result.written_file_count == len(source_map)
     for index, destination_rel in enumerate(source_map):
         assert (repository_root / destination_rel).read_text(encoding="utf-8") == (
             f"source-{index}"

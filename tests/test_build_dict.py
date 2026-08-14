@@ -2,11 +2,13 @@
 
 import subprocess
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
 
 from scripts.compatibility.legacy_dictionary import validate_existing_dict
+from scripts.contracts.errors import InvalidDomainInputError
 from scripts.domain.policy.tag_policy import is_deprecated_for_en_source
 from scripts.domain.policy.policy_builder import MappingPolicyInputs, build_mapping_policy
 from scripts.domain.records.tag_validation import validate_tag_records
@@ -45,16 +47,25 @@ def build_domain_dictionary(
             overrides={},
             replacement_overrides={},
             official_crosswalks=(),
-            compatibility_overrides={
-                "en": {
-                    source_tag: target
-                    for source_tag, target in existing.items()
-                    if target is not None
-                }
-            },
+            compatibility_overrides={},
         ),
         include_origin_replacements=False,
     )
+    if existing:
+        policy = replace(
+            policy,
+            overrides={
+                **policy.overrides,
+                "en": {
+                    **policy.overrides.get("en", {}),
+                    **{
+                        source_tag: target
+                        for source_tag, target in existing.items()
+                        if target is not None
+                    },
+                },
+            },
+        )
     dictionary, _deprecated = build_en_dicts(
         en_tags,
         jp_tags,
@@ -88,6 +99,21 @@ def test_basic_mapping():
 def test_unmapped_en_is_null():
     result = build_domain_dictionary(EN, JP)
     assert result["hub"] is None
+
+
+def test_compatibility_override_rejects_unknown_jp_target():
+    with pytest.raises(InvalidDomainInputError, match="override target is not a JP tag"):
+        build_mapping_policy(
+            JP,
+            [],
+            MappingPolicyInputs(
+                overrides={},
+                replacement_overrides={},
+                official_crosswalks=(),
+                compatibility_overrides={"en": {"source": "unknown"}},
+            ),
+            include_origin_replacements=False,
+        )
 
 
 def test_existing_manual_preserved():
