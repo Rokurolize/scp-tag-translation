@@ -58,14 +58,14 @@ def _tag_links(line: str) -> list[_TagLink]:
     return links
 
 
-def _valid_tag(value: str) -> str | None:
+def _normalize_valid_tag(value: str) -> str | None:
     value = normalize_tag(value).strip("\"'")
     if not value or not _VALID_TAG_RE.fullmatch(value):
         return None
     return value
 
 
-def _valid_en_tag(value: str) -> str | None:
+def _normalize_valid_en_tag(value: str) -> str | None:
     value = normalize_tag(value).strip("\"'")
     if not value or not _EN_TAG_RE.fullmatch(value):
         return None
@@ -104,8 +104,8 @@ def _validated_source_en(
     source_raw: str,
     en_raw: str,
 ) -> tuple[str, list[str], list[str]] | None:
-    source = _valid_tag(source_raw)
-    en_tag = _valid_en_tag(en_raw)
+    source = _normalize_valid_tag(source_raw)
+    en_tag = _normalize_valid_en_tag(en_raw)
     if source is None or en_tag is None:
         return None
     return source, [en_tag], []
@@ -142,7 +142,7 @@ def _parse_cn_line(line: str) -> tuple[str, list[str], list[str]] | None:
     )
     if local is None:
         return None
-    source = _valid_tag(local["path"])
+    source = _normalize_valid_tag(local["path"])
     if source is None:
         return None
     en_values = _paths_matching_hosts(
@@ -156,7 +156,7 @@ def _parse_cn_line(line: str) -> tuple[str, list[str], list[str]] | None:
     if not en_values and not jp_values:
         tail = line[local["end"] :]
         for raw in re.findall(r"\(\s*([^()]+?)\s*\)", tail):
-            if value := _valid_en_tag(raw.strip("/* ")):
+            if value := _normalize_valid_en_tag(raw.strip("/* ")):
                 en_values.append(value)
                 break
     if en_values or jp_values:
@@ -219,8 +219,8 @@ def _parse_ua(lines: Iterable[str]) -> Iterable[tuple[str, list[str], list[str]]
         match = pattern.match(line)
         if not match:
             continue
-        source = _valid_tag(match.group("source"))
-        en_tag = _valid_en_tag(match.group("en"))
+        source = _normalize_valid_tag(match.group("source"))
+        en_tag = _normalize_valid_en_tag(match.group("en"))
         if source is not None and en_tag is not None:
             yield source, [en_tag], []
 
@@ -232,8 +232,8 @@ def _parse_pt(lines: Iterable[str]) -> Iterable[tuple[str, list[str], list[str]]
         links = _tag_links(line)
         if not match or not links:
             continue
-        en_tag = _valid_en_tag(match.group(1))
-        source = _valid_tag(links[0]["path"])
+        en_tag = _normalize_valid_en_tag(match.group(1))
+        source = _normalize_valid_tag(links[0]["path"])
         if en_tag is not None and source is not None and en_tag.lower() != "n/a":
             yield source, [en_tag], []
 
@@ -282,7 +282,7 @@ def _parse_zh(
         lines = path.read_text(encoding="utf-8").splitlines()
         for line in lines:
             for link, tail in _iter_branch_link_tails(line, "scp-zh-tr"):
-                source = _valid_tag(link["path"])
+                source = _normalize_valid_tag(link["path"])
                 if source is None:
                     continue
                 if is_internationality:
@@ -350,7 +350,7 @@ def _validate_source_links(
                     "invalid branch tag link",
                     diagnostics,
                 )
-            if any(_valid_tag(link["path"]) is None for link in links):
+            if any(_normalize_valid_tag(link["path"]) is None for link in links):
                 report_source_issue(
                     path,
                     line_number,

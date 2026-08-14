@@ -225,19 +225,20 @@ def collect_outputs(
     if language not in LANGUAGES:
         raise InvalidDomainInputError(f"未対応の解析対象です: {language}")
 
-    batches: list[ParseBatch] = []
-    jp_tags: list[JpTag] | None = None
-    deprecated_tags: list[DeprecatedTag] | None = None
-    if language in {"en", "all"}:
-        batches.append(_collect_en_outputs(config))
-    if language in {"jp", "all"}:
-        jp_batch, jp_tags, deprecated_tags = _collect_jp_outputs(config)
-        batches.append(jp_batch)
-        if language == "all":
-            batches.append(_collect_crosswalk_outputs(config, jp_tags, deprecated_tags))
-    elif language == "crosswalks":
-        batches.append(_collect_crosswalk_outputs_from_persisted_records(config))
-    return merge_batches(batches)
+    if language == "en":
+        return merge_batches([_collect_en_outputs(config)])
+    if language == "jp":
+        jp_batch, _jp_tags, _deprecated_tags = _collect_jp_outputs(config)
+        return merge_batches([jp_batch])
+    if language == "crosswalks":
+        return merge_batches([_collect_crosswalk_outputs_from_persisted_records(config)])
+
+    jp_batch, jp_tags, deprecated_tags = _collect_jp_outputs(config)
+    return merge_batches([
+        _collect_en_outputs(config),
+        jp_batch,
+        _collect_crosswalk_outputs(config, jp_tags, deprecated_tags),
+    ])
 
 
 def publish_outputs(
