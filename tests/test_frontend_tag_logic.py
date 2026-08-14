@@ -1,5 +1,6 @@
 import json
 import subprocess
+from pathlib import Path
 
 from tests.frontend_harness import (
     ROOT,
@@ -8,6 +9,38 @@ from tests.frontend_harness import (
     run_frontend_script,
     translate_with_frontend,
 )
+
+
+def test_issue_3_known_english_tags_use_their_current_jp_mappings():
+    root = Path(__file__).parent.parent
+    dictionary = json.loads(
+        (root / "dictionaries" / "en_to_jp.json").read_text(encoding="utf-8")
+    )
+    deprecated = json.loads(
+        (root / "dictionaries" / "deprecated_en_to_jp.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    policy = json.loads(
+        (root / "dictionaries" / "jp_tag_policy.json").read_text(encoding="utf-8")
+    )
+
+    expected = {
+        "co-authored": "共著",
+        "afterlife": "死後",
+        "doctor-elstrom": "エルストロム博士",
+    }
+    for source_tag, target_tag in expected.items():
+        assert translate_with_frontend(
+            dictionary,
+            source_tag,
+            "en",
+            deprecated,
+            policy,
+        ) == {
+            "targetText": f"en {target_tag}",
+            "logArea": "",
+        }
 
 
 def split_with_frontend(token: str, dictionary: dict[str, str | None]) -> list[str]:
