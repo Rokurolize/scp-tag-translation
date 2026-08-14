@@ -214,12 +214,12 @@ def collect_parsed_source_outputs(
         raise InvalidDomainInputError(f"未対応の解析対象です: {language}")
 
     if language == "en":
-        return merge_batches([_collect_en_outputs(config)])
+        return _collect_en_outputs(config)
     jp_batch, jp_tags, deprecated_tags = _collect_jp_outputs(config)
     if language == "jp":
-        return merge_batches([jp_batch])
+        return jp_batch
     if language == "crosswalks":
-        return merge_batches([_collect_crosswalk_outputs(config, jp_tags, deprecated_tags)])
+        return _collect_crosswalk_outputs(config, jp_tags, deprecated_tags)
 
     return merge_batches([
         _collect_en_outputs(config),
