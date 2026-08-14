@@ -68,6 +68,7 @@ EN_CROSSWALK_SEMANTIC_REPLACEMENTS: Mapping[str, str] = MappingProxyType({
 
 
 def is_deprecated_for_en_source(entry: DeprecatedTag) -> bool:
+    """Return whether a deprecated record belongs to the EN source section."""
     source_lang = entry.get("source_lang") or "EN"
     return source_lang == "EN" and bool(entry["source_tag"])
 
@@ -93,6 +94,7 @@ def en_category_omitted_tags(
 
 
 def branch_to_source_lang(branch: str) -> str:
+    """Map a corpus branch code to its JP unused-tag source-language section."""
     if branch == "pt-br":
         return "PT"
     if branch == "zh-tr":
@@ -223,6 +225,7 @@ def build_jp_names_and_source_map(
     jp_tags: list[JpTag],
     source_tag_overrides: Mapping[str, str] | None = None,
 ) -> tuple[frozenset[str], dict[str, str]]:
+    """Build JP names and source aliases, raising on invalid overrides or conflicts."""
     jp_names: set[str] = set()
     source_candidates: dict[str, set[str]] = {}
     for entry in jp_tags:

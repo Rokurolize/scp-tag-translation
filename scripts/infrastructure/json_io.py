@@ -27,6 +27,7 @@ def load_json(path: Path) -> object:
 
 
 def json_text(data: object, *, sort_top_level: bool = False) -> str:
+    """Serialize data as indented UTF-8-compatible JSON text with a trailing newline."""
     if sort_top_level and isinstance(data, dict):
         data = dict(sorted(data.items()))
     return f"{json.dumps(data, ensure_ascii=False, indent=2)}\n"
@@ -65,6 +66,7 @@ def write_json(
     *,
     sort_top_level: bool = False,
 ) -> None:
+    """Serialize JSON and atomically write it to ``path``; serialization and I/O errors propagate."""
     write_text(
         path,
         json_text(data, sort_top_level=sort_top_level),

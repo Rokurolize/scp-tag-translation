@@ -10,6 +10,7 @@ TAG_LINK_MARKER = "/system:page-tags/tag/"
 
 
 def split_wikidot_table_row(line: str) -> list[str]:
+    """Split a Wikidot row into trimmed cells, returning an empty list for non-table input."""
     cells = line.split("||")[1:]
     if cells and not cells[-1].strip():
         cells.pop()
