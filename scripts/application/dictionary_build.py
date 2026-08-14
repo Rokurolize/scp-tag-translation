@@ -38,7 +38,7 @@ class BranchBuildSummary:
 
 
 @dataclass(frozen=True)
-class BuildArtifacts:
+class DictionaryBuildArtifacts:
     dictionary_outputs: Mapping[Path, Mapping[str, str | None]]
     policy_path: Path
     policy: JpPolicyDocument
@@ -149,14 +149,14 @@ def _merge_hint_dictionaries_and_sequences(
     return hint_dictionaries, visible_sequences_by_branch
 
 
-def build_artifacts(
+def build_dictionary_artifacts(
     corpus_data: Mapping[str, CorpusBranchData],
     branches: Sequence[str],
     inputs: LoadedMappingInputs,
     *,
     config: BranchBuildConfig | None = None,
     existing_dictionaries: Mapping[str, Mapping[str, str | None]] | None = None,
-) -> BuildArtifacts:
+) -> DictionaryBuildArtifacts:
     """Assemble artifacts without publishing; invalid branch or missing-corpus errors propagate."""
     config = config or BranchBuildConfig()
     branches, required_branches = _resolve_build_branch_scope(branches, config)
@@ -177,7 +177,7 @@ def _build_artifacts_for_scope(
     inputs: LoadedMappingInputs,
     config: BranchBuildConfig,
     existing_dictionaries: Mapping[str, Mapping[str, str | None]] | None,
-) -> BuildArtifacts:
+) -> DictionaryBuildArtifacts:
     """Assemble artifacts after the outer workflow resolved branch scope."""
     missing_branches = sorted(required_branches - set(corpus_data))
     if missing_branches:
@@ -214,7 +214,7 @@ def _build_artifacts_for_scope(
             concatenated_tag_hints=concatenated_tag_hints,
         )
     )
-    return BuildArtifacts(
+    return DictionaryBuildArtifacts(
         dictionary_outputs=outputs,
         policy_path=config.jp_policy_path,
         policy=policy,
@@ -229,7 +229,7 @@ def build_and_publish_dictionaries(
     branches: Sequence[str] | None,
     *,
     config: BranchBuildConfig | None = None,
-) -> BuildArtifacts:
+) -> DictionaryBuildArtifacts:
     """Build and publish dictionaries, raising input, corpus-file, or publication errors on failure."""
     config = config or BranchBuildConfig()
     branches, required_branches = _resolve_build_branch_scope(branches, config)
@@ -278,7 +278,7 @@ def build_and_publish_dictionaries(
 __all__ = [
     "BranchBuildConfig",
     "BranchBuildSummary",
-    "BuildArtifacts",
+    "DictionaryBuildArtifacts",
     "build_and_publish_dictionaries",
-    "build_artifacts",
+    "build_dictionary_artifacts",
 ]

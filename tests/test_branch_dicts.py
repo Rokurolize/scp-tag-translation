@@ -189,7 +189,7 @@ def controlled_branch_artifacts(tmp_path):
         [],
     )
 
-    artifacts = dictionary_workflow.build_artifacts(
+    artifacts = dictionary_workflow.build_dictionary_artifacts(
         {"en": collect_corpus_branch_data(corpus_root, "en")},
         ["en"],
         LoadedMappingInputs(
@@ -207,7 +207,7 @@ def controlled_branch_artifacts(tmp_path):
     return corpus_root, artifacts, output_dir, policy_path
 
 
-def test_build_artifacts_owns_complete_publication_set(
+def test_build_dictionary_artifacts_owns_complete_publication_set(
     controlled_branch_artifacts,
 ):
     _corpus_root, artifacts, output_dir, policy_path = controlled_branch_artifacts
