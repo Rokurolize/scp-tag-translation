@@ -5,6 +5,17 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Required, TypeAlias, TypedDict
 
+__all__ = [
+    "BranchOverrideFile",
+    "BranchOverrideRecord",
+    "BranchOverrideValue",
+    "DeprecatedTag",
+    "EnTag",
+    "JpTag",
+    "OfficialCrosswalkFile",
+    "ReplacementOverrideFile",
+]
+
 
 class EnTag(TypedDict):
     name: str

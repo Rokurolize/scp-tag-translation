@@ -4,6 +4,20 @@ from __future__ import annotations
 
 from typing import Literal, TypedDict
 
+__all__ = [
+    "CLASSIFICATION_STATUSES",
+    "COVERAGE_TRANSLATION_ACTIONS",
+    "ClassificationStatus",
+    "CoverageTranslationAction",
+    "JpPolicyDocument",
+    "JpTagPolicy",
+    "SOURCE_TRANSLATION_ACTIONS",
+    "SPECIAL_TRANSLATION_ACTIONS",
+    "SourceTagPolicy",
+    "SourceTranslationAction",
+    "SpecialTranslationAction",
+]
+
 
 ClassificationStatus = Literal[
     "jp_unused_replacement",
