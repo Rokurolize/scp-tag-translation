@@ -228,15 +228,10 @@ def test_run_all_does_not_publish_when_last_parser_fails(tmp_path, monkeypatch):
     assert {path: path.read_bytes() for path in outputs} == old_payloads
 
 
-def test_all_crosswalks_use_same_run_jp_records(tmp_path, monkeypatch):
+def test_crosswalks_reparse_jp_sources_without_persisted_outputs(tmp_path, monkeypatch):
     config, outputs = _redirect_pipeline_paths(tmp_path)
     outputs[1].write_text("not current JSON", encoding="utf-8")
     outputs[2].write_text("not current JSON", encoding="utf-8")
-    monkeypatch.setattr(
-        parse_workflow.en_parser,
-        "parse_en_tags",
-        lambda _path, **_kwargs: [],
-    )
     monkeypatch.setattr(
         parse_workflow.jp_parser,
         "parse_jp_tags",
@@ -268,7 +263,7 @@ def test_all_crosswalks_use_same_run_jp_records(tmp_path, monkeypatch):
         ),
     )
 
-    batch = parse_workflow.collect_parsed_source_outputs("all", config=config)
+    batch = parse_workflow.collect_parsed_source_outputs("crosswalks", config=config)
 
     assert batch.outputs[outputs[3]] == {"en": {"semantic": "new-target"}}
     assert batch.outputs[outputs[5]] == {"ua": {"local": "new-target"}}
@@ -276,36 +271,7 @@ def test_all_crosswalks_use_same_run_jp_records(tmp_path, monkeypatch):
         "accepted=1, conflicting=2, unresolved=3" in message
         for message in batch.messages
     )
-    assert set(batch.outputs) == set(outputs)
-
-
-@pytest.mark.parametrize(
-    ("jp_payload", "deprecated_payload", "message"),
-    [
-        ([{"name": "target", "source_tags": "alias"}], [], "source_tags"),
-        ([{"name": "target", "en_tag": "alias"}], [], "旧en_tag"),
-        (
-            [{"name": "target", "source_tags": []}],
-            [{"en_tag": "old", "replacement": "target"}],
-            "旧en_tag",
-        ),
-    ],
-)
-def test_crosswalks_reject_noncanonical_persisted_schema(
-    tmp_path,
-    monkeypatch,
-    jp_payload,
-    deprecated_payload,
-    message,
-):
-    config, outputs = _redirect_pipeline_paths(tmp_path)
-    outputs[1].write_text(json.dumps(jp_payload), encoding="utf-8")
-    outputs[2].write_text(json.dumps(deprecated_payload), encoding="utf-8")
-
-    with pytest.raises(ValueError, match=message):
-        parse_workflow.collect_parsed_source_outputs("crosswalks", config=config)
-
-    assert not any(path.exists() for path in outputs[3:])
+    assert set(batch.outputs) == set(outputs[3:])
 
 
 def test_run_all_publishes_six_outputs_in_one_atomic_batch(tmp_path, monkeypatch):

@@ -12,7 +12,7 @@ from scripts.domain.records.tag_records import (
     OfficialCrosswalkFile,
     ReplacementOverrideFile,
 )
-from scripts.contracts.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError, MappingConflictError
 from scripts.domain.policy.tag_policy import (
     EN_ORIGIN_TAG_REPLACEMENTS,
     MappingPolicy,
@@ -159,7 +159,11 @@ def merge_official_crosswalks(
     raw_crosswalks: Sequence[object],
     jp_names: frozenset[str] | set[str],
 ) -> dict[str, dict[str, str]]:
-    """Parse and merge raw crosswalk documents by branch and source tag."""
+    """Parse and merge raw crosswalk documents by branch and source tag.
+
+    Raises:
+        InvalidDomainInputError: If a crosswalk document has an invalid shape.
+    """
     merged: dict[str, dict[str, str]] = {}
     for raw in raw_crosswalks:
         current = parse_official_crosswalk(raw, jp_names)
@@ -249,7 +253,12 @@ def build_mapping_policy(
     *,
     include_origin_replacements: bool = True,
 ) -> MappingPolicy:
-    """Assemble parsed source policies into the runtime mapping contract."""
+    """Assemble parsed source policies into the runtime mapping contract.
+
+    Raises:
+        InvalidDomainInputError: If a policy record or target is invalid.
+        MappingConflictError: If one source tag maps to conflicting JP tags.
+    """
     jp_names, jp_source_map = build_jp_names_and_source_map(jp_tags)
     overrides = _validate_loaded_overrides(inputs.overrides, jp_names)
     official_crosswalk = _merge_loaded_crosswalks(

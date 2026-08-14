@@ -34,7 +34,6 @@ from scripts.application.source_parsing.crosswalks import (
 )
 from scripts.application.source_parsing.models import ParseBatch, ParserOutput
 from scripts.application.source_parsing.records import (
-    load_persisted_jp_records,
     require_file,
 )
 from scripts.application.source_parsing.reporting import (
@@ -199,16 +198,6 @@ def _collect_crosswalk_outputs(
     )
 
 
-def _collect_crosswalk_outputs_from_persisted_records(
-    config: ParseWorkflowConfig,
-) -> ParseBatch:
-    jp_tags, deprecated_tags = load_persisted_jp_records(
-        config.outputs.jp,
-        config.outputs.deprecated,
-    )
-    return _collect_crosswalk_outputs(config, jp_tags, deprecated_tags)
-
-
 def collect_parsed_source_outputs(
     language: Language,
     *,
@@ -225,7 +214,8 @@ def collect_parsed_source_outputs(
         jp_batch, _jp_tags, _deprecated_tags = _collect_jp_outputs(config)
         return merge_batches([jp_batch])
     if language == "crosswalks":
-        return merge_batches([_collect_crosswalk_outputs_from_persisted_records(config)])
+        _jp_batch, jp_tags, deprecated_tags = _collect_jp_outputs(config)
+        return merge_batches([_collect_crosswalk_outputs(config, jp_tags, deprecated_tags)])
 
     jp_batch, jp_tags, deprecated_tags = _collect_jp_outputs(config)
     return merge_batches([

@@ -23,6 +23,7 @@ from scripts.domain.policy.tag_policy import (
     source_languages_for_branch,
 )
 from scripts.domain.records.tag_validation import validate_jp_tags
+from scripts.contracts.errors import InvalidDomainInputError
 
 
 @dataclass(frozen=True)
@@ -65,7 +66,11 @@ def _build_jp_tag_policies(jp_tags: Sequence[JpTag]) -> dict[str, JpTagPolicy]:
 
 
 def build_jp_tag_policies(jp_tags: Sequence[JpTag]) -> dict[str, JpTagPolicy]:
-    """Build only the per-tag policy subset needed by coverage consumers."""
+    """Build only the per-tag policy subset needed by coverage consumers.
+
+    Raises:
+        InvalidDomainInputError: If a JP tag record has an invalid shape.
+    """
     return _build_jp_tag_policies(validate_jp_tags(list(jp_tags)))
 
 
@@ -115,7 +120,11 @@ def _build_source_tag_policies(
 
 
 def build_jp_policy(inputs: JpPolicyInputs) -> JpPolicyDocument:
-    """Build the version-2 JP policy document from validated policy inputs."""
+    """Build the version-2 JP policy document from validated policy inputs.
+
+    Raises:
+        InvalidDomainInputError: If a JP tag record is invalid.
+    """
     tags = build_jp_tag_policies(inputs.jp_tags)
     source_tags = _build_source_tag_policies(inputs)
 
