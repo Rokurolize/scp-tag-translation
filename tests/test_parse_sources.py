@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -138,6 +139,7 @@ def _redirect_pipeline_paths(tmp_path: Path) -> tuple[ParseWorkflowConfig, tuple
     source_int = sources / "int.txt"
     source_ko = sources / "ko.txt"
     source_guide = sources / "guide.txt"
+    (jp_dir / "fragment-unused.txt").write_text("", encoding="utf-8")
     for source in (source_en, source_int, source_ko, source_guide):
         source.write_text("fixture\n", encoding="utf-8")
 
@@ -173,11 +175,15 @@ def _redirect_pipeline_paths(tmp_path: Path) -> tuple[ParseWorkflowConfig, tuple
     return config, outputs
 
 
-def test_run_jp_clears_deprecated_data_when_unused_source_missing(
+def test_run_jp_clears_deprecated_data_when_unused_source_opted_out(
     tmp_path,
     monkeypatch,
 ):
     config, outputs = _redirect_pipeline_paths(tmp_path)
+    config = replace(
+        config,
+        sources=replace(config.sources, jp_unused=None),
+    )
     (config.sources.jp / "fragment-basic.txt").write_text(
         "* **[[[/system:page-tags/tag/scp|scp]]]** //(scp)// - SCP。",
         encoding="utf-8",
@@ -191,6 +197,18 @@ def test_run_jp_clears_deprecated_data_when_unused_source_missing(
 
     assert json.loads(outputs[1].read_text(encoding="utf-8"))[0]["name"] == "scp"
     assert json.loads(outputs[2].read_text(encoding="utf-8")) == []
+
+
+def test_run_jp_rejects_configured_missing_unused_source(tmp_path):
+    config, _outputs = _redirect_pipeline_paths(tmp_path)
+    (config.sources.jp / "fragment-basic.txt").write_text(
+        "* **[[[/system:page-tags/tag/scp|scp]]]** //(scp)// - SCP。",
+        encoding="utf-8",
+    )
+    config.sources.jp_unused.unlink()
+
+    with pytest.raises(FileNotFoundError, match="JP非使用タグソース"):
+        parse_workflow.parse_and_publish_sources("jp", config=config)
 
 
 def test_run_all_does_not_publish_when_last_parser_fails(tmp_path, monkeypatch):

@@ -110,16 +110,14 @@ def _collect_jp_outputs(
         strict=True,
         diagnostics=diagnostics,
     )
-    deprecated_tags = (
-        jp_parser.parse_unused_tag_records(
+    deprecated_tags: list[DeprecatedTag] = []
+    if config.sources.jp_unused is not None:
+        require_file(config.sources.jp_unused, "JP非使用タグソース")
+        deprecated_tags = jp_parser.parse_unused_tag_records(
             config.sources.jp_unused,
             strict=True,
             diagnostics=diagnostics,
         )
-        if config.sources.jp_unused is not None
-        and config.sources.jp_unused.is_file()
-        else []
-    )
     return (
         ParseBatch(
             outputs={
