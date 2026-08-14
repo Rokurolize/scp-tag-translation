@@ -11,7 +11,6 @@ from scripts.infrastructure.data_paths import (
     EN_DICTIONARY_PATH,
 )
 from scripts.infrastructure.json_io import write_json
-from scripts.pipeline.dictionary_inputs import load_mapping_policy_inputs
 from scripts.application.mapping_inputs import (
     MappingInputPaths,
     default_mapping_input_paths,
@@ -51,10 +50,8 @@ def build_and_publish_legacy_dictionary(
 ) -> LegacyDictionaryBuildResult:
     """Build legacy outputs and publish both files atomically."""
     config = config or LegacyDictionaryBuildConfig()
-    policy_inputs = load_mapping_policy_inputs(config.mapping_inputs)
     loaded_inputs = load_mapping_inputs(
         config.mapping_inputs,
-        policy_inputs=policy_inputs,
         include_origin_replacements=False,
     )
     dictionary, deprecated_dictionary = build_legacy_outputs(

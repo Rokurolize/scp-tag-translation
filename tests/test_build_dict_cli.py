@@ -5,7 +5,6 @@ import pytest
 
 from scripts.compatibility import legacy_dictionary_build as legacy_workflow
 from scripts.commands import build_dict
-from scripts.domain.policy.policy_builder import MappingPolicyInputs
 from scripts.pipeline import dictionary_inputs
 
 EN = [{"name": "scp"}, {"name": "tale"}, {"name": "hub"}]
@@ -45,15 +44,6 @@ def redirected_build_dict_paths(tmp_path, monkeypatch):
         "default_mapping_input_paths",
         lambda: mapping_paths,
     )
-    monkeypatch.setattr(
-        legacy_workflow,
-        "load_mapping_policy_inputs",
-        lambda _paths: MappingPolicyInputs(
-            overrides={},
-            replacement_overrides={},
-            official_crosswalks=(),
-        ),
-    )
     monkeypatch.setattr(sys, "argv", ["build_dict.py"])
     return paths
 
@@ -90,20 +80,6 @@ def test_main_publishes_with_real_policy_file_loader(
     crosswalk_path = paths["data_en"].parent / "crosswalk.json"
     for path in (override_path, replacement_path, crosswalk_path):
         _write_json(path, {})
-    mapping_paths = dictionary_inputs.MappingInputPaths(
-        data_en=paths["data_en"],
-        data_jp=paths["data_jp"],
-        data_deprecated=paths["data_deprecated"],
-        overrides=override_path,
-        replacement_overrides=replacement_path,
-        crosswalks=(crosswalk_path,),
-    )
-    monkeypatch.setattr(
-        legacy_workflow,
-        "load_mapping_policy_inputs",
-        lambda _paths: dictionary_inputs.load_mapping_policy_inputs(mapping_paths),
-    )
-
     build_dict.main()
 
     assert json.loads(paths["dict_out"].read_text(encoding="utf-8"))["scp"] == "scp"
