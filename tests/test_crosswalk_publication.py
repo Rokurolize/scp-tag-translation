@@ -8,6 +8,7 @@ from scripts.application.source_parse import (
     ParseSourcePaths,
     ParseWorkflowConfig,
 )
+from scripts.application.source_parsing import crosswalks as crosswalk_stage
 from scripts.parsers.contracts import BranchGuideAnalysis
 
 
@@ -99,7 +100,7 @@ def test_run_all_blocks_publication_on_malformed_crosswalk_rows(
         lambda _path, **_kwargs: [],
     )
     monkeypatch.setattr(
-        source_parse.branch_guide_parser,
+        crosswalk_stage.branch_guide_parser,
         "analyze_branch_guides",
         lambda *_args, **_kwargs: _empty_branch_analysis(),
     )

@@ -19,7 +19,7 @@ def _ensure_unique(values: Iterable[str], label: str) -> None:
         raise InvalidDomainInputError(f"{label} が重複しています: {sample}")
 
 
-def _valid_trimmed_string(value: object) -> bool:
+def _is_trimmed_nonempty_string(value: object) -> bool:
     return isinstance(value, str) and bool(value) and value == value.strip()
 
 
@@ -55,7 +55,7 @@ def _validate_en_meta(value: object) -> dict[str, list[str]]:
 
 def _validated_source_tags(value: object) -> list[str]:
     if not isinstance(value, list) or not all(
-        _valid_trimmed_string(item) for item in value
+        _is_trimmed_nonempty_string(item) for item in value
     ):
         raise InvalidDomainInputError(f"JP側source_tagsが不正です: {value!r}")
     return list(value)
@@ -69,7 +69,7 @@ def _validate_en_tag_entry(entry: object, index: int) -> EnTag:
     ):
         raise InvalidDomainInputError(f"ENタグデータの項目が不正です: index={index}")
     name = entry["name"]
-    if not _valid_trimmed_string(name):
+    if not _is_trimmed_nonempty_string(name):
         raise InvalidDomainInputError(f"ENタグ名が不正です: {name!r}")
     category = entry.get("category")
     if category is not None and not isinstance(category, str):
@@ -116,7 +116,7 @@ def _validate_jp_tag_entry(entry: object, index: int) -> JpTag:
     ):
         raise InvalidDomainInputError(f"JPタグデータの項目が不正です: index={index}")
     name = entry["name"]
-    if not _valid_trimmed_string(name):
+    if not _is_trimmed_nonempty_string(name):
         raise InvalidDomainInputError(f"JPタグ名が不正です: {name!r}")
     if "en_tag" in entry:
         raise InvalidDomainInputError(f"JPタグデータに旧en_tagがあります: index={index}")
@@ -165,7 +165,7 @@ def _validate_deprecated_replacement(
     require_registered_replacement: bool,
 ) -> None:
     replacement = entry.get("replacement")
-    if replacement is not None and not _valid_trimmed_string(replacement):
+    if replacement is not None and not _is_trimmed_nonempty_string(replacement):
         raise InvalidDomainInputError(f"非使用タグのreplacementが不正です: {replacement!r}")
     source_lang = entry.get("source_lang")
     if (
@@ -192,10 +192,10 @@ def _validate_deprecated_tag_entry(
     if "source_tag" not in entry:
         raise InvalidDomainInputError("非使用タグのsource_tagが不正です: 欠落")
     source_tag = entry["source_tag"]
-    if not _valid_trimmed_string(source_tag):
+    if not _is_trimmed_nonempty_string(source_tag):
         raise InvalidDomainInputError(f"非使用タグのsource_tagが不正です: {source_tag!r}")
     source_lang = entry.get("source_lang")
-    if "source_lang" in entry and not _valid_trimmed_string(source_lang):
+    if "source_lang" in entry and not _is_trimmed_nonempty_string(source_lang):
         raise InvalidDomainInputError(f"非使用タグのsource_langが不正です: {source_lang!r}")
     _validate_deprecated_replacement(
         entry,

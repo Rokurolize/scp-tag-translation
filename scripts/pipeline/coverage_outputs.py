@@ -7,6 +7,8 @@ from pathlib import Path
 
 from scripts.domain.tag_coverage_models import ApplicationInventory, Coverage
 
+__all__ = ["write_application_inventory_tsv", "write_coverage_tsv"]
+
 
 def write_coverage_tsv(path: Path, coverage: Coverage) -> None:
     """Serialize classified branch coverage rows as UTF-8 TSV."""

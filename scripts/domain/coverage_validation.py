@@ -54,7 +54,7 @@ def _validate_description_map(
     return dict(value)
 
 
-def _valid_nonnegative_int(value: object) -> TypeGuard[int]:
+def _is_nonnegative_int(value: object) -> TypeGuard[int]:
     return isinstance(value, int) and not isinstance(value, bool) and value >= 0
 
 
@@ -103,7 +103,7 @@ def _nonnegative_integer(
     context: str,
 ) -> int:
     item = value.get(key)
-    if not _valid_nonnegative_int(item):
+    if not _is_nonnegative_int(item):
         raise InvalidDomainInputError(f"{context}.{key} must be a non-negative integer")
     return item
 
@@ -211,7 +211,7 @@ def _validate_status_counts(
     context: str,
 ) -> dict[ClassificationStatus, int]:
     if not isinstance(value, dict) or any(
-        not _is_classification_status(key) or not _valid_nonnegative_int(count)
+        not _is_classification_status(key) or not _is_nonnegative_int(count)
         for key, count in value.items()
     ):
         raise InvalidDomainInputError(f"{context}.status_counts is invalid")
@@ -254,7 +254,7 @@ def validate_coverage(raw: object) -> Coverage:
     if not isinstance(raw, dict):
         raise InvalidDomainInputError("coverage root must be an object")
     schema_version = raw.get("schema_version")
-    if not _valid_nonnegative_int(schema_version):
+    if not _is_nonnegative_int(schema_version):
         raise InvalidDomainInputError("coverage.schema_version must be a non-negative integer")
     source = _validate_coverage_source(raw.get("source"))
     raw_status_descriptions = _validate_description_map(

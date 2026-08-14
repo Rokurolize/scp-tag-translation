@@ -31,6 +31,16 @@ from scripts.domain.records.tag_validation import validate_tag_records
 from scripts.infrastructure.json_io import load_json
 from scripts.domain.errors import InvalidDomainInputError
 
+__all__ = [
+    "LoadedMappingInputs",
+    "LoadedTagRecords",
+    "MappingInputPaths",
+    "complete_hint_dictionaries_from_existing",
+    "default_mapping_input_paths",
+    "load_mapping_policy_inputs",
+    "load_tag_records",
+]
+
 
 def _load_optional_json(path: Path) -> object:
     return load_json(path) if path.exists() else {}
