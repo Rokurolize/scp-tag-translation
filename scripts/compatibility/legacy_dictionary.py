@@ -28,6 +28,7 @@ class LegacyDictionaryConfig:
 
 
 def validate_existing_dict(raw: object) -> dict[str, str | None]:
+    """Validate an existing dictionary object or raise InvalidDomainInputError."""
     if not isinstance(raw, dict):
         raise InvalidDomainInputError("既存辞書はオブジェクトである必要があります")
     for en_name, jp_name in raw.items():

@@ -115,6 +115,7 @@ def _build_source_tag_policies(
 
 
 def build_jp_policy(inputs: JpPolicyInputs) -> JpPolicyDocument:
+    """Build the version-2 JP policy document from validated policy inputs."""
     tags = build_jp_tag_policies(inputs.jp_tags)
     source_tags = _build_source_tag_policies(inputs)
 
