@@ -99,6 +99,35 @@ def test_partial_mapping_inputs_use_empty_optional_policy_files(tmp_path):
     assert loaded.mapping_policy.overrides == {}
 
 
+def test_mapping_inputs_project_to_coverage_contract(tmp_path):
+    data_en = tmp_path / "en.json"
+    data_jp = tmp_path / "jp.json"
+    data_en.write_text(json.dumps([{"name": "scp"}]), encoding="utf-8")
+    data_jp.write_text(
+        json.dumps([{"name": "scp", "source_tags": ["scp"]}]),
+        encoding="utf-8",
+    )
+    paths = dictionary_inputs.MappingInputPaths(
+        data_en=data_en,
+        data_jp=data_jp,
+        data_deprecated=tmp_path / "deprecated.json",
+        overrides=tmp_path / "overrides.json",
+        replacement_overrides=tmp_path / "replacements.json",
+        crosswalks=(tmp_path / "crosswalk.json",),
+    )
+
+    loaded = mapping_inputs.load_mapping_inputs(
+        paths,
+        include_origin_replacements=False,
+    )
+    coverage = mapping_inputs.to_coverage_inputs(loaded)
+
+    assert coverage.en_tags is loaded.en_tags
+    assert coverage.jp_tags is loaded.jp_tags
+    assert coverage.deprecated_tags is loaded.deprecated_tags
+    assert coverage.mapping_policy is loaded.mapping_policy
+
+
 def test_dictionary_command_rejects_unsupported_branch_before_loading(tmp_path):
     with pytest.raises(ValueError, match="unsupported branches"):
         dictionary_workflow.build_and_publish_dictionaries(tmp_path, ["unknown"])
