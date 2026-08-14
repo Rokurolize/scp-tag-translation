@@ -106,7 +106,11 @@ def parse_unused_tag_records(
     strict: bool = False,
     diagnostics: MutableSequence[str] | None = None,
 ) -> list[DeprecatedTag]:
-    """Parse source-language unused tags and deterministic replacements."""
+    """Parse source-language unused tags and deterministic replacements.
+
+    In strict mode, malformed tag links are reported through ``diagnostics``
+    when supplied; without a sink, the parser raises the source parse error.
+    """
 
     results: list[DeprecatedTag] = []
     seen_source_tags: set[tuple[str, str]] = set()
@@ -223,7 +227,12 @@ def parse_jp_tags(
     strict: bool = False,
     diagnostics: MutableSequence[str] | None = None,
 ) -> list[JpTag]:
-    """Parse registered JP tag fragments into canonical tag records."""
+    """Parse registered JP tag fragments into canonical tag records.
+
+    In strict mode, malformed links or empty names are reported through
+    ``diagnostics`` when supplied; without a sink, the parser raises the source
+    parse error. Missing registered fragments raise InvalidDomainInputError.
+    """
 
     tags_by_name: dict[str, JpTag] = {}
 
