@@ -56,12 +56,7 @@ def build_and_publish_legacy_dictionary(
     )
     dictionary, deprecated_dictionary = build_legacy_outputs(
         overwrite=overwrite,
-        config=LegacyDictionaryConfig(
-            data_en=config.mapping_inputs.data_en,
-            data_jp=config.mapping_inputs.data_jp,
-            data_deprecated=config.mapping_inputs.data_deprecated,
-            dictionary_path=config.dictionary_path,
-        ),
+        config=LegacyDictionaryConfig(dictionary_path=config.dictionary_path),
         loaded_inputs=loaded_inputs,
     )
     publish_files_atomically({

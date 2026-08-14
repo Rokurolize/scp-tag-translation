@@ -2,25 +2,16 @@
 
 from __future__ import annotations
 
-from dataclasses import replace
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 from scripts.domain.errors import InvalidDomainInputError
-from scripts.domain.policy.policy_builder import MappingPolicyInputs
 from scripts.domain.tag_dictionary import build_en_dicts
 from scripts.infrastructure.data_paths import (
-    DATA_DEPRECATED,
-    DATA_EN,
-    DATA_JP,
     EN_DICTIONARY_PATH,
 )
 from scripts.infrastructure.json_io import load_json
-from scripts.application.mapping_inputs import (
-    default_mapping_input_paths,
-    LoadedMappingInputs,
-    load_mapping_inputs,
-)
+from scripts.application.mapping_inputs import LoadedMappingInputs
 
 __all__ = [
     "LegacyDictionaryConfig",
@@ -31,11 +22,8 @@ __all__ = [
 
 @dataclass(frozen=True)
 class LegacyDictionaryConfig:
-    """Locations used by the legacy EN dictionary compatibility workflow."""
+    """Output and existing-dictionary settings for the legacy workflow."""
 
-    data_en: Path = DATA_EN
-    data_jp: Path = DATA_JP
-    data_deprecated: Path = DATA_DEPRECATED
     dictionary_path: Path = EN_DICTIONARY_PATH
 
 
@@ -61,32 +49,10 @@ def build_legacy_outputs(
     *,
     overwrite: bool,
     config: LegacyDictionaryConfig = LegacyDictionaryConfig(),
-    policy_inputs: MappingPolicyInputs | None = None,
-    loaded_inputs: LoadedMappingInputs | None = None,
+    loaded_inputs: LoadedMappingInputs,
 ) -> tuple[dict[str, str | None], dict[str, str]]:
-    """Build legacy EN outputs while keeping loading and policy assembly centralized."""
-    for path in (config.data_en, config.data_jp):
-        if not path.exists():
-            raise FileNotFoundError(
-                f"{path} が見つかりません。先に parse_sources.py を実行してください。"
-            )
-
-    mapping_paths = replace(
-        default_mapping_input_paths(),
-        data_en=config.data_en,
-        data_jp=config.data_jp,
-        data_deprecated=config.data_deprecated,
-    )
-    if loaded_inputs is None:
-        if policy_inputs is None:
-            raise TypeError("policy_inputs or loaded_inputs is required")
-        loaded = load_mapping_inputs(
-            mapping_paths,
-            policy_inputs=policy_inputs,
-            include_origin_replacements=False,
-        )
-    else:
-        loaded = loaded_inputs
+    """Build legacy EN outputs from one already-loaded mapping context."""
+    loaded = loaded_inputs
     existing: dict[str, str | None] = {}
     if not overwrite and config.dictionary_path.exists():
         existing = validate_existing_dict(load_json(config.dictionary_path))

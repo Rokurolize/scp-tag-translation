@@ -90,8 +90,7 @@ class CrosswalkResolver:
             )
         self.en_replacements[normalized_source] = replacement
 
-    def _resolve_en(self, value: str) -> str | None:
-        normalized = normalize_tag(value)
+    def _resolve_normalized_en(self, normalized: str) -> str | None:
         if normalized in self.en_replacements:
             return self.en_replacements[normalized]
         mapped = self.source_to_jp.get(normalized)
@@ -125,7 +124,7 @@ class CrosswalkResolver:
         targets = {
             target
             for value in normalized_en_values
-            if (target := self._resolve_en(value)) is not None
+            if (target := self._resolve_normalized_en(value)) is not None
         }
         if not semantic_replacements:
             targets.update(
