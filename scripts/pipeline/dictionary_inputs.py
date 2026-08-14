@@ -225,6 +225,7 @@ def complete_hint_dictionaries_from_existing(
     dictionaries_dir: Path = DICTIONARIES_DIR,
     supported_branches: Sequence[str],
 ) -> dict[str, dict[str, str | None]]:
+    """Complete generated dictionaries from disk or raise InvalidDomainInputError on invalid inputs."""
     complete = dict(generated)
     for branch in supported_branches:
         if branch in complete:

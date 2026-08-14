@@ -94,6 +94,7 @@ def _validate_en_tag_entry(entry: object, index: int) -> EnTag:
 
 
 def validate_en_tags(raw: object) -> list[EnTag]:
+    """Validate a raw EN record list and return normalized tags or raise InvalidDomainInputError."""
     if not isinstance(raw, list):
         raise InvalidDomainInputError("ENタグデータは配列である必要があります")
     records = [
@@ -153,6 +154,7 @@ def _validate_jp_tag_entry(entry: object, index: int) -> JpTag:
 
 
 def validate_jp_tags(raw: object) -> list[JpTag]:
+    """Validate a raw JP record list and return normalized tags or raise InvalidDomainInputError."""
     if not isinstance(raw, list):
         raise InvalidDomainInputError("JPタグデータは配列である必要があります")
     records = [
@@ -223,6 +225,7 @@ def validate_deprecated_tags(
     raw: object,
     jp_tags: list[JpTag] | None = None,
 ) -> list[DeprecatedTag]:
+    """Validate deprecated records, optionally checking replacements against JP tags."""
     if not isinstance(raw, list):
         raise InvalidDomainInputError("非使用タグデータは配列である必要があります")
     jp_names = {entry["name"] for entry in jp_tags or []}
@@ -251,6 +254,7 @@ def validate_tag_records(
     jp_raw: object,
     deprecated_raw: object | None = None,
 ) -> tuple[list[EnTag], list[JpTag], list[DeprecatedTag]]:
+    """Validate EN, JP, and optional deprecated records and return their typed lists."""
     en_tags = validate_en_tags(en_raw)
     jp_tags = validate_jp_tags(jp_raw)
     deprecated_tags = (

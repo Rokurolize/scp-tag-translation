@@ -19,6 +19,7 @@ def build_branch_dict(
     source_tags: set[str],
     policy: MappingPolicy,
 ) -> tuple[dict[str, str | None], dict[str, str]]:
+    """Build branch dictionaries from source tags and policy; policy conflicts propagate."""
     branch_policy = policy.for_branch(branch)
     all_source_tags = (
         set(source_tags)
@@ -49,6 +50,7 @@ def build_en_dicts(
     corpus_tags: set[str],
     policy: MappingPolicy,
 ) -> tuple[dict[str, str | None], dict[str, str]]:
+    """Build EN dictionaries from records and policy; policy conflicts propagate."""
     branch_policy = policy.for_branch("en")
     deprecated_en_tags = {
         entry["source_tag"]

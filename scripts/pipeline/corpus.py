@@ -32,6 +32,7 @@ class CorpusBranchData:
 
 
 def discover_corpus_branches(corpus_root: Path) -> list[str]:
+    """Return branch directories containing corpus metadata; filesystem errors propagate."""
     branches = []
     for branch_dir in sorted(corpus_root.iterdir()):
         if not branch_dir.is_dir():
@@ -80,6 +81,7 @@ def collect_corpus_tags_and_visible_sequences(
     corpus_root: Path,
     branch: str,
 ) -> tuple[set[str], list[tuple[str, tuple[str, ...]]]]:
+    """Return all source tags and visible tag sequences, raising corpus input errors on failure."""
     tags: set[str] = set()
     visible_sequences = []
     for slug, page_tags in iter_corpus_page_tags(corpus_root, branch):
