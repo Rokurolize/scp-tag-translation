@@ -160,6 +160,10 @@ def publish_files_atomically(writers: Mapping[Path, FileWriter]) -> None:
     Individual replacements are atomic. If a later replacement fails, files
     already replaced in this batch are restored from same-directory backups.
     Existing permissions are preserved; new generated files use mode 0644.
+
+    Raises:
+        OSError: If a writer or filesystem operation fails.
+        AtomicPublicationError: If rollback or cleanup also fails.
     """
 
     staged: dict[Path, Path] = {}
