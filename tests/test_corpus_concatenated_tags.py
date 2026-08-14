@@ -189,6 +189,10 @@ def test_synthetic_corpus_tag_sequence_smoke(tmp_path):
 def test_every_corpus_tag_sequence_translates_when_spaces_are_lost():
     configured = os.environ.get("SCP_WIKI_CORPUS_ROOT")
     if not configured:
+        if os.environ.get("CI"):
+            pytest.fail(
+                "SCP_WIKI_CORPUS_ROOT must be provisioned for the CI corpus regression"
+            )
         pytest.skip("SCP_WIKI_CORPUS_ROOT is required for the real-corpus regression")
     corpus_root = Path(configured)
     if not corpus_root.is_dir():

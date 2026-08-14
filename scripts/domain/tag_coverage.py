@@ -237,8 +237,13 @@ def build_coverage(
     inputs: CoverageInputs,
     branch_tag_stats: Mapping[str, BranchTagStats],
 ) -> Coverage:
-    """Classify explicit corpus statistics and retain the root as provenance metadata."""
+    """Classify corpus statistics, raising InvalidDomainInputError for missing branch data."""
     branches = validate_requested_branches(branches)
+    missing_branches = sorted(set(branches) - set(branch_tag_stats))
+    if missing_branches:
+        raise InvalidDomainInputError(
+            "branch tag statistics missing for: " + ", ".join(missing_branches)
+        )
 
     en_branch_policy = inputs.mapping_policy.for_branch("en")
     en_translation_policy_omit = en_category_omitted_tags(

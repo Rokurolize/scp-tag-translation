@@ -223,6 +223,16 @@ def test_build_coverage_rejects_missing_mapped_target_policy(tmp_path):
         )
 
 
+def test_build_coverage_rejects_missing_branch_statistics(tmp_path):
+    with pytest.raises(ValueError, match="statistics missing for: en"):
+        tag_coverage.build_coverage(
+            tmp_path,
+            ["en"],
+            _coverage_inputs(),
+            {},
+        )
+
+
 @pytest.mark.parametrize("branches", [(), ("unknown",), ("en", "en")])
 def test_build_coverage_rejects_invalid_branch_selection(tmp_path, branches):
     with pytest.raises(ValueError, match="branch"):
