@@ -366,7 +366,11 @@ def analyze_branch_guides(
     strict: bool = False,
     diagnostics: MutableSequence[str] | None = None,
 ) -> BranchGuideAnalysis:
-    """Return unique current-JP mappings and deterministic audit counts."""
+    """Return unique current-JP mappings and deterministic audit counts.
+
+    In strict mode, malformed source records are appended to ``diagnostics``
+    when provided; otherwise the parser raises ``SourceParseError``.
+    """
 
     mappings_by_branch: dict[str, dict[str, str]] = {}
     stats: BranchGuideStats = {}
