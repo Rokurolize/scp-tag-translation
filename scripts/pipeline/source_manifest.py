@@ -98,7 +98,7 @@ BRANCH_GUIDE_SOURCE_KEYS = MappingProxyType({
 
 
 def source_path(key: str, *, root: Path) -> Path:
-    """Return a checked-in source path by manifest key."""
+    """Return a manifest source path or raise InvalidDomainInputError for an unknown key."""
     try:
         artifact = SOURCE_BY_KEY[key]
     except KeyError as exc:
@@ -112,7 +112,7 @@ def source_directory(name: str, *, root: Path) -> Path:
 
 
 def parser_source_path(name: str, *, root: Path) -> Path:
-    """Return the parser input path identified by its short name."""
+    """Return a parser source path or raise InvalidDomainInputError for an unknown name."""
     try:
         key = PARSER_SOURCE_KEYS[name]
     except KeyError as exc:

@@ -44,7 +44,7 @@ def build_and_publish_html(
     input_path: Path | None = None,
     output_path: Path | None = None,
 ) -> Path:
-    """Load, validate, render, and atomically publish the coverage dashboard."""
+    """Publish the coverage dashboard, raising input-validation, file, or I/O errors on failure."""
     input_path = input_path or DEFAULT_INPUT
     output_path = output_path or DEFAULT_OUTPUT
     coverage = validate_coverage(load_json(input_path))

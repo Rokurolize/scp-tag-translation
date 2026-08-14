@@ -220,7 +220,7 @@ def collect_outputs(
     *,
     config: ParseWorkflowConfig | None = None,
 ) -> ParseBatch:
-    """Collect parsed records for one supported language selection."""
+    """Collect records for one language, raising input, source, or file errors."""
     config = config or ParseWorkflowConfig()
     if language not in LANGUAGES:
         raise InvalidDomainInputError(f"未対応の解析対象です: {language}")
@@ -256,7 +256,7 @@ def parse_and_publish_sources(
     *,
     config: ParseWorkflowConfig | None = None,
 ) -> ParseBatch:
-    """Collect, atomically publish, and report one source parse workflow."""
+    """Collect, publish, and report one workflow; raises diagnostics or I/O errors on failure."""
     batch = collect_outputs(language, config=config)
     if batch.diagnostics:
         raise SourceParseDiagnosticsError(batch.diagnostics)

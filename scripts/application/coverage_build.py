@@ -56,6 +56,7 @@ def default_coverage_build_config(
 
 
 def load_coverage_inputs(paths: MappingInputPaths) -> CoverageInputs:
+    """Load coverage inputs, raising missing-file or domain validation errors on failure."""
     loaded = load_mapping_inputs(paths)
     return to_coverage_inputs(loaded)
 
@@ -66,7 +67,7 @@ def build_and_publish_coverage(
     *,
     config: CoverageBuildConfig | None = None,
 ) -> tuple[Coverage, tuple[Path, Path, Path, Path]]:
-    """Build coverage artifacts and publish all four outputs atomically."""
+    """Build and publish coverage artifacts, raising input, corpus-file, or I/O errors on failure."""
     config = config or default_coverage_build_config()
     requested_branches = tuple(
         config.supported_branches if branches is None else branches

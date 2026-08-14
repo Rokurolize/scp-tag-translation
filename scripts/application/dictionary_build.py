@@ -228,7 +228,7 @@ def build_and_publish_dictionaries(
     *,
     config: BranchBuildConfig | None = None,
 ) -> BuildArtifacts:
-    """Load validated inputs, build dictionaries, and publish them atomically."""
+    """Build and publish dictionaries, raising input, corpus-file, or publication errors on failure."""
     config = config or BranchBuildConfig()
     branches, required_branches = _resolve_build_branch_scope(branches, config)
     loaded = load_mapping_inputs(
