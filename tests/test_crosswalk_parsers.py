@@ -4,6 +4,7 @@ import pytest
 
 from scripts.application import source_parse as parse_workflow
 from scripts.domain.crosswalk_resolution import CrosswalkResolver
+from scripts.domain.errors import InvalidDomainInputError
 from scripts.domain.tag_text import normalize_tag
 from scripts.domain.policy.tag_policy import (
     EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
@@ -391,6 +392,17 @@ def test_branch_guide_analysis_accepts_callable_and_reports_exact_audit(tmp_path
         (["unknown"], []),
         (["ok"], []),
     ]
+
+
+def test_branch_guide_analysis_rejects_unsupported_branch(tmp_path):
+    source = tmp_path / "unsupported.txt"
+    source.write_text("", encoding="utf-8")
+
+    with pytest.raises(InvalidDomainInputError, match="unsupported branch guide"):
+        branch_guide_parser.analyze_branch_guides(
+            {"unknown": (source,)},
+            lambda _en_values, _jp_values: None,
+        )
 
 
 def test_strict_branch_guides_report_malformed_tag_records(tmp_path):

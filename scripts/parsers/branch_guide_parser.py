@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import TypedDict
 from urllib.parse import unquote
 
+from scripts.domain.errors import InvalidDomainInputError
 from scripts.parsers.contracts import (
     BranchGuideAnalysis,
     BranchGuideAudit,
@@ -368,13 +369,17 @@ def analyze_branch_guides(
 ) -> BranchGuideAnalysis:
     """Return unique current-JP mappings and deterministic audit counts.
 
-    In strict mode, malformed source records are appended to ``diagnostics``
-    when provided; otherwise the parser raises ``SourceParseError``.
+    ``source_paths`` must contain supported branch keys; unknown keys raise
+    ``InvalidDomainInputError``. In strict mode, malformed source records are
+    appended to ``diagnostics`` when provided; otherwise the parser raises
+    ``SourceParseError``.
     """
 
     mappings_by_branch: dict[str, dict[str, str]] = {}
     stats: BranchGuideStats = {}
     for branch, paths in source_paths.items():
+        if branch != "zh-tr" and branch not in _PARSERS:
+            raise InvalidDomainInputError(f"unsupported branch guide: {branch!r}")
         if strict:
             _validate_source_links(paths, diagnostics)
         rows = (
