@@ -15,7 +15,7 @@ from scripts.pipeline.dictionary_inputs import LoadedMappingInputs
 
 __all__ = [
     "LegacyDictionaryConfig",
-    "build_legacy_outputs",
+    "build_legacy_en_dictionaries",
     "validate_existing_dict",
 ]
 
@@ -46,7 +46,7 @@ def validate_existing_dict(raw: object) -> dict[str, str | None]:
     }
 
 
-def build_legacy_outputs(
+def build_legacy_en_dictionaries(
     *,
     overwrite: bool,
     config: LegacyDictionaryConfig | None = None,

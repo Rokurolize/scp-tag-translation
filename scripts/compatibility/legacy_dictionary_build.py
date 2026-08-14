@@ -18,7 +18,7 @@ from scripts.pipeline.dictionary_inputs import (
 )
 from scripts.compatibility.legacy_dictionary import (
     LegacyDictionaryConfig,
-    build_legacy_outputs,
+    build_legacy_en_dictionaries,
 )
 
 
@@ -52,7 +52,7 @@ def build_and_publish_legacy_dictionary(
         config.mapping_inputs,
         include_origin_replacements=False,
     )
-    dictionary, deprecated_dictionary = build_legacy_outputs(
+    dictionary, deprecated_dictionary = build_legacy_en_dictionaries(
         overwrite=overwrite,
         config=LegacyDictionaryConfig(dictionary_path=config.dictionary_path),
         loaded_inputs=loaded_inputs,
