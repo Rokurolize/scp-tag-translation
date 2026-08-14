@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections import Counter
 from typing import TypeGuard
 
 from scripts.contracts.errors import InvalidDomainInputError
@@ -239,6 +240,11 @@ def _validate_coverage_branch(value: object, context: str) -> CoverageBranch:
     ]
     if tag_count != len(validated_tags):
         raise InvalidDomainInputError(f"{context}.tag_count does not match tags")
+    expected_status_counts = dict(Counter(tag["status"] for tag in validated_tags))
+    if status_counts != expected_status_counts:
+        raise InvalidDomainInputError(
+            f"{context}.status_counts does not match tags"
+        )
     return {
         "branch": branch,
         "site": site,

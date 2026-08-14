@@ -71,6 +71,15 @@ def test_coverage_validator_rejects_unknown_status_count_key(coverage):
         coverage_html_workflow.validate_coverage(coverage)
 
 
+def test_coverage_validator_rejects_status_counts_that_do_not_match_tags(coverage):
+    branch = coverage["branches"][0]
+    status = branch["tags"][0]["status"]
+    branch["status_counts"][status] -= 1
+
+    with pytest.raises(ValueError, match="status_counts does not match tags"):
+        coverage_html_workflow.validate_coverage(coverage)
+
+
 def test_coverage_validator_rejects_unknown_special_action(coverage):
     coverage["branches"][0]["tags"][0]["target_policy"] = {
         "use_restricted": False,

@@ -11,7 +11,7 @@ __all__ = ["write_application_inventory_tsv", "write_coverage_tsv"]
 
 
 def write_coverage_tsv(path: Path, coverage: Coverage) -> None:
-    """Serialize classified branch coverage rows as UTF-8 TSV."""
+    """Serialize classified branch coverage rows as UTF-8 TSV; I/O errors propagate as OSError."""
 
     path.parent.mkdir(parents=True, exist_ok=True)
     fieldnames = [
@@ -61,7 +61,7 @@ def write_application_inventory_tsv(
     path: Path,
     inventory: ApplicationInventory,
 ) -> None:
-    """Serialize the tag-application inventory as UTF-8 TSV."""
+    """Serialize the tag-application inventory as UTF-8 TSV; I/O errors propagate as OSError."""
 
     path.parent.mkdir(parents=True, exist_ok=True)
     fieldnames = [
