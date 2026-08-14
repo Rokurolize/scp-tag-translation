@@ -21,7 +21,7 @@ def load_mapping_inputs(
     include_origin_replacements: bool = True,
     require_complete_inputs: bool = False,
 ) -> LoadedMappingInputs:
-    """Load records and compose the runtime policy at the application boundary."""
+    """Load records and compose policy, raising file or domain input errors on failure."""
     paths = paths or default_mapping_input_paths()
     records = pipeline_inputs.load_tag_records(
         paths,

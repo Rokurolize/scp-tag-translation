@@ -191,7 +191,7 @@ def load_tag_records(
     *,
     require_complete_inputs: bool = False,
 ) -> LoadedTagRecords:
-    """Load and validate persisted tag records without composing policy."""
+    """Load validated tag records, raising FileNotFoundError or domain input errors on failure."""
     paths = paths or default_mapping_input_paths()
     required_paths = [paths.data_en, paths.data_jp]
     if require_complete_inputs:
