@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-__all__ = ["EMPTY_CELL_MARKERS", "split_wikidot_table_row"]
+__all__ = ["EMPTY_CELL_MARKERS", "TAG_LINK_MARKER", "split_wikidot_table_row"]
 
 
 EMPTY_CELL_MARKERS = frozenset({"-", "--", "—", "–", "n/a", "na", "none"})
+TAG_LINK_MARKER = "/system:page-tags/tag/"
 
 
 def split_wikidot_table_row(line: str) -> list[str]:

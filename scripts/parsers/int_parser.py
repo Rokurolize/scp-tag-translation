@@ -13,6 +13,7 @@ from scripts.parsers.crosswalk_candidates import (
 )
 from scripts.parsers.crosswalk_table import (
     EMPTY_CELL_MARKERS,
+    TAG_LINK_MARKER,
     split_wikidot_table_row,
 )
 from scripts.parsers.errors import report_source_issue
@@ -20,7 +21,6 @@ from scripts.parsers.errors import report_source_issue
 __all__ = ["parse_int_crosswalk"]
 
 _TAG_LINK_RE = re.compile(r"/system:page-tags/tag/([^\s\]]+)")
-_TAG_LINK_MARKER = "/system:page-tags/tag/"
 _HEADER_RE = re.compile(r"^\*\*([A-Z]+)\*\*$")
 _SOURCE_COLUMNS = {
     "EN": ("en", "int"),
@@ -80,6 +80,27 @@ def _iter_source_tag_branches(
                 yield branch, source_tag
 
 
+def _report_invalid_int_tag_cells(
+    input_path: Path,
+    line_number: int,
+    cells: list[str],
+    header: list[str],
+    diagnostics: MutableSequence[str] | None,
+) -> None:
+    for column in ("EN", "JP", *_SOURCE_COLUMNS):
+        if column not in header:
+            continue
+        cell = _cell_for_column(cells, header, column)
+        if TAG_LINK_MARKER in cell and not _cell_tags(cell):
+            report_source_issue(
+                input_path,
+                line_number,
+                f"invalid INT {column} tag link",
+                diagnostics,
+            )
+            return
+
+
 def _iter_int_crosswalk_candidates(
     input_path: Path,
     *,
@@ -112,18 +133,13 @@ def _iter_int_crosswalk_candidates(
                 continue
 
             if strict:
-                for column in ("EN", "JP", *_SOURCE_COLUMNS):
-                    if column not in header:
-                        continue
-                    cell = _cell_for_column(cells, header, column)
-                    if _TAG_LINK_MARKER in cell and not _cell_tags(cell):
-                        report_source_issue(
-                            input_path,
-                            line_number,
-                            f"invalid INT {column} tag link",
-                            diagnostics,
-                        )
-                        break
+                _report_invalid_int_tag_cells(
+                    input_path,
+                    line_number,
+                    cells,
+                    header,
+                    diagnostics,
+                )
 
             en_values = _cell_tags(_cell_for_column(cells, header, "EN"))
             jp_values = _cell_tags(_cell_for_column(cells, header, "JP"))
