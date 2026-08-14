@@ -20,6 +20,7 @@ class CrosswalkResolver:
         deprecated_tags: list[DeprecatedTag] | None = None,
         origin_replacements: Mapping[str, str] | None = None,
     ) -> None:
+        """Index validated JP data; invalid records or mapping conflicts raise domain errors."""
         validated_jp_tags = validate_jp_tags(jp_tags)
         validated_deprecated_tags = validate_deprecated_tags(
             deprecated_tags or [],
