@@ -47,7 +47,6 @@ def build_domain_dictionary(
             overrides={},
             replacement_overrides={},
             official_crosswalks=(),
-            compatibility_overrides={},
         ),
         include_origin_replacements=False,
     )
@@ -101,16 +100,15 @@ def test_unmapped_en_is_null():
     assert result["hub"] is None
 
 
-def test_compatibility_override_rejects_unknown_jp_target():
+def test_override_rejects_unknown_jp_target():
     with pytest.raises(InvalidDomainInputError, match="override target is not a JP tag"):
         build_mapping_policy(
             JP,
             [],
             MappingPolicyInputs(
-                overrides={},
+                overrides={"en": {"source": "unknown"}},
                 replacement_overrides={},
                 official_crosswalks=(),
-                compatibility_overrides={"en": {"source": "unknown"}},
             ),
             include_origin_replacements=False,
         )
