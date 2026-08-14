@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from scripts.contracts.errors import MappingConflictError
 from scripts.domain.records.tag_records import DeprecatedTag, EnTag, JpTag
 from scripts.domain.policy.tag_policy import (
     EN_ORIGIN_TAG_REPLACEMENTS,

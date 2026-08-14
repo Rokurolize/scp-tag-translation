@@ -11,7 +11,7 @@ from scripts.domain.branch_config import (
     BRANCH_CONFIG_BY_CODE,
     validate_requested_branches,
 )
-from scripts.contracts.errors import InvalidDomainInputError, MappingConflictError
+from scripts.contracts.errors import InvalidDomainInputError
 from scripts.domain.tag_coverage_models import (
     ApplicationBranch,
     ApplicationInventory,
