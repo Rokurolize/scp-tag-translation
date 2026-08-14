@@ -128,6 +128,12 @@ class MappingPolicy:
     official_crosswalk: Mapping[str, Mapping[str, str]]
 
     def for_branch(self, branch: str) -> BranchMappingPolicy:
+        """Return the policy inherited by ``branch`` and its source language(s).
+
+        Branch-specific overrides and official crosswalk entries are layered on
+        top of inherited source-language rules. Raises ``MappingConflictError``
+        when inherited replacements disagree for the same source tag.
+        """
         applicable: set[str] = set()
         effective_replacements: dict[str, str | None] = {}
         for source_lang in source_languages_for_branch(branch):

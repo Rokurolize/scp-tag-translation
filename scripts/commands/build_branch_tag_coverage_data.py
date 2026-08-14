@@ -41,10 +41,10 @@ def main() -> None:
         sys.exit(1)
 
     output_dir = args.output_dir or workflow.DEFAULT_OUTPUT_DIR
-    config = workflow.default_coverage_build_config(output_dir=output_dir)
+    config = workflow.CoverageBuildConfig(output_dir=output_dir)
     try:
         branches = normalize_branch_selection(args.branches)
-        coverage, output_paths = workflow.build_and_publish_coverage(
+        result = workflow.build_and_publish_coverage(
             corpus_root,
             branches,
             config=config,
@@ -52,12 +52,12 @@ def main() -> None:
     except (OSError, ValueError) as err:
         print(f"エラー: 可視化データ生成に失敗しました: {err}")
         sys.exit(1)
-    json_path, tsv_path, inventory_json_path, inventory_tsv_path = output_paths
-    total_tags = sum(branch["tag_count"] for branch in coverage["branches"])
+    total_tags = sum(branch["tag_count"] for branch in result.coverage["branches"])
     print(
-        f"可視化データ生成完了: {len(coverage['branches'])}支部, "
-        f"{total_tags}タグ -> {json_path}, {tsv_path}, "
-        f"{inventory_json_path}, {inventory_tsv_path}"
+        f"可視化データ生成完了: {len(result.coverage['branches'])}支部, "
+        f"{total_tags}タグ -> {result.coverage_json_path}, "
+        f"{result.coverage_tsv_path}, {result.inventory_json_path}, "
+        f"{result.inventory_tsv_path}"
     )
 
 

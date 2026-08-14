@@ -162,8 +162,10 @@ def publish_files_atomically(writers: Mapping[Path, FileWriter]) -> None:
     Existing permissions are preserved; new generated files use mode 0644.
 
     Raises:
-        OSError: If a writer or filesystem operation fails.
+        OSError: If a filesystem operation fails.
         AtomicPublicationError: If rollback or cleanup also fails.
+        BaseException: Any exception raised by a writer callback propagates
+            unchanged.
     """
 
     staged: dict[Path, Path] = {}

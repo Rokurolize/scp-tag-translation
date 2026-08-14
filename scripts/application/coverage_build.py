@@ -44,17 +44,15 @@ class CoverageBuildConfig:
     )
 
 
-def default_coverage_build_config(
-    *,
-    output_dir: Path | None = None,
-    supported_branches: Sequence[str] = SUPPORTED_BRANCHES,
-) -> CoverageBuildConfig:
-    """Return the repository's default coverage build configuration."""
-    return CoverageBuildConfig(
-        output_dir=DEFAULT_OUTPUT_DIR if output_dir is None else output_dir,
-        supported_branches=tuple(supported_branches),
-        mapping_inputs=default_mapping_input_paths(),
-    )
+@dataclass(frozen=True)
+class CoverageBuildResult:
+    """Coverage data and the paths of its four published artifacts."""
+
+    coverage: Coverage
+    coverage_json_path: Path
+    coverage_tsv_path: Path
+    inventory_json_path: Path
+    inventory_tsv_path: Path
 
 
 def load_coverage_inputs(paths: MappingInputPaths) -> CoverageInputs:
@@ -68,9 +66,9 @@ def build_and_publish_coverage(
     branches: Sequence[str] | None,
     *,
     config: CoverageBuildConfig | None = None,
-) -> tuple[Coverage, tuple[Path, Path, Path, Path]]:
+) -> CoverageBuildResult:
     """Build and publish coverage artifacts, raising input, corpus-file, or I/O errors on failure."""
-    config = config or default_coverage_build_config()
+    config = config or CoverageBuildConfig()
     requested_branches = tuple(
         config.supported_branches if branches is None else branches
     )
@@ -107,19 +105,20 @@ def build_and_publish_coverage(
             )
         ),
     })
-    return coverage, (
-        json_path,
-        tsv_path,
-        inventory_json_path,
-        inventory_tsv_path,
+    return CoverageBuildResult(
+        coverage=coverage,
+        coverage_json_path=json_path,
+        coverage_tsv_path=tsv_path,
+        inventory_json_path=inventory_json_path,
+        inventory_tsv_path=inventory_tsv_path,
     )
 
 
 __all__ = [
     "CoverageBuildConfig",
+    "CoverageBuildResult",
     "CoverageInputs",
     "DEFAULT_OUTPUT_DIR",
     "build_and_publish_coverage",
-    "default_coverage_build_config",
     "load_coverage_inputs",
 ]

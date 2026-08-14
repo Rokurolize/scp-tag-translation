@@ -295,13 +295,18 @@ def test_application_coverage_workflow_uses_configured_branch_scope(
         lambda _writers: None,
     )
 
-    coverage_workflow.build_and_publish_coverage(
+    result = coverage_workflow.build_and_publish_coverage(
         tmp_path,
         None,
         config=config,
     )
 
     assert selected == ["en", "en"]
+    assert result.coverage == {"branches": []}
+    assert result.coverage_json_path == tmp_path / "branch_tag_coverage.json"
+    assert result.coverage_tsv_path == tmp_path / "branch_tag_coverage.tsv"
+    assert result.inventory_json_path == tmp_path / "tag_application_inventory.json"
+    assert result.inventory_tsv_path == tmp_path / "tag_application_inventory.tsv"
     with pytest.raises(ValueError, match="unsupported branches: cn"):
         coverage_workflow.build_and_publish_coverage(
             tmp_path,
@@ -310,13 +315,13 @@ def test_application_coverage_workflow_uses_configured_branch_scope(
         )
 
 
-def test_default_coverage_config_resolves_current_output_default(
+def test_coverage_config_resolves_current_output_default(
     tmp_path,
     monkeypatch,
 ):
     monkeypatch.setattr(coverage_workflow, "DEFAULT_OUTPUT_DIR", tmp_path)
 
-    config = coverage_workflow.default_coverage_build_config()
+    config = coverage_workflow.CoverageBuildConfig()
 
     assert config.output_dir == tmp_path
 

@@ -22,7 +22,13 @@ TEMPLATE_PATH = ROOT / "scripts" / "assets" / "branch_tag_coverage.html"
 
 
 def build_html(coverage: Coverage, *, template_path: Path = TEMPLATE_PATH) -> str:
-    """Render validated coverage data into the dashboard template."""
+    """Render validated coverage data into the dashboard template.
+
+    Raises:
+        OSError: If the template cannot be read.
+        InvalidDomainInputError: If the template does not contain exactly one
+            ``__DATA_JSON__`` placeholder.
+    """
     template = template_path.read_text(encoding="utf-8")
     if template.count("__DATA_JSON__") != 1:
         raise InvalidDomainInputError(
