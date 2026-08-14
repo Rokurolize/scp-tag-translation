@@ -162,11 +162,8 @@ def parse_unused_tag_records(
 def _registered_tag_entries(
     line: str,
     context: _TagParseContext,
+    matches: list[re.Match[str]],
 ) -> list[JpTag]:
-    matches = list(_PAIR_RE.finditer(line))
-    if not matches:
-        return []
-
     prefix = line[: matches[0].start()]
     edit_restricted = _EDIT_RESTRICTED_ICON in prefix
     use_restricted = edit_restricted or _USE_RESTRICTED_ICON in prefix
@@ -262,6 +259,7 @@ def parse_jp_tags(
                     strict=strict,
                     diagnostics=diagnostics,
                 ),
+                matches,
             ):
                 _merge_jp_tag(tags_by_name, entry)
 

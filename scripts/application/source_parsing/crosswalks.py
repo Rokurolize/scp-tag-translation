@@ -21,6 +21,15 @@ class CrosswalkParseResult:
     diagnostics: tuple[str, ...]
 
 
+@dataclass(frozen=True)
+class CrosswalkParseInputs:
+    """Source files consumed by one crosswalk parsing stage."""
+
+    sources_int: Path
+    sources_ko: Path
+    branch_guide_sources: Mapping[str, Sequence[Path]]
+
+
 def _require_branch_guides(
     sources: Mapping[str, Sequence[Path]],
 ) -> None:
@@ -37,29 +46,27 @@ def _require_branch_guides(
 
 def collect_crosswalk_parses(
     *,
-    sources_int: Path,
-    sources_ko: Path,
-    branch_guide_sources: Mapping[str, Sequence[Path]],
+    inputs: CrosswalkParseInputs,
     int_parser_impl: IntParser,
     ko_parser_impl: KoParser,
     branch_guide_parser_impl: BranchGuideParser,
     resolver: CrosswalkResolver,
 ) -> CrosswalkParseResult:
     """Run all crosswalk parsers and return one typed stage result."""
-    require_file(sources_int, "INTタグクロスウォーク")
-    require_file(sources_ko, "KOタグクロスウォーク")
-    _require_branch_guides(branch_guide_sources)
+    require_file(inputs.sources_int, "INTタグクロスウォーク")
+    require_file(inputs.sources_ko, "KOタグクロスウォーク")
+    _require_branch_guides(inputs.branch_guide_sources)
     int_mappings = int_parser_impl.parse_int_crosswalk(
-        sources_int,
+        inputs.sources_int,
         resolver.resolve,
     )
     ko_mappings = ko_parser_impl.parse_ko_crosswalk(
-        sources_ko,
+        inputs.sources_ko,
         resolver.resolve,
     )
     diagnostics: list[str] = []
     branch_analysis = branch_guide_parser_impl.analyze_branch_guides(
-        branch_guide_sources,
+        inputs.branch_guide_sources,
         resolver.resolve,
         strict=True,
         diagnostics=diagnostics,
@@ -72,4 +79,8 @@ def collect_crosswalk_parses(
     )
 
 
-__all__ = ["CrosswalkParseResult", "collect_crosswalk_parses"]
+__all__ = [
+    "CrosswalkParseInputs",
+    "CrosswalkParseResult",
+    "collect_crosswalk_parses",
+]

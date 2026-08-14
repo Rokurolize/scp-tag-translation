@@ -19,7 +19,6 @@ from scripts.application.mapping_inputs import (
 )
 from scripts.compatibility.legacy_dictionary import (
     LegacyDictionaryConfig,
-    build_legacy_en_dictionary,
     build_legacy_outputs,
 )
 
@@ -95,6 +94,5 @@ __all__ = [
     "LegacyDictionaryBuildConfig",
     "LegacyDictionaryBuildResult",
     "build_and_publish_legacy_dictionary",
-    "build_legacy_en_dictionary",
     "default_legacy_dictionary_build_config",
 ]

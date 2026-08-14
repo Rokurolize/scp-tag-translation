@@ -30,6 +30,7 @@ from scripts.pipeline.source_manifest import (
     source_directory,
 )
 from scripts.application.source_parsing import (
+    CrosswalkParseInputs,
     ParseBatch,
     ParserOutput,
     SourceParseDiagnosticsError,
@@ -167,9 +168,11 @@ def _collect_crosswalk_outputs(
 ) -> ParseBatch:
     resolver = _build_crosswalk_resolver(jp_tags, deprecated_tags)
     parsed = collect_crosswalk_parses(
-        sources_int=config.sources.int,
-        sources_ko=config.sources.ko,
-        branch_guide_sources=config.sources.branch_guides,
+        inputs=CrosswalkParseInputs(
+            sources_int=config.sources.int,
+            sources_ko=config.sources.ko,
+            branch_guide_sources=config.sources.branch_guides,
+        ),
         int_parser_impl=int_parser,
         ko_parser_impl=ko_parser,
         branch_guide_parser_impl=branch_guide_parser,

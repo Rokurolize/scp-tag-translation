@@ -6,40 +6,11 @@ from collections.abc import Mapping, MutableSequence, Sequence
 from pathlib import Path
 from typing import Protocol
 
-from scripts.domain.records.tag_records import DeprecatedTag, EnTag, JpTag
 from scripts.parsers.contracts import (
     BranchGuideAnalysis,
     CrosswalkMappings,
     TargetResolver,
 )
-
-
-class EnParser(Protocol):
-    def parse_en_tags(
-        self,
-        input_path: Path,
-        *,
-        strict: bool = False,
-        diagnostics: MutableSequence[str] | None = None,
-    ) -> list[EnTag]: ...
-
-
-class JpParser(Protocol):
-    def parse_jp_tags(
-        self,
-        source_dir: Path,
-        *,
-        strict: bool = False,
-        diagnostics: MutableSequence[str] | None = None,
-    ) -> list[JpTag]: ...
-
-    def parse_unused_tag_records(
-        self,
-        source_path: Path,
-        *,
-        strict: bool = False,
-        diagnostics: MutableSequence[str] | None = None,
-    ) -> list[DeprecatedTag]: ...
 
 
 class IntParser(Protocol):
@@ -71,8 +42,6 @@ class BranchGuideParser(Protocol):
 
 __all__ = [
     "BranchGuideParser",
-    "EnParser",
     "IntParser",
-    "JpParser",
     "KoParser",
 ]

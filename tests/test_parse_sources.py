@@ -11,7 +11,10 @@ import pytest
 
 from scripts.commands import parse_sources
 from scripts.application import source_parse as parse_workflow
-from scripts.application.source_parsing.crosswalks import collect_crosswalk_parses
+from scripts.application.source_parsing.crosswalks import (
+    CrosswalkParseInputs,
+    collect_crosswalk_parses,
+)
 from scripts.application.source_parsing import models as source_parse_models
 from scripts.application.source_parsing import records as source_parse_records
 from scripts.application.source_parsing import reporting as source_parse_reporting
@@ -114,9 +117,11 @@ def test_crosswalk_stage_collects_parser_results_and_diagnostics(tmp_path):
             return _branch_analysis(accepted=1, unresolved=1)
 
     result = collect_crosswalk_parses(
-        sources_int=int_source,
-        sources_ko=ko_source,
-        branch_guide_sources={"ua": (guide_source,)},
+        inputs=CrosswalkParseInputs(
+            sources_int=int_source,
+            sources_ko=ko_source,
+            branch_guide_sources={"ua": (guide_source,)},
+        ),
         int_parser_impl=IntParser(),
         ko_parser_impl=KoParser(),
         branch_guide_parser_impl=BranchGuideParser(),
