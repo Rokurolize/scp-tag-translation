@@ -191,7 +191,7 @@ def controlled_branch_artifacts(tmp_path):
 
     artifacts = dictionary_workflow.build_dictionary_artifacts(
         {"en": collect_corpus_branch_data(corpus_root, "en")},
-        ["en"],
+        None,
         LoadedMappingInputs(
             en_tags=en_tags,
             jp_tags=jp_tags,

@@ -151,7 +151,7 @@ def _merge_hint_dictionaries_and_sequences(
 
 def build_dictionary_artifacts(
     corpus_data: Mapping[str, CorpusBranchData],
-    branches: Sequence[str],
+    branches: Sequence[str] | None,
     inputs: LoadedMappingInputs,
     *,
     config: BranchBuildConfig | None = None,
