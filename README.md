@@ -160,6 +160,7 @@ scp-tag-translation/
 │   ├── assets/                               # 生成HTMLのソーステンプレート
 │   ├── commands/                             # 同期・解析・生成CLI
 │   ├── application/                          # CLIから呼び出す生成・同期ワークフロー
+│   │   └── source_parsing/                    # ソース解析のレコード・交差表・診断調整
 │   ├── compatibility/                        # 外部自動化向けの旧互換ワークフロー
 │   ├── contracts/                             # 層をまたぐ共有エラー
 │   ├── domain/                               # スキーマ・検証・変換規則・支部設定

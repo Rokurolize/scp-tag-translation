@@ -11,7 +11,7 @@ from scripts.domain.branch_config import (
     BRANCH_CONFIG_BY_CODE,
     validate_requested_branches,
 )
-from scripts.contracts.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError, MappingConflictError
 from scripts.domain.tag_coverage_models import (
     ApplicationBranch,
     ApplicationInventory,
@@ -237,7 +237,12 @@ def build_coverage(
     inputs: CoverageInputs,
     branch_tag_stats: Mapping[str, BranchTagStats],
 ) -> Coverage:
-    """Classify corpus statistics, raising InvalidDomainInputError for missing branch data."""
+    """Classify corpus statistics into the coverage output contract.
+
+    Raises:
+        InvalidDomainInputError: If branches, records, or policy inputs are invalid.
+        MappingConflictError: If inherited policy replacements conflict.
+    """
     branches = validate_requested_branches(branches)
     missing_branches = sorted(set(branches) - set(branch_tag_stats))
     if missing_branches:
