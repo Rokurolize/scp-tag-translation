@@ -4,7 +4,13 @@ import os
 import pytest
 
 from scripts.infrastructure import json_io
-from scripts.infrastructure.json_io import json_text, write_json, write_text
+from scripts.infrastructure.json_io import (
+    json_text,
+    write_json,
+    write_staged_json,
+    write_staged_text,
+    write_text,
+)
 
 
 def test_json_text_sorts_only_the_top_level_mapping():
@@ -34,6 +40,17 @@ def test_write_json_uses_utf8_indentation_and_trailing_newline(tmp_path):
 
     assert path.read_text(encoding="utf-8").endswith("\n")
     assert json.loads(path.read_text(encoding="utf-8")) == {"タグ": "値"}
+
+
+def test_staged_writers_write_directly_to_batch_paths(tmp_path):
+    text_path = tmp_path / "staged.txt"
+    json_path = tmp_path / "staged.json"
+
+    write_staged_text(text_path, "内容")
+    write_staged_json(json_path, {"タグ": "値"})
+
+    assert text_path.read_text(encoding="utf-8") == "内容"
+    assert json.loads(json_path.read_text(encoding="utf-8")) == {"タグ": "値"}
 
 
 def test_write_text_preserves_existing_output_if_publication_fails(

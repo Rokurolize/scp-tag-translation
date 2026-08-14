@@ -10,7 +10,7 @@ from typing import TypedDict
 from scripts.domain.branch_config import SUPPORTED_BRANCH_CONFIGS
 from scripts.infrastructure.atomic_output import publish_files_atomically
 from scripts.infrastructure.data_paths import BROWSER_CONFIG_PATH
-from scripts.infrastructure.json_io import write_text
+from scripts.infrastructure.json_io import write_staged_text
 
 DEFAULT_OUTPUT = BROWSER_CONFIG_PATH
 
@@ -59,7 +59,7 @@ def publish_browser_config(
     """
     content = render_browser_config()
     publish_files_atomically({
-        output or DEFAULT_OUTPUT: lambda temporary: write_text(temporary, content),
+        output or DEFAULT_OUTPUT: lambda temporary: write_staged_text(temporary, content),
     })
 
 

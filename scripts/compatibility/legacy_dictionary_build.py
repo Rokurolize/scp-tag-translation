@@ -10,7 +10,7 @@ from scripts.infrastructure.data_paths import (
     DEPRECATED_EN_DICTIONARY_PATH,
     EN_DICTIONARY_PATH,
 )
-from scripts.infrastructure.json_io import write_json
+from scripts.infrastructure.json_io import write_staged_json
 from scripts.pipeline.dictionary_inputs import (
     MappingInputPaths,
     default_mapping_input_paths,
@@ -66,10 +66,10 @@ def build_and_publish_legacy_dictionary(
     )
     publish_files_atomically({
         config.dictionary_path: (
-            lambda temporary: write_json(temporary, dictionary)
+            lambda temporary: write_staged_json(temporary, dictionary)
         ),
         config.deprecated_dictionary_path: (
-            lambda temporary: write_json(temporary, deprecated_dictionary)
+            lambda temporary: write_staged_json(temporary, deprecated_dictionary)
         ),
     })
     return LegacyDictionaryBuildResult(

@@ -11,7 +11,14 @@ from pathlib import Path
 from scripts.contracts.errors import InvalidDomainInputError
 from scripts.infrastructure.file_modes import DEFAULT_NEW_FILE_MODE
 
-__all__ = ["json_text", "load_json", "write_json", "write_text"]
+__all__ = [
+    "json_text",
+    "load_json",
+    "write_json",
+    "write_staged_json",
+    "write_staged_text",
+    "write_text",
+]
 
 
 def load_json(path: Path) -> object:
@@ -60,6 +67,11 @@ def write_text(path: Path, content: str) -> None:
         temporary.unlink(missing_ok=True)
 
 
+def write_staged_text(path: Path, content: str) -> None:
+    """Write UTF-8 text directly to a path already owned by batch staging."""
+    path.write_text(content, encoding="utf-8")
+
+
 def write_json(
     path: Path,
     data: object,
@@ -68,6 +80,19 @@ def write_json(
 ) -> None:
     """Serialize JSON and atomically write it to ``path``; serialization and I/O errors propagate."""
     write_text(
+        path,
+        json_text(data, sort_top_level=sort_top_level),
+    )
+
+
+def write_staged_json(
+    path: Path,
+    data: object,
+    *,
+    sort_top_level: bool = False,
+) -> None:
+    """Serialize JSON directly to a path already owned by batch staging."""
+    write_staged_text(
         path,
         json_text(data, sort_top_level=sort_top_level),
     )

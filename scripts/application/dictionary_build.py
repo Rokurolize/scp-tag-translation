@@ -17,7 +17,7 @@ from scripts.domain.policy.tag_policy_models import JpPolicyDocument
 from scripts.domain.tag_dictionary import build_branch_dict, build_en_dicts
 from scripts.infrastructure.atomic_output import FileWriter, publish_files_atomically
 from scripts.infrastructure.data_paths import DICTIONARIES_DIR
-from scripts.infrastructure.json_io import write_json
+from scripts.infrastructure.json_io import write_staged_json
 from scripts.pipeline.corpus import CorpusBranchData, collect_corpus_branch_data
 from scripts.pipeline.dictionary_inputs import (
     LoadedMappingInputs,
@@ -268,12 +268,12 @@ def build_and_publish_dictionaries(
     )
     writers: dict[Path, FileWriter] = {}
     for path, data in artifacts.dictionary_outputs.items():
-        writers[path] = lambda temporary, data=data: write_json(
+        writers[path] = lambda temporary, data=data: write_staged_json(
             temporary,
             data,
             sort_top_level=True,
         )
-    writers[artifacts.policy_path] = lambda temporary: write_json(
+    writers[artifacts.policy_path] = lambda temporary: write_staged_json(
         temporary,
         artifacts.policy,
         sort_top_level=True,

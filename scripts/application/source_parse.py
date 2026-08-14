@@ -21,7 +21,7 @@ from scripts.infrastructure.data_paths import (
     DATA_KO_CROSSWALK,
     ROOT,
 )
-from scripts.infrastructure.json_io import write_json
+from scripts.infrastructure.json_io import write_staged_json
 from scripts.parsers import en_parser, jp_parser
 from scripts.pipeline.source_manifest import (
     branch_guide_sources,
@@ -240,7 +240,7 @@ def publish_parsed_source_outputs(
         BaseException: Other exceptions raised by a writer propagate unchanged.
     """
     publish_files_atomically({
-        destination: lambda temporary, data=data: write_json(temporary, data)
+        destination: lambda temporary, data=data: write_staged_json(temporary, data)
         for destination, data in outputs.items()
     })
 

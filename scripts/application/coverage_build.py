@@ -15,7 +15,7 @@ from scripts.domain.tag_coverage import (
 from scripts.domain.tag_coverage_models import Coverage
 from scripts.infrastructure.atomic_output import publish_files_atomically
 from scripts.infrastructure.data_paths import VISUALIZATION_DIR
-from scripts.infrastructure.json_io import write_json
+from scripts.infrastructure.json_io import write_staged_json
 from scripts.pipeline.corpus import collect_branch_tag_stats
 from scripts.application.coverage_outputs import (
     write_application_inventory_tsv,
@@ -100,10 +100,10 @@ def build_and_publish_coverage(
     inventory_json_path = config.output_dir / "tag_application_inventory.json"
     inventory_tsv_path = config.output_dir / "tag_application_inventory.tsv"
     publish_files_atomically({
-        json_path: lambda temporary: write_json(temporary, coverage),
+        json_path: lambda temporary: write_staged_json(temporary, coverage),
         tsv_path: lambda temporary: write_coverage_tsv(temporary, coverage),
         inventory_json_path: (
-            lambda temporary: write_json(temporary, inventory)
+            lambda temporary: write_staged_json(temporary, inventory)
         ),
         inventory_tsv_path: (
             lambda temporary: write_application_inventory_tsv(

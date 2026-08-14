@@ -14,7 +14,7 @@ from scripts.infrastructure.data_paths import (
     COVERAGE_JSON_PATH,
     ROOT,
 )
-from scripts.infrastructure.json_io import load_json, write_text
+from scripts.infrastructure.json_io import load_json, write_staged_text
 
 DEFAULT_INPUT = COVERAGE_JSON_PATH
 DEFAULT_OUTPUT = COVERAGE_HTML_PATH
@@ -67,7 +67,7 @@ def build_and_publish_coverage_html(
     coverage = validate_coverage(load_json(input_path))
     html = render_coverage_html(coverage)
     publish_files_atomically({
-        output_path: lambda temporary: write_text(temporary, html),
+        output_path: lambda temporary: write_staged_text(temporary, html),
     })
     return output_path
 
