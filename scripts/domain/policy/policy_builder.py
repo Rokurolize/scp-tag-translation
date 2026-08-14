@@ -70,14 +70,14 @@ def parse_overrides(
     Raises InvalidDomainInputError when the object, branch entries, source tags,
     or JP targets do not match the persisted policy shape.
     """
-    if not isinstance(raw, dict):
+    if not isinstance(raw, Mapping):
         raise InvalidDomainInputError("branch override file must be a JSON object")
 
     overrides: dict[str, dict[str, str]] = {}
     for branch, branch_values in raw.items():
         if not isinstance(branch, str) or not branch:
             raise InvalidDomainInputError(f"invalid override branch: {branch!r}")
-        if not isinstance(branch_values, dict):
+        if not isinstance(branch_values, Mapping):
             raise InvalidDomainInputError(f"override branch must map tags: {branch!r}")
         overrides[branch] = {}
         for source_tag, value in branch_values.items():
@@ -101,11 +101,11 @@ def parse_official_crosswalk(
     Invalid containers, branches, source tags, and target types raise
     InvalidDomainInputError; targets absent from ``jp_names`` are ignored.
     """
-    if not isinstance(raw, dict):
+    if not isinstance(raw, Mapping):
         raise InvalidDomainInputError("official crosswalk must be a JSON object")
     result: dict[str, dict[str, str]] = {}
     for branch, mappings in raw.items():
-        if not isinstance(branch, str) or not isinstance(mappings, dict):
+        if not isinstance(branch, str) or not isinstance(mappings, Mapping):
             raise InvalidDomainInputError(f"invalid official crosswalk branch: {branch!r}")
         result[branch] = {}
         for source_tag, jp_tag in mappings.items():
@@ -120,48 +120,6 @@ def parse_official_crosswalk(
             if jp_tag in jp_names:
                 result[branch][source_tag] = jp_tag
     return result
-
-
-def _validate_loaded_overrides(
-    inputs: BranchOverrideFile,
-    jp_names: frozenset[str] | set[str],
-) -> dict[str, dict[str, str]]:
-    """Normalize already-decoded branch overrides at the policy boundary."""
-    if not isinstance(inputs, Mapping):
-        raise InvalidDomainInputError("branch overrides must be a mapping")
-    normalized: dict[str, dict[str, str]] = {}
-    for branch, branch_values in inputs.items():
-        if not isinstance(branch, str) or not branch:
-            raise InvalidDomainInputError(f"invalid override branch: {branch!r}")
-        if not isinstance(branch_values, Mapping):
-            raise InvalidDomainInputError(f"override branch must map tags: {branch!r}")
-        normalized[branch] = {}
-        for source_tag, value in branch_values.items():
-            if not isinstance(source_tag, str) or not source_tag:
-                raise InvalidDomainInputError(
-                    f"invalid override source tag for {branch!r}"
-                )
-            normalized[branch][source_tag] = _validated_override_target(
-                branch,
-                source_tag,
-                value,
-                jp_names,
-            )
-    return normalized
-
-
-def _merge_loaded_crosswalks(
-    inputs: Sequence[OfficialCrosswalkFile],
-    jp_names: frozenset[str] | set[str],
-) -> dict[str, dict[str, str]]:
-    """Merge validated crosswalk maps while retaining only current JP tags."""
-    merged: dict[str, dict[str, str]] = {}
-    for current in inputs:
-        for branch, mappings in current.items():
-            for source_tag, jp_tag in mappings.items():
-                if jp_tag in jp_names:
-                    merged.setdefault(branch, {})[source_tag] = jp_tag
-    return merged
 
 
 def merge_official_crosswalks(
@@ -269,12 +227,12 @@ def build_mapping_policy(
         MappingConflictError: If one source tag maps to conflicting JP tags.
     """
     jp_names, jp_source_map = build_jp_names_and_source_map(jp_tags)
-    overrides = _validate_loaded_overrides(inputs.overrides, jp_names)
-    official_crosswalk = _merge_loaded_crosswalks(
+    overrides = parse_overrides(inputs.overrides, jp_names)
+    official_crosswalk = merge_official_crosswalks(
         inputs.official_crosswalks,
         jp_names,
     )
-    compatibility_overrides = _validate_loaded_overrides(
+    compatibility_overrides = parse_overrides(
         inputs.compatibility_overrides,
         jp_names,
     )
