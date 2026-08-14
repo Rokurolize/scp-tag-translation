@@ -15,9 +15,6 @@ from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from tests.frontend_harness import node
 
 ROOT = Path(__file__).parent.parent
-DEFAULT_CORPUS_ROOT = Path(
-    "/home/roku/src/Rokurolize/scp-wiki-translation/corpus"
-)
 RUNNER = ROOT / "tests" / "corpus_concatenated_runner.js"
 FAILURE_SAMPLE_LIMIT = 10
 SUMMARY_COUNTERS = (
@@ -32,11 +29,6 @@ SUMMARY_COUNTERS = (
     "intrinsicCollisionCount",
     "hintFailureCount",
 )
-
-
-def _corpus_root() -> Path:
-    configured = os.environ.get("SCP_WIKI_CORPUS_ROOT")
-    return Path(configured) if configured else DEFAULT_CORPUS_ROOT
 
 
 def _failure_message(summary: dict, elapsed: float) -> str:
@@ -134,7 +126,7 @@ def _write_minimal_corpus_fixture(root: Path) -> Path:
                 and len(values) > 1
                 and all(tag in dictionary for tag in values)
             ),
-            ["scp"],
+            [next(iter(dictionary))],
         )
         page_dir = root / branch / "pages" / "fixture"
         page_dir.mkdir(parents=True)
@@ -145,16 +137,11 @@ def _write_minimal_corpus_fixture(root: Path) -> Path:
     return root
 
 
-def test_every_corpus_tag_sequence_translates_when_spaces_are_lost(tmp_path):
-    corpus_root = _corpus_root()
-    if not corpus_root.is_dir():
-        if os.environ.get("SCP_WIKI_CORPUS_ROOT"):
-            pytest.fail(
-                "SCP_WIKI_CORPUS_ROOTで指定されたcorpusディレクトリがありません: "
-                f"{corpus_root}"
-            )
-        corpus_root = _write_minimal_corpus_fixture(tmp_path / "corpus")
-
+def _assert_corpus_tag_sequences(
+    corpus_root: Path,
+    *,
+    require_hint_coverage: bool,
+) -> None:
     node_executable = node()
 
     started = time.perf_counter()
@@ -184,9 +171,29 @@ def test_every_corpus_tag_sequence_translates_when_spaces_are_lost(tmp_path):
     assert summary["pageCount"] > 0
     assert summary["checkedVectorCount"] == summary["uniqueVectorCount"]
     assert summary["endToEndVectorCount"] == summary["uniqueVectorCount"]
-    assert (
-        summary["schemaFailureCount"] == 0
-        and summary["intrinsicCollisionCount"] == 0
-        and summary["hintFailureCount"] == 0
-        and summary["failureVectorCount"] == 0
-    ), _failure_message(summary, elapsed)
+    assert summary["schemaFailureCount"] == 0
+    assert summary["intrinsicCollisionCount"] == 0
+    assert summary["failureVectorCount"] == 0
+    if require_hint_coverage:
+        assert summary["hintFailureCount"] == 0, _failure_message(summary, elapsed)
+
+
+def test_synthetic_corpus_tag_sequence_smoke(tmp_path):
+    _assert_corpus_tag_sequences(
+        _write_minimal_corpus_fixture(tmp_path / "corpus"),
+        require_hint_coverage=False,
+    )
+
+
+@pytest.mark.corpus_integration
+def test_every_corpus_tag_sequence_translates_when_spaces_are_lost():
+    configured = os.environ.get("SCP_WIKI_CORPUS_ROOT")
+    if not configured:
+        pytest.skip("SCP_WIKI_CORPUS_ROOT is required for the real-corpus regression")
+    corpus_root = Path(configured)
+    if not corpus_root.is_dir():
+        pytest.fail(
+            "SCP_WIKI_CORPUS_ROOTで指定されたcorpusディレクトリがありません: "
+            f"{corpus_root}"
+        )
+    _assert_corpus_tag_sequences(corpus_root, require_hint_coverage=True)

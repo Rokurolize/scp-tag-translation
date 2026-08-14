@@ -20,10 +20,8 @@ def main() -> None:
     args = parser.parse_args()
 
     try:
-        config = _workflow.default_legacy_dictionary_build_config()
         result = _workflow.build_and_publish_legacy_dictionary(
             overwrite=args.overwrite,
-            config=config,
         )
     except (OSError, ValueError) as err:
         print(f"エラー: 辞書生成に失敗しました: {err}")

@@ -31,11 +31,6 @@ class SourceSyncConfig:
     repository_root: Path = field(default_factory=lambda: ROOT)
 
 
-def default_source_sync_config() -> SourceSyncConfig:
-    """Return the repository-default source synchronization configuration."""
-    return SourceSyncConfig()
-
-
 def _copy_writer(source: Path) -> FileWriter:
     def copy_to(temporary: Path) -> None:
         shutil.copyfile(source, temporary)
@@ -50,7 +45,7 @@ def sync_tag_sources(
     config: SourceSyncConfig | None = None,
 ) -> SourceSyncResult:
     """Check snapshots and optionally publish current corpus sources atomically."""
-    config = config or default_source_sync_config()
+    config = config or SourceSyncConfig()
     stale: list[str] = []
     missing_sources: list[Path] = []
     pending: dict[Path, Path] = {}
@@ -87,6 +82,5 @@ def sync_tag_sources(
 __all__ = [
     "SourceSyncConfig",
     "SourceSyncResult",
-    "default_source_sync_config",
     "sync_tag_sources",
 ]

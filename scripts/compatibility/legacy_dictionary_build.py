@@ -28,10 +28,12 @@ class LegacyDictionaryBuildConfig:
     """Repository paths and policy inputs for one compatibility build."""
 
     mapping_inputs: MappingInputPaths = field(
-        default_factory=default_mapping_input_paths,
+        default_factory=lambda: default_mapping_input_paths(),
     )
-    dictionary_path: Path = EN_DICTIONARY_PATH
-    deprecated_dictionary_path: Path = DEPRECATED_EN_DICTIONARY_PATH
+    dictionary_path: Path = field(default_factory=lambda: EN_DICTIONARY_PATH)
+    deprecated_dictionary_path: Path = field(
+        default_factory=lambda: DEPRECATED_EN_DICTIONARY_PATH,
+    )
 
 
 @dataclass(frozen=True)
@@ -42,22 +44,13 @@ class LegacyDictionaryBuildResult:
     deprecated_dictionary_path: Path
 
 
-def default_legacy_dictionary_build_config() -> LegacyDictionaryBuildConfig:
-    """Return the current repository defaults for the compatibility workflow."""
-    return LegacyDictionaryBuildConfig(
-        mapping_inputs=default_mapping_input_paths(),
-        dictionary_path=EN_DICTIONARY_PATH,
-        deprecated_dictionary_path=DEPRECATED_EN_DICTIONARY_PATH,
-    )
-
-
 def build_and_publish_legacy_dictionary(
     *,
     overwrite: bool,
     config: LegacyDictionaryBuildConfig | None = None,
 ) -> LegacyDictionaryBuildResult:
     """Build legacy outputs and publish both files atomically."""
-    config = config or default_legacy_dictionary_build_config()
+    config = config or LegacyDictionaryBuildConfig()
     policy_inputs = load_mapping_policy_inputs(config.mapping_inputs)
     loaded_inputs = load_mapping_inputs(
         config.mapping_inputs,
@@ -94,5 +87,4 @@ __all__ = [
     "LegacyDictionaryBuildConfig",
     "LegacyDictionaryBuildResult",
     "build_and_publish_legacy_dictionary",
-    "default_legacy_dictionary_build_config",
 ]

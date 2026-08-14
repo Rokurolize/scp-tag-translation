@@ -42,7 +42,7 @@ def main() -> None:
     action = "synced" if args.write else "current"
     print(
         f"tag sources {action}: "
-        f"{len(_workflow.default_source_sync_config().source_map)} files"
+        f"{len(_workflow.SourceSyncConfig().source_map)} files"
     )
 
 

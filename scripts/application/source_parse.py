@@ -90,11 +90,6 @@ class ParseWorkflowConfig:
     outputs: ParseOutputPaths = field(default_factory=ParseOutputPaths)
 
 
-def default_parse_workflow_config() -> ParseWorkflowConfig:
-    """Return the repository-default source parsing configuration."""
-    return ParseWorkflowConfig()
-
-
 def _build_crosswalk_resolver(
     jp_tags: list[JpTag],
     deprecated_tags: list[DeprecatedTag],
@@ -237,7 +232,7 @@ def collect_outputs(
     config: ParseWorkflowConfig | None = None,
 ) -> ParseBatch:
     """Collect parsed records for one supported language selection."""
-    config = config or default_parse_workflow_config()
+    config = config or ParseWorkflowConfig()
     if language not in LANGUAGES:
         raise InvalidDomainInputError(f"未対応の解析対象です: {language}")
 
@@ -294,7 +289,6 @@ __all__ = [
     "ParseSourcePaths",
     "ParseWorkflowConfig",
     "collect_outputs",
-    "default_parse_workflow_config",
     "parse_and_publish_sources",
     "publish_outputs",
 ]
