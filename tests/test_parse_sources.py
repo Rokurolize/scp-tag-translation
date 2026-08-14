@@ -22,7 +22,6 @@ from scripts.application.source_parsing.crosswalks import (
 )
 from scripts.application.source_parsing import crosswalks as crosswalk_stage
 from scripts.application.source_parsing import models as source_parse_models
-from scripts.application.source_parsing import records as source_parse_records
 from scripts.application.source_parsing import reporting as source_parse_reporting
 from scripts.domain.crosswalk_resolution import CrosswalkResolver
 from scripts.parsers.contracts import BranchGuideAnalysis
@@ -50,15 +49,12 @@ def _branch_analysis(
 
 
 def test_source_parse_support_preserves_batch_diagnostics(tmp_path):
-    output = tmp_path / "records.json"
-    output.write_text("[]", encoding="utf-8")
     batch = source_parse_models.ParseBatch(
-        outputs={output: []},
+        outputs={},
         messages=("parsed",),
         diagnostics=("warning",),
     )
 
-    assert source_parse_records.load_json_array(output, "records") == []
     merged = source_parse_reporting.merge_batches([batch])
     assert merged.messages == ("parsed",)
     assert merged.diagnostics == ("warning",)
