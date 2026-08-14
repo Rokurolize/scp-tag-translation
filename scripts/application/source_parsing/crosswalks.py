@@ -25,8 +25,8 @@ class CrosswalkParseResult:
 class CrosswalkParseInputs:
     """Source files consumed by one crosswalk parsing stage."""
 
-    sources_int: Path
-    sources_ko: Path
+    int_source: Path
+    ko_source: Path
     branch_guide_sources: Mapping[str, Sequence[Path]]
 
 
@@ -50,18 +50,18 @@ def collect_crosswalk_parses(
     resolver: CrosswalkResolver,
 ) -> CrosswalkParseResult:
     """Run strict crosswalk parsers, returning mappings plus diagnostics or raising file errors."""
-    require_file(inputs.sources_int, "INTタグクロスウォーク")
-    require_file(inputs.sources_ko, "KOタグクロスウォーク")
+    require_file(inputs.int_source, "INTタグクロスウォーク")
+    require_file(inputs.ko_source, "KOタグクロスウォーク")
     _require_branch_guides(inputs.branch_guide_sources)
     diagnostics: list[str] = []
     int_mappings = int_parser.parse_int_crosswalk(
-        inputs.sources_int,
+        inputs.int_source,
         resolver.resolve,
         strict=True,
         diagnostics=diagnostics,
     )
     ko_mappings = ko_parser.parse_ko_crosswalk(
-        inputs.sources_ko,
+        inputs.ko_source,
         resolver.resolve,
         strict=True,
         diagnostics=diagnostics,

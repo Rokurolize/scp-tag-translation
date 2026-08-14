@@ -1,4 +1,4 @@
-"""Batch merging and user-facing reporting for source parsing."""
+"""Batch merging and diagnostics for source parsing."""
 
 from __future__ import annotations
 
@@ -36,12 +36,4 @@ def merge_batches(batches: Sequence[ParseBatch]) -> ParseBatch:
     )
 
 
-def report_batch(batch: ParseBatch) -> None:
-    """Print phase messages and explicit parser diagnostics."""
-    for message in batch.messages:
-        print(message)
-    for diagnostic in batch.diagnostics:
-        print(f"警告: {diagnostic}")
-
-
-__all__ = ["SourceParseDiagnosticsError", "merge_batches", "report_batch"]
+__all__ = ["SourceParseDiagnosticsError", "merge_batches"]

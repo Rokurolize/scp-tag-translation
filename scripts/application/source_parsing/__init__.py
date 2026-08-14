@@ -2,5 +2,5 @@
 
 The :mod:`scripts.application.source_parse` module is the public workflow
 entry point; this package keeps its stage contracts, values, persistence,
-crosswalk coordination, and reporting behind one explicit boundary.
+crosswalk coordination behind one explicit boundary.
 """

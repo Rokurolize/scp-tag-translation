@@ -38,18 +38,15 @@ def _copy_writer(source: Path) -> FileWriter:
     return copy_to
 
 
-def sync_tag_sources(
+def _inspect_tag_sources(
     corpus_root: Path,
     *,
-    write: bool = False,
     config: SourceSyncConfig | None = None,
-) -> SourceSyncResult:
-    """Check and optionally publish snapshots, returning stale/missing paths; filesystem errors propagate."""
+) -> tuple[list[str], list[Path], dict[Path, Path]]:
     config = config or SourceSyncConfig()
     stale: list[str] = []
     missing_sources: list[Path] = []
     pending: dict[Path, Path] = {}
-    published_count = 0
     for destination_rel, source_rel in config.source_map.items():
         source = corpus_root / source_rel
         destination = config.repository_root / destination_rel
@@ -62,10 +59,46 @@ def sync_tag_sources(
             or destination.read_bytes() != source.read_bytes()
         ):
             stale.append(destination_rel)
-            if write:
-                pending[destination] = source
+            pending[destination] = source
+    return stale, missing_sources, pending
 
-    if write and not missing_sources:
+
+def check_tag_sources(
+    corpus_root: Path,
+    *,
+    config: SourceSyncConfig | None = None,
+) -> SourceSyncResult:
+    """Check repository snapshots without publishing changes."""
+    stale, missing_sources, _pending = _inspect_tag_sources(
+        corpus_root,
+        config=config,
+    )
+    return SourceSyncResult(
+        stale_paths=tuple(stale),
+        missing_sources=tuple(missing_sources),
+        wrote_files=0,
+    )
+
+
+def sync_tag_sources(
+    corpus_root: Path,
+    *,
+    config: SourceSyncConfig | None = None,
+) -> SourceSyncResult:
+    """Publish current corpus snapshots after checking the complete source set."""
+    stale, missing_sources, pending = _inspect_tag_sources(
+        corpus_root,
+        config=config,
+    )
+
+    if missing_sources:
+        return SourceSyncResult(
+            stale_paths=tuple(stale),
+            missing_sources=tuple(missing_sources),
+            wrote_files=0,
+        )
+    published_count = 0
+    if pending:
         publish_files_atomically({
             destination: _copy_writer(source)
             for destination, source in pending.items()
@@ -80,6 +113,7 @@ def sync_tag_sources(
 
 
 __all__ = [
+    "check_tag_sources",
     "SourceSyncConfig",
     "SourceSyncResult",
     "sync_tag_sources",

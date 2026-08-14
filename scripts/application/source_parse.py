@@ -144,8 +144,8 @@ def _collect_crosswalk_outputs(
 ) -> ParseBatch:
     parsed = collect_crosswalk_parses(
         inputs=CrosswalkParseInputs(
-            sources_int=config.sources.int,
-            sources_ko=config.sources.ko,
+            int_source=config.sources.int,
+            ko_source=config.sources.ko,
             branch_guide_sources=config.sources.branch_guides,
         ),
         resolver=CrosswalkResolver(

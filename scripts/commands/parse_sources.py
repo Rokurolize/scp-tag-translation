@@ -7,7 +7,14 @@ import argparse
 import sys
 
 from scripts.application import source_parse as workflow
-from scripts.application.source_parsing.reporting import report_batch
+
+
+def _report_batch(batch: workflow.ParseBatch) -> None:
+    """Print source-parse success messages and parser diagnostics."""
+    for message in batch.messages:
+        print(message)
+    for diagnostic in batch.diagnostics:
+        print(f"警告: {diagnostic}")
 
 
 def main() -> None:
@@ -23,7 +30,7 @@ def main() -> None:
 
     try:
         batch = workflow.parse_and_publish_sources(args.lang)
-        report_batch(batch)
+        _report_batch(batch)
     except (OSError, ValueError) as error:
         print(f"エラー: ソース解析に失敗しました: {error}")
         sys.exit(1)

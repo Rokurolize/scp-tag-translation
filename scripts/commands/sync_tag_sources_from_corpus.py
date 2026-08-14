@@ -27,7 +27,8 @@ def main() -> None:
     args = parser.parse_args()
 
     try:
-        result = workflow.sync_tag_sources(args.corpus_root, write=args.write)
+        check_or_sync = workflow.sync_tag_sources if args.write else workflow.check_tag_sources
+        result = check_or_sync(args.corpus_root)
     except (OSError, ValueError) as err:
         print(f"エラー: タグソース同期に失敗しました: {err}")
         sys.exit(1)

@@ -134,6 +134,17 @@ def test_new_publication_uses_explicit_mode_without_reading_umask(
     assert destination.stat().st_mode & 0o777 == 0o644
 
 
+def test_publication_rejects_equivalent_destination_paths(tmp_path):
+    destination = tmp_path / "published.txt"
+    equivalent = tmp_path / "nested" / ".." / "published.txt"
+
+    with pytest.raises(ValueError, match="equivalent destination paths"):
+        atomic_output.publish_files_atomically({
+            destination: _write("first"),
+            equivalent: _write("second"),
+        })
+
+
 def test_rollback_failure_continues_and_chains_publication_error(
     tmp_path,
     monkeypatch,

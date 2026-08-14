@@ -106,8 +106,8 @@ def test_crosswalk_stage_collects_parser_results_and_diagnostics(tmp_path):
 
     result = collect_crosswalk_parses(
         inputs=CrosswalkParseInputs(
-            sources_int=int_source,
-            sources_ko=ko_source,
+            int_source=int_source,
+            ko_source=ko_source,
             branch_guide_sources={"ua": (guide_source,)},
         ),
         resolver=CrosswalkResolver(
@@ -407,7 +407,7 @@ def test_main_reports_successful_batch_in_command_adapter(monkeypatch):
         "parse_and_publish_sources",
         lambda _language: batch,
     )
-    monkeypatch.setattr(parse_sources, "report_batch", reported.append)
+    monkeypatch.setattr(parse_sources, "_report_batch", reported.append)
 
     parse_sources.main()
 

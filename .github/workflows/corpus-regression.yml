@@ -27,6 +27,8 @@ jobs:
           node-version: "20"
       - name: Install test dependencies
         run: python -m pip install -r requirements-dev.txt
+      - name: Run Pyright
+        run: pyright
       - name: Download the requested corpus release
         env:
           GH_TOKEN: ${{ github.token }}

@@ -165,7 +165,6 @@ def test_write_reports_zero_files_when_missing_source_blocks_publication(tmp_pat
     )
     result = source_workflow.sync_tag_sources(
         corpus_root,
-        write=True,
         config=source_workflow.SourceSyncConfig(
             source_map=source_map,
             repository_root=repository_root,
@@ -225,7 +224,6 @@ def test_write_synchronizes_the_complete_source_manifest(tmp_path):
 
     result = source_workflow.sync_tag_sources(
         corpus_root,
-        write=True,
         config=config,
     )
 
