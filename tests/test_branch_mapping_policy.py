@@ -123,7 +123,7 @@ def test_en_builder_includes_effective_replacement_overrides():
         official_crosswalk={},
     )
     dictionary, deprecated = build_en_dicts(
-        [{"name": "current"}],
+        [{"name": "current", "category": None}],
         jp_tags,
         deprecated_tags,
         {"current", "legacy-tag"},
@@ -156,12 +156,12 @@ def test_en_builder_applies_shared_mapping_precedence():
 
     dictionary, _deprecated = build_en_dicts(
         [
-            {"name": "same"},
-            {"name": "override"},
-            {"name": "official"},
-            {"name": "alias"},
-            {"name": "deprecated"},
-            {"name": "unknown"},
+            {"name": "same", "category": None},
+            {"name": "override", "category": None},
+            {"name": "official", "category": None},
+            {"name": "alias", "category": None},
+            {"name": "deprecated", "category": None},
+            {"name": "unknown", "category": None},
         ],
         jp_tags,
         [],

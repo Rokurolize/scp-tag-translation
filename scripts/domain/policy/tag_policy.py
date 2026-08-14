@@ -69,7 +69,7 @@ def en_category_omitted_tags(
     return {
         entry["name"]
         for entry in en_tags
-        if entry.get("category") in EN_CATEGORIES_OMITTED_ON_JP
+        if entry["category"] in EN_CATEGORIES_OMITTED_ON_JP
         and entry["name"] not in mapped
     }
 
