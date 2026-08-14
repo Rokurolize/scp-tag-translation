@@ -155,7 +155,7 @@ def build_artifacts(
     config: BranchBuildConfig | None = None,
     existing_dictionaries: Mapping[str, Mapping[str, str | None]] | None = None,
 ) -> BuildArtifacts:
-    """Assemble dictionary and policy artifacts without publishing them."""
+    """Assemble artifacts without publishing; invalid branch or missing-corpus errors propagate."""
     config = config or BranchBuildConfig()
     branches, required_branches = _resolve_build_branch_scope(branches, config)
     return _build_artifacts_for_scope(

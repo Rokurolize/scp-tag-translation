@@ -49,7 +49,7 @@ def collect_crosswalk_parses(
     inputs: CrosswalkParseInputs,
     resolver: CrosswalkResolver,
 ) -> CrosswalkParseResult:
-    """Run all crosswalk parsers and return one typed stage result."""
+    """Run strict crosswalk parsers, returning mappings plus diagnostics or raising file errors."""
     require_file(inputs.sources_int, "INTタグクロスウォーク")
     require_file(inputs.sources_ko, "KOタグクロスウォーク")
     _require_branch_guides(inputs.branch_guide_sources)

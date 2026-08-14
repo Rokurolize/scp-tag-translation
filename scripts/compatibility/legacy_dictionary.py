@@ -52,7 +52,7 @@ def build_legacy_outputs(
     config: LegacyDictionaryConfig = LegacyDictionaryConfig(),
     loaded_inputs: LoadedMappingInputs,
 ) -> tuple[dict[str, str | None], dict[str, str]]:
-    """Build legacy EN outputs from one already-loaded mapping context."""
+    """Build legacy EN outputs, raising existing-file validation, policy, or filesystem errors."""
     loaded = loaded_inputs
     existing: dict[str, str | None] = {}
     if not overwrite and config.dictionary_path.exists():
