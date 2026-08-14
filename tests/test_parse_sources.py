@@ -22,6 +22,7 @@ from scripts.application.source_parsing.crosswalks import (
 )
 from scripts.application.source_parsing import crosswalks as crosswalk_stage
 from scripts.application.source_parsing import models as source_parse_models
+from scripts.application.source_parsing import records as source_parse_records
 from scripts.application.source_parsing import reporting as source_parse_reporting
 from scripts.domain.crosswalk_resolution import CrosswalkResolver
 from scripts.parsers.contracts import BranchGuideAnalysis
@@ -58,6 +59,15 @@ def test_source_parse_support_preserves_batch_diagnostics(tmp_path):
     merged = source_parse_reporting.merge_batches([batch])
     assert merged.messages == ("parsed",)
     assert merged.diagnostics == ("warning",)
+
+
+def test_source_parse_requires_existing_input_file(tmp_path):
+    existing = tmp_path / "source.txt"
+    existing.write_text("source", encoding="utf-8")
+    source_parse_records.require_file(existing, "source")
+
+    with pytest.raises(FileNotFoundError, match="missing"):
+        source_parse_records.require_file(tmp_path / "missing.txt", "missing")
 
 
 def test_parse_workflow_rejects_diagnostics_before_publication(monkeypatch):
