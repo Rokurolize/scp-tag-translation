@@ -12,6 +12,7 @@ from scripts.application import coverage_build as _workflow
 
 
 def main() -> None:
+    """Run the CLI from ``sys.argv``; invalid inputs exit with status 1."""
     parser = argparse.ArgumentParser(
         description="Build visualization data for branch tag coverage against JP tags",
     )

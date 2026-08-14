@@ -161,6 +161,7 @@ scp-tag-translation/
 │   ├── commands/                             # 同期・解析・生成CLI
 │   ├── application/                          # CLIから呼び出す生成・同期ワークフロー
 │   ├── compatibility/                        # 外部自動化向けの旧互換ワークフロー
+│   ├── contracts/                             # 層をまたぐ共有エラー・データ契約
 │   ├── domain/                               # スキーマ・検証・変換規則・支部設定
 │   │   ├── policy/                            # ソースからJPへのマッピング規則
 │   │   └── records/                           # 入力レコードと境界検証

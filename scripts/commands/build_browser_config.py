@@ -10,6 +10,7 @@ from scripts.application import browser_config as workflow
 
 
 def main() -> None:
+    """Run the CLI from ``sys.argv``; invalid inputs exit with status 1."""
     parser = argparse.ArgumentParser(
         description="ブラウザ用の支部設定JavaScriptを生成する",
     )

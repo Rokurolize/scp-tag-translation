@@ -182,52 +182,42 @@ def test_run_jp_clears_deprecated_data_when_unused_source_missing(
 
 def test_run_all_does_not_publish_when_last_parser_fails(tmp_path, monkeypatch):
     outputs = _redirect_pipeline_paths(monkeypatch, tmp_path)
+    parse_workflow.SOURCES_EN.write_text(
+        "* **[https://scp-wiki.wikidot.com/system:page-tags/tag/source source]**\n",
+        encoding="utf-8",
+    )
+    (parse_workflow.SOURCES_JP / "fragment-basic.txt").write_text(
+        "**[[[/system:page-tags/tag/jp-target|jp-target]]]** //(source)//\n",
+        encoding="utf-8",
+    )
+    parse_workflow.SOURCES_INT.write_text(
+        "|| **EN** || **JP** || **CN** ||\n"
+        "|| source || jp-target || local ||\n",
+        encoding="utf-8",
+    )
+    parse_workflow.SOURCES_KO.write_text(
+        "||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||\n"
+        "|| source || jp-target || [*/system:page-tags/tag/ko-source] ||\n",
+        encoding="utf-8",
+    )
+    next(iter(parse_workflow.BRANCH_GUIDE_SOURCES.values()))[0].write_text(
+        "**local** (source)\n",
+        encoding="utf-8",
+    )
     old_payloads = {}
     for index, output in enumerate(outputs):
         old_payloads[output] = f"old-{index}\n".encode()
         output.write_bytes(old_payloads[output])
 
     monkeypatch.setattr(
-        parse_workflow.en_parser,
-        "parse_en_tags",
-        lambda _path, **_kwargs: [{"name": "source", "category": None, "meta": {}}],
-    )
-    monkeypatch.setattr(
-        parse_workflow.jp_parser,
-        "parse_jp_tags",
-        lambda _path, **_kwargs: [{"name": "target", "source_tags": ["source"]}],
-    )
-    monkeypatch.setattr(
-        parse_workflow.jp_parser,
-        "parse_unused_tag_records",
-        lambda _path, **_kwargs: [],
-    )
-    monkeypatch.setattr(
-        crosswalk_stage.int_parser,
-        "parse_int_crosswalk",
-        lambda *_args, **_kwargs: {"en": {}},
-    )
-    monkeypatch.setattr(
-        crosswalk_stage.ko_parser,
-        "parse_ko_crosswalk",
-        lambda *_args, **_kwargs: {"ko": {}},
-    )
-    monkeypatch.setattr(
         crosswalk_stage.branch_guide_parser,
         "analyze_branch_guides",
         lambda *_args, **_kwargs: (_ for _ in ()).throw(ValueError("late parser failure")),
-    )
-    publish_calls = []
-    monkeypatch.setattr(
-        parse_workflow,
-        "publish_outputs",
-        lambda payloads: publish_calls.append(payloads),
     )
 
     with pytest.raises(ValueError, match="late parser failure"):
         parse_workflow.parse_and_publish_sources("all")
 
-    assert publish_calls == []
     assert {path: path.read_bytes() for path in outputs} == old_payloads
 
 

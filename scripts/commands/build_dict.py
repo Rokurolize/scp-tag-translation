@@ -11,6 +11,7 @@ __all__ = ["main"]
 
 
 def main() -> None:
+    """Run the CLI from ``sys.argv``; invalid inputs exit with status 1."""
     parser = argparse.ArgumentParser(description="data/ からEN辞書を生成する")
     parser.add_argument(
         "--overwrite",

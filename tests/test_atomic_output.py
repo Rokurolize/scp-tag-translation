@@ -1,4 +1,5 @@
 from pathlib import Path
+from threading import Event, Thread
 
 import pytest
 
@@ -228,3 +229,48 @@ def test_backup_copy_failure_removes_created_backup(tmp_path, monkeypatch):
 
     assert destination.read_text(encoding="utf-8") == "old"
     assert not list(tmp_path.glob(".*.bak"))
+
+
+def test_concurrent_publishers_serialize_backup_and_replacement(tmp_path, monkeypatch):
+    destination = tmp_path / "published.txt"
+    destination.write_text("old", encoding="utf-8")
+    entered_prepare = Event()
+    release_prepare = Event()
+    second_done = Event()
+    prepare_calls = 0
+    real_prepare = atomic_output._prepare_backups
+
+    def block_first_prepare(destinations, backups):
+        nonlocal prepare_calls
+        prepare_calls += 1
+        if prepare_calls == 1:
+            entered_prepare.set()
+            assert release_prepare.wait(5)
+        real_prepare(destinations, backups)
+
+    monkeypatch.setattr(atomic_output, "_prepare_backups", block_first_prepare)
+    errors: list[BaseException] = []
+
+    def publish(value: str, done: Event | None = None):
+        try:
+            atomic_output.publish_files_atomically({destination: _write(value)})
+        except BaseException as error:
+            errors.append(error)
+        finally:
+            if done is not None:
+                done.set()
+
+    first = Thread(target=publish, args=("first",))
+    second = Thread(target=publish, args=("second", second_done))
+    first.start()
+    assert entered_prepare.wait(5)
+    second.start()
+    assert not second_done.wait(0.1)
+    release_prepare.set()
+    first.join(5)
+    second.join(5)
+
+    assert not first.is_alive()
+    assert not second.is_alive()
+    assert errors == []
+    assert destination.read_text(encoding="utf-8") == "second"

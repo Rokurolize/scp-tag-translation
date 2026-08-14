@@ -3,11 +3,16 @@
 from __future__ import annotations
 
 import os
+import hashlib
 import shutil
 import stat
 import tempfile
 from collections.abc import Callable, Mapping
+from contextlib import contextmanager
 from pathlib import Path
+from threading import RLock
+
+import fcntl
 
 from scripts.infrastructure.file_modes import DEFAULT_NEW_FILE_MODE
 
@@ -15,10 +20,29 @@ __all__ = ["AtomicPublicationError", "FileWriter", "publish_files_atomically"]
 
 
 FileWriter = Callable[[Path], None]
+_PROCESS_PUBLICATION_LOCK = RLock()
 
 
 class AtomicPublicationError(OSError):
     """Report a secondary rollback or cleanup failure with its cause."""
+
+
+@contextmanager
+def _publication_lock(destinations: Mapping[Path, object]):
+    """Serialize one destination set across threads and cooperating processes."""
+    identity = "\0".join(
+        str(destination.resolve())
+        for destination in sorted(destinations, key=lambda path: str(path.resolve()))
+    )
+    lock_digest = hashlib.sha256(identity.encode()).hexdigest()[:32]
+    lock_name = f"scp-tag-translation-{lock_digest}.lock"
+    lock_path = Path(tempfile.gettempdir()) / lock_name
+    with _PROCESS_PUBLICATION_LOCK, lock_path.open("a+") as lock_file:
+        fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
 
 
 def _operation_error(
@@ -142,26 +166,27 @@ def publish_files_atomically(writers: Mapping[Path, FileWriter]) -> None:
     backups: dict[Path, Path | None] = {}
     retained_backups: set[Path] = set()
     active_error: BaseException | None = None
-    try:
-        _stage_outputs(writers, staged)
-        _prepare_backups(staged, backups)
-        _replace_staged(staged, backups, retained_backups)
-    except BaseException as error:
-        active_error = error
-        raise
-    finally:
-        cleanup_paths = list(staged.values())
-        cleanup_paths.extend(
-            backup
-            for backup in backups.values()
-            if backup is not None and backup not in retained_backups
-        )
-        cleanup_failures = _cleanup_paths(cleanup_paths)
-        if cleanup_failures:
-            cleanup_error = _operation_error("cleanup", cleanup_failures)
-            if active_error is not None:
-                active_error.add_note(str(cleanup_error))
-                for note in cleanup_error.__notes__:
-                    active_error.add_note(note)
-            else:
-                raise cleanup_error
+    with _publication_lock(writers):
+        try:
+            _stage_outputs(writers, staged)
+            _prepare_backups(staged, backups)
+            _replace_staged(staged, backups, retained_backups)
+        except BaseException as error:
+            active_error = error
+            raise
+        finally:
+            cleanup_paths = list(staged.values())
+            cleanup_paths.extend(
+                backup
+                for backup in backups.values()
+                if backup is not None and backup not in retained_backups
+            )
+            cleanup_failures = _cleanup_paths(cleanup_paths)
+            if cleanup_failures:
+                cleanup_error = _operation_error("cleanup", cleanup_failures)
+                if active_error is not None:
+                    active_error.add_note(str(cleanup_error))
+                    for note in cleanup_error.__notes__:
+                        active_error.add_note(note)
+                else:
+                    raise cleanup_error
