@@ -5,7 +5,6 @@ from __future__ import annotations
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
-from types import MappingProxyType
 from typing import Literal
 
 from scripts.domain.policy.tag_policy import EN_CROSSWALK_SEMANTIC_REPLACEMENTS
@@ -47,27 +46,19 @@ from scripts.application.source_parsing.reporting import (
 Language = Literal["en", "jp", "crosswalks", "all"]
 LANGUAGES: tuple[Language, ...] = ("en", "jp", "crosswalks", "all")
 
-SOURCES_EN = parser_source_path("en", root=ROOT)
-SOURCES_JP = source_directory("jp", root=ROOT)
-SOURCES_JP_UNUSED = parser_source_path("jp_unused", root=ROOT)
-SOURCES_INT = parser_source_path("int", root=ROOT)
-SOURCES_KO = parser_source_path("ko", root=ROOT)
-BRANCH_GUIDE_SOURCES: Mapping[str, tuple[Path, ...]] = MappingProxyType(
-    branch_guide_sources(root=ROOT)
-)
-
-
 @dataclass(frozen=True)
 class ParseSourcePaths:
     """Official source locations consumed by one parse workflow."""
 
-    en: Path = field(default_factory=lambda: SOURCES_EN)
-    jp: Path = field(default_factory=lambda: SOURCES_JP)
-    jp_unused: Path | None = field(default_factory=lambda: SOURCES_JP_UNUSED)
-    int: Path = field(default_factory=lambda: SOURCES_INT)
-    ko: Path = field(default_factory=lambda: SOURCES_KO)
+    en: Path = field(default_factory=lambda: parser_source_path("en", root=ROOT))
+    jp: Path = field(default_factory=lambda: source_directory("jp", root=ROOT))
+    jp_unused: Path | None = field(
+        default_factory=lambda: parser_source_path("jp_unused", root=ROOT),
+    )
+    int: Path = field(default_factory=lambda: parser_source_path("int", root=ROOT))
+    ko: Path = field(default_factory=lambda: parser_source_path("ko", root=ROOT))
     branch_guides: Mapping[str, tuple[Path, ...]] = field(
-        default_factory=lambda: dict(BRANCH_GUIDE_SOURCES),
+        default_factory=lambda: dict(branch_guide_sources(root=ROOT)),
     )
 
 
@@ -218,7 +209,7 @@ def _collect_crosswalk_outputs_from_persisted_records(
     return _collect_crosswalk_outputs(config, jp_tags, deprecated_tags)
 
 
-def collect_outputs(
+def collect_parsed_source_outputs(
     language: Language,
     *,
     config: ParseWorkflowConfig | None = None,
@@ -244,10 +235,15 @@ def collect_outputs(
     ])
 
 
-def publish_outputs(
+def publish_parsed_source_outputs(
     outputs: Mapping[Path, ParserOutput],
 ) -> None:
-    """Publish all collected records in one atomic batch."""
+    """Publish parsed source records in one atomic batch.
+
+    Raises:
+        OSError: If a writer or filesystem operation fails.
+        AtomicPublicationError: If rollback or cleanup also fails.
+    """
     publish_files_atomically({
         destination: lambda temporary, data=data: write_json(temporary, data)
         for destination, data in outputs.items()
@@ -260,28 +256,22 @@ def parse_and_publish_sources(
     config: ParseWorkflowConfig | None = None,
 ) -> ParseBatch:
     """Collect, publish, and report one workflow; raises diagnostics or I/O errors on failure."""
-    batch = collect_outputs(language, config=config)
+    batch = collect_parsed_source_outputs(language, config=config)
     if batch.diagnostics:
         raise SourceParseDiagnosticsError(batch.diagnostics)
-    publish_outputs(batch.outputs)
+    publish_parsed_source_outputs(batch.outputs)
     report_batch(batch)
     return batch
 
 
 __all__ = [
-    "BRANCH_GUIDE_SOURCES",
-    "SOURCES_EN",
-    "SOURCES_INT",
-    "SOURCES_JP",
-    "SOURCES_JP_UNUSED",
-    "SOURCES_KO",
     "LANGUAGES",
     "Language",
     "ParseBatch",
     "ParseOutputPaths",
     "ParseSourcePaths",
     "ParseWorkflowConfig",
-    "collect_outputs",
+    "collect_parsed_source_outputs",
     "parse_and_publish_sources",
-    "publish_outputs",
+    "publish_parsed_source_outputs",
 ]

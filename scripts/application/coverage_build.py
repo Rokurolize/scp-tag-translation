@@ -17,14 +17,16 @@ from scripts.infrastructure.atomic_output import publish_files_atomically
 from scripts.infrastructure.data_paths import VISUALIZATION_DIR
 from scripts.infrastructure.json_io import write_json
 from scripts.pipeline.corpus import collect_branch_tag_stats
-from scripts.pipeline.coverage_outputs import (
+from scripts.application.coverage_outputs import (
     write_application_inventory_tsv,
     write_coverage_tsv,
 )
-from scripts.pipeline.dictionary_inputs import MappingInputPaths
-from scripts.application.mapping_inputs import (
+from scripts.pipeline.dictionary_inputs import (
+    MappingInputPaths,
     default_mapping_input_paths,
     load_mapping_inputs,
+)
+from scripts.application.mapping_inputs import (
     to_coverage_inputs,
 )
 

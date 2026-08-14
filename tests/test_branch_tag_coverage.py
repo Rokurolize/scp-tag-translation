@@ -7,7 +7,7 @@ from scripts.application import coverage_build as coverage_workflow
 from scripts.application.branch_selection import normalize_branch_selection
 from scripts.commands import build_branch_tag_coverage_data as coverage_builder
 from scripts.pipeline.corpus import collect_branch_tag_stats
-from scripts.pipeline.coverage_outputs import (
+from scripts.application.coverage_outputs import (
     write_application_inventory_tsv,
     write_coverage_tsv,
 )

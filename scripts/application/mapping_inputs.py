@@ -1,41 +1,9 @@
-"""Compose validated persisted records into workflow mapping contexts."""
+"""Project validated mapping records into application-specific contexts."""
 
 from __future__ import annotations
 
-from scripts.domain.policy.policy_builder import MappingPolicyInputs, build_mapping_policy
 from scripts.domain.tag_coverage import CoverageInputs
-from scripts.pipeline.dictionary_inputs import (
-    LoadedMappingInputs,
-    MappingInputPaths,
-    default_mapping_input_paths,
-)
-from scripts.pipeline import dictionary_inputs as pipeline_inputs
-
-def load_mapping_inputs(
-    paths: MappingInputPaths | None = None,
-    *,
-    policy_inputs: MappingPolicyInputs | None = None,
-    include_origin_replacements: bool = True,
-    require_complete_inputs: bool = False,
-) -> LoadedMappingInputs:
-    """Load records and compose policy, raising file or domain input errors on failure."""
-    paths = paths or default_mapping_input_paths()
-    records = pipeline_inputs.load_tag_records(
-        paths,
-        require_complete_inputs=require_complete_inputs,
-    )
-    policy = policy_inputs or pipeline_inputs.load_mapping_policy_inputs(paths)
-    return LoadedMappingInputs(
-        en_tags=records.en_tags,
-        jp_tags=records.jp_tags,
-        deprecated_tags=records.deprecated_tags,
-        mapping_policy=build_mapping_policy(
-            records.jp_tags,
-            records.deprecated_tags,
-            policy,
-            include_origin_replacements=include_origin_replacements,
-        ),
-    )
+from scripts.pipeline.dictionary_inputs import LoadedMappingInputs
 
 
 def to_coverage_inputs(loaded: LoadedMappingInputs) -> CoverageInputs:
@@ -49,6 +17,5 @@ def to_coverage_inputs(loaded: LoadedMappingInputs) -> CoverageInputs:
 
 
 __all__ = [
-    "load_mapping_inputs",
     "to_coverage_inputs",
 ]

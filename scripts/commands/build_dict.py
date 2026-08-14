@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import sys
 
-from scripts.compatibility import legacy_dictionary_build as _workflow
+from scripts.compatibility import legacy_dictionary_build as workflow
 
 __all__ = ["main"]
 
@@ -21,7 +21,7 @@ def main() -> None:
     args = parser.parse_args()
 
     try:
-        result = _workflow.build_and_publish_legacy_dictionary(
+        result = workflow.build_and_publish_legacy_dictionary(
             overwrite=args.overwrite,
         )
     except (OSError, ValueError) as err:

@@ -23,8 +23,6 @@ from scripts.pipeline.dictionary_inputs import (
     LoadedMappingInputs,
     MappingInputPaths,
     complete_hint_dictionaries_from_existing,
-)
-from scripts.application.mapping_inputs import (
     default_mapping_input_paths,
     load_mapping_inputs,
 )

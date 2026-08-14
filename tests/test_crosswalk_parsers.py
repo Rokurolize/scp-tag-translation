@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts.application import source_parse as parse_workflow
+from scripts.application.source_parse import ParseSourcePaths
 from scripts.domain.crosswalk_resolution import CrosswalkResolver
 from scripts.contracts.errors import InvalidDomainInputError
 from scripts.domain.tag_text import normalize_tag
@@ -323,7 +323,7 @@ def test_branch_guides_resolve_current_jp_tags_and_reject_ambiguous_rows(
         EN_CROSSWALK_SEMANTIC_REPLACEMENTS,
     )
     analysis = branch_guide_parser.analyze_branch_guides(
-        parse_workflow.BRANCH_GUIDE_SOURCES,
+        ParseSourcePaths().branch_guides,
         resolver.resolve,
     )
     mappings = analysis.mappings

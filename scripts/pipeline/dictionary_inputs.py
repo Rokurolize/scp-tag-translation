@@ -15,7 +15,10 @@ from scripts.infrastructure.data_paths import (
     DICTIONARIES_DIR,
     OVERRIDES_PATH,
 )
-from scripts.domain.policy.policy_builder import MappingPolicyInputs
+from scripts.domain.policy.policy_builder import (
+    MappingPolicyInputs,
+    build_mapping_policy,
+)
 from scripts.domain.records.tag_records import (
     BranchOverrideFile,
     BranchOverrideRecord,
@@ -37,6 +40,7 @@ __all__ = [
     "MappingInputPaths",
     "complete_hint_dictionaries_from_existing",
     "default_mapping_input_paths",
+    "load_mapping_inputs",
     "load_mapping_policy_inputs",
     "load_tag_records",
 ]
@@ -176,6 +180,33 @@ class LoadedMappingInputs:
     jp_tags: list[JpTag]
     deprecated_tags: list[DeprecatedTag]
     mapping_policy: MappingPolicy
+
+
+def load_mapping_inputs(
+    paths: MappingInputPaths | None = None,
+    *,
+    policy_inputs: MappingPolicyInputs | None = None,
+    include_origin_replacements: bool = True,
+    require_complete_inputs: bool = False,
+) -> LoadedMappingInputs:
+    """Load records and compose policy, raising file or domain input errors on failure."""
+    paths = paths or default_mapping_input_paths()
+    records = load_tag_records(
+        paths,
+        require_complete_inputs=require_complete_inputs,
+    )
+    policy = policy_inputs or load_mapping_policy_inputs(paths)
+    return LoadedMappingInputs(
+        en_tags=records.en_tags,
+        jp_tags=records.jp_tags,
+        deprecated_tags=records.deprecated_tags,
+        mapping_policy=build_mapping_policy(
+            records.jp_tags,
+            records.deprecated_tags,
+            policy,
+            include_origin_replacements=include_origin_replacements,
+        ),
+    )
 
 @dataclass(frozen=True)
 class LoadedTagRecords:

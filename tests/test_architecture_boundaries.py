@@ -54,6 +54,10 @@ def test_layered_packages_keep_dependency_direction_explicit():
         for module in compatibility_imports
     )
     assert not any(
+        module.startswith("scripts.application")
+        for module in compatibility_imports
+    )
+    assert not any(
         module.startswith(("scripts.application", "scripts.pipeline", "scripts.parsers"))
         for module in domain_imports
     )

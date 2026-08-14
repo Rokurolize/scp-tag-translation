@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 from scripts.application.branch_selection import normalize_branch_selection
-from scripts.application import coverage_build as _workflow
+from scripts.application import coverage_build as workflow
 
 
 def main() -> None:
@@ -40,11 +40,11 @@ def main() -> None:
         print(f"エラー: corpus rootが見つかりません: {corpus_root}")
         sys.exit(1)
 
-    output_dir = args.output_dir or _workflow.DEFAULT_OUTPUT_DIR
-    config = _workflow.default_coverage_build_config(output_dir=output_dir)
+    output_dir = args.output_dir or workflow.DEFAULT_OUTPUT_DIR
+    config = workflow.default_coverage_build_config(output_dir=output_dir)
     try:
         branches = normalize_branch_selection(args.branches)
-        coverage, output_paths = _workflow.build_and_publish_coverage(
+        coverage, output_paths = workflow.build_and_publish_coverage(
             corpus_root,
             branches,
             config=config,

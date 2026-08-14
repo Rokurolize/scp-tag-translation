@@ -11,6 +11,11 @@ import pytest
 
 from scripts.commands import parse_sources
 from scripts.application import source_parse as parse_workflow
+from scripts.application.source_parse import (
+    ParseOutputPaths,
+    ParseSourcePaths,
+    ParseWorkflowConfig,
+)
 from scripts.application.source_parsing.crosswalks import (
     CrosswalkParseInputs,
     collect_crosswalk_parses,
@@ -68,12 +73,12 @@ def test_parse_workflow_rejects_diagnostics_before_publication(monkeypatch):
     publish_calls = []
     monkeypatch.setattr(
         parse_workflow,
-        "collect_outputs",
+        "collect_parsed_source_outputs",
         lambda _language, *, config=None: batch,
     )
     monkeypatch.setattr(
         parse_workflow,
-        "publish_outputs",
+        "publish_parsed_source_outputs",
         lambda outputs: publish_calls.append(outputs),
     )
 
@@ -116,7 +121,7 @@ def test_crosswalk_stage_collects_parser_results_and_diagnostics(tmp_path):
     assert result.diagnostics == ()
 
 
-def _redirect_pipeline_paths(monkeypatch, tmp_path: Path) -> tuple[Path, ...]:
+def _redirect_pipeline_paths(tmp_path: Path) -> tuple[ParseWorkflowConfig, tuple[Path, ...]]:
     sources = tmp_path / "sources"
     data = tmp_path / "data"
     jp_dir = sources / "jp"
@@ -141,31 +146,33 @@ def _redirect_pipeline_paths(monkeypatch, tmp_path: Path) -> tuple[Path, ...]:
             "branch_guide_crosswalk.json",
         )
     )
-    replacements = {
-        "SOURCES_EN": source_en,
-        "SOURCES_JP": jp_dir,
-        "SOURCES_JP_UNUSED": jp_dir / "fragment-unused.txt",
-        "SOURCES_INT": source_int,
-        "SOURCES_KO": source_ko,
-        "BRANCH_GUIDE_SOURCES": {"ua": (source_guide,)},
-        "DATA_EN": outputs[0],
-        "DATA_JP": outputs[1],
-        "DATA_DEPRECATED": outputs[2],
-        "DATA_INT_CROSSWALK": outputs[3],
-        "DATA_KO_CROSSWALK": outputs[4],
-        "DATA_BRANCH_GUIDE_CROSSWALK": outputs[5],
-    }
-    for name, value in replacements.items():
-        monkeypatch.setattr(parse_workflow, name, value)
-    return outputs
+    config = ParseWorkflowConfig(
+        sources=ParseSourcePaths(
+            en=source_en,
+            jp=jp_dir,
+            jp_unused=jp_dir / "fragment-unused.txt",
+            int=source_int,
+            ko=source_ko,
+            branch_guides={"ua": (source_guide,)},
+        ),
+        outputs=ParseOutputPaths(
+            en=outputs[0],
+            jp=outputs[1],
+            deprecated=outputs[2],
+            int_crosswalk=outputs[3],
+            ko_crosswalk=outputs[4],
+            branch_guide_crosswalk=outputs[5],
+        ),
+    )
+    return config, outputs
 
 
 def test_run_jp_clears_deprecated_data_when_unused_source_missing(
     tmp_path,
     monkeypatch,
 ):
-    outputs = _redirect_pipeline_paths(monkeypatch, tmp_path)
-    (parse_workflow.SOURCES_JP / "fragment-basic.txt").write_text(
+    config, outputs = _redirect_pipeline_paths(tmp_path)
+    (config.sources.jp / "fragment-basic.txt").write_text(
         "* **[[[/system:page-tags/tag/scp|scp]]]** //(scp)// - SCP。",
         encoding="utf-8",
     )
@@ -174,33 +181,33 @@ def test_run_jp_clears_deprecated_data_when_unused_source_missing(
         encoding="utf-8",
     )
 
-    parse_workflow.parse_and_publish_sources("jp")
+    parse_workflow.parse_and_publish_sources("jp", config=config)
 
     assert json.loads(outputs[1].read_text(encoding="utf-8"))[0]["name"] == "scp"
     assert json.loads(outputs[2].read_text(encoding="utf-8")) == []
 
 
 def test_run_all_does_not_publish_when_last_parser_fails(tmp_path, monkeypatch):
-    outputs = _redirect_pipeline_paths(monkeypatch, tmp_path)
-    parse_workflow.SOURCES_EN.write_text(
+    config, outputs = _redirect_pipeline_paths(tmp_path)
+    config.sources.en.write_text(
         "* **[https://scp-wiki.wikidot.com/system:page-tags/tag/source source]**\n",
         encoding="utf-8",
     )
-    (parse_workflow.SOURCES_JP / "fragment-basic.txt").write_text(
+    (config.sources.jp / "fragment-basic.txt").write_text(
         "**[[[/system:page-tags/tag/jp-target|jp-target]]]** //(source)//\n",
         encoding="utf-8",
     )
-    parse_workflow.SOURCES_INT.write_text(
+    config.sources.int.write_text(
         "|| **EN** || **JP** || **CN** ||\n"
         "|| source || jp-target || local ||\n",
         encoding="utf-8",
     )
-    parse_workflow.SOURCES_KO.write_text(
+    config.sources.ko.write_text(
         "||~ ^^English^^ ||~ ^^日本語^^ ||~ ^^한국어^^ ||\n"
         "|| source || jp-target || [*/system:page-tags/tag/ko-source] ||\n",
         encoding="utf-8",
     )
-    next(iter(parse_workflow.BRANCH_GUIDE_SOURCES.values()))[0].write_text(
+    next(iter(config.sources.branch_guides.values()))[0].write_text(
         "**local** (source)\n",
         encoding="utf-8",
     )
@@ -216,13 +223,13 @@ def test_run_all_does_not_publish_when_last_parser_fails(tmp_path, monkeypatch):
     )
 
     with pytest.raises(ValueError, match="late parser failure"):
-        parse_workflow.parse_and_publish_sources("all")
+        parse_workflow.parse_and_publish_sources("all", config=config)
 
     assert {path: path.read_bytes() for path in outputs} == old_payloads
 
 
 def test_all_crosswalks_use_same_run_jp_records(tmp_path, monkeypatch):
-    outputs = _redirect_pipeline_paths(monkeypatch, tmp_path)
+    config, outputs = _redirect_pipeline_paths(tmp_path)
     outputs[1].write_text("not current JSON", encoding="utf-8")
     outputs[2].write_text("not current JSON", encoding="utf-8")
     monkeypatch.setattr(
@@ -261,7 +268,7 @@ def test_all_crosswalks_use_same_run_jp_records(tmp_path, monkeypatch):
         ),
     )
 
-    batch = parse_workflow.collect_outputs("all")
+    batch = parse_workflow.collect_parsed_source_outputs("all", config=config)
 
     assert batch.outputs[outputs[3]] == {"en": {"semantic": "new-target"}}
     assert batch.outputs[outputs[5]] == {"ua": {"local": "new-target"}}
@@ -291,18 +298,18 @@ def test_crosswalks_reject_noncanonical_persisted_schema(
     deprecated_payload,
     message,
 ):
-    outputs = _redirect_pipeline_paths(monkeypatch, tmp_path)
+    config, outputs = _redirect_pipeline_paths(tmp_path)
     outputs[1].write_text(json.dumps(jp_payload), encoding="utf-8")
     outputs[2].write_text(json.dumps(deprecated_payload), encoding="utf-8")
 
     with pytest.raises(ValueError, match=message):
-        parse_workflow.collect_outputs("crosswalks")
+        parse_workflow.collect_parsed_source_outputs("crosswalks", config=config)
 
     assert not any(path.exists() for path in outputs[3:])
 
 
 def test_run_all_publishes_six_outputs_in_one_atomic_batch(tmp_path, monkeypatch):
-    outputs = _redirect_pipeline_paths(monkeypatch, tmp_path)
+    config, outputs = _redirect_pipeline_paths(tmp_path)
     monkeypatch.setattr(
         parse_workflow.en_parser,
         "parse_en_tags",
@@ -342,7 +349,7 @@ def test_run_all_publishes_six_outputs_in_one_atomic_batch(tmp_path, monkeypatch
 
     monkeypatch.setattr(parse_workflow, "publish_files_atomically", publish_and_record)
 
-    batch = parse_workflow.parse_and_publish_sources("all")
+    batch = parse_workflow.parse_and_publish_sources("all", config=config)
 
     assert len(calls) == 1
     assert set(calls[0]) == set(outputs) == set(batch.outputs)
@@ -358,31 +365,31 @@ def test_run_all_integrates_real_parsers_with_temporary_sources(
     tmp_path,
     monkeypatch,
 ):
-    outputs = _redirect_pipeline_paths(monkeypatch, tmp_path)
-    parse_workflow.SOURCES_EN.write_text(
+    config, outputs = _redirect_pipeline_paths(tmp_path)
+    config.sources.en.write_text(
         "* **[https://scp-wiki.wikidot.com/system:page-tags/tag/source source]**\n",
         encoding="utf-8",
     )
-    (parse_workflow.SOURCES_JP / "fragment-basic.txt").write_text(
+    (config.sources.jp / "fragment-basic.txt").write_text(
         "**[[[/system:page-tags/tag/jp-target|jp-target]]]** //(source)//\n",
         encoding="utf-8",
     )
-    parse_workflow.SOURCES_INT.write_text(
+    config.sources.int.write_text(
         "|| **EN** || **JP** || **CN** ||\n"
         "|| source || jp-target || local ||\n",
         encoding="utf-8",
     )
-    parse_workflow.SOURCES_KO.write_text(
+    config.sources.ko.write_text(
         "|| source || jp-target || "
         "[[[/system:page-tags/tag/ko-source]]] ||\n",
         encoding="utf-8",
     )
-    next(iter(parse_workflow.BRANCH_GUIDE_SOURCES.values()))[0].write_text(
+    next(iter(config.sources.branch_guides.values()))[0].write_text(
         "**local** (source)\n",
         encoding="utf-8",
     )
 
-    batch = parse_workflow.parse_and_publish_sources("all")
+    batch = parse_workflow.parse_and_publish_sources("all", config=config)
 
     assert json.loads(outputs[0].read_text(encoding="utf-8"))[0]["name"] == "source"
     assert json.loads(outputs[1].read_text(encoding="utf-8"))[0]["name"] == "jp-target"
@@ -400,9 +407,9 @@ def test_run_all_integrates_real_parsers_with_temporary_sources(
     assert set(batch.outputs) == set(outputs)
 
 
-def test_collect_outputs_rejects_unknown_language():
+def test_collect_parsed_source_outputs_rejects_unknown_language():
     with pytest.raises(ValueError, match="未対応"):
-        parse_workflow.collect_outputs("typo")
+        parse_workflow.collect_parsed_source_outputs("typo")
 
 
 @pytest.mark.parametrize("error", [OSError("disk"), ValueError("schema")])

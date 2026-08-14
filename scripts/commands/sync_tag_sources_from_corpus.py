@@ -7,7 +7,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from scripts.application import source_sync as _workflow
+from scripts.application import source_sync as workflow
 
 
 def main() -> None:
@@ -27,7 +27,7 @@ def main() -> None:
     args = parser.parse_args()
 
     try:
-        result = _workflow.sync_tag_sources(args.corpus_root, write=args.write)
+        result = workflow.sync_tag_sources(args.corpus_root, write=args.write)
     except (OSError, ValueError) as err:
         print(f"エラー: タグソース同期に失敗しました: {err}")
         sys.exit(1)
@@ -43,7 +43,7 @@ def main() -> None:
     action = "synced" if args.write else "current"
     print(
         f"tag sources {action}: "
-        f"{len(_workflow.SourceSyncConfig().source_map)} files"
+        f"{len(workflow.SourceSyncConfig().source_map)} files"
     )
 
 

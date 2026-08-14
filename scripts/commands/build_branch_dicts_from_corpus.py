@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 from scripts.application.branch_selection import normalize_branch_selection
-from scripts.application import dictionary_build as _workflow
+from scripts.application import dictionary_build as workflow
 
 
 def main() -> None:
@@ -39,8 +39,8 @@ def main() -> None:
         sys.exit(1)
     try:
         branches = normalize_branch_selection(args.branches)
-        config = _workflow.BranchBuildConfig()
-        artifacts = _workflow.build_and_publish_dictionaries(
+        config = workflow.BranchBuildConfig()
+        artifacts = workflow.build_and_publish_dictionaries(
             corpus_root,
             branches,
             config=config,

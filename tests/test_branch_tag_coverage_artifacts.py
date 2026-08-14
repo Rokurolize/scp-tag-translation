@@ -6,7 +6,7 @@ import pytest
 from scripts.infrastructure.data_paths import ROOT
 from scripts.domain.branch_config import SUPPORTED_BRANCHES
 from scripts.domain.tag_coverage import ACTION_DESCRIPTIONS, STATUS_DESCRIPTIONS
-from scripts.pipeline.coverage_outputs import (
+from scripts.application.coverage_outputs import (
     write_application_inventory_tsv,
     write_coverage_tsv,
 )

@@ -67,7 +67,7 @@ def test_complete_mapping_inputs_report_missing_policy_files(tmp_path):
     )
 
     with pytest.raises(FileNotFoundError, match="Required mapping inputs missing"):
-        mapping_inputs.load_mapping_inputs(
+        dictionary_inputs.load_mapping_inputs(
             paths,
             require_complete_inputs=True,
         )
@@ -90,7 +90,7 @@ def test_partial_mapping_inputs_use_empty_optional_policy_files(tmp_path):
         crosswalks=(tmp_path / "crosswalk.json",),
     )
 
-    loaded = mapping_inputs.load_mapping_inputs(
+    loaded = dictionary_inputs.load_mapping_inputs(
         paths,
         include_origin_replacements=False,
     )
@@ -116,7 +116,7 @@ def test_mapping_inputs_project_to_coverage_contract(tmp_path):
         crosswalks=(tmp_path / "crosswalk.json",),
     )
 
-    loaded = mapping_inputs.load_mapping_inputs(
+    loaded = dictionary_inputs.load_mapping_inputs(
         paths,
         include_origin_replacements=False,
     )
