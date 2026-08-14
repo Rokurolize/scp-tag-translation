@@ -15,6 +15,8 @@ CrosswalkCandidate: TypeAlias = tuple[
     Iterable[str],
 ]
 
+__all__ = ["CrosswalkCandidate", "resolve_crosswalk_candidates"]
+
 
 def resolve_crosswalk_candidates(
     candidates: Iterable[CrosswalkCandidate],

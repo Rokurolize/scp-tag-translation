@@ -11,6 +11,8 @@ from scripts.domain.policy.tag_policy import (
     resolve_source_tag,
 )
 
+__all__ = ["build_branch_dict", "build_en_dicts"]
+
 
 def build_branch_dict(
     branch: str,
