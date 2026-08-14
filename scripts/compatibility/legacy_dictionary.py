@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, replace
 from pathlib import Path
 
-from scripts.domain.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError
 from scripts.domain.tag_dictionary import build_en_dicts
 from scripts.infrastructure.data_paths import (
     EN_DICTIONARY_PATH,

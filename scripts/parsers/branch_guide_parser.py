@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import TypedDict
 from urllib.parse import unquote
 
-from scripts.domain.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError
 from scripts.parsers.contracts import (
     BranchGuideAnalysis,
     BranchGuideAudit,

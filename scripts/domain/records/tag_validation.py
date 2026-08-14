@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
-from scripts.domain.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError
 from scripts.domain.records.tag_records import DeprecatedTag, EnTag, JpTag
 
 __all__ = [

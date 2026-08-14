@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 
-from scripts.domain.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError
 
 from .models import ParseBatch
 

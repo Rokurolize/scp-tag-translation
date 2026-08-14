@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import MutableSequence
 from pathlib import Path
 
-from scripts.domain.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError
 
 
 class SourceParseError(InvalidDomainInputError):

@@ -29,7 +29,7 @@ from scripts.domain.records.tag_records import (
 from scripts.domain.policy.tag_policy import MappingPolicy
 from scripts.domain.records.tag_validation import validate_tag_records
 from scripts.infrastructure.json_io import load_json
-from scripts.domain.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError
 
 __all__ = [
     "LoadedMappingInputs",

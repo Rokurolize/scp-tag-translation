@@ -11,7 +11,7 @@ from scripts.domain.branch_config import (
     validate_requested_branches,
 )
 from scripts.domain.concatenated_tags import build_concatenated_tag_hints
-from scripts.domain.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError
 from scripts.domain.policy.jp_policy import JpPolicyInputs, build_jp_policy
 from scripts.domain.policy.tag_policy_models import JpPolicyDocument
 from scripts.domain.tag_dictionary import build_branch_dict, build_en_dicts

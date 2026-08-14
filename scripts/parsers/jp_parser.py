@@ -7,7 +7,7 @@ from collections.abc import Iterator, MutableSequence
 from dataclasses import dataclass
 from pathlib import Path
 
-from scripts.domain.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError
 from scripts.domain.records.tag_records import DeprecatedTag, JpTag
 from scripts.parsers.errors import report_source_issue
 

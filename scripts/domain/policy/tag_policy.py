@@ -12,7 +12,7 @@ from scripts.domain.records.tag_records import (
     EnTag,
     JpTag,
 )
-from scripts.domain.errors import InvalidDomainInputError, MappingConflictError
+from scripts.contracts.errors import InvalidDomainInputError, MappingConflictError
 
 __all__ = [
     "BranchMappingPolicy",

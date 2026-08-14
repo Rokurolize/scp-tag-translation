@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from scripts.domain.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError
 from scripts.domain.coverage_validation import validate_coverage
 from scripts.domain.tag_coverage_models import Coverage
 from scripts.infrastructure.atomic_output import publish_files_atomically

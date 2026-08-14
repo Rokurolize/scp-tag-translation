@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TypeGuard
 
-from scripts.domain.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError
 from scripts.domain.policy.tag_policy_models import (
     CLASSIFICATION_STATUSES,
     COVERAGE_TRANSLATION_ACTIONS,

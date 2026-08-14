@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Sequence
 
 from scripts.domain.branch_config import SUPPORTED_BRANCHES, validate_requested_branches
-from scripts.domain.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError
 
 
 def normalize_branch_selection(

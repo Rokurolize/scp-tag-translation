@@ -7,7 +7,7 @@ from pathlib import Path
 from types import MappingProxyType
 from typing import Literal
 
-from scripts.domain.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError
 
 __all__ = [
     "BRANCH_GUIDE_SOURCE_KEYS",

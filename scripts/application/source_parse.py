@@ -10,7 +10,7 @@ from typing import Literal
 
 from scripts.domain.policy.tag_policy import EN_CROSSWALK_SEMANTIC_REPLACEMENTS
 from scripts.domain.crosswalk_resolution import CrosswalkResolver
-from scripts.domain.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError
 from scripts.domain.records.tag_records import DeprecatedTag, JpTag
 from scripts.infrastructure.atomic_output import publish_files_atomically
 from scripts.infrastructure.data_paths import (

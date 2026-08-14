@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Iterable, Mapping
 
 from scripts.domain.policy.tag_policy import build_jp_names_and_source_map
-from scripts.domain.errors import MappingConflictError
+from scripts.contracts.errors import MappingConflictError
 from scripts.domain.records.tag_records import DeprecatedTag, JpTag
 from scripts.domain.records.tag_validation import validate_deprecated_tags, validate_jp_tags
 from scripts.domain.tag_text import normalize_tag

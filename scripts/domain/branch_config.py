@@ -7,7 +7,7 @@ from collections.abc import Sequence
 from types import MappingProxyType
 from collections.abc import Mapping
 
-from scripts.domain.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError
 
 __all__ = [
     "BRANCH_CONFIG_BY_CODE",

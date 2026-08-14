@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from scripts.domain.errors import InvalidDomainInputError
+from scripts.contracts.errors import InvalidDomainInputError
 from scripts.domain.records.tag_records import DeprecatedTag, JpTag
 from scripts.domain.records.tag_validation import validate_deprecated_tags, validate_jp_tags
 from scripts.infrastructure.json_io import load_json
