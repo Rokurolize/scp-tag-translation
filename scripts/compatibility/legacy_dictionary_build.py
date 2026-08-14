@@ -46,7 +46,14 @@ def build_and_publish_legacy_dictionary(
     overwrite: bool,
     config: LegacyDictionaryBuildConfig | None = None,
 ) -> LegacyDictionaryBuildResult:
-    """Build and publish legacy outputs, raising input, filesystem, or publication errors on failure."""
+    """Build and publish legacy outputs.
+
+    Raises:
+        InvalidDomainInputError: If mapping records or policy data is invalid.
+        FileNotFoundError: If required mapping inputs are missing.
+        OSError: If input reads or publication filesystem operations fail.
+        AtomicPublicationError: If publication rollback or cleanup fails.
+    """
     config = config or LegacyDictionaryBuildConfig()
     loaded_inputs = load_mapping_inputs(
         config.mapping_inputs,

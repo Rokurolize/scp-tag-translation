@@ -67,7 +67,14 @@ def build_and_publish_coverage(
     *,
     config: CoverageBuildConfig | None = None,
 ) -> CoverageBuildResult:
-    """Build and publish coverage artifacts, raising input, corpus-file, or I/O errors on failure."""
+    """Build and publish coverage artifacts.
+
+    Raises:
+        InvalidDomainInputError: If branch, corpus metadata, or mapping data is invalid.
+        FileNotFoundError: If required mapping inputs are missing.
+        OSError: If corpus reads or publication filesystem operations fail.
+        AtomicPublicationError: If publication rollback or cleanup fails.
+    """
     config = config or CoverageBuildConfig()
     requested_branches = tuple(
         config.supported_branches if branches is None else branches

@@ -2,6 +2,7 @@ import pytest
 
 from scripts.domain.policy import tag_policy
 from scripts.domain.records import tag_validation
+from scripts.contracts.errors import MappingConflictError
 from scripts.domain.policy.policy_builder import deprecated_by_source_lang
 from scripts.domain.tag_dictionary import build_en_dicts
 from scripts.domain.tag_dictionary import build_branch_dict
@@ -119,6 +120,32 @@ def test_int_inherits_en_unused_tags_and_origin_replacements(jp_tags_data):
         "resource": "世界観",
         "translator": "著者ページ",
     }
+
+
+@pytest.mark.parametrize(
+    ("en_replacement", "int_replacement"),
+    [(None, "対象"), ("対象", None)],
+)
+def test_int_rejects_conflicting_inherited_none_replacements(
+    jp_tags_data,
+    en_replacement,
+    int_replacement,
+):
+    jp_names, jp_source_map = tag_policy.build_jp_names_and_source_map(jp_tags_data)
+    policy = tag_policy.MappingPolicy(
+        jp_names=jp_names,
+        jp_source_map=jp_source_map,
+        deprecated_tags={"EN": {"legacy"}, "INT": {"legacy"}},
+        replacements={
+            "EN": {"legacy": en_replacement},
+            "INT": {"legacy": int_replacement},
+        },
+        overrides={},
+        official_crosswalk={},
+    )
+
+    with pytest.raises(MappingConflictError, match="conflicting inherited replacements"):
+        policy.for_branch("int")
 
 
 def test_deprecated_entries_reject_duplicate_source_keys():

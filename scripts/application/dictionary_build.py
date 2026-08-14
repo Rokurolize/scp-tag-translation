@@ -230,7 +230,14 @@ def build_and_publish_dictionaries(
     *,
     config: BranchBuildConfig | None = None,
 ) -> DictionaryBuildArtifacts:
-    """Build and publish dictionaries, raising input, corpus-file, or publication errors on failure."""
+    """Build and publish dictionaries.
+
+    Raises:
+        InvalidDomainInputError: If branch, corpus metadata, or mapping data is invalid.
+        FileNotFoundError: If required mapping inputs or existing hint dictionaries are missing.
+        OSError: If corpus reads or publication filesystem operations fail.
+        AtomicPublicationError: If publication rollback or cleanup fails.
+    """
     config = config or BranchBuildConfig()
     branches, required_branches = _resolve_build_branch_scope(branches, config)
     loaded = load_mapping_inputs(

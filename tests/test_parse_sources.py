@@ -274,6 +274,25 @@ def test_crosswalks_reparse_jp_sources_without_persisted_outputs(tmp_path, monke
     assert set(batch.outputs) == set(outputs[3:])
 
 
+def test_crosswalk_selector_collects_jp_sources_once(monkeypatch):
+    jp_batch = source_parse_models.ParseBatch(outputs={}, messages=(), diagnostics=())
+    calls = []
+    monkeypatch.setattr(
+        parse_workflow,
+        "_collect_jp_outputs",
+        lambda _config: calls.append(True) or (jp_batch, [], []),
+    )
+    monkeypatch.setattr(
+        parse_workflow,
+        "_collect_crosswalk_outputs",
+        lambda _config, _jp_tags, _deprecated_tags: jp_batch,
+    )
+
+    parse_workflow.collect_parsed_source_outputs("crosswalks")
+
+    assert calls == [True]
+
+
 def test_run_all_publishes_six_outputs_in_one_atomic_batch(tmp_path, monkeypatch):
     config, outputs = _redirect_pipeline_paths(tmp_path)
     monkeypatch.setattr(

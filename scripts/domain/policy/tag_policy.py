@@ -142,17 +142,14 @@ class MappingPolicy:
                 source_lang,
                 {},
             ).items():
-                existing = effective_replacements.get(source_tag)
-                if (
-                    existing is not None
-                    and replacement is not None
-                    and existing != replacement
-                ):
-                    raise MappingConflictError(
-                        "conflicting inherited replacements: "
-                        f"{branch}:{source_tag}->{existing}/{replacement}"
-                    )
-                if replacement is not None or source_tag not in effective_replacements:
+                if source_tag in effective_replacements:
+                    existing = effective_replacements[source_tag]
+                    if existing != replacement:
+                        raise MappingConflictError(
+                            "conflicting inherited replacements: "
+                            f"{branch}:{source_tag}->{existing}/{replacement}"
+                        )
+                else:
                     effective_replacements[source_tag] = replacement
 
         return BranchMappingPolicy(

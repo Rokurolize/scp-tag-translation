@@ -209,14 +209,12 @@ def collect_parsed_source_outputs(
 
     if language == "en":
         return merge_batches([_collect_en_outputs(config)])
+    jp_batch, jp_tags, deprecated_tags = _collect_jp_outputs(config)
     if language == "jp":
-        jp_batch, _jp_tags, _deprecated_tags = _collect_jp_outputs(config)
         return merge_batches([jp_batch])
     if language == "crosswalks":
-        _jp_batch, jp_tags, deprecated_tags = _collect_jp_outputs(config)
         return merge_batches([_collect_crosswalk_outputs(config, jp_tags, deprecated_tags)])
 
-    jp_batch, jp_tags, deprecated_tags = _collect_jp_outputs(config)
     return merge_batches([
         _collect_en_outputs(config),
         jp_batch,
