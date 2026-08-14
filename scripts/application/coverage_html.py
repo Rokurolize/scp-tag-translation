@@ -54,7 +54,14 @@ def build_and_publish_coverage_html(
     input_path: Path | None = None,
     output_path: Path | None = None,
 ) -> Path:
-    """Publish the coverage dashboard, raising input-validation, file, or I/O errors on failure."""
+    """Publish the coverage dashboard.
+
+    Raises:
+        InvalidDomainInputError: If the input coverage or HTML template is invalid.
+        FileNotFoundError: If the coverage JSON or template is missing.
+        OSError: If input reads or publication filesystem operations fail.
+        AtomicPublicationError: If publication rollback or cleanup fails.
+    """
     input_path = input_path or DEFAULT_INPUT
     output_path = output_path or DEFAULT_OUTPUT
     coverage = validate_coverage(load_json(input_path))

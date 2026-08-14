@@ -52,7 +52,13 @@ def build_legacy_en_dictionaries(
     config: LegacyDictionaryConfig | None = None,
     loaded_inputs: LoadedMappingInputs,
 ) -> tuple[dict[str, str | None], dict[str, str]]:
-    """Build legacy EN outputs, raising existing-file validation, policy, or filesystem errors."""
+    """Build legacy EN outputs.
+
+    Raises:
+        InvalidDomainInputError: If an existing dictionary or mapping policy is invalid.
+        FileNotFoundError: If an existing dictionary disappears while being loaded.
+        OSError: If the existing dictionary cannot be read.
+    """
     config = config or LegacyDictionaryConfig()
     loaded = loaded_inputs
     existing: dict[str, str | None] = {}

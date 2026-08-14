@@ -202,7 +202,13 @@ def collect_parsed_source_outputs(
     *,
     config: ParseWorkflowConfig | None = None,
 ) -> ParseBatch:
-    """Collect records for one language, raising input, source, or file errors."""
+    """Collect records for one language.
+
+    Raises:
+        InvalidDomainInputError: If ``language`` is unsupported or source data is invalid.
+        FileNotFoundError: If a required source file or directory is missing.
+        OSError: If source files cannot be read.
+    """
     config = config or ParseWorkflowConfig()
     if language not in LANGUAGES:
         raise InvalidDomainInputError(f"未対応の解析対象です: {language}")
@@ -244,7 +250,15 @@ def parse_and_publish_sources(
     *,
     config: ParseWorkflowConfig | None = None,
 ) -> ParseBatch:
-    """Collect and publish one workflow; raises diagnostics or I/O errors on failure."""
+    """Collect and publish one workflow.
+
+    Raises:
+        SourceParseDiagnosticsError: If parsing produces blocking diagnostics.
+        InvalidDomainInputError: If ``language`` or source data is invalid.
+        FileNotFoundError: If a required source file or directory is missing.
+        OSError: If source reads or publication filesystem operations fail.
+        AtomicPublicationError: If publication rollback or cleanup fails.
+    """
     batch = collect_parsed_source_outputs(language, config=config)
     if batch.diagnostics:
         raise SourceParseDiagnosticsError(batch.diagnostics)

@@ -68,7 +68,11 @@ def check_tag_sources(
     *,
     config: SourceSyncConfig | None = None,
 ) -> SourceSyncResult:
-    """Check repository snapshots without publishing changes."""
+    """Check repository snapshots without publishing changes.
+
+    Missing corpus files are returned in ``SourceSyncResult.missing_sources``; they do not
+    raise. OSError propagates if a source or destination cannot be inspected.
+    """
     stale, missing_sources, _pending = _inspect_tag_sources(
         corpus_root,
         config=config,
@@ -85,7 +89,12 @@ def sync_tag_sources(
     *,
     config: SourceSyncConfig | None = None,
 ) -> SourceSyncResult:
-    """Publish current corpus snapshots after checking the complete source set."""
+    """Publish current corpus snapshots after checking the complete source set.
+
+    Missing corpus files are returned in ``SourceSyncResult.missing_sources`` and prevent
+    publication. OSError propagates for filesystem failures; AtomicPublicationError
+    reports rollback or cleanup failures.
+    """
     stale, missing_sources, pending = _inspect_tag_sources(
         corpus_root,
         config=config,

@@ -159,7 +159,12 @@ def default_mapping_input_paths() -> MappingInputPaths:
 def load_mapping_policy_inputs(
     paths: MappingInputPaths | None = None,
 ) -> MappingPolicyInputs:
-    """Load policy inputs, raising InvalidDomainInputError or filesystem errors on failure."""
+    """Load policy inputs.
+
+    Raises:
+        InvalidDomainInputError: If an override or crosswalk JSON object is invalid.
+        OSError: If an existing policy input cannot be read.
+    """
     paths = paths or default_mapping_input_paths()
     return MappingPolicyInputs(
         overrides=_load_override_file(paths.overrides),
@@ -189,7 +194,13 @@ def load_mapping_inputs(
     include_origin_replacements: bool = True,
     require_complete_inputs: bool = False,
 ) -> LoadedMappingInputs:
-    """Load records and compose policy, raising file or domain input errors on failure."""
+    """Load records and compose the mapping policy.
+
+    Raises:
+        FileNotFoundError: If required tag records are missing.
+        InvalidDomainInputError: If records, overrides, or policy mappings are invalid.
+        OSError: If a required input cannot be read.
+    """
     paths = paths or default_mapping_input_paths()
     records = load_tag_records(
         paths,
@@ -222,7 +233,13 @@ def load_tag_records(
     *,
     require_complete_inputs: bool = False,
 ) -> LoadedTagRecords:
-    """Load validated tag records, raising FileNotFoundError or domain input errors on failure."""
+    """Load validated tag records.
+
+    Raises:
+        FileNotFoundError: If required tag-record inputs are missing.
+        InvalidDomainInputError: If loaded records fail validation.
+        OSError: If an input file cannot be read.
+    """
     paths = paths or default_mapping_input_paths()
     required_paths = [paths.data_en, paths.data_jp]
     if require_complete_inputs:
@@ -256,7 +273,12 @@ def complete_hint_dictionaries_from_existing(
     dictionaries_dir: Path = DICTIONARIES_DIR,
     supported_branches: Sequence[str],
 ) -> dict[str, dict[str, str | None]]:
-    """Complete generated dictionaries from disk or raise InvalidDomainInputError on invalid inputs."""
+    """Complete generated dictionaries from disk.
+
+    Raises:
+        InvalidDomainInputError: If a required existing dictionary is missing or invalid.
+        OSError: If an existing dictionary cannot be read.
+    """
     complete = dict(generated)
     for branch in supported_branches:
         if branch in complete:
