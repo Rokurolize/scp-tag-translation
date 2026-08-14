@@ -65,6 +65,11 @@ def parse_overrides(
     raw: object,
     jp_names: frozenset[str] | set[str],
 ) -> dict[str, dict[str, str]]:
+    """Validate raw branch overrides and return JP-tag targets by branch.
+
+    Raises InvalidDomainInputError when the object, branch entries, source tags,
+    or JP targets do not match the persisted policy shape.
+    """
     if not isinstance(raw, dict):
         raise InvalidDomainInputError("branch override file must be a JSON object")
 
@@ -91,6 +96,11 @@ def parse_official_crosswalk(
     raw: object,
     jp_names: frozenset[str] | set[str],
 ) -> dict[str, dict[str, str]]:
+    """Validate a raw crosswalk and retain mappings to current JP tags.
+
+    Invalid containers, branches, source tags, and target types raise
+    InvalidDomainInputError; targets absent from ``jp_names`` are ignored.
+    """
     if not isinstance(raw, dict):
         raise InvalidDomainInputError("official crosswalk must be a JSON object")
     result: dict[str, dict[str, str]] = {}
@@ -149,6 +159,7 @@ def merge_official_crosswalks(
     raw_crosswalks: Sequence[object],
     jp_names: frozenset[str] | set[str],
 ) -> dict[str, dict[str, str]]:
+    """Parse and merge raw crosswalk documents by branch and source tag."""
     merged: dict[str, dict[str, str]] = {}
     for raw in raw_crosswalks:
         current = parse_official_crosswalk(raw, jp_names)
@@ -195,6 +206,12 @@ def deprecated_by_source_lang(
     *,
     include_origin_replacements: bool = True,
 ) -> tuple[dict[str, set[str]], dict[str, dict[str, str | None]]]:
+    """Index validated deprecated records and replacement overrides by language.
+
+    Duplicate records or replacements that do not name current JP tags raise
+    InvalidDomainInputError; the result contains deprecated source tags and
+    their optional replacement targets.
+    """
     deprecated_tags: dict[str, set[str]] = {}
     replacements: dict[str, dict[str, str | None]] = {}
     seen: set[tuple[str, str]] = set()
